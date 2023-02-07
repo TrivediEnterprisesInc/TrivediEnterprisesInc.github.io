@@ -1,0 +1,109 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Demo: BorderContainer</title>
+<style>
+* {
+	outline: none !important;
+}
+body {
+	margin: 0;
+	padding: 2em;
+	font-family: Lucida Sans,Lucida Grande,Arial !important;
+	font-size: 13px !important;
+	background: #E6F6ED;
+	color: #333;
+}
+button {
+	-webkit-transition: background-color 0.2s linear;
+	border-radius:4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+	background-color: #E4F2FF;
+	background-image: url("//ajax.googleapis.com/ajax/libs/dojo/1.7.4/dijit/themes/claro/form/images/button.png");
+	background-position: center top;
+	background-repeat: repeat-x;
+	border: 1px solid #769DC0;
+	padding: 2px 8px 4px;
+	font-size:1em;
+}
+
+button:hover {
+	background-color: #AFD9FF;
+	color: #000000;
+}
+
+h1 {
+	font-size:1.5em;
+}
+
+.break
+{
+	float:none;
+	clear:both;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+#appLayout {
+    height: 100%;
+}
+#leftCol {
+    width: 14em;
+}
+
+.claro .demoLayout .edgePanel {
+    background-color: #8E99A8;
+    color: #E6F6ED;
+}
+
+#viewsChart {
+	width: 550px;
+	height: 550px;
+}
+  </style>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" media="screen">
+</head>
+<body class="claro">
+<div id="appLayout" class="demoLayout" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design: 'headline'">
+	<div class="centerPanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'center'">
+		<div>
+			<h4>LinkedIn</h4>
+			My <a href='https://www.linkedin.com/in/miketriv?original_referer=https%3A%2F%2Fwww.bing.com%2F'>profile</a>.<br>
+    (Note: I am locked out of this account because I lost access to my eMail)
+		</div>
+		<div>
+			<h4>May 1997</h4>
+    Snapshot of my commercial website offering <a href='http://web.archive.org/web/19970529173253/http://trivedi.com/'>Internet Consulting Services</a><br>
+		</div>
+		<div>
+			<h4>May 2001</h4>
+    Snapshot of my commercial website offering <a href='http://web.archive.org/web/20010519205204/http://www.trivedi.com/'>Database Consulting</a><br>
+		</div>
+		<div>
+			<h4>Dec 2003</h4>
+    Snapshot of my commercial website offering <a href='http://web.archive.org/web/20010519205204/http://www.trivedi.com/'>LN/Domino Consulting Services</a><br>
+    A detailed Project <a href='http://www.trivedi.com/portfolio.html'>Portfolio</a> from the above Snapshot
+		</div>
+		<div>
+			<h4>Jul 2007</h4>
+    Snapshot of my commercial website offering <a href='http://web.archive.org/web/20070704155536/http://www.trivedi.com/about.html'>Internet Consulting Services</a><br>
+		</div>
+
+	</div>
+	<div class="edgePanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'top'">Mike Trivedi's Resume Addenda (2023)</div>
+</div>
+<!-- load dojo -->
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+<script>
+	require(["dojo/parser", "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"], function(parser){
+		parser.parse();
+	});
+</script>
+</body>
+</html>
