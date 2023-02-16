@@ -1,14 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- html begins line #1366 -->
-<meta charset="utf-8">
-<meta name="description" content="2023.02.01 bookmarks update am">
+<!-- html begins line #1380 -->
+<meta charset="UTF-8">
+<meta name="description" content="2023.02.16 bookmarks update pm">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
-
     <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.11.2/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+<script>
+async function fetchHtmlAsText(url) {
+    return await (await fetch(url)).text();
+}
+
+async function loadU(u) {
+    const mainDiv = document.getElementById("MainTxtDiv");
+    mainDiv.innerHTML = await fetchHtmlAsText(u);
+}
+</script>
 <script>
     var djConfig = {
       isDebug: true, 
@@ -653,23 +663,8 @@ code > pre {
 
                 registry.byId('MainStack').forward();
 
-            } else if (strId == "Jobs") {
-                  xhr("https://miketriv.bitbucket.io/dir.html", {
-                     timeout: 5000,
-                     method: "GET",
-                     handleAs: "text"
-                  }).then(function(data){
-                        var newTxt = data;
-                        mainDiv.innerHTML = newTxt;
-                        parser.parse(mainDiv);
-                mLog("dir dat rec'd: " + newTxt);
-                  }, function(err){
-                        var newTxt = err.response.text;
-                mLog("dir dat rec'd: " + newTxt);
-                  });
-
-
-
+            } else if (strId == "BrijLog") {
+                    loadU("brijLog.html")
             } else if (strId == "film") {
 dP('film');
                 //Hide the edit & update toolbar Buttons 
@@ -1393,7 +1388,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArray();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Feb. 1st, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Feb. 16th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -25736,501 +25731,7 @@ postCovid imports into allData</td>
 <section>
   <!-- div BrijLog -->
     <div id='BrijLog'>
-        <style>
-        .BrijLog {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
-
-        .BrijLogtd {
-          border: 1px solid #dddddd;
-          text-align: left;
-          padding: 8px
-        }
-
-        .BrijLogth {
-          border: 1px solid #dddddd;
-          text-align: center;
-          background-color: #4472C4;
-          padding: 8px;
-          font-size:18.0pt;
-          color:white;
-          font-weight:700;
-          font-family:Calibri
-        }
-
-        .BrijLogtr:nth-child(even) {
-          background-color: #dddddd;
-        }
-        </style>
-
-        <table class = "BrijLog">
-         <col width=94>
-         <col width=77>
-         <col width=675>
-
-          <tr class = "BrijLogtr">
-            <th class = "BrijLogth">Date</th>
-            <th class = "BrijLogth">Module</th>
-            <th class = "BrijLogth">Entry</th>
-          </tr>
-
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-31-23</td>
-          <td class = "BrijLogtd">  UIAux</td>
-          <td class = "BrijLogtd">
-                    tabCtrl refactors ->
-                                        બનારસી_પીચાક_eoy 
-                        Done: added tys BM_FldPg + BM_AppPg
-                                        કલકતી_પીચાક
-                        Done: added tys 4 CM_ColPg + CM_AppPg + CM_CategPg</td>
-                    
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-30-23</td>
-          <td class = "BrijLogtd">  Brij</td>
-          <td class = "BrijLogtd">
-                    Further updates 3 BaseBrijTy deltas: removed imgDatK 
-                    (all func. incorp into AdDatK incl rids)
-                    Unified all dats since they're now BrijTys: spoo, adDat, img, tk (some @mbi)</td><tr class = "BrijLogtr"></tr><td class = "BrijLogtd"></td>
-          <td class = "BrijLogtd">
-                   UIAux</td>
-          <td class = "BrijLogtd">
-                    Updated errProvs + all comboBxs to use Text: કેટ_પેનલ, એક્સ_પેનલ
-                     (apparently if you set a DataSrc you can't use .txt)</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-28-23</td>
-          <td class = "BrijLogtd"></td><td class = "BrijLogtd">  @MBI note: 
-                        as soon as we made state changes (adDatK) bastas went splat(!)<br>so we're offline 4 now, let them twiddle their thumbs</tr>
-        </tr>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">UIAux</td>
-        <td class = "BrijLogtd">
-                    Updated getImgDat per new datLi ty; added fn getImageFromDat</td></tr>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd"></td>
-        <td class = "BrijLogtd">        
-                    @ToDo: TSBtns nd to use this new fn<br>
-                    Added tabCtrls/Pgs 2 BM/CM; skeleton edits/refactors are in
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-27-23</td>
-          <td class = "BrijLogtd"></td>
-          <td class = "BrijLogtd">  Last Stable ver (BUT w/o any subseq deltas; see note above)
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">logged</td><td class = "BrijLogtd">
-                    Restored statMsg vwr in SP</td></tr>
-
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">UIAux</td><td class = "BrijLogtd">
-                   
-                    3 new screens impl:<br>
-                    (i) CategTester stable; nds some tuning (only 2 cols vis; no +)<br>
-                    (ii) BM_FldDef stable; nds some tuning<br>
-                         Fix:<br>
-                            1st col of 3 is half size<br>
-                            move FldW after fldTy (up)<br>
-                            B8r lbls<br>
-                            new Ty for fldW (curr uses fldTy) << same(ish) <br>logic as predBldr<br>
-                    (iii) CalcattiDef:<br>
-                            Added ty dvSetupDlg() to UIAux; some further work
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij/others</td><td class = "BrijLogtd">
-                     Added new ty DocFldType (to be used in DocFld) vs exising UI fldTys
-                     Plus new fn DocFldTy2FldTy to translate / feed default wids.
-                     Updated/recompiled all bins
-                     Updated adDatK to insert local images
-                    Downloaded all referenced icons to disk</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-26-23</td>
-          <td class = "BrijLogtd">  UIAux</td><td class = "BrijLogtd">
-                    Many updates to બનારસી_પીચાક_eoy et al; BanarasiM_FldDef form shows now
-                        (nxt: nd to persist fld changes to def)
-                    Also updated all getImgBtn calls to tryPick from State; stable (BanarasiM)
-                    Also impl ttips for reg btns (as TSItms but nds diff impl) (BanarasiM)
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij</td><td class = "BrijLogtd">
-                    Some work on AdDatK et al for imgs + prep 4 BaseBrijTy deltas
-                    Began work w/GoogIcns</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-25-23</td>
-          <td class = "BrijLogtd">  UIAux</td><td class = "BrijLogtd">
-                    Updated getImg (again! @mbi); deltas stable across PredBldr addBtns
-                                    બનારસી_પીચાક_eoy persist to wld</td></tr>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij & all libs</td><td class = "BrijLogtd">
-                    Added fn db to allow targetted db stmts; 
-                    updated ALL debug calls to clean up cons</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-24-23</td>
-          <td class = "BrijLogtd"></td><td class = "BrijLogtd">  (Below stuff part of BanarasiM -> P)</td>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Core/Brij</td><td class = "BrijLogtd">
-                   var updates to prnDat et al
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">UIAux</td><td class = "BrijLogtd">
-                    Beauc upds to બનારસી_પાન<br>
-                    All work on બનારસી_પીચાક_eoy complete (apparently)<br>
-                    cld't confirm coz the bastas began throwing casting errs again<br>
-                    Switch to tkDatAux:<br>
-                        Added catCols, width logic (cleanup reqd); some debugging done</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-23-23</td>
-          <td class = "BrijLogtd">  UIAux</td><td class = "BrijLogtd">
-                    Further updates to કેટ_પેનલ et al; alm done, splat(!) @ mbi<br>
-                    Added validation to ઍક્સપાનડો_પીચાક</td>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Core</td><td class = "BrijLogtd">
-                     Added a new fn HR
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">BanarasiM</td><td class = "BrijLogtd">
-                     Stable; ready to launch into BanarasiP (nds work on mut state)</tr>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">બનારસી_પીચાક_eoy</td><td class = "BrijLogtd">
-                     Many updates to dynamically bld mut state (repurpose later via dlg)
-                     for testing pop flow to BanarasiP.ctor (line #598 logged)<br>
-                   Updated All api maps; website had Dec 02; some Oct! WAY outdated</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-21-23</td><td class = "BrijLogtd"></td>
-          <td class = "BrijLogtd">  કેટ_બાય_પીચાક nds to be totally refactored 
-                    (for Brevity(dupl) + modularity (call from DV tBar))<br>
-                    The curr version has ~5 catPanels manually blt in midP;
-                      we shd instead use the same approach as પ્રેડ_પીચાક w/AddButton<br>
-                    Basically the current PredBldr workFlw is -><br>
-                                        ગપ્પા_પાન_Pred  ->  પ્રેડ_પીચાક ->  which instantiates એક્સ_પેનલ<br>
-                    (1) Ren પ્રેડ_પીચાક to ઍક્સપાનડો_પીચાક; rewire PredTester<br>
-                    (2) Add new ty expandoPanel | Pred | Cat | ..<br>
-                    (3) Refactor કેટ_બાય_પીચાક to use above + inst કેટ_પેનલ et les autres.<br>
-                    (4) Also refactor to switch on expPanel for custom behav<br>
-                    (5) Modify ઍક્સપાનડો_પીચાક cTor to accept expPanel<br>
-                  Most of the work listed above completed; PredTester stable.<br>
-                  CategTester alm done; nxt: nd 2 add errHandling</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-20-23</td>
-          <td class = "BrijLogtd">  Core</td><td class = "BrijLogtd"> updated optOr to make more generic (basically @mbi as usu)</td></tr>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">UIAux</td><td class = "BrijLogtd">
-                    Current UI didn't contain both કેટ_બાય_પીચાક + કલકતી_પીચાક;<br>
-                      so brought em in from another UI file.<br>
-                      @ sometime nd 2 diff/ensure all deltas merged.</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-19-23</td>
-          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
-                    Some updates to PredTester (connecter logic, order of flds, colStyles etc.)<br>
-                    CalcuttiMasaloAux categBy/et al updated to options for ref in Dz cTor<br>
-                    DzDV back online with the new Aux stuff/Masalas/et al</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-18-23</td>
-          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
-                                  બનારસી_પીચાક_eoy: single fld gappa<br>
-                                  બનારસી_પીચાક_fld_eoy (stable; some work compl)<br>
-                   Added ty ફીલ્ડ_પેનલ_Aux for changes (NumUpDn etc)</td>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij</td><td class = "BrijLogtd">
-                   remmed 'let WD' in canned Suppliers 
-                    (@mbi has compile issues + we're using it locally) 
-                   Updated ty FldType
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">
-        Jan 14-17</td><td class = "BrijLogtd"></td><td class = "BrijLogtd">Lib net shutdown (connectivity issues)</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-13-23</td>
-          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
-                    major updates to બનારસી_પીચાક_eoy 
-                    (removing btns to consolidate edit single fld gappa)
-                    Stable
-                  Generated new set of screenshots
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-12-23</td>
-          <td class = "BrijLogtd"> catCols Impl (both)</td><td class = "BrijLogtd">
-                    subCategDisp Completed; now nd to generisize/port [much mbi w/display but it is stable]
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">both</td><td class = "BrijLogtd">
-                    Considerable work on DzAux as a prelude to bakaaNoM; alm compl exc 4 mbi w/ITblTy
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-11-23</td>
-          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
-                    Added new ty CalcPred<'t> for all preds (categ/flt/sort)
-                    Note: CalcMAux now has only 1 genericParam comme les autres; instd of earlier 3
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">logged</td><td class = "BrijLogtd">
-                    Updated the CalcMAux refs (for above; these flds were earlier opts w/None passed in)
-                    Brij: @ present tkDv uses hardCoded categs which were left as is
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">catCols Impl (both)</td><td class = "BrijLogtd">
-                    Added musicDat_Jan (new categSchme) to UIAux
-                    mbi SPLAT(!) w/ return vals from musicDat (expects string * obj * Type') in kathoHandlerAux
-                    Several pieces hardCoded in lieu of mbi BUT everthing working exc subCategDisp
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-10-23</td>
-          <td class = "BrijLogtd"></td>
-          <td class = "BrijLogtd"> FlkBrg pour sId</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-09-23</td>
-          <td class = "BrijLogtd"> UIAux/logged</td><td class = "BrijLogtd">
-                    Some work on DzAux; splat(!) nd 2 revert to leaving them compilerLess...
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-07-23</td>
-          <td class = "BrijLogtd"> UIAux/logged</td><td class = "BrijLogtd">
-                    Further updates to colorSchemes in gappa/pich/etc. to confirm across the board
-                    Some more work on the PredBldr; added errorProv & toTpl()
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-06-23</td>
-          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
-                    Some updates to PredTester
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">logged</td><td class = "BrijLogtd">
-                    updated the openWin stuff in SaadooP; removed the genTyParam
-                    Added ty BrijWin + Saadoo menu
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Both</td><td class = "BrijLogtd">
-                    Added a new colorScheme (bblgm) + var updates to store/retrieve currSel frm State
-                    @ToDo: if colSchm names are the same as the MenuItems we can
-                        rem 4 lines (to set marked) via moving into the fn
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-05-23</td>
-          <td class = "BrijLogtd"> Bakaa_no_Masalo</td><td class = "BrijLogtd">basic sketch + pseudoC 
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-04-23</td>
-          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
-                    Interned all PredTester assoc stuff ici; stable
-                    Upd: Added tys | ગપ્પા_પાન_Pred | પ્રેડ_પીચાક | એક્સ_પેનલ
-                    Some work on xTpl type/expr.ToStr() etc.
-                    Impl getImg (despite much mbi); BanarM hangs coz of their ineptitude
-                    Cleaned up dsk itms
-                    Upd. hlp w/a more complete set of screenshots of all major Paans/Masalas
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Jan-03-23</td>
-          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
-                    As mentioned below issues w/કલકતી_પાન_Nov (can't find old(er) ver of DVDef)
-                    Ported the refs to curr ver of Brij.CalcuttiMasalo
-                    Updated મીઠૂ_પાન_eoy cTor param SaadoMasalo to SaadoMasaloAux
-                    SadooP	Applied Dec08 ClrSchm to curr
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-30-22</td>
-          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
-            ported BM/MeethoM to main fork in UIAux (ren to ~Aux + ~eoy)<br>
-                  (nded to up the UI ass to 11.17 which causes some issues w/Calcut)<br>
-                  gen screenshots of all major Paans/Masalas, to be compl.</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-29-22</td>
-          <td class = "BrijLogtd"></td>
-          <td class = "BrijLogtd"> Phat_Nov17_LastWithFormCfgMeethoo_Patch4<br>
-                    FrmCfg opts are now wired to ctorDef (stable)<br>
-                    Label Font default to ital</td>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij.fs</td><td class = "BrijLogtd">
-                    Colors default frm currSchm (in Brij:BanarasiMasalo.getDeflt)<br>
-                    Ttip subCol<br>
-                    defUpd hndlrs on OK/Save</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-28-22</td>
-          <td class = "BrijLogtd"></td>
-          <td class = "BrijLogtd"> Phat_Nov17_LastWithFormCfgMeethoo_Patch3<br>
-                    ren frm_pich to બનારસી_પીચાક (per current UI)<br>
-                    added Thingy ty (placehldr)
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij.fs</td><td class = "BrijLogtd">
-                    inserted/updated BM/BFld tys in patch Brij.fs per new constraints
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">loggedUIRunner.fs</td><td class = "BrijLogtd">
-                    moved banarasiPich_eoy + gappa_eoy here to use the new Core; stable
-                    ALL subseq. updates will be made ici
-                    generated BanarasiM
-                    added getDefault() to BanarasiMasalo + BanarasiFld; stable
-                    issues w/GK et al BUT stable impl of ટેન્ગ/GT (effortless!)
-                        needs followup: can see the Ks in iLspy but compiler doesn't ?!
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-27-22</td>
-          <td class = "BrijLogtd"></td><td class = "BrijLogtd"> Phat_Nov17_LastWithFormCfgMeethoo_Patch2<br>
-                    Further updates to meethoo paan:<br>
-                    updated gappa to work w/frmSetup<br>
-                    fixed bugs: lv itm#1 can't be moved down<br>
-                                lv itm#1 crashes on 1st itm MoveUp
-                                on frmClose "ArgumentOutOfRangeException" <br>bug on lV (arising from items.clear())<br>
-                    moved btns in tbar(wider/shorter...) to above lV/BtnBar<br>
-                    updated btnTxt for FontBtns/ClrBtns<br>
-                    added icons for all frmBtns<br>
-                    added fn (getImg nm w)<br>
-                    updated gappa wldRef for above (NDS 2 go to UI_current)<br>
-                        added tmpWorkaround (@mbi w/hkt) to return brijLogo<br>
-                        DOESN'T nd to be grafted (getImg tmp returns icon since mbi w/wld)</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-22-22</td>
-          <td class = "BrijLogtd"></td>
-          <td class = "BrijLogtd"> Phat_Nov17_LastWithFormCfgMeethoo_Patch1<br>
-                    Further updates to meethoo paan:<br>
-                    merged handlers to one: tblDefAddModFld
-                      (uses ટેબલ_ડેફ_એડ_મોડ_ફિલ્ડ_પીચાક )<br>
-                    added inline handler for RemoveFld
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij.fs</td><td class = "BrijLogtd">
-            Minor updates to bring type SaadoMasalo to current</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-21-22</td>
-          <td class = "BrijLogtd"> Brij.fs</td><td class = "BrijLogtd">
-            Added isCateg/Parent flds 2 CoreM; compileErrs shd cascade
-        </td></tr>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd"> UI.fs</td><td class = "BrijLogtd">
-             Worked w/(UI+Brij Phat_Nov17)<br>
-                        Several updates incl meethoo paan<br>
-                        blt 2 pichaak handlers mostly tested<br>
-                                Deltas merged into UI current (nd to create patches for continual updates)<br>
-                                nxt: nd to add a SaveBtn
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-20-22</td>
-          <td class = "BrijLogtd"> loggedUIRunner; UIAux</td><td class = "BrijLogtd">
-                            Various stuff moved to UIAux, rejiggered dsk etc<br>
-                            (basically all yesterday pm's stuff redone coz
-                             @mbi: deleted archive files pre-save) along w/some deltas</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-19-22</td>
-          <td class = "BrijLogtd"> Core.fs</td><td class = "BrijLogtd">
-           Updated some Core fns, incl to3Tpl -> to3T ...
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij.fs</td><td class = "BrijLogtd">
-                  Added isDeleted fld 2 CoreM; compileErrs shd cascade
-                  loggedUIRunner<br>>
-                    Some updates incl to SaaduPaan; dsk imgs/moving menuItms to dsk;
-                    updates to ColorSchms etc.</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-17-22</td>
-          <td class = "BrijLogtd"> SignalR   </td><td class = "BrijLogtd"></td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-16-22</td>
-          <td class = "BrijLogtd"> SignalR</td><td class = "BrijLogtd">   Ported missing fns to allow standalone CScli; it works (svr still cs)
-                            Began creating FScli
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-15-22</td>
-          <td class = "BrijLogtd"></td><td class = "BrijLogtd">           Archive recovery/rebuilding
-                            tkDat ser; ported the new tkDV to Nov ver for tbdb<br>
-                  BrijServer.fs several updates to datRoutines for ttips etc.</td></tr>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-14-22</td>
-          <td class = "BrijLogtd"> BrijServer.fs</td><td class = "BrijLogtd">
-            rewrote rec tkDatAux; tkDV is stable with the foll caveats:<br>
-                                - tkDat doesn't work (no colHdrs/Cats) w/either new or old Calcutti<br>
-                                - musicDat behaves similarly (chk) as above<br>
-                                - issue is poss related 2 colOrdr; tbdb</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-13-22</td>
-          <td class = "BrijLogtd">           SignalR
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-12-22</td>
-          <td class = "BrijLogtd"> BrijServer.fs</td><td class = "BrijLogtd">
-                            tkDV/Brij.Server
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-10-22</td>
-          <td class = "BrijLogtd"></td><td class = "BrijLogtd">           Moved all new dat mods to UIAux for concurrent ref
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-09-22</td>
-          <td class = "BrijLogtd"></td><td class = "BrijLogtd">           tkDV (stable-ish)
-            </td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">
-        Dec 06 - 08</td><td class = "BrijLogtd"></td><td class = "BrijLogtd">var updates (tbfo)</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-05-22</td>
-          <td class = "BrijLogtd"> Brij.fs</td><td class = "BrijLogtd">   nailed down tkDat w/gen from hardCoded flds; some updates to UI calcti.</td>
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-03-22</td>
-          <td class = "BrijLogtd"> Brij.fs</td><td class = "BrijLogtd">
-           updated tkPics for testing the new calcutti stuff
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-02-22</td>
-          <td class = "BrijLogtd"> gen</td><td class = "BrijLogtd">
-               updated bookmarks w/latest maps
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Dec-01-22</td>
-          <td class = "BrijLogtd"> Brij.fs</td><td class = "BrijLogtd">
-           added BrijTy<'t></td></tr>
-           <tr><td class = "BrijLogtd"></td><td class = "BrijLogtd">
-                  UI.fs</td><td class = "BrijLogtd">
-             further work on UI.કેટ_બાય_પીચાક
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Nov-30-22</td>
-          <td class = "BrijLogtd"> UI.fs</td><td class = "BrijLogtd">
-             further work on UI.બનારસી_પીચાક<br>
-                            some work on મીઠૂ_પીચાક + કલકતી_પીચાક<br>
-                            added ચેક્ડ_પીચાક + મીઠૂ_પીચાક + કેટ_બાય_પીચાક
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Nov-29-22</td>
-          <td class = "BrijLogtd"> UI.fs</td><td class = "BrijLogtd">
-             deltas from earlier work + flash (compl tho @mbi) moved into this<br>
-                            changes to UI.બનારસી_પીચાક to incl CanUHear
-        </tr><tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">
-                  Brij.fs</td><td class = "BrijLogtd">
-           added type Thingy for UI.બનારસી_પીચાક
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Nov-28-22</td>
-          <td class = "BrijLogtd"> loggedUIRunner</td><td class = "BrijLogtd">
-                                                બનારસી_પાન work completed on fldPop w/noSkips
-        </td></tr>
-        <tr class = "BrijLogtr">
-          <td class = "BrijLogtd"></td>
-            <td class = "BrijLogtd">
-                  UI.fs</td><td class = "BrijLogtd">
-         ફીલ્ડ_પેનલ ctor now accepts fldVal & sets ea ctrl to (optOr ~~)<br>
-                        TtipMngr.formatTtip (wrap+ell)</td></tr>
-        <tr class = "BrijLogtr">
-            <td class = "BrijLogtd"></td>
-        <td class = "BrijLogtd">
-                  loggedUIRunner</td><td class = "BrijLogtd">
-         (Nov2ver w/ClrSchemes/Grid/etc.; much remmed in this ver;
-                                  also nded Brij from Nov02)<br>
-                        Some work on g.Flash
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Nov-22-22</td>
-          <td class = "BrijLogtd"> UI.fs</td><td class = "BrijLogtd">
-         Brij.gullo + hdnlr framewrk
-                        @ToDo: Some renaming to bring all terms in line (pichaak); more remains: 
-                          run a FindFiles on "masalo"
-                        Added runG impl + runGDlg() ty/pichaak
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Nov-22-22</td>
-          <td class = "BrijLogtd"> UI.fs</td><td class = "BrijLogtd">
-         expandoState & svrCmd "openDVexpando" + added tbarBtns to g<br>
-                        dsk.ms + winSwitch
-        </td></tr>
-        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td>
-        <td class = "BrijLogtd">
-                  loggedUIRunner</td><td class = "BrijLogtd">
-                        getDatImgNov22: shim to avoid @mbi w/BaseBrij
-                        updated all getTSBtn calls w/actual icons from dat
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Nov-21-22</td>
-          <td class = "BrijLogtd"> UI.fs</td><td class = "BrijLogtd">
-         mdiUpdates incorp ici
-        </tr>
-          <tr class = "BrijLogtr">
-          <td class = "BrijLogtd">Nov-18-22</td>
-          <td class = "BrijLogtd"> UI.fs</td><td class = "BrijLogtd">
-         All work on FrmCfg+Meethoo incorp ici 
-
-        </table>
+        ...local xhr...
     </div>
   <!--id=BrijLog-->
 </section>
@@ -26241,7 +25742,7 @@ postCovid imports into allData</td>
         <table>
             <thead>
                 <tr>
-                    <th>As of Feb 14</th>
+                    <th>As of Feb 16</th>
                 </tr>
             </thead>
             <tbody>
@@ -26272,14 +25773,6 @@ postCovid imports into allData</td>
                 <tr>
                 <td>
                     <figure>
-                        <img src="img/2BanarasiM_FldDef.png" width="500" alt="2BanarasiMNew">
-                        <figcaption>2BanarasiM_FldDef</figcaption>
-                    </figure>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                    <figure>
                         <img src="img/2BM_AppTab.png" width="500" alt="2BM_AppTab">
                         <figcaption>BM_AppearanceTab</figcaption>
                     </figure>
@@ -26292,12 +25785,12 @@ postCovid imports into allData</td>
                         <figcaption>BM_FieldsTab</figcaption>
                     </figure>
                 </td>
-                </tr>                
+                </tr>
                 <tr>
                 <td>
                     <figure>
-                        <img src="img/2BM_FldsTab_FldDef.png" width="500" alt="2BM_FldsTab_FldDef">
-                        <figcaption>BM_FieldsTab_FieldDef</figcaption>
+                        <img src="img/2BM_FldsTab_FldDef.png" width="500" alt="2BanarasiMNew">
+                        <figcaption>2BM_FldDef</figcaption>
                     </figure>
                 </td>
                 </tr>
@@ -26314,6 +25807,14 @@ postCovid imports into allData</td>
                     <figure>
                         <img src="img/2BP.png" width="500" alt="2BP">
                         <figcaption>BP</figcaption>
+                    </figure>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                    <figure>
+                        <img src="img/2BPDz.png" width="500" alt="2BP">
+                        <figcaption>BPDz</figcaption>
                     </figure>
                 </td>
                 </tr>
