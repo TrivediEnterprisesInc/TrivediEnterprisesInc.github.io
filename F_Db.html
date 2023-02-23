@@ -57,20 +57,89 @@ If you wish to insert array of JSON objects at once, where each array entry shal
 {obj2}
 {obj3}
 </pre></code>
-</details>
+<hr></details>
 
-</details>
+<hr></details>
 <p>
 <b>mattpodwysocki</b>/MongoDB and <a href='https://gist.github.com/mattpodwysocki/218388'>F# gist
 <br>
 fssnip: Basic <a href='http://www.fssnip.net/7Xm/title/Idiomatic-F-wrapper-for-storing-and-reading-from-MonoDB'>wrapper</a> for storing and reading docs from MongoDB with .NET.
 <br>
-https://www.w3resource.com/mongodb-exercises/
+<a href='https://www.w3resource.com/mongodb-exercises/'>Exercises</a> 
 <br>
-mongoplayground.net (blocked @ careerF)<br>https://www.humongous.io/app/playground<br>https://github.com/ramnes/awesome-mongodb<br>
+<a href='mongoplayground.net'>Playground</a><br>
+<a href='https://github.com/ramnes/awesome-mongodb'>Awesome</a> MongoDb<br>
 
 
+<details>
+<summary><span class='mHG'>Filter/Find/RegEx/Bldr</span></summary>
+<a href='https://stackoverflow.com/questions/66966567/how-to-filter-regular-expression-in-mongodb-with-f'>Regex</a> Filters in Mongo
+<br>
+Brian Berns:  You're close. The only problem I see is that the LINQ expression has to have a return type of Object. This happens implicitly in C#, but in F# you have to explicitly cast it:
+<code><pre>
+let filter1 =
+    Builders<PostDataItem>
+        .Filter
+        .Regex(
+            (fun n -> n.reference1 :> obj),
+            BsonRegularExpression("1002\d{5}"))
+</pre></code>
+(IMHO, this is just a bit of C# bias baked into their API. Hopefully they’ll fix it one day.)
+<hr>
+Another similar <a href='https://stackoverflow.com/questions/67101596/how-to-specify-field-mongodb-definition-dynamically-using-a-string-in-f'>filter</a> bld (one fld is a BSonDoc):<br>
+<code><pre>
+let coll: IMongoCollection<NZPostDataItem> = MongoUtil.getNzpostCollection()
+let filter = Builders<NZPostDataItem>.Filter.And(
+        Builders<NZPostDataItem>.Filter.Gte((fun n -> n.dateLodged),DateTime(2020,10,1)),
+        Builders<NZPostDataItem>.Filter.Eq((fun n -> n.eshipMatched.Value) , true)
+)// ... etc 
+</pre></code>
+<hr>
+Using <a href='https://stackoverflow.com/questions/51835975/f-mongodb-using-find-with-string-filter'>Find</a> w/string filter
+<hr>
+gd c# <a href='https://stackoverflow.com/questions/51990950/getting-general-information-about-mongodb-collections-with-fsharp'>pipeline</a> (project, unwind, grp) impl: 
+<hr>
+<a href='https://stackoverflow.com/questions/64723616/projecting-results-from-mongodb-find-in-f'>Projecting</a> results from MongoDb Find
+<hr></details>
 <p>
+
+<details>
+<summary><span class='mHG'>Serialization</span></summary>
+Writing a <a href='https://stackoverflow.com/questions/42915080/is-writing-a-discriminated-union-to-mongodb-possible'>DU</a> ty to Mongo
+<ul><li>
+1 way we mt have to go is to write a manual ser/Deser FOR customType as you wd w/any serializer, e.g. <a href='https://github.com/NamelessInteractive/NamelessInteractive.FSharp/blob/master/NamelessInteractive.FSharp.MongoDB/DiscriminatedUnionSerializer.fs'>here</a>
+<br>
+BASICALLY this file + this one: FSharpSerializationProvider.fs
+contains all that's necc to provide a custom de/ser frm/to Mongo
+</li><li>
+MongoDox <a href='https://mongodb.github.io/mongo-csharp-driver/2.4/reference/bson/serialization/'>custom</a> ser info<br>
+also srch this pg for "TryGetMemberSerializationInfo"<br>
+</li>
+NOTE that when everything's set up, on db.insert/etc. the system auto-ser/deser the obs.
+<li>
+*****NOTE: This approach might altogether allow avoiding creation of custom serializers.
+<br>
+The .NET BSON library supports mapping Custom classes to and from BSON/JSON using a <a href='https://mongodb.github.io/mongo-csharp-driver/2.4/reference/bson/mapping/'>BsonClassMap</a>.
+<br>
+If you want to control the creation of the class map, you can provide your own initialization code in the form of a lambda expression:
+<code><pre>
+BsonClassMap.RegisterClassMap<MyClass>(cm => {
+    cm.MapMember(c => c.SomeProperty);
+    cm.MapMember(c => c.AnotherProperty); });
+</pre></code>
+</li><li>
+  See also this <a href='http://www.fssnip.net/7Qw/title/mongodb-map-immutable-record-constructor-adhoc-example'>fssnip example</a> 
+  </li>
+So basically we can create a BsonClassMap<Brij> & map the classDef to ea fldNm/ty<br>
+Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
+<code><pre>
+      cm.MapMember(c => c.SomeProperty).SetElementName("sp")</pre></code>
+      (from the MongoDox link above)
+<hr>
+</details>
+<p>
+
+
 <h4>Libs</h4>
 tkellogg/<a href='https://github.com/tkellogg/MongoDB.FSharp'>MongoDB.FSharp</a>
 Silent utilities to make the official MongoDB driver feel natural to work with in F#
@@ -91,7 +160,7 @@ Silent utilities to make the official MongoDB driver feel natural to work with i
 <summary><span class='mHG'>MongoDB Indexing</span></summary>
 <br>"ALL indexes shd fit in memory"<br>If your index doesnt fit in memory the slow down you will experience when querying on that index as pages are read from disk expired and then reread from disk will be dramatic.<br><br>The goal for every performant database is to have all its regularily queried indexes to fit completely in RAM. To futher increase performance the most regularily queried records should fit in RAM as well.<br><br>For a gaming application this means data associated with logged in users, for a banking application accounts that have transactions in the last thirty days etc. etc.<br><br>...from mongoDevBlog related to above, how to fit all idx es into RAM...<br>In MongoDB Collections and Indexes both use the same underlying data structure. WiredTiger tables - these are BTrees (B+ ish trees) , essentially key-value stores arranged into pages(or blocks depending who you ask) - each page is 32KB in size or one entry whichever is larger (Up to 16MB for a single 16MB BSON document) - its then compressed when flushed to disk. In memory a collection page contains both the the on-disk version of the page as well as a list of changes to any document not yet reconciled to disk. An Index page contains the index keys and for each key (which may be the full key or prefix compressed) a pointer to the identity of the document it points to.<br><br>When you access an index - MongoDB checks to see if the page is in cache - if not it reads it from the disk (going via the OS pagecache so it may be cached there) - index pages are not compressed on disk as they already have prefix compression.<br><br>The upshot is that each index lookup may in cache (nice and fast) or not in which case , nothing to do with page faults - this is all explicitly tracked, it will require a disk read which will be 32KB and a seek at the very least - if you have readahead set appropriately it may be more than 32KB. If that happens to be in your OS page cache it will be quicker but it still needs some processing to put it in cache. The seek will take 1 IO operation at least so a 1000 IOPS disk, with random seeks in an index which is much larger than ram will be very much throttled by IO.<br><br>You can look at the Read-Into-Cache metric using any of the MongoDB tooling (or look in db.serverStatus() and diff the entries) you can also observer the cache for collections and indexes using mongocacheview.js (https://github.com/johnlpage/MongoCacheView).<br><br>In general - if your working set does not fit in ram, expect one to two orders of magnitude slower operations that hit those keys (queries, inserts, deletes, updates of indexed values) , consider (a) Adding RAM (b) Making indexes smaller  Adding many IOPS - in that order.<br><br>...also...<br>If you want to preheat (upload it into RAM) your indexes when mongod start you may use db.runCommand({"touch" : <collection name>, "data" : true, "index" : true}). Accessing index entries that are not in memory is particularly inefficient, as it often causes two page faults. There is one fault to load the index entry into memory and then another to load the document into memory. When an index lookup causes a page fault its called a btree miss. MongoDB also tracks btree hits: when an index access does not have to go to disk (from MongoDB definitive guide).  Alexey Smirnov Dec 31 '16 at 12:36<br><br>>>$or query using more than 2 indexes takes forever	Joris_SEBIRE<br>Hello,	I have a probleme with a mongo query that uses an $or like :<br>{<br>    a: 1,<br>    b: 2,<br>    $or: [<br>        { c: 3 },<br>        { d: 4 },<br>        { e: 5 },<br>        { f: 6 }<br>    ]<br>}<br>i have every a_b_c, a_b_d, a_b_e and a_b_f indexes but that query takes more than 150 seconds.<br>But, if i comment any 2 of the 4 items in my $or, the request takes 0.5 seconds<br>Does mongo applie a limit of index used in an $or query ? or something i didnt get ?<br>Thanks for your answer.<br><br>Pavel_Duchovny MongoDB Employee<br>Welcome to MongoDB community.<br>The ways your indexes are built the engine tries to do an index intersection loading all indexes to memory and merging them.<br>I think that for this query its best to use either all fields in one index or just index a,b <br>Thanks,<br>Pavel<br><br>Sudhesh_Gnanasekaran<br>Refer to this documentation that might be helpful for your use-case.<br>https://docs.mongodb.com/manual/core/index-compound/<br>,...from above...MongoDB imposes a limit of 32 fields for any compound index.<br>Compound indexes can support queries that match on multiple fields.<br>...Index fields are parsed in order; if a query omits a particular index prefix, it is unable to make use of any index fields that follow that prefix.<br><br>...The choice between creating compound indexes that support your queries or relying on index intersection depends on the specifics of your system. (see https://docs.mongodb.com/manual/core/index-intersection/#index-intersection-compound-indexes)<br><br>MongoDB may use the same wildcard index for satisfying each independent argument of the query $or or aggregation $or operators.<br><br>if you want the aggregation to use the index you need to perform either a $match or $sort stages in the beginning of the query.<br>eg,  db.collection.aggregate([{$match:{"Instance.field":"value"},<br>	{$unwind: "$Instance"},<br>	{$match:{"Instance.field":"value"}}])<br><br>https://stackoverflow.com/questions/8607637/are-there-any-tools-to-estimate-index-size-in-mongodb<br>mongodb query and index optimization.<br><br>groupBy note:<br>"$group does not order its output documents." See http://docs.mongodb.org/manual/reference/operator/aggregation/group/<br><br>$limit limits the number of processed elements of an immediately preceding $sort operation, not only the number of elements passed to the next stage. See the note at http://docs.mongodb.org/manual/reference/operator/aggregation/limit/<br><br>>>pagination on group data mongodb -<br><br>in $group items you can't directly apply pagination, but below trick will be used ,<br>step 1 - write aggregation on product table, and write groupBY<br>step 2 - prdSkip for skipping , and limit for limiting data , pass it dynamically<br>finally query looks like - params - limit , skip - for category pagination and prdSkip and PrdLimit for products pagination<br>db.products.aggregate([<br>        { $group: { _id: '$prdCategoryId', products: { $push: '$$ROOT' } } },<br>        {<br>            $lookup: {<br>                from: 'categories',<br>                localField: '_id',<br>                foreignField: '_id',<br>                as: 'categoryProducts',<br>            },<br>        },<br>        {<br>            $replaceRoot: {<br>                newRoot: {<br>                    $mergeObjects: [{ $arrayElemAt: ['$categoryProducts', 0] }, '$$ROOT'],<br>                },<br>            },<br>        },<br>        {<br>            $project: {<br>                // pagination for products<br>                products: {<br>                    $slice: ['$products', prdSkip, prdLimit],<br>                },<br>                _id: 1,<br>                catName: 1,<br>                catDescription: 1,<br>            },<br>        },<br>    ])<br>    .limit(limit) // pagination for category<br>    .skip(skip);<br>answered Oct 22 '20 at 6:50	Akshay Dhawle<br><br>
 <br>
-</details>
+<hr></details>
 <p>
 $replaceRoot (aggregation):<br>
 https://docs.mongodb.com/manual/reference/operator/aggregation/replaceRoot/#new-replacement-doc
@@ -135,7 +204,7 @@ https://docs.mongodb.com/manual/reference/operator/aggregation/replaceRoot/#new-
 <br>SQB answered May 10 '18 at 6:47
 <br>
 <br>
-</details>
+<hr></details>
 <p>
 
 <hr>
