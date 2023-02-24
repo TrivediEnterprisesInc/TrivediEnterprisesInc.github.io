@@ -117,16 +117,47 @@ If you wish to insert array of JSON objects at once, where each array entry shal
 <hr></details>
 
 <hr></details>
+ 
 <p>
-<b>mattpodwysocki</b>/MongoDB and <a href='https://gist.github.com/mattpodwysocki/218388'>F# gist
+<details>
+<summary><span class='mHG'>Serialization</span></summary>
+Writing a <a href='https://stackoverflow.com/questions/42915080/is-writing-a-discriminated-union-to-mongodb-possible'>DU</a> ty to Mongo
+<ul><li>
+1 way we mt have to go is to write a manual ser/Deser FOR customType as you wd w/any serializer, e.g. <a href='https://github.com/NamelessInteractive/NamelessInteractive.FSharp/blob/master/NamelessInteractive.FSharp.MongoDB/DiscriminatedUnionSerializer.fs'>here</a>
 <br>
-fssnip: Basic <a href='http://www.fssnip.net/7Xm/title/Idiomatic-F-wrapper-for-storing-and-reading-from-MonoDB'>wrapper</a> for storing and reading docs from MongoDB with .NET.
+BASICALLY this file + this one: FSharpSerializationProvider.fs
+contains all that's necc to provide a custom de/ser frm/to Mongo
+</li><li>
+MongoDox <a href='https://mongodb.github.io/mongo-csharp-driver/2.4/reference/bson/serialization/'>custom</a> ser info<br>
+also srch this pg for "TryGetMemberSerializationInfo"<br>
+</li>
+NOTE that when everything's set up, on db.insert/etc. the system auto-ser/deser the obs.
+<li>
 <br>
-<a href='https://www.w3resource.com/mongodb-exercises/'>Exercises</a> 
+The .NET BSON library supports mapping Custom classes to and from BSON/JSON using a <a href='https://mongodb.github.io/mongo-csharp-driver/2.4/reference/bson/mapping/'>BsonClassMap</a>.
 <br>
-<a href='mongoplayground.net'>Playground</a><br>
-<a href='https://github.com/ramnes/awesome-mongodb'>Awesome</a> MongoDb<br>
-
+If you want to control the creation of the class map, you can provide your own initialization code in the form of a lambda expression:
+<code><pre>
+BsonClassMap.RegisterClassMap<MyClass>(cm => {
+    cm.MapMember(c => c.SomeProperty);
+    cm.MapMember(c => c.AnotherProperty); });
+</pre></code>
+</li>
+<li>Good Overview of the process: BSON <a href='https://darkiri.wordpress.com/2013/02/26/bson-serialization-with-mongodb-c-driver/'>Serialization</a> with the MongoDB C# Driver
+<br>Yes, both custom Serializers + ClassMaps are necc.
+<br>Besides renaming (if nded via SetElementName) flds, ClassMaps allow NOT messing your types w/attributes et al.; this info is passed to Mongo via your mapping 
+</li>
+<li>
+  See also this <a href='http://www.fssnip.net/7Qw/title/mongodb-map-immutable-record-constructor-adhoc-example'>fssnip example</a> 
+  </li>
+So basically we can create a BsonClassMap<Brij> & map the classDef to ea fldNm/ty<br>
+Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
+<code><pre>
+      cm.MapMember(c => c.SomeProperty).SetElementName("sp")</pre></code>
+      (from the MongoDox link above)
+<hr>
+</details>  
+  
 
 <details>
 <summary><span class='mHG'>Filter/Find/RegEx/Bldr</span></summary>
@@ -181,43 +212,16 @@ In $group items you can't directly apply pagination, but below trick will be use
 </details>
 
 <p>
-<details>
-<summary><span class='mHG'>Serialization</span></summary>
-Writing a <a href='https://stackoverflow.com/questions/42915080/is-writing-a-discriminated-union-to-mongodb-possible'>DU</a> ty to Mongo
-<ul><li>
-1 way we mt have to go is to write a manual ser/Deser FOR customType as you wd w/any serializer, e.g. <a href='https://github.com/NamelessInteractive/NamelessInteractive.FSharp/blob/master/NamelessInteractive.FSharp.MongoDB/DiscriminatedUnionSerializer.fs'>here</a>
-<br>
-BASICALLY this file + this one: FSharpSerializationProvider.fs
-contains all that's necc to provide a custom de/ser frm/to Mongo
-</li><li>
-MongoDox <a href='https://mongodb.github.io/mongo-csharp-driver/2.4/reference/bson/serialization/'>custom</a> ser info<br>
-also srch this pg for "TryGetMemberSerializationInfo"<br>
-</li>
-NOTE that when everything's set up, on db.insert/etc. the system auto-ser/deser the obs.
-<li>
-*****NOTE: This approach might altogether allow avoiding creation of custom serializers.
-<br>
-The .NET BSON library supports mapping Custom classes to and from BSON/JSON using a <a href='https://mongodb.github.io/mongo-csharp-driver/2.4/reference/bson/mapping/'>BsonClassMap</a>.
-<br>
-If you want to control the creation of the class map, you can provide your own initialization code in the form of a lambda expression:
-<code><pre>
-BsonClassMap.RegisterClassMap<MyClass>(cm => {
-    cm.MapMember(c => c.SomeProperty);
-    cm.MapMember(c => c.AnotherProperty); });
-</pre></code>
-</li><li>
-  See also this <a href='http://www.fssnip.net/7Qw/title/mongodb-map-immutable-record-constructor-adhoc-example'>fssnip example</a> 
-  </li>
-So basically we can create a BsonClassMap<Brij> & map the classDef to ea fldNm/ty<br>
-Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
-<code><pre>
-      cm.MapMember(c => c.SomeProperty).SetElementName("sp")</pre></code>
-      (from the MongoDox link above)
 <hr>
-</details>
-<p>
-
-
+<b>mattpodwysocki</b>/MongoDB and <a href='https://gist.github.com/mattpodwysocki/218388'>F# gist
+<br>
+fssnip: Basic <a href='http://www.fssnip.net/7Xm/title/Idiomatic-F-wrapper-for-storing-and-reading-from-MonoDB'>wrapper</a> for storing and reading docs from MongoDB with .NET.
+<br>
+<a href='https://www.w3resource.com/mongodb-exercises/'>Exercises</a> 
+<br>
+<a href='mongoplayground.net'>Playground</a><br>
+<a href='https://github.com/ramnes/awesome-mongodb'>Awesome</a> MongoDb<br>
+<hr>
 <h4>Libs</h4>
 tkellogg/<a href='https://github.com/tkellogg/MongoDB.FSharp'>MongoDB.FSharp</a>
 Silent utilities to make the official MongoDB driver feel natural to work with in F#
