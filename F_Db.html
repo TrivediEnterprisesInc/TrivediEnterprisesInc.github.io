@@ -11,8 +11,65 @@ Mongo (v2) <a href='https://www.mongodb.com/docs/manual/reference/mongodb-extend
 <br>Extended JSon <a href='https://github.com/mongodb/specifications/blob/master/source/extended-json.rst#canonical-extended-json-example'>spec</a>
 <br>
 Canonical Mode: A string format that emphasizes type preservation at the expense of readability and interoperability
-<p>
+<hr>
+                      
+<details>
+<summary><span class='mHG'>F# Repo Query Src</span></summary>
 
+<ul>
+<li>FSharp.Core.<a href='https://github.com/dotnet/fsharp/blob/889709d8e506e6b707c6eaec5c310edda9c2be65/src/FSharp.Core/Query.fs'>Query.fs</a> contains module Query
+<br>tys QuerySource/QryBuilder
+<br>MakeGroupBy, MakeOrderBy, MakeSkip...
+<br>let (|CallGroupBy|_|)... + 
+<br>line 1272 on contains ALL QryPattns + 
+<br>line 1791 let EliminateNestedQueries q: elimates query{ ... query{}...})</li>
+
+<li>fsharp.tools.eval.<a href='https://github.com/dotnet/fsharp/blob/faa115a2dfd446d2d83ba6dfe19e92a5cc5e13f6/tests/fsharp/tools/eval/test.fsx'>test.fsx</a> contains modules QuotationEvaluation, EvaluationTests, Query(some patterns here)</li>
+
+<li>Expressions/DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionAsTopLevelLet01.fs'>FunctionAsTopLevelLet01.fs</a> contains Various ways of defining functions as a top level let in queries, e.g.<br>
+<code><pre>
+query { for i in ds do
+        let add3 = add 3
+        select (add3 i)}
+</pre></code></li>
+
+<li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/MatchInQuery01.fs'>MatchInQuery01.fs</a> as above, but for matches, e.g.<br>
+<code><pre>
+query { for i in ds do
+        let x = 
+            match (i % 2) with
+            | 0 -> i
+            | _ -> i * i
+        select x}
+</pre></code></li>
+
+<li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/MatchInQuery02.fs'>MatchInQuery02.fs</a> as above, but using function | for matches</li>
+
+<li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionsDefinedOutsideQuery01.fs'>FunctionsDefinedOutsideQuery01.fs</a> e.g.<br>
+<code><pre>
+let ie = [1;2;3;4;5]
+let q3 (ds : seq<int>) =    query {   for i in ds do
+                                      select (add i i)
+                                  } |> Seq.toList
+if q3 ie <> [2;4;6;8;10] then printfn "q3 failed"; exit 1
+</pre></code></li>
+
+<li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionWithinTopLevelLet01.fs'>FunctionWithinTopLevelLet01.fs</a> e.g.<br>
+<code><pre>
+let q1 (ds : seq<int>) =    query { for i in ds do
+                                    let aFunc =
+                                       let f x = x + 1
+                                       f
+                                    select (aFunc i)    }
+</pre></code></li>
+
+<li><a href='fsharp/core/queriesCustomQueryOps/test.fsx'>test.fsx</a> has module ShapesOfQueryQuotations which contains several patterns + some more interesting stuff incl evenBldrs/Distributions/etc., all as CEs...</li>
+
+<li><a href='https://github.com/dotnet/fsharp/blob/ef9d1aa7cb6edc6c80fb637065afdf8dc0b0bf6c/src/FSharp.Core/Query.fsi'>Query.fsi</a>
+(For Reference) Library functionality for F# query syntax and interoperability with .NET LINQ Expressions</li></ul>
+</details>
+  
+<hr>
 <details>
 <summary><span class='mHG'>Importing to Mongo</span></summary>
 <a href='https://www.mongodb.com/docs/database-tools/mongoimport/#mongodb-binary-bin.mongoimport'>mongoimport</a> docs
@@ -104,6 +161,27 @@ gd c# <a href='https://stackoverflow.com/questions/51990950/getting-general-info
 <p>
 
 <details>
+<summary><span class='mHG'>aggregation $group does not order its output documents</span></summary>
+See aggregation group <a href='http://docs.mongodb.org/manual/reference/operator/aggregation/group/'>doc</a>
+<hr>
+</details>
+<br>
+<details>
+<summary><span class='mHG'>aggregation $limit</span></summary>
+$limit limits the number of processed elements of an immediately preceding $sort operation, not only the number of elements passed to the next stage. See the note <a href='http://docs.mongodb.org/manual/reference/operator/aggregation/limit/doc'> here</a>
+<hr>
+</details>
+<br>
+<details>
+<summary><span class='mHG'>aggregation pagination on grp data</span></summary>
+In $group items you can't directly apply pagination, but below trick will be used ,<br>step 1 - write aggregation on product table, and write groupBY<br>step 2 - prdSkip for skipping , and limit for limiting data , pass it dynamically<br>finally query looks like - params - limit , skip - for category pagination and prdSkip and PrdLimit for products pagination<br>
+<code><pre>db.products.aggregate([<br>        { $group: { _id: '$prdCategoryId', products: { $push: '$$ROOT' } } },<br>        {<br>            $lookup: {<br>                from: 'categories',<br>                localField: '_id',<br>                foreignField: '_id',<br>                as: 'categoryProducts',<br>            },<br>        },<br>        {<br>            $replaceRoot: {<br>                newRoot: {<br>                    $mergeObjects: [{ $arrayElemAt: ['$categoryProducts', 0] }, '$$ROOT'],<br>                },<br>            },<br>        },<br>        {<br>            $project: {<br>                // pagination for products<br>                products: {<br>                    $slice: ['$products', prdSkip, prdLimit],<br>                },<br>                _id: 1,<br>                catName: 1,<br>                catDescription: 1,<br>            },<br>        },<br>    ])<br>    .limit(limit) // pagination for category<br>    .skip(skip);
+</pre></code><br>answered Oct 22 '20 at 6:50	Akshay Dhawle
+<hr>
+</details>
+
+<p>
+<details>
 <summary><span class='mHG'>Serialization</span></summary>
 Writing a <a href='https://stackoverflow.com/questions/42915080/is-writing-a-discriminated-union-to-mongodb-possible'>DU</a> ty to Mongo
 <ul><li>
@@ -158,7 +236,7 @@ Silent utilities to make the official MongoDB driver feel natural to work with i
 <p>
 <details>
 <summary><span class='mHG'>MongoDB Indexing</span></summary>
-<br>"ALL indexes shd fit in memory"<br>If your index doesnt fit in memory the slow down you will experience when querying on that index as pages are read from disk expired and then reread from disk will be dramatic.<br><br>The goal for every performant database is to have all its regularily queried indexes to fit completely in RAM. To futher increase performance the most regularily queried records should fit in RAM as well.<br><br>For a gaming application this means data associated with logged in users, for a banking application accounts that have transactions in the last thirty days etc. etc.<br><br>...from mongoDevBlog related to above, how to fit all idx es into RAM...<br>In MongoDB Collections and Indexes both use the same underlying data structure. WiredTiger tables - these are BTrees (B+ ish trees) , essentially key-value stores arranged into pages(or blocks depending who you ask) - each page is 32KB in size or one entry whichever is larger (Up to 16MB for a single 16MB BSON document) - its then compressed when flushed to disk. In memory a collection page contains both the the on-disk version of the page as well as a list of changes to any document not yet reconciled to disk. An Index page contains the index keys and for each key (which may be the full key or prefix compressed) a pointer to the identity of the document it points to.<br><br>When you access an index - MongoDB checks to see if the page is in cache - if not it reads it from the disk (going via the OS pagecache so it may be cached there) - index pages are not compressed on disk as they already have prefix compression.<br><br>The upshot is that each index lookup may in cache (nice and fast) or not in which case , nothing to do with page faults - this is all explicitly tracked, it will require a disk read which will be 32KB and a seek at the very least - if you have readahead set appropriately it may be more than 32KB. If that happens to be in your OS page cache it will be quicker but it still needs some processing to put it in cache. The seek will take 1 IO operation at least so a 1000 IOPS disk, with random seeks in an index which is much larger than ram will be very much throttled by IO.<br><br>You can look at the Read-Into-Cache metric using any of the MongoDB tooling (or look in db.serverStatus() and diff the entries) you can also observer the cache for collections and indexes using mongocacheview.js (https://github.com/johnlpage/MongoCacheView).<br><br>In general - if your working set does not fit in ram, expect one to two orders of magnitude slower operations that hit those keys (queries, inserts, deletes, updates of indexed values) , consider (a) Adding RAM (b) Making indexes smaller  Adding many IOPS - in that order.<br><br>...also...<br>If you want to preheat (upload it into RAM) your indexes when mongod start you may use db.runCommand({"touch" : <collection name>, "data" : true, "index" : true}). Accessing index entries that are not in memory is particularly inefficient, as it often causes two page faults. There is one fault to load the index entry into memory and then another to load the document into memory. When an index lookup causes a page fault its called a btree miss. MongoDB also tracks btree hits: when an index access does not have to go to disk (from MongoDB definitive guide).  Alexey Smirnov Dec 31 '16 at 12:36<br><br>>>$or query using more than 2 indexes takes forever	Joris_SEBIRE<br>Hello,	I have a probleme with a mongo query that uses an $or like :<br>{<br>    a: 1,<br>    b: 2,<br>    $or: [<br>        { c: 3 },<br>        { d: 4 },<br>        { e: 5 },<br>        { f: 6 }<br>    ]<br>}<br>i have every a_b_c, a_b_d, a_b_e and a_b_f indexes but that query takes more than 150 seconds.<br>But, if i comment any 2 of the 4 items in my $or, the request takes 0.5 seconds<br>Does mongo applie a limit of index used in an $or query ? or something i didnt get ?<br>Thanks for your answer.<br><br>Pavel_Duchovny MongoDB Employee<br>Welcome to MongoDB community.<br>The ways your indexes are built the engine tries to do an index intersection loading all indexes to memory and merging them.<br>I think that for this query its best to use either all fields in one index or just index a,b <br>Thanks,<br>Pavel<br><br>Sudhesh_Gnanasekaran<br>Refer to this documentation that might be helpful for your use-case.<br>https://docs.mongodb.com/manual/core/index-compound/<br>,...from above...MongoDB imposes a limit of 32 fields for any compound index.<br>Compound indexes can support queries that match on multiple fields.<br>...Index fields are parsed in order; if a query omits a particular index prefix, it is unable to make use of any index fields that follow that prefix.<br><br>...The choice between creating compound indexes that support your queries or relying on index intersection depends on the specifics of your system. (see https://docs.mongodb.com/manual/core/index-intersection/#index-intersection-compound-indexes)<br><br>MongoDB may use the same wildcard index for satisfying each independent argument of the query $or or aggregation $or operators.<br><br>if you want the aggregation to use the index you need to perform either a $match or $sort stages in the beginning of the query.<br>eg,  db.collection.aggregate([{$match:{"Instance.field":"value"},<br>	{$unwind: "$Instance"},<br>	{$match:{"Instance.field":"value"}}])<br><br>https://stackoverflow.com/questions/8607637/are-there-any-tools-to-estimate-index-size-in-mongodb<br>mongodb query and index optimization.<br><br>groupBy note:<br>"$group does not order its output documents." See http://docs.mongodb.org/manual/reference/operator/aggregation/group/<br><br>$limit limits the number of processed elements of an immediately preceding $sort operation, not only the number of elements passed to the next stage. See the note at http://docs.mongodb.org/manual/reference/operator/aggregation/limit/<br><br>>>pagination on group data mongodb -<br><br>in $group items you can't directly apply pagination, but below trick will be used ,<br>step 1 - write aggregation on product table, and write groupBY<br>step 2 - prdSkip for skipping , and limit for limiting data , pass it dynamically<br>finally query looks like - params - limit , skip - for category pagination and prdSkip and PrdLimit for products pagination<br>db.products.aggregate([<br>        { $group: { _id: '$prdCategoryId', products: { $push: '$$ROOT' } } },<br>        {<br>            $lookup: {<br>                from: 'categories',<br>                localField: '_id',<br>                foreignField: '_id',<br>                as: 'categoryProducts',<br>            },<br>        },<br>        {<br>            $replaceRoot: {<br>                newRoot: {<br>                    $mergeObjects: [{ $arrayElemAt: ['$categoryProducts', 0] }, '$$ROOT'],<br>                },<br>            },<br>        },<br>        {<br>            $project: {<br>                // pagination for products<br>                products: {<br>                    $slice: ['$products', prdSkip, prdLimit],<br>                },<br>                _id: 1,<br>                catName: 1,<br>                catDescription: 1,<br>            },<br>        },<br>    ])<br>    .limit(limit) // pagination for category<br>    .skip(skip);<br>answered Oct 22 '20 at 6:50	Akshay Dhawle<br><br>
+<br>"ALL indexes shd fit in memory"<br>If your index doesnt fit in memory the slow down you will experience when querying on that index as pages are read from disk expired and then reread from disk will be dramatic.<br><br>The goal for every performant database is to have all its regularily queried indexes to fit completely in RAM. To futher increase performance the most regularily queried records should fit in RAM as well.<br><br>For a gaming application this means data associated with logged in users, for a banking application accounts that have transactions in the last thirty days etc. etc.<br><br>...from mongoDevBlog related to above, how to fit all idx es into RAM...<br>In MongoDB Collections and Indexes both use the same underlying data structure. WiredTiger tables - these are BTrees (B+ ish trees) , essentially key-value stores arranged into pages(or blocks depending who you ask) - each page is 32KB in size or one entry whichever is larger (Up to 16MB for a single 16MB BSON document) - its then compressed when flushed to disk. In memory a collection page contains both the the on-disk version of the page as well as a list of changes to any document not yet reconciled to disk. An Index page contains the index keys and for each key (which may be the full key or prefix compressed) a pointer to the identity of the document it points to.<br><br>When you access an index - MongoDB checks to see if the page is in cache - if not it reads it from the disk (going via the OS pagecache so it may be cached there) - index pages are not compressed on disk as they already have prefix compression.<br><br>The upshot is that each index lookup may in cache (nice and fast) or not in which case , nothing to do with page faults - this is all explicitly tracked, it will require a disk read which will be 32KB and a seek at the very least - if you have readahead set appropriately it may be more than 32KB. If that happens to be in your OS page cache it will be quicker but it still needs some processing to put it in cache. The seek will take 1 IO operation at least so a 1000 IOPS disk, with random seeks in an index which is much larger than ram will be very much throttled by IO.<br><br>You can look at the Read-Into-Cache metric using any of the MongoDB tooling (or look in db.serverStatus() and diff the entries) you can also observer the cache for collections and indexes using mongocacheview.js (https://github.com/johnlpage/MongoCacheView).<br><br>In general - if your working set does not fit in ram, expect one to two orders of magnitude slower operations that hit those keys (queries, inserts, deletes, updates of indexed values) , consider (a) Adding RAM (b) Making indexes smaller  Adding many IOPS - in that order.<br><br>...also...<br>If you want to preheat (upload it into RAM) your indexes when mongod start you may use db.runCommand({"touch" : <collection name>, "data" : true, "index" : true}). Accessing index entries that are not in memory is particularly inefficient, as it often causes two page faults. There is one fault to load the index entry into memory and then another to load the document into memory. When an index lookup causes a page fault its called a btree miss. MongoDB also tracks btree hits: when an index access does not have to go to disk (from MongoDB definitive guide).  Alexey Smirnov Dec 31 '16 at 12:36<br><br>>>$or query using more than 2 indexes takes forever	Joris_SEBIRE<br>Hello,	I have a probleme with a mongo query that uses an $or like :<br>{<br>    a: 1,<br>    b: 2,<br>    $or: [<br>        { c: 3 },<br>        { d: 4 },<br>        { e: 5 },<br>        { f: 6 }<br>    ]<br>}<br>i have every a_b_c, a_b_d, a_b_e and a_b_f indexes but that query takes more than 150 seconds.<br>But, if i comment any 2 of the 4 items in my $or, the request takes 0.5 seconds<br>Does mongo applie a limit of index used in an $or query ? or something i didnt get ?<br>Thanks for your answer.<br><br>Pavel_Duchovny MongoDB Employee<br>Welcome to MongoDB community.<br>The ways your indexes are built the engine tries to do an index intersection loading all indexes to memory and merging them.<br>I think that for this query its best to use either all fields in one index or just index a,b <br>Thanks,<br>Pavel<br><br>Sudhesh_Gnanasekaran<br>Refer to this documentation that might be helpful for your use-case.<br>https://docs.mongodb.com/manual/core/index-compound/<br>,...from above...MongoDB imposes a limit of 32 fields for any compound index.<br>Compound indexes can support queries that match on multiple fields.<br>...Index fields are parsed in order; if a query omits a particular index prefix, it is unable to make use of any index fields that follow that prefix.<br><br>...The choice between creating compound indexes that support your queries or relying on index intersection depends on the specifics of your system. (see https://docs.mongodb.com/manual/core/index-intersection/#index-intersection-compound-indexes)<br><br>MongoDB may use the same wildcard index for satisfying each independent argument of the query $or or aggregation $or operators.<br><br>if you want the aggregation to use the index you need to perform either a $match or $sort stages in the beginning of the query.<br>eg,  db.collection.aggregate([{$match:{"Instance.field":"value"},<br>	{$unwind: "$Instance"},<br>	{$match:{"Instance.field":"value"}}])<br><br>https://stackoverflow.com/questions/8607637/are-there-any-tools-to-estimate-index-size-in-mongodb<br>mongodb query and index optimization.<br>
 <br>
 <hr></details>
 <p>
