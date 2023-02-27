@@ -12,62 +12,6 @@ Mongo (v2) <a href='https://www.mongodb.com/docs/manual/reference/mongodb-extend
 <br>
 Canonical Mode: A string format that emphasizes type preservation at the expense of readability and interoperability
 <hr>
-                      
-<details>
-<summary><span class='mHG'>F# Repo Query Src</span></summary>
-
-<ul>
-<li>FSharp.Core.<a href='https://github.com/dotnet/fsharp/blob/889709d8e506e6b707c6eaec5c310edda9c2be65/src/FSharp.Core/Query.fs'>Query.fs</a> contains module Query
-<br>tys QuerySource/QryBuilder
-<br>MakeGroupBy, MakeOrderBy, MakeSkip...
-<br>let (|CallGroupBy|_|)... + 
-<br>line 1272 on contains ALL QryPattns + 
-<br>line 1791 let EliminateNestedQueries q: elimates query{ ... query{}...})</li>
-
-<li>fsharp.tools.eval.<a href='https://github.com/dotnet/fsharp/blob/faa115a2dfd446d2d83ba6dfe19e92a5cc5e13f6/tests/fsharp/tools/eval/test.fsx'>test.fsx</a> contains modules QuotationEvaluation, EvaluationTests, Query(some patterns here)</li>
-
-<li>Expressions/DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionAsTopLevelLet01.fs'>FunctionAsTopLevelLet01.fs</a> contains Various ways of defining functions as a top level let in queries, e.g.<br>
-<code><pre>
-query { for i in ds do
-        let add3 = add 3
-        select (add3 i)}
-</pre></code></li>
-
-<li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/MatchInQuery01.fs'>MatchInQuery01.fs</a> as above, but for matches, e.g.<br>
-<code><pre>
-query { for i in ds do
-        let x = 
-            match (i % 2) with
-            | 0 -> i
-            | _ -> i * i
-        select x}
-</pre></code></li>
-
-<li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/MatchInQuery02.fs'>MatchInQuery02.fs</a> as above, but using function | for matches</li>
-
-<li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionsDefinedOutsideQuery01.fs'>FunctionsDefinedOutsideQuery01.fs</a> e.g.<br>
-<code><pre>
-let ie = [1;2;3;4;5]
-let q3 (ds : seq<int>) =    query {   for i in ds do
-                                      select (add i i)
-                                  } |> Seq.toList
-if q3 ie <> [2;4;6;8;10] then printfn "q3 failed"; exit 1
-</pre></code></li>
-
-<li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionWithinTopLevelLet01.fs'>FunctionWithinTopLevelLet01.fs</a> e.g.<br>
-<code><pre>
-let q1 (ds : seq<int>) =    query { for i in ds do
-                                    let aFunc =
-                                       let f x = x + 1
-                                       f
-                                    select (aFunc i)    }
-</pre></code></li>
-
-<li><a href='fsharp/core/queriesCustomQueryOps/test.fsx'>test.fsx</a> has module ShapesOfQueryQuotations which contains several patterns + some more interesting stuff incl evenBldrs/Distributions/etc., all as CEs...</li>
-
-<li><a href='https://github.com/dotnet/fsharp/blob/ef9d1aa7cb6edc6c80fb637065afdf8dc0b0bf6c/src/FSharp.Core/Query.fsi'>Query.fsi</a>
-(For Reference) Library functionality for F# query syntax and interoperability with .NET LINQ Expressions</li></ul>
-</details>
   
 <hr>
 <details>
@@ -160,57 +104,195 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
   
 
 <details>
-<summary><span class='mHG'>Filter/Find/RegEx/Bldr</span></summary>
-<a href='https://stackoverflow.com/questions/66966567/how-to-filter-regular-expression-in-mongodb-with-f'>Regex</a> Filters in Mongo
-<br>
-Brian Berns:  You're close. The only problem I see is that the LINQ expression has to have a return type of Object. This happens implicitly in C#, but in F# you have to explicitly cast it:
-<code><pre>
-let filter1 =
-    Builders<PostDataItem>
-        .Filter
-        .Regex(
-            (fun n -> n.reference1 :> obj),
-            BsonRegularExpression("1002\d{5}"))
-</pre></code>
-(IMHO, this is just a bit of C# bias baked into their API. Hopefully they’ll fix it one day.)
-<hr>
-Another similar <a href='https://stackoverflow.com/questions/67101596/how-to-specify-field-mongodb-definition-dynamically-using-a-string-in-f'>filter</a> bld (one fld is a BSonDoc):<br>
-<code><pre>
-let coll: IMongoCollection<NZPostDataItem> = MongoUtil.getNzpostCollection()
-let filter = Builders<NZPostDataItem>.Filter.And(
-        Builders<NZPostDataItem>.Filter.Gte((fun n -> n.dateLodged),DateTime(2020,10,1)),
-        Builders<NZPostDataItem>.Filter.Eq((fun n -> n.eshipMatched.Value) , true)
-)// ... etc 
-</pre></code>
-<hr>
-Using <a href='https://stackoverflow.com/questions/51835975/f-mongodb-using-find-with-string-filter'>Find</a> w/string filter
-<hr>
-gd c# <a href='https://stackoverflow.com/questions/51990950/getting-general-information-about-mongodb-collections-with-fsharp'>pipeline</a> (project, unwind, grp) impl: 
-<hr>
-<a href='https://stackoverflow.com/questions/64723616/projecting-results-from-mongodb-find-in-f'>Projecting</a> results from MongoDb Find
-<hr></details>
-<p>
+<summary><span class='mHG'>Aggregation | Pipeline</span></summary>
+    Mongodox
+    <ul><li>
+    List of <a href='https://www.mongodb.com/docs/manual/reference/operator/aggregation-pipeline/#alphabetical-listing-of-stages'>Stages</a>
+    </li><li>
+    MongoDB Aggregation Pipeline <a href='https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/'>Stages</a> reference
+    </li><li>
+    MongoDB Aggregation Pipeline <a href='https://docs.mongodb.com/manual/reference/operator/aggregation/'>Operators</a> reference
+    </li><li>
+    MongoDB Aggregation Stages <a href='https://www.practical-mongodb-aggregations.com/appendices/cheatsheet.html'>Cheatsheet</a>
+    </li><li>
+    MongoDB Aggregation Stages Cheatsheet <a href='https://www.practical-mongodb-aggregations.com/appendices/cheatsheet-source.html'>Source</a> Code
+    </li></ul>
+    <br>
+    The MongoDB Developer <a href='https://developer.mongodb.com/community/forums/'>Hub</a>
+    <hr>
 
-<details>
-<summary><span class='mHG'>aggregation $group does not order its output documents</span></summary>
-See aggregation group <a href='http://docs.mongodb.org/manual/reference/operator/aggregation/group/'>doc</a>
-<hr>
-</details>
-<br>
-<details>
-<summary><span class='mHG'>aggregation $limit</span></summary>
-$limit limits the number of processed elements of an immediately preceding $sort operation, not only the number of elements passed to the next stage. See the note <a href='http://docs.mongodb.org/manual/reference/operator/aggregation/limit/doc'> here</a>
-<hr>
-</details>
-<br>
-<details>
-<summary><span class='mHG'>aggregation pagination on grp data</span></summary>
-In $group items you can't directly apply pagination, but below trick will be used ,<br>step 1 - write aggregation on product table, and write groupBY<br>step 2 - prdSkip for skipping , and limit for limiting data , pass it dynamically<br>finally query looks like - params - limit , skip - for category pagination and prdSkip and PrdLimit for products pagination<br>
-<code><pre>db.products.aggregate([<br>        { $group: { _id: '$prdCategoryId', products: { $push: '$$ROOT' } } },<br>        {<br>            $lookup: {<br>                from: 'categories',<br>                localField: '_id',<br>                foreignField: '_id',<br>                as: 'categoryProducts',<br>            },<br>        },<br>        {<br>            $replaceRoot: {<br>                newRoot: {<br>                    $mergeObjects: [{ $arrayElemAt: ['$categoryProducts', 0] }, '$$ROOT'],<br>                },<br>            },<br>        },<br>        {<br>            $project: {<br>                // pagination for products<br>                products: {<br>                    $slice: ['$products', prdSkip, prdLimit],<br>                },<br>                _id: 1,<br>                catName: 1,<br>                catDescription: 1,<br>            },<br>        },<br>    ])<br>    .limit(limit) // pagination for category<br>    .skip(skip);
-</pre></code><br>answered Oct 22 '20 at 6:50	Akshay Dhawle
-<hr>
-</details>
 
+    <ul><li>
+    How To Use <a href='https://www.digitalocean.com/community/tutorials/how-to-use-aggregations-in-mongodb'>Aggregations</a> in MongoDB<br>
+    ($match instd of filter, multiple sorts, $project, $id w/multiple flds, calc. flds)
+    </li><li>
+    $unwind: if doc has an array fld: fldNm:[1,2,3] it creates 3 docs
+       Therefore if we've used $$root & wish to split we can use this as a stage
+    </li><li>
+    $facet: used to apply multiple aggregation stages in a single pipeline stage.
+    </li><li>
+    $replaceRoot: You can <a href='https://www.mongodb.com/docs/manual/reference/operator/aggregation/replaceRoot/#mongodb-pipeline-pipe.-replaceRoot'>promote</a> an existing embedded document to the top level, or create a new document for promotion
+    </li><li>
+    $function : supports customized transformations
+    </li><li>
+    (SO <a href='https://stackoverflow.com/questions/70839664/how-to-write-this-mongodb-aggregate-query-into-c-sharp'>Qn</a>)
+    <code><pre>
+    public class Employee{
+        public int EmpId { get; set; }
+        public List<EmployeeProject> Projects { get; set; } }
+
+    public class EmployeeProject{
+        public DateTime UpdatedDate { get; set; }  }
+    </pre></code>
+    1st, nd 2 create a model for unwinded Project.
+    <code><pre>
+    public class UnwindEmployeeProject{
+        public int EmpId { get; set; }
+        public EmployeeProject Projects { get; set; }}
+    </pre></code>
+
+    </li><li>
+    Full use of AggregateFluent
+    <code><pre>
+    var result = _db.GetCollection<Employee>("Employee")
+                   .Aggregate()
+                   .Unwind<Employee, UnwindEmployeeProject>(i => i.Projects)
+                   .Group(
+                       k => k.EmpId,
+                       g => new
+                       {
+                           EmpId = g.Key,
+                           LastUpdated = g.Max(x => x.Projects.LastUpdated)
+                       })
+                   .ToList();
+    </pre></code>
+    Full use of BSonDoc
+    <code><pre>
+    PipelineDefinition<Employee, BsonDocument> pipeline = new BsonDocument[]
+    {
+        new BsonDocument("$unwind", "$Projects"),
+        new BsonDocument("$group",
+            new BsonDocument
+            {
+                { "_id", "$EmpId" },
+                { "LastUpdated",
+                    new BsonDocument("$max", "$Projects.LastUpdated") }
+            })
+    };
+
+    var result = _db.GetCollection<Employee>("Employee")
+                    .Aggregate(pipeline)
+                    .ToList(); 
+    </pre></code>
+    </li><li>
+    The error <b>"No matching creator found"</b> most likely means that you received the server response, but the returned bson document cannot be converted into History or nested classes in this class.<br>
+    So you should look at the proper serialization configuration. Try to avoid using dynamic classes in the projection
+    </li><li>
+    Q: How can <b>apply a group by to a result of another group</b> by using MongoDb?<br>
+    Our type of grping but several joins, if nded chk <a href='https://stackoverflow.com/questions/54762166/how-can-apply-a-group-by-to-a-result-of-another-group-by-using-mongodb'>src</a>
+    </li><li>
+    (2 grps but uses <a href='https://stackoverflow.com/questions/51192252/mongodb-aggregate-group-on-inner-child-collection-and-get-count'>count</a>) MongoDB <b>aggregate group on inner child collection</b> and get count
+    </li><li>
+    *********GD example to play <a href='https://stackoverflow.com/questions/70081079/how-to-group-by-date-and-by-specific-field-in-mongodb'>with</a>
+    </li><li>
+    Using <b>$$ROOT</b> to bring in entire doc after <a href='http://docs.mongodb.org/manual/reference/operator/aggregation/group/#group-documents-by-author'>grping</a>
+    </li><li>
+    ****Aggregate & grp by <a href='https://stackoverflow.com/questions/69163990/mongodb-aggregate-and-group-by-subcategories-of-products'>subCategories</a>
+    </li><li>
+    *******<a href='https://stackoverflow.com/questions/50983522/mongoose-nested-group-by-with-sorting-on-nested-field'>Nested</a> grp w/sorting on nested fld: The 2nd grp nds to use _id from 1st grp, like so:
+    <code><pre>
+      $group: {
+          _id: {
+              Desc: "$Desc",...
+      $group: {
+          _id: "$_id.Desc",
+    </pre></code>
+    </li><li>
+    Getting <a href='https://www.google.com/search?q=dotnet+mongodb+nested+groups+site%3Astackoverflow.com&safe=active&rlz=1C1GCEB_enUS991US1046&source=lnt&tbs=cdr%3A1%2Ccd_min%3A1%2F1%2F2015%2Ccd_max%3A2%2F25%2F2023&tbm=#ip=1'>nested</s> items
+    </li><li>
+    SO: <b>Group back unwinded array</b> after match stage and <a href='https://stackoverflow.com/questions/69009546/group-back-unwinded-array-after-match-stage-and-keep-the-parent-data-structure'>keep</a> the parent data/structure
+    </li><li>
+    Diff betw <a href='What is the actual difference between $project and $group?'>$project</s> & $group
+    </li><li>
+    (Uses lookup/group/<a href='https://stackoverflow.com/questions/65144585/how-to-group-the-same-fields-and-project-as-array-in-mongodb-aggregation'>push</a>)
+    </li><li>
+    using $replaceRoot after unwinding a match to get @ <a href='https://stackoverflow.com/questions/66913125/cant-unwind-documents-after-group'>nested</a> docs
+    </li><li>
+    The $group accumulator can be <a href='https://stackoverflow.com/questions/67516488/using-map-in-aggregate-group'>$arrayOfKeyValue</a> as below
+    <code><pre>
+        $group: {
+          _id: "$arrayofkeyvalue.k",
+          value: { $first: "$arrayofkeyvalue.v" }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          allkeysandvalues: { $push: { k: "$_id", v: "$value" } }
+        }
+    </li><li>
+    Getting values from <a href='https://stackoverflow.com/questions/56617644/merging-two-stages-of-mongodb-aggregation-pipeline'>prior</a> stages
+    </li><li>
+    <b>Group by multiple flds</b>:
+    The key to this is in the <a href='https://stackoverflow.com/questions/68979074/mongodb-aggregate-group-by-multiple-fields'>"_id" value</a> construction:
+    <code><pre>
+    IMongoCollection<BsonDocument> collection = GetYourCollectionHere();
+
+    // there are many ways to create a filter. Using Builders here.
+    var filter = Builders<BsonDocument>.Filter.Eq("SomeField", "ABC"); 
+
+    var groupby = new BsonDocument("_id", new BsonDocument {
+                            { "Gender", "$Gender" },
+                            { "Age", "$Age" }
+                    })
+                    .Add("Min", new BsonDocument("$min", "$SomeParameter"))
+                    .Add("Max", new BsonDocument("$max", "$SomeParameter"));
+
+    var result = collection
+                    .Aggregate()
+                    .Match(filter)
+                    .Group(groupby);
+    </pre></code>
+    </li><li>
+    Recent Aggregation <a href='https://www.google.com/search?q=dotnet+mongodb+aggregation+examples&rlz=1C1GCEB_enUS991US1046&source=lnt&tbs=cdr%3A1%2Ccd_min%3A1%2F1%2F2018%2Ccd_max%3A2%2F25%2F2023&tbm=#ip=1'>examples</a> in .net
+
+    </li></ul>
+
+    Related:
+    <ul><li>
+    Using <a href='https://www.bmc.com/blogs/mongodb-projection-operators/'>$meta</a> (txtScore)
+    </li><li>
+    QkUpd: Using switch & updateMany to update sev. docs <a href='https://www.percona.com/blog/mongodb-modifying-documents-using-aggregation-pipelines-and-update-expressions/'>@ once</a>
+    </li><li>
+    Exhaustive <a href='https://www.red-gate.com/simple-talk/development/dotnet-development/how-to-program-with-mongodb-using-the-net-driver/'>walkthrough</a> w/serialization et al
+    </li><li>
+    <a href='https://kevsoft.net/2020/01/27/paging-data-in-mongodb-with-csharp.html'>Paging</a> data
+    </li><li>
+    <a href='https://stackoverflow.com/questions/70511817/c-sharp-mongo-paging-with-aggregates'>Paging</a> w/aggregation
+    </li></ul>
+  
+    <hr>
+    <details>
+    <summary><span class='mHG'>aggregation $group does not order its output documents</span></summary>
+    See aggregation group <a href='http://docs.mongodb.org/manual/reference/operator/aggregation/group/'>doc</a>
+    <hr>
+    </details>
+    <br>
+    <details>
+    <summary><span class='mHG'>aggregation $limit</span></summary>
+    $limit limits the number of processed elements of an immediately preceding $sort operation, not only the number of elements passed to the next stage. See the note <a href='http://docs.mongodb.org/manual/reference/operator/aggregation/limit/doc'> here</a>
+    <hr>
+    </details>
+    <br>
+    <details>
+    <summary><span class='mHG'>aggregation pagination on grp data</span></summary>
+    In $group items you can't directly apply pagination, but below trick will be used ,<br>step 1 - write aggregation on product table, and write groupBY<br>step 2 - prdSkip for skipping , and limit for limiting data , pass it dynamically<br>finally query looks like - params - limit , skip - for category pagination and prdSkip and PrdLimit for products pagination<br>
+    <code><pre>db.products.aggregate([<br>        { $group: { _id: '$prdCategoryId', products: { $push: '$$ROOT' } } },<br>        {<br>            $lookup: {<br>                from: 'categories',<br>                localField: '_id',<br>                foreignField: '_id',<br>                as: 'categoryProducts',<br>            },<br>        },<br>        {<br>            $replaceRoot: {<br>                newRoot: {<br>                    $mergeObjects: [{ $arrayElemAt: ['$categoryProducts', 0] }, '$$ROOT'],<br>                },<br>            },<br>        },<br>        {<br>            $project: {<br>                // pagination for products<br>                products: {<br>                    $slice: ['$products', prdSkip, prdLimit],<br>                },<br>                _id: 1,<br>                catName: 1,<br>                catDescription: 1,<br>            },<br>        },<br>    ])<br>    .limit(limit) // pagination for category<br>    .skip(skip);
+    </pre></code><br>answered Oct 22 '20 at 6:50	Akshay Dhawle
+    <hr>
+    </details>
+</details>  <!--aggregation--?
+  
 <p>
 <hr>
 <b>mattpodwysocki</b>/MongoDB and <a href='https://gist.github.com/mattpodwysocki/218388'>F# gist
@@ -288,7 +370,101 @@ https://docs.mongodb.com/manual/reference/operator/aggregation/replaceRoot/#new-
 <br>
 <hr></details>
 <p>
+<details>
+<summary><span class='mHG'>query{}</span></summary>
+                      
 
+    <details>
+    <summary><span class='mHG'>F# Repo Query Src</span></summary>
+
+    <ul>
+    <li>FSharp.Core.<a href='https://github.com/dotnet/fsharp/blob/889709d8e506e6b707c6eaec5c310edda9c2be65/src/FSharp.Core/Query.fs'>Query.fs</a> contains module Query
+    <br>tys QuerySource/QryBuilder
+    <br>MakeGroupBy, MakeOrderBy, MakeSkip...
+    <br>let (|CallGroupBy|_|)... + 
+    <br>line 1272 on contains ALL QryPattns + 
+    <br>line 1791 let EliminateNestedQueries q: elimates query{ ... query{}...})</li>
+
+    <li>fsharp.tools.eval.<a href='https://github.com/dotnet/fsharp/blob/faa115a2dfd446d2d83ba6dfe19e92a5cc5e13f6/tests/fsharp/tools/eval/test.fsx'>test.fsx</a> contains modules QuotationEvaluation, EvaluationTests, Query(some patterns here)</li>
+
+    <li>Expressions/DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionAsTopLevelLet01.fs'>FunctionAsTopLevelLet01.fs</a> contains Various ways of defining functions as a top level let in queries, e.g.<br>
+    <code><pre>
+    query { for i in ds do
+            let add3 = add 3
+            select (add3 i)}
+    </pre></code></li>
+
+    <li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/MatchInQuery01.fs'>MatchInQuery01.fs</a> as above, but for matches, e.g.<br>
+    <code><pre>
+    query { for i in ds do
+            let x = 
+                match (i % 2) with
+                | 0 -> i
+                | _ -> i * i
+            select x}
+    </pre></code></li>
+
+    <li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/MatchInQuery02.fs'>MatchInQuery02.fs</a> as above, but using function | for matches</li>
+
+    <li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionsDefinedOutsideQuery01.fs'>FunctionsDefinedOutsideQuery01.fs</a> e.g.<br>
+    <code><pre>
+    let ie = [1;2;3;4;5]
+    let q3 (ds : seq<int>) =    query {   for i in ds do
+                                          select (add i i)
+                                      } |> Seq.toList
+    if q3 ie <> [2;4;6;8;10] then printfn "q3 failed"; exit 1
+    </pre></code></li>
+
+    <li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionWithinTopLevelLet01.fs'>FunctionWithinTopLevelLet01.fs</a> e.g.<br>
+    <code><pre>
+    let q1 (ds : seq<int>) =    query { for i in ds do
+                                        let aFunc =
+                                           let f x = x + 1
+                                           f
+                                        select (aFunc i)    }
+    </pre></code></li>
+
+    <li><a href='fsharp/core/queriesCustomQueryOps/test.fsx'>test.fsx</a> has module ShapesOfQueryQuotations which contains several patterns + some more interesting stuff incl evenBldrs/Distributions/etc., all as CEs...</li>
+
+    <li><a href='https://github.com/dotnet/fsharp/blob/ef9d1aa7cb6edc6c80fb637065afdf8dc0b0bf6c/src/FSharp.Core/Query.fsi'>Query.fsi</a>
+    (For Reference) Library functionality for F# query syntax and interoperability with .NET LINQ Expressions</li></ul>
+    </details>
+      
+    <hr>
+      
+    <details>
+    <summary><span class='mHG'>Filter/Find/RegEx/Bldr</span></summary>
+    <a href='https://stackoverflow.com/questions/66966567/how-to-filter-regular-expression-in-mongodb-with-f'>Regex</a> Filters in Mongo
+    <br>
+    Brian Berns:  You're close. The only problem I see is that the LINQ expression has to have a return type of Object. This happens implicitly in C#, but in F# you have to explicitly cast it:
+    <code><pre>
+    let filter1 =
+        Builders<PostDataItem>
+            .Filter
+            .Regex(
+                (fun n -> n.reference1 :> obj),
+                BsonRegularExpression("1002\d{5}"))
+    </pre></code>
+    (IMHO, this is just a bit of C# bias baked into their API. Hopefully they’ll fix it one day.)
+    <hr>
+    Another similar <a href='https://stackoverflow.com/questions/67101596/how-to-specify-field-mongodb-definition-dynamically-using-a-string-in-f'>filter</a> bld (one fld is a BSonDoc):<br>
+    <code><pre>
+    let coll: IMongoCollection<NZPostDataItem> = MongoUtil.getNzpostCollection()
+    let filter = Builders<NZPostDataItem>.Filter.And(
+            Builders<NZPostDataItem>.Filter.Gte((fun n -> n.dateLodged),DateTime(2020,10,1)),
+            Builders<NZPostDataItem>.Filter.Eq((fun n -> n.eshipMatched.Value) , true)
+    )// ... etc 
+    </pre></code>
+    <hr>
+    Using <a href='https://stackoverflow.com/questions/51835975/f-mongodb-using-find-with-string-filter'>Find</a> w/string filter
+    <hr>
+    gd c# <a href='https://stackoverflow.com/questions/51990950/getting-general-information-about-mongodb-collections-with-fsharp'>pipeline</a> (project, unwind, grp) impl: 
+    <hr>
+    <a href='https://stackoverflow.com/questions/64723616/projecting-results-from-mongodb-find-in-f'>Projecting</a> results from MongoDb Find
+    <hr></details>
+      
+</details>
+  
 <hr>
             <BR><a href='https://github.com/Dzoukr/CosmoStore'> MSFT Cosmo</a>
 <hr>
