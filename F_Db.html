@@ -6,18 +6,86 @@
 Mongo <a href='https://www.mongodb.com/docs/drivers/csharp/current/'>dotNet</a> driver docs
 <br>
     The MongoDB Developer <a href='https://developer.mongodb.com/community/forums/'>Hub</a>
-<br>Mongo (v2) <a href='https://www.mongodb.com/docs/manual/reference/mongodb-extended-json/'>Extended</a> json
-<br>Extended JSon <a href='https://github.com/mongodb/specifications/blob/master/source/extended-json.rst#canonical-extended-json-example'>spec</a>
-<br>
-<i>Canonical Mode: A string format that emphasizes type preservation at the expense of readability and interoperability</i>
 <hr>
 Playground: 
 <ul><li><a href='https://mongoplayground.net/p/BgVQu0U_ZO5'>Grp</a>, Select distinct and count</li>
 <li>Sample dat w/<a href='https://mongoplayground.net/p/YRZhxBjDTVp'>tags</a>
 </li></ul>
 
-
 <hr>
+<p>
+<details>
+<summary><span class='mHG'>JSon</span></summary>
+<ul><li>
+Mongo (v2) <a href='https://www.mongodb.com/docs/manual/reference/mongodb-extended-json/'>Extended</a> json
+</li><li>Extended JSon <a href='https://github.com/mongodb/specifications/blob/master/source/extended-json.rst#canonical-extended-json-example'>spec</a>
+</li><li>
+<i>Canonical Mode: A string format that emphasizes type preservation at the expense of readability and interoperability</i>
+</li><li>
+How to serialize and deserialize (marshal and unmarshal) <a href='https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-7-0'>JSON</a> in .NET
+</li><li>
+<b>Note:</b>
+<br>If you wish to insert array of JSON objects at once, where each array entry shall be treated as separate dtabase entry, you have two options of syntax:
+<br>Array of object with valid coma positions & --jsonArray flag obligatory
+<code><pre>
+[
+  {obj1},
+  {obj2},
+  {obj3}
+]
+</pre></code>
+Use file with <b>basically incorrect</b> JSON formatting (i.e. missing , between JSON object instances & without --jsonArray flag
+<code><pre>
+{obj1}
+{obj2}
+{obj3}
+</pre></code>
+</li><li><a href='https://learn.microsoft.com/en-us/dotnet/api/system.text.json.utf8jsonwriter.writeboolean?view=net-7.0'>Utf8JsonWriter</a> is a high-performance way to write UTF-8 encoded JSON text from common .NET types like String, Int32, and DateTime. The writer is a low-level type that can be used to build custom serializers. The JsonSerializer.Serialize method uses Utf8JsonWriter under the covers.
+<br><b>Usage</b>: Utf8JsonWriter.writeBoolean/Number/String(tg, val)
+<br><b>snippet</b>:
+<code><pre>
+open System.Text.Json
+
+    let toJson =
+      fun inLi: ->
+
+      use memStrm = new MemoryStream()
+      use jWriter = new Utf8JsonWriter(memStrm, new JsonWriterOptions(Indented = true))
+
+        //match on DFldTy here...
+        lim (fun r -> 
+      let (ty, nm, dat) = r
+      writer.WriteStartObject()
+      match ty with 
+      |  -> 	writer.WriteString("date", DateTimeOffset.UtcNow)
+      |  -> 	writer.WriteNumber("temp", 42)
+      |  -> 	writer.WriteBoolean("bool", true)
+      | _ -> 	printfn "Unknown ty encountered"
+      writer.WriteEndObject()
+      ) inLi |> ignore
+
+    writer.Flush()
+
+    Console.WriteLine(Encoding.UTF8.GetString(stream.ToArray()))
+</pre></code>
+</li><li>
+<br>BSON Ext <a href='https://github.com/mongodb-js/bson-ext'>parser</a><b>snippet</b>:
+<code><pre>
+module BSonExt
+
+    //@ToDo: chk if contents curr use '==' delims
+    fun toBE = match
+          | Dt -> 
+                Def -> preComp -> Driver
+                preComp cTor w/Def?
+                lifo (getAll ~) mods + (get DefFlds)
+          | Dz -> hardCoded
+              
+    fun frBE = Def -> BTy -> Dat
+</pre></code>
+</li></ul>
+</details>
+<p>
 <details>
 <summary><span class='mHG'>Importing to Mongo</span></summary>
 <a href='https://www.mongodb.com/docs/database-tools/mongoimport/#mongodb-binary-bin.mongoimport'>mongoimport</a> docs
@@ -69,6 +137,16 @@ If you wish to insert array of JSON objects at once, where each array entry shal
 <p>
 <details>
 <summary><span class='mHG'>Serialization</span></summary>
+<ul><li>
+Mongo: Work with <a href='https://www.mongodb.com/docs/drivers/csharp/current/fundamentals/data-formats/poco/#std-label-csharp-poco'>POCOs</a>
+</li><li>
+C# import <a href='https://www.mongodb.com/docs/guides/crud/insert/'>example</a>
+<br>(No way to indicate fld type from a CSV dump; let the mongo driver autoChk from class) 
+</li><li>
+C# <a href='https://www.mongodb.com/docs/drivers/csharp/current/fundamentals/data-formats/poco/#std-label-csharp-custom-serialization'>custom</a> serialization uses attribs to control exactly how the POCO 2 BSON is done
+</li><li>
+By default, the driver maps any public property named Id, id, or _id to the BSON _id field.
+</li></ul>
 Writing a <a href='https://stackoverflow.com/questions/42915080/is-writing-a-discriminated-union-to-mongodb-possible'>DU</a> ty to Mongo
 <ul><li>
 1 way we mt have to go is to write a manual ser/Deser FOR customType as you wd w/any serializer, e.g. <a href='https://github.com/NamelessInteractive/NamelessInteractive.FSharp/blob/master/NamelessInteractive.FSharp.MongoDB/DiscriminatedUnionSerializer.fs'>here</a>
@@ -105,8 +183,7 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
       (from the MongoDox link above)
 <hr>
 </details>  
-  
-
+<p>
 <details>
 <summary><span class='mHG'>Aggregation | Pipeline</span></summary>
     Mongodox
@@ -387,7 +464,7 @@ You can use $addFields with a $concatArrays expression to add an element to an e
 
     <ul>
     <li>FSharp.Core.<a href='https://github.com/dotnet/fsharp/blob/889709d8e506e6b707c6eaec5c310edda9c2be65/src/FSharp.Core/Query.fs'>Query.fs</a> contains module Query
-    <br>tys QuerySource/QryBuilder
+    <br>tys QuerySource/<a href='https://github.com/dotnet/fsharp/blob/285fb61e0befe965b5626d5e009fd1ebd5189084/src/FSharp.Core/Query.fs#L52'>QryBuilder</a>
     <br>MakeGroupBy, MakeOrderBy, MakeSkip...
     <br>let (|CallGroupBy|_|)... + 
     <br>line 1272 on contains ALL QryPattns + 
@@ -435,7 +512,40 @@ You can use $addFields with a $concatArrays expression to add an element to an e
     <li><a href='fsharp/core/queriesCustomQueryOps/test.fsx'>test.fsx</a> has module ShapesOfQueryQuotations which contains several patterns + some more interesting stuff incl evenBldrs/Distributions/etc., all as CEs...</li>
 
     <li><a href='https://github.com/dotnet/fsharp/blob/ef9d1aa7cb6edc6c80fb637065afdf8dc0b0bf6c/src/FSharp.Core/Query.fsi'>Query.fsi</a>
-    (For Reference) Library functionality for F# query syntax and interoperability with .NET LINQ Expressions</li></ul>
+    (For Reference) Library functionality for F# query syntax and interoperability with .NET LINQ Expressions</li>
+    <li>
+Tests: <a href='https://github.com/dotnet/fsharp/blob/main/tests/fsharp/core/queriesOverIQueryable/test.fsx'>queriesOverIQueryable</a>/test.fsx:
+<br>~2500 lines, allows:
+    <code><pre>
+    let data = [Customer]
+    let db = System.Linq.Queryable.AsQueryable<Customer>(data |> Seq.ofList)
+    </pre></code>
+    line <a href='https://github.com/dotnet/fsharp/blob/285fb61e0befe965b5626d5e009fd1ebd5189084/tests/fsharp/core/queriesOverIQueryable/test.fsx#L1291'>1291</a>
+    <br>    // Smoke test for returning an object using property-set notation for member init
+    <br>ie, query in below line returns C2 ty w/vals populated
+    <code><pre>
+    (query { for x in db do yield C2(V1=1, V2=2) } 
+    |> qmap (fun r -> r.V1, r.V2)) 
+...
+       (query { for p in db do
+                groupBy p.Name into g
+                let s = query { for a in g do sumByNullable a.SomeNullableInt16Value }
+                select (g.Key, s) })
+    </pre></code>
+Note: The above file uses Lists (Queryable); below uses Seq (IEnumerable) (note makes little sense out of ctxt but retained for the diff betw the two...)
+    </li>
+<li>
+MANY patterns in CustomQryOps <a href='https://github.com/dotnet/fsharp/blob/main/tests/fsharp/core/queriesCustomQueryOps/test.fsx'>here</a>, incl 
+/// Detect a call to 
+    <code><pre>
+      query.Run
+      query { ... }
+      query.For
+      yield
+      for .. in do yield x
+    </pre></code>
+  </li>    
+    </ul>
     </details>
 </details>
     <p>
