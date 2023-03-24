@@ -3,7 +3,7 @@
 <head>
 <!-- html begins line #1380 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.03.23 bookmarks update pm">
+<meta name="description" content="2023.03.24 bookmarks update pm">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -1382,7 +1382,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArray();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Mar. 23rd, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Mar. 24th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -9713,19 +9713,41 @@ cn be extended...)  See also  Juliet Rosenthal's SO post mentioned.
 <ul><li>
 FParsec <a href='http://www.quanttec.com/fparsec/tutorial.html'>Docs/Tutorial</a>
 </li><li>
-Article: <a href='https://tyrrrz.me/blog/parsing-with-fparsec'>Parsing</a> in F# with FParsec (also has a JSON parser)
-<ul><li>@bot contains links to 3 other FParsec articles
-</li>
-<li>Also has a link to <b>ltgt</B>: parse HTML5 &gt;&gt; Traverse the DOM using LINQ or Seq &gt;&gt; convert 2 Linq2Xml
+Tyrrrz's Article: <a href='https://tyrrrz.me/blog/parsing-with-fparsec'>Parsing</a> in F# with FParsec (also has a JSON parser)
+<ul><li>Also has a link to <b>LtGt</B>: parse HTML5 &gt;&gt; Traverse the DOM using LINQ or Seq &gt;&gt; convert 2 Linq2Xml
+
 </li></ul>
-<li>Microsoft Quantum Dev Kit &gt; Q# Compiler<br>
-<a href='https://github.com/microsoft/qsharp-compiler/blob/main/src/QsCompiler/TextProcessor/TextProcessing.fs'>TextProcessing.fs</a><br>
-<a href='https://github.com/microsoft/qsharp-compiler/tree/main/src/QsCompiler/SyntaxProcessor'>SyntaxProcessor</a>
+<li>
+Scott Wlaschin's hand-rolled <a href='https://fsharpforfunandprofit.com/posts/understanding-parser-combinators/'>Parser</a>
+
+</li><li>
+<b>(Hand-rolled Haskell Parser)</b> Write you a Parsec for Great Good: has a <a href='https://hasura.io/blog/parser-combinators-walkthrough/'>Monadic</a> impl.
+</li><li>
+
+FParsec Dox: Where is the <a href='https://www.quanttec.com/fparsec/users-guide/where-is-the-monad.html'>Monad</a>? ..."we no longer recommend using it for new parser projects when performance is a concern"<br>
+See: 5.10.1 An example using the monadic syntax
+</li><li>
+See also this killer <a href='https://gist.github.com/mrange/32ad0628bef869ee9e20bfdc2e859e13'>gist</a> w/both Monadic/applicative code
+</li><li>
+<b>Equal</b>: Embeddable <a href='https://github.com/habib-sadullaev/Equal'>Query</a> Language (*****)
+</li><li>
+<b>CQL</b>: a query language for performing operations on <a href='https://github.com/WilliamGanrot/CQL'>csv files</a>.
+</li><li>
+<b>polynomials-fparsec</b>: A simple parser and evaluator for <a href='https://github.com/davidelettieri/polynomials-fparsec'>polynomial</a> expressions. For example it can parse expressions like:
+x+y^2       2*(x+1)
+</li><li>
+The Mathematical <a href='https://github.com/Deltares/mathematical_expression_parser'>Expression Parser</a> is a simple parser to convert Mathematical Expressions to Symbolic Expression trees
+</li><li>
+
+FSharp.FParsec.FlatFile: <a href='https://github.com/stijnmoreels/FSharp.FParsec.FlatFile'>Flat File</a> parsing with FParsec
+</li><li>
+<a href='https://github.com/ekot1/FParsecSQLTutorial/tree/master/parsers'>FParsecSQL</a> Tutorial
 </li></ul>
-<p>
+
+<br><hr>
 
 <details>
-  <summary>Parsing Functions</summary>
+  <summary>Using FParsec to parse Languages</summary>
 <ul><li>
 <a href='http://www.burz.io/2014/06/24/parsing.html'>Feval</a>: Parsing a functional language with Parsec
 <pre><code>
@@ -9746,14 +9768,41 @@ Lisp>>> (define (f x y) (+ x y))
 Lisp>>> (f 1 2)
 3
 </code></pre>
+
+<li>Microsoft Quantum Dev Kit &gt; Q# Compiler<br>
+<a href='https://github.com/microsoft/qsharp-compiler/blob/main/src/QsCompiler/TextProcessor/TextProcessing.fs'>TextProcessing.fs</a><br>
+<a href='https://github.com/microsoft/qsharp-compiler/tree/main/src/QsCompiler/SyntaxProcessor'>SyntaxProcessor</a>
+</li>
+
+<li>
+Phil Trelford's FParsec Tutorial & <a href='http://www.trelford.com/blog/post/FParsec.aspx'>Small Basic</a> Parser/Interpreter/Compiler 
+</li><li>
+Trelford's <a href='http://trelford.com/blog/post/parsecsharp.aspx'>C#</a> parser<br>
+"...it feels like every man and his dog has written a parser for C#, most commonly to provide developer productivity tools in Visual Studio.<br>
+<br>
+Third party vendors with C# parsers include:
+<ul><li>
+JetBrain’s Resharper (API)</li><li>
+Whole Tomato’s Visual Assist</li><li>
+DevExpress CodeRush</li><li>
+Telerik’s JustCode</li><li>
+SharpDevelop’s NRefactory</li><li>
+ActiPro’s SyntaxEditor</li><li>
+Inevitable Software’s C# Parser"</li></ul><br>
+Note: Huge ASTs, probably culled from the C# lang repo (?)<br>
+</li><li>
+
+FSharp DOJO / KATA with FParsec to create a JS <a href='https://github.com/rflechner/EverybodyCode'>transpiler</a>
+</li><li>
+FScheme: WIP, An experimental <a href='https://github.com/nodew/FScheme'>Scheme</a> interpreter, based on R7RS
+</li><li>
+Lexepars: the only dotnet parser combinator lib capable of parsing the <a href='https://github.com/DNemtsov/Lexepars'>off-side rule</a> languages (indentation a la F#)
 </li></ul>
-<pre><code>
-</code></pre>
+
 </details>
 </tr>
 </tbody>
 </table>
-                </div>
 <br><hr><br>
 <div id="PointFreePane" data-dojo-props="title:'Point-Free/Tacit'" data-dojo-type="dijit/TitlePane"> 
 <table id="PointFreeTable" style="background-color: ivory;" class="separate">
