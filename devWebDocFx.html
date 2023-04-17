@@ -1,0 +1,120 @@
+                <!--dev/Web/DocFx content-->
+                <section>
+                    <div id="devWebDocFx">
+<center><img src='https://th.bing.com/th/id/R.e8313479d3ee7fec5bbea87b04bd14d3?rik=ElKg%2f4FSInzOeg&riu=http%3a%2f%2finfo.mongodb.com%2frs%2fmongodb%2fimages%2fMongoDB_Logo_Full.png&ehk=LcPlgoPKxq3Xi3COif0NcttyOV4gnYAVlxFefj%2fJcdY%3d&risl=&pid=ImgRaw&r=0'></center>
+<br>
+    <h1>DocFx links</h1>
+
+Main <a href='https://github.com/dotnet/docfx'>Repo</a><br>
+Nuget <a href='https://www.nuget.org/packages/docfx.console'>pkg</a><br>
+
+DocX Local via <a href='http://localhost:8080/seed/_site/index.html'>serve</a>
+<hr>
+
+A Tutorial <a href='https://vicancy.github.io/docfx/tutorial/walkthrough/walkthrough_create_a_docfx_project.html'>Walkthrough</a> to create a docFx proj<br>
+
+Example setups:<br>
+<a href='https://github.com/docascode/docfx-seed'>docfx-seed</a><br>
+Document your net code with docfx and github <a href='https://blog.taranissoftware.com/document-your-net-code-with-docfx-and-github-actions'>actions</a>
+
+<hr>
+<h3>Markdown</h3>
+<ul>
+<li>
+Compare Markdown Implementations @ <a href='https://babelmark.github.io/'>babelmark</a></li>
+
+<li><a href='https://github.com/xoofx/markdig'>Markdig</a>: A fast, powerful, CommonMark compliant, extensible Markdown processor for .NET</li>
+<li>For html -> md; the best tool is probably <a href='https://pandoc.org/try/'>pandoc</a></li></ul>
+
+<hr>
+			<h3>Templates</h3>
+
+(from a medium <a href='https://medium.com/hitachisolutions-braintrust/getting-started-with-docfx-c710dad2e8c9'>post</a>)
+<br>
+
+DocFX comes with some pre-defined templates for you to choose from. You can visit the DocFX Templates Page to review each one as well as locate the command needed in the DocFX json file.
+<br>
+For example, if you wanted to use the darkFX theme you would first need to download the theme. From there, create a new folder named templates at the root of your DocFX directory and copy the downloaded theme there. Then update the docfx.json under template by adding[“default”,”templates/darkfx”], and then rebuild your project.
+<hr>
+
+SO: <a href='https://stackoverflow.com/questions/67826653/docfx-with-a-parent-children-doc-site-and-multiple-separate-projects-in-various'>Parent/child</a> site w/multiple projects
+<hr>
+<a href='https://docascode.github.io/template/tutorial/incrementalbuild/intro_incremental_build/'>Incremental</a> blds (docascode: Another doc repo)
+
+<hr>
+					<h3>API from DLL</h3>
+
+From docFx <a href='https://dotnet.github.io/docfx/docs/dotnet-api-docs.html'>man</a> -><br>
+...if you are having trouble with msbuild or using an unsupported project format such as .fsproj, generating docs from assemblies is the recommended approach.
+<hr>
+(SO)
+If you are using .NET Core 2.2 or greater, you can update your docfx.json to directly extract metadata from .dll and .xml.<br>
+DocFX "will lookup for the XML file in the same folder" with the same file name as .dll.<br>
+Example:<br>
+<pre><code>
+{
+  "metadata": [
+    {
+      "src": "bin/Release/netstandard2.0/YourCompany.YourNamespace.dll",
+      "dest": "obj/api"
+    }
+  ]
+}
+</code></pre>
+You should also include 
+<pre><code>
+&lt;GenerateDocumentationFile&gt;true&lt;/GenerateDocumentationFile&gt;
+</code></pre>
+into your .csproj file.
+<p><hr>
+<details>
+<summary>Log (4/14)</summary>
+<pre><code>
+runDocFx... arg: "..\seed\docfx.json"
+[23-04-14 05:19:55.578]Warning:[MetadataCommand.ExtractMetadata]Fail to find MSBuild >= 15.0 on machine. Please install Visual Studio 2017 or above with MSBuild >= 15.0: https://visualstudio.microsoft.com/vs/
+[23-04-14 05:19:55.989]Info:[MetadataCommand.ExtractMetadata]Loading projects...
+[23-04-14 05:19:56.978]Warning:[MetadataCommand.ExtractMetadata](C:/Users/inets/Documents/mike/seed/src/SampleClass1/SampleClass1.sln)Error opening solution C:/Users/inets/Documents/mike/seed/src/SampleClass1/SampleClass1.sln: Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.. Ignored.
+[23-04-14 05:19:57.000]Info:[MetadataCommand.ExtractMetadata]Cache for C:/Users/inets/Documents/mike/seed/src/SampleClass1/SampleClass1.sln in C:\Users\inets\Documents\mike\seed\src\SampleClass1\obj\xdoc\cache\final\-1540272888 is corrupted, rebuild...
+[23-04-14 05:19:57.000]Info:[MetadataCommand.ExtractMetadata]Generating metadata for each project...
+[23-04-14 05:19:57.009]Warning:[MetadataCommand.ExtractMetadata]No metadata is generated for .
+[23-04-14 05:19:57.076]Info:[MetadataCommand]Completed Scope:MetadataCommand in 1573.2059 milliseconds.
+[23-04-14 05:19:57.281]Info:[BuildCommand]6 plug-in(s) loaded.
+[23-04-14 05:19:57.285]Info:[BuildCommand]Post processor ExtractSearchIndex loaded.
+[23-04-14 05:19:57.299]Info:[BuildCommand]No files are found with glob pattern **/*.yml, excluding <none>, under directory "C:\Users\inets\Documents\mike\seed\obj\api"
+[23-04-14 05:19:57.318]Info:[BuildCommand]Markdown engine is markdig
+[23-04-14 05:19:57.495]Info:[BuildCommand.BuildCore.Build Document]Max parallelism is 6.
+[23-04-14 05:19:58.297]Info:[BuildCommand.BuildCore.Build Document.Load.RestApiDocumentProcessor](restapi/contacts_swagger2.json)Looks like Git is not installed globally. We depend on Git to extract repository information for source code and files.
+[23-04-14 05:19:58.339]Info:[BuildCommand.BuildCore.Build Document.CompilePhaseHandlerWithIncremental.TocDocumentProcessor]Building 3 file(s) in TocDocumentProcessor(BuildTocDocument)...
+[23-04-14 05:19:58.339]Info:[BuildCommand.BuildCore.Build Document.CompilePhaseHandlerWithIncremental.ResourceDocumentProcessor]Building 1 file(s) in ResourceDocumentProcessor(ValidateResourceMetadata)...
+[23-04-14 05:19:58.339]Info:[BuildCommand.BuildCore.Build Document.CompilePhaseHandlerWithIncremental.ConceptualDocumentProcessor]Building 0 file(s) in ConceptualDocumentProcessor(BuildConceptualDocument=>CountWord=>ValidateConceptualDocumentMetadata)...
+[23-04-14 05:19:58.340]Info:[BuildCommand.BuildCore.Build Document.CompilePhaseHandlerWithIncremental.RestApiDocumentProcessor]Building 10 file(s) in RestApiDocumentProcessor(BuildRestApiDocument=>ValidateRestApiDocumentMetadata=>ApplyOverwriteDocumentForRestApi)...
+[23-04-14 05:19:58.353]Warning:[BuildCommand.BuildCore.Build Document.CompilePhaseHandlerWithIncremental.TocDocumentProcessor.Prebuild.BuildTocDocument](toc.yml)Unable to find either toc.yml or toc.md inside obj/api/. Make sure the file is included in config file docfx.json!
+[23-04-14 05:19:59.448]Info:[BuildCommand.BuildCore.Build Document.LinkPhaseHandlerWithIncremental.Apply Templates]Applying templates to 6 model(s)...
+[23-04-14 05:19:59.715]Info:[BuildCommand.BuildCore.Build Document]XRef map exported.
+[23-04-14 05:19:59.845]Info:[BuildCommand.Postprocess.HandlePostProcessorsWithIncremental.HandlePostProcessors.Processing ExtractSearchIndex]Extracting index data from 7 html files
+[23-04-14 05:19:59.935]Info:[BuildCommand.Postprocess]Manifest file saved to manifest.json.
+[23-04-14 05:19:59.959]Info:[BuildCommand]Completed building documents in 2673.7596 milliseconds.
+[23-04-14 05:19:59.960]Info:[BuildCommand]Completed Scope:BuildCommand in 2884.5076 milliseconds.
+[23-04-14 05:19:59.960]Info:Completed in 4461.1587 milliseconds
+
+Build succeeded with warning.
+[23-04-14 05:19:59.965]Warning:[MetadataCommand.ExtractMetadata]Fail to find MSBuild >= 15.0 on machine. Please install Visual Studio 2017 or above with MSBuild >= 15.0: https://visualstudio.microsoft.com/vs/
+[23-04-14 05:19:59.965]Warning:[MetadataCommand.ExtractMetadata](C:/Users/inets/Documents/mike/seed/src/SampleClass1/SampleClass1.sln)Error opening solution C:/Users/inets/Documents/mike/seed/src/SampleClass1/SampleClass1.sln: Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.. Ignored.
+[23-04-14 05:19:59.965]Warning:[MetadataCommand.ExtractMetadata]No metadata is generated for .
+[23-04-14 05:19:59.965]Warning:[BuildCommand.BuildCore.Build Document.CompilePhaseHandlerWithIncremental.TocDocumentProcessor.Prebuild.BuildTocDocument](toc.yml)Unable to find either toc.yml or toc.md inside obj/api/. Make sure the file is included in config file docfx.json!
+        4 Warning(s)
+        0 Error(s)
+</code></pre>
+pls press any key to continue...
+</details>
+<hr>
+<h3>Other Help Bldrs</h3>
+Microsoft <a href='https://learn.microsoft.com/en-us/previous-versions/windows/desktop/htmlhelp/microsoft-html-help-1-4-sdk'>HTML Help</a> 1.4 (.chm files et al)<br>
+<a href='https://github.com/EWSoftware/SHFB'>Sandcastle</a> was originally created by Microsoft back in 2006.
+
+<hr>
+
+
+                    </div>
+                </section>
+                <!--dev/Web/DocFx content-->
