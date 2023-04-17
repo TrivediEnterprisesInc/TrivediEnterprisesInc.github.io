@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- html begins line #1380 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.03.24 bookmarks update pm">
+<meta name="description" content="2023.04.17 bookmarks update pm">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -51,7 +51,7 @@ async function loadU(u) {
           { UNID: 28, id: "devWebDojo", name: "Dojo", type: "layer4", parent: "devWeb" },
           { UNID: 29, id: "devWebDojoLinks", name: "Links", type: "layer5", parent: "devWebDojo" },
           { UNID: 30, id: "devWebDojoJSONP", name: "dojo JSONP", type: "layer5", parent: "devWebDojo" },
-          { UNID: 31, id: "devWebOther1", name: "Other", type: "layer4", parent: "devWeb" },    
+          { UNID: 31, id: "devWebDocFx", name: "DocFx", type: "layer4", parent: "devWeb" },
           { UNID: 32, id: "consoleDiv", name: "Console", type: "layer4", parent: "devWeb" },
           { UNID: 33, id: "devNoSQL", name: "NoSQL", type: "layer3", parent: "dev" },
           { UNID: 37, id: "career", name: "work", type: "layer1", population: "6 billion", parent: "root"},
@@ -659,6 +659,8 @@ code > pre {
                     loadU("brijLog.html")
             } else if (strId == "F_Db") {
                     loadU("F_Db.html")
+            } else if (strId == "devWebDocFx") {
+                    loadU("DocFx.html")
             } else if (strId == "film") {
 dP('film');
                 //Hide the edit & update toolbar Buttons 
@@ -1382,7 +1384,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArray();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Mar. 24th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Apr. 17th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
