@@ -1,0 +1,3637 @@
+{
+  "homepages": [],
+  "source_base_path": "e:/src/Docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Ad-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Ad-1.html",
+          "hash": "w4I56KEis+czAHtbehf9oQbOq/enKEipBUaaHHqjJ4s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.AdminTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.AdminTbl.html",
+          "hash": "E6469yJdhXoHC+fMDBI0IzK91ueMNvpaCvIlqmNhPKQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Art-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Art-1.html",
+          "hash": "nMxU+L+mBsCgc+ea+s3G+VQVWbX4tdiejV4/Y/q9ro0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.ArticleTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.ArticleTbl.html",
+          "hash": "oGEjm5AQzN4TRX3Noe28G4B11b+oY264nz9qH1FbEdg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.BanarasiFld-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.BanarasiFld-1.html",
+          "hash": "G0kBRxmBQarwbNOfKz0T2ezmYsgKpAtmLPMfD9ONIew="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.BanarasiFldAux-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.BanarasiFldAux-1.html",
+          "hash": "IfLklDzdr/SPvmBvLfRv0WhrI2P96kzVKEOHCtbz+lk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.BanarasiMasalo-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.BanarasiMasalo-1.html",
+          "hash": "6C9qtmdvzf1QYb1OKVTmQW83GgmPbVVJPVyvStK+Y4c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.BanarasiMasaloAux-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.BanarasiMasaloAux-1.html",
+          "hash": "JIr1kxAeXA8WSLLowLnSXn+AmJIM0Bu3Tne3oTspJAY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Brij-1.BDiz.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Brij-1.BDiz.html",
+          "hash": "3+0BW88X/PgXOQkqST+/7aCI8IXthamluHmOs1TdI5Q="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Brij-1.BDoc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Brij-1.BDoc.html",
+          "hash": "zEFU/iANUfEMkPtljNiXuyYYN/XhC2MKiF8N4uoAoO0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Brij-1.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Brij-1.Tags.html",
+          "hash": "zYy6yvX/yVk9CjBSQdlJMuFDL5qFCRHnUkXeAnlHP3A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Brij-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Brij-1.html",
+          "hash": "1WCgln9F/6AoOQxxOr/vwCSFBR2UjajbF/ENkbe+BtM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Brij.Mockaroo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Brij.Mockaroo.html",
+          "hash": "M0/XzCLsxwvWhbyyJ1d30z+Xe5EfbeI7yTgGHwfwGa4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Brij.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Brij.html",
+          "hash": "dVMdeIHzCgizOZlZKIwpgonhxut+cXQh+3rXvyBQYBs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.BrijTy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.BrijTy-1.html",
+          "hash": "QPy13PpcSaZFsBOY9ytg4xEXDy3h6nQWRrM+AdHb7jI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CalcPred-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CalcPred-1.html",
+          "hash": "NZub0We6YJGpL9KGmmXTUoYkCCfp97D7YmLKJZdQSLM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CalcuttiMasalo-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CalcuttiMasalo-3.html",
+          "hash": "0cYN+a10XTVu/TNhP9N0D9Q4Xipz+G7yraKkOOiqHj0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CalcuttiMasaloAux-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CalcuttiMasaloAux-1.html",
+          "hash": "FkUmuT06ximJwUpCzBVxth9CGctGcF+YdmiZzpwfQPg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Cfg-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Cfg-1.html",
+          "hash": "4zc9BY5B4fkPU1n9GxMGUhjz0dkC5FPomtCBtgmasGI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Cit-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Cit-1.html",
+          "hash": "xu3GRrF4BTNxfZx3HlT6q6cpYvY88K7L3hDXbZlDm2k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CitTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CitTbl.html",
+          "hash": "fH/3Eih1YQdViABx37CKPQ3fIfyl/gNnibnGxGEIPtM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CoreM.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CoreM.html",
+          "hash": "1gMmvOf5HAF0CBkxsKqkkZ1242w2HFQ4QZysgMQFpiI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_AdminTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_AdminTbl.html",
+          "hash": "kp/9Ud7mFAfgMbGcA6Da43x47YgogMdPAXYzVR5lQHc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_ArticleTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_ArticleTbl.html",
+          "hash": "RTK+Izf2wCcvzbQHGTKRezyNx8ZTx0JUv+ObH2PXE1E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_CitTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_CitTbl.html",
+          "hash": "n15DeI4kIoP9khImetYGJV7oro8+EvJSzZGy3Pwb6og="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_MockarooTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_MockarooTbl.html",
+          "hash": "OXkdj51qgYMOXo82SwOZbvP+cVEO5n6BuUaLWzPzy9U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_MusicTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_MusicTbl.html",
+          "hash": "WLxQuAfSGIUfwNCGionFca+z3nEckKn4rbC5bc2pHOU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TaskTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TaskTbl.html",
+          "hash": "ysvl0WRaz/Hewc+m1ddImrqq+7fJerQ3CzPCiPUilP4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_1.html",
+          "hash": "wQ9uyDlzZd+qeEkkT/+Fxtap452ZGpPpWWHLCWywR28="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_10.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_10.html",
+          "hash": "d7YHXm1uXWRUZDcHGcxiA9AZeOKNW3zwS1iXCdQu1Vs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_100.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_100.html",
+          "hash": "PWWDSh67WBEmKwwOn3do/eHS6wOlk0PcchAdFt7PBx8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_11.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_11.html",
+          "hash": "aYwLUldGFoRmjMzix/jdHg4qtALKTojEQ3NWOklRVWY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_12.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_12.html",
+          "hash": "fG1Np+7BnlQS8RlenCLOV12zw0q2q1Hyc+f7VENJP4c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_13.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_13.html",
+          "hash": "THNiB+MEN5Z/XmbuNcavLDAbeohtb+wXmMpxlTcoNOc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_14.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_14.html",
+          "hash": "EmxFPcxjDkJUqjuJy3t6rCGwcREaTsV67yciLq3O8cs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_15.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_15.html",
+          "hash": "PLyojdbmwRw57sB0+hZ0BtiZrL8u8tbB+QIICxzrNsQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_16.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_16.html",
+          "hash": "EPwb2pwGHSkW299tZc7BHlbUlmXtXJoYBV0hOteCoOY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_17.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_17.html",
+          "hash": "PksCbAW02JFY54iYV10guPqKgeQuxGhkfi0xlJtLSV4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_18.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_18.html",
+          "hash": "FowV5RNtbRfqAQ7FVy2a5j47JwgB2g2dgh2UQhC4q1A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_19.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_19.html",
+          "hash": "ogRCPHdtCyWeroNwsmVXrptZ+ocpXhDBzICguOQWGv8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_2.html",
+          "hash": "/lxgiQCctwJtolor//U+X4zCLZhnQSTFXlwE7LBBsIY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_20.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_20.html",
+          "hash": "5Jbk/dfMG+S20loLHBxSreMPyWVQugpV7FzTxUozpBQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_21.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_21.html",
+          "hash": "j0KEyzoJpxPnjBzs1oNFKPU05BHivqnmpYqqmz7X/uM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_22.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_22.html",
+          "hash": "w10awlZyfZLkIJxxpaBVTH6mwDSnaoJuYawxy16kuvE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_23.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_23.html",
+          "hash": "2ZXfR5EcbLj3wj/dT3OTo6I3VeUOmwNtqMw044X/ogQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_24.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_24.html",
+          "hash": "FX+cWQBO8mA4dfjMaJn61jIz1xAwIFOTCTt0rMZOVw8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_25.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_25.html",
+          "hash": "gSqlgflgtAZPdtUtbnH/79WPo4vMi8NqRsYP1T9JIsw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_26.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_26.html",
+          "hash": "oR5ysf0QsJlzKYO6pPDQgNqsD2/Awm0XniT9czPVe9g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_27.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_27.html",
+          "hash": "FrVF0fKZaA69VDHg1ny9oKx8FEeVFZNGovac4ZOOVhw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_28.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_28.html",
+          "hash": "81n0ptrCGVZG8Pr/KJTL9+GgAtEQv8bJq4Mv6kmDdyA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_29.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_29.html",
+          "hash": "hI8BCprQHsRCE2v4WhLe/wNh05DA0vqn8U+/KzxyXQc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_3.html",
+          "hash": "HS2ZGBhKEcC7OPDY4f2J7zwYN4TchSCDCFVdtclJtAE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_30.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_30.html",
+          "hash": "N1ioTrj5wZk/Tj5A7TzQFDsvlSkGAeW356KHM/OEPg0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_31.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_31.html",
+          "hash": "ccsnoNj4jx9Mdn1bG6n4rT70LxeYnh30kRp9ZDAt6eY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_32.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_32.html",
+          "hash": "cE3MzUYqqq4jll6NTPvGPG5GURg+3SUTT5khT1+y/u0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_33.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_33.html",
+          "hash": "MllCO4lIAAUJAxTHZVhKfb2zSKrVlsCOWoeDxeU0w6w="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_34.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_34.html",
+          "hash": "pNlBKwTnjPWqUsJjmriK8QvzwJnXBDma22SMdQljPXo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_35.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_35.html",
+          "hash": "Qnv3/QTlwcMV3CbXKR7qOc2CQFh3Y7I/EbEUhfCrXQ0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_36.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_36.html",
+          "hash": "6QFbiyOq73Rgw3oT4LCeSDh29UqL9RlcNMVwrmXAmN0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_37.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_37.html",
+          "hash": "XJcTWdrATW2gDymN0KYwMShOAuOQj20uald9h57YCw0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_38.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_38.html",
+          "hash": "OSf/7ZEhnTjcUEkRvhjnJYigKiAau0I//vW8hOuE87k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_39.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_39.html",
+          "hash": "Kv0eHf4xC73BgHVwtUv/Jo3C4RaiCwKqTZxhcVuzEeE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_4.html",
+          "hash": "z+A9pork5DL30DskLA3J3jAWhqrVjoKGs70E5DrbcGA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_40.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_40.html",
+          "hash": "kLIVVbGduFeV1qC6VgqXLhOrm38dQOutVwdZFiBd3HI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_41.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_41.html",
+          "hash": "O5C2kpZzvc0P1UCxPl8NDoJLIY5rt3c2P9oAmJl4lOk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_42.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_42.html",
+          "hash": "x8RtYn6PZoLtoCPBsZU/0RF6THk5Dybd9aTm4FxEp1U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_43.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_43.html",
+          "hash": "lF2HKPtcjDvW6o9zILpcEEKlJPbPb7q7oSHcqDGp8rM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_44.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_44.html",
+          "hash": "+CooSLWF6itkDmHxGsqZ0GGBgmUU4TQbqAlvY/l7CQE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_45.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_45.html",
+          "hash": "CEeH7ZwozHUkpoLYcjFL9P98YCsy28f90Ra9iGTsiHI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_46.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_46.html",
+          "hash": "cAyUsvJTVqkmL83mdPiV4D5yuuunsMN0JESR9hS95B8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_47.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_47.html",
+          "hash": "k47/flw5dpOGXiaW+DJ+sbclpKiNz5swZJ7noSFqwR4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_48.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_48.html",
+          "hash": "xIOjPvJBGArCUJr7zr9Qtmvgys0ShXbfbiUde1OHXuc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_49.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_49.html",
+          "hash": "Jj7XpN6WGG5j/IeLEPlLVox9nr4ylzTbfA1ADaRG0C4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_5.html",
+          "hash": "Ouq+XBMJPGdioTZuCSLgJoBH1FDmwFpsrU3X06kLwbk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_50.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_50.html",
+          "hash": "Bm38GXLu7z/rP8KpUlYopDwgph8HFopm/ewsu8ESOlg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_51.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_51.html",
+          "hash": "pVTf0PV6xOknK7Mp/u28dYB6ErEk8F33+hTnetXe33k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_52.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_52.html",
+          "hash": "x+Zfo+ConRPfXfzVNlEClZ9WdMtmUJDTiOSN3+fQBjU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_53.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_53.html",
+          "hash": "Z1x/rpC+AFYkRl/GzwOT4qZmV8EDaKCTkM9cvilSyqc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_54.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_54.html",
+          "hash": "Sf3zF5+z8XQS3Bl7okp8+Llsn1N7ILpSdkYEUcTZYx4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_55.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_55.html",
+          "hash": "pyokSByXRMx+LEHuaVyuRvb0qGnb3VcwOyn4bbzecSI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_56.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_56.html",
+          "hash": "cx7HPWJS2ClYMKucTKC7un7GUE1cNUpCfp/1V5Mnwxc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_57.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_57.html",
+          "hash": "mTr+Y4vbAQt+Cr/+pynjvpEXl72MZgKP7Yg5IwSGm7E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_58.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_58.html",
+          "hash": "KTjhG2dE+KKmMroW3TjMmu8sHbC0gK2ooF0+5QI6YeY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_59.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_59.html",
+          "hash": "lrZPXfsNuIaYUw/WlHynd2VOS3VMb/Zvkox7t1rrhp4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_6.html",
+          "hash": "yq2c8m7MJiBP7nn7wjHWy8wd4GvhTKRCuB/uPwyVLto="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_60.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_60.html",
+          "hash": "hFCkDDrYn5cgadZoO7TaJUoclCw85Brb9FKduIlt99g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_61.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_61.html",
+          "hash": "KmXyXNlKW/9h3LBynYPr4wrmAcicycgi1rnR7StZjv8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_62.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_62.html",
+          "hash": "QqhhHO583kDP/HuZzXvA2+7SavXqDBy8XrhkqModjTs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_63.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_63.html",
+          "hash": "faN/Vi8MjbmqfCb0xdHyVQoN6mRMM+8Bl3x2Wuw97k4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_64.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_64.html",
+          "hash": "VIoCrUsw2Cc3UDsJDbI6DIapSzr0sS8NipcCdnIq4ag="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_65.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_65.html",
+          "hash": "olHvTgED+Fize5EP/PcFYDCMUvkoqFMRbyBm8PJaUII="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_66.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_66.html",
+          "hash": "QK+Ubk2LH5u2J1ajJ4bV5a84brqhsWzMUUs1ZeEz5Gc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_67.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_67.html",
+          "hash": "UD6ycsOcEZUE00rc9iXejUaBkL+XJL2EL5otJp9W30M="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_68.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_68.html",
+          "hash": "uc65ExXJtFNGUzXJvngwNVw6TBFYmmL75cBI9EEgWzI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_69.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_69.html",
+          "hash": "RA1ApJ9tzz2ns/R+oKeUcozBPjKE+gKZB5w0S1zITt8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_7.html",
+          "hash": "s5jsHqIZ34lLxSu38gHfNiRI2uNsYGSw6fmlBwqqzfo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_70.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_70.html",
+          "hash": "C39c6OHV992DJIuoiYvkNQKAFY2jPVloZsgDsxulbX8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_71.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_71.html",
+          "hash": "fSqxOW/LJYJ8IqwRaF7GWg9eH6h08WpLSZ1cSJzrMwY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_72.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_72.html",
+          "hash": "p88CINfG7y943p9JqR5PSXuPNikne8ugpSkildF0AgA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_73.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_73.html",
+          "hash": "aXJKf1f9XH/jTlu3pj95J5j3hM6WS3zy++e35lOlrL4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_74.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_74.html",
+          "hash": "IKmdzgbeGAc51P6EUXpZddoXyD3oyqZzr3k+fcxpt8Y="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_75.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_75.html",
+          "hash": "d9B/qlzUePFh2tBJJajwIZ6E3tj5Mdsyzo+Ln4ZBGS4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_76.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_76.html",
+          "hash": "mw1B64tJ6ZQUWEfWB5nodZRmXbog/VR6GVuKqBmxhZc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_77.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_77.html",
+          "hash": "Km3QPSB1N7RUSIfEpPtib8uhEAnDtDB9uqV+GNoxy1U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_78.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_78.html",
+          "hash": "L4fiT2VXqDetwwyTj17JvtGCzjkUTUWppYFjf9q68ao="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_79.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_79.html",
+          "hash": "IRZUHw+V3CjO7Ub3jUIitTBXctygNaw+awkAHq2d9pg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_8.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_8.html",
+          "hash": "nIARIjgJe0WjbhHmBBdsw8IHwWm+di5+jYFAgMzJF78="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_80.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_80.html",
+          "hash": "N3VRnTSb2o/Xk1l0mgXlNlTnnW37B07b0GltV2zMBz8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_81.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_81.html",
+          "hash": "r0fZ3+xnnTF3FHXRLoFwkaf9oaRhEe57xjxZnwpeTaQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_82.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_82.html",
+          "hash": "iJDg1WPtRA7hdHJXG1MpZn/r4bj9pS5gRfIptMClWNY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_83.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_83.html",
+          "hash": "dQ6uh/2yXQZiQ7PYEQ2inNnoEfEz4yRr0dGwbCl4SXs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_84.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_84.html",
+          "hash": "RGaZB1t+c4GFlx7uV7pk81SqY8PDLo8ZzAwP1oPm9po="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_85.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_85.html",
+          "hash": "4G5J0QtxDvoKSr+wTa7UrU5A0BnSR/3jvu37MoK/8u8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_86.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_86.html",
+          "hash": "yh4XEjAG+ef5gO+KWX5Y0nW6QrCxpYQ+Eb4jKJa+RI8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_87.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_87.html",
+          "hash": "qq9LEDp6Oy+dTq+8J0KW2meZgpxzzTS893GwJK2JZcM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_88.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_88.html",
+          "hash": "o/N6ioC/DQn+vb4jNo0Pgmqyx+YeuVHcy0gpqBOap0E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_89.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_89.html",
+          "hash": "xj37ZCC2dMWLqEkc3A3wqzgqqQkonKZHoPVsbCr7DHk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_9.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_9.html",
+          "hash": "Awm1tdc40H7aiOVY/l4XkR10ykWdWcrQHZ2g48hdGUA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_90.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_90.html",
+          "hash": "4KN9x6ravfF3TVSJagCNKhfXXxA2X5a99dLgfqIeW6A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_91.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_91.html",
+          "hash": "dgKr0UYL5RGhJUZHdm8/YCY2s11eszd97IWWgDPElU0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_92.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_92.html",
+          "hash": "u99s4hOfY5m0+8QJVKIaOcyLHVGSr8l8N3qEEhBBbE0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_93.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_93.html",
+          "hash": "qCa1M4ATFdhGmyvc3dxgzbI2GkBvKCKmU9wSJL9Ssn4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_94.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_94.html",
+          "hash": "ZxQMIkpd7JAHIAZUQm+WtL6mkttObDQ585mFIJ9/UeE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_95.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_95.html",
+          "hash": "LvKEGxNKLd3E6CLJxfx95xK6t5MAI+tE2TeBHAGcIZ4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_96.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_96.html",
+          "hash": "u79KqbawmhcsnDctto6xsBPeb1YJVxyoP3xNxNiwuuA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_97.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_97.html",
+          "hash": "Q6rJmpqSgfMXOQp/16vaQwCV6T7h3CuhZUpIwEINEdA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_98.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_98.html",
+          "hash": "xlXe5modWAYCNayzQa4ilXh+xai2KmLza4B+arEiUlI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_99.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.CustID_Trivedi_TblTy_99.html",
+          "hash": "HZLkQ4oTIsByuUB951BmLiF2XDSbxfGxAjGshetFk1E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DVPaginationOpts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DVPaginationOpts.html",
+          "hash": "w+oUt0Cr0xPJnuiksxi0RLWdE4k+XwWtXQ4jpeP7Z/0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DVType.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DVType.Tags.html",
+          "hash": "I0Q5EaIvUtBe+VpJEUvq8iD8C0V7XliJkNUqFXGRCpc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DVType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DVType.html",
+          "hash": "Rk8e/gEfbuB5fM6eRGcKpQLN9iNBDHwmGZiohoTPEBo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Dat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Dat.html",
+          "hash": "bERv5z2ReO3sQIgBUBhCLZgqykpibE3D7f5xrkUFfaY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.Banarasi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.Banarasi.html",
+          "hash": "5go14COJC6iowhX6J03Ni3uZDgIlBCoMC6wFglzaC8Y="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.Calcutti.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.Calcutti.html",
+          "hash": "tSNCBXZNpqOo3wkxkmleuNpVt11Ey89JCYgjdQozHMA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.ExprDoc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.ExprDoc.html",
+          "hash": "QwO8ddzIg8oYvzDjhedTTNvs6FZeKFcsSInlmjGtgqk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.FldDef.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.FldDef.html",
+          "hash": "2zgmFniiLKIRBpNQOHC2iy5caTKYqaKbhn1MWJ7vnNI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.FldDefv2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.FldDefv2.html",
+          "hash": "yikZMSv1J/utkD3UrulD6ZOBjSCRraiRwt25SMHvRMI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.LookupFld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.LookupFld.html",
+          "hash": "mLPCCIpgiXUXLHsv55BsWMwHE6CcY5zG/7eQmAGpYVE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.Saado.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.Saado.html",
+          "hash": "xhXN7SBEAIojftqekeG9cryU49bt4vOEc65jrte0pVY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.Tags.html",
+          "hash": "c+ZuNrpTAEgJli3n+dfP65QoygJa3rNuzp6rFGJuvus="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocAux-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocAux-1.html",
+          "hash": "gKQ0TLXedE8kd0saJo7Jc2W0Gub6hYo2W8BDtLXjxv0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DesDocInf.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DesDocInf.html",
+          "hash": "8l7dJVpqefPSj/q+jLw7g476o95gIfkiRobyKq6rt3o="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocAttachmntModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocAttachmntModule.html",
+          "hash": "m2GwTMG+Q5DoVo9kprsVp05Hx7BKcNE+Scap1utzFeQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocEditHistoryModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocEditHistoryModule.html",
+          "hash": "6lzpxJt7FRCH4PsGqyRm2a0Cbp111vKpxkQFYtctdr8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocFld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocFld.html",
+          "hash": "+gOxQF7uwr8xbis3GW3M9roOy2OlD76tKBIAaQhgFOs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocFldType.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocFldType.Tags.html",
+          "hash": "PUIFMKwoLv8sn6kxTHU7jEHLRJK06OjIzA6I1csFeYI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocFldType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocFldType.html",
+          "hash": "MEjQmTlxHep/I1MzpUtYwhu2vuQ7QkaE+DnmPDkants="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocImgModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocImgModule.html",
+          "hash": "E41yky/LKdg7zSDV4DiCofQz67FhkvdTEoNDrKTs2DY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocRelationModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocRelationModule.html",
+          "hash": "EjABRmE07yYeOSAXxsQTlWGNIqoR4eCIYFiTkS6z84o="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocUNID.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocUNID.html",
+          "hash": "yyHs8nSnbivsFpv4iae4oPeRvLC4WYxS1GIVrHDvO50="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.DocVersionModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.DocVersionModule.html",
+          "hash": "qLCfAXncYMo+SZgbURlfxe1IyXaqALbIfmmgJGb+pC4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.FrmFldType.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.FrmFldType.Tags.html",
+          "hash": "krFrWEfa8x4Vd2MFNkpFjccgchYtus1hdFHvGzyVi1A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.FrmFldType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.FrmFldType.html",
+          "hash": "GDhwk32w27+1/5BxS5Sf02i685uNtMWz+o+KjuDWEtM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Gullo.CitCollector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Gullo.CitCollector.html",
+          "hash": "jme0jcbuDutWTxk+B5J//LgvoRV2uKwlCDbWxyUnN9o="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Gullo.DatImporter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Gullo.DatImporter.html",
+          "hash": "f9A1ThLhAJqbyqbdyBLzVavBoIOmlmPn5lT+Dl5pYCM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Gullo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Gullo.html",
+          "hash": "9yNx9dB9ov42RCU2Ieg4xD+lVzdLtZbBikyYwYzaM48="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.IModMarker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.IModMarker.html",
+          "hash": "rdpJJvTCrDnujDFlgz32mPL7N9GGkKYtii/FbNU7ATQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.ITblMarker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.ITblMarker.html",
+          "hash": "c6KWxDZ7lApAb3aDS1ixE7oZLRa9lITUR7tQot9VrrA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Mod.CoreMod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Mod.CoreMod.html",
+          "hash": "4xr1i/EntqZ/x0PsCwUH/T/yG1Lgf24t7txsreN6pE4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Mod.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Mod.Tags.html",
+          "hash": "J7Nc3Z/HlnrbsZDszVZ6dmqvIwHcIg///bYL1JqGVKQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Mod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Mod.html",
+          "hash": "PKGwrw8/tSQbVlfCoIaUADxyqb21YzrvWDZf2ZScI3U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.MusicTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.MusicTbl.html",
+          "hash": "cRJtZEMT0kzv7gw0OjQzWPXZZRMivVCRbdoeSodNtoY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.OptModID.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.OptModID.html",
+          "hash": "GoH456faImr2/bhTAUP6q5A2blzeXvSamKDF1BFoRAE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Quad.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Quad.html",
+          "hash": "vwI10u5BG4cnctCguRzzn1eLO0g/3VFzQfpfgqOQSxQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.SOrd.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.SOrd.Tags.html",
+          "hash": "9jSyO0SiAXWKs8rledg906ImdWzggkd0y4891MGJecs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.SOrd.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.SOrd.html",
+          "hash": "slHsNGBFPYeTVSbNBsoxRct7ke/BpKct5QP2oiGDgvA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.SaadoMasalo-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.SaadoMasalo-1.html",
+          "hash": "ceDuNV3zukeP7yu9c+8SBIBLQgEyAUN4ipnruErwY6k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.SaadoMasaloAux-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.SaadoMasaloAux-1.html",
+          "hash": "P3gXtOXgP8nMYPq5g87hE1YIjde8Uy+lVwwhP8XoI+s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Task-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Task-1.html",
+          "hash": "8JHi/7z8TmoRrVpNpcuhVN/OJ/SnsyiWvb8dF1Vl0yg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.TaskTbl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.TaskTbl.html",
+          "hash": "yi4kPbIBs7D6aWGLEgEPsOckuiGeBReIIh7UN12bXHA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.TgtVer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.TgtVer.html",
+          "hash": "2Bb8mVf8X2+IEnBW9lyBWRofWXSXx1hzL5bHvPdVpfU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.Thingy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.Thingy.html",
+          "hash": "6AIQKYKVT7Im0pxSoObKOUx22PF3PzPpp6nC+3YRPtI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.expandoState.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.expandoState.Tags.html",
+          "hash": "daB/5HQZHRqlbZvNZHEaamBjMtVSnT9YtTziUD2YlKI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.expandoState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.expandoState.html",
+          "hash": "TbYNj9zMmsnXMiFpQcYukwTVmEdudMylc/Onw/l5mos="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.Dat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.Dat.html",
+          "hash": "DzDk1Kuhz9nPU/IaLoYefVT8R8g/econCru1FQC5fb0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.DocUNID.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.DocUNID.html",
+          "hash": "sorpO2n6Uw9h0eSX7K/cPiCayfQ+WopIcy9E4Sdsm44="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.Innr.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.Innr.html",
+          "hash": "h1aEj+H/3PZ1BLACHVN0MmuEgTlKpo4068TzCn8rOuE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.TaskDoc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.TaskDoc.html",
+          "hash": "XUNm/ZzFvACMLlYAtz4k+rrT2EwAZDWNmoB+SaBucME="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.TgtVer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.TgtVer.html",
+          "hash": "IPOgac4vavvnm8OlB1bDgUtougAmTp8Q8JgMemokwYw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.Ty.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.Ty.html",
+          "hash": "7SktIvHcU77ZIXF5TT9ToPCHQPkiw70Xh2iuBDWzeYA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.CodeQuotations.html",
+          "hash": "weiS5SAArnVRw5hYbDO+M7j+s75DGY7yymQkNMTwUDI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.DUSetFld.dyBld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.DUSetFld.dyBld.html",
+          "hash": "ABcQUP+5qccsPHwyWaqGPSRTX6aC6Ps42ZWWf+4Lc9U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.DUSetFld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.DUSetFld.html",
+          "hash": "ne/6BE8s/k0mkzC9V7CvqUgJ6cDgIxJW6EU+wDmLNKI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.tkTests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.tkTests.html",
+          "hash": "YdnSzhfE3tMyu/W2lu8rmcuwW371VIzZY673miTqZlc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Brij/Trivedi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/Trivedi.html",
+          "hash": "lvP2/95ttbah3+w/xDCTlyTPdX1rKmpZ/Ku6npl5OZY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/Brij/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Brij/toc.html",
+          "hash": "xPTntRX3XSikPlWvB3/iYEYoTQFlcAImeMe1ZrOEvuc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoreAux/Trivedi2.CoreAux.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoreAux/Trivedi2.CoreAux.html",
+          "hash": "SPNXehxM928Ai0ZZqVyOrq4Hd6ntzJ3IjbKVX/LSlJQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoreAux/Trivedi2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoreAux/Trivedi2.html",
+          "hash": "Nuz4LU30jVET35QU6LUoDgb0PoB/x2vEsZRfWOTAKQs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/CoreAux/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoreAux/toc.html",
+          "hash": "O/3Xftg1kxZh0ctzftRTMGvK0JABeOKK725+yiH13QA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.DVType.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.DVType.Tags.html",
+          "hash": "KPlz1OtzIBj3mk9HjN/lLOw42yjHjImf4B+T+jmJ4a0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.DVType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.DVType.html",
+          "hash": "ADiHzI+MLfoHVpEEtDNJQg7XZzlKpZe1XYC/clMFkiM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.Dlg.FldDefv2-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.Dlg.FldDefv2-1.html",
+          "hash": "MGxnZglg/h2ahz2OPP73htAmpTkyoeJ/lxlnvhSy5Ns="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.Dlg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.Dlg.html",
+          "hash": "ouptkD3XUC2pj8IBrm+/Z4GVJsFyuB9Fv6ypQUFDLyI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.Dlg.ગપ્પા_પાન-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.Dlg.ગપ્પા_પાન-1.html",
+          "hash": "59vcAZy6f5wSesEU8hVGL6CiPg++hRgv33Rq4pnH1pI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.Dlg.ટેબલ_પાન-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.Dlg.ટેબલ_પાન-1.html",
+          "hash": "qSJqAUX1XefQnZUnFrCt9jXOfn52g906bjtoOkHGyZo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.Dlg.ફીલ્ડ_પેનલ.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.Dlg.ફીલ્ડ_પેનલ.html",
+          "hash": "XcwkLgl3V3nYQBK84erNzcafsm4ek43LtEFqhgIYCN4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.Form.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.Form.html",
+          "hash": "I0+0LRSmppTtm0Mm+Q705HMcf0NubXP6R5JluJFl4XA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.Helpers.Trivedi_UI_ex.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.Helpers.Trivedi_UI_ex.html",
+          "hash": "HtMQxb5rE93q+hAw7HLOVrYZ2hU+2lZvw42vscbMbwo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.Helpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.Helpers.html",
+          "hash": "MsXHCWsT0wI+zRsidq/JeHLUdpPtZSQAu9WMSf+vPE0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.IDlgMarker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.IDlgMarker.html",
+          "hash": "YJ1/dwWSiU1gyF3Jii6YdudYZIhmUyiYEYD16YIxnQQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.IGridMarker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.IGridMarker.html",
+          "hash": "PlfPvQtOa0LLCOe6RK7YtZKHThFjL/ndkYIo8ElyvRc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.ToolTipMngr.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.ToolTipMngr.html",
+          "hash": "ATPgAHKhDdq3D6Z0TPq832SQveGi8w+JYeNZ1BSbuqg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.UIColorScheme.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.UIColorScheme.html",
+          "hash": "zlWLWw4QfCUlOG29Vf6kVOUCOHeF5vT2LhS261tWWUI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.UISize.Tags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.UISize.Tags.html",
+          "hash": "ncQ9FL2Os2EI/8I8y2l88IFjnPrIZeeSF3RPuGaOtjk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.UISize.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.UISize.html",
+          "hash": "GkP2Qk3eXy6b/KAaL1ae7wDHsdTcUUt/MZf0461h09g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.choiceDlg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.choiceDlg.html",
+          "hash": "FSziDY8yw85VgXJ/SMMH67c06HMyNfnRCiUmS9RCPRQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.desGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.desGrid.html",
+          "hash": "Z5pGw2SdCOcjNKGVEtGsTqHSsxKGfEe67tzfsTcxpYA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.dvGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.dvGrid.html",
+          "hash": "M59WZGCGBiyqWHmIeh+/f1ET5sRMM4h/XzCXCQvLkgU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.frmSetupDlg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.frmSetupDlg.html",
+          "hash": "N5hYtTPL+Fc6PWikIbcJ7O1VXIfSOGCiq7yZRRMqh5k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.imgGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.imgGrid.html",
+          "hash": "TOGSBiILPo7pT++TjlLVWqXUt4v+Klawvb2yjtU250k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.inputDlg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.inputDlg.html",
+          "hash": "J0IFVndaSs5+kbZV+9sLHDo1u0PYc7AglwzTJkWJs7M="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.listDlg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.listDlg.html",
+          "hash": "4ZrFxd6eJrYK1Wlf0rNev5CnISh3UcJOt0ShH1jkDaE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.tblDefAddFld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.tblDefAddFld.html",
+          "hash": "eZJKslPSCwy7ATtWhjY/5c1UnDuMVoELxIH3Wp28P1M="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.tblDefCSVDlg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.tblDefCSVDlg.html",
+          "hash": "9uQ0T4opXR7e8CeABaDUsVgloYYA7F5s3WNk/jF53yc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.tblDefModFld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.tblDefModFld.html",
+          "hash": "vL6eCYyDFhmcMOUUKeeQ9Gd/G2u6RpNg5sUB71JfZMc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.tblDefRemFld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.tblDefRemFld.html",
+          "hash": "pWHzS0a04MOHoCwTpo8a6+nxlCZbgFADRQV29SHvpxE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.tblDefSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.tblDefSetup.html",
+          "hash": "DEvqonRhBZku+Sf0fxs74syPHieIebe3wocJGSvC3lc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.txtDlg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.txtDlg.html",
+          "hash": "i9IBxZHmejdAb1gYshOQxZBl9CbzKfD/PZVH8RKLihk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/UI/Trivedi.UI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/Trivedi.UI.html",
+          "hash": "dsP/EezNaWWfv8dtPhUlc6Jv4bRTP1XI+MmOXdEgU30="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/UI/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/UI/toc.html",
+          "hash": "IGDdDZ1CKcNjIa0wZjgOowqDjlke6B0GCL3zLADJLRY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/FairUseNotice.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/FairUseNotice.html",
+          "hash": "vz/eLJrHKYiu2BrWvJmKz4A8/BKkUEskNyWxWs7FuKU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/deliverables.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/deliverables.html",
+          "hash": "GAA8EAeK6naD62lqW6r4oX65Qn3vv+Oh6BBFsV1mjSA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/demo_script.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/demo_script.html",
+          "hash": "X8jXqLx14T2j0vaHysjSBrIJjh4/7Fo9iL8nGlwJfCg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/faq.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/faq.html",
+          "hash": "/9S2iWvz2V2vvac3QH5gfA8jhd9V+mDd7MMo6z+hEEw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/founder.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/founder.html",
+          "hash": "cGtUWvPYvqmylnJeLlIk9022cM2TrYgDC9ITTTdzmLw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/0SP.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/0SP.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/1MM.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/1MM.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/2BM_FldsTab.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/2BM_FldsTab.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/2BM_FldsTab_AppearanceTab.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/2BM_FldsTab_AppearanceTab.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/2BM_FldsTab_FldDef.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/2BM_FldsTab_FldDef.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/2BM_FldsTab_ValidationBldr.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/2BM_FldsTab_ValidationBldr.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/2BP.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/2BP.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/2BPDz.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/2BPDz.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/3CM.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/3CM.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/3CP.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/3CP.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/3CPDz.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/3CPDz.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/5CategTester.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/5CategTester.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/5PredTester.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/5PredTester.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AirTableDV.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AirTableDV.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AirTableDV_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AirTableDV_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AirTableTempl.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AirTableTempl.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AirTableTempl_Thumb (1).png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AirTableTempl_Thumb (1).png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AirTableTempl_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AirTableTempl_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AirTable_clients.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AirTable_clients.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AppianDV.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AppianDV.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AppianDV_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AppianDV_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AppianTempl.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AppianTempl.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AppianTempl_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AppianTempl_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AppyPieTempl.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AppyPieTempl.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/AppyPieTempl_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/AppyPieTempl_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/DW1.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/DW1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/DW2.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/DW2.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/DW3.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/DW3.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/Desktop_Dojo.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/Desktop_Dojo.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/Desktop_Dojo_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/Desktop_Dojo_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/DithersReqts.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/DithersReqts.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/FormalooTempl.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/FormalooTempl.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/FormalooTempl_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/FormalooTempl_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/KnackTempl.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/KnackTempl.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/KnackTempl_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/KnackTempl_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/MendixDV.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/MendixDV.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/MendixDV_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/MendixDV_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/MendixTempl.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/MendixTempl.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/MendixTempl_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/MendixTempl_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/NocoDb_clients.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/NocoDb_clients.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/NocodbEase.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/NocodbEase.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/NocodbEase_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/NocodbEase_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/PowerAppsEase.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/PowerAppsEase.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/PowerAppsEase_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/PowerAppsEase_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/PowerApps_DesignCard.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/PowerApps_DesignCard.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/PowerApps_DesignCard_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/PowerApps_DesignCard_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/PowerApps_clients.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/PowerApps_clients.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/QuickBase_clients.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/QuickBase_clients.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/QuickbaseTempl.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/QuickbaseTempl.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/QuickbaseTempl_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/QuickbaseTempl_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/Resume_Mike_Trivedi.pdf",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/Resume_Mike_Trivedi.pdf"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/SQL_NoSQL.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/SQL_NoSQL.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/StegZip.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/StegZip.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/TgDV.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/TgDV.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/VideoPlay.gif",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/VideoPlay.gif"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/ZohoDV.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/ZohoDV.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/ZohoDV_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/ZohoDV_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/ZohoTempl.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/ZohoTempl.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/ZohoTempl_Thumb.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/ZohoTempl_Thumb.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/Zoho_clients.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/Zoho_clients.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/brijWhiteBck.svg",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/brijWhiteBck.svg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/github1.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/github1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/github2.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/github2.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/noCodeSrch.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/noCodeSrch.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/noCodeSrch1.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/noCodeSrch1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/oPls_DataView.mp4",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/oPls_DataView.mp4"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/seed.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/seed.jpg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/spx_DataView.mp4",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/spx_DataView.mp4"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/spx_Form.mp4",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/spx_Form.mp4"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/mktOpportunity.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/mktOpportunity.html",
+          "hash": "Q9UA0lsCTRuaIclJKi4jUmextIn0d/ioN10IiVD8HRw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/mktPos.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/mktPos.html",
+          "hash": "cGe5LTYclkSNIvJGKIKlXLSSuYOo1BdcpMtgGtKAMxY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/overview.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/overview.html",
+          "hash": "Waf3PpoF17vs+Z81VvjCVbbWqL1rUZApB9mipH8cAcE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/prodDetails.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/prodDetails.html",
+          "hash": "U3IbWtCg1h547KzojFhb9/qDeA/N0C2up5l8mojNCXc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/prodStack.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/prodStack.html",
+          "hash": "5mtfUb044acyQs2Im8kkfVymfOOliab8W4DCml5Frb8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/prodStatus.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/prodStatus.html",
+          "hash": "Y0ljuDHt72PMwR4qM8f4jy6mEVlmAS/6vpTcGPsK1ko="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "5fL4zS10pUeBiLNqGshBfWCIgEdtLn0z36oFl5AkH9s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "KJTB4zW5y0lygYg45D5g0uoPCc2ylZLuTuI1jmIIVQ8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "q6OgKXpFlZZuFSUtSaQXQJ39Re+qZPxgLCES9wgPUmE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 12,
+          "skipped_file_count": 12
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 217,
+          "skipped_file_count": 217
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
