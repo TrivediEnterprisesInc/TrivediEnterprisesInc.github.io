@@ -1,0 +1,514 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The Deliverables | Brij(TM) Copyright (c) M. P. Trivedi, 201-2023. </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The Deliverables | Brij(TM) Copyright (c) M. P. Trivedi, 201-2023. ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-deliverables">The Deliverables</h1>
+
+<h2 id="the-skinny">The Skinny</h2>
+<p>We estimate that we can deliver a working prototype - with a working demo - in <strong>less than two years</strong>.</p>
+<h2 id="the-details">The Details</h2>
+<h3 id="basic-deliverables---overview">Basic Deliverables - Overview</h3>
+<ul>
+<li>Deliver a <strong>Fully Functional</strong> (NO shortcuts or missing functionality) <code>Brij</code> Database Engine.</li>
+<li>Deliver a <strong>Working Demo</strong> including a video that shows an average user
+<ul>
+<li>Creating a new Database</li>
+<li>Populating it with Data</li>
+<li>Creating numerous Queries/Views to query the data</li>
+<li>Creating a Form to display the data</li>
+<li>Using this newly created <code>Brij</code> Database to update the existing data.
+(Please note: The script for the Demo is ready, see <a href="demo_script.html" title="demo">here</a>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="basic-deliverables---granular-detail">Basic Deliverables - Granular Detail</h3>
+<p>A short list of tasks required to be completed as of today.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Module</strong></th>
+<th><strong>Task Description</strong></th>
+<th><strong>Category</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All</td>
+<td>Setup MongoDb Account</td>
+<td>Setup</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Bld/Setup Server Container (<a href="https://www.rackspace.com/" title="RackSpace">RackSpace</a>?)</td>
+<td>Setup</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Procure Server Certificates/IDs</td>
+<td>Setup</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Setup hardware config.</td>
+<td>Setup</td>
+</tr>
+<tr>
+<td>Core</td>
+<td>Merge CoreAux into Assembly</td>
+<td>Refactor1</td>
+</tr>
+<tr>
+<td>Core</td>
+<td>Merge utils into Assembly: SetEnv, Mapper, PhatDelta, cmp (nds consolidation)</td>
+<td>Refactor1</td>
+</tr>
+<tr>
+<td>Core</td>
+<td>Merge Parser into Assembly</td>
+<td>Refactor1</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Merge UIAux into Assembly</td>
+<td>Refactor1</td>
+</tr>
+<tr>
+<td>BrijServer</td>
+<td>Merge Mongo.fs into Assembly</td>
+<td>Refactor1</td>
+</tr>
+<tr>
+<td>All</td>
+<td>(Final step) After Refactor1 remove interned copies of functions retained for compilation (e.g. brijLogo in Brij.fs); ensure consistency across all Assemblies</td>
+<td>Refactor1</td>
+</tr>
+<tr>
+<td>Brij</td>
+<td>Fix: type DocFld member getBoxedGenericVal() nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>Brij</td>
+<td>Fix: module Gullo/fn openDes nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>Brij</td>
+<td>Fix: module DatImporter/fn pcDat() nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>BrijServer</td>
+<td>Fix: fn getBoxedGenericVal() nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>BrijServer</td>
+<td>Fix: fn getTSButtonSvr: port to UI + nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Fix: module Helpers/fn getImgInNewColor nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Fix: type ફીલ્ડ_પેનલ/usrOverrides nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Fix: type ફોરમ_પીચાક/tbar nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Fix: Several leftovers from wwnn, e.g. getArrowBtnPanel: either chk/remove or move into sep mod (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Fix: FrmFldType.FldChoiceList curr hardcoded; nds DesignView lkup</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: fn baseTkDatAux nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: કલકતી_પાન_Aux chuno uses 'categByHardCoded'</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: type કેટ_પેનલ nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: type એક્સ_પેનલ nds several updates (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: type BM_AppPg.FldInfoBox nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: type બનારસી_પીચાક_eoy.katho() nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: type CM_ColsPg nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: type CM_AppPg nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: type મીઠૂ_પાન_eoy: CSV Importer nds work (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: type બનારસી_પાન nds work for cols/etc. (@sic)</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>UIAux</td>
+<td>Fix: Remove in-line help in MM</td>
+<td>Impl</td>
+</tr>
+<tr>
+<td>Brij</td>
+<td>@CpT Build Brij Server (SignalR) with Push capabilities</td>
+<td>Svr</td>
+</tr>
+<tr>
+<td>All</td>
+<td>@CpT new Condition Builder using FParsec</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>All</td>
+<td>@CdT new Expression Builder using FParsec</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>All</td>
+<td>@CdT new Calculated Field Type using Expression Builder</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>@CdT All BM pages need to be consolidated into a tabbedView</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>All</td>
+<td>@CpT BPDz needs to be extended for variable cols</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>All</td>
+<td>@CpT All BPDz field-level functionality &amp; re-ordering</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>Core</td>
+<td>@CpT Parser needs connector types + logic</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>Core</td>
+<td>@CpT Parser needs to check for valid FieldTypes from MM</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>Core</td>
+<td>@CdT CSV Import module</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>Core</td>
+<td>@CdT Query Generation</td>
+<td>Impl2</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Merge deltaVersions, decloak/santize, remove sanity chks/safeguards, consolidate</td>
+<td>Refactor2</td>
+</tr>
+<tr>
+<td>Brij</td>
+<td>@CpT DocVersioning Module</td>
+<td>Impl3</td>
+</tr>
+<tr>
+<td>Brij</td>
+<td>@CpT DocEditHistory Module</td>
+<td>Impl3</td>
+</tr>
+<tr>
+<td>Brij</td>
+<td>@CpT DocAttachment Module</td>
+<td>Impl3</td>
+</tr>
+<tr>
+<td>Brij</td>
+<td>@CpT DocImage Module</td>
+<td>Impl3</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Complete, system-wide testing under different loads/variables</td>
+<td>FT</td>
+</tr>
+<tr>
+<td>All</td>
+<td>@Cdt Complete, system-wide basic user documentation including Tutorials and WalkThroughs</td>
+<td>Doc</td>
+</tr>
+</tbody>
+</table>
+<p>Legend:</p>
+<ul>
+<li>**@CdT** -&gt; Code and Test</li>
+<li>**@CpT** -&gt; Complete Coding and Test</li>
+<li>**@sic** -&gt; see inline comments (within code)</li>
+</ul>
+<h4 id="deliverables-gantt-view">Deliverables: Gantt View</h4>
+<pre><code class="lang-mermaid">gantt
+    title Brij Deliverables
+    dateFormat  YYYY-MM-DD
+    excludes weekends_Mngt saturday,sunday, monday
+    section Section
+    Setup            :a1, 2024-01-01, 20d
+    Test Setup       :t1, after a1, 10d
+    Refactor1        :r1, after t1, 40d
+    Test Consol.8ed  :t2, after r1, 20d
+    Impl             :a2, after t2, 40d
+    Test+Debug Impl  :t3, after a2, 20d
+    Impl2            :a3, after t3, 40d
+    Test+Debug Impl2 :t4, after a3, 20d
+    Refactor2        :r2, after t4, 20d
+    Impl3            :a4, after r2, 40d
+    Test+Debug Impl3 :t5, after a4, 20d
+    FT               :a5, after t5, 40d
+    Code Demo        :d1, after a5, 40d
+    Svr              :s1, after t2, 70d
+    Doc              :d1, after t4, 75d
+</code></pre>
+<p><strong>Please Note:</strong>
+The above Gantt Chart excludes weekends and Mondays.  Mondays represent 20% of the workweek and will be used for <strong>Ongoing Management Tasks</strong>, including the following:</p>
+<ol>
+<li>Product/Market Research (possible competitors, appropriate UX tech, etc.)</li>
+<li>Tech. Research (Any new tech in the market we could use? Saas people/tech.  Plus Seminars etc.)</li>
+<li>Analysis/due diligence (milestones/direction/potential challenges/positioning)</li>
+<li>Networking (esp.ly identify/contact people in low/no code shops + in the large Cloud Providers.  Would they be receptive?  Are they working on something similar?  Need to be sensitive to IP security.)</li>
+<li>Legal footwork (make sure our IP is safe)</li>
+<li>HR/Talent (identification/retention/maximisation)</li>
+<li>Marketing &amp; Communications (including with VCs etc.)</li>
+</ol>
+<h4 id="additional-tasks">Additional Tasks</h4>
+<p>In case we get more than adequate support we shall focus on the tasks below.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Module</strong></th>
+<th><strong>Task Description</strong></th>
+<th><strong>Category</strong></th>
+<th><strong>Duration</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All</td>
+<td>Code/Test/Deploy drivers for Azure DocumentDB</td>
+<td>v2.0</td>
+<td>40d</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Code/Test/Deploy drivers for Google Firestore</td>
+<td>v2.0</td>
+<td>40d</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Code/Test/Deploy drivers for Amazon DynamoDB</td>
+<td>v2.0</td>
+<td>40d</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Code/Test/Deploy drivers for IBM Cloudant</td>
+<td>v2.0</td>
+<td>40d</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Code/Test Client-hosted Data version</td>
+<td>v2.0</td>
+<td>60d</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Design/Code/Test Sample Databases + Documentation</td>
+<td>v2.0</td>
+<td>120d</td>
+</tr>
+</tbody>
+</table>
+<h3 id="whats-not-included">What's not included?</h3>
+<p>A few task items from the <code>Brij</code> Kanban board have been shelved because they have been determined to be <strong>not required</strong>.  Given more time/funds, completing these tasks would produce a more acceptable and <strong>robust</strong> product -&gt;</p>
+<ol>
+<li>(UI) The coding engine for <em>Product Internationalisation</em> (i18n) is complete and the hooks have been built.  Procure/setup/test at least 3 languages: Fr/De/Esp.  <strong>Can be subcontracted</strong>.</li>
+<li>(UI)  Three <code>Skins</code> have been developed and are in place.  Eventually the product should have at least a dozen (user expectations).  <strong>Can be subcontracted</strong>.</li>
+<li>(All) The original plan was to ship <code>Brij</code> with at least four to five <strong>&quot;Sample&quot; databases</strong> in the Desktop.  Lotus Notes had the same.  The idea would be to allow the user to tinker with some fairly complicated use cases and add further specific documentation (for example, <code>WalkThroughs</code>) outlining how a user could utilize a particular product feature.<br>
+Designing and creating both the Sample Dbs and related Documentation would involve <strong>considerable effort</strong>.  However, this has been determined not neccessary: we expect the target audience to be quite tech savvy, and therefore the <a href="demo_script.html" title="Demo Script">Demo Script</a> <strong>should suffice</strong> in showcasing <code>Brij</code>.</li>
+</ol>
+<h3 id="future-direction">Future Direction</h3>
+<h4 id="current-plan">Current Plan</h4>
+<p>Our current plan (subject to change) is to retain the IP for the <code>Brij</code> Engine and to <strong>sell or license</strong> the product to:</p>
+<ul>
+<li>One of the large Cloud Providers (Microsoft/IBM/Google/AWS)</li>
+<li>MongoDB itself</li>
+<li>Any number of <code>dBaas</code>\Low-Code\No-Code vendors</li>
+</ul>
+<p>The bulk of potential revenue is in the <strong>Enterprise Market</strong>, and the Engine delivered in the Deliverables (above) already has a dotNet client which works on Windows (targeted towards the Enterprise Market).</p>
+<h4 id="the-alternative">The Alternative</h4>
+<p>In case we deem it better to take <code>Brij</code> to market ourselves, <strong>Phase II</strong> (after the deliverables above) would be to form operational teams, study the No-Code and Low-Code vendors (the competition), build a Saas version (see below) with client authorization/roles/limits/rate limitations, form Sales/Marketing teams and develop a Website, reach out to clients... take the product to market.   Currently not my preference (please see <a href="#my-priorities" title="pref">below</a>).</p>
+<h4 id="saas-version">SaaS version</h4>
+<p>Wrapping the <code>Brij</code> engine in a SaaS is fairly simple; any CTO with previous experience in taking a dBaaS to market can be hired to helm that initiative.<br>
+Reaching out to the No-Code market requires a JavaScript frontEnd, and again there are many experienced people who already possess the requisite talents and experience to push that through.</p>
+<h4 id="supporting-sql-queries">Supporting SQL Queries</h4>
+<p>Given that SQL has now been used in the Enterprise for decades, we have some <strong>very</strong> complicated Database Schemas out in the wild.<br>
+If <code>Brij</code> were to support SQL - and it can - it cannot restrict itself to a limited form of <code>join</code>s, for instance: support has to be comprehensive.<br>
+In my current opinion it is more feasable to support it via NoSQL Schema: that is, to support relational schema the <a href="https://www.mongodb.com/docs/manual/applications/data-models-relationships/" title="mongoRel">NoSQL way</a>.<br>
+The <code>Brij</code> engine as a tool to create/query/update Document Databases <strong>without</strong> relationships (the deliverable above) is a <strong>strong product offering by itself</strong>.      Given the <strong>current</strong> low-code and no-code solutions existing in the marketplace, and given their success in the marketplace, <strong>we have a viable product without SQL</strong>.</p>
+<h4 id="my-priorities">My priorities</h4>
+<p>My focus as a Founder is to <strong>deliver</strong> a proven, tested solution.
+My preferences for the future of <code>Brij</code> would be to hire professionals who can take over (paid market rate plus a tiny share of equity).
+I have <strong>other</strong> (see <a href="founder.html#founder-cryptoeditortm-ide" title="1">this</a> and  <a href="founder.html#founder-brij-steganographic-file-backup-solution" title="2">this</a>) products I wish to bring to market waiting on the back-burner.</p>
+<p><strong>After successfully supplying the deliverables, I will of course be available in future to work on the <code>Brij</code> codebase and for consultation.</strong></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span><strong>Brij(TM)</strong>.  Copyright (c) M. P. Trivedi, 2016-2023.  All rights reserved.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

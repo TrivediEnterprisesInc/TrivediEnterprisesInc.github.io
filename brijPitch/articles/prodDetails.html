@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Product:Details/Snapshots | Brij(TM) Copyright (c) M. P. Trivedi, 201-2023. </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Product:Details/Snapshots | Brij(TM) Copyright (c) M. P. Trivedi, 201-2023. ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="productdetailssnapshots">Product:Details/Snapshots</h1>
+
+<h2 id="the-skinny">The Skinny</h2>
+<p>The <code>Brij</code> system has the following three crucial elements</p>
+<h3 id="table-definition-document">Table Definition Document</h3>
+<p>Each Table contains a single <code>TDD</code>(Table Definition Document).  This is essentially a definition of the Table's <a href="https://en.wikipedia.org/wiki/Database_schema" title="Schema">Schema</a>.<br>
+The TDD allows the User to create/edit/update fieldNames and fieldTypes (e.g. Currency, Date, String...)</p>
+<h3 id="form-definition-document">Form Definition Document</h3>
+<p>Each Table contains one or many <code>FDD</code>s (Form Definition Documents).  Typically a User will choose a few fields (from the TDD) to add to a form, and <code>Brij</code> will auto-generate a Form.<br>
+Then the user can make whatever changes she wishes to the Form, including moving fields, changing font/color/emphasis, making UI widgets wider or taller, adding explanatory text, etc.</p>
+<h3 id="query-definition-document">Query Definition Document</h3>
+<p>Each Table contains one or many <code>QDD</code>s (Query Definition Documents).  Typically a User will choose a few fields (from the TDD) to include in a query, and specify one/more Grouping criteria, a Filter, and one/more Sorting criteria.<br>
+The QDD is a <code>live</code> document: every time a user double-clicks on a QDD (unless in Design mode) it will execute a Query and return data in a DataView.</p>
+<h2 id="the-details">The Details</h2>
+<h3 id="the-brij-desktop">The <code>Brij</code> Desktop</h3>
+<table>
+<thead>
+<tr>
+<th>Desktop Iteration I</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/Desktop_Dojo.png" alt="Desktop1"></td>
+</tr>
+</tbody>
+</table>
+<p>This is the Desktop from the Early Stage<br>
+2018 - Dojo FrontEnd (JavaScript) - In-Mem Java BackEnd - Eclipse Jetty Server</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Desktop Iteration III</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/0SP.png" alt="Desktop3"></td>
+</tr>
+</tbody>
+</table>
+<p>This is the F# Desktop with the Sublime UI scheme.<br>
+Current - dotNet FrontEnd (WinForms) - MongoDb BackEnd - dotNet SignalR Server</p>
+<hr>
+<ul>
+<li>The Bridge Desktop shows a single icon for each Table in the user's <code>Brij</code> account.  Every user has the ability to add or remove icons (saved in User Profile).</li>
+<li>This screenshot shows various icons which are for Development use and will <strong>not appear</strong> in the Demo.  There will be only about five icons for Demo Tables, plus an icon titled: &quot;Add New Icon&quot;.</li>
+<li>A Double-click on any Desktop icon opens up a <a href="#the-brij-dataview">DataView</a> in ReadMode, as shown below.  If the table contains more than one DataView, the user may specify which one to use as a 'default' view.</li>
+<li>A Right-click on any Desktop icon allows the user to open up the table's <a href="#the-brij-design-dataview">DesignView</a>.</li>
+<li>The <strong>Window</strong> menu allows the user to change the UI color scheme etc.</li>
+</ul>
+<h3 id="the-brij-dataview">The <code>Brij</code> DataView</h3>
+<hr>
+<table>
+<thead>
+<tr>
+<th>DataView Iteration I</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="images/oPls_DataView.mp4"><img src="images/VideoPlay.gif" alt="DataView 1"></a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>DataView Iteration II</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="images/spx_DataView.mp4"><img src="images/VideoPlay.gif" alt="DataView 2"></a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>DataView Iteration III</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/3CP.png" alt="DataView3"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ul>
+<li>The screenshot above shows a demo (taskList) table's <code>DataView</code>.</li>
+<li>The sections in green with a <strong>+</strong> icon to the left are called <strong>Categories</strong>.  This DataView's designer has chosen to Categorize (<strong>Group</strong>) all the records by a field named <em>SubModule</em></li>
+<li>Clicking on the <strong>+</strong> icon will toggle the <code>Category</code> to <strong>expanded</strong> (showing all grouped records) or <strong>collapsed</strong> (only showing the Category Title plus number of records in the group).  Individual categories can be expanded/collapsed, and the user also has the option to click on the &quot;Expand All&quot; or &quot;Collapse All&quot; button.</li>
+<li>Double-clicking on any row opens up the Document chosen with the default <a href="#the-brij-form-view">Form</a> configured for this table.</li>
+<li>Eventually this screen will house a create button on the top row to allow the user to <strong>create</strong> a new document using a blank Form.</li>
+<li>The Paging Control on the bottom of the screen will allow the user to customize the PageSize (how many documents are retrieved at a time) and will allow him to navigate through the database.  Each click (on each arrow button) will send a new Query to the server and display a new set of documents.</li>
+</ul>
+<h3 id="the-brij-design-dataview">The <code>Brij</code> Design DataView</h3>
+<hr>
+<table>
+<thead>
+<tr>
+<th>DesignView Iteration III</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/3CPDz.png" alt="DesignView"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ul>
+<li>The screenshot above shows a demo (taskList) table's <code>Design DataView</code>.</li>
+<li>All the Table Design Documents are shown in this View.</li>
+<li>Even though this snapshot only shows one document per Category, a Table has only one Table Definition Document but can have <strong>unlimited</strong> design documents for Forms, Fields, Queries (DataView Definition), Lookup Fields, etc.</li>
+<li>The user can double-click on any document to edit that Document; and can create copies or rename/delete any document here.</li>
+<li>The user can also set a <strong>default</strong> form or view for a Table here.</li>
+<li>Each record in a Brij Table is a Document, and the Table Design itself consists of Documents with configuration information.  When a user creates a Form and sets it as the Default Form, the next time they double click on a row in a DataView they will see the newly created Form with all the data populated.</li>
+</ul>
+<h3 id="the-brij-table-designer">The <code>Brij</code> Table Designer</h3>
+<hr>
+<p><img src="images/1MM.png" alt="TableDesigner"></p>
+<hr>
+<ul>
+<li>The screenshot above shows the TableDesigner for a demo (taskList) <code>Table Definition Document</code>.</li>
+<li>If the user has just created a new Table, under the <strong>Table Setup</strong> tab they would have two choices:</li>
+</ul>
+<ol>
+<li>Import a CSV File</li>
+<li>Manually configure the table (by entering Field Names and choosing Field Types)
+The documentation will explain to the user that Fields are analogous to Excel Columns</li>
+</ol>
+<ul>
+<li>The <strong>Field Setup</strong> tab allows users to change the <strong>Schema</strong> of the table. (add new fields/rename existing fields/remove fields)</li>
+</ul>
+<h3 id="the-brij-form-view">The <code>Brij</code> Form View</h3>
+<hr>
+<table>
+<thead>
+<tr>
+<th>FormView Iteration II</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="images/spx_Form.mp4" title="FormView Video"><img src="images/VideoPlay.gif" alt="FormView2"></a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>FormView Iteration III</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/2BP.png" alt="FormView3"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ul>
+<li>The screenshot above shows a demo (taskList) table's Form.</li>
+<li>This Form has been designed by the user herself (and auto-generated by <code>Brij</code>).  It displays all the fields included in the <a href="##the-brij-form-designer">Form Design</a> Document</li>
+<li>If the user opened the form from a DataView it will be in <strong>Read Mode</strong>.  A button will allow the user to enter <strong>Edit Mode</strong> and make changes to the Document.  If the OK button is clicked the changes will be saved on the server.</li>
+</ul>
+<h3 id="the-brij-form-designer">The Brij Form Designer</h3>
+<hr>
+<p><img src="images/2BPDz.png" alt="FormDesigner"></p>
+<hr>
+<ul>
+<li>The screenshot above shows a demo Form in Design mode.</li>
+<li>This Form is WYSIWYG: if the user makes a cell broader or taller the Form will instantly update.</li>
+<li>This form has been configured (via the &quot;Form Settings&quot; button above) to have four columns.</li>
+<li>The last field in the form - titled 'Content' - is a <code>LargeTextField</code>; therefore it spans the complete width of the form.</li>
+<li>The user can configure any <strong>Cell</strong> in this form for custom behavior.  The user may make any field
+<ul>
+<li>move around in the Form (moves a cell up/down/left/right)</li>
+<li>wider/narrower</li>
+<li>taller/shorter</li>
+<li>use a custom color/font</li>
+<li>use a custom Label text</li>
+<li>use a custom <strong>Widget</strong> used to display the field data (for instance, a Date could be displayed simply as text or as a control which shows a calendar)</li>
+<li>display a custom <strong>ToolTip</strong></li>
+<li>have a custom Validation rule (e.g., &quot;no blanks allowed&quot; or &quot;must only contain digits&quot;)</li>
+</ul>
+</li>
+<li>The user can also add blank rows or informational messages (e.g. &quot;This field is required&quot;) to aid the person using the form to enter data.</li>
+<li>Clicking on the <strong>Form Settings</strong> button allows the user to set default appearance settings for the entire form (Appearance Tab), as shown below</li>
+</ul>
+<h3 id="the-brij-form-builder-appearance-tab">The Brij Form Builder: Appearance Tab</h3>
+<hr>
+<p><img src="images/2BM_FldsTab_AppearanceTab.png" alt="FormFieldsTab"></p>
+<hr>
+<ul>
+<li>The screenshot above shows the settings available for the Form appearance, including the number of columns.</li>
+<li>Changing any setting may be done at any time and the newly generated forms will be automatically updated.</li>
+</ul>
+<h3 id="the-brij-validation-rule-builder">The Brij Validation Rule Builder</h3>
+<hr>
+<p><img src="images/2BM_FldsTab_ValidationBldr.png" alt="ValidationBuilder"></p>
+<hr>
+<ul>
+<li>The screenshot above shows the Validation Rule Builder.</li>
+<li>In the previous screen (Form Designer) the user chose to add a Validaton Rule for a field.</li>
+<li>Notice that the Field dropdown is set to <strong>&quot;Title&quot;</strong>; automatically set up (no scope for error) and <strong>unEditable</strong>.</li>
+<li>The user may add as many conditions as she wants.  The <strong>Condition</strong> dropdown (here showing 'contains', 'startswith', etc.) <strong>automatically</strong> display only the appropriate conditions for the field chosen, which here has type <strong>String</strong>.  Again, no chance for user error to build an illegal rule.</li>
+<li>In this screen the user simply chooses a Condition (e.g., 'contains') and enters the criteria (e.g., &quot;It was a dark&quot;).  The <code>Brij</code> system autogenerates the expression shown on top of the window.  The user may add, change or delete any condition and the overall expression automatically updates.</li>
+<li>Basically the user builds complicated rules without scripting or coding <strong>anything</strong> - it is all entirely point-and-click.</li>
+<li>This validation rule is saved in the Table Design.  The user may change/update it whenever they wish.</li>
+</ul>
+<h3 id="the-brij-filter-definition-builder">The Brij Filter Definition Builder</h3>
+<hr>
+<p><img src="images/5PredTester.png" alt="PredBuilder"></p>
+<hr>
+<ul>
+<li>The screenshot above shows the Filter Definition Builder.</li>
+<li>While building a Query Definition, the user needs to supply a filter (e.g., <strong>&quot;CardType = 'Visa'&quot;</strong>).  This screen shows how the user builds that Filter.</li>
+<li>Basically this screen is almost exactly like the Validation Rule Builder, <strong>except</strong> it allows the user to choose to filter <strong>by any field</strong>.</li>
+<li>Please note that this snapshot displays an <strong>earlier version</strong> of the RuleBuilder.  The current version uses a top-down recursive <a href="https://en.wikipedia.org/wiki/Parser_combinator" title="parsec"><code>parser</code></a> and is much more sophisticated.  The new version also allows &quot;power&quot; users to manually edit the condition because it has sophisticated error-reporting.</li>
+</ul>
+<h3 id="other-screens">Other screens</h3>
+<p>Brij has some other screens already designed and coded and some which remain to be designed (e.g. Lookup Field Design, Calculated Field Design), but these are the main ones and should give you an indication of:</p>
+<ul>
+<li>How effortlessly a user can use the entire system, and</li>
+<li>How the program generally flows.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span><strong>Brij(TM)</strong>.  Copyright (c) M. P. Trivedi, 2016-2023.  All rights reserved.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

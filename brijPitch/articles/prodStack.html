@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Product: Stack/Internals | Brij(TM) Copyright (c) M. P. Trivedi, 201-2023. </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Product: Stack/Internals | Brij(TM) Copyright (c) M. P. Trivedi, 201-2023. ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="product-stackinternals">Product: Stack/Internals</h1>
+
+<h2 id="the-skinny">The Skinny</h2>
+<blockquote>
+<p>&quot;Data is everything.&quot;</p>
+<p>Attributed to Google</p>
+</blockquote>
+<p><strong>System</strong> 100% F#.</p>
+<ul>
+<li>Immutable database wrapper around MongoDB.</li>
+<li>Static type guarantees.</li>
+<li>No null values.</li>
+<li>Generates <code>MQL</code> (<strong>MongoDB Query Language</strong>) queries on the fly.</li>
+</ul>
+<p><strong>BackEnd</strong> 100% MongoDb (infinite capacity)</p>
+<h2 id="the-details">The Details</h2>
+<h3 id="describe-brij">Describe <code>Brij</code></h3>
+<p>Conceptually, a Database System only has four basic commands: <code>Create</code>, <code>Read</code>, <code>Update</code>, and <code>Delete</code>.  A regular SpreadSheet program has many more.  Any regular SpreadSheet user - say, a Project Manager or a Startup Founder - should be able to Create a Database Table, associated Forms and DataViews, and operate it without the help of a Development Team.</p>
+<p>An application that can allow such a user to perform these tasks without coding would increase business productivity to a staggering extent.  Every Project Manager would build and run hundreds of queries on demand.  All business users would become <em>de-facto</em> coders.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Technically savvy readers are already probably thinking &quot;You mean NoSQL?  But every Database Developer has been trying to build such a system since 50 years!&quot;</p>
+</div>
+<p>Agreed.  And yes, we have built it.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Technically savvy readers are now probably thinking &quot;But there are at least a hundred other No-code or Low-code Database Systems in the world today, including Microsoft's PowerApps.</p>
+</div>
+<p><strong>None</strong> of the No-Code Systems are <strong>Extensible</strong> enough for a real Enterprise-use case.</p>
+<p>And <strong>None</strong> of the Low-Code Systems are <strong>Easy</strong> enough for a Spreadsheet user to use.</p>
+<h3 id="how-do-you-see-the-database-market-in-2033">How do you see the Database market in 2033?</h3>
+<p>This is a Google Trends Report.  I would expect this to substantially change if not overturn a decade from now.</p>
+<hr>
+<p><img src="images/SQL_NoSQL.png" alt="NoSQL"></p>
+<hr>
+<h2 id="the-tech-stack">The Tech Stack</h2>
+<h3 id="brij-internals"><code>Brij</code> Internals</h3>
+<ul>
+<li><p>The <code>Brij</code> System is currently <code>100% F#</code> with a <code>MongoDB</code> backend</p>
+</li>
+<li><p>The product currently has NO <a href="prodStack.html#zero-dependencies-on-outside-code" title="Dependencies">external dependencies</a>, except for the following 'internal' libraries:</p>
+<ul>
+<li><a href="http://www.quanttec.com/fparsec/" title="FParsec"><code>FParsec</code></a></li>
+<li><a href="http://fsprojects.github.io/FsLexYacc/" title="FsLexYacc"><code>FsLex/FsYacc</code></a></li>
+</ul>
+<p>Both of these libraries are used internally by dotNet to compile <code>F#</code> itself.<br>
+Both libraries are also used to compile <code>Q#</code> (Microsoft's <a href="https://github.com/microsoft/qsharp-compiler/tree/main" title="QSharp"><em>Quantum Development Kit</em></a>).<br>
+Mike is familiar enough with both of these libraries that he can write a compiler for a custom toy language from scratch.<br>
+In case of any potential copyright issues it would not be unreasonably difficult for Mike or any competent F# developer to roll an adequate handmade version of each of the above.  <em>It would be somewhat time consuming, however.</em></p>
+</li>
+</ul>
+<h3 id="zero-dependencies-on-outside-code">ZERO Dependencies on Outside Code</h3>
+<p>As such the <code>F#</code> ecosystem has a fairly robust set of external open source libraries which provide missing but expected functionality.
+One example is <a href="https://github.com/fsprojects/FSharpPlus" title="FSharpPlus">FSharpPlus</a>.  This library offers a set of tools including</p>
+<ul>
+<li><a href="https://hackage.haskell.org/package/lens" title="lenses">Lenses</a></li>
+<li>A <a href="https://wiki.haskell.org/State_Monad" title="StateM">State Monad</a></li>
+<li>A <a href="https://en.wikipedia.org/wiki/Continuation-passing_style" title="CPS">Continuation</a> Monad.</li>
+</ul>
+<p>These are three tools which were needed in <code>Brij</code>, so we hand-rolled custom versions of each - porting the State monad from <a href="https://en.wikipedia.org/wiki/OCaml" title="OCaml"><code>OCaml</code></a> and the Continuation monad from <a href="https://en.wikipedia.org/wiki/Haskell" title="Haskell"><code>Haskell</code></a>.  Lens are commonly used in functional programming circles to work with immutable data; but we found them too cumbersome to use and built a workaround using <code>F#</code> <a href="https://en.wikipedia.org/wiki/Metaprogramming" title="Metaprogramming">meta-programming</a> facilities coupled with <a href="https://en.wikipedia.org/wiki/Reflection_(computer_programming)" title="Reflection">Reflection</a>.</p>
+<h3 id="fsharps-metaprogramming-features">FSharp's MetaProgramming Features</h3>
+<p>F# has numerous strengths in this area; in fact it is derived from a family of languages that were specifically designed for metaprogramming, the so-called <a href="https://en.wikipedia.org/wiki/ML_(programming_language)" title="ML">MetaLanguages</a> (ML) family.  You will find some details below, these and other F# features are extensively used by <code>Brij</code>.</p>
+<h3 id="code-quotations">Code Quotations</h3>
+<p>FSharp's <a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/code-quotations" title="CQs">Code Quotations</a> are close to what you would get with <a href="https://softwareengineering.stackexchange.com/questions/124930/how-useful-are-lisp-macros" title="macros">macros</a> in a language like <a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)" title="Lisp">LISP</a>.  They allow you to generate expressions programmatically which you can then execute.  By using the ReflectedDefinition attribute on F# expressions you can get access to their <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" title="AST">Abstract Syntax Tree</a>s.<br>
+Extensive further information on F#'s MetaProgramming features can be found <a href="https://fsharp.org/teaching/research.html#dsls-and-meta-programming" title="meta">here</a>, especially <a href="https://dl.acm.org/doi/10.1145/1159876.1159884" title="paper">this</a> research paper by <a href="https://www.microsoft.com/en-us/research/people/dsyme/" title="DSyme">Don Syme</a>, a Principal Researcher at Microsoft and one of the primary designers of the <code>F#</code> language.<br>
+The libraries referred to above (<code>FParsec</code> &amp; <code>FsLex/FsYacc</code>) also allow compilation on-the-fly.</p>
+<h3 id="a-monadic-linq-query">A Monadic LINQ Query</h3>
+<p>The following code snippet builds a monadic F# query.  If you are at all familiar with SQL this should resonate.  But how would you build this <strong>programatically</strong>?</p>
+<pre><code>query {
+            for p in products do   
+            sortBy p.Category   
+            thenBy p.ProjectName   
+            thenBy p.SubModName   
+            groupBy (p.Category) into g   
+            let c1Ct = query { for grp in g do count }   
+            let c2 =    
+	    ...
+	    ...
+            select (g.Key, c1Ct, c2)
+            }
+</code></pre>
+<h3 id="the-output">The output</h3>
+<p>If the above query is run on a MongoDB instance of <code>product</code>s, it produces the following (raw) output -&gt;</p>
+<pre><code>                Cat1: &quot;Beverages&quot; (13 items)
+ = = = = = = = = = = = = = = = = = = = = = = =
+        Cat2: &quot;Eight&quot; (4  items)
+Cat3: &quot;Extreme&quot; (1  items)
+subQ: seq
+  [Product Name: Lakkalikööri Categ: Beverages Proj: Eight SubMod: Extreme UnitsInStock: 57]
+ = = = = = = = = = = = = = = = = = = = = = = =
+Cat3: &quot;Low&quot; (2  items)
+subQ: seq
+  [Product Name: Outback Lager Categ: Beverages Proj: Eight SubMod: Low UnitsInStock: 15;
+   Product Name: Lakkalikööri Categ: Beverages Proj: Eight SubMod: Low UnitsInStock: 5007]
+ = = = = = = = = = = = = = = = = = = = = = = =
+Cat3: &quot;Unknown&quot; (1  items)
+subQ: seq
+  [Product Name: Rhönbräu Klosterbier Categ: Beverages Proj: Eight SubMod: Unknown UnitsInStock: 125]
+ = = = = = = = = = = = = = = = = = = = = = = =
+        Cat2: &quot;Five&quot; (1  items)
+Cat3: &quot;Unknown&quot; (1  items)
+subQ: seq
+  [Product Name: Ipoh Coffee Categ: Beverages Proj: Five SubMod: Unknown UnitsInStock: 17]
+ = = = = = = = = = = = = = = = = = = = = = = =
+        Cat2: &quot;Four&quot; (4  items)
+Cat3: &quot;Low&quot; (1  items)
+subQ: seq
+  [Product Name: Chartreuse verte Categ: Beverages Proj: Four SubMod: Low UnitsInStock: 69]
+ = = = = = = = = = = = = = = = = = = = = = = =
+Cat3: &quot;Medium&quot; (2  items)
+subQ: seq
+  [Product Name: Sasquatch Ale Categ: Beverages Proj: Four SubMod: Medium UnitsInStock: 111;
+   Product Name: Côte de Blaye Categ: Beverages Proj: Four SubMod: Medium UnitsInStock: 17]
+ = = = = = = = = = = = = = = = = = = = = = = =
+Cat3: &quot;Unknown&quot; (1  items)
+subQ: seq
+  [Product Name: Steeleye Stout Categ: Beverages Proj: Four SubMod: Unknown UnitsInStock: 20]
+ = = = = = = = = = = = = = = = = = = = = = = =
+        Cat2: &quot;One&quot; (2  items)
+Cat3: &quot;High&quot; (1  items)
+subQ: seq
+  [Product Name: Chang Categ: Beverages Proj: One SubMod: High UnitsInStock: 17]
+ = = = = = = = = = = = = = = = = = = = = = = =
+Cat3: &quot;Low&quot; (1  items)
+subQ: seq [Product Name: Chai Categ: Beverages Proj: One SubMod: Low UnitsInStock: 39]
+ = = = = = = = = = = = = = = = = = = = = = = =
+        Cat2: &quot;Seven&quot; (1  items)
+Cat3: &quot;Low&quot; (1  items)
+subQ: seq
+  [Product Name: Laughing Lumberjack Lager Categ: Beverages Proj: Seven SubMod: Low UnitsInStock: 52]
+ = = = = = = = = = = = = = = = = = = = = = = =
+        Cat2: &quot;Three&quot; (1  items)
+Cat3: &quot;Unknown&quot; (1  items)
+subQ: seq
+  [Product Name: Guaraná Fantástica Categ: Beverages Proj: Three SubMod: Unknown UnitsInStock: 20]
+ = = = = = = = = = = = = = = = = = = = = = = =
+</code></pre>
+<h3 id="the-ast-behind-the-query">The AST behind the Query</h3>
+<p>F# Code Quotations allow you to access the AST behind this F# Query, as below -&gt;</p>
+<pre><code>Application (Lambda (builder@,
+                     Call (Some (builder@), Run,
+                           [Quote (Call (Some (builder@), Select,
+                                         [Call (Some (builder@), For,
+                                                [Call (Some (builder@), GroupBy,
+                                                       [Call (Some (builder@),
+                                                              ThenBy,
+                                                              [Call (Some (builder@),
+                                                                     ThenBy,
+                                                                     [Call (Some (builder@),
+                                                                            SortBy,
+                                                                            [Call (Some (builder@),
+                                                                                   For,
+                                                                                   [Call (Some (builder@)
+....
+....
+(snipped for brevity)
+</code></pre>
+<h3 id="manipulating-the-ast">Manipulating the AST</h3>
+<p><code>Brij</code> manipulates the AST and compiles it dynamically to generate a new Query on the fly.  For further information on this capability, please see <a href="https://fsharp.github.io/fsharp-compiler-docs/fcs/typedtree.html" title="typedtree">this</a> F# man page.</p>
+<h3 id="f-repl">F# REPL</h3>
+<p>One final MetaPrograming facility <code>Brij</code> uses is the F# <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop" title="repl">REPL</a> (Read-Eval-Print Loop).  REPLs facilitate exploratory programming and debugging because the programmer can inspect the printed result before deciding what expression to provide for the next read.<br>
+Here is an example of what you can do with a REPL:<br>
+Remember the HumVee-like Mars <a href="https://en.wikipedia.org/wiki/Mars_rover" title="rover">Rover</a>?  NASA scientists were controlling it with a <code>LISP</code> program.  Something went wrong when the vehicle was on the surface of Mars, and the lead programmer used a REPL to reprogram the vehicle remotely.<br>
+For the curious, a marvelous account of this incident can be found on <a href="https://www.corecursive.com/lisp-in-space-with-ron-garret/" title="replPodcast">this</a> podcast from Adam Gordon Bell.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span><strong>Brij(TM)</strong>.  Copyright (c) M. P. Trivedi, 2016-2023.  All rights reserved.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

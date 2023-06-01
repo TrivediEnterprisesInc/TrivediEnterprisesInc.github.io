@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Frequently Asked Questions | Brij(TM) Copyright (c) M. P. Trivedi, 201-2023. </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Frequently Asked Questions | Brij(TM) Copyright (c) M. P. Trivedi, 201-2023. ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
+
+<h2 id="resume-addenda">Resume Addenda</h2>
+<p>Since Mike &quot;picked up his lance&quot; again in 2016, he has worked on a huge array of software technologies, some of which are listed below.</p>
+<h3 id="1--javascript-the-dojo-toolkit">1.  JavaScript: The Dojo Toolkit</h3>
+<p>The original idea was to build <code>Brij</code> as a <code>dBaas</code> (Database As A Service).  Naturally, I built the earlier versions with a JavaScript frontEnd and Java backEnd.  For the toolkit I chose <a href="https://en.wikipedia.org/wiki/Dojo_Toolkit" title="Dojo">Dojo</a>, which was originally built by IBM and was then heavily used internally in all IBM Enterprise Applications.  Subsequent iterations of <code>Brij</code> moved to a desktop client version to target Enterprise Users, and Dojo was replaced first with Java Swing and eventually with dotNet.<br>
+However, I did a considerable amount of work with <code>Brij</code> using Dojo, you can see a screen here showing a hierarchical <a href="@ToDo:link" title="DataView">DataView</a> which I built by hand (Dojo allows true OOP in JavaScript)</p>
+<h3 id="2--ai-and-machine-learning">2.  AI and Machine Learning</h3>
+<p>In one of the middle stages of the <code>Brij</code> development timeline (Java Backend) I felt the need to use AI technologies to provide an auto-learning <a href="https://en.wikipedia.org/wiki/Natural_language_processing" title="NLP">NLP</a> tagging module, so I picked up and learnt <a href="http://mallet.cs.umass.edu/index.php/Main_Page" title="Mallet">Mallet</a>, an open-source Java AI tool used by the US Military.<br>
+I built, trained and ran ML models to perform the tagging based on test datasets.  Mallet was funded by a research grant and had not been updated since a while, so I took a deep dive into the source code and made substantial improvements including adding the ability to use <a href="https://en.wikipedia.org/wiki/N-gram" title="N-grams">N-grams</a> in training the models - this was fairly cutting edge at the time, but the AI sphere moves so fast it is probably considered old hat today.</p>
+<h3 id="3--java-jdk-internals">3.  Java JDK internals</h3>
+<p>Some UI elements in Java Swing were incomplete when Oracle bought the language from Sun Microsystems.  I needed the code for the <code>Brij</code> User Interface; so I had to delve into the JDK and complete the code.  Fortunately the coders at Sun had left a very well-commented and legible codebase.<br>
+At the time the Java language had just begun to offer <a href="https://en.wikipedia.org/wiki/MapReduce" title="Map-Reduce">Map-Reduce</a> and <a href="https://en.wikipedia.org/wiki/Stream_processing" title="Streams">Streams</a> which became my favorite enthusiasm.</p>
+<h3 id="4--java-jdk-functional-idioms">4.  Java JDK Functional idioms</h3>
+<p>I regularly combed the web (as I continue to do today) for all the latest developement paradigms: any tool to make <code>Brij</code> better was an additional arrow in my quiver.  I used cutting edge tech like Google's <a href="https://en.wikipedia.org/wiki/Google_Guice" title="guice">guice</a> and javax.<a href="https://javaee.github.io/javaee-spec/javadocs/javax/inject/package-summary.html" title="inject">inject</a>, and kept a constant eye on the pulse of the industry.<br>
+As the <code>Brij</code> System API matured, I began to use more and more Functional Programming Abstractions within Java.  Java is of course not a functional programming language but you <strong>can</strong> code functionally in Java using workarounds.<br>
+I did this for so long that on taking a step back I discovered that <strong>the bulk of my work</strong> lately had not been working in Core <code>Brij</code> functionality but rather improving the JDK by adding functional abstractions to it!  To illustrate, here is a snippet of the kind of work I was doing -&gt;</p>
+<h4 id="the-mtpl-then-named-mtuple">The mTpl (then named mTuple)</h4>
+<pre><code> Optional&lt;List&gt; squeeze(List&lt;mTuple&lt;T&gt;&gt; inL)
+    List outL = new ArrayList&lt;&gt;()
+    if (inL.size() &lt; 1) 
+        return Optional.empty()
+     else 
+        inL.stream()
+            .map( t -&gt; t.getR())
+            .filter((Optional ot) -&gt; ot.isPresent())
+            .map((Optional t)   -&gt; outL.add(t.get()))
+        prnOut.accept(&quot;squeeze -&gt; after proc, new size = &quot; + outL.size())
+        return Optional.of(outL)
+
+ Optional&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate) 
+    Objects.requireNonNull(predicate)
+    if (!hasR())
+        return Optional.empty()
+    else
+        return predicate.test(right.get()) ? right : Optional.empty()
+
+&lt;U&gt; mTuple&lt;U&gt; map(Function&lt;? super T, ? extends U&gt; failable) 
+    //sets this mTuple to &lt; ExceptionMsg, Result &gt;
+    Optional r = Optional.empty()
+    Optional&lt;String&gt; l = Optional.empty()
+    Objects.requireNonNull(failable)
+        try
+            r = Optional.of(failable.apply(right.get()))
+         catch (Exception ex) 
+            l = Optional.of(ex.getMessage())
+            prnEx.accept(&quot;Exception in mTuple.map -&gt; &quot; , ex)
+    return new mTuple(l,r)
+
+&lt;U&gt; mTuple&lt;U&gt; flatMap(Function&lt;? super T, mTuple&lt;U&gt;&gt; mapper) 
+    Objects.requireNonNull(mapper)
+    Optional r = Optional.empty()
+    Optional&lt;String&gt; l = Optional.empty()
+    if (hasR()) 
+        try
+            r = Objects.requireNonNull(mapper.apply(right.get()).getR())
+         catch (Exception ex) 
+            l = Optional.of(ex.getMessage())
+            prnEx.accept(&quot;Exception in mTuple.flatMap-&gt; &quot; , ex)
+    return new mTuple(l,r)
+
+&lt;R&gt; mTuple&lt;R&gt; lift(mTuple m1, mTuple m2, BiFunction&lt;Object, Object, mTuple&gt; lifter) 
+    return m2.flatMap( second -&gt; 
+            m1.map ( first -&gt; lifter.apply( first, second ) )
+    )
+</code></pre>
+<p>If you show this snippet to any java geek (and I'm sure you know a few) I am sure they will say it looks more like <code>Scala</code> or <code>Clojure</code> than Java.</p>
+<blockquote>
+<p>&quot;If it walks like a duck, talks ...&quot;</p>
+<p>Anonymous</p>
+</blockquote>
+<p>Since it was not my priority to do language programming - other languages already had these abstractions - I decided to ditch java in favor of a purely functional programming language.  I had already been reading and evaluating <a href="https://en.wikipedia.org/wiki/Scala_(programming_language)" title="Scala">Scala</a>, <a href="https://en.wikipedia.org/wiki/Clojure" title="Clojure">Clojure</a> and other alternatives; and after a while I decided to port <code>Brij</code> to <a href="https://en.wikipedia.org/wiki/F_Sharp_(programming_language)" title="F#">F#</a>.</p>
+<h3 id="5--going-purely-functional">5.  Going Purely Functional</h3>
+<p>I quickly became proficient in Functional Programming Paradigms, and was shocked and delighted to discover the rich tooling and endless possibilities in this new world; especially all the research work already been done in languages like Haskell.  I became an F# enthusiast.
+Rewriting the <code>Brij</code> system in a functional language was hairy at times but I now had serious tools - including <a href="https://en.wikipedia.org/wiki/Metaprogramming" title="Metaprogramming">metaprogramming</a> - to tackle the challenges I was facing.<br>
+As before, I continued to research paradigms, techniques, patterns: anything I could use now or possibly use later.  I became familiar enough in languages like <a href="https://en.wikipedia.org/wiki/Haskell" title="Haskell"><code>Haskell</code></a> and <a href="https://en.wikipedia.org/wiki/OCaml" title="OCaml"><code>OCaml</code></a> to port code from them to F#.<br>
+With the move to F#, <code>Brij</code> went from <code>possible</code> to <code>done</code>.</p>
+<h3 id="6--writing-compilers">6.  Writing compilers</h3>
+<p>I knew of the existence of tools like <a href="https://en.wikipedia.org/wiki/ANTLR" title="Antler">Antler</a> and had worked with Byte Code Manipulation tools like <a href="https://projectlombok.org/" title="Lombok">Lombok</a>, <a href="http://bytebuddy.net/" title="byteBuddy">byteBuddy</a> and <a href="https://www.eclipse.org/aspectj/" title="aspectJ">aspectJ</a> to either manipulate code in memory or before/after compilation.<br>
+The final tools which I picked up and used in my journey to bring <code>Brij</code> to market were <a href="http://fsprojects.github.io/FsLexYacc/" title="LexYacc">FsLex/FsYacc</a> and <a href="http://www.quanttec.com/fparsec/" title="FParsec">FParsec</a>.  These tools enabled me to compile raw F# code in order to translate <code>Brij</code> documents to MongoDB queries on the fly.</p>
+<h2 id="10x-developer">10x Developer</h2>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Q: Can you provide further validation of your claim to be a 10x Developer?</p>
+</div>
+<p>Here is one experience which opened my eyes:<br>
+At about a year into a consulting gig at a major Philadelphia Finance firm (at their downtown HQ which was a 20+ floor building with about 3k employees) the company imploded.  Within weeks the skyscraper became a ghost town; I was one of the last dozen people working there.  Employees scrambled to find new positions (post Y2K) but as a consultant, I didn't care: I was paid by the hour and happy to work as long as they wanted me.<br>
+Many key developers had left and the main function of the acting CTO was to give outside financial companies (which had bought pieces of this company) the data dumps they needed to transition the clients.<br>
+My background uniquely qualified me to harvest the data and shape it per clients' needs.  One manager - who I'd never worked with before - asked me for an estimate to code 20 Database Views for a database I had not seen before.  I told her it would take a week and a half.<br>
+&quot;What do you mean, a week and a half?  For how many?&quot; she asked.
+I explained that my estimate was for 45 minutes Median per View, plus a 50% safety margin for expected difficulties; which amounted to 60 hours.<br>
+&quot;That's not what the other developer quoted,&quot; she said, referring to an absent colleague.<br>
+&quot;What did he quote?&quot; I asked.<br>
+&quot;A week for each View,&quot; she replied.</p>
+<h2 id="usenet-contributor">Usenet Contributor</h2>
+<p>When Google offered users a way to make all their data private I elected to remove all my messages from Google Groups.  However, usenet archives (which are popularly used to train ML models) will give you access to hundreds of my posts in programming language and groupware groups.<br>
+My presence in those earlier versions of <a href="https://stackoverflow.com/" title="StackOverflow">StackOverflow</a> was so ubiquitous that senior Microsoft PMs approached me twice with job offers.  Both offers were about five years apart, and I was already then a stockholder in the company and a fan, but could not imagine trading my freelance consulting career or moving to Seattle.<br>
+My posts on groups such as comp.groupware.* , languages.* and the ToolBook forum led to many leads.  In those heady days I hardly ever actively looked for gigs; work came to me unasked.  Please see <a href="founder.html#first-pc-and-toolbook-gig" title="gigs">this link</a> for some examples.
+I have no current Social Media presence (except on <a href="https://www.linkedin.com/in/miketriv" title="LinkedIn">LinkedIn</a>, which is compromised)<br>
+You will find most of my past posts under these email addresses:</p>
+<ul>
+<li>psmith@pond.com (one of my favorite <a href="https://en.wikipedia.org/wiki/Psmith" title="psmith">literary</a> characters)</li>
+<li>miketriv@vm.temple.edu</li>
+<li>miketriv@temple.edu</li>
+<li>mike@trivedi.com</li>
+<li>sales@trivedi.com</li>
+</ul>
+<h2 id="solo-effort">Solo Effort</h2>
+<p>While I have worked as part of a team at many of my contracts, this has not been much of a choice for me: I usually work alone, even on gigs.  I am a huge enthusiast of the many famous <a href="https://softwareengineering.stackexchange.com/questions/47197/are-there-any-famous-one-man-army-programmers" title="one-man-army developers">one-man-army developers</a> - to me they resonate with the image of a lone cowboy.<br>
+As my personal history shows, all my best work has occured when working solo (with or without a Manager).  I honestly believe that I am one of the people who are most productive on their own: my personality traits include a (people have said remarkable) memory which allows me to focus on tiny aspects while retaining a macro view; and to clearly see the ramifications of any product change or improvement across all aspects of the product.<br>
+Having taken <strong>many</strong> ideas from concept to market has refined my approach in terms of both knowing where to <strong>find</strong> and how to <strong>avoid</strong> bugs or bottlenecks and - on the other hand -  knowing how to <strong>improve</strong> an aspect; <strong>which</strong> aspect to improve; and how each possible feature could enhance or detract from product <strong>value</strong>.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>Last updated May 3, 2023</p>
+<h3 id="website-disclaimer">WEBSITE DISCLAIMER</h3>
+<p>The information provided by Trivedi Enterprises Inc. (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) on <a href="https://trivedienterprises.github.io/">https://trivedienterprises.github.io/</a> (the &quot;Site&quot;) is for general informational purposes only.  All information on the Site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site.  UNDER NO CIRCUMSTANCE SHALL WE HAVE ANY LIABILITY TO YOU FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF THE SITE OR RELIANCE ON ANY INFORMATION PROVIDED ON THE SITE.  YOUR USE OF THE SITE AND YOUR RELIANCE ON ANY INFORMATION ON THE SITE IS SOLELY AT YOUR OWN RISK.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span><strong>Brij(TM)</strong>.  Copyright (c) M. P. Trivedi, 2016-2023.  All rights reserved.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
