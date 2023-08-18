@@ -42,6 +42,159 @@
           </tr>                  
 
           <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 16-18</td>
+          <td class = "BrijLogtd">blazor/wasm</td>
+          <td class = "BrijLogtd">
+              @rsch + srid: ran bld: issues w/net5-7 upgrd (CEs 4 bldg els)<br>
+              Got Blazor wasm ToDo launching locally
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 15</td>
+          <td class = "BrijLogtd">blazor/wasm</td>
+          <td class = "BrijLogtd">
+           @rsch + srid: setup/local static run as-is
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 14</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           lazy (gen on Demand) success! typical res window (this is 13 not 12):<br>
+		[["W25"; "V_119"; "V2"; "Cd"; "V_215"]; ["W25"; "V_119"; "V2"; "Cd"; "V_216"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_217"]; ["W25"; "V_119"; "V2"; "Cd"; "V_218"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_219"]; ["W25"; "V_119"; "V2"; "Cd"; "V_220"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_221"]; ["W25"; "V_119"; "V2"; "Cd"; "V_222"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_223"]; ["W25"; "V_119"; "V2"; "Cd"; "V_224"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_225"]; ["W25"; "V_119"; "V2"; "Cd"; "V_226"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_227"]]
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 11,12</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Further work w/mockADO<br>
+            Bombs also (outOfMem) one last try w/HashMaps & then we nd 2<br>
+             try blding the entire collectn lazily, ie for a bucket w/seed<br>
+             123458, skip & retn exactly bucketSz itms.<br>
+            Warning: not too much effort; this is easy as pie w/a db BUT<br>
+             poss useful in scenarios such as wasm.<br>
+            Aug12: introduced async & T.K to mod perms, @mbi choked _hard_ as expctd. (hehe, monkeys)
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 10</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Created mod mockADO, ported earlier fable work & refined it; <br>
+            Bucketing logic in place
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 09</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Further work w/permsHarness: ran a few tests, created blders etc.<br>
+            Basic harness is in place
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 08</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Further work w/Cambattable; was able to use intfcs/phTys w/DUs (see notes Aug7)<br>
+            Further work w/perms: added new Cfgs<br>
+              * Gathered nos 4 all scenarios<br>
+              * Decided on optimal cfg (5M tot) genned 20 files on replIt<br>
+            Created mod permsHarness, init. work; Ado.net bombs @ ~ 2M recs
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 07</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Created mod Cambattable, assoc tys 4 Bfty, Btpl...<br>
+           Some issues w/sealed types & tyConstraints so removed constr.<br>
+           The mods'll still be constrained tho...
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">gen</td>
+          <td class = "BrijLogtd">
+           All APIs were way out of date (from Janish) so gend/repl/extracted to extnal<br>
+           Reinst. Op once again, still persistent @mbi
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 05</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Merged mods permsBase/Red<br>
+             created permCfg ty; some deltas
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">gen</td>
+          <td class = "BrijLogtd">
+            Repl ripGrep w/fnr
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 04</td>
+          <td class = "BrijLogtd">gen</td>
+          <td class = "BrijLogtd">
+            generated winFrms map (perms repl); uploaded + modified b.html
+          </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 03</td>
+          <td class = "BrijLogtd">utils/shorty.cs</td>
+          <td class = "BrijLogtd">
+            Some shortcuts in src subDir were missing, so setup/reRan shorty/updated lnkOut
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Further work with ule permsBase: produced 2.35M * 20<br>
+            Created mod permsRed: produced 60k * 20 = 1.2M (30 ea for V1|V2; def 4 Ps)<br>
+            - still nd 2 combine these & ensure unique<br>
+            - can persist a single tbl & use as `seed` to gen indiv. (TBimpl)<br>
+            (10 * 200) * 50 = 100k<br>
+            Created ule dizCopy, some work compl<br>
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 02</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Created ule clientInit w/UI/UIAux/Brij updates<br>
+              related 2 tracking openTbls + versioning etc.<br>
+            Further work with perms; recreated outOfMem err (snafu w/conc)
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 31</td>
+          <td class = "BrijLogtd">gen</td>
+          <td class = "BrijLogtd">
+            @rsch FsCheck/QuickCheck
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 29</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Some work with perms until monkey bastas interfered too much... (hopeless effers)
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">repl/diff</td>
+          <td class = "BrijLogtd">
+            Began/completed work on diff (html 2 rtf); stable<br>
+            @ToDo: 2 wins/merge impl.
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
           <td class = "BrijLogtd">Jul 28</td>
           <td class = "BrijLogtd">test/winFrms.fs</td>
           <td class = "BrijLogtd">
