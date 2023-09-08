@@ -11,7 +11,8 @@
   - [FldLvl Δs](#fldlvl-s)
   - [Templating](#templating)
       - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
-      - [Process Flows For `S`](#process-flows-for-s)
+      - [Process Flows `S`](#process-flows-s)
+  - [Add notes below:](#add-notes-below)
     - [Consider](#consider)
 - [Reading](#reading)
   - [Shelf](#shelf)
@@ -214,7 +215,7 @@ graph TB
     c1-->a3
     subgraph Class
     a1['Port to<br>React/TS']-->a2
-    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
+    a2['Custom<br>Components']-->|Maybe Redux?|a3[Ï‰]
     end
     subgraph Horn
     b1['Just figure<br>out the basic structure']-->b2[Port to our<br>system, reImplement]
@@ -230,7 +231,7 @@ graph TB
     end
     subgraph Green
     c0['Borrow<br>Brij Code']-->c1
-    c1['But we are<br>familiar with CSharp']-->|CrossCompile<br>with Roslyn?|c2[ω]
+    c1['But we are<br>familiar with CSharp']-->|CrossCompile<br>with Roslyn?|c2[Ï‰]
     end
 ```
 ## FldLvl Δs
@@ -339,13 +340,10 @@ graph TB
 
 > **To be translated to flowchart** 
 
- - Both GreenS & SupS are *entirely local*, no cmds
  - GandhiG + GreenG -> All Local -> GandhiA -> **not** pushed, Avail Next
  - GreenA + GreenH -> (only Δ) -> (new member) mTpl.withTpl(Δ) -> Db.NewVersion(M) [To modularize 4 Test/Prior]
  - SupA is the same as GreenA above (?chk?)
- - ClassS
  - ClassA -> [Nds Dat; avail|new|cpy] -> Δ -> Db.Ad.Cmd(Δ) -> ω | NxtTime
- - GandhiS ≅ SwitchTo via menu [∵ only Diff is cliSide UI] -> Db.Cmd(id)  ((4 Svr Equivalent))
  - **Any** Δs to Calcutti -> incl 'only' moveToPg -> Flag -> DefChanged -> GandhiA(Δ) -> Db.updAndBld(Δ) -> newVer
 
 Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by ... "
