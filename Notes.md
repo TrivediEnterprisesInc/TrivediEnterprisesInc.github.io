@@ -1,18 +1,22 @@
 # Table of Contents
+
 - [Code Updates](#code-updates)
   - [Outstanding Tks](#outstanding-tks)
     - [Qry](#qry)
     - [DbClipboard](#dbclipboard)
-  - [From Aug 2023 (to be checked)](#from-aug-2023-to-be-checked)
-  - [From May 22 2023 (to be checked)](#from-may-22-2023-to-be-checked)
-  - [From EOY 22 (To Be Checked)](#from-eoy-22-to-be-checked)
+  - [To Be Checked](#to-be-checked)
+    - [From Aug 2023](#from-aug-2023)
+    - [From EOY 22](#from-eoy-22)
+    - [From May 22 2023](#from-may-22-2023)
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
   - [FldLvl Δs](#fldlvl-s)
   - [Templating](#templating)
       - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
       - [Process Flows `S`](#process-flows-s)
-  - [Add notes below:](#add-notes-below)
+      - [Process Flows `A`](#process-flows-a)
+      - [Process Flows `G`](#process-flows-g)
+      - [Process Flows `H`](#process-flows-h)
     - [Consider](#consider)
 - [Reading](#reading)
   - [Shelf](#shelf)
@@ -53,7 +57,6 @@
   - [SSO](#sso)
 - [Other](#other)
 
-
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
 
 # Code Updates
@@ -82,29 +85,15 @@ type BrijLinq() =
     - intlBuffer holds itms until nxt copy/cut
     - **NOTE** that localDbs may need cliSide logic
 
-## From Aug 2023 (to be checked)
+## To Be Checked
+### From Aug 2023
 These're incorp into the code (wFrms) but chk anyway:
 1. **PriorVer Info** w/in doc?  Array?  If so, how to update changes?
 2. **ACLs** : SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault
 3. **Frm**: Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep)
 4. **Validation Rules** on Compose: see if we can use the ∃ing Form Funct w/fns (for hlp popup)
 
-## From May 22 2023 (to be checked)
-Wnn:
-    Run #s w/ tot 5 -> (1) Visible (2) Trivia (Rnd())
-    All Local ver of VSCd portable w/Lang Svr 4 AutoComp?
-    OR run from Partition w/o inet (How determine?) (switch Part.s poss?)
-    OR ChromeOS? Some other OS? Min ver of Linux?
-    
-    Needs to allow compil8n; which opens up vulnerabil.s galore
-
-    How to disable/lock open ports?  (SysTray lock @rsch)
-    
-    Medium article on Defensive Prog (incl refs to Adapter Pattn/wrkBnch)
-    
-    Jimmy -> Auth -> Mount -> App on JVM
-    
-## From EOY 22 (To Be Checked)
+### From EOY 22
   BanarasiP	How to handle intl flds? Disabled? Title etc. nded
                 More wids
   MeethooM	As above, nd to handle intl flds (No renaming or fldTy chng allowed)
@@ -121,9 +110,7 @@ Wnn:
 
   For Computed Fields (v2?) (Jan13_23)
     it mt be a gd idea to offer an Expr Bldr which uses ParserCombs under the cover;
-    this wd allow MUCH more userFunc (e.g., fldContents contains "exactlyOne '(' +  oneOrMore digits,
-    exactlyOne ',' + oneOrMore text/anyChar + ...."; matches populate computed fld which can
-    be proc'd as usu.
+    this wd allow MUCH more userFunc (e.g., fldContents contains "exactlyOne '(' +  oneOrMore digits,     exactlyOne ',' + oneOrMore text/anyChar + ...."; matches populate computed fld which can     be proc'd as usu.
 -----
 MeethooP:
 `    let icnLbl = new Label(Image = brijLogo, Size = (new Size(brijLogo.Width, brijLogo.Height)), Anchor = anc "N", BackColor = Color.Transparent, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).Icn())
@@ -137,7 +124,7 @@ MeethooP:
 એક્સ_પેનલ
 કેટ_બાય_પીચાક
 -----
-@ToDo ~ Nov27->
+>@ToDo ~ Nov27->
           
 DzDV:       1st DV is deflt (?@tbd); ability to set in CalcDef: checkBoxes
             new TSBtn "Create Copy" for dzDox
@@ -145,9 +132,8 @@ DzDV:       1st DV is deflt (?@tbd); ability to set in CalcDef: checkBoxes
 Existing mods: continue as b4
 ALL new mods:  keep CoreAux open; use new conventions
 
-@tbd The api will be CRU ('d's become 'u's)
 -----
-@ToDo ~ Nov9
+>@ToDo ~ Nov9
 
 mod AutoOp Brij.Canned <- all suppliers; f 'a x -> x
 
@@ -204,6 +190,22 @@ UI:
       - if comp compl use cq |> eval
 - ONCE above verified -> basic 5 (3param) + add'l 4(or as nded) -> Commando mode
 
+### From May 22 2023
+Wnn:
+    Run #s w/ tot 5 -> (1) Visible (2) Trivia (Rnd())
+    All Local ver of VSCd portable w/Lang Svr 4 AutoComp?
+    OR run from Partition w/o inet (How determine?) (switch Part.s poss?)
+    OR ChromeOS? Some other OS? Min ver of Linux?
+    
+    Needs to allow compil8n; which opens up vulnerabil.s galore
+
+    How to disable/lock open ports?  (SysTray lock @rsch)
+    
+    Medium article on Defensive Prog (incl refs to Adapter Pattn/wrkBnch)
+    
+    Jimmy -> Auth -> Mount -> App on JVM
+    
+
 # Architecture
 
 ## Topology Overview
@@ -215,7 +217,7 @@ graph TB
     c1-->a3
     subgraph Class
     a1['Port to<br>React/TS']-->a2
-    a2['Custom<br>Components']-->|Maybe Redux?|a3[Ï‰]
+    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
     end
     subgraph Horn
     b1['Just figure<br>out the basic structure']-->b2[Port to our<br>system, reImplement]
@@ -231,7 +233,7 @@ graph TB
     end
     subgraph Green
     c0['Borrow<br>Brij Code']-->c1
-    c1['But we are<br>familiar with CSharp']-->|CrossCompile<br>with Roslyn?|c2[Ï‰]
+    c1['But we are<br>familiar with CSharp']-->|CrossCompile<br>with Roslyn?|c2[ω]
     end
 ```
 ## FldLvl Δs
@@ -257,16 +259,18 @@ flowchart LR
     F --> |getClientsWithTbl| G(6. Push)
     --> |Updates| A
 
-     classDef bigAction fill:#96B6C5,stroke:#333,stroke-width:2px
-     classDef smAction fill:#ADC4CE,stroke:#333,stroke-width:2px
+     classDef drkBlue fill:#96B6C5,stroke:#333,stroke-width:2px
+     classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
      classDef intermed1 fill:#EEE0C9,stroke:#333,stroke-width:2px
      classDef intermed2 fill:#F1F0E8,stroke:#333,stroke-width:2px
      classDef storage  fill:#FFCACC,stroke:#333,stroke-width:4px
-     class D smAction
+    classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
+     class D ltBlue
      class B intermed1
      class C intermed2
-     class E,G bigAction
-     class A,F storage
+     class E drkBlue
+     class A green
+     class F,G storage
 ```
 - in "Replace Design" ρ allows completely replacing *ALL* dzDocs w/new docs.  Dates are ignored.  It **_is_** possible to repl a Design w/a different/wrong Table; and shd be allowed (Designer's Imperative).  Any reason why we shouldn't follow suit?
 - Prompt usr w/ "This will replace...Are you sure?"
@@ -276,40 +280,33 @@ flowchart LR
 Documents for testing purposes"
 > **@TBD**: Are we offering Local/Disconnected/Offline mode for v1/MVP?
 
-#### Process Flows For `S`
+#### Process Flows `S`
 ```mermaid
 graph TB
-    subgraph ClassS
-    c1[svr.ClassS id]-->c2[proc +<br>payload]
-    c2-->c3[cliSide]
-    c3-->c4[Await Next]
     classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
     classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
     classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
-    class c4 offWhite
-    class c2,c3 ltBrn
-    class c1 red
+     classDef drkBlue fill:#96B6C5,stroke:#333,stroke-width:2px
+     classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
+    classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
+    subgraph ClassS
+    a1['Port to<br>React/TS']-->a2
+    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
     end
     subgraph HornS
-    hs1[svr.HornCmd tblID]-->hs2{match<br>tblDef.Gandhis}
-    hs2-->|None|hs3[GandhiS]
-    hs2-->|xs|hs4[display<br>CreateInstr]
+    hs1[svr.HornCmd tblID]-->hs2{dfltGandhi<br> exists?}
+    hs2-->|Yes|hs3[GandhiS]
+    hs2-->|No|hs4[display<br>CreateInstr]
     hs3-->hs5[Await Next]
     hs4-->hs5
-    classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
-    classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
-    classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
     class hs5 offWhite
-    class hs3,hs4,hs2 ltBrn
-    class hs1 red
-
+    class hs4 ltBrn
+    class hs2 drkBlue
+    class hs1,hs3 red
     end
     subgraph GandhiS
     ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
     ghs2-->ghs3[Await Next]
-    classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
-    classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
-    classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
     class ghs3 offWhite
     class ghs2 ltBrn
     class ghs1 red
@@ -317,10 +314,6 @@ graph TB
     subgraph SupS
     sups1[Cmd docID]-->|Handled in UI|sups2[cliSide]
     sups2 --> sups3[Await Next]
-    classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
-    classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
-    classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
-    classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
     class sups3 offWhite
     class sups2 ltBrn
     class sups1 green
@@ -328,16 +321,111 @@ graph TB
     subgraph GreenS
     gs1[Cmd docID]-->|Handled in UI|gs2[cliSide]
     gs2 --> gs3[Await Next]
-    classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
-    classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
-    classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
-    classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
     class gs3 offWhite
     class gs2 ltBrn
     class gs1 green
     end
 ```
 
+#### Process Flows `A`
+```mermaid
+graph TB
+    classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
+    classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
+    classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
+    classDef drkBlue fill:#96B6C5,stroke:#333,stroke-width:2px
+    classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
+    classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
+    subgraph ClassA
+    a1['Port to<br>React/TS']-->a2
+    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
+    end
+    subgraph HornA
+    hs1[svr.HornCmd tblID]-->hs2{dfltGandhi<br> exists?}
+    hs2-->|Yes|hs3[GandhiS]
+    hs2-->|No|hs4[display<br>CreateInstr]
+    hs3-->hs5[Await Next]
+    hs4-->hs5
+    end
+    subgraph GandhiA
+    ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
+    ghs2-->ghs3[Await Next]
+    end
+    subgraph SupA
+    sups1[Cmd docID]-->|Handled in UI|sups2[cliSide]
+    sups2 --> sups3[Await Next]
+    end
+    subgraph GreenA
+    gs1[Cmd docID]-->|Handled in UI|gs2[cliSide]
+    gs2 --> gs3[Await Next]
+    end
+```
+#### Process Flows `G`
+```mermaid
+graph TB
+    classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
+    classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
+    classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
+    classDef drkBlue fill:#96B6C5,stroke:#333,stroke-width:2px
+    classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
+    classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
+    subgraph ClassG
+    a1['Port to<br>React/TS']-->a2
+    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
+    end
+    subgraph HornG
+    hs1[svr.HornCmd tblID]-->hs2{dfltGandhi<br> exists?}
+    hs2-->|Yes|hs3[GandhiS]
+    hs2-->|No|hs4[display<br>CreateInstr]
+    hs3-->hs5[Await Next]
+    hs4-->hs5
+    end
+    subgraph GandhiG
+    ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
+    ghs2-->ghs3[Await Next]
+    end
+    subgraph SupA
+    sups1[Cmd docID]-->|Handled in UI|sups2[cliSide]
+    sups2 --> sups3[Await Next]
+    end
+    subgraph GreenG
+    gs1[Cmd docID]-->|Handled in UI|gs2[cliSide]
+    gs2 --> gs3[Await Next]
+    end
+```
+#### Process Flows `H`
+```mermaid
+graph TB
+    classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
+    classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
+    classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
+    classDef drkBlue fill:#96B6C5,stroke:#333,stroke-width:2px
+    classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
+    classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
+    subgraph ClassH
+    a1['Port to<br>React/TS']-->a2
+    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
+    end
+    subgraph HornH
+    hs1[svr.HornCmd tblID]-->hs2{dfltGandhi<br> exists?}
+    hs2-->|Yes|hs3[GandhiS]
+    hs2-->|No|hs4[display<br>CreateInstr]
+    hs3-->hs5[Await Next]
+    hs4-->hs5
+    end
+    subgraph GandhiH
+    ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
+    ghs2-->ghs3[Await Next]
+    end
+    subgraph SupH
+    sups1[Cmd docID]-->|Handled in UI|sups2[cliSide]
+    sups2 --> sups3[Await Next]
+    end
+    subgraph GreenH
+    gs1[Cmd docID]-->|Handled in UI|gs2[cliSide]
+    gs2 --> gs3[Await Next]
+    end
+```
 > **To be translated to flowchart** 
 
  - GandhiG + GreenG -> All Local -> GandhiA -> **not** pushed, Avail Next
@@ -498,10 +586,9 @@ OSS LoCo
 Not NoCos, lookup 4 tech
 
 # Markdown Stuff
-[mermaid cheatsheet](https://jojozhuang.github.io/tutorial/mermaid-cheat-sheet/)
-
+[Mermaid cheatsheet](https://jojozhuang.github.io/tutorial/mermaid-cheat-sheet/)
+[Mermaid theme customization](https://mermaid.js.org/config/theming.html)
 [Markdown Editor](https://stackedit.io/app#)
-
 [TOC Generator](https://imthenachoman.github.io/nGitHubTOC/)
 
 ## Colors
