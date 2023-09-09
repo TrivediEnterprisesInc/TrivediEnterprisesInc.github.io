@@ -247,7 +247,7 @@ ADD: Created|LastMod|By (these already exist in CoreMod)
 
 
 ## Templating
-#### Brij flow using ρ setup ->
+### Brij flow using ρ setup ->
 ```mermaid
 flowchart LR
     A[1. Table] -->|New<br>DesignTempl| B(2a. DesignCopy<br>Server<br>)
@@ -280,7 +280,7 @@ flowchart LR
 Documents for testing purposes"
 > **@TBD**: Are we offering Local/Disconnected/Offline mode for v1/MVP?
 
-#### Process Flows `S`
+## Process Flows `S`
 ```mermaid
 graph TB
     classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
@@ -327,7 +327,7 @@ graph TB
     end
 ```
 
-#### Process Flows `A`
+## Process Flows `A`
 ```mermaid
 graph TB
     classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
@@ -360,7 +360,7 @@ graph TB
     gs2 --> gs3[Await Next]
     end
 ```
-#### Process Flows `G`
+## Process Flows `G`
 ```mermaid
 graph TB
     classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
@@ -393,7 +393,7 @@ graph TB
     gs2 --> gs3[Await Next]
     end
 ```
-#### Process Flows `H`
+## Process Flows `H`
 ```mermaid
 graph TB
     classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
@@ -426,6 +426,8 @@ graph TB
     gs2 --> gs3[Await Next]
     end
 ```
+## Notes 4 Process Flows
+
 > **To be translated to flowchart** 
 
  - GandhiG + GreenG -> All Local -> GandhiA -> **not** pushed, Avail Next
@@ -436,6 +438,8 @@ graph TB
 
 Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by ... "
 
+## @TBD: ACL/Role Impl.
+
 | | Create | View | Edit | Delete |
 |----| ----| ----| ----| ----|
 | **Reader** | ---- |  x | ----| ----|
@@ -445,11 +449,9 @@ Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by 
 
 **Levels**: | Doc | Form | Tbl | Sys |
 
-### @TBD: ACL/Role Impl.
-
 > Poss. b8r to impl merely Reader/Author for v1 & leave more finely grained sec 4 l8r.
 
-#### Consider:
+### Consider:
 
 1. Is Form here equiv to DesEl?
     - All access must, by definition, pass through svrReq
