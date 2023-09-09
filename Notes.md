@@ -445,15 +445,23 @@ Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by 
 
 **Levels**: | Doc | Form | Tbl | Sys |
 
-> **@TBD**: Poss. b8r to impl merely Reader/Author for v1 & leave more finely grained sec 4 l8r.
+### @TBD: ACL/Role Impl.
 
-### Consider
-Is Form here equiv to DesEl?
- - All access must, by definition, pass through svrReq
- - Req >> ApplyACL will, even 4 DzLi (say GandhiNms) Filter -> ∴ applied cliSide
- - fn ApplyAcl = | NoRights -> repl w defVal   | _ -> ()
+> Poss. b8r to impl merely Reader/Author for v1 & leave more finely grained sec 4 l8r.
 
+#### Consider:
 
+1. Is Form here equiv to DesEl?
+    - All access must, by definition, pass through svrReq
+    - Req >> ApplyACL will, even 4 DzLi (say GandhiNms) Filter -> ∴ applied cliSide
+    - fn ApplyAcl = | NoRights -> repl w defVal   | _ -> ()
+
+2. Versioning alieviates disaster recovery caused by lack of Role Impl.
+    - If users can identify/recover from failures it solves most of the burden
+
+3. However, even basic ACLs mean the whole hog
+    - If dvlpr wants to hide Salary fld from all except ["EmplNmFieldThisDoc";"MngrFieldThisDoc";"HRGrpThisOrg"]; we still
+      need to impl. LDAP/X509/NAB equiv.  Mere logins/OUs won't do; the whole hog necc.
 
 # Reading
 
