@@ -665,7 +665,161 @@ http://www.drdobbs.com/database/getting-started-with-mongodb/240151028
 
 http://www.drdobbs.com/windows/information-rich-programming-with-f-30/240148372
 
-  
+## Dynamic/ExpandoObject
+You can go full Linq approach-->
+  private string GetName(){
+    var client = new MongoClient();
+    var database = client.GetDatabase("WorldCities");
+    var collection = database.GetCollection<BsonDocument>("cities");
+    return collection.AsQueryable().Sample(1).First().GetValue("name").ToString(); }
+
+Or full .Find approach-->
+  private string GetName(){
+    var client = new MongoClient();
+    var database = client.GetDatabase("WorldCities");
+    var collection = database.GetCollection<BsonDocument>("cities");
+    var result = collection.Find(FilterDefinition<BsonDocument>.Empty)
+        .Project(Builders<BsonDocument>.Projection.Include("name").Exclude("_id")).First().ToString();
+    return result;}
+    // { "name" : "les Escaldes" }
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+///https://jonathancrozier.com/blog/interacting-with-mongodb-using-c-sharp
+var client   = new MongoClient();
+//var client = new MongoClient("mongodb://localhost:27017");
+var database = client.GetDatabase("movies_app");
+var databaseNames = await client
+    .ListDatabaseNames()
+    .ToListAsync();
+ 
+foreach (string databaseName in databaseNames){
+    Console.WriteLine(databaseName);}
+var collectionNames = await database
+    .ListCollectionNames()
+    .ToListAsync();
+foreach (string collectionName in collectionNames){
+    Console.WriteLine(collectionName);}
+
+//LINQ
+//The standard Find method provided by the MongoDB C# Driver works really well and provides a lot of flexibility.
+
+//In addition to this, the MongoDB C# Driver includes a LINQ provider that allows you to write LINQ queries like you would for .NET //in-memory collections or when using Entity Framework or Entity Framework Core as your ORM.
+
+//To avail of this, all you need to do is call the AsQueryable method on the IMongoCollection instance to get access to the LINQ //functionality.
+var movies = moviesCollection
+    .AsQueryable()
+    .Where(m => m.Year == 1979)
+    .OrderBy(m => m.Title);
+
+//If you prefer Query Syntax instead of Method Syntax, no problem.
+var movies = from    m in moviesCollection.AsQueryable()
+             where   m.Year == 1979
+             orderby m.Title
+             select  m;
+Note that not every LINQ operation is supported, but the LINQ provider covers all of the essentials.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Qry w/o Classes (on BsonDoc)
+
+https://stackoverflow.com/questions/67212069/c-sharp-query-mongodb-using-linq-and-returning-valid-json
+
+    var db = client.GetDatabase("test");
+    var collection = db.GetCollection<BsonDocument>("test"); <-- this is a problem as my collection 
+                                                                 doesn't have a .Net class to map to
+
+    return await collection.AsQueryable()
+        .Where(x => x.ChapterName == "SouthEast Chapter")  <-- of course this fails
+        .Select(x => x.Values)
+        .ToListAsync();
+
+A1: dont use linq - it will work with regular querying and without a class definition.
+A2: You can access ChapterName via BsonDocument's indexer. So, Where condition would become: .Where(x => x["ChapterName"].AsString == "SouthEast Chapter")
+A3:
+You can't because LINQ doesn't support dynamic - expando objects.
+
+See Dynamic (LINQ querying of an ExpandoObject)[https://stackoverflow.com/questions/13119264/dynamic-linq-querying-of-an-expandoobject]?
+
+There is plenty of helpers in MongoDB C# driver, below some simple way to query BsonDocument
+
+using System;
+using System.Collections.Generic;
+using MongoDB.Bson;
+using MongoDB.Driver; // Important to have .ToList() extensions
+using MongoDB.Bson.Serialization;
+
+static void Main(string[] args){
+    var collection = new MongoClient().GetDatabase("mq").GetCollection<BsonDocument>("Event3");
+    var bsf = Builders<BsonDocument>.Filter;
+
+    List<FilterDefinition<BsonDocument>> example1 = new List<FilterDefinition<BsonDocument>>();
+    example1.Add(bsf.Eq("msg", "master"));
+    example1.Add(bsf.Eq("to", "server"));
+    var result1 = collection.Find(bsf.And(example1)).ToList();
+
+    FilterDefinition<BsonDocument> example2 = bsf.Empty;
+    example2 = bsf.And(example2, bsf.Eq("msg", "master"));
+    example2 = bsf.And(example2, bsf.Eq("to", "server"));
+    var result2 = collection.Find(example2).ToList();
+
+    // To see how to create json syntax from Filter
+    Console.WriteLine(example2.Render(BsonSerializer.SerializerRegistry.GetSerializer<BsonDocument>(), BsonSerializer.SerializerRegistry));
+    string example3 = "{ 'msg' : 'master', 'to' : 'server' }";
+    var result3 = await collection.Find(BsonDocument.Parse(example3)).ToListAsync();
+
+    dynamic example4 = new ExpandoObject();
+    example4.msg = "master"; // Works only for equality
+    example4.to = "server";
+    var result4 = collection.Find(new BsonDocument(example4)).ToList();
+}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+query ExpandoObject with regular LINQ
+(https://stackoverflow.com/questions/18747058/is-it-possible-to-query-list-of-expandoobject)
+
+var generatedItems = new List<object>();
+foreach (var item in items){
+    var modifiedItem = new List<KeyValuePair<string, object>>    {
+        new KeyValuePair<string, object>("Id", item.Id),
+        new KeyValuePair<string, object>("FileId", item.FileId),
+        new KeyValuePair<string, object>("Notes", item.Notes)
+    };
+    modifiedItem.AddRange(item.Fields.Select(field => new KeyValuePair<string, object>(field.Key, field.Value)));
+    generatedItems.Add(ConvertToExpandoObjects(modifiedItem)); // Here I construct object from key/value pairs }
+return generatedItems; // Is it possible to query this thing?
+
+A: you would be able to query a collection of dynamic objects using the dot notation.
+
+var ids = generatedItems.Cast<dynamic>().Select(x => x.Id);
+//However, keep in mind that there's no type safety here and, as you stated, IntelliSense is of no use, since you're using dynamic //objects.
+//If your code depends on whether one of those objects have an optional property (e.g., some have "Title", others don't), then it will //require a little more manual labor.
+
+if((generatedItems as IDictionary<String, object>).ContainsKey("Title")) {...}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+I have a collection of expando objects / dynamic as
+
+var lst = new List<dynamic>();   
+dynamic exp1 = new ExpandoObject();
+exp1.Name = "ddd";
+lst.Add(exp1);
+dynamic exp2 = new ExpandoObject();
+exp2.Name = "aaa";
+lst.Add(exp2);
+  When I am doing
+var query = from t in lst
+where t.Name == "ddd"
+select t;
+  it works; but when I am using Dynamic Linq Library
+var query = lst.AsQueryable().Where("Name==@0", "ddd");
+  ...I am getting a parse exception from dynamic linq library.
+
+A: ExpandoObject implements IDictionary<string, object>, so you can take advantage of that:
+  var query = from t in lst
+  where ((IDictionary<string, object>)t)["Name"] == "ddd"
+  select t;
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+All the info you cd nd for [ExpandoObj](https://weblog.west-wind.com/posts/2012/Feb/08/Creating-a-dynamic-extensible-C-Expando-Object)
+...Although the Expando class supports an indexer, it doesn't actually implement IDictionary or even IEnumerable. It only provides the indexer and Contains() and GetProperties() methods, that work against the Properties dictionary AND the internal instance.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 # Aug5_2023 auth:
 https://tech.co/password-managers/how-many-passwords-average-person
 https://www.omnicoreagency.com/Facebook-statistics/
