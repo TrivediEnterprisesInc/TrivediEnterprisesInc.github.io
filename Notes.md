@@ -819,6 +819,13 @@ A: ExpandoObject implements IDictionary<string, object>, so you can take advanta
 All the info you cd nd for [ExpandoObj](https://weblog.west-wind.com/posts/2012/Feb/08/Creating-a-dynamic-extensible-C-Expando-Object)
 ...Although the Expando class supports an indexer, it doesn't actually implement IDictionary or even IEnumerable. It only provides the indexer and Contains() and GetProperties() methods, that work against the Properties dictionary AND the internal instance.
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+(2018 from CodeProj:)
+i am using List<ExpandoObject> but if not getting property using linq:
+var grdfeatchobjlist = (List<ExpandoObject>)grdproductitem.ItemsSource;
+var getlist = grdfeatchobjlist.Select(x => x.GetType().GetProperty("batchId") == Txtbatchcode.Text.ToString());
+A:For a dynamic property name which isn't known until runtime, cast the ExpandoObject to an IDictionary<string, object>, and use the indexer:
+var getlist = grdfeatchobjlist.Select((IDictionary<string, object> x) => x["batchId"] == Txtbatchcode.Text);
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 https://www.codeguru.com/csharp/using-dynamicobject-and-expandoobject/
 https://stackoverflow.com/questions/36539639/accessing-dynamic-objects-in-f
 This Qn has a 2015 way to flatten nested docs & qry on a subDoc (using Linq)->
