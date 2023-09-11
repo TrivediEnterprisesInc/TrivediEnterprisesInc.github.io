@@ -1,3 +1,4 @@
+
 # Table of Contents
 
 - [Code Updates](#code-updates)
@@ -14,7 +15,7 @@
   - [Templating](#templating)
     - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
   - [Process Flows `S`](#process-flows-s)
-    - [Process Flows `A`](#process-flows-a)
+  - [Process Flows `A`](#process-flows-a)
   - [Process Flows `G`](#process-flows-g)
   - [Process Flows `H`](#process-flows-h)
   - [Notes 4 Process Flows](#notes-4-process-flows)
@@ -26,7 +27,6 @@
     - [General](#general)
   - [Tools](#tools)
     - [CheerpX](#cheerpx)
-    - [LightTable 'radical IDE'](#lighttable-radical-ide)
     - [Theorem Provers](#theorem-provers)
     - [GitHub alternatives](#github-alternatives)
   - [FsLang](#fslang)
@@ -58,6 +58,7 @@
   - [PO](#po)
   - [SSO](#sso)
 - [Other](#other)
+
 
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
 
@@ -362,6 +363,15 @@ graph TB
     gs2 --> gs3[Await Next]
     end
 ```
+HornA
+
+ - Same logic but mt need validatn Chks
+ - Each DD upd sends
+ - What if els pasted?
+ - Approach2: Just scan, not so bad+live, ACID
+ - Qn. This occurs cliSide? No issues, yeah?
+ - UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
+
 ## Process Flows `G`
 ```mermaid
 graph TB
@@ -372,27 +382,37 @@ graph TB
     classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
     classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
     subgraph ClassG
-    a1['Port to<br>React/TS']-->a2
-    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
+    a1[new ID]-->a2{ID in NAB?}
+    a2-->|Yes|a3[Get OU+details]
+    a2-->|No|a4[Assign Demo, Inc<br>For ACL testing]
+    a3-->a5[Create Default UserAd]
+    a4-->a5
+    a5-->a6[ClassS]
+    class a3,a5 offWhite
+    class a4 ltBrn
+    class a2 drkBlue
+    class a1,a6 red
     end
     subgraph HornG
-    hs1[svr.HornCmd tblID]-->hs2{dfltGandhi<br> exists?}
-    hs2-->|Yes|hs3[GandhiS]
-    hs2-->|No|hs4[display<br>CreateInstr]
-    hs3-->hs5[Await Next]
-    hs4-->hs5
+    hg1[svr.HornCmd param]-->hg2[CambattAd]
+    hg2-->hg3[Push 2 appropri8]
+    hg3-->hg4[Await Next]
+    class hg4 offWhite
+    class hg3 ltBrn
+    class hg2 green
+    class hg1 red
     end
     subgraph GandhiG
-    ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
-    ghs2-->ghs3[Await Next]
+    gg1[svr.GandhiGCmd param]-->hg2
+    class gg1 red
     end
-    subgraph SupA
-    sups1[Cmd docID]-->|Handled in UI|sups2[cliSide]
-    sups2 --> sups3[Await Next]
-    end
+    subgraph SupG
+    sg1[svr.SupGCmd param]-->hg2
+    class sg1 red
+    end   
     subgraph GreenG
-    gs1[Cmd docID]-->|Handled in UI|gs2[cliSide]
-    gs2 --> gs3[Await Next]
+    grg1[svr.GreenGCmd param]-->hg2
+    class grg1 red
     end
 ```
 ## Process Flows `H`
@@ -476,9 +496,9 @@ Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by 
   
 **everything** by Alexis King (he wrote Parse, don't validate.  v lucid, 
 
-Monoliths (revisit DanLuu?) 
-No microSvcs/Kube: Dropbox, YouTube, Instagram, Facebook Blue, Shopify
-CoLocating instd of Cloud: Squarespace, Twitter, Basecamp, StackExch
+**Monoliths** (revisit DanLuu?) 
+**No microSvcs/Kube**: Dropbox, YouTube, Instagram, Facebook Blue, Shopify
+**CoLocating instd of Cloud**: Squarespace, Twitter, Basecamp, StackExch
 
 Kellan's 'Software & its discontents' (3parts) 'tries to ans the qn: why is ev so miserable about sw these days?'
 
@@ -515,13 +535,14 @@ Heroku, WhatsApp (only 35 engineers) used Erlang
 ### CheerpX
 Run Flash on WASM
 
-### LightTable 'radical IDE'
-
 ### Theorem Provers
 ACL2, Isabell/HOL, PVS (ref from DanLuu 'in my corner these're the provers we're using')
 
 ### GitHub alternatives
-GitLab - Codeberg - sourcehut.org
+
+ - GitLab 
+ - <del>Codeberg(localHost)</del>
+ - <del>sourcehut.org(localHost)</del>
 
 ## FsLang
 ### Free Monad w/Interpreter
@@ -618,12 +639,13 @@ let sublime =
 
 mattpod's gist (link in MongoPg) -> note: raw queries exist, eg:
 `let movies = db.["movies"].AsQueryable() :> IQueryable<**Document**>`
---------
-[IQueryable](https://learn.microsoft.com/en-us/dotnet/api/system.linq.iqueryable?view=net-7.0) Provides functionality to evaluate queries against a specific data source wherein the type of the data is not specified.
+
+## Queries
+[IQueryable](https://learn.microsoft.com/en-us/dotnet/api/system.linq.iqueryable?view=net-7.0) Provides functionality to evaluate queries against a specific data source wherein the *type of the data is not specified*.
 
 For more information about how to create your own LINQ provider, see LINQ: [Building an IQueryable Provider](https://learn.microsoft.com/en-us/archive/blogs/mattwar/linq-building-an-iqueryable-provider-part-i).
 
-"The non-generic IQueryable exist primarily to give you a weakly typed entry point primarily for dynamic query building scenarios."
+"The non-generic IQueryable exist primarily to give you a *weakly typed* entry point primarily for dynamic query building scenarios."
 
 `public interface IQueryProvider {
   IQueryable CreateQuery(Expression expression);
@@ -631,7 +653,18 @@ For more information about how to create your own LINQ provider, see LINQ: [Buil
   object Execute(Expression expression);
   TResult Execute<TResult>(Expression expression);
 }`
-------
+
+## Nested Docs
+https://stackoverflow.com/questions/52175561/how-to-access-read-a-nested-mongo-field-element
+
+(SO) ...I looked around and found a great tutorial that goes through making a POCO / MongoDB class library and has some embedded document examples. This is the last of a 3 instalment series.
+https://web.archive.org/web/20160126042314/https://www.drdobbs.com/database/mongodb-with-c-deep-dive/240152181?pgno=1
+
+(both below use embedded dox; 2nd one uses a TP)
+http://www.drdobbs.com/database/getting-started-with-mongodb/240151028
+
+http://www.drdobbs.com/windows/information-rich-programming-with-f-30/240148372
+
   
 # Aug5_2023 auth:
 https://tech.co/password-managers/how-many-passwords-average-person
