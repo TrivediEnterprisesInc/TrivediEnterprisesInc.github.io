@@ -1,4 +1,3 @@
-
 # Table of Contents
 - [Code Updates](#code-updates)
   - [Outstanding Tks](#outstanding-tks)
@@ -35,8 +34,8 @@
     - [Eliminating Maybes](#eliminating-maybes)
     - [Symbolic Links](#symbolic-links)
     - [More FsLinks](#more-fslinks)
-    - [Auth](#auth)
-      - [From  Aug 5 2023](#from--aug-5-2023)
+  - [Auth](#auth)
+    - [From  Aug 5 2023](#from--aug-5-2023)
   - [Due Diligence](#due-diligence)
     - ["Refine & React-Admin same tgt in the noCo space: they're going after ReTool"](#refine--react-admin-same-tgt-in-the-noco-space-theyre-going-after-retool)
     - [VisualDb.com](#visualdbcom)
@@ -583,8 +582,8 @@ You must pass /d to mklink if the target is a directory.
 [on trustbitBlog](https://trustbit.tech/blog/tag/F%23)
 [Rachel Reese's F# articles: bld microsystems etc.](https://www.codemag.com/Search?searchText=F%23)
 
-### Auth
-#### From  Aug 5 2023
+## Auth
+### From  Aug 5 2023
 [How many pswds average person](https://tech.co/password-managers/how-many-passwords-average-person)
 [FaceBk Stats](https://www.omnicoreagency.com/Facebook-statistics/)
 [SO: Getting OAuth 2 token in C#](https://stackoverflow.com/questions/38494279/how-do-i-get-an-oauth-2-0-authentication-token-in-c-sharp)
