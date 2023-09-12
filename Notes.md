@@ -1,6 +1,5 @@
 
 # Table of Contents
-
 - [Code Updates](#code-updates)
   - [Outstanding Tks](#outstanding-tks)
     - [Qry](#qry)
@@ -21,8 +20,8 @@
   - [Notes 4 Process Flows](#notes-4-process-flows)
   - [@TBD: ACL/Role Impl.](#tbd-aclrole-impl)
     - [Consider:](#consider)
-- [Reading](#reading)
-  - [Shelf](#shelf)
+- [Ref](#ref)
+  - [Reading Shelf](#reading-shelf)
   - [Languages](#languages)
     - [General](#general)
   - [Tools](#tools)
@@ -35,6 +34,9 @@
     - [Optional Params](#optional-params)
     - [Eliminating Maybes](#eliminating-maybes)
     - [Symbolic Links](#symbolic-links)
+    - [More FsLinks](#more-fslinks)
+    - [Auth](#auth)
+      - [From  Aug 5 2023](#from--aug-5-2023)
   - [Due Diligence](#due-diligence)
     - ["Refine & React-Admin same tgt in the noCo space: they're going after ReTool"](#refine--react-admin-same-tgt-in-the-noco-space-theyre-going-after-retool)
     - [VisualDb.com](#visualdbcom)
@@ -50,15 +52,15 @@
     - [Hansura / Supabase](#hansura--supabase)
 - [Markdown Stuff](#markdown-stuff)
   - [Colors](#colors)
-- [More FsLinks](#more-fslinks)
 - [Mongo:](#mongo)
-- [Aug5_2023 auth:](#aug52023-auth)
+  - [Queries](#queries)
+  - [Nested Docs](#nested-docs)
+  - [Dynamic/ExpandoObject](#dynamicexpandoobject)
 - [VC Podcasts](#vc-podcasts)
 - [Rec](#rec)
   - [PO](#po)
   - [SSO](#sso)
 - [Other](#other)
-
 
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
 
@@ -487,10 +489,9 @@ Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by 
     - If dvlpr wants to hide Salary fld from all except ["EmplNmFieldThisDoc";"MngrFieldThisDoc";"HRGrpThisOrg"]; we still
       need to impl. LDAP/X509/NAB equiv.  Mere logins/OUs won't do; the whole hog necc.
 
-# Reading
+# Ref
 
-## Shelf
-
+## Reading Shelf
 
 @ToDo: Add updateable links to Culture (hn + lobst) et al...
   
@@ -507,16 +508,15 @@ martinfowler.com/bliki/PolyglotPersistence.html
 mcfunley.com/why-mongodb-never-worked-out-at-etsy
 boringtechnology.club/ (somewhat opinionatd)
 
-How abstractions help w/tech conversations: 
-https://blog.icepanel.io/2022/10/23/abstractions-in-system-architecture-design
+[How abstractions help w/tech conversations](https://blog.icepanel.io/2022/10/23/abstractions-in-system-architecture-design)
 
-"The Latest Stack" epicweb.dev/epic-stack
+["The Latest Stack"](epicweb.dev/epic-stack)
 
-"You've created an env to bld something quickly in 7 mos but your engineers will pay for 7 yrs" engineering.ramp.com/elixir-at-ramp
+["You've created an env to bld something quickly in 7 mos but your engineers will pay for 7 yrs"](engineering.ramp.com/elixir-at-ramp)
 
-'Mindful choice of tech gives eng real freedom: to comtemplate bigger qns' mcfunley.com/effective-web-experimentation-as-a-homo-narrans
+['Mindful choice of tech gives eng real freedom: to comtemplate bigger qns'](mcfunley.com/effective-web-experimentation-as-a-homo-narrans)
 
-0instal case study (DanLuu ref) comparing Python to other choices incl C#, settles on OCaml auth:Leonard, T
+**0instal** case study (DanLuu ref; auth:**Leonard, T**) comparing Python to other choices incl C#, settles on OCaml 
 
 Smallshire presents an F# prog that can't catch a certain type of bug via its type sys (DanLuu: can't say if it was masterful trolling)
 
@@ -537,6 +537,7 @@ Run Flash on WASM
 
 ### Theorem Provers
 ACL2, Isabell/HOL, PVS (ref from DanLuu 'in my corner these're the provers we're using')
+*(mpt: Of course in the Rsch community it's more like ADA Coq)*
 
 ### GitHub alternatives
 
@@ -570,15 +571,24 @@ Also see [this](https://typelevel.org/blog/2015/09/21/change-values.html)
 
 ### Symbolic Links
 You can call the mklink provided by cmdto make symbolic links: 
-    cmd /c mklink c:pathtosymlink c:targetfile 
+    `cmd /c mklink c:pathtosymlink c:targetfile`
 You must pass /d to mklink if the target is a directory. 
-    cmd /c mklink /d c:pathtosymlink c:targetdirectory
-
-new ProcessStartInfo("cmd.exe", "/c mklink " + argumentsForMklink);
+    `cmd /c mklink /d c:pathtosymlink c:targetdirectory`
+`new ProcessStartInfo("cmd.exe", "/c mklink " + argumentsForMklink);`
 
 [Complete guide to symLnks on Win/Linux](https://www.howtogeek.com/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/)
 
-    
+### More FsLinks
+[on SO](https://stackoverflow.com/questions/tagged/f%23)
+[on trustbitBlog](https://trustbit.tech/blog/tag/F%23)
+[Rachel Reese's F# articles: bld microsystems etc.](https://www.codemag.com/Search?searchText=F%23)
+
+### Auth
+#### From  Aug 5 2023
+[How many pswds average person](https://tech.co/password-managers/how-many-passwords-average-person)
+[FaceBk Stats](https://www.omnicoreagency.com/Facebook-statistics/)
+[SO: Getting OAuth 2 token in C#](https://stackoverflow.com/questions/38494279/how-do-i-get-an-oauth-2-0-authentication-token-in-c-sharp)
+
 ## Due Diligence
 > Note: 99.9% of these are Shyt, however check 'em all out...
 
@@ -630,10 +640,6 @@ let sublime =
     fore:Color.Black, back:sYellow,
     AccentFore:sLtGrn, AccentBack:sYellow, 
     TitFore:sDkGrn, TitBack:sDrkYell, Icn:sBrn))
-# More FsLinks
-[on SO](https://stackoverflow.com/questions/tagged/f%23)
-[on trustbitBlog](https://trustbit.tech/blog/tag/F%23)
-[Rachel Reese's F# articles: bld microsystems etc.](https://www.codemag.com/Search?searchText=F%23)
 
 # Mongo:
 
@@ -836,13 +842,6 @@ Given a Collection<BsonDocument>, LINQ3 queries using doc["FieldName"] syntax fa
 >>Unhandled Exception: MongoDB.Driver.Linq.Linq3Implementation.ExpressionNotSupportedException:
 >>Expression not supported: doc.get_Item("FieldName").
 The same query works in LINQ2 using doc["FieldName"] or in LINQ3 with a POCO using doc.FieldName.
-
-
-# Aug5_2023 auth:
-https://tech.co/password-managers/how-many-passwords-average-person
-https://www.omnicoreagency.com/Facebook-statistics/
-https://stackoverflow.com/questions/38494279/how-do-i-get-an-oauth-2-0-authentication-token-in-c-sharp
-
     
 # VC Podcasts
 [    ](https://podtail.com/podcast/mixergy-startup-stories-with-1000-entrepreneurs-an/
