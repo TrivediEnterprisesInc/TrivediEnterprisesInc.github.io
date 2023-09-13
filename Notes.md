@@ -10,13 +10,17 @@
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
   - [FldLvl Δs](#fldlvl-s)
+  - [Windowing](#windowing)
   - [Templating](#templating)
     - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
+  - [Nested/Embedded Dox](#nestedembedded-dox)
   - [Process Flows `S`](#process-flows-s)
   - [Process Flows `A`](#process-flows-a)
   - [Process Flows `G`](#process-flows-g)
   - [Process Flows `H`](#process-flows-h)
+  - [Process Flows `O`](#process-flows-o)
   - [Notes 4 Process Flows](#notes-4-process-flows)
+    - [Where's the info 4 orgAd / userAd?  (∃, yeah?) add:](#wheres-the-info-4-orgad--userad---yeah-add)
   - [@TBD: ACL/Role Impl.](#tbd-aclrole-impl)
     - [Consider:](#consider)
 - [Ref](#ref)
@@ -42,9 +46,7 @@
     - [Llama2](#llama2)
     - [Prompt Injection](#prompt-injection)
   - [Due Diligence](#due-diligence)
-    - [ReTool](#retool)
-    - [Refine](#refine)
-    - [React-Admin](#react-admin)
+    - ["Refine & React-Admin same tgt in the noCo space: they're going after ReTool"](#refine--react-admin-same-tgt-in-the-noco-space-theyre-going-after-retool)
     - [VisualDb.com](#visualdbcom)
     - [frappeframework.com](#frappeframeworkcom)
     - [Flask AppBuilder](#flask-appbuilder)
@@ -256,6 +258,14 @@ ADD: Created|LastMod|By (these already exist in CoreMod)
    - Add to Doc: [SessionDeltas:(fldNm, val)]  to pump into DelltaTracker.  
 `Fld.LostFocus.Add(fun e -> if (!!~ this.fldNm) <> this.fldNm.Value then !!^ else ())`
 
+## Windowing
+![WindowsImg](https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/3_x_windows.png?raw=true)
+
+  - We nd to prepare/test a whole run of 3-tpls replacing 5-wins
+  - Moreover (see img) instd of prop-testing to ensure randomness, gen rand-by-default characteristics (filter unique)
+  - Then seed the window with (i) rnd-fn-picked-vals(determine how many) (ii) Peru-generated-vals (determine how many)
+  - Given a total window-size (LARGER than earlier, viz. - 5 vals) that is now larger, we automatically have a larger universe and an overall better behavior.
+  - Need to impl & test
 
 ## Templating
 ### Brij flow using ρ setup ->
@@ -290,6 +300,14 @@ flowchart LR
 - 2nd line: "Also copy [DropDown: 0|200|500|All]" 
 Documents for testing purposes"
 > **@TBD**: Are we offering Local/Disconnected/Offline mode for v1/MVP?
+
+## Nested/Embedded Dox
+  - Versioning wd be a fine way 2 test Impl (Approach2: use Accumulator + only DeltaForCurrVer in currVer; i.e., curr setup)
+  - FldTy = FldTy of list<list<fldTy>>
+  |VerId|UserId|CreatedDt|
+  - Last ver details -> |DocId|UserId|CrDt|list<fldsMod>|
+  Saved in currDoc 4 UI
+  - Impl Note: UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
 
 ## Process Flows `S`
 ```mermaid
@@ -352,11 +370,18 @@ graph TB
     a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
     end
     subgraph HornA
-    hs1[svr.HornCmd tblID]-->hs2{dfltGandhi<br> exists?}
-    hs2-->|Yes|hs3[GandhiS]
-    hs2-->|No|hs4[display<br>CreateInstr]
-    hs3-->hs5[Await Next]
-    hs4-->hs5
+    ha0>Watch for gotchas<br>ρ Horn ∄<br>Pasting el frm othrTbl leads2...?]
+    ha1[cli.HornA Save]-->ha2[run Local Valid8n]
+    ha1Added[Added: OK]-->ha1DelVNo
+    ha1Edited[Edited: OK]-->ha1Some{Some Δs involve<br>Dels?}
+    ha1Some-->|Yes|ha1DelVYes
+    ha1Some-->|No|ha5
+    ha1Del[Del]-->ha1DelV{cli:Refs to el ∃?}
+    ha1DelV-->|Yes|ha1DelVYes[cli:PromptMsg]-->ha5
+    ha1DelV-->|No|ha1DelVNo[svr.HornA params]
+    ha3-->ha5[Await Next]
+    ha4-->ha5
+    class haA0,ha1DelVNo red
     end
     subgraph GandhiA
     ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
@@ -374,14 +399,6 @@ graph TB
     class grA1 red
     end
 ```
-HornA
-
- - Same logic but mt need validatn Chks
- - Each DD upd sends
- - What if els pasted?
- - Approach2: Just scan, not so bad+live, ACID
- - Qn. This occurs cliSide? No issues, yeah?
- - UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
 
 ## Process Flows `G`
 ```mermaid
@@ -459,6 +476,17 @@ graph TB
     gs2 --> gs3[Await Next]
     end
 ```
+
+## Process Flows `O`
+
+We nd a new Flow categ for Other, incl.
+  - ClassO Add -> ∀ tbls.fltr(!isDel) -> Dlg+new?
+  - Chk 'New' + pastedEls throughout procFlow for edge cases
+  - All TBar actions, some may fall ici.
+  - Non-covered dz-types? (Same Logic?)
+  - GreenA | GandhiA | SupA --> Normal Flow
+  - Gen Settings(i) + DzDocs(ii) can be bundled into ClassInit (ClrSchm?) -> ω
+
 ## Notes 4 Process Flows
 
 > **To be translated to flowchart** 
@@ -471,6 +499,13 @@ graph TB
 
 Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by ... "
 
+### Where's the info 4 orgAd / userAd?  (∃, yeah?) add:
+  - TblDDox(usr, usrSettings) -> ClassDef -> Custom imgs in UsrSettings
+  - Setup one example/test org -> If userId belongs, assigned there; else assigned to `Demo, Inc`
+  - Demo has settings persisted but collections ReInit Daily
+  - Using the DemoNAB allows SwitchToID to test ACL lvls
+	
+	
 ## @TBD: ACL/Role Impl.
 
 | | Create | View | Edit | Delete |
