@@ -357,7 +357,6 @@ graph TB
     end
 ```
 
-
 ## Process Flows `A`
 ```mermaid
 graph TB
@@ -503,18 +502,7 @@ We nd a new Flow categ for Other, incl.
   - Non-covered dz-types? (Same Logic?)
   - GreenA | GandhiA | SupA --> Normal Flow
   - Gen Settings(i) + DzDocs(ii) can be bundled into ClassInit (ClrSchm?) -> ω
-
-## Notes 4 Process Flows
-
-> **To be translated to flowchart** 
-
- - GandhiG + GreenG -> All Local -> GandhiA -> **not** pushed, Avail Next
- - GreenA + GreenH -> (only Δ) -> (new member) mTpl.withTpl(Δ) -> Db.NewVersion(M) [To modularize 4 Test/Prior]
- - SupA is the same as GreenA above (?chk?)
- - ClassA -> [Nds Dat; avail|new|cpy] -> Δ -> Db.Ad.Cmd(Δ) -> ω | NxtTime
- - **Any** Δs to Calcutti -> incl 'only' moveToPg -> Flag -> DefChanged -> GandhiA(Δ) -> Db.updAndBld(Δ) -> newVer
-
-Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by ... "
+  - Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by ... "
 
 ### Where's the info 4 orgAd / userAd?  (∃, yeah?) add:
   - TblDDox(usr, usrSettings) -> ClassDef -> Custom imgs in UsrSettings
