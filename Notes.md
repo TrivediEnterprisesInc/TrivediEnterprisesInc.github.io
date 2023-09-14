@@ -68,6 +68,7 @@
 - [Rec](#rec)
   - [PO](#po)
   - [SSO](#sso)
+  - [Prints](#prints)
 - [Other](#other)
 
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
