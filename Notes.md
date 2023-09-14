@@ -356,6 +356,7 @@ graph TB
     end
 ```
 
+
 ## Process Flows `A`
 ```mermaid
 graph TB
@@ -365,31 +366,46 @@ graph TB
     classDef drkBlue fill:#96B6C5,stroke:#333,stroke-width:2px
     classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
     classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
+    classDef yello fill:#F8FF95,stroke:#333,stroke-width:4px
     subgraph ClassA
-    a1['Port to<br>React/TS']-->a2
-    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
+    cA1[Any Δs incl Stngs]-->|Valid8|cA2[Svr.cmd ClassA Δs]
+    cA2 --> cA3[Cambatt userAd]
+    cA3 --> cA4[Await Next]
+    class cA3 ltBlue
+    class cA2 green
+    class cA1 red
+    class cA4 ltBrn
     end
     subgraph HornA
-    ha0>Watch for gotchas<br>ρ Horn ∄<br>Pasting el frm othrTbl leads2...?]
+    ha0>Watch for gotchas<br>ρ Horn !Ex <br>Pasting el frm othrTbl leads2...?]
     ha1[cli.HornA Save]-->ha2[run Local Valid8n]
     ha1Added[Added: OK]-->ha1DelVNo
     ha1Edited[Edited: OK]-->ha1Some{Some Δs involve<br>Dels?}
     ha1Some-->|Yes|ha1DelVYes
     ha1Some-->|No|ha5
-    ha1Del[Del]-->ha1DelV{cli:Refs to el ∃?}
+    ha1Del[Del]-->ha1DelV{cli:Refs to el Ex?}
     ha1DelV-->|Yes|ha1DelVYes[cli:PromptMsg]-->ha5
     ha1DelV-->|No|ha1DelVNo[svr.HornA params]
     ha3-->ha5[Await Next]
     ha4-->ha5
     class haA0,ha1DelVNo red
+    class ha0 yello
     end
     subgraph GandhiA
     ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
     ghs2-->ghs3[Await Next]
+    class ghs1 red
+    class ghs2 green
+    class ghs3 ltBrn
     end
     subgraph SupA
-    sups1[Cmd docID]-->|Handled in UI|sups2[cliSide]
-    sups2 --> sups3[Await Next]
+    supa1[Valid8 cliSide]-->supa2[svr.SupCmd id Δs]
+    supa2 --> supa3[Push 2 appropri8]
+    supa3 --> supa4[Await Next]
+    class supa1 green
+    class supa2 red
+    class supa3 ltBlue
+    class supa4 ltBrn
     end
     subgraph GreenA
     grA1[Any Δs incl Stngs]-->|Push2svr + Valid8|grA2[Cambatt userAd]
@@ -958,7 +974,9 @@ or
 37 (8:40amMall) -> NetP -> 32W to Airport -> BoyScout @ Louis
 (Mall) -> To DaleM betw Rooms2Go + Miller's AleHse
     
-    
+## Prints
+  - This painting is titled "Portrait of Count Shervashidze" by Marie Laurencin.
+
 # Other
     
 (*
