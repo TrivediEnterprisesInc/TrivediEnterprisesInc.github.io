@@ -474,6 +474,7 @@ graph TB
 ```
 ## Process Flows `H`
 ```mermaid
+```mermaid
 graph TB
     classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
     classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
@@ -482,19 +483,18 @@ graph TB
     classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
     classDef green  fill:#CEDEBD,stroke:#333,stroke-width:4px
     subgraph ClassH
-    a1['Port to<br>React/TS']-->a2
-    a2['Custom<br>Components']-->|Maybe Redux?|a3[ω]
+    ch1[Cmd 4 itm]-->|Handled in UI|ch2[cliSide update]
+    ch2 --> ch3[svr.HornHCmd param]
+    class ch1 green
+    class ch3 red
+    class ch2 ltBlue
     end
-    subgraph HornH
-    hs1[svr.HornCmd tblID]-->hs2{dfltGandhi<br> exists?}
-    hs2-->|Yes|hs3[GandhiS]
-    hs2-->|No|hs4[display<br>CreateInstr]
-    hs3-->hs5[Await Next]
-    hs4-->hs5
-    end
+
     subgraph GandhiH
-    ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
-    ghs2-->ghs3[Await Next]
+    ggh1[UI Cmd 4 itm]-->ggh2[svr.GandhiHCmd param]
+    ggh2 --> suph4
+    class ggh1 green
+    class ggh2 red
     end
     subgraph SupH
     suph1[UI Cmd 4 itm]-->suph2[svr.SupHCmd param]
@@ -506,11 +506,13 @@ graph TB
     class suph4 ltBrn
     end
     subgraph GreenH
-    gh1[Cmd 4 itm]-->|Handled in UI|gh2[cliSide update]
-    gh2 --> gh3[svr.GreenACmd param]
+    gh1[Cmd 4 itm]-->gh2{cli:Refs<br> to itm Ex?}
+    gh2-->|Yes|gh2Y(UI msg)
+    gh2-->|No|gh3[svr.GreenHCmd param]
     class gh1 green
     class gh3 red
     class gh2 ltBlue
+    class gh2Y ltBrn
     end
 ```
 
