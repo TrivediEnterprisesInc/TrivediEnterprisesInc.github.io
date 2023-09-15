@@ -5,21 +5,21 @@
     - [DbClipboard](#dbclipboard)
   - [To Be Checked](#to-be-checked)
     - [From Aug 2023](#from-aug-2023)
-    - [From EOY 22](#from-eoy-22)
     - [From May 22 2023](#from-may-22-2023)
+    - [From EOY 22](#from-eoy-22)
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
-  - [FldLvl Δs](#fldlvl-s)
+  - [Versioning](#versioning)
+    - [FldLvl Δs](#fldlvl-s)
+    - [Nested/Embedded Dox](#nestedembedded-dox)
   - [Windowing](#windowing)
   - [Templating](#templating)
     - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
-  - [Nested/Embedded Dox](#nestedembedded-dox)
   - [Process Flows `S`](#process-flows-s)
   - [Process Flows `A`](#process-flows-a)
   - [Process Flows `G`](#process-flows-g)
   - [Process Flows `H`](#process-flows-h)
   - [Process Flows `O`](#process-flows-o)
-  - [Notes 4 Process Flows](#notes-4-process-flows)
     - [Where's the info 4 orgAd / userAd?  (∃, yeah?) add:](#wheres-the-info-4-orgad--userad---yeah-add)
   - [@TBD: ACL/Role Impl.](#tbd-aclrole-impl)
     - [Consider:](#consider)
@@ -70,6 +70,14 @@
   - [SSO](#sso)
   - [Prints](#prints)
 - [Other](#other)
+    - [Headers](#headers)
+    - [allFlds (from baseTkDatAux)](#allflds-from-basetkdataux)
+    - [TaskDVAux dat brkdn + raw](#taskdvaux-dat-brkdn--raw)
+    - [Code linkx](#code-linkx)
+    - [Rec linkx](#rec-linkx)
+    - [Svr Hosting](#svr-hosting)
+    - [Off-the-cuff](#off-the-cuff)
+
 
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
 
@@ -106,6 +114,22 @@ These're incorp into the code (wFrms) but chk anyway:
 2. **ACLs** : SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault
 3. **Frm**: Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep)
 4. **Validation Rules** on Compose: see if we can use the ∃ing Form Funct w/fns (for hlp popup)
+
+
+### From May 22 2023
+Wnn:
+    Run #s w/ tot 5 -> (1) Visible (2) Trivia (Rnd())
+    All Local ver of VSCd portable w/Lang Svr 4 AutoComp?
+    OR run from Partition w/o inet (How determine?) (switch Part.s poss?)
+    OR ChromeOS? Some other OS? Min ver of Linux?
+    
+    Needs to allow compil8n; which opens up vulnerabil.s galore
+
+    How to disable/lock open ports?  (SysTray lock @rsch)
+    
+    Medium article on Defensive Prog (incl refs to Adapter Pattn/wrkBnch)
+    
+    Jimmy -> Auth -> Mount -> App on JVM
 
 ### From EOY 22
   BanarasiP	How to handle intl flds? Disabled? Title etc. nded
@@ -203,22 +227,7 @@ UI:
       - simulate via map/list/whatever
       - if comp compl use cq |> eval
 - ONCE above verified -> basic 5 (3param) + add'l 4(or as nded) -> Commando mode
-
-### From May 22 2023
-Wnn:
-    Run #s w/ tot 5 -> (1) Visible (2) Trivia (Rnd())
-    All Local ver of VSCd portable w/Lang Svr 4 AutoComp?
-    OR run from Partition w/o inet (How determine?) (switch Part.s poss?)
-    OR ChromeOS? Some other OS? Min ver of Linux?
-    
-    Needs to allow compil8n; which opens up vulnerabil.s galore
-
-    How to disable/lock open ports?  (SysTray lock @rsch)
-    
-    Medium article on Defensive Prog (incl refs to Adapter Pattn/wrkBnch)
-    
-    Jimmy -> Auth -> Mount -> App on JVM
-    
+  
 
 # Architecture
 
@@ -250,7 +259,8 @@ graph TB
     c1['But we are<br>familiar with CSharp']-->|CrossCompile<br>with Roslyn?|c2[ω]
     end
 ```
-## FldLvl Δs
+## Versioning
+### FldLvl Δs
    - The current setup is optimized for saving space with performance benefits **BUT** ρ uses fld-level and so should we
    - Therefore the versioning/Δ fns nd to be updated
 ADD: Created|LastMod|By (these already exist in CoreMod)
@@ -259,6 +269,14 @@ ADD: Created|LastMod|By (these already exist in CoreMod)
    - Add to Doc: [SessionDeltas:(fldNm, val)]  to pump into DelltaTracker.  
 `Fld.LostFocus.Add(fun e -> if (!!~ this.fldNm) <> this.fldNm.Value then !!^ else ())`
 
+### Nested/Embedded Dox
+  - Versioning wd be a fine way 2 test Impl (Approach2: use Accumulator + only DeltaForCurrVer in currVer; i.e., curr setup)
+  - FldTy = FldTy of list<list<fldTy>>
+  |VerId|UserId|CreatedDt|
+  - Last ver details -> |DocId|UserId|CrDt|list<fldsMod>|
+  Saved in currDoc 4 UI
+  - Impl Note: UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
+  - 
 ## Windowing
 ![WindowsImg](https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/3_x_windows.png?raw=true)
 
@@ -301,14 +319,6 @@ flowchart LR
 - 2nd line: "Also copy [DropDown: 0|200|500|All]" 
 Documents for testing purposes"
 > **@TBD**: Are we offering Local/Disconnected/Offline mode for v1/MVP?
-
-## Nested/Embedded Dox
-  - Versioning wd be a fine way 2 test Impl (Approach2: use Accumulator + only DeltaForCurrVer in currVer; i.e., curr setup)
-  - FldTy = FldTy of list<list<fldTy>>
-  |VerId|UserId|CreatedDt|
-  - Last ver details -> |DocId|UserId|CrDt|list<fldsMod>|
-  Saved in currDoc 4 UI
-  - Impl Note: UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
 
 ## Process Flows `S`
 ```mermaid
@@ -378,18 +388,21 @@ graph TB
     end
     subgraph HornA
     ha0>Watch for gotchas<br>ρ Horn !Ex <br>Pasting el frm othrTbl leads2...?]
-    ha1[cli.HornA Save]-->ha2[run Local Valid8n]
-    ha1Added[Added: OK]-->ha1DelVNo
-    ha1Edited[Edited: OK]-->ha1Some{Some Δs involve<br>Dels?}
-    ha1Some-->|Yes|ha1DelVYes
-    ha1Some-->|No|ha5
-    ha1Del[Del]-->ha1DelV{cli:Refs to el Ex?}
-    ha1DelV-->|Yes|ha1DelVYes[cli:PromptMsg]-->ha5
-    ha1DelV-->|No|ha1DelVNo[svr.HornA params]
-    ha3-->ha5[Await Next]
-    ha4-->ha5
+    ha2-->ha0
+    ha1[cli.HornA id]-->ha2[run Local Valid8n]
+    ha2-->ha1Some{Some Δs<br> involve Dels?}
+    ha1Some-->|Yes|ha1DelV{cli:Refs<br> to el Ex?}
+    ha1Some-->|No|ha1DelVNo[svr.HornA params]
+    ha1DelV-->|Yes|sups2[Handled in<br>UI cliSide]
+    ha1DelV-->|No|ha1DelVNo
+    sups2 --> sups3[Await Next]
+    class sups3 offWhite
+    class sups2 ltBrn
     class haA0,ha1DelVNo red
     class ha0 yello
+    class ha2 drkBlue
+    class ha1Some,ha1DelV ltBlue
+    class ha1 green
     end
     subgraph GandhiA
     ghs1[svr.GandhiCmd id tblID]-->|Equiv.To<br>mnu-SwitchTo<br>_only Diff is cliSide UI_|ghs2[asyncRecv:<br>updateUI]
@@ -484,12 +497,20 @@ graph TB
     ghs2-->ghs3[Await Next]
     end
     subgraph SupH
-    sups1[Cmd docID]-->|Handled in UI|sups2[cliSide]
-    sups2 --> sups3[Await Next]
+    suph1[UI Cmd 4 itm]-->suph2[svr.SupHCmd param]
+    suph2 --> suph4[Push 2 appropri8]
+    suph4 --> suph5[Await Next]
+    class suph1 green
+    class suph2 red
+    class suph5 offWhite
+    class suph4 ltBrn
     end
     subgraph GreenH
-    gs1[Cmd docID]-->|Handled in UI|gs2[cliSide]
-    gs2 --> gs3[Await Next]
+    gh1[Cmd 4 itm]-->|Handled in UI|gh2[cliSide update]
+    gh2 --> gh3[svr.GreenACmd param]
+    class gh1 green
+    class gh3 red
+    class gh2 ltBlue
     end
 ```
 
@@ -958,16 +979,18 @@ Winthrop Postal Centre Riverview, FL 33578
 2Moore: Braken Ln (after TBT booth) R; Bear R
 2Lithia:Bama (b4 schl) -> L on BellShoals -> R on HummingBird
 
+## Prints
+  - This painting is titled "Portrait of Count Shervashidze" by Marie Laurencin.
+	
 38 (Parsons/60) -> NetP -> 32W to Airport -> BoyScout @ Louis
 or
 37 (8:40amMall) -> NetP -> 32W to Airport -> BoyScout @ Louis
 (Mall) -> To DaleM betw Rooms2Go + Miller's AleHse
     
-## Prints
-  - This painting is titled "Portrait of Count Shervashidze" by Marie Laurencin.
-
-# Other
     
+# Other
+
+### Headers
 (*
 orig = ["louisa"; "St.Francis"; "PIUTE"; "princeedward"; "SALTLAKE"; "Jefferson"; "craven";
 "Obion"; "CERROGORDO"; "fayette"; "LEFLORE"; "Suffolk"; "elmore"; "SweetGrass";
@@ -996,29 +1019,63 @@ Note: The Compiler.Tools fsc.exe uses:	Fsharp.Core v4.40 11/13/2016
 |Dat: Microsoft.FSharp.Collections.FSharpMap`2[System.String,List`1[Trivedi.Mod]]
 |env_Tick: current Value: 638102437278301658
 |statLog: 1448 entries
-= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
-allFlds (from baseTkDatAux)
+
+	
+### allFlds (from baseTkDatAux)
+	
 0. title		1. objective		2. importance
 3. urgency		4. tgtVer		5. tags
 6. unid			7. project		8. moduleNm
 9. submodule		10. completedOn		11. docLinks
 12. cont		13. flag		14. rowTips
 15. isCateg		16. Parent		17. catLvl"
-= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
-TaskDVAux
+
+### TaskDVAux dat brkdn + raw
 0: " |0 spxServer (235  items) |1 spxServer (235  items) |2 spxServer (235  items) |3 spxServer (235  items) |4 spxServer (235  items) |5 spxServer (235  items) |6 spxServer (235  items) |7 spxServer (235  items) |8 spxServer (235  items) |9 spxServer (235  items) |10 spxServer (235  items) |11 spxServer (235  items) |12 spxServer (235  items) |13 spxServer (235  items) |14 spxServer (235  items) |15 spxServer (235  items) |16 spxServer (235  items) |17 True |18 spxServer (235  items) |19 0"
 1: " |0 Research (5  items) |1 Research (5  items) |2 Research (5  items) |3 Research (5  items) |4 Research (5  items) |5 Research (5  items) |6 Research (5  items) |7 Research (5  items) |8 Research (5  items) |9 Research (5  items) |10 Research (5  items) |11 Research (5  items) |12 Research (5  items) |13 Research (5  items) |14 Research (5  items) |15 Research (5  items) |16 Research (5  items) |17 True |18 Research (5  items) |19 1"
 2: " |0  |1  |2 Data Import - json |3 spawn |4 9 |5 9 |6  |7 oldId:20187171202284654800^Task  |8 638056736839239230^Task |9 spxServer |10 Research |11  |12 1/1/0001 12:00:00 AM |13  |14  |15  |16 Q2hrIGpkayBqc29uIGltcG9ydC9wcm9jIGxpYnMuPC9kaXY+ |17 False |18 Research |19 "
 3: " |0  |1  |2 Data Import - json |3 procEngine |4 5 |5 5 |6  |7 oldId:20187171202284654800^2^Task  |8 638056736839238497^Task |9 spxServer |10 Research |11  |12 1/1/0001 12:00:00 AM |13  |14  |15  |16 Q2hrIGpkayBqc29uIGltcG9ydC9wcm9jIGxpYnMuPC9kaXY+ |17 False |18 Research |19 "
 4: " |0  |1  |2 Data Import - json |3 spawn |4 5 |5 5 |6  |7 oldId:20187171202284654800^3^Task  |8 638056736839238496^Task |9 spxServer |10 Research |11  |12 1/1/0001 12:00:00 AM |13  |14  |15  |16 Q2hrIGpkayBqc29uIGltcG9ydC9wcm9jIGxpYnMuPC9kaXY+ |17 False |18 Research |19 "
-  
+
+### Code linkx
 https://lexi-lambda.github.io/blog/2020/08/13/types-as-axioms-or-playing-god-with-static-types/
 
 https://learn.microsoft.com/en-us/archive/msdn-magazine/2018/may/cutting-edge-under-the-covers-of-asp-net-core-signalr#non-web-clients
 https://blog.3d-logic.com/2015/03/29/signalr-on-the-wire-an-informal-description-of-the-signalr-protocol/
 
 https://www.pathsensitive.com/p/archive.html
+http://paulgraham.com/
+https://steve-yegge.blogspot.com/
+https://www.kalzumeus.com/greatest-hits/
 
+### Rec linkx
 https://www.insider.com/best-broadway-shows-you-can-stream-for-free-online-coronavirus-2020-3
 https://www.youtube.com/playlist?list=PLQPYg_6MPH5g7paPCeo9mzqcBJgGk5h1N
 https://theschooltrip.co.uk/shows-you-can-watch-online-for-free/
+
+### Svr Hosting
+[Free dev hosting 1](https://stackdiary.com/free-hosting-for-developers/
+[Free docker hosting](https://codeless.co/free-docker-hosting/)
+[Hosting on repl.it](https://blog.replit.com/powerful-servers))
+	
+### Off-the-cuff
+et je vous presentez...
+	Vacant - vacare (Latin) / shunya (Sanskrit)
+	Void - voidus (Latin) / shunya (Sanskrit)
+	Empty - vacuus (Latin) / shunya (Sanskrit)
+	Unfilled - non impletus (Latin) / shunya (Sanskrit)
+	Clear - clarus (Latin) / vishuddha (Sanskrit)
+	Unoccupied - inhabitus (Latin) / avyapeta (Sanskrit)
+	Spare - sparsus (Latin) / shunya (Sanskrit)
+
+Tangibles
+  - peru et al
+  - hmr: dep inj - ngrm - bld/train - 
+
+Intangibles:
+	- und mjr - frms sci basis for this - prob theory, outcomes, conf lvls
+
+intm8 domain spec kn - e.g. for a spec. ind: diff betw ema/sma; sloSto/convDiv; Fed exprt infl
+IIIly 4 mainSt
+
+`ComplFlows >> Isol8|Identify Bottlen >> Sw2Mods >> Cons staticWsmRunViaAPI`
