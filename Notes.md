@@ -70,6 +70,7 @@
   - [SSO](#sso)
   - [Prints](#prints)
 - [Other](#other)
+    - [SignalR](#signalr)
     - [Headers](#headers)
     - [allFlds (from baseTkDatAux)](#allflds-from-basetkdataux)
     - [TaskDVAux dat brkdn + raw](#taskdvaux-dat-brkdn--raw)
@@ -474,9 +475,10 @@ graph TB
 ```
 ## Process Flows `H`
 ```mermaid
-```mermaid
 graph TB
     classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
+    %%Dotted border....
+    classDef redD  fill:#FFCACC,stroke:#333,stroke-width:4px,stroke-dasharray: 5 5
     classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
     classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
     classDef drkBlue fill:#96B6C5,stroke:#333,stroke-width:2px
@@ -489,7 +491,6 @@ graph TB
     class ch3 red
     class ch2 ltBlue
     end
-
     subgraph GandhiH
     ggh1[UI Cmd 4 itm]-->ggh2[svr.GandhiHCmd param]
     ggh2 --> suph4
@@ -510,7 +511,7 @@ graph TB
     gh2-->|Yes|gh2Y(UI msg)
     gh2-->|No|gh3[svr.GreenHCmd param]
     class gh1 green
-    class gh3 red
+    class gh3 redD
     class gh2 ltBlue
     class gh2Y ltBrn
     end
@@ -991,6 +992,11 @@ or
     
     
 # Other
+	
+### SignalR
+   - latest SignalR chat [example](https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/signalr/dotnet-client/sample) (incl WinCli)
+   - SignalR [overview](https://learn.microsoft.com/en-us/aspnet/core/signalr/introduction?view=aspnetcore-7.0)
+   - Related [article](https://learn.microsoft.com/en-us/aspnet/core/signalr/dotnet-client?view=aspnetcore-7.0&source=recommendations&tabs=visual-studio)
 
 ### Headers
 (*
