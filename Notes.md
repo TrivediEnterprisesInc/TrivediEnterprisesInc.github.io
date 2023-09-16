@@ -316,10 +316,10 @@ flowchart LR
 - in "Replace Design" ρ allows completely replacing *ALL* dzDocs w/new docs.  Dates are ignored.  It **_is_** possible to repl a Design w/a different/wrong Table; and shd be allowed (Designer's Imperative).  Any reason why we shouldn't follow suit?
 - Prompt usr w/ "This will replace...Are you sure?"
 - in "Create DesignCopy" prompt w/ location (Svr/Lcl) & below that 2 lines:
-- 1st line: input for new TableName
-- 2nd line: "Also copy [DropDown: 0|200|500|All]" 
-Documents for testing purposes"
-> **@TBD**: Are we offering Local/Disconnected/Offline mode for v1/MVP?
+    - InputBox(new TableName)
+    - Also copy DropDown:[0|200|500|All] Documents for testing purposes
+
+> **Note**: Local/Disconnected/Offline mode in v2?
 
 ## Process Flows `S`
 ```mermaid
