@@ -539,11 +539,11 @@ We nd a new Flow categ for Other, incl.
 
 | | Create | View | Edit | Delete |
 |----| ----| ----| ----| ----|
-| **Reader** | ---- |  x | ----| ----|
-| **Author** | x| x | ----| ----|
-| **Editor** | x |  x | x | ----|
-| **Admin** | x |  x | x| x|
-
+| **Reader** | ![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
+| **Author** |![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")| ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
+| **Editor** | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
+| **Admin** | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |  ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")|![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")|
+	
 **Levels**: | Doc | Form | Tbl | Sys |
 
 > Poss. b8r to impl merely Reader/Author for v1 & leave more finely grained sec 4 l8r.
