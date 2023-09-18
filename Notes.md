@@ -1,9 +1,9 @@
 # Table of Contents
-- [Code Updates](#code-updates)
-  - [Outstanding Tks](#outstanding-tks)
-    - [Qry](#qry)
-    - [DbClipboard](#dbclipboard)
-  - [To Be Checked](#to-be-checked)
+- [Outstanding Tks](#outstanding-tks)
+  - [Updates to this doc](#updates-to-this-doc)
+  - [Qry](#qry)
+  - [DbClipboard](#dbclipboard)
+  - [Tasks+Notes: To Be Checked](#tasksnotes-to-be-checked)
     - [From Aug 2023](#from-aug-2023)
     - [From May 22 2023](#from-may-22-2023)
     - [From EOY 22](#from-eoy-22)
@@ -79,42 +79,67 @@
     - [Svr Hosting](#svr-hosting)
     - [Off-the-cuff](#off-the-cuff)
 
-
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
 
-# Code Updates
+# Outstanding Tks
 
-## Outstanding Tks
+## Updates to this doc
+   - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
+     Cre8 new sections 4 these & move there so they can be expanded upon
 
-### Qry
+## Qry
   - Deep Dive into qry CE 
   - dismantle (compose, fetch, deSer) 
   - retool to fetch raw mqlRes
- `
-///run this thro the tests; shd suffice
-///if any issues (Linq might nd fldNms); revert to fld_str_1|fld_bool_1 with get,set...
-open System.Collections.Generic
-type BrijLinq() =
-    let table = new Dictionary<(string* int), float>()
-    member this.Item
-        with get(key1, key2) = table.[(key1, key2)]
-        and set (key1, key2) value = table.[(key1, key2)] <- value
- `
+`
+///run this thro the tests; shd suffice 
+///if any issues (Linq might nd fldNms); revert to fld_str_1|fld_bool_1 with get,set... 
+open System.Collections.Generic 
+type BrijLinq() = 
+    let table = new Dictionary<(string* int), float>() 
+    member this.Item 
+        with get(key1, key2) = table.[(key1, key2)] 
+        and set (key1, key2) value = table.[(key1, key2)] <- value 
+`
 
-### DbClipboard
+## DbClipboard
+
     - Implement an internal DB Clipbd: 1 handler, called via TBar btns.  Bypass the OS clipbd (eat the event)
     - Cut/Copy([docID]) -> 🌎.intlBuffer gets 
     - Paste(tblId, [docID]) -> map >> getUNID -> paste 
     - intlBuffer holds itms until nxt copy/cut
     - **NOTE** that localDbs may need cliSide logic
 
-## To Be Checked
+## Tasks+Notes: To Be Checked
 ### From Aug 2023
 These're incorp into the code (wFrms) but chk anyway:
 1. **PriorVer Info** w/in doc?  Array?  If so, how to update changes?
-2. **ACLs** : SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault
-3. **Frm**: Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep)
-4. **Validation Rules** on Compose: see if we can use the ∃ing Form Funct w/fns (for hlp popup)
+2. **ACLs** : SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault 
+***Sep18_23***: ACL impl requires two facets:
+(i) **svrSide**: If usr doesn't have rights, data won't even be sent.
+    This ensures that hacking into raw data won't divulge privileged data.
+    Recent @rsch pointed out that Mongo now supports RBAC (RoleBasedAccCtrl) svrSide via loginID.  So we'll probably be able to impl. this feature w/o much coding.
+(ii) **cliSide**: Usr nds to modify pnl.props to hide if no access (otherwise system'll display a blank box):  We nd a 
+     new dlgBox like this: **title**:"Access Control"; **ctrl**:ListBox(Vw?)
+     **Cols**: | Create | Read | Write | Delete |
+     (each col hdr is a button; clicking allows assigning NAB entries ie nms/grps)  These appear one entry to a row; stored as []
+
+4. **Frm**: Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep) 
+Sep18_23: No, this is doable, and also modular.  Here's how: 
+  - Add pnl member x.isChild + x.Container; popul8
+  - Impl. movement actions *Within* the container.
+    If usr clicks up & pnl.Row = 0 => beep() (likewize other dir.s)
+  - Amend curr pnlMoveBtn.Click to `(fun e -> 
+    let localRow, localCol = 
+      match x.isChild
+      | true -> Container.Row, ContainerCol
+      | _ -> frm.Row, frm.Col
+    ...normal flow w/new vars...)`
+  - Impl a ctrlGrp as an item; *_CONSIDER_* adding props to ea pnl using above handler instead of matching; this way it remains simple + noEdits.
+  - @ToDo: Related: Do we or do we not currently have a !!^ "fldIntnlNm" [ctrl] -> frm??  We nd this pronto.  
+  - @ToDo: Related: We nd to impl either SelectionHandles (@rsch again: winFrms repo src) or (easier approach somewhere on SO: selecting ctrl paints a crosshatch rect on top)
+
+5. **Validation Rules** on Compose: see if we can use the ∃ing Form Funct w/fns (for hlp popup)
 
 
 ### From May 22 2023
