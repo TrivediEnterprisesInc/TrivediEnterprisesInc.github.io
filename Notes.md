@@ -1,3 +1,4 @@
+
 # Table of Contents
 - [Outstanding Tks](#outstanding-tks)
   - [Updates to this doc](#updates-to-this-doc)
@@ -7,6 +8,15 @@
     - [From Aug 2023](#from-aug-2023)
     - [From May 22 2023](#from-may-22-2023)
     - [From EOY 22](#from-eoy-22)
+      - [FrmDz](#frmdz)
+      - [TblDz](#tbldz)
+      - [DvDz:](#dvdz)
+      - [LookupDocs](#lookupdocs)
+    - [Core](#core)
+    - [Aux](#aux)
+    - [Dat](#dat)
+    - [Brij.Expr](#brijexpr)
+    - [UI](#ui)
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
   - [Versioning](#versioning)
@@ -21,8 +31,10 @@
   - [Process Flows `H`](#process-flows-h)
   - [Process Flows `O`](#process-flows-o)
     - [Where's the info 4 orgAd / userAd?  (∃, yeah?) add:](#wheres-the-info-4-orgad--userad---yeah-add)
-  - [@TBD: ACL/Role Impl.](#tbd-aclrole-impl)
+  - [ACL/Role Impl.](#aclrole-impl)
     - [Consider:](#consider)
+      - [From Aug 2023](#from-aug-2023-1)
+      - [From Sep18_23](#from-sep1823)
 - [Ref](#ref)
   - [Reading Shelf](#reading-shelf)
   - [Languages](#languages)
@@ -114,17 +126,7 @@ type BrijLinq() =
 ### From Aug 2023
 These're incorp into the code (wFrms) but chk anyway:
 1. **PriorVer Info** w/in doc?  Array?  If so, how to update changes?
-2. **ACLs** : SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault 
-***Sep18_23***: ACL impl requires two facets:
-(i) **svrSide**: If usr doesn't have rights, data won't even be sent.
-    This ensures that hacking into raw data won't divulge privileged data.
-    Recent @rsch pointed out that Mongo now supports RBAC (RoleBasedAccCtrl) svrSide via loginID.  So we'll probably be able to impl. this feature w/o much coding.
-(ii) **cliSide**: Usr nds to modify pnl.props to hide if no access (otherwise system'll display a blank box):  We nd a 
-     new dlgBox like this: **title**:"Access Control"; **ctrl**:ListBox(Vw?)
-     **Cols**: | Create | Read | Write | Delete |
-     (each col hdr is a button; clicking allows assigning NAB entries ie nms/grps)  These appear one entry to a row; stored as []
-
-4. **Frm**: Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep) 
+2. **Frm**: Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep) 
 Sep18_23: No, this is doable, and also modular.  Here's how: 
   - Add pnl member x.isChild + x.Container; popul8
   - Impl. movement actions *Within* the container.
@@ -177,10 +179,11 @@ Wnn:
     this wd allow MUCH more userFunc (e.g., fldContents contains "exactlyOne '(' +  oneOrMore digits,     exactlyOne ',' + oneOrMore text/anyChar + ...."; matches populate computed fld which can     be proc'd as usu.
 -----
 MeethooP:
-`    let icnLbl = new Label(Image = brijLogo, Size = (new Size(brijLogo.Width, brijLogo.Height)), Anchor = anc "N", BackColor = Color.Transparent, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).Icn())
-    let titTxt = new TextBox(AutoSize = true, Dock = doc "T", Enabled = false, Text = "Meethoo Def Document for " + nm, ReadOnly = true, Multiline = false, Width = f.Width - 50, TextAlign = HorizontalAlignment.Center, BorderStyle = BorderStyle.None, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).titFore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).titBack())
-    let titleP = new TableLayoutPanel(RowCount = 1, ColumnCount = 5, Dock = doc "T", BackColor = (currentScheme ((!!~ "wld" dsk).Value)).titBack(), AutoSize = true, Width = f.Width , Height = ((int) (titTxt.Height * 3)))
-    (midP) lv: , ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).accentFore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).accentBack())
+`
+     let icnLbl = new Label(Image = brijLogo, Size = (new Size(brijLogo.Width, brijLogo.Height)), Anchor = anc "N", BackColor = Color.Transparent, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).Icn()) 
+    let titTxt = new TextBox(AutoSize = true, Dock = doc "T", Enabled = false, Text = "Meethoo Def Document for " + nm, ReadOnly = true, Multiline = false, Width = f.Width - 50, TextAlign = HorizontalAlignment.Center, BorderStyle = BorderStyle.None, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).titFore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).titBack()) 
+    let titleP = new TableLayoutPanel(RowCount = 1, ColumnCount = 5, Dock = doc "T", BackColor = (currentScheme ((!!~ "wld" dsk).Value)).titBack(), AutoSize = true, Width = f.Width , Height = ((int) (titTxt.Height * 3))) 
+    (midP) lv: , ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).accentFore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).accentBack()) 
 `
 -----
 
@@ -190,70 +193,76 @@ MeethooP:
 -----
 >@ToDo ~ Nov27->
           
-DzDV:       1st DV is deflt (?@tbd); ability to set in CalcDef: checkBoxes
-            new TSBtn "Create Copy" for dzDox
+DzDV:       
+    - 1st DV is deflt (?@tbd); ability to set in CalcDef: checkBoxes
+    - new TSBtn "Create Copy" for dzDox (upd Sept18_23: No, just allow access transparently via normal tbar Cut/Cpy/Paste btns)
 -----
-Existing mods: continue as b4
-ALL new mods:  keep CoreAux open; use new conventions
+Existing mods: continue as b4 
+ALL new mods:  keep CoreAux open; use new conventions 
 
 -----
 >@ToDo ~ Nov9
 
-mod AutoOp Brij.Canned <- all suppliers; f 'a x -> x
+mod AutoOp Brij.Canned <- all suppliers; f 'a x -> x 
 
-FrmDz:  Layout Logic
-        InfoBox etc. (remaining wids)
-        Cleanup
-        Validation
-        PredBldr
-        Pullout LV 2 cls
-TblDz:  new() frm abv
-DvDz:   Boyz; use ArrowPnl [] -> [] with upDn btns
-        Chooser
-        AutoSetup
-LookupDocs: Nd frm/Dlg 2 UI
-            Basically impl couple in mock scenarios to determine path
+#### FrmDz
+ -  Layout Logic
+ - InfoBox etc. (remaining wids)
+ - Cleanup
+ - Validation
+ - PredBldr
+ - Pullout LV 2 cls
+
+#### TblDz
+new() frm abv
+#### DvDz:   
+Boyz; use ArrowPnl [] -> [] with upDn btns
+ - Chooser
+ - AutoSetup
+#### LookupDocs
+ - Nd frm/Dlg 2 UI
+   Basically impl couple in mock scenarios to determine path 
 
 -----
+### Core
+    * Nd a new tpl: sTpl: not a list? for dat HashMap entVs 
+        @ToTEST: can we just get by w/box? 
+        IF we nd new one for just the types, EXTEND? 
 
-Core:
-    * Nd a new tpl: sTpl: not a list? for dat HashMap entVs
-        @ToTEST: can we just get by w/box?
-        IF we nd new one for just the types, EXTEND?
+    From 6/5/23 ->
+   - modify st.Bind to call >!>
+        * `? {let x = get; do! ? {...}`  
+        * Q: can we avoid using x (bind takes f not fx?)
+   - Idris 4 utils? <<Compiles 2 C>>
 
-    From 6/5->
-        * modify st.Bind to call >!>
-        * `? {let x = get; do! ? {...}`  Q: can we avoid using x (bind takes f not fx?)
-
-Idris 4 utils? <<Compiles 2 C>>
-
-Aux:
-    * Do amish 4 3 lists; 1st all 8 & 2nd half-ish  if (1) elif (2) elif (3)...
-    * NO existing replaced 4 now
+### Aux
+ - Do amish 4 3 lists; 1st all 8 & 2nd half-ish  if (1) elif (2) elif (3)...
+    * NO existing replaced 4 now 
     * After in place mt be a good time to clean mods & 
-      move new Core fns in since we now have a working dll set.
+      move new Core fns in since we now have a working dll set. 
 
-Dat:
-* Continue w/adding updated dat fns until all consumed
+### Dat
+ - Continue w/adding updated dat fns until all consumed
 
-Brij.Expr:
-    * The only place we act'ly nd dyComp is after types change in ???
-    * The rest can/shd be handled via exprShape
-    * @ToDo: test embedding exprs within others (shd work)
-    * @ToDo: find best way to store these
-    * @ToDo: determine whether a sep expr is nded for crit.
+### Brij.Expr
 
-UI:
-*Note* module Form uses Task etc. types from Brij; consider moving entire mod to a separate fork
-- recr ty / basic frame; add pointLess, fix w/Dirs, no comb
-- new tag/tpl/st single runC in ea Mod
-- sketch out basic data + popDat
-- bur p x y shd rem matches (?)
-- tst: push 3 params + Comb 2 tags; put thro + brush
+ - The only place we act'ly nd dyComp is after types change in ???
+ - The rest can/shd be handled via exprShape
+ - **@ToDo** test embedding exprs within others (shd work)
+ - **@ToDo** find best way to store these
+ - **@ToDo** determine whether a sep expr is nded for crit.
+
+### UI
+**Note** module Form uses Task etc. types from Brij; consider moving entire mod to a separate fork
+
+ - recr ty / basic frame; add pointLess, fix w/Dirs, no comb
+ - new tag/tpl/st single runC in ea Mod
+ - sketch out basic data + popDat
+ - bur p x y shd rem matches (?)
+ - tst: push 3 params + Comb 2 tags; put thro + brush
       - simulate via map/list/whatever
       - if comp compl use cq |> eval
-- ONCE above verified -> basic 5 (3param) + add'l 4(or as nded) -> Commando mode
-  
+ - ONCE above verified -> basic 5 (3param) + add'l 4(or as nded) -> **_Commando mode_**
 
 # Architecture
 
@@ -560,7 +569,7 @@ We nd a new Flow categ for Other, incl.
   - Using the DemoNAB allows SwitchToID to test ACL lvls
 	
 	
-## @TBD: ACL/Role Impl.
+## ACL/Role Impl.
 
 | | Create | View | Edit | Delete |
 |----| ----| ----| ----| ----|
@@ -586,6 +595,19 @@ We nd a new Flow categ for Other, incl.
 3. However, even basic ACLs mean the whole hog
     - If dvlpr wants to hide Salary fld from all except ["EmplNmFieldThisDoc";"MngrFieldThisDoc";"HRGrpThisOrg"]; we still
       need to impl. LDAP/X509/NAB equiv.  Mere logins/OUs won't do; the whole hog necc.
+
+#### From Aug 2023
+SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault 
+
+#### From Sep18_23
+ACL impl requires two facets:
+(i) **svrSide**: If usr doesn't have rights, data won't even be sent. 
+    This ensures that hacking into raw data won't divulge privileged data. 
+    Recent @rsch pointed out that Mongo now supports RBAC (RoleBasedAccCtrl) svrSide via loginID.  So we'll probably be able to impl. this feature w/o much coding. 
+(ii) **cliSide**: Usr nds to modify pnl.props to hide if no access (otherwise system'll display a blank box):  We nd a new dlgBox like this: 
+**title**:"Access Control"; **ctrl**:ListBox(Vw?)
+     **Cols**: | Create | Read | Write | Delete | 
+     (each col hdr is a button; clicking allows assigning NAB entries ie nms/grps)  These appear one entry to a row; stored as []
 
 # Ref
 
