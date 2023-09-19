@@ -1,0 +1,71 @@
+Linkedin Resume (https://www.linkedin.com/in/miketriv) is current upto Mar 2016
+
+Data Science Cover Page
+<<Get logos/pix from 1-pg res>>
+<<Change all 1st person refs to 'Mike'>
+
+
+Data Science	15+ years
+Programming Languages 	(Java/F#/C/Perl/Unix) 15+ years
+Windows Programming 20+ years
+Database Technologies (SQL/NoSQL/Mainframe/Warhouse) 20+ years
+
+Bachelors: Major Statistics/Minor Math		-->	DATA
+Masters: Journalism			-->  Investigation + Presentation
+Professional: 7+ IBM Certifications Principal-Level Developer  -->	Programming expertise
+Experience: 20+ years at America's best companies  -->			Real-world know-how
+RESULT:  A unique, seasoned candidate likely to be a star player on your team.
+
+Mike is a Senior Data Scientist with extensive industry experience since 1991, mostly as a Lead/Principal level programmer.  
+
+Mike has Built, Tested and Trained Machine Learning Models from scratch.
+A 2018 Text-Classification and Tokenization project requirement needed the latest ML features, 
+namely the then recent Google Research usage of *nGrams*.  
+The toolkit being used (Java-based ML Toolkit Mallet, govt. sponsored) had not been updated for a while.
+Mike built, tested and deployed an independent module using Dependency Injection to add the features to the Machine Learning 
+Toolkit without touching a single line of their code (licensing requirements)
+Mike has considerable experience with the Java-based ML/NLP engines, including Mallet, Weka and the Stanford NLP Toolkit.
+Mike has hands-on experience training models and understands tokenizing, stemming/lemmas, and model optimization techiniques.
+If required Mike could build you a ChatGPT clone from scratch.
+
+The variety and extent of Mike's industry experience has ensured that he has always been current with the highest business standards and a wide wealth of technology stacks.  Mike has worked with some of the top IT teams in the country and has benefited from the exposure.
+
+Mike has been an Independent Contractor (as a Principal/Lead Engineer) at some of the country's foremost Main Street firms including:
+
+Pharmaceutical
+Merck & Co.
+SmithKline Beecham
+
+Financial
+FannieMae
+Chase Manhattan
+Discover
+Vanguard Financial
+Reliance Insurance
+PwC
+
+Media
+Comcast
+Major League Baseball
+Thomson Reuters
+
+Manufacturing
+Atlantic Richfield
+Knoll Manufacturing
+Elf Atochem
+
+Other
+US Dept of Energy
+SWFWMD (US Govt. Agency)
+Temple Univ.
+
+
+<<Repurpose this>>
+In Depth
+Besides working at contract positions, Mike owns his own business - an IBM Business Partner - since 1994.  He has built and sold software in the US and Europe.  Since about the past six years Mike has been CTO of a NoSQL SaaS startup. 
+Mike is comfortable working with Management: he has worked at a Senior Level for more than a decade and has a wealth of Domain knowledge across the spectrum.
+The wealth of Mike's experience has exposed him to in-depth hands-on knowledge and experience which clients have always valued: Mike has extended the JDK and built custom libraries/assemblies/modules in JavaScript, F# and more; as well as pushed or pulled data from data warehouses and sources as diverse as SAS/SPSS/JD Edwards/DB2/Oracle and more.
+Mike has much experience using fairly esoteric technology in the workplace.
+Mike is a Functional Programming enthusiast.  If you give him the option of using F#/DotNet over Apache Pig, he will tell you about how he can build and run massively parallel, concurrent programs without locks/latches/race-conditions using the Async Monad and F#'s Computation Expressions.  However, he can work on any system, using most languages.
+Mike is a US citizen and has a US Government Security Clearance.
+
