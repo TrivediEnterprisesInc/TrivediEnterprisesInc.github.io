@@ -645,12 +645,17 @@ graph TB
     class coa2 ltBrn
     class coa1 green
     end
-    subgraph GreenS
-    gs1[Cmd docID]-->|Handled in UI|gs2[cliSide]
-    gs2 --> gs3[Await Next]
+    subgraph ClipbdAction
+    ca1[Cut]
+    ca1-->|cliSide|ca2i
+    ca2[Copy]-->|cliSide|ca2i["dbClipbd<br>(REPLACE)"]
+    cap1[Paste]-->cap2[svr.PasteCmd docIds]-->cap3[pushBack]
     class gs3 offWhite
-    class gs2 ltBrn
-    class gs1 green
+    class ca1doc,ca1dz drkBlue
+    class gs2,ca2i ltBrn
+    class cap2 red
+    class cap3 offWhite
+    class ca1,ca2,cap1,gs1 green
     end
 ```
 
