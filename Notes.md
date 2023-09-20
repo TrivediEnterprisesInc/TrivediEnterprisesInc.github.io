@@ -649,7 +649,7 @@ graph TB
     ca1[Cut]
     ca1-->|cliSide|ca2i
     ca2[Copy]-->|cliSide|ca2i["dbClipbd<br>(REPLACE)"]
-    cap1[Paste]-->cap2[svr.PasteCmd docIds]-->cap3[pushBack]
+    cap1[Paste]-->cap2[svr.PasteCmd docIds]<-->cap3[pushBack]
     class gs3 offWhite
     class ca1doc,ca1dz drkBlue
     class gs2,ca2i ltBrn
