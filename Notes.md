@@ -1,4 +1,15 @@
 # Table of Contents
+- [Architecture](#architecture)
+  - [Topology Overview](#topology-overview)
+  - [Windowing](#windowing)
+  - [Templating](#templating)
+    - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
+  - [Process Flows `S`](#process-flows-s)
+  - [Process Flows `A`](#process-flows-a)
+  - [Process Flows `G`](#process-flows-g)
+  - [Process Flows `H`](#process-flows-h)
+  - [Process Flows `O`](#process-flows-o)
+    - [Notes for Other](#notes-for-other)
 - [Outstanding Tks](#outstanding-tks)
   - [Updates to this doc](#updates-to-this-doc)
   - [Versioning](#versioning)
@@ -34,17 +45,24 @@
       - [Dat](#dat)
       - [Brij.Expr](#brijexpr)
       - [UI](#ui)
-- [Architecture](#architecture)
-  - [Topology Overview](#topology-overview)
-  - [Windowing](#windowing)
-  - [Templating](#templating)
-    - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
-  - [Process Flows `S`](#process-flows-s)
-  - [Process Flows `A`](#process-flows-a)
-  - [Process Flows `G`](#process-flows-g)
-  - [Process Flows `H`](#process-flows-h)
-  - [Process Flows `O`](#process-flows-o)
-    - [Where's the info 4 orgAd / userAd?  (∃, yeah?) add:](#wheres-the-info-4-orgad--userad---yeah-add)
+- [Corp](#corp)
+  - [Due Diligence](#due-diligence)
+    - ["Refine & React-Admin same tgt in the noCo space: they're going after ReTool"](#refine--react-admin-same-tgt-in-the-noco-space-theyre-going-after-retool)
+    - [VisualDb.com](#visualdbcom)
+    - [frappeframework.com](#frappeframeworkcom)
+    - [Flask AppBuilder](#flask-appbuilder)
+    - [jinjat.com](#jinjatcom)
+    - [github.com/BudiBase](#githubcombudibase)
+    - [github.com/appsmithorg](#githubcomappsmithorg)
+    - [github.com/ToolJet](#githubcomtooljet)
+    - [github.com/lowdefy](#githubcomlowdefy)
+    - [github.com/windmill-labs/windmill](#githubcomwindmill-labswindmill)
+    - [www.superblocks.com](#wwwsuperblockscom)
+    - [Hansura / Supabase](#hansura--supabase)
+  - [VC Info](#vc-info)
+  - [Founder Info](#founder-info)
+    - [Marketing](#marketing)
+  - [Svr Hosting](#svr-hosting)
 - [Ref](#ref)
     - [Markdown Stuff](#markdown-stuff)
     - [Colors](#colors)
@@ -80,20 +98,6 @@
     - [Embeddings](#embeddings)
     - [Llama2](#llama2)
     - [Prompt Injection](#prompt-injection)
-  - [Due Diligence](#due-diligence)
-    - ["Refine & React-Admin same tgt in the noCo space: they're going after ReTool"](#refine--react-admin-same-tgt-in-the-noco-space-theyre-going-after-retool)
-    - [VisualDb.com](#visualdbcom)
-    - [frappeframework.com](#frappeframeworkcom)
-    - [Flask AppBuilder](#flask-appbuilder)
-    - [jinjat.com](#jinjatcom)
-    - [github.com/BudiBase](#githubcombudibase)
-    - [github.com/appsmithorg](#githubcomappsmithorg)
-    - [github.com/ToolJet](#githubcomtooljet)
-    - [github.com/lowdefy](#githubcomlowdefy)
-    - [github.com/windmill-labs/windmill](#githubcomwindmill-labswindmill)
-    - [www.superblocks.com](#wwwsuperblockscom)
-    - [Hansura / Supabase](#hansura--supabase)
-- [VC Podcasts](#vc-podcasts)
 - [Rec](#rec)
     - [PO](#po)
     - [SSO](#sso)
@@ -105,245 +109,14 @@
     - [allFlds (from baseTkDatAux)](#allflds-from-basetkdataux)
     - [TaskDVAux dat brkdn + raw](#taskdvaux-dat-brkdn--raw)
     - [Code linkx](#code-linkx)
-    - [Svr Hosting](#svr-hosting)
     - [Off-the-cuff](#off-the-cuff)
       - [Tangibles](#tangibles)
       - [Intangibles](#intangibles)
 
 
+
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
 
-# Outstanding Tks
-
-## Updates to this doc
-   - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
-     Cre8 new sections 4 these & move there so they can be expanded upon
-
-## Versioning
-### FldLvl Δs
-   - The current setup is optimized for saving space with performance benefits **BUT** ρ uses fld-level and so should we
-   - Therefore the versioning/Δ fns nd to be updated
-ADD: Created|LastMod|By (these already exist in CoreMod)
-   - These flds updated cliSide not in handlers
-   - Don't send only Δs, send the whole doc which the svr only nds to resend (no svrSide processing @all)
-   - Add to Doc: [SessionDeltas:(fldNm, val)]  to pump into DelltaTracker.  
-`Fld.LostFocus.Add(fun e -> if (!!~ this.fldNm) <> this.fldNm.Value then !!^ else ())`
-
-### Nested/Embedded Dox
-  - Versioning wd be a fine way 2 test Impl (Approach2: use Accumulator + only DeltaForCurrVer in currVer; i.e., curr setup)
-  - FldTy = FldTy of list<list<fldTy>>
-  |VerId|UserId|CreatedDt|
-  - Last ver details -> |DocId|UserId|CrDt|list<fldsMod>|
-  Saved in currDoc 4 UI
-  - Impl Note: UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
-
-
-## ACL/Role Impl.
-
-| | Create | View | Edit | Delete |
-|----| ----| ----| ----| ----|
-| **Reader** | ![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
-| **Author** |![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")| ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
-| **Editor** | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
-| **Admin** | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |  ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")|![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")|
-	
-**Levels**: | Doc | Form | Tbl | Sys |
-
-> Poss. b8r to impl merely Reader/Author for v1 & leave more finely grained sec 4 l8r.
-
-### Consider:
-
-1. Is Form here equiv to DesEl?
-    - All access must, by definition, pass through svrReq
-    - Req >> ApplyACL will, even 4 DzLi (say GandhiNms) Filter -> ∴ applied cliSide
-    - fn ApplyAcl = | NoRights -> repl w defVal   | _ -> ()
-
-2. Versioning alieviates disaster recovery caused by lack of Role Impl.
-    - If users can identify/recover from failures it solves most of the burden
-
-3. However, even basic ACLs mean the whole hog
-    - If dvlpr wants to hide Salary fld from all except ["EmplNmFieldThisDoc";"MngrFieldThisDoc";"HRGrpThisOrg"]; we still
-      need to impl. LDAP/X509/NAB equiv.  Mere logins/OUs won't do; the whole hog necc.
-
-#### From Aug 2023
-SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault 
-
-#### From Sep18_23
-ACL impl requires two facets: 
-	
-(i) **svrSide**: If usr doesn't have rights, data won't even be sent. 
-    This ensures that hacking into raw data won't divulge privileged data. 
-    Recent @rsch pointed out that Mongo now supports RBAC (RoleBasedAccCtrl) svrSide via loginID.  So we'll probably be able to impl. this feature w/o much coding. 
-	
-(ii) **cliSide**: Usr nds to modify pnl.props to hide if no access (otherwise system'll display a blank box):  We nd a new dlgBox like this: 
-**title**:"Access Control"; **ctrl**:ListBox(Vw?)
-     **Cols**: | Create | Read | Write | Delete | 
-     (each col hdr is a button; clicking allows assigning NAB entries ie nms/grps)  These appear one entry to a row; stored as []
-
-
-## Qry
-  - Deep Dive into qry CE 
-  - dismantle (compose, fetch, deSer) 
-  - retool to fetch raw mqlRes
-`
-///run this thro the tests; shd suffice 
-///if any issues (Linq might nd fldNms); revert to fld_str_1|fld_bool_1 with get,set... 
-open System.Collections.Generic 
-type BrijLinq() = 
-    let table = new Dictionary<(string* int), float>() 
-    member this.Item 
-        with get(key1, key2) = table.[(key1, key2)] 
-        and set (key1, key2) value = table.[(key1, key2)] <- value 
-`
-
-## DbClipboard
-
-    - Implement an internal DB Clipbd: 1 handler, called via TBar btns.  Bypass the OS clipbd (eat the event)
-    - Cut/Copy([docID]) -> 🌎.intlBuffer gets 
-    - Paste(tblId, [docID]) -> map >> getUNID -> paste 
-    - intlBuffer holds itms until nxt copy/cut
-    - **NOTE** that localDbs may need cliSide logic
-
-## Tasks+Notes: To Be Checked
-### From Aug 2023
-
-#### PriorVer Info 
-w/in doc?  Array?  If so, how to update changes?
-#### Frm
-Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep) 
-**Sep18_23**
-No, this is doable, and also modular.  Here's how: 
-  - Add pnl member x.isChild + x.Container; popul8
-  - Impl. movement actions *Within* the container.
-    If usr clicks up & pnl.Row = 0 => beep() (likewize other dir.s)
-  - Amend curr pnlMoveBtn.Click to `(fun e -> 
-    let localRow, localCol = 
-      match x.isChild
-      | true -> Container.Row, ContainerCol
-      | _ -> frm.Row, frm.Col
-    ...normal flow w/new vars...)`
-  - Impl a ctrlGrp as an item; *_CONSIDER_* adding props to ea pnl using above handler instead of matching; this way it remains simple + noEdits.
-  - @ToDo: Related: Do we or do we not currently have a !!^ "fldIntnlNm" [ctrl] -> frm??  We nd this pronto.  
-  - @ToDo: Related: We nd to impl either SelectionHandles (@rsch again: winFrms repo src) or (easier approach somewhere on SO: selecting ctrl paints a crosshatch rect on top)
-
-####  Validation Rules
-on Compose: see if we can use the ∃ing Form Funct w/fns (for hlp popup)
-
-### From May 22 2023
-
-#### Wnn
-  - Run #s w/ tot 5 -> (1) Visible (2) Trivia (Rnd())
-  - All Local ver of VSCd portable w/Lang Svr 4 AutoComp?
-  - OR run from Partition w/o inet (How determine?) (switch Part.s poss?)
-  - OR ChromeOS? Some other OS? Min ver of Linux?
-  - Needs to allow compil8n; which opens up vulnerabil.s galore
-  - How to disable/lock open ports?  (SysTray lock @rsch)
-  - Medium article on Defensive Prog (incl refs to Adapter Pattn/wrkBnch)
-  - <mark>Jimmy -> Auth -> Mount -> App on JVM</mark>
-
-### From EOY 2022
-#### BanarasiP
-  - How to handle intl flds? Disabled? Title etc. nded
-  - More wids
-#### MeethooM
-  - As above, nd to handle intl flds (No renaming or fldTy chng allowed)
-  - Reapply Fns as Cats et al
-#### Xtra
-   - Sketch out HlpSys
-   - For Push/SigR -> Use a DzDv
-`Combo Pipe D |> Lst F calls .show() |> B4 ret (mut/refdl <- d) |> Persist`
-
-#### EACH Order
-   - Some Impl Reqd (eg Dat HardCoded; Wids incompl but coverage there)
-   - Apply Combs
-
-#### Computed Fields (v2?) 
-  (**Jan13_23**)  It mt be a gd idea to offer an Expr Bldr which uses ParserCombs under the cover; this wd allow MUCH more userFunc; e.g.:
- `fldContents contains "exactlyOne '(' +  oneOrMore digits,     exactlyOne ',' + oneOrMore text/anyChar + ...."` matches populate computed fld which can be proc'd as usu.
-
-#### MeethooP
-`
-     let icnLbl = new Label(Image = brijLogo, Size = (new Size(brijLogo.Width, brijLogo.Height)), Anchor = anc "N", BackColor = Color.Transparent, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).Icn()) 
-    let titTxt = new TextBox(AutoSize = true, Dock = doc "T", Enabled = false, Text = "Meethoo Def Document for " + nm, ReadOnly = true, Multiline = false, Width = f.Width - 50, TextAlign = HorizontalAlignment.Center, BorderStyle = BorderStyle.None, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).titFore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).titBack()) 
-    let titleP = new TableLayoutPanel(RowCount = 1, ColumnCount = 5, Dock = doc "T", BackColor = (currentScheme ((!!~ "wld" dsk).Value)).titBack(), AutoSize = true, Width = f.Width , Height = ((int) (titTxt.Height * 3))) 
-    (midP) lv: , ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).accentFore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).accentBack()) 
-`
------
-
-પ્રેડ_પીચાક (+ ચેક્ડ_પીચાક)
-એક્સ_પેનલ
-કેટ_બાય_પીચાક
------         
-#### DzDV
->@ToDo ~ Nov27 2022->
-    - 1st DV is deflt (?@tbd); ability to set in CalcDef: checkBoxes
-    - new TSBtn "Create Copy" for dzDox (upd Sept18_23: No, just allow access transparently via normal tbar Cut/Cpy/Paste btns)
------
-Existing mods: continue as b4 
-ALL new mods:  keep CoreAux open; use new conventions 
-
------
->@ToDo ~ Nov9_2022
-
-mod AutoOp Brij.Canned <- all suppliers; f 'a x -> x 
-
-#### FrmDz
- -  Layout Logic
- - InfoBox etc. (remaining wids)
- - Cleanup
- - Validation
- - PredBldr
- - Pullout LV 2 cls
-
-#### TblDz
-new() frm abv
-#### DvDz:   
-Boyz; use ArrowPnl [] -> [] with upDn btns
- - Chooser
- - AutoSetup
-#### LookupDocs
- - Nd frm/Dlg 2 UI
-   Basically impl couple in mock scenarios to determine path 
-
-#### Core
-    * Nd a new tpl: sTpl: not a list? for dat HashMap entVs 
-        @ToTEST: can we just get by w/box? 
-        IF we nd new one for just the types, EXTEND? 
-
-    From 6/5/23 ->
-   - modify st.Bind to call >!>
-        * `? {let x = get; do! ? {...}`  
-        * Q: can we avoid using x (bind takes f not fx?)
-   - Idris 4 utils? <<Compiles 2 C>>
-
-#### Aux
- - Do amish 4 3 lists; 1st all 8 & 2nd half-ish  if (1) elif (2) elif (3)...
-    * NO existing replaced 4 now 
-    * After in place mt be a good time to clean mods & 
-      move new Core fns in since we now have a working dll set. 
-
-#### Dat
- - Continue w/adding updated dat fns until all consumed
-
-#### Brij.Expr
-
- - The only place we act'ly nd dyComp is after types change in ???
- - The rest can/shd be handled via exprShape
- - **@ToDo** test embedding exprs within others (shd work)
- - **@ToDo** find best way to store these
- - **@ToDo** determine whether a sep expr is nded for crit.
-
-#### UI
-**Note** module Form uses Task etc. types from Brij; consider moving entire mod to a separate fork
-
- - recr ty / basic frame; add pointLess, fix w/Dirs, no comb
- - new tag/tpl/st single runC in ea Mod
- - sketch out basic data + popDat
- - bur p x y shd rem matches (?)
- - tst: push 3 params + Comb 2 tags; put thro + brush
-      - simulate via map/list/whatever
-      - if comp compl use cq |> eval
- - ONCE above verified -> basic 5 (3param) + add'l 4(or as nded) -> **_Commando mode_**
 
 # Architecture
 
@@ -667,6 +440,301 @@ graph TB
   - Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by ... "
   - TblDDox(usr, usrSettings) -> ClassDef -> Custom imgs in UsrSettings
 
+
+# Outstanding Tks
+
+## Updates to this doc
+   - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
+     Cre8 new sections 4 these & move there so they can be expanded upon
+
+## Versioning
+### FldLvl Δs
+   - The current setup is optimized for saving space with performance benefits **BUT** ρ uses fld-level and so should we
+   - Therefore the versioning/Δ fns nd to be updated
+ADD: Created|LastMod|By (these already exist in CoreMod)
+   - These flds updated cliSide not in handlers
+   - Don't send only Δs, send the whole doc which the svr only nds to resend (no svrSide processing @all)
+   - Add to Doc: [SessionDeltas:(fldNm, val)]  to pump into DelltaTracker.  
+`Fld.LostFocus.Add(fun e -> if (!!~ this.fldNm) <> this.fldNm.Value then !!^ else ())`
+
+### Nested/Embedded Dox
+  - Versioning wd be a fine way 2 test Impl (Approach2: use Accumulator + only DeltaForCurrVer in currVer; i.e., curr setup)
+  - FldTy = FldTy of list<list<fldTy>>
+  |VerId|UserId|CreatedDt|
+  - Last ver details -> |DocId|UserId|CrDt|list<fldsMod>|
+  Saved in currDoc 4 UI
+  - Impl Note: UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
+
+
+## ACL/Role Impl.
+
+| | Create | View | Edit | Delete |
+|----| ----| ----| ----| ----|
+| **Reader** | ![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
+| **Author** |![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")| ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
+| **Editor** | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![No](https://trivedienterprisesinc.github.io/brijPitch/articles/images/x.png "No")|
+| **Admin** | ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |  ![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes") |![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")|![Yes](https://trivedienterprisesinc.github.io/brijPitch/articles/images/heavy_check_mark.png "Yes")|
+	
+**Levels**: | Doc | Form | Tbl | Sys |
+
+> Poss. b8r to impl merely Reader/Author for v1 & leave more finely grained sec 4 l8r.
+
+### Consider:
+
+1. Is Form here equiv to DesEl?
+    - All access must, by definition, pass through svrReq
+    - Req >> ApplyACL will, even 4 DzLi (say GandhiNms) Filter -> ∴ applied cliSide
+    - fn ApplyAcl = | NoRights -> repl w defVal   | _ -> ()
+
+2. Versioning alieviates disaster recovery caused by lack of Role Impl.
+    - If users can identify/recover from failures it solves most of the burden
+
+3. However, even basic ACLs mean the whole hog
+    - If dvlpr wants to hide Salary fld from all except ["EmplNmFieldThisDoc";"MngrFieldThisDoc";"HRGrpThisOrg"]; we still
+      need to impl. LDAP/X509/NAB equiv.  Mere logins/OUs won't do; the whole hog necc.
+
+#### From Aug 2023
+SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault 
+
+#### From Sep18_23
+ACL impl requires two facets: 
+	
+(i) **svrSide**: If usr doesn't have rights, data won't even be sent. 
+    This ensures that hacking into raw data won't divulge privileged data. 
+    Recent @rsch pointed out that Mongo now supports RBAC (RoleBasedAccCtrl) svrSide via loginID.  So we'll probably be able to impl. this feature w/o much coding. 
+	
+(ii) **cliSide**: Usr nds to modify pnl.props to hide if no access (otherwise system'll display a blank box):  We nd a new dlgBox like this: 
+**title**:"Access Control"; **ctrl**:ListBox(Vw?)
+     **Cols**: | Create | Read | Write | Delete | 
+     (each col hdr is a button; clicking allows assigning NAB entries ie nms/grps)  These appear one entry to a row; stored as []
+
+
+## Qry
+  - Deep Dive into qry CE 
+  - dismantle (compose, fetch, deSer) 
+  - retool to fetch raw mqlRes
+`
+///run this thro the tests; shd suffice 
+///if any issues (Linq might nd fldNms); revert to fld_str_1|fld_bool_1 with get,set... 
+open System.Collections.Generic 
+type BrijLinq() = 
+    let table = new Dictionary<(string* int), float>() 
+    member this.Item 
+        with get(key1, key2) = table.[(key1, key2)] 
+        and set (key1, key2) value = table.[(key1, key2)] <- value 
+`
+
+## DbClipboard
+
+    - Implement an internal DB Clipbd: 1 handler, called via TBar btns.  Bypass the OS clipbd (eat the event)
+    - Cut/Copy([docID]) -> 🌎.intlBuffer gets 
+    - Paste(tblId, [docID]) -> map >> getUNID -> paste 
+    - intlBuffer holds itms until nxt copy/cut
+    - **NOTE** that localDbs may need cliSide logic
+
+## Tasks+Notes: To Be Checked
+### From Aug 2023
+
+#### PriorVer Info 
+w/in doc?  Array?  If so, how to update changes?
+#### Frm
+Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep) 
+**Sep18_23**
+No, this is doable, and also modular.  Here's how: 
+  - Add pnl member x.isChild + x.Container; popul8
+  - Impl. movement actions *Within* the container.
+    If usr clicks up & pnl.Row = 0 => beep() (likewize other dir.s)
+  - Amend curr pnlMoveBtn.Click to `(fun e -> 
+    let localRow, localCol = 
+      match x.isChild
+      | true -> Container.Row, ContainerCol
+      | _ -> frm.Row, frm.Col
+    ...normal flow w/new vars...)`
+  - Impl a ctrlGrp as an item; *_CONSIDER_* adding props to ea pnl using above handler instead of matching; this way it remains simple + noEdits.
+  - @ToDo: Related: Do we or do we not currently have a !!^ "fldIntnlNm" [ctrl] -> frm??  We nd this pronto.  
+  - @ToDo: Related: We nd to impl either SelectionHandles (@rsch again: winFrms repo src) or (easier approach somewhere on SO: selecting ctrl paints a crosshatch rect on top)
+
+####  Validation Rules
+on Compose: see if we can use the ∃ing Form Funct w/fns (for hlp popup)
+
+### From May 22 2023
+
+#### Wnn
+  - Run #s w/ tot 5 -> (1) Visible (2) Trivia (Rnd())
+  - All Local ver of VSCd portable w/Lang Svr 4 AutoComp?
+  - OR run from Partition w/o inet (How determine?) (switch Part.s poss?)
+  - OR ChromeOS? Some other OS? Min ver of Linux?
+  - Needs to allow compil8n; which opens up vulnerabil.s galore
+  - How to disable/lock open ports?  (SysTray lock @rsch)
+  - Medium article on Defensive Prog (incl refs to Adapter Pattn/wrkBnch)
+  - <mark>Jimmy -> Auth -> Mount -> App on JVM</mark>
+
+### From EOY 2022
+#### BanarasiP
+  - How to handle intl flds? Disabled? Title etc. nded
+  - More wids
+#### MeethooM
+  - As above, nd to handle intl flds (No renaming or fldTy chng allowed)
+  - Reapply Fns as Cats et al
+#### Xtra
+   - Sketch out HlpSys
+   - For Push/SigR -> Use a DzDv
+`Combo Pipe D |> Lst F calls .show() |> B4 ret (mut/refdl <- d) |> Persist`
+
+#### EACH Order
+   - Some Impl Reqd (eg Dat HardCoded; Wids incompl but coverage there)
+   - Apply Combs
+
+#### Computed Fields (v2?) 
+  (**Jan13_23**)  It mt be a gd idea to offer an Expr Bldr which uses ParserCombs under the cover; this wd allow MUCH more userFunc; e.g.:
+ `fldContents contains "exactlyOne '(' +  oneOrMore digits,     exactlyOne ',' + oneOrMore text/anyChar + ...."` matches populate computed fld which can be proc'd as usu.
+
+#### MeethooP
+`
+     let icnLbl = new Label(Image = brijLogo, Size = (new Size(brijLogo.Width, brijLogo.Height)), Anchor = anc "N", BackColor = Color.Transparent, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).Icn()) 
+    let titTxt = new TextBox(AutoSize = true, Dock = doc "T", Enabled = false, Text = "Meethoo Def Document for " + nm, ReadOnly = true, Multiline = false, Width = f.Width - 50, TextAlign = HorizontalAlignment.Center, BorderStyle = BorderStyle.None, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).titFore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).titBack()) 
+    let titleP = new TableLayoutPanel(RowCount = 1, ColumnCount = 5, Dock = doc "T", BackColor = (currentScheme ((!!~ "wld" dsk).Value)).titBack(), AutoSize = true, Width = f.Width , Height = ((int) (titTxt.Height * 3))) 
+    (midP) lv: , ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).accentFore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).accentBack()) 
+`
+-----
+
+પ્રેડ_પીચાક (+ ચેક્ડ_પીચાક)
+એક્સ_પેનલ
+કેટ_બાય_પીચાક
+-----         
+#### DzDV
+>@ToDo ~ Nov27 2022->
+    - 1st DV is deflt (?@tbd); ability to set in CalcDef: checkBoxes
+    - new TSBtn "Create Copy" for dzDox (upd Sept18_23: No, just allow access transparently via normal tbar Cut/Cpy/Paste btns)
+-----
+Existing mods: continue as b4 
+ALL new mods:  keep CoreAux open; use new conventions 
+
+-----
+>@ToDo ~ Nov9_2022
+
+mod AutoOp Brij.Canned <- all suppliers; f 'a x -> x 
+
+#### FrmDz
+ -  Layout Logic
+ - InfoBox etc. (remaining wids)
+ - Cleanup
+ - Validation
+ - PredBldr
+ - Pullout LV 2 cls
+
+#### TblDz
+new() frm abv
+#### DvDz:   
+Boyz; use ArrowPnl [] -> [] with upDn btns
+ - Chooser
+ - AutoSetup
+#### LookupDocs
+ - Nd frm/Dlg 2 UI
+   Basically impl couple in mock scenarios to determine path 
+
+#### Core
+    * Nd a new tpl: sTpl: not a list? for dat HashMap entVs 
+        @ToTEST: can we just get by w/box? 
+        IF we nd new one for just the types, EXTEND? 
+
+    From 6/5/23 ->
+   - modify st.Bind to call >!>
+        * `? {let x = get; do! ? {...}`  
+        * Q: can we avoid using x (bind takes f not fx?)
+   - Idris 4 utils? <<Compiles 2 C>>
+
+#### Aux
+ - Do amish 4 3 lists; 1st all 8 & 2nd half-ish  if (1) elif (2) elif (3)...
+    * NO existing replaced 4 now 
+    * After in place mt be a good time to clean mods & 
+      move new Core fns in since we now have a working dll set. 
+
+#### Dat
+ - Continue w/adding updated dat fns until all consumed
+
+#### Brij.Expr
+
+ - The only place we act'ly nd dyComp is after types change in ???
+ - The rest can/shd be handled via exprShape
+ - **@ToDo** test embedding exprs within others (shd work)
+ - **@ToDo** find best way to store these
+ - **@ToDo** determine whether a sep expr is nded for crit.
+
+#### UI
+**Note** module Form uses Task etc. types from Brij; consider moving entire mod to a separate fork
+
+ - recr ty / basic frame; add pointLess, fix w/Dirs, no comb
+ - new tag/tpl/st single runC in ea Mod
+ - sketch out basic data + popDat
+ - bur p x y shd rem matches (?)
+ - tst: push 3 params + Comb 2 tags; put thro + brush
+      - simulate via map/list/whatever
+      - if comp compl use cq |> eval
+ - ONCE above verified -> basic 5 (3param) + add'l 4(or as nded) -> **_Commando mode_**
+
+# Corp
+## Due Diligence
+> Note: 99.9% of these are Shyt, however check 'em all out...
+
+### "Refine & React-Admin same tgt in the noCo space: they're going after ReTool"
+*ReTool*
+Dashboard maker - React - "Access on steroids"
+*Refine*
+github.com/refinedev/refine (MIT) 15k devs - "headless UI" - can use MaterialUI - No-LoCode Proj Creation Wizard
+*React-Admin*
+github.com/marmelab/react-admin
+marmelab.com/blog/2023/07/04/react-admin...
+
+### VisualDb.com
+Advanced Filtering w/And-Or - upto 100k recs in Vw per Qry | Unlimited - BYOD
+
+### frappeframework.com
+OSS LoCo
+
+### Flask AppBuilder
+"competes w/MS PowerApps"
+
+### jinjat.com
+(LoCo) Uses Refine as UI framework to render data models
+
+### github.com/BudiBase
+
+### github.com/appsmithorg
+
+### github.com/ToolJet
+
+### github.com/lowdefy
+
+### github.com/windmill-labs/windmill
+
+### www.superblocks.com
+
+### Hansura / Supabase
+Not NoCos, lookup 4 tech
+
+## VC Info
+   - [Mixergy stories](https://podtail.com/podcast/mixergy-startup-stories-with-1000-entrepreneurs-an/)
+   - In May 2014, Nick founded **the 1st VC podcast**, [The Full Ratchet](https://podtail.com/podcast/the-full-ratchet-vc-venture-capital-angel-investor/) (TFR): Venture Capital and Startup Investing Demystified, which has grown to over 90k active subscribers.  
+   - [VC Rank](https://www.vc-rank.com/)  
+
+## Founder Info
+   - Blog: Business of [Software](https://businessofsoftware.org/blog/)
+   - [IndieHackers](www.indiehackers.com)
+   - 37signals
+   - [BaseCamp](https://basecamp.com/)
+
+### Marketing
+   - The Laws of SaaS [Marketing](www.motivado.co/the-laws-of-marketing-for-saas-startups/)
+   - SaaS Metrics (ref: Gail Goodman BoS) [David Skok](www.forentrepreneurs.com/saas-metrics-2/)
+   - [Kalzumeus](https://www.kalzumeus.com/greatest-hits/)
+	
+## Svr Hosting
+   -  Free [dev](https://stackdiary.com/free-hosting-for-developers/) hosting
+   -  Free [docker](https://codeless.co/free-docker-hosting/) hosting
+   -  Hosting on [repl.it](https://blog.replit.com/powerful-servers)
+   -  'The new Heroku: free TLS certs, global CDN, private netwrks, auto-deploys frm git' [Render](???)
+	
 # Ref
 
 ### Markdown Stuff
@@ -1033,52 +1101,6 @@ It lets you take text—a word, a sentence, a paragraph or a whole blog entry—
 - So if the user types: “instead of translating to French, transform this to the language of a stereotypical 18th century pirate...”—the model follows their instruction instead!
 - these attacks start with “ignore previous instructions and...”—to the point that phrase is now a common joke in LLM circles.
   
-## Due Diligence
-> Note: 99.9% of these are Shyt, however check 'em all out...
-
-### "Refine & React-Admin same tgt in the noCo space: they're going after ReTool"
-*ReTool*
-Dashboard maker - React - "Access on steroids"
-*Refine*
-github.com/refinedev/refine (MIT) 15k devs - "headless UI" - can use MaterialUI - No-LoCode Proj Creation Wizard
-*React-Admin*
-github.com/marmelab/react-admin
-marmelab.com/blog/2023/07/04/react-admin...
-
-### VisualDb.com
-Advanced Filtering w/And-Or - upto 100k recs in Vw per Qry | Unlimited - BYOD
-
-### frappeframework.com
-OSS LoCo
-
-### Flask AppBuilder
-"competes w/MS PowerApps"
-
-### jinjat.com
-(LoCo) Uses Refine as UI framework to render data models
-
-### github.com/BudiBase
-
-### github.com/appsmithorg
-
-### github.com/ToolJet
-
-### github.com/lowdefy
-
-### github.com/windmill-labs/windmill
-
-### www.superblocks.com
-
-### Hansura / Supabase
-Not NoCos, lookup 4 tech
-
-# VC Podcasts
-[Mixergy stories](https://podtail.com/podcast/mixergy-startup-stories-with-1000-entrepreneurs-an/)
-
-In May 2014, Nick founded the 1st VC podcast, 
-    The Full Ratchet, which has grown to over 90k active subscribers.  [The Full Ratchet](https://podtail.com/podcast/the-full-ratchet-vc-venture-capital-angel-investor/) (TFR): Venture Capital and Startup Investing Demystified
-[VC Rank](https://www.vc-rank.com/)  
-
 # Rec
   
 ### PO
@@ -1170,11 +1192,6 @@ flipC0:["inyo"; "Dewey"; "BOYLE"; "pontotoc"; "APPLING"; "Finney"; "bayfield";
    - Steve [Yegge](https://steve-yegge.blogspot.com/)
    - [Kalzumeus](https://www.kalzumeus.com/greatest-hits/)
 
-### Svr Hosting
-Free [dev](https://stackdiary.com/free-hosting-for-developers/) hosting
-Free [docker](https://codeless.co/free-docker-hosting/) hosting
-Hosting on [repl.it](https://blog.replit.com/powerful-servers)
-	
 ### Off-the-cuff
 et je vous presentez...
 	Vacant - vacare (Latin) / shunya (Sanskrit)
@@ -1196,3 +1213,4 @@ intm8 domain spec kn - e.g. for a spec. ind: diff betw ema/sma; sloSto/convDiv; 
 IIIly 4 mainSt
 
 `ComplFlows >> Isol8|Identify Bottlen >> Sw2Mods >> Cons staticWsmRunViaAPI`
+
