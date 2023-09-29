@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+  <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+	<script>dojoConfig = {parseOnLoad: true}</script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1">
+    </script>
+	
+	<script>
+require(["dojo/parser", "dijit/form/Form", "dijit/form/Button", "dijit/form/ValidationTextBox", "dojo/dom-style"]);
+	</script>
+
+<style type="text/css">
+.dijitTextBox
+  {
+      width: 100%;
+  }
+</style>
+
+</head>
+<body class="claro">
+
+
+<h3>myFormOne Using Tbl</h3>
+    <div data-dojo-type="dijit/form/Form" id="myFormOne" data-dojo-id="myFormOne"
+encType="multipart/form-data" action="" method="">
+    <script type="dojo/method" data-dojo-event="validate">
+       return dojo.query('INPUT[name=order]', 'myFormOne').filter(function(n){return n.checked;}).length > 0 &&
+       dijit.form.Form.prototype.validate.apply(this, arguments);
+    </script>
+    <script type="dojo/method" data-dojo-event="onSubmit">
+        require(["dojo/dom"], function(dom){
+            var f = dojo.byId("myFormOne");
+            var s = "";
+            for(var i = 0; i < f.elements.length; i++){
+                var elem = f.elements[i];
+                if(elem.name == "button"){ continue; }
+                if(elem.type == "radio" && !elem.checked){ continue; }
+                s += elem.name + ": " + elem.value + "\n";
+		console.log(s);
+            }
+            alert("Unvalidated data that would be submitted:\n" + s);
+        });
+        return false;
+    </script>
+    <table style="border: 1px solid #9f9f9f;" cellspacing="10">
+        <tr>
+            <td>
+                <label for="fname">FirstName:</label>
+            </td>
+            <td>
+                <input type="text" name="fname" required="true" data-dojo-type="dijit/form/ValidationTextBox"/>
+            </td>
+
+            <td>
+                <label for="lname">LastName:</label>
+            </td>
+            <td>
+                <input type="text" name="lname" required="true" data-dojo-type="dijit/form/ValidationTextBox"/>
+            </td>
+
+
+            <td>
+                <label for="dob">Date of birth:</label>
+            </td>
+            <td>
+                <input type="text" id="dob" name="dob" data-dojo-type="dijit/form/DateTextBox"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label for="order">Order:</label>
+            </td>
+            <td>
+                <input type="radio" name="order" value="Food"> Food
+                <input type="radio" name="order" value="Drinks"> Drinks
+            </td>
+        </tr>
+    </table>
+
+    <button data-dojo-type="dijit/form/Button" onClick="alert('Form is ' + (myFormOne.validate()?'':'not ') + 'valid');return false">
+        Validate form
+    </button>
+    <button data-dojo-type="dijit/form/Button" type="submit" name="submitButtonThree" value="Submit">Submit</button>
+    <button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
+</div>
+
+<h3>myFormTwo Using Tbl w/colspan</h3>
+<!--needs *both* .dijitTextBox width=100 (css) + td colspan set to 3 (for lbl+ctrl)-->
+
+    <div data-dojo-type="dijit/form/Form" id="myFormTwo" data-dojo-id="myFormTwo"
+encType="multipart/form-data" action="" method="">
+    <script type="dojo/method" data-dojo-event="validate">
+       return dojo.query('INPUT[name=order2]', 'myFormTwo').filter(function(n){return n.checked;}).length > 0 &&
+       dijit.form.Form.prototype.validate.apply(this, arguments);
+    </script>
+    <script type="dojo/method" data-dojo-event="onSubmit">
+        require(["dojo/dom"], function(dom){
+            var f = dojo.byId("myFormTwo");
+            var s = "";
+            for(var i = 0; i < f.elements.length; i++){
+                var elem = f.elements[i];
+                if(elem.name == "button"){ continue; }
+                if(elem.type == "radio" && !elem.checked){ continue; }
+                s += elem.name + ": " + elem.value + "\n";
+		console.log(s);
+            }
+            alert("Unvalidated data that would be submitted:\n" + s);
+        });
+        return false;
+    </script>
+    <table style="border: 1px solid #9f9f9f;" cellspacing="10">
+        <tr>
+            <td>
+                <label for="fname2">FirstName:</label>
+            </td>
+            <td colspan='2'>
+                <input type="text" name="fname2" required="true" data-dojo-type="dijit/form/ValidationTextBox"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label for="lname2">LastName:</label>
+            </td>
+            <td>
+                <input type="text" name="lname2" required="true" data-dojo-type="dijit/form/ValidationTextBox"/>
+            </td>
+            <td>
+                <label for="dob2">Date of birth:</label>
+            </td>
+            <td>
+                <input type="text" id="dob2" name="dob2" data-dojo-type="dijit/form/DateTextBox"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label for="order2">Order:</label>
+            </td>
+            <td>
+                <input type="radio" name="order2" value="Food"> Food
+                <input type="radio" name="order2" value="Drinks"> Drinks
+            </td>
+        </tr>
+
+
+    </table>
+
+<hr>
+<h3>myFormThree Using Tbl w/colspan</h3>
+<!--needs *both* .dijitTextBox width=100 (css) + td colspan set to 3 (for lbl+ctrl)-->
+
+    <div data-dojo-type="dijit/form/Form" id="myFormThree" data-dojo-id="myFormThree"
+encType="multipart/form-data" action="" method="">
+    <script type="dojo/method" data-dojo-event="validate">
+       return dojo.query('INPUT[name=order3]', 'myFormTwo').filter(function(n){return n.checked;}).length > 0 &&
+       dijit.form.Form.prototype.validate.apply(this, arguments);
+    </script>
+    <script type="dojo/method" data-dojo-event="onSubmit">
+        require(["dojo/dom"], function(dom){
+            var f = dojo.byId("myFormThree");
+            var s = "";
+            for(var i = 0; i < f.elements.length; i++){
+                var elem = f.elements[i];
+                if(elem.name == "button"){ continue; }
+                if(elem.type == "radio" && !elem.checked){ continue; }
+                s += elem.name + ": " + elem.value + "\n";
+		console.log(s);
+            }
+            alert("Unvalidated data that would be submitted:\n" + s);
+        });
+        return false;
+    </script>
+    <table style="border: 1px solid #9f9f9f;" cellspacing="10">
+        <tr>
+            <td>
+                <label for="fname3">FirstName:</label>
+            </td>
+            <td id="tdNode">
+                <input type="text" name="fname3" required="true" data-dojo-type="dijit/form/ValidationTextBox"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label for="lname3">LastName:</label>
+            </td>
+            <td>
+                <input type="text" name="lname3" required="true" data-dojo-type="dijit/form/ValidationTextBox"/>
+            </td>
+            <td>
+                <label for="dob3">Date of birth:</label>
+            </td>
+            <td>
+                <input type="text" id="dob3" name="dob3" data-dojo-type="dijit/form/DateTextBox"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label for="order3">Order:</label>
+            </td>
+            <td>
+                <input type="radio" name="order3" value="Food"> Food
+                <input type="radio" name="order3" value="Drinks"> Drinks
+            </td>
+        </tr>
+    <button data-dojo-type="dijit/form/Button" onClick="domStyle.set('tdNode', 'colspan', '2');parser.parse();alert('done');">
+        TestBtn
+    </button>
+
+    </table>
+
+</body>
+</html>
