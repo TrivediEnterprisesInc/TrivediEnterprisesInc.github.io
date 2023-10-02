@@ -2,6 +2,9 @@
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
   - [Windowing](#windowing)
+  - [Mon Oct 2](#mon-oct-2)
+  - [Wireframes Main](#wireframes-main)
+  - [Wireframes Tabbed PropBox](#wireframes-tabbed-propbox)
   - [Templating](#templating)
     - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
   - [Process Flows `S`](#process-flows-s)
@@ -10,8 +13,11 @@
   - [Process Flows `H`](#process-flows-h)
   - [Process Flows `O`](#process-flows-o)
     - [Notes for Other](#notes-for-other)
+    - [Reading](#reading)
+      - [Simplicity vs Value](#simplicity-vs-value)
 - [Outstanding Tks](#outstanding-tks)
   - [Updates to this doc](#updates-to-this-doc)
+    - [mBoxes Redux](#mboxes-redux)
   - [Versioning](#versioning)
     - [FldLvl Δs](#fldlvl-s)
     - [Nested/Embedded Dox](#nestedembedded-dox)
@@ -21,6 +27,7 @@
       - [From Sep18_23](#from-sep1823)
   - [Qry](#qry)
   - [DbClipboard](#dbclipboard)
+  - [DbAgents](#dbagents)
   - [Tasks+Notes: To Be Checked](#tasksnotes-to-be-checked)
     - [From Aug 2023](#from-aug-2023-1)
       - [PriorVer Info](#priorver-info)
@@ -65,6 +72,7 @@
   - [Svr Hosting](#svr-hosting)
 - [Ref](#ref)
     - [Markdown Stuff](#markdown-stuff)
+    - [JS stuff](#js-stuff)
     - [Colors](#colors)
     - [Mongo](#mongo)
       - [Queries](#queries)
@@ -72,12 +80,19 @@
       - [Dynamic/ExpandoObject](#dynamicexpandoobject)
       - [No POCO with & without LINQ](#no-poco-with--without-linq)
       - [Qry w/o Classes (on BsonDoc)](#qry-wo-classes-on-bsondoc)
-      - [query ExpandoObject with [regular LINQ](https://stackoverflow.com/questions/18747058/is-it-possible-to-query-list-of-expandoobject)](#query-expandoobject-with-regular-linqhttpsstackoverflowcomquestions18747058is-it-possible-to-query-list-of-expandoobject)
+      - [query ExpandoObject with regular LINQ](#query-expandoobject-with-regular-linq)
       - [Expando/Dynamic](#expandodynamic)
       - [ExpandoRef](#expandoref)
       - [Expando Casting](#expando-casting)
       - [Other links](#other-links)
   - [Reading Shelf](#reading-shelf)
+    - [SaaS reading (from a Bing Chat sess.)](#saas-reading-from-a-bing-chat-sess)
+  - [Notes from reading](#notes-from-reading)
+    - [Indie music submissions (Founder Story)](#indie-music-submissions-founder-story)
+    - [HN comments](#hn-comments)
+  - [Sales](#sales)
+  - [SEO](#seo)
+    - [UI/UX in Ent S/w](#uiux-in-ent-sw)
   - [Languages](#languages)
     - [General](#general)
   - [Tools](#tools)
@@ -99,6 +114,7 @@
     - [Llama2](#llama2)
     - [Prompt Injection](#prompt-injection)
 - [Rec](#rec)
+    - [Hours](#hours)
     - [PO](#po)
     - [SSO](#sso)
     - [Prints](#prints)
@@ -112,7 +128,12 @@
     - [Off-the-cuff](#off-the-cuff)
       - [Tangibles](#tangibles)
       - [Intangibles](#intangibles)
-
+    - [Add to reading shelf](#add-to-reading-shelf)
+    - [Thu Sep 29](#thu-sep-29)
+      - [from hn](#from-hn)
+      - [ai](#ai)
+    - [This form builder made $70K in MRR last month'](#this-form-builder-made-70k-in-mrr-last-month)
+    - [PrVer Notes](#prver-notes)
 
 
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
@@ -157,6 +178,43 @@ graph TB
   - Then seed the window with (i) rnd-fn-picked-vals(determine how many) (ii) Peru-generated-vals (determine how many)
   - Given a total window-size (LARGER than earlier, viz. - 5 vals) that is now larger, we automatically have a larger universe and an overall better behavior.
   - Need to impl & test
+
+## Mon Oct 2
+
+## Wireframes Main
+> *** Dropping DnD is made poss by: 
+"A blank cell is a thing" ***
+
+ 1. #### New flow
+   - Instd of `ctor(def) -> TblPnl` we nd 2 move the whole proc into  `doLayout()` therefore making it automatic; when def changes, manually call `doLayout()` 
+   - **Note** that the prior logic nds heavy mods 4 switching on DzMode (els become disabled; non-popul8d; bkgrnd dark; handlers attached for Dz functionality only...)
+ 
+ 2. #### Selection & Movemt. 
+  - Shift-Clk to sel; bkgrnd changes to Yello 
+  - Moving either fits into ∃ slot **or** creates new row with other Os (blanks) 
+  - @tbd: how 2 handle move L/R?
+  3. #### Cell props
+  -  Ea cell gets ht, wid
+  - New cellTy for Os (blanks)
+ 4. #### Merge logic
+  - We nd mrge logic; instd of btns for merge l/r/t/b; just a single `Merge` cmd (poss via rt-clk) merges **sel** cells
+  - Also if a cell spans multiple slots auto-show `Split` cmd
+ 5. #### Relief
+  - Instd of dotted cell borders chg TblPnl to drkGrey & add inside padding to ea cell; thus showing bkgd in relief
+ 6. #### DjCli
+  - In porting prior styles rename all occurences (both styles & content) from `OPls` to `Brij`
+  - We nd to add the whole range of poss cell border styles eg BrijCell**Top**Border**Dotted** | Left ... | Single ...
+  - Render logic as before 
+  - @Tbd: How to handle non-standard font choices? Reduce all to S/sanS?  Does frmwk offer embedding resources?
+ 7. ### GetUrl
+  - Add to tBar btn(s) for web Url (nd 2 for auth/anon)
+  - https://domain.com/cli/tbl/frm/Auth
+
+## Wireframes Tabbed PropBox
+  - The usu culprits: `Title` | `Borders` | `Cols` | `Fonts`  ...
+  - Add new ty, switch on selTy (nds Cell(s) - if plu don't show labels) | Frm (incl title, icon)
+  - Wherever appropr, tab gets btn `Set all to this`
+  - `Display` switches on selTy to offer wids; dynamic updates
 
 ## Templating
 ### Brij flow using ρ setup ->
@@ -419,16 +477,15 @@ graph TB
     class coa1 green
     end
     subgraph ClipbdAction
-    ca1[Cut]
-    ca1-->|cliSide|ca2i
-    ca2[Copy]-->|cliSide|ca2i["dbClipbd<br>(REPLACE)"]
-    cap1[Paste]-->cap2[svr.PasteCmd docIds]<-->cap3[pushBack]
+    ca2[Copy]-->|cliSide|ca2i["copies ids to sysClipbd"]
+    caCut1[Cut]-->caCut2[svr.CutCmd selDocIds]<-->caCut3[pushBack]
+    cap1[Paste]-->cap2[svr.PasteCmd selDocIds]<-->cap3[pushBack]
     class gs3 offWhite
     class ca1doc,ca1dz drkBlue
     class gs2,ca2i ltBrn
-    class cap2 red
-    class cap3 offWhite
-    class ca1,ca2,cap1,gs1 green
+    class cap2,caCut2 red
+    class cap3,caCut3 offWhite
+    class caCut1,ca2,cap1,gs1 green
     end
 ```
 
@@ -440,12 +497,37 @@ graph TB
   - Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by ... "
   - TblDDox(usr, usrSettings) -> ClassDef -> Custom imgs in UsrSettings
 
+### Reading
+#### Simplicity vs Value
+...in Software [Development](https://businessofsoftware.org/2009/01/joel-spolsky-at-business-of-software-2009-video/) | Joel Spolsky | BoS USA 2009 (Joel designed **VBA**) 
+...unlike current wisdom, building new features **does** add value to your product. 
+...conflict between simplicity and power... 
+and simplicity specifically says when you design your products, when you design your product offering you should <mark>pick one thing and do it well</mark>. You should simplify as much as possible, and there is this 80/20 rule or 90/10 rule which is sort of similar:
+It says that 80% of the people only use 20% of the features and therefore if you employ to 20% of the features you would still get 80% of the market. That’s the simplicity argument. 
+The power way of doing things which is <mark>to give people lots and lots of features</mark>, lots and lots of <mark>options</mark> that’s not some choices which are frustrating and lots of <mark>capabilities</mark> in their software. 
+...you learn the one lesson of Fall Creeks offer that Michael and I have learned over nine years which is that and we actually did a very detailed exhaustive search of the literature and we gather from literally tens of thousands of software companies about all their products and over time and correlated that neatly and we had graduate students working on this for six years. This is a lot of data so just hold on to your seats. The correlation between features and sales, there you go the <mark>more features you have the more you sell</mark>. There is nothing clear than that in the chart of the – all of the output reports that you get from Quick Books at Fog Creek. Is when we came up with newer versions that added new features our sales went up a lot and the reason is obvious because you have this universe of people banging on your door and they are asking you things which are completely reasonable and if you can say yes, I can attach a picture they will say okay, that’s perfect I will buy that. 
+...at any point if you don’t meet one of their requirements they are going to <mark>drop out</mark> and go look for something else. So, conclusion, simplicity versus power this is a little bit too facile. 
+...(a well-designed bridge) the modesty not to draw attention to the difficulties that are surmounted. 
+...at some point people said hey maybe we don’t need an okay button and it just started kind of disappearing from those dialog boxes. 
+...amzn's check out process: Jeff Bezos told his team to go create one click where you just on the page, you click a button and you get the book. 
+One click he said that’s a great idea alright boss, and they went away and they came back with something that was I think <mark>four clicks</mark> and he said no, no I didn’t mean one click add to cart and then take you to the cart I meant one click and the book that you just clicked on is put into a box and sent to your house and they said okay, and they came back and they worked a lot harder and then they came back and they showed them something that had <mark>two clicks</mark> and he said which part of one don’t you understand and they said no you need a confirmation page, somebody might click by mistake, you just cant start shipping things to people based on they followed a URL in their web browser that’s absurd and he said go back and freaking make it one click and they did and what they realized is that the way they were imagining this was there is a <mark>decision tree</mark> and the decision tree is did you click or did you not click and then if you clicked did you click by mistake or did you click by not mistake and they have been thinking this as because you might click by mistake they have been thinking you click and then you confirm and the way they turned it around is you click and then you can undo but that part is option and since most people don’t click by mistake, like <mark>99%</mark> of the people are not clicking by mistake just give them a nice undo on that page that you clicked through to.
+
+Well make it so that only the people that make the mistake which is a tiny fraction have to use two clicks everybody else gets one click and that’s a really neat way of turning it around. There is of course the other problem which is, what if I want to buy three books, well alright click on each of them you get three separate packages in the way that the postal service works that costs three times as much to ship and so what you really want to do when somebody orders something is you want to kind of queue it up and hold on to that order, I think Amazon <mark>holds it for 30 minutes</mark> if I’m not mistaken and then if anything else comes in, in the next 30 minutes you reset the time at 30 again and till they stop and they go away and 30 minutes have passed without you ordering something and then they take all those things and put them in a box and send it to you. That is obviously <mark>way more work</mark> than just you click, it goes in the cart and you ship it, that’s a lot more work and the work behind the scenes to create that undo and to create that buffer where stuff is waiting for you for 30 minutes is a lot of extra work, that it takes to get this little tiny bit of <mark>simplicity</mark>. 
+So, it’s a game of inches you have to fight really, really hard for every inch of increased usability like the Amazon one click kind of thing. So, this is pretty much all we are going to talk about today, <mark>simplicity versus power</mark>, 
+...the trouble with the power is that you cause people to make decisions and you make them unhappy. The trouble with simplicity is you don’t sell your software... 
+...you give them the features and when you do give them the features you fight for that elegance and that simplicity, you fight for <mark>hiding the complicated functionality</mark> under the surface sort of a viewer user interface, so you only give them <mark>one choice instead of six</mark> but they still have all the <mark>same options</mark>.
 
 # Outstanding Tks
 
 ## Updates to this doc
    - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
      Cre8 new sections 4 these & move there so they can be expanded upon
+   - The winForms [gist](https://gist.github.com/TrivediEnterprisesInc/987b23e0a256182a0ac29bb36820d6d9)
+   - Frm [tester](https://trivedienterprisesinc.github.io/frm.html)
+
+### mBoxes Redux
+  - We nd a b8r way to org these notes; MD fine but not v searchable; so revert to mBoxes w/tags
+  - Bld a quick/dirty input frm & persist a la snippets
 
 ## Versioning
 ### FldLvl Δs
@@ -532,6 +614,36 @@ type BrijLinq() =
     - intlBuffer holds itms until nxt copy/cut
     - **NOTE** that localDbs may need cliSide logic
 
+## DbAgents
+
+  - For v1 offer Hourly/12hrs/Daily/Wkly/Monthly
+  - For v2 offer spec times + 5|10|15mins
+  - dzView shd offer a button to select Agent + `Run Now`
+  - svr Reboots shouldn't affect timing/order/missed execs
+` 
+    //cd elaborate with | Hourly | Daily | SpecificTime 
+    type Scheduled of AgentAction * TimeInterval 
+    type Event of EventTrigger(CritExpr) 
+    type AgentType of | Scheduled | Event 
+    type AgentDefDoc of OrgNm * TblNm * AgentNm * AgentTy * LastRunOn:DateTime 
+
+    //below redacted; put info in defDoc
+    type AgentLogDoc of AgDefID * RanOn * Result 
+	
+    let setTrig = 
+       fun agentTy lastRun -> 
+	   match agenTy with 
+	   | Scheduled(actn, intvl) -> 
+	        if (lastRun - now) > intvl then runNow(actn) else skip 
+	
+    ///For v1, keep it simple: run below on a Timer(15min) 
+    ///This will capture all udpates 2 the AgentDocs incl dels 
+    svrInit.AddHandler (fun e v -> 
+       getAllAgentDefs |> lim (fun def -> setTrig agTy lastRun) 
+
+    ///Create/Upd/Del handlers needed 4 SvrCmd_ClassO_AgentDefDoc 
+`
+	
 ## Tasks+Notes: To Be Checked
 ### From Aug 2023
 
@@ -723,7 +835,7 @@ Not NoCos, lookup 4 tech
    - [IndieHackers](www.indiehackers.com)
    - 37signals
    - [BaseCamp](https://basecamp.com/)
-
+   - makerLog
 ### Marketing
    - The Laws of SaaS [Marketing](www.motivado.co/the-laws-of-marketing-for-saas-startups/)
    - SaaS Metrics (ref: Gail Goodman BoS) [David Skok](www.forentrepreneurs.com/saas-metrics-2/)
@@ -743,6 +855,53 @@ Not NoCos, lookup 4 tech
    - [Markdown Editor](https://stackedit.io/app#)
    - [TOC Generator](https://imthenachoman.github.io/nGitHubTOC/)
 
+### JS stuff
+[loDash](https://github.com/lodash/lodash) *25m usrs*
+https://lodash.com/ 
+Lodash makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, strings, etc.
+Lodash’s modular methods are great for:
+  - Iterating arrays, objects, & strings
+  - Manipulating & testing values
+  - Creating composite functions
+
+
+[Ramda](https://github.com/ramda/ramda) *.7m usrs* 
+[docs](https://ramdajs.com/docs/#) & repl
+
+
+[Immutable](https://github.com/immutable-js/immutable-js)
+Immutable.js provides many Persistent Immutable data structures including: List, Stack, Map, OrderedMap, Set, OrderedSet and Record. 
+Immutable.js also provides a [lazy Seq](https://github.com/immutable-js/immutable-js#lazy-seq), allowing efficient chaining of collection methods like map and filter without creating intermediate representations. 
+Lodash wrapper providing Immutable.JS support: [MuDash](https://github.com/brianneisler/mudash)
+
+
+[Underscore](https://github.com/jashkenas/underscore) *2m usrs* is a utility-belt library for JavaScript that provides support for the usual functional suspects (each, map, reduce, filter...) without extending any core JavaScript objects.
+
+(all 4 are MIT)
+
+>> Super resource [here](https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore)
+(try this 1st) *refered 2 as YDN in this doc*
+
+Lodash seems to have HUGE support built in; but 1st try YDN; if stumped often switch.
+
+
+`
+lodash reduce (same as lifo)
+_.reduce([1, 2], function(sum, n) {
+  return sum + n;
+}, 0);
+// => 3
+
+// Native (YDN)
+var array = [0, 1, 2, 3, 4]
+var result = array.reduce(function (previousValue, currentValue, currentIndex, array) {
+  return previousValue + currentValue
+})
+console.log(result)
+// output: 10
+`
+
+	
 ### Colors
 [Palettes](https://colorhunt.co/palettes/popular)
 `let sublime = 
@@ -886,7 +1045,10 @@ static void Main(string[] args){
     var result4 = collection.Find(new BsonDocument(example4)).ToList();
 }`
 
-#### query ExpandoObject with [regular LINQ](https://stackoverflow.com/questions/18747058/is-it-possible-to-query-list-of-expandoobject)
+#### query ExpandoObject with regular LINQ
+
+(see this [SO](https://stackoverflow.com/questions/18747058/is-it-possible-to-query-list-of-expandoobject) post)
+
 `
 var generatedItems = new List<object>();
 foreach (var item in items){
@@ -984,6 +1146,165 @@ boringtechnology.club/ (somewhat opinionatd)
 
 Smallshire presents an F# prog that can't catch a certain type of bug via its type sys (DanLuu: can't say if it was masterful trolling)
 
+current (Fri Sep22):
+ - https://towardsdatascience.com/dirty-secrets-of-bookcorpus-a-key-dataset-in-machine-learning-6ee2927e8650
+ - https://jdk.java.net/21/release-notes
+ - https://www.levels.fyi/blog/trends-remote-salaries.html
+ - [unread](https://www.semafor.com/article/09/15/2023/the-princeton-researchers-calling-out-ai-snake-oil)
+ - Github [AIops](https://github.com/search?q=aiops&type=repositories&s=stars&o=desc)
+ - Github [MLops](https://github.com/search?q=mlops&type=repositories&s=stars&o=desc)
+ - repos GitHub 'courses'
+   1. ML [ops](https://github.com/GokuMohandas/mlops-course)
+   2. Data Science [Overview](https://github.com/hemansnation/God-Level-Data-Science-ML-Full-Stack) w/@least 2 gd chapters worth exploring
+ - Gen AI's [Act2](https://www.sequoiacap.com/article/generative-ai-act-two/)
+   ...Examples of companies entering “Act 2” include [Harvey](harvey.ai), which is building custom LLMs for elite law firms; [Glean](glean.com), which is crawling and indexing our workspaces to make Generative AI more relevant at work... (from above) GenAI [Stack](https://www.sequoiacap.com/wp-content/uploads/sites/6/2023/09/generative-ai-model-stack-3.png?resize=1920,2560)
+ - Refs 2 Classical Chinese [handscrolls](https://www.wired.com/story/lexicon-scroll-doomscrolling-mindfulness-linguistics/) & assoc. colophon comments, v gd fodder for '...1k wds...' ref:
+   'famous handscroll Along the River During the Qingming Festival, a
+   Song dynasty scroll that has been called China’s Mona Lisa. '
+
+	
+### SaaS reading (from a Bing Chat sess.)
+  - Why I Almost Walked Away From the $500k/mo Company [I Founded](https://www.groovehq.com/blog/almost-walked-away)
+  - What I Learned Rescuing Our Startup From [Death](https://www.groovehq.com/blog/rescuing-startup-death)
+  - The Top 20 SaaStr Tips to Getting a SaaS Start-Up [Going](https://www.saastr.com/the-top-20-saastr-tips-to-getting-a-saastr-start-up-going/)
+  - Inc’s 50 [Best](https://www.saastr.com/incs-50-best-websites-for-entrepreneurs-saastr-is-36/) Websites for Entrepreneurs
+  - 12 Key Levers of SaaS [Success](https://www.forentrepreneurs.com/saastr-2017/) 2017
+  - "Zero to 100" for High Growth SaaS - A workshop on how to build your [Go-to-Market](https://www.forentrepreneurs.com/zero-to-100/)
+  - Learn more about [product-led growth](https://userpilot.com/blog/ultimate-guide-product-led-growth-saas-2021/)
+  - The SVPG insights blog is great for [product managers](https://www.svpg.com/articles/) looking to stay up-to-date with the industry and advance their skills. 
+  - The Brad [Feld](https://feld.com/) blog is one of the best VC blogs dedicated to entreps and investors. 
+  - The [Openview](https://openviewpartners.com/blog/) blog focuses on product-led growth, product & pricing, marketing, finance & operations, and many more. 
+  - [SaaSMetrics](https://saasmetrics.co/) SaaS Blog 
+
+
+## Notes from reading
+
+### Indie music submissions (Founder Story)
+(from [IndieHackers](https://www.indiehackers.com/interview/building-a-55-000-mo-saas-business-promoting-artists-music-d2f45dd860), Aug 2020)
+
+- Jason blt music blog - ran it for 7 yrs - recd 300 pitches a day from artists/lbls/publicists looking to have their music featured
+- Spent 10 mos blding SubmitHub: ...my main focus was on solving my own problem. I hadn't given much consideration to the thousands of other music blogs who might want to use it. I suppose in that sense I was lucky: I was already "part of the problem", and therefore had a good understanding of what was needed to "solve" it...
+- Over the course of my ~7 years running a blog, I had learned a few things about what folks were looking for when they sent music to blogs:
+        1.  a quick response
+        2.  a decision about whether it was worthy of being blogged
+        3. and, if not, some detail as to what needed improvement
+Therein lied the business model: by paying a small amount ($1),  [SubmitHub](http://www.submithub.com/)  would be able to guarantee that all three of the aforementioned boxes were checked. If not, the user would receive a refund.
+ - **Advice to aspiring hackers**: Launch and iterate! Don't delay! I've seen a number of startups try to build the perfect product before launching, rather than putting something out there and adapting to the needs of its users. My experience has been that building a platform around real-life, participating users is much more valuable than trying to guess what they'll need before you've even put the product out there.
+ - Payments powered by [BrainTree](https://www.braintreepayments.com) min
+### HN comments
+**_theunixbeard_**
+1.) Build an audience (~6 years)
+2.) Build your business (a few months...)
+That's the winning formula. I wrote about this at length regarding Ryan Hoover & Product [Hunt](https://medium.com/@theunixbeard/product-hunt-s-rise-d49249a1a2c0)
+The title was "Product Hunt's Rise: An overnight success 1,834 days in the making"... Same exact story here except growing Indie shuffle took closer to 2,190 days!
+[  
+**_paulsutter_**
+Or maybe the lesson is to <mark>develop a following first before developing a product</mark>. The music blog didn't happen by random chance, and his overall approach seems better than developing a product and hoping for a following.
+
+**_gloverkcn_**
+If you look at any marketing funnel, the first hurdle is awareness. <mark>Getting people aware of a saas product is very difficult. Getting them to try it is even harder.</mark>
+Having the blog provided both a vehicle to get the target market aware, and the credibility that the product is worth trying. It's really smart to be an active member of a community, and then provide services to the community. It's also very difficult, and takes a lot of effort. I think the post you responded to is someone who understands the amount of work you had to put into your blog to make it successful.
+I don't think this is a negative, but a really good take away for new entrepreneurs.
+- How will you market and sell your product? The "If you build it, they will come" tactic doesn't work.
+- How do you know it's a problem people want solved?
+- How do you know your solution adequately solves the problem ?
+Your approach answered all these questions and you got to work on something you're passionate about.
+
+**_blazespin_**
+He missed the advice of <mark>launch and iterate below the radar with a very narrow group of customers</mark>.
+For example: on the app store you can launch your app/game in countries <mark>other</mark> than the US (australia, canada). Iterate, and once you're satisfied, than launch in the US.
+Launching and iterate in the fully public eye of your customer base is a risky thing to do for your general brand value.
+
+**_trymas_** 
+It reminds me of a story how Red Digital Cinema Camera Company was born.
+Few years ago I've found a motivational article that everyone can make a successful business out of their garage even in the field of <mark>high end technology.</mark> I googled RED camera's founders name - multi-billionaire founder of Oakley. Probably his garage looked like a high tech version of Jay Leno's car garage and not like the Jobs' and Wozniak's garage.
+Dude have been building his blog business/image/trademark for many years and successfully capitalised on that. Kudos to him.
+
+## Sales
+**_jahbrewski-**
+While I agree with the sentiment of #1, I would argue that sales are more important than marketing at this stage. You can spin your wheels “learning SEO” and “creating content” with very little tangible results. In the beginning, sales + product are just about all that matter.
+
+**_bushido_**
+Both can be important and it really comes down to who your customer is.
+For B2B (SME+) - Absolutely invest in Sales. Worth mentioning that it isn't too hard hiring seasoned sales professionals, with existing relationships who are trying to find their next career move etc. They'll often agree to a higher commission payout in-lieu of a base salary. This doubles up as a good way to get feedback from the market.
+For B2C or smaller B2B - Definitely invest in marketing and customer experience if you would like the main driver behind your business to be product-led growth or some form of a self-signup/self-onboarding.
+...
+On sales reps: As others have mentioned the biggest factor here will be how long it takes to close a deal. If you have quick close cycles (typical in the small to mid-market), a higher commission component or commission only is possible.
+
+Typically, I've seen commissions in B2B to be about <mark>7-10%</mark> of Annual Contract Value (ACV) for the first year. Mind you this is highly generalized, based on my experience.
+Most sales compensation plans aim for sales reps to earn 1x base as commissions if they meet target. So a base of $60K, would result in $120K in income if they performed.
+Based on this you could try finding reps on <mark>14-20%</mark> ACV on a commission only basis, paid out on paid invoices.
+To be candid, I wouldn't try doing commission-only positions for my own ventures. That said it's worth a try if there are constraints that make it hard to pay a base.
+[  
+**_acruns_**
+Getting part-time help in sales is going to be hard. It will depend on how long your sales cycle is too.
+Sales reps will happily work on commission only if they see a huge market for your product. Which might be difficult to show with a new product.
+The commission rate is negotiable at the hiring point. If they are great at sales and know there is a big market they will want a lower base with a higher commission. You should also set a <mark>commission cap</mark> at some point as your variable costs increase your profit will drop and you could end up at a point where the sales team is making more than the company.
+
+## SEO
+**_superasn_**
+Yes SEO is still very much relevant and effective IMO. Regardless of the paid ads, Google sends a lot of **organic** traffic when you rank for the <mark>right keywords</mark>. If you were to buy this traffic you would spends thousand of dollars doing it. Same for Youtube. A **good video** is amazing source of targeted prospects.
+Just think about how you find a new service, chances are you googled it and tried the 2-3 results.
+Now as for the question - is it necessary? The answer is yes. Because if you don't do it your competitor will and as the joke goes **_"The best place to hide a dead body is page 2 of Google"._**
+> Are there really any "tricks" that work?
+
+I'm no SEO expert and so I don't care for meta tags, keywords. Title and page description are still important I think. I believe the most relevant things are the **time** user a spends on your page and **social signals** (shares, etc) and unfortunately backlinks from high authority pages (this is the worst part of SEO).
+The good news is that you don't have to do anything sneaky to do SEO anymore. Make an excellent page on which a user spends a lot of time (so good that he actually bookmarks or shares it) and it **starts ranking**. For all its evilness Google is still doing something right here.
+**_jchook_**
+Keyword **density** (just the right amount) and total **word count** seem to have an effect and I’ve seen targeted ***landers*** work very well for specific search phrases.
+**Backlinks** will probably always be relevant to rankings as they were the original bedrock principle behind PageRank. If you get prominent **blogs to link** to you, that can help a lot. Inversely, use ***rel=nofollow*** on anchors to avoid seeping relevance to other pages.
+Ever since Mobilegeddon your site MUST be **mobile friendly** or you will get penalized. Also other UI stuff matters (E.g. don’t put ads above the fold)
+**_aledalgrande_**
+Also performance - make sure you use this [tool](https://developers.google.com/speed/pagespeed/insights/)
+[  
+**_idm_guru_**
+As a solo founder for 10+ years, what I can say is that all "rules" in business are "rules of thumb"... Not laws... I host a podcast called "Open Source Underdogs". Lots of good advice there for all founders... Even if you're not working on open source. But there are plenty more. You need outside ideas... Just seek them out....
+Also remember that VC's give tons of bad advice to founders.
+**_galacticdessert_**
+I managed to find playable early episodes [here](https://www.listennotes.com/podcasts/open-source-underdogs-open-source-underdogs-n0_Zq8s4LbE/)
+**_sahillavingia_**
+Solo founder of Gumroad here. Highly recommended. It forced me to learn a lot more about every aspect of building a business than I would have otherwise.
+I'm also a fan of investing in [solo founders](https://shl.vc/)
+**_xenospn_**
+Another solo founder here - I copied the Notion fund memo you posted on Twitter and used it as a template to pitch VCs, so thank you for that!
+**_eruci_**
+Just like you, I quit my day job in my early 30s, and have not looked back since. Have founded a dozen companies in the meantime and am currently having the best financial year of my 15 year solo-founder career.
+My advice is, hang in there. If you like what you are doing persist and adapt. My best product thus far is an API I built to support my original business plan. The original product I tried to build is long dead.
+**_pknerd_**
+Dozens of companies or sites? Even sites, why did you make so many Ventures? We're they affiliate sites?
+**_eruci_**
+I originally started  [https://foodpages.ca](https://foodpages.ca/)  and dinehere.us then built  [https://geocode.ca](https://geocode.ca/)  to provide local search functionality, then expanded worldwide with geocode.xyz and 3geonames.org, also got into collaborative fiction writing with fictionpad.com and price comparison engines with comparify.xyz & askvini.com (which I sold on <mark>flippa</mark>) and real estate aggregator sites (shitet.net and landhub.ca, landhub.us).
+Currently geocode.xyz and geocoder.ca are my most profitable businesse
+**_bitcoinmoney_**
+Was it worth it financially? Like are you earning loads now?
+**_eruci_**
+Totally worth it. I'm currently earning around four times a senior software engineer salary, and I've got plenty of free time. Overall my average earnings over the whole 15 year period have been double what I'd have been getting in a day job.
+[  
+**_tmilard_**
+...I am always quite surprised that many people think "yea, you always can build a software in a few weeks. If not bah, not good'.
+I think SOME softwares requires month if not years of building. Because there are difficult technically. Those complicated softwares can be a game changer in the field, because well, the technical entry is so hard. So let's see more those softwares like perhaps future BIG success...
+**_immy_**
+Props on pushing your edge with the post. Building or tapping an existing community of early adopters is an enviable position to be in for a solo founder. Very unsticking. The feedback loop provides much desired certainty. Whether Twitter, Discord/Slack, a forum, whatever.
+**_hermitcrab_**
+I've been working as a solo indie developer since 2005...one of the keys, from my experience, is early feedback. Start showing your product to people as soon as you have something that might be useful to someone. No matter how imperfect it is. Do not wait until it is polished. I wrote about that [here](https://successfulsoftware.net/2007/08/07/if-you-arent-embarrassed-by-v10-you-didnt-release-it-early-enough/)
+**_earthtobishop_**
+This is by far the best guide for solo [founders](https://blog.gettamboo.com/the-epic-guide-to-bootstrapping-a-saas-startup-from-scratch-by-yourself-part-1-4d834e1df8c1?gi=2c392f6628ff)
+**_mlacks_**
+[github.audio](https://github.audio/)  is a game changer. one thing I find hard about lo-fi channels is the sheer amount of visual/ mental noise to break through in order to get the video/ station up and running on various platforms.
+
+**_xivzgrev_**
+Why do you need VC funding? Plenty of people have bootstrapped businesses with no outside funding. Don’t ask VCs to pay your paycheck - ask <mark>customers</mark> to. Make something that’s worth paying for.
+
+**_jv22222_**
+If anyone is feeling lonely as an indie founder and looking for an indie founder Slack community where you can reach out and bounce ideas of other founders in real time you can join the Nugget Slack community [here](https://nugget.one/join)
+
+
+
+### UI/UX in Ent S/w
+'Real Ent Software Don’t Need No Stinkin’ [UI/UX](https://www.saastr.com/real-ent-software-dont-need-no-stinkin-uiux/), Jason Lemkin
+...Just because you’ve sold a few seats to F500 companies doesn’t mean you have any idea how they really use enterprise software....I have installed SAP myself...spent over 4 hours trying to understand how to manage documents with Documentum...you, the end user, **aren’t the customer** for most true enterprise software, or anything like the customer.  You are just a user, a data-enterer.  The customer is the VP in the enterprise consuming the data, and the only UI/UX that really matters is the VP’s report...(As VP) once we crossed $20m in ARR, it became about the **Executive Dashboard**.
+So my learning is end-user UI/UX is critical for apps that need to be **directly adopted** by the end user — collaboration tools in particular. Our ease of use was critical to our adoption at EchoSign. But know thy enterprise market. State-of-the-art UI/UX is a great thing. But if end use is mandated — the end users have no choice — **the only UI/UX that matters is the one the boss sees**.
+	
 ## Languages
 ### General
 Twitter went from RoR to *Scala*
@@ -1102,7 +1423,23 @@ It lets you take text—a word, a sentence, a paragraph or a whole blog entry—
 - these attacks start with “ignore previous instructions and...”—to the point that phrase is now a common joke in LLM circles.
   
 # Rec
-  
+
+### Hours
+
+|Site|Weekdays|Weekends|Other|
+|---|---|---|---|
+|Brdn PO| 8:30a–5p|Sat 9a-12:30p|-|
+|Echo|9a–1p|closed|-|
+|WalMart|6a–11p|same|-|
+|Tgt|8a–10p|same|-|
+|Sprouts|7a–10p|same|-|
+|$ Tree| 8a–10p|Sun 9p|-|
+|Barnes&Noble|10a-9p|Sun 11a-6p|-|
+|OfficeDepot|8a-8p|Sat9-7<br>Sun10-6|nr $Gen|
+|BestBuy Rgncy|10a-8p|Sun 11a-7p|-|
+|BestBuy BloomLiq|9a-10p|Sat 9a-11p|Sun11-9|
+|TotalWine|9a-10p|Sat 9a-11p|Sun11-10|
+
 ### PO
 Winthrop Postal Centre Riverview, FL 33578
 
@@ -1213,4 +1550,101 @@ intm8 domain spec kn - e.g. for a spec. ind: diff betw ema/sma; sloSto/convDiv; 
 IIIly 4 mainSt
 
 `ComplFlows >> Isol8|Identify Bottlen >> Sw2Mods >> Cons staticWsmRunViaAPI`
+
+##Addenda for Mon Sep 25
+
+### Add to reading shelf
+  - https://lobste.rs/t/culture?page=11
+  - (in resp to Integrated Tests are a scam) from buttondown.email
+https://buttondown.email/hillelwayne/archive/in-defense-of-slow-feedback-loops/
+  - Write [plain text files](https://sive.rs/plaintext)
+  - Meet the Self-Hosters, Taking Back the Internet One Server at a Time[vice.com](https://www.vice.com/en/article/pkb4ng/meet-the-self-hosters-taking-back-the-internet-one-server-at-a-time)
+  - (read?) https://danluu.com/culture/
+  - https://moxie.org/2013/01/07/career-advice.html
+  - https://textslashplain.com/browse-all-posts/
+
+
+### Thu Sep 29
+
+https://nolongerset.com/checklist-the-best-access-applications/ 
+https://www.flagsmith.com/blog/why-we-bootstrap
+
+#### from hn
+https://benhoyt.com/writings/how-to-apply/ 
+Ask HN: Tips for Solopreneur? https://news.ycombinator.com/item?id=37662937 
+Ask HN: Have you been affected by layoffs? https://news.ycombinator.com/item?id=37658410 
+Inflation Bites U.S. Engineering Salaries (ieee.org) https://news.ycombinator.com/item?id=37682607 
+
+https://jackevansevo.github.io/my-unhealthy-relationship-with-keyboards.html + https://news.ycombinator.com/item?id=37658208 
+
+
+
+#### ai 
+https://www.bemyeyes.com/blog/announcing-be-my-ai
+https://techcrunch.com/2023/09/25/signals-meredith-whittaker-ai-is-fundamentally-a-surveillance-technology/
+Run any ML model from any programming language https://carton.run/
+ChatGPT can now search the web in real time https://www.theverge.com/2023/9/27/23892781/openai-chatgpt-live-web-results-browse-with-bing
+OSS MistralAI best yet(beats lrgr llama) https://mistral.ai/news/announcing-mistral-7b/
+
+https://rachelbythebay.com/w/2023/09/26/hue/
+https://rachelbythebay.com/w/2022/12/02/25k/
+
+	
+	
+(for dueDilig)
+**Tally**
+'[This form builder made $70K in MRR last month](https://www.indiehackers.com/post/this-form-builder-made-70k-in-mrr-last-month-364fe271a0)
+  - freemium model vs competitors like **Typeform** (has paywall)
+  - Next.js, React, Styled Components, Umami
+  - editor 'similar to Notion's blocks'
+  - Used 'made with' badge to drive free traffic from users
+  - instd of using this 'Just use own css + form backend sys like **FabForm**'
+### This form builder made $70K in MRR last month'
+
+**How to Write a Spelling Corrector** (Peter Norveg/goog '[did you mean...](http://www.norvig.com/spell-correct.html)'), the algorithm.  
+Incl ref to F# vers. + goog trillion-wrd tables of most freq wrds etc. 
+- Ref: PlanetScale's CEO Sam Lambert [talk](https://linearb.io/dev-interrupted/podcast/the-day-1-decisions-that-make-or-break-companies) (info on impl Schema Changes + 'Rewind' features which create a replication loop from the old ver of the tbl from its new ver w/o the (dropped) col.  So we ensure this continual loop and there's no data missing when you come back.)
+### PrVer Notes
+ - PrVers are a source of truth! Should be poss 2 reconstruct
+ - Therefore nd delta FldInfo + UnDel Info preserved
+ - Ren/Chg flds 4 EmbedDox?
+
+https://github.com/kokizzu/list-of-tech-migrations
+
+2016	https://diginomica.com/why-marriott-is-transforming-their-legacy-systems-with-nosql 
+	https://blog.couchbase.com/moving-from-oracle-to-couchbase/ 
+2019	https://www.infoq.com/articles/api-gateway-clojure-golang 
+2020	https://diginomica.com/hsbc-moves-65-relational-databases-one-global-mongodb-database 
+	https://dev.to/rekki/why-we-killed-elixir-3np 
+2021	https://blog.replit.com/vite 
+2023	https://kevinyank.com/posts/on-endings-why-how-we-retired-elm-at-culture-amp/ 
+	https://www.infoq.com/news/2023/07/linkedin-protocol-buffers-restli/ 
+
+
+https://twolfson.com/2021-06-24-lessons-of-a-startup-engineer
+
+		UI			BackEnd		Other
+Airtable	Node|Express|React	MongoDB		Webpack
+NocoDB 		Vue			MariaDB
+Knack		
+Bubble.io
+Retool
+OSS Refine		React-based frmwrk	
+OSS BudiBase	Svelte wrapper4ag-grid;Handlebars
+OSS AppSmith	React
+OSS ToolJet		React
+OSS LowDefy		React/Next
+OSS Windmill	React
+
+https://www.pbs.org/wgbh/nova/article/how-a-worm-gave-the-south-a-bad-name/
+
+https://www.levels.fyi/blog/2023-mid-year-report.html
+https://www.levels.fyi/jobs/location/united-states/level/mid_staff?from=subnav&searchText=lotus+notes&workArrangements=remote&jobId=77094709232575174
+
+Mystery & assoc.
+https://www.youtube.com/playlist?list=PLwF4_8gI8X-z1ICGAxgJSMe2_Nj9ra-8h
+https://www.youtube.com/playlist?list=PLqr6-y11aa0LAbm-AUTCWB9Z3D4VbiNaj
+https://www.youtube.com/playlist?list=PLd522Ljsaz7Q4V_k7g5v3g6CKr5ZbfF0T
+https://www.youtube.com/playlist?list=PLnWoRqNSMy20lMGmSK2iy7dt2VOtMFgCe
+https://www.youtube.com/playlist?list=PLQJKY4QQMLCx8hGOqky_VFrHj6v3kWYx1
 
