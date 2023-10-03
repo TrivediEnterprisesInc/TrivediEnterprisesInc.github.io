@@ -1,9 +1,12 @@
+
 # Table of Contents
+- [Table of Contents](#table-of-contents)
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
   - [Windowing](#windowing)
-  - [Mon Oct 2](#mon-oct-2)
   - [Wireframes Main](#wireframes-main)
+      - [(Mon Oct 2)](#mon-oct-2)
+      - [Handling DnD drops betw rows](#handling-dnd-drops-betw-rows)
   - [Wireframes Tabbed PropBox](#wireframes-tabbed-propbox)
   - [Templating](#templating)
     - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
@@ -13,11 +16,11 @@
   - [Process Flows `H`](#process-flows-h)
   - [Process Flows `O`](#process-flows-o)
     - [Notes for Other](#notes-for-other)
-    - [Reading](#reading)
-      - [Simplicity vs Value](#simplicity-vs-value)
+  - [Reading](#reading)
+    - [Spolsky: Simplicity vs Value](#spolsky-simplicity-vs-value)
 - [Outstanding Tks](#outstanding-tks)
   - [Updates to this doc](#updates-to-this-doc)
-    - [mBoxes Redux](#mboxes-redux)
+  - [mBoxes Redux?](#mboxes-redux)
   - [Versioning](#versioning)
     - [FldLvl Δs](#fldlvl-s)
     - [Nested/Embedded Dox](#nestedembedded-dox)
@@ -27,7 +30,7 @@
       - [From Sep18_23](#from-sep1823)
   - [Qry](#qry)
   - [DbClipboard](#dbclipboard)
-  - [DbAgents](#dbagents)
+  - [DbServants](#dbservants)
   - [Tasks+Notes: To Be Checked](#tasksnotes-to-be-checked)
     - [From Aug 2023](#from-aug-2023-1)
       - [PriorVer Info](#priorver-info)
@@ -70,10 +73,13 @@
   - [Founder Info](#founder-info)
     - [Marketing](#marketing)
   - [Svr Hosting](#svr-hosting)
+  - [Going solo](#going-solo)
+    - [Biz Continuity Doc](#biz-continuity-doc)
 - [Ref](#ref)
     - [Markdown Stuff](#markdown-stuff)
     - [JS stuff](#js-stuff)
     - [Colors](#colors)
+    - [Agile and CI/CD](#agile-and-cicd)
     - [Mongo](#mongo)
       - [Queries](#queries)
       - [Nested Docs](#nested-docs)
@@ -91,7 +97,10 @@
     - [Indie music submissions (Founder Story)](#indie-music-submissions-founder-story)
     - [HN comments](#hn-comments)
   - [Sales](#sales)
-  - [SEO](#seo)
+  - [Marketing](#marketing-1)
+    - [SEO](#seo)
+  - [Product](#product)
+    - [Demos](#demos)
     - [UI/UX in Ent S/w](#uiux-in-ent-sw)
   - [Languages](#languages)
     - [General](#general)
@@ -128,12 +137,14 @@
     - [Off-the-cuff](#off-the-cuff)
       - [Tangibles](#tangibles)
       - [Intangibles](#intangibles)
+  - [Addenda for Mon Sep 25](#addenda-for-mon-sep-25)
     - [Add to reading shelf](#add-to-reading-shelf)
+    - [Oct 2](#oct-2)
     - [Thu Sep 29](#thu-sep-29)
       - [from hn](#from-hn)
       - [ai](#ai)
-    - [This form builder made $70K in MRR last month'](#this-form-builder-made-70k-in-mrr-last-month)
-    - [PrVer Notes](#prver-notes)
+    - [Tally (form builder) 70k mrr](#tally-form-builder-70k-mrr)
+
 
 
 > Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
@@ -179,20 +190,40 @@ graph TB
   - Given a total window-size (LARGER than earlier, viz. - 5 vals) that is now larger, we automatically have a larger universe and an overall better behavior.
   - Need to impl & test
 
-## Mon Oct 2
-
 ## Wireframes Main
+#### (Mon Oct 2)
 > *** Dropping DnD is made poss by: 
 "A blank cell is a thing" ***
+
+> This approach redacted **Oct 3**; most other things remain the same but **DnD is vital**.  See sec 2 below; moving cell from (say) row 6 to row 2 involves Shift-Click + 4 upKeypresses, DnD involves 1 click.  Also more intuitive.
+
+#### Handling DnD drops betw rows
+(Note that we don't nd this 4 DnD to rowLocs; for that do 
+```
+tgtCell.isEmpty() ? replace else
+   getExistingCellRef 
+   |> replace 
+   |> rowHasSpace(cellLen)?
+       Yes -> moveExisting to afterOnSameRow
+       No -> moveExisting to 1stCellNextRow
+```
+We nd an **_extra row_** betw ea 'normal' row just to serve as a **_drop tgt_**.  Not highlighted via bckgrnd relief; only 'appears' when used in DnD.  Therefore doLayout logic will include:
+```
+//just assume that 0,2,4... are tgt rows
+List<rows>.filter(isOdd) |> processForLayout()
+//and in processFor~ add the tgt rows again
+```
 
  1. #### New flow
    - Instd of `ctor(def) -> TblPnl` we nd 2 move the whole proc into  `doLayout()` therefore making it automatic; when def changes, manually call `doLayout()` 
    - **Note** that the prior logic nds heavy mods 4 switching on DzMode (els become disabled; non-popul8d; bkgrnd dark; handlers attached for Dz functionality only...)
+   - **After** all cells places map thro all, skip Os, assign tabOrder to ea
  
  2. #### Selection & Movemt. 
   - Shift-Clk to sel; bkgrnd changes to Yello 
   - Moving either fits into ∃ slot **or** creates new row with other Os (blanks) 
   - @tbd: how 2 handle move L/R?
+
   3. #### Cell props
   -  Ea cell gets ht, wid
   - New cellTy for Os (blanks)
@@ -208,7 +239,7 @@ graph TB
   - @Tbd: How to handle non-standard font choices? Reduce all to S/sanS?  Does frmwk offer embedding resources?
  7. ### GetUrl
   - Add to tBar btn(s) for web Url (nd 2 for auth/anon)
-  - https://domain.com/cli/tbl/frm/Auth
+  - https://domain.com/cli/tbl/frm/AnonAccess or .../AuthAccess or .../3rdPartyAuthAccess
 
 ## Wireframes Tabbed PropBox
   - The usu culprits: `Title` | `Borders` | `Cols` | `Fonts`  ...
@@ -497,24 +528,37 @@ graph TB
   - Handle cliSide: No defaults/Data ∃ 4 Cmd ?? -> "Info + Please create new x by ... "
   - TblDDox(usr, usrSettings) -> ClassDef -> Custom imgs in UsrSettings
 
-### Reading
-#### Simplicity vs Value
+## Reading
+### Spolsky: Simplicity vs Value
 ...in Software [Development](https://businessofsoftware.org/2009/01/joel-spolsky-at-business-of-software-2009-video/) | Joel Spolsky | BoS USA 2009 (Joel designed **VBA**) 
 ...unlike current wisdom, building new features **does** add value to your product. 
+
 ...conflict between simplicity and power... 
+
 and simplicity specifically says when you design your products, when you design your product offering you should <mark>pick one thing and do it well</mark>. You should simplify as much as possible, and there is this 80/20 rule or 90/10 rule which is sort of similar:
-It says that 80% of the people only use 20% of the features and therefore if you employ to 20% of the features you would still get 80% of the market. That’s the simplicity argument. 
-The power way of doing things which is <mark>to give people lots and lots of features</mark>, lots and lots of <mark>options</mark> that’s not some choices which are frustrating and lots of <mark>capabilities</mark> in their software. 
-...you learn the one lesson of Fall Creeks offer that Michael and I have learned over nine years which is that and we actually did a very detailed exhaustive search of the literature and we gather from literally tens of thousands of software companies about all their products and over time and correlated that neatly and we had graduate students working on this for six years. This is a lot of data so just hold on to your seats. The correlation between features and sales, there you go the <mark>more features you have the more you sell</mark>. There is nothing clear than that in the chart of the – all of the output reports that you get from Quick Books at Fog Creek. Is when we came up with newer versions that added new features our sales went up a lot and the reason is obvious because you have this universe of people banging on your door and they are asking you things which are completely reasonable and if you can say yes, I can attach a picture they will say okay, that’s perfect I will buy that. 
+It says that 80% of the people only use 20% of the features and therefore if you employ to 20% of the features you would still get 80% of the market. That’s the **_simplicity argument_**. 
+
+The **_power_** way of doing things which is <mark>to give people lots and lots of features</mark>, lots and lots of <mark>options</mark> that’s not some choices which are frustrating and lots of <mark>capabilities</mark> in their software. 
+
+...you learn the one lesson of Fall Creeks offer that Michael and I have learned over nine years which is that and we actually did a very detailed exhaustive search of the literature and we gather from literally tens of thousands of software companies about all their products and over time and correlated that neatly and we had graduate students working on this for six years. This is a lot of data so just hold on to your seats. The correlation between features and sales, there you go the <mark>more features you have the more you sell</mark>. 
+
+There is nothing clear than that in the chart of the – all of the output reports that you get from Quick Books at Fog Creek. Is when we came up with newer versions that added **_new features_** our sales went up a lot and the reason is obvious because you have this universe of people banging on your door and they are asking you things which are completely reasonable and if you can say yes, I can attach a picture they will say okay, that’s perfect I will buy that. 
+
 ...at any point if you don’t meet one of their requirements they are going to <mark>drop out</mark> and go look for something else. So, conclusion, simplicity versus power this is a little bit too facile. 
+
 ...(a well-designed bridge) the modesty not to draw attention to the difficulties that are surmounted. 
 ...at some point people said hey maybe we don’t need an okay button and it just started kind of disappearing from those dialog boxes. 
-...amzn's check out process: Jeff Bezos told his team to go create one click where you just on the page, you click a button and you get the book. 
+
+...**_amzn's check out process_**: Jeff Bezos told his team to go create one click where you just on the page, you click a button and you get the book. 
+
 One click he said that’s a great idea alright boss, and they went away and they came back with something that was I think <mark>four clicks</mark> and he said no, no I didn’t mean one click add to cart and then take you to the cart I meant one click and the book that you just clicked on is put into a box and sent to your house and they said okay, and they came back and they worked a lot harder and then they came back and they showed them something that had <mark>two clicks</mark> and he said which part of one don’t you understand and they said no you need a confirmation page, somebody might click by mistake, you just cant start shipping things to people based on they followed a URL in their web browser that’s absurd and he said go back and freaking make it one click and they did and what they realized is that the way they were imagining this was there is a <mark>decision tree</mark> and the decision tree is did you click or did you not click and then if you clicked did you click by mistake or did you click by not mistake and they have been thinking this as because you might click by mistake they have been thinking you click and then you confirm and the way they turned it around is you click and then you can undo but that part is option and since most people don’t click by mistake, like <mark>99%</mark> of the people are not clicking by mistake just give them a nice undo on that page that you clicked through to.
 
 Well make it so that only the people that make the mistake which is a tiny fraction have to use two clicks everybody else gets one click and that’s a really neat way of turning it around. There is of course the other problem which is, what if I want to buy three books, well alright click on each of them you get three separate packages in the way that the postal service works that costs three times as much to ship and so what you really want to do when somebody orders something is you want to kind of queue it up and hold on to that order, I think Amazon <mark>holds it for 30 minutes</mark> if I’m not mistaken and then if anything else comes in, in the next 30 minutes you reset the time at 30 again and till they stop and they go away and 30 minutes have passed without you ordering something and then they take all those things and put them in a box and send it to you. That is obviously <mark>way more work</mark> than just you click, it goes in the cart and you ship it, that’s a lot more work and the work behind the scenes to create that undo and to create that buffer where stuff is waiting for you for 30 minutes is a lot of extra work, that it takes to get this little tiny bit of <mark>simplicity</mark>. 
+
 So, it’s a game of inches you have to fight really, really hard for every inch of increased usability like the Amazon one click kind of thing. So, this is pretty much all we are going to talk about today, <mark>simplicity versus power</mark>, 
-...the trouble with the power is that you cause people to make decisions and you make them unhappy. The trouble with simplicity is you don’t sell your software... 
+
+...the trouble with the **_power_** is that you cause people to make decisions and you make them unhappy. The trouble with simplicity is you don’t sell your software... 
+
 ...you give them the features and when you do give them the features you fight for that elegance and that simplicity, you fight for <mark>hiding the complicated functionality</mark> under the surface sort of a viewer user interface, so you only give them <mark>one choice instead of six</mark> but they still have all the <mark>same options</mark>.
 
 # Outstanding Tks
@@ -525,11 +569,16 @@ So, it’s a game of inches you have to fight really, really hard for every inch
    - The winForms [gist](https://gist.github.com/TrivediEnterprisesInc/987b23e0a256182a0ac29bb36820d6d9)
    - Frm [tester](https://trivedienterprisesinc.github.io/frm.html)
 
-### mBoxes Redux
+## mBoxes Redux?
   - We nd a b8r way to org these notes; MD fine but not v searchable; so revert to mBoxes w/tags
   - Bld a quick/dirty input frm & persist a la snippets
 
 ## Versioning
+
+ - PrVers are a **_source of truth! Should be poss 2 reconstruct
+ - Therefore nd delta FldInfo + UnDel Info preserved
+ - Ren/Chg flds 4 EmbedDox?
+
 ### FldLvl Δs
    - The current setup is optimized for saving space with performance benefits **BUT** ρ uses fld-level and so should we
    - Therefore the versioning/Δ fns nd to be updated
@@ -614,8 +663,8 @@ type BrijLinq() =
     - intlBuffer holds itms until nxt copy/cut
     - **NOTE** that localDbs may need cliSide logic
 
-## DbAgents
-
+## DbServants
+> **@ToDo**: @rsch WebHooks impl., esply smtp (we'll nd that 1st)
   - For v1 offer Hourly/12hrs/Daily/Wkly/Monthly
   - For v2 offer spec times + 5|10|15mins
   - dzView shd offer a button to select Agent + `Run Now`
@@ -836,17 +885,82 @@ Not NoCos, lookup 4 tech
    - 37signals
    - [BaseCamp](https://basecamp.com/)
    - makerLog
+   - 
 ### Marketing
    - The Laws of SaaS [Marketing](www.motivado.co/the-laws-of-marketing-for-saas-startups/)
    - SaaS Metrics (ref: Gail Goodman BoS) [David Skok](www.forentrepreneurs.com/saas-metrics-2/)
    - [Kalzumeus](https://www.kalzumeus.com/greatest-hits/)
-	
+   - frm SoloPren HN thread (link elsewhere) attend Trade shows, in-person, create Ideal Customer Profile.  Be **very** specific not just by industry, e.g. PayPal targeted eBay power sellers in their early days.  Read Secrets of Sandy Hill to understand the VC Model (summary below) 
+In Secrets of Sand Hill Road, Kupor explains exactly how VCs decide where and how much to invest, and how entrepreneurs can get the best possible deal and make the most of their relationships with VCs. Kupor explains, for instance: Why most VCs typically invest in only one startup in a given business category.
+   - read The Lean Startup (summary below) 
+The book talks about creating a Minimum Viable Product (MVP) that can be tested with customers and making decisions based on data-driven experiments. It also talks about the idea of pivoting, which means changing a startup's direction based on feedback from customers or market conditions.
+   - var articles on mktg & running sml [sw co](https://successfulsoftware.net/starting-a-microisv/)
+   - The more customers you have the harder to focus on service; no/few customers -> move fast
+   - The customers are only the validation of yr idea: if they don't come something's wrong.
+
 ## Svr Hosting
    -  Free [dev](https://stackdiary.com/free-hosting-for-developers/) hosting
    -  Free [docker](https://codeless.co/free-docker-hosting/) hosting
    -  Hosting on [repl.it](https://blog.replit.com/powerful-servers)
    -  'The new Heroku: free TLS certs, global CDN, private netwrks, auto-deploys frm git' [Render](???)
-	
+   - Check the archives for the co. below; probably OSS so might have stuff/approaches we can use ->
+**_IBM Acquires Database-As-A-Service Startup Compose_**
+
+Frederic Lardinois@fredericl / July 23, 2015 | TechCrunch
+
+IBM today announced that it has acquired Compose, the Y Combinator-backed database-as-a-service startup originally known as **MongoHQ**. Financial terms of the acquisition were not disclosed.
+
+Compose had raised $6.4 million since it launched in 2010 — most of it in a Series A round in 2012 that was led by Trinity Ventures.
+
+And IBM spokesperson tells us that Compose, which has offices in San Mateo, Calif., and Birmingham, Ala., will continue to operate as usual after the acquisition closes and that current users will not be impacted by this change. Compose says about **3,600** companies currently use its services and that its users, which span industries from retail to IoT and marketing services, have spun up over **100,000 databases** so far.
+
+While Compose started out as a MongoDB database specialist, the company now offers services around MongoDB, Elasticsearch, RethinkDB, Redis and PostgreSQL. The overall idea behind Compose is to allow mobile and web developers to create their apps without having to worry about their database backends.
+
+Compose **provisions the databases** and then **manages** them for its customers (and **scales** them up and down as needed, too). Its users have access to a real-time **dashboard** to monitor their instances, which can be hosted on **AWS, DigitalOcean and Softlayer**. Now that Compose is part of IBM, it will likely soon support IBM’s Bluemix platform, too.
+
+“By joining IBM, we will have an opportunity to accelerate the development of our database platform and offer even more services and support to developer teams,” said **Kurt Mackey**, co-founder and CEO of Compose, in a press release this morning. “As developers, we know how hard it can be to manage databases at scale, which is exactly why we built Compose –to take that burden off of our customers and allow them to get back to the engineering they love.”
+
+IBM argues that this acquisition will give it access to an “enhanced framework to deliver highly sought after, production ready, cloud database services for developers.”
+
+“Compose’s breadth of database offerings will expand IBM’s Bluemix platform for the many app developers seeking production-ready databases <mark>built on open source</mark>,” said Derek Schoettle, the general manager of IBM Cloud Data Services, in today’s announcement. “Compose furthers IBM’s commitment to ensuring developers have access to the right tools for the job by offering the broadest set of DBaaS service and the flexibility of hybrid cloud deployment.”
+
+## Going solo
+### Biz Continuity Doc
+  - Most enterprise deals will ask for a **biz continuity doc** (from [this](https://news.ycombinator.com/item?id=37662937) HN thread)
+  - **_B2B Sales_**: same thread above, both opinons; some say landing a big contract w/lrg enterpr gd/bad.
+  - Pros: 
+      -  Lotsa rev for lil sales effort.
+      - Can get financing to facilitate big contrct
+      - OK if you have **Rollout Clauses**: mandating training as part of pkg, requests limited 2 direct support (bugs/qns) & limit new feature req from cli.
+      - You get a great case study 4 yr mktg material
+      - You're now legit, can draw in further big clis
+      - In the US contract law can be v fair
+  - Cons:
+      - A few big cos can push you around, many sml clis can't
+      - One poster says 'you end up becoming their b*tch' (feature reqs or they leave...)
+      - How does "I want x feature for $y or I walk" bring contract law into the qn?
+      - Another resp says this sit killed his biz - didn't have time to expand the biz and didn't charge the 1st cli enuff to scale; v stressful, cli threatened to sue.
+      - Yr income's more predictible with 1k customers @ $100/yr than 10 custs paying $10k/yr
+
+If you're doing B2B, are you meeting the ppl actually the buyer?  Approve the purchase?  If not, contact em (linkedIn/coldcall)
+
+On the same topic: **Being solo**
+get advisors/contractors/biz dvlprs to put on the "team" pg.  Make PR announcements.  Free trials/collabs w/midsize custs & put 'em as customers.  Get refs from endusers. 
+
+Have @ least a **newsletter** & a **referral prg**  They cost nothing, just effort.
+
+B2C over B2B: if it's valuable they'll buy happily (saves em work) - frictionless compared to enterp contract negotiation & vetting, slow security audits, bad terms, scope creep.
+
+Rule of Thumb: If a big cli doesn't pay you enough to hire team to service em + profit on top, not a biz relationship.
+
+Solo cos/sml teams are a big risk for enterp coz if you disappear it's a problem.
+Some B2B cust.s'll ask you to have millions in insurance and src code in escrow before they'll work with you.  Others are more flexible.
+
+Solo shops shdn't enter the public mkt w/o $500k war chest - hit hard/fast, carve niche & bail out be4 army of losers show up 2 compete.  Focus on hard small probs 2 survive.  You don't make money writing sw, but reselling the same prod many times.
+
+**Notion** is actually the poster child 4 B2C2B (can sell to both): you target a grp of people who have the JOB TITLE that'd use yr prod but bld something that appeals to them on a personal lvl as consumers.  No typical B2B messaging/sales pitches, you lean into community building.(@Rsch Notion+Sigma)
+This approach is called **Product Led Growth** (see also [Community](https://www.amity.co/blog/duolingo-figma-notion-and-hubspot-leveraged-the-power-of-community-led-growth) Led Gr @rsch 
+
 # Ref
 
 ### Markdown Stuff
@@ -880,12 +994,13 @@ Lodash wrapper providing Immutable.JS support: [MuDash](https://github.com/brian
 (all 4 are MIT)
 
 >> Super resource [here](https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore)
-(try this 1st) *refered 2 as YDN in this doc*
+(try this 1st) **refered 2 as YDN in this doc**
+ (You Don't Need Fnal JS libs; use native instd)
 
 Lodash seems to have HUGE support built in; but 1st try YDN; if stumped often switch.
 
 
-`
+```
 lodash reduce (same as lifo)
 _.reduce([1, 2], function(sum, n) {
   return sum + n;
@@ -899,20 +1014,27 @@ var result = array.reduce(function (previousValue, currentValue, currentIndex, a
 })
 console.log(result)
 // output: 10
-`
+```
 
 	
 ### Colors
 [Palettes](https://colorhunt.co/palettes/popular)
-`let sublime = 
+```
+let sublime = 
     fore:Color.Black, back:sYellow,
     AccentFore:sLtGrn, AccentBack:sYellow, 
-    TitFore:sDkGrn, TitBack:sDrkYell, Icn:sBrn))`
+    TitFore:sDkGrn, TitBack:sDrkYell, Icn:sBrn))
+```
+
+### Agile and CI/CD
+A gd article (SVPG) commending **small, frequent releases** says that if you're not doing this you're by def not Agile; the whole point is that if they're small it's easy to fix the bugs else (even a 6-mo realease) will yield so many bugs that the next few releases will be spent catching up.
 
 ### Mongo
 
 mattpod's gist (link in MongoPg) -> note: raw queries exist, eg:
-`let movies = db.["movies"].AsQueryable() :> IQueryable<**Document**>`
+```
+let movies = db.["movies"].AsQueryable() :> IQueryable<**Document**>
+```
 
 #### Queries
 [IQueryable](https://learn.microsoft.com/en-us/dotnet/api/system.linq.iqueryable?view=net-7.0) Provides functionality to evaluate queries against a specific data source wherein the *type of the data is not specified*.
@@ -921,12 +1043,14 @@ For more information about how to create your own LINQ provider, see LINQ: [Buil
 
 The non-generic IQueryable exist primarily to <mark>give you a *weakly typed* entry point</mark> primarily for dynamic query building scenarios.
 
-`public interface IQueryProvider {
+```
+public interface IQueryProvider {
   IQueryable CreateQuery(Expression expression);
   IQueryable<TElement> CreateQuery<TElement>(Expression expression);
   object Execute(Expression expression);
   TResult Execute<TResult>(Expression expression);
-}`
+}
+```
 
 #### Nested Docs
 https://stackoverflow.com/questions/52175561/how-to-access-read-a-nested-mongo-field-element
@@ -939,15 +1063,17 @@ Both these DrDobbs [article](http://www.drdobbs.com/database/getting-started-wit
 
 #### Dynamic/ExpandoObject
 You can go full Linq approach-->
-`
+```
   private string GetName(){ 
     var client = new MongoClient(); 
     var database = client.GetDatabase("WorldCities"); 
     var collection = database.GetCollection<BsonDocument>("cities"); 
-    return collection.AsQueryable().Sample(1).First().GetValue("name").ToString(); }`
+    return collection.AsQueryable().Sample(1).First().GetValue("name").ToString(); }
+```
 
 Or full .Find approach-->
-`  private string GetName(){ 
+```
+  private string GetName(){ 
     var client = new MongoClient(); 
     var database = client.GetDatabase("WorldCities"); 
     var collection = database.GetCollection<BsonDocument>("cities"); 
@@ -955,11 +1081,11 @@ Or full .Find approach-->
         .Project(Builders<BsonDocument>.Projection.Include("name").Exclude("_id")).First().ToString(); 
     return result;} 
     // { "name" : "les Escaldes" }
-`
+```
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #### No POCO with & without LINQ
-`
+```
 ///https://jonathancrozier.com/blog/interacting-with-mongodb-using-c-sharp 
 var client   = new MongoClient(); 
 //var client = new MongoClient("mongodb://localhost:27017"); 
@@ -990,11 +1116,11 @@ var movies = from  m in moviesCollection.AsQueryable()
              where   m.Year == 1979 
              orderby m.Title 
              select  m;
-` 
+```
 Note that not every LINQ operation is supported, but the LINQ provider covers all of the essentials.
 
 #### Qry w/o Classes (on BsonDoc)
-`
+```
 ///https://stackoverflow.com/questions/67212069/c-sharp-query-mongodb-using-linq-and-returning-valid-json
 
     var db = client.GetDatabase("test");
@@ -1005,7 +1131,7 @@ Note that not every LINQ operation is supported, but the LINQ provider covers al
         .Where(x => x.ChapterName == "SouthEast Chapter")  <-- of course this fails
         .Select(x => x.Values)
         .ToListAsync();
-`
+```
 **A1** dont use linq - it will work with regular querying and without a class definition.
 **A2** You can access ChapterName via BsonDocument's indexer. So, Where condition would become: .Where(x => x["ChapterName"].AsString == "SouthEast Chapter")
 **A3** You can't because LINQ doesn't support dynamic - expando objects.
@@ -1013,7 +1139,7 @@ Note that not every LINQ operation is supported, but the LINQ provider covers al
 See Dynamic [LINQ querying of an ExpandoObject](https://stackoverflow.com/questions/13119264/dynamic-linq-querying-of-an-expandoobject)?
 
 There is plenty of helpers in MongoDB C# driver, below some simple way to query BsonDocument
-`
+```
 using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
@@ -1043,13 +1169,14 @@ static void Main(string[] args){
     example4.msg = "master"; // Works only for equality
     example4.to = "server";
     var result4 = collection.Find(new BsonDocument(example4)).ToList();
-}`
+}
+```
 
 #### query ExpandoObject with regular LINQ
 
 (see this [SO](https://stackoverflow.com/questions/18747058/is-it-possible-to-query-list-of-expandoobject) post)
 
-`
+```
 var generatedItems = new List<object>();
 foreach (var item in items){
     var modifiedItem = new List<KeyValuePair<string, object>>    {
@@ -1060,19 +1187,20 @@ foreach (var item in items){
     modifiedItem.AddRange(item.Fields.Select(field => new KeyValuePair<string, object>(field.Key, field.Value)));
     generatedItems.Add(ConvertToExpandoObjects(modifiedItem)); // Here I construct object from key/value pairs }
 return generatedItems; // Is it possible to query this thing?
-`
+```
 **A**: you would be able to query a collection of dynamic objects using the dot notation.
-`
-var ids = generatedItems.Cast<dynamic>().Select(x => x.Id);`
+```
+var ids = generatedItems.Cast<dynamic>().Select(x => x.Id);
+```
 However, keep in mind that there's no type safety here and, as you stated, IntelliSense is of no use, since you're using dynamic objects.
 If your code depends on whether one of those objects have an optional property (e.g., some have "Title", others don't), then it will require a little more manual labor.
-`
+```
 if((generatedItems as IDictionary<String, object>).ContainsKey("Title")) {...}
-`
+```
 
 #### Expando/Dynamic
 I have a collection of expando objects / dynamic as
-`
+```
 var lst = new List<dynamic>();   
 dynamic exp1 = new ExpandoObject();
 exp1.Name = "ddd";
@@ -1085,25 +1213,32 @@ var query = from t in lst
 where t.Name == "ddd"
 select t;
   it works; but when I am using Dynamic Linq Library
-var query = lst.AsQueryable().Where("Name==@0", "ddd");`
+var query = lst.AsQueryable().Where("Name==@0", "ddd");
+```
   ...I am getting a parse exception from dynamic linq library.
 
 **A**: ExpandoObject implements IDictionary<string, object>, so you can take advantage of that:
-`  var query = from t in lst
+```
+  var query = from t in lst
   where ((IDictionary<string, object>)t)["Name"] == "ddd"
-  select t;`
+  select t;
+```
 
 #### ExpandoRef
-All the info you cd nd for [ExpandoObj](https://weblog.west-wind.com/posts/2012/Feb/08/Creating-a-dynamic-extensible-C-Expando-Object)
+All the info you cd nd for [ExpandoObj](https://weblog.west-wind.com/posts/2012/Feb/08/Creating-a-dynamic-extensible-C-Expando-Object) 
 ...Although the Expando class supports an indexer, it doesn't actually implement IDictionary or even IEnumerable. It only provides the indexer and Contains() and GetProperties() methods, that work against the Properties dictionary AND the internal instance.
 
 #### Expando Casting
 (2018 from CodeProj)
 i am using List<ExpandoObject> but if not getting property using linq:
-`var grdfeatchobjlist = (List<ExpandoObject>)grdproductitem.ItemsSource;
-var getlist = grdfeatchobjlist.Select(x => x.GetType().GetProperty("batchId") == Txtbatchcode.Text.ToString());`
+```
+var grdfeatchobjlist = (List<ExpandoObject>)grdproductitem.ItemsSource;
+var getlist = grdfeatchobjlist.Select(x => x.GetType().GetProperty("batchId") == Txtbatchcode.Text.ToString());
+```
 **A**:  For a dynamic property name which isn't known until runtime, cast the ExpandoObject to an IDictionary<string, object>, and use the indexer:
-`var getlist = grdfeatchobjlist.Select((IDictionary<string, object> x) => x["batchId"] == Txtbatchcode.Text);`
+```
+var getlist = grdfeatchobjlist.Select((IDictionary<string, object> x) => x["batchId"] == Txtbatchcode.Text);
+```
 
 #### Other links
   - CodeGuru [using](https://www.codeguru.com/csharp/using-dynamicobject-and-expandoobject/) dynamic w/expandoOb
@@ -1112,9 +1247,11 @@ var getlist = grdfeatchobjlist.Select(x => x.GetType().GetProperty("batchId") ==
   - Mongo Jira Bug (fixed, see [link](
 https://www.codeguru.com/csharp/using-dynamicobject-and-expandoobject))
 Given a Collection<BsonDocument>, LINQ3 queries using doc["FieldName"] syntax fail with the following exception:
-`Unhandled Exception: MongoDB.Driver.Linq.Linq3Implementation.ExpressionNotSupportedException: 
+```
+Unhandled Exception: MongoDB.Driver.Linq.Linq3Implementation.ExpressionNotSupportedException: 
 Expression not supported: doc.get_Item("FieldName").
-The same query works in LINQ2 using doc["FieldName"] or in LINQ3 with a POCO using doc.FieldName.`
+The same query works in LINQ2 using doc["FieldName"] or in LINQ3 with a POCO using doc.FieldName.
+```
     
 
 ## Reading Shelf
@@ -1241,54 +1378,77 @@ Getting part-time help in sales is going to be hard. It will depend on how long 
 Sales reps will happily work on commission only if they see a huge market for your product. Which might be difficult to show with a new product.
 The commission rate is negotiable at the hiring point. If they are great at sales and know there is a big market they will want a lower base with a higher commission. You should also set a <mark>commission cap</mark> at some point as your variable costs increase your profit will drop and you could end up at a point where the sales team is making more than the company.
 
-## SEO
+## Marketing
+### SEO
 **_superasn_**
-Yes SEO is still very much relevant and effective IMO. Regardless of the paid ads, Google sends a lot of **organic** traffic when you rank for the <mark>right keywords</mark>. If you were to buy this traffic you would spends thousand of dollars doing it. Same for Youtube. A **good video** is amazing source of targeted prospects.
+Yes SEO is still very much relevant and effective IMO. Regardless of the paid ads, Google sends a lot of **organic** traffic when you rank for the <mark>right keywords</mark>. If you were to buy this traffic you would spends thousand of dollars doing it. Same for Youtube. A **good video** is amazing source of targeted prospects. 
+
 Just think about how you find a new service, chances are you googled it and tried the 2-3 results.
 Now as for the question - is it necessary? The answer is yes. Because if you don't do it your competitor will and as the joke goes **_"The best place to hide a dead body is page 2 of Google"._**
+
 > Are there really any "tricks" that work?
 
 I'm no SEO expert and so I don't care for meta tags, keywords. Title and page description are still important I think. I believe the most relevant things are the **time** user a spends on your page and **social signals** (shares, etc) and unfortunately backlinks from high authority pages (this is the worst part of SEO).
+
 The good news is that you don't have to do anything sneaky to do SEO anymore. Make an excellent page on which a user spends a lot of time (so good that he actually bookmarks or shares it) and it **starts ranking**. For all its evilness Google is still doing something right here.
+
 **_jchook_**
 Keyword **density** (just the right amount) and total **word count** seem to have an effect and I’ve seen targeted ***landers*** work very well for specific search phrases.
+
 **Backlinks** will probably always be relevant to rankings as they were the original bedrock principle behind PageRank. If you get prominent **blogs to link** to you, that can help a lot. Inversely, use ***rel=nofollow*** on anchors to avoid seeping relevance to other pages.
+
 Ever since Mobilegeddon your site MUST be **mobile friendly** or you will get penalized. Also other UI stuff matters (E.g. don’t put ads above the fold)
+
 **_aledalgrande_**
-Also performance - make sure you use this [tool](https://developers.google.com/speed/pagespeed/insights/)
-[  
+Also performance - make sure you use this [tool](https://developers.google.com/speed/pagespeed/insights/) (pagespeed insights)
+  
 **_idm_guru_**
 As a solo founder for 10+ years, what I can say is that all "rules" in business are "rules of thumb"... Not laws... I host a podcast called "Open Source Underdogs". Lots of good advice there for all founders... Even if you're not working on open source. But there are plenty more. You need outside ideas... Just seek them out....
 Also remember that VC's give tons of bad advice to founders.
+
 **_galacticdessert_**
 I managed to find playable early episodes [here](https://www.listennotes.com/podcasts/open-source-underdogs-open-source-underdogs-n0_Zq8s4LbE/)
+
 **_sahillavingia_**
 Solo founder of Gumroad here. Highly recommended. It forced me to learn a lot more about every aspect of building a business than I would have otherwise.
 I'm also a fan of investing in [solo founders](https://shl.vc/)
+
 **_xenospn_**
 Another solo founder here - I copied the Notion fund memo you posted on Twitter and used it as a template to pitch VCs, so thank you for that!
 **_eruci_**
+
 Just like you, I quit my day job in my early 30s, and have not looked back since. Have founded a dozen companies in the meantime and am currently having the best financial year of my 15 year solo-founder career.
+
 My advice is, hang in there. If you like what you are doing persist and adapt. My best product thus far is an API I built to support my original business plan. The original product I tried to build is long dead.
+
 **_pknerd_**
 Dozens of companies or sites? Even sites, why did you make so many Ventures? We're they affiliate sites?
+
 **_eruci_**
 I originally started  [https://foodpages.ca](https://foodpages.ca/)  and dinehere.us then built  [https://geocode.ca](https://geocode.ca/)  to provide local search functionality, then expanded worldwide with geocode.xyz and 3geonames.org, also got into collaborative fiction writing with fictionpad.com and price comparison engines with comparify.xyz & askvini.com (which I sold on <mark>flippa</mark>) and real estate aggregator sites (shitet.net and landhub.ca, landhub.us).
+
 Currently geocode.xyz and geocoder.ca are my most profitable businesse
+
 **_bitcoinmoney_**
 Was it worth it financially? Like are you earning loads now?
+
 **_eruci_**
 Totally worth it. I'm currently earning around four times a senior software engineer salary, and I've got plenty of free time. Overall my average earnings over the whole 15 year period have been double what I'd have been getting in a day job.
-[  
+  
 **_tmilard_**
 ...I am always quite surprised that many people think "yea, you always can build a software in a few weeks. If not bah, not good'.
+
 I think SOME softwares requires month if not years of building. Because there are difficult technically. Those complicated softwares can be a game changer in the field, because well, the technical entry is so hard. So let's see more those softwares like perhaps future BIG success...
+
 **_immy_**
 Props on pushing your edge with the post. Building or tapping an existing community of early adopters is an enviable position to be in for a solo founder. Very unsticking. The feedback loop provides much desired certainty. Whether Twitter, Discord/Slack, a forum, whatever.
+
 **_hermitcrab_**
 I've been working as a solo indie developer since 2005...one of the keys, from my experience, is early feedback. Start showing your product to people as soon as you have something that might be useful to someone. No matter how imperfect it is. Do not wait until it is polished. I wrote about that [here](https://successfulsoftware.net/2007/08/07/if-you-arent-embarrassed-by-v10-you-didnt-release-it-early-enough/)
+
 **_earthtobishop_**
 This is by far the best guide for solo [founders](https://blog.gettamboo.com/the-epic-guide-to-bootstrapping-a-saas-startup-from-scratch-by-yourself-part-1-4d834e1df8c1?gi=2c392f6628ff)
+
 **_mlacks_**
 [github.audio](https://github.audio/)  is a game changer. one thing I find hard about lo-fi channels is the sheer amount of visual/ mental noise to break through in order to get the video/ station up and running on various platforms.
 
@@ -1298,13 +1458,19 @@ Why do you need VC funding? Plenty of people have bootstrapped businesses with n
 **_jv22222_**
 If anyone is feeling lonely as an indie founder and looking for an indie founder Slack community where you can reach out and bounce ideas of other founders in real time you can join the Nugget Slack community [here](https://nugget.one/join)
 
-
+## Product
+### Demos
+From Brad Feld's article: Getting your Demos [right](https://feld.com/archives/2013/09/getting-your-demos-right/)
+While (most Demos) give you a feel for things, (they) still showing the **features and functionality** of the tech, applying a general use case. 
+Instead, **set up a simple use case**.  Say **_“here’s the problem I’m going to solve for you that I know you have”_** – BOOM – and then I’m totally captured for the next 30 minutes. 
+Try it. The first five minutes is the most important with someone like me. Don’t waste it.
 
 ### UI/UX in Ent S/w
 'Real Ent Software Don’t Need No Stinkin’ [UI/UX](https://www.saastr.com/real-ent-software-dont-need-no-stinkin-uiux/), Jason Lemkin
 ...Just because you’ve sold a few seats to F500 companies doesn’t mean you have any idea how they really use enterprise software....I have installed SAP myself...spent over 4 hours trying to understand how to manage documents with Documentum...you, the end user, **aren’t the customer** for most true enterprise software, or anything like the customer.  You are just a user, a data-enterer.  The customer is the VP in the enterprise consuming the data, and the only UI/UX that really matters is the VP’s report...(As VP) once we crossed $20m in ARR, it became about the **Executive Dashboard**.
 So my learning is end-user UI/UX is critical for apps that need to be **directly adopted** by the end user — collaboration tools in particular. Our ease of use was critical to our adoption at EchoSign. But know thy enterprise market. State-of-the-art UI/UX is a great thing. But if end use is mandated — the end users have no choice — **the only UI/UX that matters is the one the boss sees**.
-	
+
+
 ## Languages
 ### General
 Twitter went from RoR to *Scala*
@@ -1356,10 +1522,14 @@ Also see [this](https://typelevel.org/blog/2015/09/21/change-values.html)
 
 ### Symbolic Links
 You can call the mklink provided by cmdto make symbolic links: 
-    `cmd /c mklink c:pathtosymlink c:targetfile`
+```
+cmd /c mklink c:pathtosymlink c:targetfile
+```
 You must pass /d to mklink if the target is a directory. 
-    `cmd /c mklink /d c:pathtosymlink c:targetdirectory`
-`new ProcessStartInfo("cmd.exe", "/c mklink " + argumentsForMklink);`
+```
+cmd /c mklink /d c:pathtosymlink c:targetdirectory
+new ProcessStartInfo("cmd.exe", "/c mklink " + argumentsForMklink);
+```
 
 [Complete guide to symLnks on Win/Linux](https://www.howtogeek.com/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/)
 
@@ -1514,13 +1684,16 @@ flipC0:["inyo"; "Dewey"; "BOYLE"; "pontotoc"; "APPLING"; "Finney"; "bayfield";
 15. isCateg		16. Parent		17. catLvl`
 
 ### TaskDVAux dat brkdn + raw
-`0: " |0 spxServer (235  items) |1 spxServer (235  items) |2 spxServer (235  items) |3 spxServer (235  items) |4 spxServer (235  items) |5 spxServer (235  items) |6 spxServer (235  items) |7 spxServer (235  items) |8 spxServer (235  items) |9 spxServer (235  items) |10 spxServer (235  items) |11 spxServer (235  items) |12 spxServer (235  items) |13 spxServer (235  items) |14 spxServer (235  items) |15 spxServer (235  items) |16 spxServer (235  items) |17 True |18 spxServer (235  items) |19 0"`
+```
+0: " |0 spxServer (235  items) |1 spxServer (235  items) |2 spxServer (235  items) |3 spxServer (235  items) |4 spxServer (235  items) |5 spxServer (235  items) |6 spxServer (235  items) |7 spxServer (235  items) |8 spxServer (235  items) |9 spxServer (235  items) |10 spxServer (235  items) |11 spxServer (235  items) |12 spxServer (235  items) |13 spxServer (235  items) |14 spxServer (235  items) |15 spxServer (235  items) |16 spxServer (235  items) |17 True |18 spxServer (235  items) |19 0"
+```
 
-`1: " |0 Research (5  items) |1 Research (5  items) |2 Research (5  items) |3 Research (5  items) |4 Research (5  items) |5 Research (5  items) |6 Research (5  items) |7 Research (5  items) |8 Research (5  items) |9 Research (5  items) |10 Research (5  items) |11 Research (5  items) |12 Research (5  items) |13 Research (5  items) |14 Research (5  items) |15 Research (5  items) |16 Research (5  items) |17 True |18 Research (5  items) |19 1"
+```
+1: " |0 Research (5  items) |1 Research (5  items) |2 Research (5  items) |3 Research (5  items) |4 Research (5  items) |5 Research (5  items) |6 Research (5  items) |7 Research (5  items) |8 Research (5  items) |9 Research (5  items) |10 Research (5  items) |11 Research (5  items) |12 Research (5  items) |13 Research (5  items) |14 Research (5  items) |15 Research (5  items) |16 Research (5  items) |17 True |18 Research (5  items) |19 1"
 2: " |0  |1  |2 Data Import - json |3 spawn |4 9 |5 9 |6  |7 oldId:20187171202284654800^Task  |8 638056736839239230^Task |9 spxServer |10 Research |11  |12 1/1/0001 12:00:00 AM |13  |14  |15  |16 Q2hrIGpkayBqc29uIGltcG9ydC9wcm9jIGxpYnMuPC9kaXY+ |17 False |18 Research |19 "
 3: " |0  |1  |2 Data Import - json |3 procEngine |4 5 |5 5 |6  |7 oldId:20187171202284654800^2^Task  |8 638056736839238497^Task |9 spxServer |10 Research |11  |12 1/1/0001 12:00:00 AM |13  |14  |15  |16 Q2hrIGpkayBqc29uIGltcG9ydC9wcm9jIGxpYnMuPC9kaXY+ |17 False |18 Research |19 "
 4: " |0  |1  |2 Data Import - json |3 spawn |4 5 |5 5 |6  |7 oldId:20187171202284654800^3^Task  |8 638056736839238496^Task |9 spxServer |10 Research |11  |12 1/1/0001 12:00:00 AM |13  |14  |15  |16 Q2hrIGpkayBqc29uIGltcG9ydC9wcm9jIGxpYnMuPC9kaXY+ |17 False |18 Research |19 "
-`
+```
 
 ### Code linkx
    - Playing God w/[Static](https://lexi-lambda.github.io/blog/2020/08/13/types-as-axioms-or-playing-god-with-static-types/) types
@@ -1544,70 +1717,79 @@ et je vous presentez...
   - hmr: dep inj - ngrm - bld/train - 
 
 #### Intangibles
-	- und mjr - frms sci basis for this - prob theory, outcomes, conf lvls
+	- und mjr
+	- frms sci basis for this 
+	- prob theory, outcomes, conf lvls
 
 intm8 domain spec kn - e.g. for a spec. ind: diff betw ema/sma; sloSto/convDiv; Fed exprt infl
 IIIly 4 mainSt
 
-`ComplFlows >> Isol8|Identify Bottlen >> Sw2Mods >> Cons staticWsmRunViaAPI`
+```
+ComplFlows >> Isol8|Identify Bottlen >> Sw2Mods >> Cons staticWsmRunViaAPI
+```
 
-##Addenda for Mon Sep 25
+## Addenda for Mon Sep 25
 
 ### Add to reading shelf
-  - https://lobste.rs/t/culture?page=11
+  - https://lobste.rs/t/culture?page=14
   - (in resp to Integrated Tests are a scam) from buttondown.email
 https://buttondown.email/hillelwayne/archive/in-defense-of-slow-feedback-loops/
   - Write [plain text files](https://sive.rs/plaintext)
   - Meet the Self-Hosters, Taking Back the Internet One Server at a Time[vice.com](https://www.vice.com/en/article/pkb4ng/meet-the-self-hosters-taking-back-the-internet-one-server-at-a-time)
-  - (read?) https://danluu.com/culture/
   - https://moxie.org/2013/01/07/career-advice.html
   - https://textslashplain.com/browse-all-posts/
 
 
+### Oct 2
+https://github.com/chobeat/awesome-critical-tech-reading-list
+
+Medium(paywl) https://samuelpouyt.medium.com/how-to-become-an-abstract-thinker-e1b1dcaf174f
+
+**Soundex - Fuzzy matches**
+[Soundex](https://en.wikipedia.org/wiki/Soundex) is a standard algorithm for finding names that sound alike. Access does not have a built-in Soundex function, but you can create one easily and use it inexact matches.
+Standard feature of popular db sw such as IBM Db2, PostgreSQL, MySQL, SQLite, Ingres, MS SQL Server, Oracle...
+VBA [Fn](http://allenbrowne.com/vba-Soundex.html) 4 use in MsAccess
+
+**Hiding messages in x86 binaries using semantic duals:steg86**
+(https://blog.yossarian.net/2020/08/16/Hiding-messages-in-x86-binaries-using-semantic-duals)
+It uses a quirk of the x86 instruction encoding format to hide messages in pre-existing binaries with no size or performance overhead.
+	
 ### Thu Sep 29
 
-https://nolongerset.com/checklist-the-best-access-applications/ 
+Many MsAccess resources, some adv [lvl](https://nolongerset.com/checklist-the-best-access-applications/)
+
 https://www.flagsmith.com/blog/why-we-bootstrap
 
 #### from hn
-https://benhoyt.com/writings/how-to-apply/ 
 Ask HN: Tips for Solopreneur? https://news.ycombinator.com/item?id=37662937 
-Ask HN: Have you been affected by layoffs? https://news.ycombinator.com/item?id=37658410 
-Inflation Bites U.S. Engineering Salaries (ieee.org) https://news.ycombinator.com/item?id=37682607 
-
-https://jackevansevo.github.io/my-unhealthy-relationship-with-keyboards.html + https://news.ycombinator.com/item?id=37658208 
-
 
 
 #### ai 
 https://www.bemyeyes.com/blog/announcing-be-my-ai
-https://techcrunch.com/2023/09/25/signals-meredith-whittaker-ai-is-fundamentally-a-surveillance-technology/
-Run any ML model from any programming language https://carton.run/
+
 ChatGPT can now search the web in real time https://www.theverge.com/2023/9/27/23892781/openai-chatgpt-live-web-results-browse-with-bing
-OSS MistralAI best yet(beats lrgr llama) https://mistral.ai/news/announcing-mistral-7b/
+[OSS MistralAI](https://mistral.ai/news/announcing-mistral-7b/) best yet(beats lrgr llama) 
 
 https://rachelbythebay.com/w/2023/09/26/hue/
 https://rachelbythebay.com/w/2022/12/02/25k/
 
 	
-	
+### Tally (form builder) 70k mrr
 (for dueDilig)
-**Tally**
 '[This form builder made $70K in MRR last month](https://www.indiehackers.com/post/this-form-builder-made-70k-in-mrr-last-month-364fe271a0)
   - freemium model vs competitors like **Typeform** (has paywall)
   - Next.js, React, Styled Components, Umami
   - editor 'similar to Notion's blocks'
   - Used 'made with' badge to drive free traffic from users
   - instd of using this 'Just use own css + form backend sys like **FabForm**'
-### This form builder made $70K in MRR last month'
+
 
 **How to Write a Spelling Corrector** (Peter Norveg/goog '[did you mean...](http://www.norvig.com/spell-correct.html)'), the algorithm.  
 Incl ref to F# vers. + goog trillion-wrd tables of most freq wrds etc. 
 - Ref: PlanetScale's CEO Sam Lambert [talk](https://linearb.io/dev-interrupted/podcast/the-day-1-decisions-that-make-or-break-companies) (info on impl Schema Changes + 'Rewind' features which create a replication loop from the old ver of the tbl from its new ver w/o the (dropped) col.  So we ensure this continual loop and there's no data missing when you come back.)
-### PrVer Notes
- - PrVers are a source of truth! Should be poss 2 reconstruct
- - Therefore nd delta FldInfo + UnDel Info preserved
- - Ren/Chg flds 4 EmbedDox?
+
+
+
 
 https://github.com/kokizzu/list-of-tech-migrations
 
@@ -1647,4 +1829,3 @@ https://www.youtube.com/playlist?list=PLqr6-y11aa0LAbm-AUTCWB9Z3D4VbiNaj
 https://www.youtube.com/playlist?list=PLd522Ljsaz7Q4V_k7g5v3g6CKr5ZbfF0T
 https://www.youtube.com/playlist?list=PLnWoRqNSMy20lMGmSK2iy7dt2VOtMFgCe
 https://www.youtube.com/playlist?list=PLQJKY4QQMLCx8hGOqky_VFrHj6v3kWYx1
-
