@@ -1583,8 +1583,8 @@ module DnD_ops =
 
 
     type DzCell =    | DzCell of string * int * int * int * int
-                     | BetwTgt of int * int
-                     | RoTgt of int * int
+                     | BetwTgt of float * float
+                     | RoTgt of float
 
     type DzRow = | DzRowBlank of DzCell
                  | DzRowFilled of list<DzCell>
@@ -1593,24 +1593,31 @@ module DnD_ops =
 
     ///No longer using Random values + State Support + consise 4 doL()
     let tbl = [DzCell ("Cell 0",3,1,0,0); DzCell ("Cell 1",1,1,0,0); DzCell ("Cell 2",1,1,0,0);
- DzCell ("Cell 3",1,1,0,0); DzCell ("Cell 4",1,1,0,0); DzCell ("Cell 5",3,1,0,0);
- DzCell ("Cell 6",2,1,0,0); DzCell ("Cell 7",2,1,0,0); DzCell ("Cell 8",2,1,0,0);
- DzCell ("Cell 9",2,1,0,0); DzCell ("Cell 10",3,1,0,0);
- DzCell ("Cell 11",2,1,0,0); DzCell ("Cell 12",2,1,0,0);
- DzCell ("Cell 13",2,1,0,0); DzCell ("Cell 14",2,1,0,0)]
+                 DzCell ("Cell 3",1,1,0,0); DzCell ("Cell 4",1,1,0,0); DzCell ("Cell 5",3,1,0,0);
+                 DzCell ("Cell 6",2,1,0,0); DzCell ("Cell 7",2,1,0,0); DzCell ("Cell 8",2,1,0,0);
+                 DzCell ("Cell 9",2,1,0,0); DzCell ("Cell 10",3,1,0,0);
+                 DzCell ("Cell 11",2,1,0,0); DzCell ("Cell 12",2,1,0,0);
+                 DzCell ("Cell 13",2,1,0,0); DzCell ("Cell 14",2,1,0,0)]
     let bld_v3 = 
         fun li -> 
             li  |> List.fold (fun s v -> 
                     let (c:int, r:int, inLi:list<'t>) = s
                     let (DzCell(slg, cc, cr, ccI, crI)) = v
-                    match (not(c+1 < colN)) with
-                    | true -> 0, r+1, DzCell(slg,cc,cr,c,r) :: inLi
-                    | _ -> c+cc, r, DzCell(slg,cc,cr,c,r) :: inLi)  (0,0,[]) 
+                    match inLi with
+                    | [] -> 0, 0, [RoTgt((float) 0 - 0.5)]
+                    | _ ->
+                        match (not(c+1 < colN)) with
+                        | true -> 
+                            let CellAndTgt = [RoTgt((float) r + 0.5);DzCell(slg,cc,cr,c,r)] @ inLi
+                            0, r+1, CellAndTgt
+                        | _ -> 
+                            c+cc, r, DzCell(slg,cc,cr,c,r) :: inLi)  (0,0,[]) 
                 |> thirdOf3T |> List.rev
     
     printfn "interimRes3:%A" (bld_v3 tbl)
-    printfn "eof"
-
+    printfn "eof1"
+    printfn "eof2"
+    printfn "eof3"
 module main = 
     open System
     open System.Diagnostics
