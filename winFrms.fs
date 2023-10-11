@@ -1546,16 +1546,19 @@ OptModID * lastVerNum:int * hasPriorVers:bool with
 
 module DnD_ops = 
     open System
+    open System.Drawing
+    open System.Windows.Forms
     
     ///What:    MVP for impl/testing DnD func + (l8r) Dojo wireframes...
     ///Last updated: Wed Oct 11 2023
     ///Stat:    interimRes3:
-    ///         [DzCell ("Cell 0",3,1,0,0); DzCell ("Cell 1",1,1,3,0); DzCell ("Cell 2",1,1,0,1);
-    ///          DzCell ("Cell 3",1,1,1,1); DzCell ("Cell 4",1,1,2,1); DzCell ("Cell 5",3,1,0,2);
-    ///          DzCell ("Cell 6",2,1,3,2); DzCell ("Cell 7",2,1,0,3); DzCell ("Cell 8",2,1,2,3);
-    ///          DzCell ("Cell 9",2,1,0,4); DzCell ("Cell 10",3,1,2,4);
-    ///          DzCell ("Cell 11",2,1,0,5); DzCell ("Cell 12",2,1,2,5);
-    ///          DzCell ("Cell 13",2,1,0,6); DzCell ("Cell 14",2,1,2,6)]
+    ///[RoTgt -0.5; DzCell ("Cell 1", 1, 1, 0, 0); DzCell ("Cell 2", 1, 1, 1, 0); DzCell ("Cell 3", 1, 1, 2, 0); 
+    ///RoTgt 0.5; DzCell ("Cell 4", 1, 1, 0, 1); DzCell ("Cell 5", 3, 1, 1, 1); DzCell ("Cell 6", 2, 1, 4, 1); 
+    ///RoTgt 1.5; DzCell ("Cell 7", 2, 1, 0, 2); DzCell ("Cell 8", 2, 1, 2, 2); 
+    ///RoTgt 2.5; DzCell ("Cell 9", 2, 1, 0, 3); DzCell ("Cell 10", 3, 1, 2, 3); 
+    ///RoTgt 3.5; DzCell ("Cell 11", 2, 1, 0, 4); DzCell ("Cell 12", 2, 1, 2, 4); 
+    ///RoTgt 4.5; DzCell ("Cell 13", 2, 1, 0, 5); DzCell ("Cell 14", 2, 1, 2, 5); 
+    ///RoTgt 5.5]
     ///
     ///Notes:   - DDnDTgt spans Row (see PostPitch Notes)
     ///         - this curr impl autoCasts to DzCell_v2Struc
@@ -1565,6 +1568,15 @@ module DnD_ops =
     ///         - @Add: Logic 2 autoPop rows & overflo handling
     
     let printHR() = printfn " - - - - - - - - - - - - - - - - - "
+    let tibbie = fun (s:string) -> MessageBox.Show(s, "System Msg") |> ignore
+    let defPadding:Padding = new Padding(40)
+    let defFont:Font = new Font("Tahoma", 26.0F)
+    let defColor:Color = Color.White
+    let defForeColor:Color = Color.Black //dCobaltBlue
+    let defBackColor:Color = Color.White
+    let getCtrlHt() = 
+            let g = (new Button()).CreateGraphics()
+            ((g.MeasureString("nm", defFont)).ToSize()).Height
     let colN = 3
     let isEven num = (num % 2 = 0)
     let toCellSlug = fun n -> "Cell " + n.ToString()
@@ -1592,12 +1604,13 @@ module DnD_ops =
     type DzTbl = | DzTable of list<DzRow>
 
     ///No longer using Random values + State Support + consise 4 doL()
-    let tbl = [DzCell ("Cell 0",3,1,0,0); DzCell ("Cell 1",1,1,0,0); DzCell ("Cell 2",1,1,0,0);
-                 DzCell ("Cell 3",1,1,0,0); DzCell ("Cell 4",1,1,0,0); DzCell ("Cell 5",3,1,0,0);
-                 DzCell ("Cell 6",2,1,0,0); DzCell ("Cell 7",2,1,0,0); DzCell ("Cell 8",2,1,0,0);
-                 DzCell ("Cell 9",2,1,0,0); DzCell ("Cell 10",3,1,0,0);
-                 DzCell ("Cell 11",2,1,0,0); DzCell ("Cell 12",2,1,0,0);
-                 DzCell ("Cell 13",2,1,0,0); DzCell ("Cell 14",2,1,0,0)]
+    let tbl = [DzCell ("Cell 1",1,1,0,0); DzCell ("Cell 2",1,1,1,0);
+               DzCell ("Cell 3",1,1,2,0); DzCell ("Cell 4",1,1,0,1);
+               DzCell ("Cell 5",3,1,1,1); DzCell ("Cell 6",2,1,4,1);
+               DzCell ("Cell 7",2,1,0,2); DzCell ("Cell 8",2,1,2,2);
+               DzCell ("Cell 9",2,1,0,3); DzCell ("Cell 10",3,1,2,3);
+               DzCell ("Cell 11",2,1,0,4); DzCell ("Cell 12",2,1,2,4);
+               DzCell ("Cell 13",2,1,0,5); DzCell ("Cell 14",2,1,2,5)]
     let bld_v3 = 
         fun li -> 
             li  |> List.fold (fun s v -> 
@@ -1608,16 +1621,68 @@ module DnD_ops =
                     | _ ->
                         match (not(c+1 < colN)) with
                         | true -> 
-                            let CellAndTgt = [RoTgt((float) r + 0.5);DzCell(slg,cc,cr,c,r)] @ inLi
-                            0, r+1, CellAndTgt
+                            //let CellAndTgt = [RoTgt((float) r + 0.5);DzCell(slg,cc,cr,c,r)] @ inLi
+                            //0, r+1, CellAndTgt
+                            //reverted to manual pop of RoTgt...
+                            0, r+1, DzCell(slg,cc,cr,c,r) :: inLi
                         | _ -> 
                             c+cc, r, DzCell(slg,cc,cr,c,r) :: inLi)  (0,0,[]) 
                 |> thirdOf3T |> List.rev
     
     printfn "interimRes3:%A" (bld_v3 tbl)
-    printfn "eof1"
-    printfn "eof2"
-    printfn "eof3"
+
+    let getTblRo =
+      fun tbl idx ->
+        List.filter (fun c ->
+                  let (DzCell(_,_,_,_, cRo)) = c 
+                  cRo = idx) tbl
+
+    let getRTPnl() = new Panel(Dock = DockStyle.Fill, AutoSize = true, BorderStyle = BorderStyle.Fixed3D)
+    let getCell = 
+      fun slg -> new Button(Text = slg, Dock = DockStyle.Fill, AutoSize = true)
+
+    let frm = Form(Text = "DnD ops", Visible = false, TopMost = true, WindowState = FormWindowState.Maximized)
+    frm.SuspendLayout()
+    let cliP = new TableLayoutPanel(Anchor = AnchorStyles.None, CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset, RowCount = 0, ColumnCount = colN, AutoScroll = true)
+    cliP.SuspendLayout()
+    cliP.Controls.Clear()
+    cliP.ColumnStyles.Clear()
+    cliP.RowStyles.Clear()
+    List.map (fun c -> cliP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, ((float32) ((1/colN) * 100))))) [1.. colN] |> ignore
+    let tblRef = ref tbl
+    let tblSButton = new Button(Text = "Table State")
+    tblSButton.Click.Add(fun e -> tibbie ((tblRef.Value).ToString()))
+    frm.Controls.Add(tblSButton)
+    frm.Controls.Add(cliP)
+    frm.Layout.AddHandler(new LayoutEventHandler( fun (sender:obj) (e:System.Windows.Forms.LayoutEventArgs) -> 
+        //necc? let thisF = sender :?> Form
+        let rec procTbl currRo remainder =
+          let remLen =
+            getTblRo remainder currRo 
+            |> List.map (fun currcell -> 
+                           let (DzCell(slg,cSp,rSp,cCo, cRo)) = currcell
+                           let asCtrl = (getCell slg)
+                           cliP.Controls.Add(asCtrl, cCo, cRo)
+                           match cSp > 1 with
+                           | true -> cliP.SetColumnSpan(asCtrl, cSp) 
+                           | _ -> ()
+                           match rSp > 1 with
+                           | true -> 
+                              cliP.SetRowSpan(asCtrl, rSp)
+                              cliP.RowStyles.Add(new RowStyle(SizeType.Absolute, ((float32) (((float) (getCtrlHt())) * 1.25 * (float) rSp)))) |> ignore
+                           | _ -> ()
+                           currcell )
+            |> List.length
+          //let newRemainder = List.splitAt remLength remainder |> snd
+          let newCurrRo = currRo + 1
+          //match newRemainder with
+          match (newCurrRo > remainder.Length) with
+          | true -> () 
+          | _ -> procTbl newCurrRo remainder
+        procTbl 0 tblRef.Value
+        ))
+
+
 module main = 
     open System
     open System.Diagnostics
