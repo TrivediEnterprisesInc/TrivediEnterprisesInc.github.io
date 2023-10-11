@@ -1548,49 +1548,68 @@ module DnD_ops =
     open System
     
     ///What:    MVP for impl/testing DnD func + (l8r) Dojo wireframes...
-    ///Created: Wed Oct 4 2023
-    ///Stat:    produces this:
-    ///         res:(2, 7,
-    ///             [DCell 14; DCell 13; DDnDTgt 12; DCell 11; DCell 10; DCell 9; DDnDTgt 8;
-    ///             DCell 7; DCell 6; DCell 5; DDnDTgt 4; DCell 3; DCell 2; DCell 1; DDnDTgt 0])
-    ///             ty:Microsoft.FSharp.Collections.FSharpList`1[Main+DnD_ops+DzCellStruc]
+    ///Last updated: Wed Oct 11 2023
+    ///Stat:    interimRes3:
+    ///         [DzCell ("Cell 0",3,1,0,0); DzCell ("Cell 1",1,1,3,0); DzCell ("Cell 2",1,1,0,1);
+    ///          DzCell ("Cell 3",1,1,1,1); DzCell ("Cell 4",1,1,2,1); DzCell ("Cell 5",3,1,0,2);
+    ///          DzCell ("Cell 6",2,1,3,2); DzCell ("Cell 7",2,1,0,3); DzCell ("Cell 8",2,1,2,3);
+    ///          DzCell ("Cell 9",2,1,0,4); DzCell ("Cell 10",3,1,2,4);
+    ///          DzCell ("Cell 11",2,1,0,5); DzCell ("Cell 12",2,1,2,5);
+    ///          DzCell ("Cell 13",2,1,0,6); DzCell ("Cell 14",2,1,2,6)]
     ///
     ///Notes:   - DDnDTgt spans Row (see PostPitch Notes)
-    ///         - this curr impl autoCasts to DzCellStruc
+    ///         - this curr impl autoCasts to DzCell_v2Struc
     ///         - Xtnd tblPnl with ctor def & add doLayout() to produce struct via member.call()
     ///         - as decided, changes via UI updates def & autoUpdates UI
-    ///         - @Fix: nd to randomize Cells w/diff types (only DBlank for now)
-    ///         - @Fix: reverse the cells
-    ///         - @Fix: ensure output is per row 
-    ///                 (new type in DzCellStruct? ro of list<DzCellStruc>; DTbl of ro list?)
-    ///                 The PLUS here is we cn easily add/remove rows to DTbl when we don't want to go to cell-level
-
+    ///         - @Add: bld_v1 interleaves dropCells(see output); nd to manually do that
+    ///         - @Add: Logic 2 autoPop rows & overflo handling
+    
+    let printHR() = printfn " - - - - - - - - - - - - - - - - - "
     let colN = 3
-    let isEven num = num % 2 = 0
+    let isEven num = (num % 2 = 0)
+    let toCellSlug = fun n -> "Cell " + n.ToString()
     let show a = 
             let (n, r, l:list<'t>) = a
             let fixedOrd = List.map (fun innr -> List.rev innr) l
             printfn "fixedOrd: %A" l
             //l.GetType() |> printfn "res:%A ty:%A" (List.splitInto (l.Length / colN) fixedOrd)// |> List.rev)
-            
-        
-    type DzCellStruc = | DCell of int
-                       | DBlank of int
-                       | DDnDTgt of int
-                       | DTbl of list<DzCellStruc>
+    let thirdOf3T = fun (x,y,z) -> z
+    let getRndLen =
+        fun (v:string) -> 
+            let r = int (v.Substring 5) //rm cell
+            if r%5 = 0 then 3
+                elif r < 5 then 1
+                else 2
 
-    List.fold (fun s v -> 
-                    let (c:int, r:int, li) = s
-                    match isEven r with
-                    | true -> 0, r+1, DDnDTgt(v) :: li
-                    | _ -> 
-                        match (c+1 = colN) with
-                        | true -> c+1, r+1, DCell(v) :: li
-                        | _ -> c+1, r, DCell(v) :: li
-                    ) (0,0,[]) [0..14] 
-                    |> printfn "res:%A"
+
+    type DzCell =    | DzCell of string * int * int * int * int
+                     | BetwTgt of int * int
+                     | RoTgt of int * int
+
+    type DzRow = | DzRowBlank of DzCell
+                 | DzRowFilled of list<DzCell>
+
+    type DzTbl = | DzTable of list<DzRow>
+
+    ///No longer using Random values + State Support + consise 4 doL()
+    let tbl = [DzCell ("Cell 0",3,1,0,0); DzCell ("Cell 1",1,1,0,0); DzCell ("Cell 2",1,1,0,0);
+ DzCell ("Cell 3",1,1,0,0); DzCell ("Cell 4",1,1,0,0); DzCell ("Cell 5",3,1,0,0);
+ DzCell ("Cell 6",2,1,0,0); DzCell ("Cell 7",2,1,0,0); DzCell ("Cell 8",2,1,0,0);
+ DzCell ("Cell 9",2,1,0,0); DzCell ("Cell 10",3,1,0,0);
+ DzCell ("Cell 11",2,1,0,0); DzCell ("Cell 12",2,1,0,0);
+ DzCell ("Cell 13",2,1,0,0); DzCell ("Cell 14",2,1,0,0)]
+    let bld_v3 = 
+        fun li -> 
+            li  |> List.fold (fun s v -> 
+                    let (c:int, r:int, inLi:list<'t>) = s
+                    let (DzCell(slg, cc, cr, ccI, crI)) = v
+                    match (not(c+1 < colN)) with
+                    | true -> 0, r+1, DzCell(slg,cc,cr,c,r) :: inLi
+                    | _ -> c+cc, r, DzCell(slg,cc,cr,c,r) :: inLi)  (0,0,[]) 
+                |> thirdOf3T |> List.rev
     
-        printfn "eof"
+    printfn "interimRes3:%A" (bld_v3 tbl)
+    printfn "eof"
 
 module main = 
     open System
