@@ -1,11 +1,14 @@
 
 # Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
   - [Windowing](#windowing)
   - [Wireframes Main](#wireframes-main)
       - [(Mon Oct 2)](#mon-oct-2)
+      - [Links: All winForms DnD docs](#links-all-winforms-dnd-docs)
+      - [Gist of above dox](#gist-of-above-dox)
+        - [Dragging](#dragging)
+        - [Dropping (any ctrl)](#dropping-any-ctrl)
       - [Handling DnD drops betw rows](#handling-dnd-drops-betw-rows)
   - [Wireframes Tabbed PropBox](#wireframes-tabbed-propbox)
   - [Templating](#templating)
@@ -21,6 +24,9 @@
 - [Outstanding Tks](#outstanding-tks)
   - [Updates to this doc](#updates-to-this-doc)
   - [mBoxes Redux?](#mboxes-redux)
+    - [Some approaches identified on Oct 4 '23](#some-approaches-identified-on-oct-4-23)
+      - [GitHub has a really great API for creating new Gists](#github-has-a-really-great-api-for-creating-new-gists)
+      - [Postbin (a pastebin [API](https://www.toptal.com/developers/postbin/api) for devs)](#postbin-a-pastebin-apihttpswwwtoptalcomdeveloperspostbinapi-for-devs)
   - [Versioning](#versioning)
     - [FldLvl Δs](#fldlvl-s)
     - [Nested/Embedded Dox](#nestedembedded-dox)
@@ -77,6 +83,7 @@
     - [Biz Continuity Doc](#biz-continuity-doc)
 - [Ref](#ref)
     - [Markdown Stuff](#markdown-stuff)
+    - [Cookie alternatives](#cookie-alternatives)
     - [JS stuff](#js-stuff)
     - [Colors](#colors)
     - [Agile and CI/CD](#agile-and-cicd)
@@ -144,6 +151,9 @@
       - [from hn](#from-hn)
       - [ai](#ai)
     - [Tally (form builder) 70k mrr](#tally-form-builder-70k-mrr)
+    - [Thu Oct 12](#thu-oct-12)
+      - [Mongo stories/refs from HN](#mongo-storiesrefs-from-hn)
+
 
 
 
@@ -196,6 +206,60 @@ graph TB
 "A blank cell is a thing" ***
 
 > This approach redacted **Oct 3**; most other things remain the same but **DnD is vital**.  See sec 2 below; moving cell from (say) row 6 to row 2 involves Shift-Click + 4 upKeypresses, DnD involves 1 click.  Also more intuitive.
+
+
+#### Links: All winForms DnD docs
+
+ 1. Walkthrough: [Performing](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/walkthrough-performing-a-drag-and-drop-operation-in-windows-forms?view=netframeworkdesktop-4.8)
+    a Drag-and-Drop Operation in Windows Forms
+**_Explains how to start a drag-and-drop operation._**
+ 3. How to: Perform Drag-and-Drop [Operations](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/how-to-perform-drag-and-drop-operations-between-applications?view=netframeworkdesktop-4.8) Between Applications 
+**_Illustrates how to accomplish drag-and-drop operations across applications._**
+ 4. Drag-and-Drop [Functionality](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/drag-and-drop-functionality-in-windows-forms?view=netframeworkdesktop-4.8) in Windows Forms
+**_Describes the methods, events, and classes used to implement drag-and-drop behavior._**
+ 5. Control.[QueryContinueDrag](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.control.querycontinuedrag?view=windowsdesktop-7.0#system-windows-forms-control-querycontinuedrag) Event
+**_Describes the intricacies of the event that asks permission to continue the drag operation._**
+ 6. Control.[DoDragDrop](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.control.dodragdrop?view=windowsdesktop-6.0) Method
+**_Describes the intricacies of the method that is central to beginning a drag operation._**
+
+#### Gist of above dox
+
+##### Dragging
+
+**_Events on the Current Target_**
+  - **DragEnter** - > when  ob is dragged into the ctrl's bounds
+  - **DragOver** -> when ob dragged while mousePtr's inside ctrl's bounds
+  - **DragLeave** -> when ob dragged out of ctrl's bounds
+  - **DragDrop** -> occurs when Dnd op compl
+
+**_Events on the Source_**
+  - **GiveFeedback** -> occ during dragOp; cn chng cursor to tell usr DnD is occuring
+  - **QueryContinueDrag** -> src cn determine wh 2 stop DndOp 
+  (evArgs: keyBd/Esc state, DragActn (continu or not) 
+  ||e.g. stop if outside frm bounds see 4th art in li|| 
+
+**_DoDragDrop_** -> collect data when dragging begins
+
+button1_MouseDown.AddH(o,e ->
+   button1.DoDragDrop(button1.Text, DragDropEffects.Copy |
+      DragDropEffects.Move))
+
+**_QueryContinueDrag_** -> asks permission" to continue the drag op.  If treeVw hover, expnd or take actn.
+
+##### Dropping (any ctrl)
+  - AllowDrop = true
+  - handle DragEnter & DragDrop events
+
+**_DragEnter_** -> validate ty 
+textBox1_DragEnter.Add(o e ->
+   if (e.Data.GetDataPresent(DataFormats.Text))
+      e.Effect = DragDropEffects.Copy
+   else e.Effect = DragDropEffects.None
+
+**DragDrop**
+textBox1_DragDrop.Add(o e ->
+   textBox1.Text = e.Data.GetData(DataFormats.Text).ToString())
+
 
 #### Handling DnD drops betw rows
 (Note that we don't nd this 4 DnD to rowLocs; for that do 
@@ -562,6 +626,54 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 ...you give them the features and when you do give them the features you fight for that elegance and that simplicity, you fight for <mark>hiding the complicated functionality</mark> under the surface sort of a viewer user interface, so you only give them <mark>one choice instead of six</mark> but they still have all the <mark>same options</mark>.
 
 # Outstanding Tks
+(Last updated Oct 12 2023)
+ - [ ] [DnD Impl](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#links-all-winforms-dnd-docs)
+	 - [ ] Cell Tbl struct
+		 - [x] Dynamic bld (10/11/23)
+			 - [x] bld operational, tested (10/11/23)
+		 - [ ] Dynamic upd8t on DnD
+	 - [ ] Blank drop tgts
+		 - [ ] Bld/ins betw cells
+		 - [ ] Bld/ins betw rows
+		 - [ ] Dynamic rebld struct
+ - [ ] [Wireframes Tabbed PropBox](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#wireframes-tabbed-propbox)
+	 - [ ] New tys 4 tabbedPgs
+	 - [ ] New tys 4 PropBox (bld via above)
+	 - [ ] Make ctxtMenus modular, test w/curr setup
+	 - [ ] Reuse/reImpl 4 other els
+	 - [ ] Use ResX for assets
+ - [ ] [Wireframes WebCli](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#djcli)
+	 - [ ] Impl/test. **See** form [tester](https://trivedienterprisesinc.github.io/frm.html)
+	 - [ ] Poss gd idea 2 impl Auth @ this pt.
+ - [ ] Import Module
+	 - [ ] Impl/test; just basic func will do **_this is the last major mod left to complete_**
+- [ ] Svr
+	 - [ ] Setup/test chat svr
+	 - [ ] Begin impl custom stuff
+	 - [ ] AutoDownload (cli+dsk) on 1st login
+	 - [ ] Add get/post capab from non-stdrd cli.s
+ - [ ] [Windowing](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#windowing)
+	 - [ ] @ this pt. or at any pt. earlier (@mbi) switch 2 completing all outstanding tks under this umbrella
+- [ ] Demo(s)
+	 - [ ] Poss utility in separate demos 4 scenarios (keep curr + add RedHat)
+-   [ ] [DbClipboard](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#dbclipboard)
+	- [ ] Impl/test
+-  [ ] [DbServants](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#dbservants)
+	- [ ] Rename 2 Scriptlets? Functions?
+- [ ] Org
+	- [ ] Port Notes 2 [mBoxes](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#mboxes-redux); add tabbing
+	- [ ] Determine whether to use a Form 4 entry.  See notes (link above) 4 options; cld always do them serially as be4
+	- [ ] Port snippets et al aussi
+	- [ ] Incorp in2 bkmrks
+- [ ] Research
+	- [ ] Myers/Briggs & current updates
+		- [ ] How 2 best ask pointed Qns/gather info?
+		- [ ] Tailored decision trees per user ty?
+   - [ ] Backend
+	   - [ ] @rsch BsonDoc [Qry](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#qry)
+	   - [ ] Collect all poss mongodb Qry params; incorp into code; impl.
+- [ ] Rec
+	- [ ] Need to begin creating/adding to bkmrks/Gear et al
 
 ## Updates to this doc
    - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
@@ -572,6 +684,26 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 ## mBoxes Redux?
   - We nd a b8r way to org these notes; MD fine but not v searchable; so revert to mBoxes w/tags
   - Bld a quick/dirty input frm & persist a la snippets
+
+### Some approaches identified on Oct 4 '23
+
+#### GitHub has a really great API for creating new Gists
+**_ Use this? _** 
+Cons: 
+- nd 2 be logged in
+- nd 2 clean up
+Pros: 
+- no data loss ever
+- no nd 2 cleanup pastebins
+
+#### Postbin (a pastebin [API](https://www.toptal.com/developers/postbin/api) for devs)
+
+To add a webhook OR save outpt from Pgs to bin: 
+
+This API tries to be RESTful and can be used programatically to create a bin and query it's contents to help your unit testing, your constant integration tests or your build server. 
+
+`https://www.toptal.com/developers/postbin/:binId` returns a RequestId
+`GET /developers/postbin/api/bin/:binId/req/:reqId` returns payload
 
 ## Versioning
 
@@ -699,7 +831,10 @@ type BrijLinq() =
 #### PriorVer Info 
 w/in doc?  Array?  If so, how to update changes?
 #### Frm
-Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep) 
+
+> Note: This section kept only for reference; work on Dnd (Oct 4) supersedes this, avoids the selection issues, elegantly (!) solves all problems while offering all reqd functionality.
+	
+<del>Ability to draw boxes/groups around fldPnls -> p'haps shd draw in the Background (zOrder) and moveBtns ignore it; otherwize it'll cause havoc w/layout (will nd to identify units, grouped itms become single unit, etc. FeatureCreep) 
 **Sep18_23**
 No, this is doable, and also modular.  Here's how: 
   - Add pnl member x.isChild + x.Container; popul8
@@ -711,7 +846,7 @@ No, this is doable, and also modular.  Here's how:
       | true -> Container.Row, ContainerCol
       | _ -> frm.Row, frm.Col
     ...normal flow w/new vars...)`
-  - Impl a ctrlGrp as an item; *_CONSIDER_* adding props to ea pnl using above handler instead of matching; this way it remains simple + noEdits.
+  - Impl a ctrlGrp as an item; *_CONSIDER_* adding props to ea pnl using above handler instead of matching; this way it remains simple + noEdits.</del>
   - @ToDo: Related: Do we or do we not currently have a !!^ "fldIntnlNm" [ctrl] -> frm??  We nd this pronto.  
   - @ToDo: Related: We nd to impl either SelectionHandles (@rsch again: winFrms repo src) or (easier approach somewhere on SO: selecting ctrl paints a crosshatch rect on top)
 
@@ -969,6 +1104,59 @@ This approach is called **Product Led Growth** (see also [Community](https://www
    - [Markdown Editor](https://stackedit.io/app#)
    - [TOC Generator](https://imthenachoman.github.io/nGitHubTOC/)
 
+### Cookie alternatives
+**_4 local Browser Storage_**
+
+(i) The Web Storage API (HTML5) 
+Includes localStorage and sessionStorage (autoExpires) 
+Best used for client-only data.
+```
+  localStorage.setItem('value1', 123);
+  localStorage.setItem('value2', 'abc');
+  localStorage.setItem('state', JSON.stringify({ a:1, b:2, c:3 }));
+  const state = JSON.parse( localStorage.getItem('state') );
+  localStorage.removeItem('state')
+  .length: the number of items stored
+  .key(N): the name of the Nth key
+  .clear(): delete all stored items
+```
+Current browsers(2013) limit total size per storage area to 5MB.
+Changing any value raises a storage event in other browser tabs/windows connected to the same domain. Your application can respond accordingly:
+```
+  window.addEventListener('storage', s => {
+    console.log(`item changed: ${ s.key }`);
+    console.log(`from value  : ${ s.oldValue }`);
+    console.log(`to new value: ${ s.newValue }`);
+  });
+```
+(ii) IndexedDB, an in-browser database system:
+While localStorage performs all of its methods synchronously, IndexedDB calls them all asynchronously. 
+IndexdDB [API](https://www.w3.org/TR/IndexedDB/)
+Benefits over Web Storage:
+- efficient searches
+- db, so can store multiple same keys
+- transactional
+- no size limits: FireFox asks if exceed 50Mb
+create db:
+```
+  var request = indexedDB.open(“myDatabase”);
+```
+set obj store:
+```
+  const petData = [
+    { id: “00-01”, firstname: “Butters”, age: 2, type: “dog” },
+    { id: “00-02”, firstname: “Sammy”, age: 2, type: “dog” }
+  ];
+```
+to chng schema:
+```
+   request.onupgradeneeded = function(event) {
+      var db = event.target.result;
+      var objectStore = db.createObjectStore(“customers”, {keyPath: “id”});
+      for (var i in customerData) {
+        objectStore.add(customerData[i]); }}
+```
+	
 ### JS stuff
 [loDash](https://github.com/lodash/lodash) *25m usrs*
 https://lodash.com/ 
@@ -1820,12 +2008,46 @@ OSS Windmill	React
 
 https://www.pbs.org/wgbh/nova/article/how-a-worm-gave-the-south-a-bad-name/
 
+[infrequently](https://infrequently.org/2023/02/the-market-for-lemons/)
+
 https://www.levels.fyi/blog/2023-mid-year-report.html
 https://www.levels.fyi/jobs/location/united-states/level/mid_staff?from=subnav&searchText=lotus+notes&workArrangements=remote&jobId=77094709232575174
 
-Mystery & assoc.
+YouTube Mystery & assoc.
 https://www.youtube.com/playlist?list=PLwF4_8gI8X-z1ICGAxgJSMe2_Nj9ra-8h
 https://www.youtube.com/playlist?list=PLqr6-y11aa0LAbm-AUTCWB9Z3D4VbiNaj
 https://www.youtube.com/playlist?list=PLd522Ljsaz7Q4V_k7g5v3g6CKr5ZbfF0T
 https://www.youtube.com/playlist?list=PLnWoRqNSMy20lMGmSK2iy7dt2VOtMFgCe
 https://www.youtube.com/playlist?list=PLQJKY4QQMLCx8hGOqky_VFrHj6v3kWYx1
+	
+### Thu Oct 12
+#### Mongo stories/refs from HN
+
+MongoDB’s new query [engine](https://laplab.me/posts/inside-new-query-engine-of-mongodb/)
+comments: https://news.ycombinator.com/item?id=37583147
+
+MongoDB promises to keep its hands off application [building](https://news.ycombinator.com/item?id=37758569)
+
+MongoDB [Acid](https://scalegrid.io/blog/mongodb-acid/) Properties
+
+Show HN: [MongoMQ2](https://github.com/morris/mongomq2), message/event queuing with MongoDB only
+
+[Goodbye](https://blog.stuartspence.ca/2023-05-goodbye-mongo.html) MongoDB
+comments: https://news.ycombinator.com/item?id=36521226
+
+Inconsistent MongoDB [regex](https://madewithlove.com/blog/mongodb-does-not-support-regex-in-document-nested-objects/) behavior in document nested Objects
+
+View and Edit MongoDB from [Airtable](https://producthunt.com/posts/dapper-2)
+turns Airtable into a UI for MongoDB. Basically a 2-way ETL product between these tools
+
+Show HN: Open-Source [Webhooks](https://github.com/frain-dev/convoy) Gateway for Platform Engineers
+comments: https://news.ycombinator.com/item?id=35369983
+
+A Docker footgun led to a [vandal](https://blog.newsblur.com/2021/06/28/story-of-a-hacking/) deleting NewsBlur's MongoDB database (2021)
+comments: https://news.ycombinator.com/item?id=34860226
+
+Make [G-Sheets](https://news.ycombinator.com/item?id=34413960) a UI for your MongoDB
+
+Sync Google Sheets with MongoDB: [4 ways](https://www.usebracket.com/post/connect-gsheets-to-mongo) to do it
+
+Ask HN: Where can one learn about [boring](https://news.ycombinator.com/item?id=33570740) web development?
