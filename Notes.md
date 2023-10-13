@@ -626,7 +626,7 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 ...you give them the features and when you do give them the features you fight for that elegance and that simplicity, you fight for <mark>hiding the complicated functionality</mark> under the surface sort of a viewer user interface, so you only give them <mark>one choice instead of six</mark> but they still have all the <mark>same options</mark>.
 
 # Outstanding Tks
-(Last updated Oct 12 2023)
+(Last updated Oct 13 2023)
  - [ ] [DnD Impl](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#links-all-winforms-dnd-docs)
 	 - [ ] Cell Tbl struct
 		 - [x] Dynamic bld (10/11/23)
@@ -637,8 +637,10 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 		 - [ ] Bld/ins betw rows
 		 - [ ] Dynamic rebld struct
  - [ ] [Wireframes Tabbed PropBox](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#wireframes-tabbed-propbox)
-	 - [ ] New tys 4 tabbedPgs
-	 - [ ] New tys 4 PropBox (bld via above)
+ 	 - [ ] reimpl frm w/declarative|domConstr
+	 - [ ] New Tys 4 tabbedPgs
+	 - [ ] New Tys 4 PropBox (bld via above)
+	 - [ ] New Ty incorp8ing all propParams >> dzEl
 	 - [ ] Make ctxtMenus modular, test w/curr setup
 	 - [ ] Reuse/reImpl 4 other els
 	 - [ ] Use ResX for assets
@@ -646,25 +648,37 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	 - [ ] Impl/test. **See** form [tester](https://trivedienterprisesinc.github.io/frm.html)
 	 - [ ] Poss gd idea 2 impl Auth @ this pt.
  - [ ] Import Module
+ 	 - [ ] We nd an Export mod 2; basic func only (also nded for `ReddHat`)
 	 - [ ] Impl/test; just basic func will do **_this is the last major mod left to complete_**
 - [ ] Svr
 	 - [ ] Setup/test chat svr
 	 - [ ] Begin impl custom stuff
 	 - [ ] AutoDownload (cli+dsk) on 1st login
 	 - [ ] Add get/post capab from non-stdrd cli.s
+	 - [ ] Chk post mechanics SigR
  - [ ] [Windowing](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#windowing)
 	 - [ ] @ this pt. or at any pt. earlier (@mbi) switch 2 completing all outstanding tks under this umbrella
 - [ ] Demo(s)
-	 - [ ] Poss utility in separate demos 4 scenarios (keep curr + add RedHat)
+	 - [ ] Poss utility in separate demos 4 scenarios 
+	 - [ ] ReddHat
+	 	- [ ] Find online src 4 canned order frm; use/reImpl
 -   [ ] [DbClipboard](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#dbclipboard)
 	- [ ] Impl/test
 -  [ ] [DbServants](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#dbservants)
 	- [ ] Rename 2 Scriptlets? Functions?
+-  [ ] SubForms
+	- [ ] @Tbd: Sched for v2+ BUT if it's less of a hassle impl now:
+		Instd of hideWhens forEa; just use formulas for subForms (tblPnl insertable) 
+		They'll appear as greyed uneditable boxes in Dz 
+		Gen8ing both vers shdn't be much trouble.
 - [ ] Org
-	- [ ] Port Notes 2 [mBoxes](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#mboxes-redux); add tabbing
-	- [ ] Determine whether to use a Form 4 entry.  See notes (link above) 4 options; cld always do them serially as be4
-	- [ ] Port snippets et al aussi
-	- [ ] Incorp in2 bkmrks
+	- [ ] mBoxes
+		- [ ] Port Notes 2 mBoxes (see [this](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#mboxes-redux)); add tab func
+		- [ ] Complete priorTk: dlgBox 4 contents (curr uses msgBx)
+		- [ ] Determine whether to use a Form 4 entry.  See notes (link above) 4 options; cld always do them serially as be4
+		- [ ] 1st port Notes (this doc) + from sys
+		- [ ] Port snippets et al aussi
+		- [ ] Incorp in2 bkmrks
 - [ ] Research
 	- [ ] Myers/Briggs & current updates
 		- [ ] How 2 best ask pointed Qns/gather info?
@@ -740,7 +754,13 @@ ADD: Created|LastMod|By (these already exist in CoreMod)
 	
 **Levels**: | Doc | Form | Tbl | Sys |
 
+```
+@Tbd: Editor nds delete rts?
+```
+	
 > Poss. b8r to impl merely Reader/Author for v1 & leave more finely grained sec 4 l8r.
+
+> The best part of allowing Rewind/Vers capab is that we **_DO NOT_** nd to impl this early.  Schedule for v2+.
 
 ### Consider:
 
