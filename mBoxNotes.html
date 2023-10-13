@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+ <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+<style>
+  .mBox-container {
+    display: flex;
+    width: 100%;
+    padding: 25px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+  }
+  .mBox {
+    flex: none;
+    max-width: 175px;
+    margin: 7px;
+    padding: 10px;
+    border: solid 0.1em;
+    border-color: gray;
+    border-radius: 20px;
+    text-align: center;
+    font-family: Arial;
+    font-size: 85%;
+  }
+  ._mHidden{
+    visibility: hidden;
+  }
+</style>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 0, parseOnLoad: 1">
+ </script>
+    
+	<script>
+require(["dojo/dom", "dojo/on", "dijit/registry", "dojo/query!css3", "dojo/domReady!"],
+        function(dom, on, registry, query){
+    on(dom.byId("NotesBoxContainer"), on.selector(".mBox", "click"), function(evt){
+        // "this" is the node that matched the selector, the root DOMNode of a Button widget
+        // with class="watchme"
+        //console.log("b4 widget..." + this.outerHTML);
+        var contLi = query(".caption", this).forEach(function(node){
+                            console.log("caption:---\n" + node.innerHTML);
+                          });
+    });
+});
+	</script>
+</head>
+<body class="claro">
+    <div id="buttonContainer">
+      <button type="button" data-dojo-type="dijit/form/Button" id="watched" class="watchme">watched</button>
+      <button type="button" data-dojo-type="dijit/form/Button" id="unwatched">not watched</button>
+      <button type="button" data-dojo-type="dijit/form/Button" id="hey" class="watchme">hey!</button>
+    </div>
+
+<hr>
+test box:<br>
+<div class="mBox-container" id="NotesBoxContainer">
+          <div class="mBox notes org" >
+             Org Notes mBox test
+              <div class="caption" style="display:none;">
+                  Maigret Sets a Trap (2016) TV Movie Rowan Atkinson (reviewer) ...The scenery, photography, costumes, props and direction were beautiful and the movie was 100% traditional 'Noir' in every popular sense of the film world. The shadows and lighting, cars, streets, the brown... (lots of brown!), even the smoking and the hats... all Film Noir!
+          (another rev) ...Atkinson's calm and soft-speaking portrayal is the first proper portrayal of Maigret I've ever seen (all the others were a bit too flashy for my taste).
+              </div>
+          </div>
+</div>
+</body>
+</html>
