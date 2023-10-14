@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- html begins line #1380 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.08.04 bookmarks update am">
+<meta name="description" content="2023.10.14 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -60,9 +61,9 @@ async function loadU(u) {
           { UNID: 36, id: "gear", name: "gear", type: "layer1", population: "6 billion", parent: "root"},
           { UNID: 46, id: "music", name: "music", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 38, id: "social", name: "social", type: "layer3", population: "6 billion", parent: "mindAmuse"},
-          { UNID: 39, id: "changeLog", name: "spxLog", type: "layer2", parent: "career" },
-          { UNID: 50, id: "miscJob", name: "Jobs", type: "layer2", parent: "career" },       
-          { UNID: 90, id: "fin", name: "Finance", type: "layer2", parent: "career" },
+          { UNID: 39, id: "changeLog", name: "log", type: "layer2", parent: "career" },
+          { UNID: 50, id: "miscJob", name: "jobs", type: "layer2", parent: "career" },       
+          { UNID: 90, id: "fin", name: "finance", type: "layer2", parent: "career" },
           { UNID: 44, id: "mindAmuse", name: "amuse", type: "layer2", population: "6 billion", parent: "mind"},
           { UNID: 40, id: "mindInstr", name: "instruct", type: "layer2", population: "6 billion", parent: "mind"},
           { UNID: 45, id: "elevate", name: "elevate", type: "layer2", population: "6 billion", parent: "mind"},
@@ -95,7 +96,7 @@ async function loadU(u) {
           { UNID: 310, id: "BrijServerAPI", name: "BrijServer", type: "layer3", parent: "apiCurrent" },
           { UNID: 310, id: "winFrms", name: "wFrms", type: "layer3", parent: "apiCurrent" },
           { UNID: 303, id: "BrijScreenShots", name: "ScreenShots", type: "layer3", parent: "apiCurrent" },
-          { UNID: 304, id: "BrijLog", name: "Log", type: "layer3", parent: "apiCurrent" },
+          { UNID: 304, id: "BrijLog", name: "2021-", type: "layer3", parent: "changeLog" },
           { UNID: 131, id: "F_Links", name: "Links", type: "layer4", parent: "devFS" },
           { UNID: 132, id: "F_Snippets", name: "Snippets", type: "layer4", parent: "devFS" },
           { UNID: 133, id: "F_Freeware", name: "Freeware", type: "layer4", parent: "devFS" },
@@ -765,7 +766,7 @@ dP('10');
         mAlert = function(strParam){
             var strMsg = "Alert with param: " + strParam;
             var mAlertDiv = dom.byId("mAlertTxt");
-            mAlertDiv.innerHTML = strMsg;
+            mAlertDiv.innerHTML = strParam;
             mAlertDlg.show();
         }
 
@@ -1402,7 +1403,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArray();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Aug 4th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Oct 14th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -1851,7 +1852,7 @@ AgEBPwBw/8QAFBEBAAAAAAAAAAAAAAAAAAAAcP/aAAgBAwEBPwBw/9k=" alt="spock" />
         <div class="edgePanel" data-dojo-props="region: 'top'" data-dojo-type="dijit/layout/ContentPane" id="headerSpacerPanel"></div><!-- headerSpacerPanel -->
         <!-- footerPanel -->
         <div class="edgePanel" data-dojo-props="region: 'bottom'" data-dojo-type="dijit/layout/ContentPane" id="footerPanel">
-            <small>Copyright (c) 2016-2022, <span id="aboutDiv">M. P. Trivedi</span>. All rights reserved.</small>
+            <small>Copyright (c) 2016-2023, <span id="aboutDiv">M. P. Trivedi</span>. All rights reserved.</small>
         </div><!-- footerPanel -->
         <!-- footerSpacerPanel Disabled mpt @ 2020.02.07
         <div class="edgePanel" data-dojo-props="region: 'bottom'" data-dojo-type="dijit/layout/ContentPane" id="footerSpacerPanel"></div><!-- footerSpacerPanel -->
@@ -1862,8 +1863,8 @@ AgEBPwBw/8QAFBEBAAAAAAAAAAAAAAAAAAAAcP/aAAgBAwEBPwBw/9k=" alt="spock" />
         <div data-dojo-props="region:'leading', minSize:20" data-dojo-type="dijit/layout/AccordionContainer" id="leftAccordion" style="width: 200px;">
 
 	<div data-dojo-props="title:'nav'" data-dojo-type="dijit/layout/ContentPane">
-                <span href="#" onclick="mShowTxtDiv('mainNotes')" style="backgroundColor: darkkhakhi;">QuickLinks </span>
-                <span href="#" onclick="mShowTxtDiv('oldmainNotes')" style="backgroundColor: darkkhakhi;">old Notes</span>
+                <span href="#" onclick="mShowTxtDiv('mainNotes')" style="backgroundColor: darkkhakhi;">Top </span>
+                | <span href="#" onclick="mShowTxtDiv('oldmainNotes')" style="backgroundColor: darkkhakhi;">priorLinks</span>
 
 		<div data-dojo-props=" model:menuItemModel, query:{ parent :'root' }, showRoot: false, openOnClick:true, onClick:function(item,node,evt){ mShowTxtDiv(item.id);}" data-dojo-type="dijit/Tree" id="mindRootlessTree"></div>
 	</div>
@@ -7470,7 +7471,8 @@ is a fantastic introductory course...
                           <div id="audio">
        
       <section>
-                                  <br /><br /><i>Article</i>: Some words about <a href="#Khayyal">Khayaal</a><br /><a href="tinyurl.com\201609150500mpt"><br />some</a> Indian classical music on EP/LP<br /><br />LP+EP+Ghulam+Ali+ghazal+<a href="tinyurl.com\201609150505mpt">Akhtar</a><br />https://pediaview.com/openpedia/Indian_classical_music <br /><br />201608140319mpt Yahoo <a href="https://gist.github.com/anonymous/56f7867c06165e6904b32465367c364c/raw/d1c64c4c25af50cf3479d2fd84ab7881c57bc521/mike.html" target="_blank">Search result</a> for urdu+ghazal+ghulam+ali+ghalib <br />  <br /><br />http://www.avsforum.com/<br />
+                                  <br /><br />
+http://www.avsforum.com/<br />
                                   http://www.klipsch.com/<br />
                                   http://www.polkaudio.com/<br />
                                   http://definitivetechnology.com/<br />
@@ -8029,8 +8031,9 @@ List of Masterpiece Classic <a href="https://en.wikipedia.org/wiki/List_of_Maste
 <tr>
 <a href='https://www.darbar.org/article/an-introduction-to-light-classical-thumri-dadra-and-other-styles/47'>An introduction to light classical thumri dadra and other styles</a>
 <br><hr><br>
-The History and the Origin of the 
-with Special Reference to Gharanasand Styles <a href='https://www.sahapedia.org/sites/default/files/The%20History%20and%20the%20Origin%20of%20the%20Thumri%20with%20Special%20Reference%20to%20Gharanas%20Styles.pdf'>Thumri</a>
+<i>Article</i>: Some words about <a href="#Khayyal">Khayaal</a><br /><a href="tinyurl.com\201609150500mpt"><br />some</a> Indian classical music on EP/LP<br /><br />LP+EP+Ghulam+Ali+ghazal+<a href="tinyurl.com\201609150505mpt">Akhtar</a><br />https://pediaview.com/openpedia/Indian_classical_music <br /><br />201608140319mpt Yahoo <a href="https://gist.github.com/anonymous/56f7867c06165e6904b32465367c364c/raw/d1c64c4c25af50cf3479d2fd84ab7881c57bc521/mike.html" target="_blank">Search result</a> for urdu+ghazal+ghulam+ali+ghalib <br />  <br /><br />
+<br><hr><br>
+The History and the Origin of the <a href='https://www.sahapedia.org/sites/default/files/The%20History%20and%20the%20Origin%20of%20the%20Thumri%20with%20Special%20Reference%20to%20Gharanas%20Styles.pdf'>Thumri</a>
 with Special Reference to Gharanasand Styles.
 <br><hr><br>
 <a href='https://www.jatinverma.org/major-style-of-hindustani-music'>Thumri</a>
@@ -11630,7 +11633,7 @@ The title attribute may test tooltip.
 
                 <!-- div mAlertDlg -->
                 <section>
-                <div data-dojo-id="mAlertDlg" data-dojo-type="dijit/Dialog" title="Alert">
+                <div data-dojo-id="mAlertDlg" data-dojo-type="dijit/Dialog" title="System Message">
                   <div id="mAlertTxt" data-dojo-props="style: {overflow: 'auto', padding: 0, height:'80%', width:'80%'}" data-dojo-type="dijit/layout/ContentPane">
                   </div>
                   <div class="dijitDialogPaneActionBar">
@@ -11806,9 +11809,8 @@ http://www.storypick.com/mirza-ghalib-shayaris/<br>
     </tbody>
 </table>
 </div>
-<p>
-<p>
-<p>
+<hr>
+| <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#templating', '_blank').focus();"">FlowCharts</mark> | <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#table-of-contents', '_blank').focus();"">Notes</mark> | <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#outstanding-tks', '_blank').focus();"">TaskList</mark> | <mark onclick="mAlert('Tibbie: Incorp. into mBoxes...');">Snippets</mark> |
 <p>
 <hr>
 <p>
@@ -11818,12 +11820,12 @@ Avoiding .Net regex <a href='https://docs.microsoft.com/en-us/dotnet/standard/ba
 <p>
 
 <details> <br /> <summary><span class='mHG'>Other reading</span></summary>
-<br><a href="https://danluu.com/hn-comments/">HN: the good parts</a>
-<br><a href="https://www.case-podcast.org/">Conversations about Software Engineering (some chkd)</a>
+<br>DanLuu|HN: the <a href="https://danluu.com/hn-comments/">good</a> parts
+<br><a href="https://www.case-podcast.org/">Conversations</a> about Software Engineering (some chkd)
 <br><a href="https://hbr.org/2017/05/what-the-best-transformational-leaders-do">Harvard Biz Rev</a>
-<br><a href="https://www.pbs.org/wgbh/pages/frontline/shows/diet/">Frontline Shows</a>
-<br><a href="scripts.com">Movie scripts</a>
-<br><a href="https://www.ted.com/search?q=transcript">TED Talk transcripts</a>
+<br>Frontline <a href="https://www.pbs.org/wgbh/pages/frontline/shows/diet/">Shows</a>
+<br>Movie <a href="scripts.com">scripts</a>
+<br><a href="https://www.ted.com/search?q=transcript">TED</a> Talk transcripts
 <hr>
 <br>p.m: lake mule layer blossom pill shoe obvious current toast senior gesture until
 <br>rp: (num) YYOD + ### nr agitProp + (txt) riot-oriented hollins + (FN) iit bobby prem
