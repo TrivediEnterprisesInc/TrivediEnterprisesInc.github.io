@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+  <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1">
+    </script>
+	
+	<script>
+require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/domReady!"], function(Dialog, Button, win){
+
+    // Get the viewport-size of the document:
+    var vp = win.getBox();
+    var dlgW = vp.w - 100;
+    var dlgH = vp.h - 100;
+    //a lrg Dlg coz some itms may have substantial content
+    var lrgDialog = new Dialog({
+        title: "Programmatic Dialog Creation",
+        style: "width: " + dlgW + "px; height: " + dlgH + "px"
+    });
+
+    var myButton = new Button({
+        label: "Show me!",
+        onClick: function(){
+            lrgDialog.set("content", "Hey, I wasn't there before, I was added at " + new Date() + "!");
+            lrgDialog.show();
+        }
+    }, "progbutton").startup();
+});
+	</script>
+</head>
+<body class="claro">
+    <p>When pressing this button the dialog will popup. Notice this time there is no DOM node with content for the dialog:</p>
+<button id="progbutton" type="button">Show me!</button>
+</body>
+</html>
