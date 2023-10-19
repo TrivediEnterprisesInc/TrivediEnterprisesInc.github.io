@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html >
 <head>
@@ -46,15 +45,13 @@ require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom",
     var dlgH = vp.h - 100;
     //a lrg Dlg coz some itms may have substantial content
     var lrgDialog = new Dialog({
-        title: "mBox info",
+        title: "Notes",
         style: "width: " + dlgW + "px; height: " + dlgH + "px"
     });
 
 
     on(dom.byId("NotesBoxContainer"), on.selector(".mBox", "click"), function(evt){
-        // "this" is the node that matched the selector, the root DOMNode of a Button widget
-        // with class="watchme"
-        //console.log("b4 widget..." + this.outerHTML);
+        // "this" is the node that matched the selector
         var strColl = "";
         var contLi = query(".caption", this).forEach(function(node){
                             strColl += node.innerHTML;
@@ -66,16 +63,14 @@ require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom",
 	</script>
 </head>
 <body class="claro">
-test box:<br>
-<div class="mBox-container" id="NotesBoxContainer">
-          <div class="mBox notes org" >
-             Org Notes mBox test
-              <div class="caption" style="display:none;">
-                  Maigret Sets a Trap (2016) TV Movie Rowan Atkinson (reviewer) ...The scenery, photography, costumes, props and direction were beautiful and the movie was 100% traditional 'Noir' in every popular sense of the film world. The shadows and lighting, cars, streets, the brown... (lots of brown!), even the smoking and the hats... all Film Noir!<br>
-          (another rev) ...Atkinson's calm and soft-speaking portrayal is the first proper portrayal of Maigret I've ever seen (all the others were a bit too flashy for my taste).
-              </div>
-          </div>
 
+            <!--career/devNotes section-->
+            <section>
+    		<div id="filmDiv" data-dojo-type="dijit/layout/ContentPane" title="Film">
+
+<center>  <div id="notesTagCloudHdr">Tag cloud:<br></div></center>
+
+<div class="mBox-container" id="NotesBoxContainer">
           <div class="mBox notes mBoxes postbin task">
               mBoxes Redux?
               <div class="caption" style="display:none;">
@@ -168,14 +163,14 @@ The book talks about creating a Minimum Viable Product (MVP) that can be tested 
               </div>
           </div>
 
-          <div class="mBox notes hosting server >
+          <div class="mBox notes hosting server">
              Svr Hosting
               <div class="caption" style="display:none;">
 <ul>
 <li>Free <a href="https://stackdiary.com/free-hosting-for-developers/">dev</a> hosting</li>
 <li>Free <a href="https://codeless.co/free-docker-hosting/">docker</a> hosting</li>
 <li>Hosting on <a href="https://blog.replit.com/powerful-servers">repl.it</a></li>
-<li>&#39;The new Heroku: free TLS certs, global CDN, private netwrks, auto-deploys frm git&#39; <a href="???">Render</a></li>
+<li>&#39;The new Heroku: free TLS certs, global CDN, private netwrks, auto-deploys frm git&#39; <u>Render</u></li>
 </ul>
               </div>
           </div>
@@ -695,7 +690,6 @@ Instead, <strong>set up a simple use case</strong>.  Say <strong><em>“here’s
 Try it. The first five minutes is the most important with someone like me. Don’t waste it.</p>
               </div>
           </div>
-          </div>
           <div class="mBox notes product ui b2b">
              UI/UX in Ent S/w
               <div class="caption" style="display:none;">
@@ -704,7 +698,7 @@ Try it. The first five minutes is the most important with someone like me. Don�
 So my learning is end-user UI/UX is critical for apps that need to be <strong>directly adopted</strong> by the end user — collaboration tools in particular. Our ease of use was critical to our adoption at EchoSign. But know thy enterprise market. State-of-the-art UI/UX is a great thing. But if end use is mandated — the end users have no choice — <strong>the only UI/UX that matters is the one the boss sees</strong>.</p>
               </div>
           </div>
-          </div>
+
           <div class="mBox notes ai llms" >
              Making LLMs work for you
               <div class="caption" style="display:none;">
@@ -759,61 +753,6 @@ It lets you take text—a word, a sentence, a paragraph or a whole blog entry—
 </ul>
               </div>
           </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
-          <div class="mBox notes org" >
-             Org Notes mBox test2
-              <div class="caption" style="display:none;">
-              </div>
-          </div>
-          </div>
           <div class="mBox notes org" >
              Org Notes mBox test2
               <div class="caption" style="display:none;">
@@ -821,7 +760,9 @@ It lets you take text—a word, a sentence, a paragraph or a whole blog entry—
           </div>
 
 
-
-</div>
+		</div><!--mBoxContainer-->
+                </div>
+                </section>
+                <!--career/devNotes section-->
 </body>
 </html>
