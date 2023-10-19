@@ -1544,28 +1544,124 @@ OptModID * lastVerNum:int * hasPriorVers:bool with
 
 *)
 
+module propBox = 
+    open System
+    open System.Drawing
+    open System.Resources
+    open System.Windows.Forms
+
+    printfn "...in mod propBox..."
+
+    let pg = new TabPage( TabIndex = 1, Dock = DockStyle.Fill, Text = pgTxt ,Font = defFont, Name = "TabPg")
+
+(*
+
+    @TBD: we nd a dropDn _above_ the tabs to allow switching scope...
+          IF we're allowing it (or a userMsg asking to sel itm/props
+          Oct19: Save for v2; currently insist on sel via dzEl
+
+	Notes Thu Oct 19 '23
+    * NO direct setting of props from propBox: as b4, do this:
+        - chng state
+        - call reBuild() on ctrl (tearDown/doLayout)
+    * Fix: There are some missing propBox els incl validation
+        + some missing FROM dzDef
+
+    * for getDefaultValue() (sp?) we nd to chng wrkflow to:
+        - getDfltTpl(): all flds w/default vals
+        - map the tpl/replace flds w/vals
+        - cleaner + no chance of missing + no if/else chking
+        - Related: in frmCtor don't pass Option<rec> but Tpl(withVals|dfltTpl)
+            @TBD: we nd a dropDn _above_ the tabs to allow switching scope...
+                  IF we're allowing it (or a userMsg asking to sel itm/props
+*)
+
+    let cellMainTab = new TabPage( TabIndex = 1, Dock = DockStyle.Fill, ImageKey = "settingsTabIcn", ToolTipText = "Cell Settings", Name = "cellMainTab")
+
+type BorderTab (dzEl:'d) as bt = 
+    inherit TabPage( TabIndex = 2, Dock = DockStyle.Fill, ImageKey = "borderTabIcn", ToolTipText = "Cell Borders", Name = "cellBorderTab")
+    let BrdrCB = ComboBox(Name = "Brdr", Source = ["None";"Single";"3D"])
+    let setAllBtn = Button(Text = "Set All", ToolTipText = "Set all similar items to this value")
+    let init =
+        match (typeof<'d>) with
+        | fldP -> 
+            BrdrCB.SelectedIndex <- dzEl.BorderStyle
+            BrdrCB.SelectedIndexChanged.Add(fun e -> printfn "tibbie: update immed.")
+            bt.Controls.AddRange([|BrdrCB;setAllBtn|])
+        | frm  -> 
+            BrdrCB.SelectedIndex <- mainTblPnl.BorderStyle
+            BrdrCB.SelectedIndexChanged.Add(fun e -> printfn "tibbie: update immed.")
+            bt.Controls.Add(BrdrCB)
+            let mainTblPnl = !!~ "mainPnl" dzEl
+        | g ->
+            let gBrdrCB = ComboBox(Source = ["None";"Single";"Raised";"Sunken";"SingleVertical";"RaisedVertical";"SunkenVertical";"SingleHorizontal";"RaisedHorizontal";"SunkenHorizontal"], Name="Brdr")
+            gBrdrCB.SelectedItem <- dzEl.DataGridViewCellBorderStyle
+            gBrdrCB.SelectedIndexChanged.Add(fun e -> printfn "tibbie: update immed.")
+            bt.Controls.Add(gBrdrCB)
+        | col -> ()
+
+
+type FontTab (dzEl:'d) as ft = 
+    inherit TabPage(Dock = DockStyle.Fill, ImageKey = "fontTabIcn", ToolTipText = "Fonts", Name = "FontTab")
+    let LblFont = "LblFont"
+    let ValFont = "ValFont"
+    let setAllBtn = "setAllBtn"
+
+type ColorTab (dzEl:'d) as ft = 
+    inherit TabPage(Dock = DockStyle.Fill,  ImageKey = "colorTabIcn", ToolTipText = "Colors", Name = "ColorTab")
+    let ForeClr = "ForeClr"
+    let BackClr = "BackClr"
+    let setAllBtn = "setAllBtn"
+
+type SizeTab (dzEl:'d) as ft = 
+    inherit TabPage(Dock = DockStyle.Fill, ImageKey = "resizeTabIcn", ToolTipText = "Size", Name = "SizeTab") 
+    let Wid = "Wid" //dropDn
+    let Ht = "Ht"  //dropDn
+    //@TBD: hide-when?
+ 
+    let getTabsForTy (dzEl:'d) =
+        match (typeof<'d>) with
+        | fldP -> [MainTab(dzEl);BorderTab(dzEl);FontTab(dzEl);ColorTab(dzEl);SizeTab(dzEl)]
+        | frm -> [MainTab(dzEl);BorderTab(dzEl);FontTab(dzEl);ColorTab(dzEl);SizeTab(dzEl)]
+        | g -> [MainTab(dzEl);BorderTab(dzEl);FontTab(dzEl);ColorTab(dzEl);SizeTab(dzEl)]
+        | col -> [MainTab(dzEl);BorderTab(dzEl);FontTab(dzEl);ColorTab(dzEl);SizeTab(dzEl)]
+
+type propBox<'d when 'd :> Control>(dzEl:'d) as p =
+    inherit Form(Text = "DnD ops", Visible = true, TopMost = true, WindowState = FormWindowState.Maximized, BackColor = Color.SkyBlue)
+    let tc = new TabControl(SelectedIndex = 0)
+    let init =
+        p.SuspendLayout()
+        p.Controls.Add(tc)
+        getTabsForTy dzEl
+        |> limi (fun t i -> t.TabIndex <- i
+                            tc.Controls.Add(t)) |> ignore
+
+
 module DnD_ops = 
     open System
     open System.Drawing
     open System.Windows.Forms
+
+/*
+    What:           MVP for impl/testing DnD func + (l8r) Dojo wireframes...
+    Last updated:   Thu Oct 12 2023
+    Stat:           interimRes3:
+                    [RoTgt -0.5; DzCell ("Cell 1", 1, 1, 0, 0); DzCell ("Cell 2", 1, 1, 1, 0); DzCell ("Cell 3", 1, 1, 2, 0); 
+                    RoTgt 0.5; DzCell ("Cell 4", 1, 1, 0, 1); DzCell ("Cell 5", 3, 1, 1, 1); DzCell ("Cell 6", 2, 1, 4, 1); 
+                    RoTgt 1.5; DzCell ("Cell 7", 2, 1, 0, 2); DzCell ("Cell 8", 2, 1, 2, 2); 
+                    RoTgt 2.5; DzCell ("Cell 9", 2, 1, 0, 3); DzCell ("Cell 10", 3, 1, 2, 3); 
+                    RoTgt 3.5; DzCell ("Cell 11", 2, 1, 0, 4); DzCell ("Cell 12", 2, 1, 2, 4); 
+                    RoTgt 4.5; DzCell ("Cell 13", 2, 1, 0, 5); DzCell ("Cell 14", 2, 1, 2, 5); 
+                    RoTgt 5.5]
     
-    ///What:    MVP for impl/testing DnD func + (l8r) Dojo wireframes...
-    ///Last updated: Wed Oct 11 2023
-    ///Stat:    interimRes3:
-    ///[RoTgt -0.5; DzCell ("Cell 1", 1, 1, 0, 0); DzCell ("Cell 2", 1, 1, 1, 0); DzCell ("Cell 3", 1, 1, 2, 0); 
-    ///RoTgt 0.5; DzCell ("Cell 4", 1, 1, 0, 1); DzCell ("Cell 5", 3, 1, 1, 1); DzCell ("Cell 6", 2, 1, 4, 1); 
-    ///RoTgt 1.5; DzCell ("Cell 7", 2, 1, 0, 2); DzCell ("Cell 8", 2, 1, 2, 2); 
-    ///RoTgt 2.5; DzCell ("Cell 9", 2, 1, 0, 3); DzCell ("Cell 10", 3, 1, 2, 3); 
-    ///RoTgt 3.5; DzCell ("Cell 11", 2, 1, 0, 4); DzCell ("Cell 12", 2, 1, 2, 4); 
-    ///RoTgt 4.5; DzCell ("Cell 13", 2, 1, 0, 5); DzCell ("Cell 14", 2, 1, 2, 5); 
-    ///RoTgt 5.5]
-    ///
-    ///Notes:   - DDnDTgt spans Row (see PostPitch Notes)
-    ///         - this curr impl autoCasts to DzCell_v2Struc
-    ///         - Xtnd tblPnl with ctor def & add doLayout() to produce struct via member.call()
-    ///         - as decided, changes via UI updates def & autoUpdates UI
-    ///         - @Add: bld_v1 interleaves dropCells(see output); nd to manually do that
-    ///         - @Add: Logic 2 autoPop rows & overflo handling
+    Notes:           - Prior vers of this mod exist, chk past commits (bld_v1 interleaves BlankRows)
+                     - DDnDTgt spans Row (see PostPitch Notes)
+                     - this curr impl autoCasts to DzCell_v2Struc
+                     - as decided, changes via UI updates def & autoUpdates UI
+                     - @Add: bld_v1 interleaves dropCells(see output); nd to manually do that
+
+*/
+    
     
     let printHR() = printfn " - - - - - - - - - - - - - - - - - "
     let tibbie = fun (s:string) -> MessageBox.Show(s, "System Msg") |> ignore
@@ -1611,6 +1707,84 @@ module DnD_ops =
                DzCell ("Cell 9",2,1,0,3); DzCell ("Cell 10",3,1,2,3);
                DzCell ("Cell 11",2,1,0,4); DzCell ("Cell 12",2,1,2,4);
                DzCell ("Cell 13",2,1,0,5); DzCell ("Cell 14",2,1,2,5)]
+
+    /*  Utils for processing cells: interleaving Tgts   */
+    
+    let addTgts = 
+        fun cellStruc ->
+            /*
+                 - map over [0..totRows]
+                 - split by rows (either earlier approach: conv cells 2 rows
+                                  OR approach used in v3 below)
+                 - add DzRowBlank be4 ro
+                     - addHandler
+                 - add BetwTgt (CONSIDER changing nm 2 b4Tgt) before tgt
+                     - no nd 4 after; as is evident
+                     - addHandler
+                 - add DzRowBlank @ end
+                     - addHandler
+            */
+            printfn "tibbie"
+    
+    let remTgts = List.filter (fun cell -> match cell with
+                                           | DzRowBlank | BetwTgt ->  false
+                                           | _ -> true)
+
+    /*  Tbl processing utils  */
+    
+    let preProc =
+        fun tbl ->
+            //if tbl.HasTargets then remTgts
+            printfn "tibbie"
+            
+    let postProc =
+        fun tbl ->
+            //if not(tbl.HasTargets) then addTgts
+            printfn "tibbie"
+    
+    let totRows =
+        List.filter(DzCell)
+        |> List.collect(fun x -> 
+                          let (DzCell(_, _, _, _, crI) = x)
+                          crI) 
+        |> List.max
+
+    let getIdxOfFirstCellForRow =
+        fun tbl ro -> 
+            printfn "tibbie"
+
+    let insertCellAt =
+        fun tbl pos newCell ->
+            printfn "tibbie"
+            
+    let moveCellTo =
+        fun tbl oldPos newPos ->
+            printfn "tibbie"
+
+
+    /*  Dnd handlers   */
+
+    ///Add to src.MouseDown
+    let dragInitHandler = 
+        fun (o,e -> 
+            button1.DoDragDrop(src.Text, DragDropEffects.Copy))
+
+    let tgtDragEnterHandler =
+        fun (o,e -> 
+            match e.Data.GetDataPresent(DataFormats.Text) with
+            | true -> e.Effect <- DragDropEffects.Copy
+            | _ -> e.Effect <- DragDropEffects.None)
+
+    let rowTgtDragDropHandler =
+        fun (o,e ->
+            //update the struct directly
+            textBox1.Text = e.Data.GetData(DataFormats.Text).ToString())
+            
+    let b4TgtDragDropHandler =
+        fun (o,e ->
+            //update the struct directly
+            textBox1.Text = e.Data.GetData(DataFormats.Text).ToString())
+
     let bld_v3 = 
         fun li -> 
             li  |> List.fold (fun s v -> 
@@ -1621,9 +1795,9 @@ module DnD_ops =
                     | _ ->
                         match (not(c+1 < colN)) with
                         | true -> 
+                            //Oct 11: reverted to manual pop of RoTgt...
                             //let CellAndTgt = [RoTgt((float) r + 0.5);DzCell(slg,cc,cr,c,r)] @ inLi
                             //0, r+1, CellAndTgt
-                            //reverted to manual pop of RoTgt...
                             0, r+1, DzCell(slg,cc,cr,c,r) :: inLi
                         | _ -> 
                             c+cc, r, DzCell(slg,cc,cr,c,r) :: inLi)  (0,0,[]) 
@@ -1640,21 +1814,24 @@ module DnD_ops =
     let getRTPnl() = new Panel(Dock = DockStyle.Fill, AutoSize = true, BorderStyle = BorderStyle.Fixed3D)
     let getCell = 
       fun slg -> new Button(Text = slg, Dock = DockStyle.Fill, AutoSize = true)
-
-    let frm = Form(Text = "DnD ops", Visible = false, TopMost = true, WindowState = FormWindowState.Maximized)
+    let tblRef = ref tbl
+    let frm = new Form(Text = "DnD ops", Visible = true, TopMost = true, WindowState = FormWindowState.Maximized, BackColor = Color.SkyBlue)
     frm.SuspendLayout()
-    let cliP = new TableLayoutPanel(Anchor = AnchorStyles.None, CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset, RowCount = 0, ColumnCount = colN, AutoScroll = true)
+    let lbl = new Label(Text = "Dnd Tester", AutoSize = true, Dock = DockStyle.Top)
+    let cliP = new TableLayoutPanel(Dock = DockStyle.Fill, CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset, RowCount = 5, ColumnCount = colN, AutoScroll = true, BackColor = Color.Linen)
+    lbl.DoubleClick.Add(fun e -> 
+        printfn "tibbie tblRef:\n %A" (tblRef.Value)
+        printfn "cliP ctrlCount: %A" (cliP.Controls).Count
+        printfn "li:\n"
+        List.mapi (fun i cl -> printfn "%A) %A" i cl) (cliP.Controls |> Seq.cast |> List.ofSeq ) |> ignore)
     cliP.SuspendLayout()
     cliP.Controls.Clear()
     cliP.ColumnStyles.Clear()
     cliP.RowStyles.Clear()
     List.map (fun c -> cliP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, ((float32) ((1/colN) * 100))))) [1.. colN] |> ignore
-    let tblRef = ref tbl
-    let tblSButton = new Button(Text = "Table State")
-    tblSButton.Click.Add(fun e -> tibbie ((tblRef.Value).ToString()))
-    frm.Controls.Add(tblSButton)
     frm.Controls.Add(cliP)
-    frm.Layout.AddHandler(new LayoutEventHandler( fun (sender:obj) (e:System.Windows.Forms.LayoutEventArgs) -> 
+    frm.Controls.Add(lbl)
+    cliP.Layout.AddHandler(new LayoutEventHandler( fun (sender:obj) (e:System.Windows.Forms.LayoutEventArgs) -> 
         //necc? let thisF = sender :?> Form
         let rec procTbl currRo remainder =
           let remLen =
@@ -1681,8 +1858,24 @@ module DnD_ops =
           | _ -> procTbl newCurrRo remainder
         procTbl 0 tblRef.Value
         ))
+    cliP.ResumeLayout(false)
+    frm.ResumeLayout(false)
+    printfn "eom..."
 
+#if forRepl
+module main =
+  open System
+  open System.Drawing
+  open System.Windows.Forms
+  open DnD_ops
+  
+  [<EntryPoint>]
+  let main argv =
+      Application.Run(frm)
+      0
+#endif //forRepl
 
+    
 module main = 
     open System
     open System.Diagnostics
