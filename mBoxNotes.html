@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html >
 <head>
@@ -44,7 +45,7 @@ require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom",
     var dlgW = vp.w - 100;
     var dlgH = vp.h - 100;
     //a lrg Dlg coz some itms may have substantial content
-    var lrgDialog = new Dialog({
+    var lrgDialog_old = new Dialog({
         title: "Notes",
         style: "width: " + dlgW + "px; height: " + dlgH + "px"
     });
@@ -56,13 +57,14 @@ require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom",
         var contLi = query(".caption", this).forEach(function(node){
                             strColl += node.innerHTML;
                           });
-        lrgDialog.set("content", strColl);
+        lrgDialog.set("content", strColl + "\n<div class='dijitDialogPaneActionBar'>\n<button data-dojo-props='onClick:function(){lrgDialog.hide();}' data-dojo-type='dijit/form/Button' id='OK' type='button'>OK</button></div>");
         lrgDialog.show();
     });
 });
 	</script>
 </head>
 <body class="claro">
+                    <div data-dojo-id="lrgDialog" data-dojo-type="dijit/Dialog" title="Notes"></div>
 
             <!--career/devNotes section-->
             <section>
