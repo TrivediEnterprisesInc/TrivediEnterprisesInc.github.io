@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- html begins line #1471 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.10.19 bookmarks update pm">
+<meta name="description" content="2023.10.20 bookmarks update pm">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -388,38 +389,6 @@ code > pre {
 </style>
 
 
-	<script>
-/* BEGIN: script added for devNotes mBoxes support
-require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom", 
-"dojo/on", "dijit/registry", "dojo/query!css3", "dojo/domReady!"],
-        function(Dialog, Button, win, dom, on, registry, query){
-
-    // Get the viewport-size of the document:
-    var vp = win.getBox();
-    var dlgW = vp.w - 100;
-    var dlgH = vp.h - 100;
-    //a lrg Dlg coz some itms may have substantial content
-    var lrgDialog = new Dialog({
-        title: "Notes",
-        style: "width: " + dlgW + "px; height: " + dlgH + "px"
-    });
-
-
-    on(dom.byId("NotesBoxContainer"), on.selector(".mBox", "click"), function(evt){
-        // "this" is the node that matched the selector
-        console.log("mBox Notes click");
-        var strColl = "";
-        var contLi = query(".caption", this).forEach(function(node){
-                            strColl += node.innerHTML;
-                          });
-        lrgDialog.set("content", strColl);
-        lrgDialog.show();
-    });
-    parser.parse();
-});
- END: script added for devNotes mBoxes support */
-	</script>
-
 
 <script>
     function dP(debugMsg){
@@ -743,7 +712,7 @@ dP('10');
                     console.log('parsed ' + i + ":" + instances[i].id);
                   };
                 });
-
+                mFetchFilmTags(); //added Oct-20-23 to autoInit
             } else {
 
             //Show the edit & update toolbar Buttons 
@@ -1057,7 +1026,7 @@ filmFormDlgSubmit = function(e){
    alert("filmFormDlgSubmit attmpt");
  }
   
-mShowTag = function (isChkd, txtP) {
+mShowFilmTag = function (isChkd, txtP) {
           var fldOut = dom.byId("filmOutPutDiv");
           if (isChkd) {
               var strQry = "." + txtP;
@@ -1079,8 +1048,8 @@ mShowTag = function (isChkd, txtP) {
           };
         }
 
-mbuildTagArray = function (){
-console.log( "mbuildTagArray...");
+mbuildFilmTagArray = function (){
+console.log( "mbuildFilmTagArray...");
         var allFs = query(".mBox", "filmSection");
         var tempStr = "";
         console.log( "tags:" + allFs.length);
@@ -1102,35 +1071,59 @@ console.log( "mbuildTagArray...");
         dP( "JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
         //mLog( "JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
 }
-
+mbuildNotesTagArray = function (){
+console.log( "mbuildNotesTagArray...");
+        var allFs = query(".mBox", "notesSection");
+        var tempStr = "";
+        console.log( "tags:" + allFs.length);
+        for (i = 0; i < allFs.length; i++){
+          var currTags = (allFs[i]).classList;
+          for (j = 0; j < currTags.length; j++){
+            var currTag = currTags[j];
+            if (currTag != "mBox") {
+              var idx = mNotesTagArr['tagName'].indexOf(currTag);
+              if (idx == -1){
+                mNotesTagArr['tagName'].push(currTag);
+                mNotesTagArr['tagCount'].push(1);
+              } else {
+                mNotesTagArr['tagCount'][idx]++;
+              };
+            };
+          };
+        };
+        dP( "JSON.stringified Array Tags:" + JSON.stringify(mNotesTagArr));
+        //mLog( "JSON.stringified Array Tags:" + JSON.stringify(mNotesTagArr));
+}
+mbuildTagArrays = function (){
+        mbuildFilmTagArray();
+        mbuildNotesTagArray();
+}
 /*
 2023 changes for notesBoxes ->
+there exists a <!--career/devNotes section--> (to be consildated w/below)
+
+
 var mNotesTagArr = {tagName : [], tagCount : []};  <- in init()
 
-mbuildTagArray() <- called in init() REFERS 2 mfilmTagArr
+mbuildFilmTagArray() <- called in init() REFERS 2 mfilmTagArr
 
-mFetchTags <- called via tags  REFERS 2 mfilmTagArr
+mFetchFilmTags <- called via tags  REFERS 2 mfilmTagArr
 
-mShowTag = function (isChkd, txtP) {
+mShowFilmTag = function (isChkd, txtP) {
           var fldOut = dom.byId("NotesBoxContainer");
           if (isChkd) {
 ...
 
             <section>
     		<div id="filmDiv" data-dojo-type="dijit/layout/ContentPane" title="Film">
-
-          <center>  <div id="notesTagCloudHdr">Tag cloud:<br></div></center>
-          <br>
-          
-          <button id="#__#tagBuilderBtn" data-dojo-type="dijit/form/Button" onClick="mFetchTags();">Generate Tags</button>
-          
-          <div id="NotesBoxContainer" class="mBox-container">
-            Output:<br>
-          </div> 
+            <br>
+              <div id="NotesBoxContainer" class="mBox-container">
+                Output:<br>
+              </div> 
 
 */
 
-mFetchTags = function (){
+mFetchFilmTags = function (){
 /*
         var allFs = query(".mBox", "filmSection");
 
@@ -1150,7 +1143,7 @@ mFetchTags = function (){
             };
           };
         };
-        mLog( "mFetchTags - JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
+        mLog( "mFetchFilmTags - JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
 */
         var tagBtn = registry.byId("tagBuilderBtn");   
         
@@ -1164,7 +1157,7 @@ mFetchTags = function (){
                                 checked:false,
                                 id: tagNm,
                                 iconClass:'dijitCheckBoxIcon',
-                                onChange:"mShowTag(this.checked,this.id)"
+                                onChange:"mShowFilmTag(this.checked,this.id)"
                               }, "tagCloudHdr", "last");
         };
 
@@ -1463,10 +1456,10 @@ for (var i=0; i < instances.length ; i++){
             ]).play();
 
           console.log("1...");
-          mbuildTagArray();
+          mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Oct 19th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Oct 20th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -1479,30 +1472,6 @@ for (var i=0; i < instances.length ; i++){
           }).play();
 
 mToggleAdmin(false);  
-
-/* BEGIN: script added for devNotes mBoxes support */
-    // Get the viewport-size of the document:
-    var vp = win.getBox();
-    var dlgW = vp.w - 100;
-    var dlgH = vp.h - 100;
-    //a lrg Dlg coz some itms may have substantial content
-    var lrgDialog = new Dialog({
-        title: "Notes",
-        style: "width: " + dlgW + "px; height: " + dlgH + "px"
-    });
-
-
-    on(dom.byId("NotesBoxContainer"), on.selector(".mBox", "click"), function(evt){
-        // "this" is the node that matched the selector
-        console.log("mBox Notes click");
-        var strColl = "";
-        var contLi = query(".caption", this).forEach(function(node){
-                            strColl += node.innerHTML;
-                          });
-        lrgDialog.set("content", strColl);
-        lrgDialog.show();
-    });
-/* END: script added for devNotes mBoxes support */
 
 });
 
@@ -3733,24 +3702,15 @@ Mlar1dod082fr+ZGo+f7dSqm0qU61atGDPJWZbUaM2ysVmP6AqvVGJMwVqsxfcFqNaYvWK3G9AWr
                     
             <section>
     		<div id="filmDiv" data-dojo-type="dijit/layout/ContentPane" title="Film">
-
-            <h2><span class="clickMe">This is a test</span></h2>
             <br>
-            <br>
-          <center>  <div id="#__#tagCloudHdr">Tag cloud:<br></div></center>
+          <center>  <div id="#__#tagCloudHdr"></div></center>
           <br>
-          	<div id="#__#testToggleBtn" class="mAdmin mHidden" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="
-          					checked:true, style:{'visibility: hidden;'},
-          					onChange: function(a){ mTest('toggle button checked=' + a); }, iconClass:'dijitCheckBoxIcon'
-          				"> Toggle
-          	</div>
-          
-          <button id="#__#tagBuilderBtn" data-dojo-type="dijit/form/Button" onClick="mFetchTags();">Generate Tags</button>
-          
           <div id="#__#filmOutPutDiv" class="mBox-container">
             Output:<br>
           </div>  
 
+
+<div class="filmNotes" style="display:none;">
 <pre>
 http://www.imdb.com/chart/top (checked upto #70)
 <br>
@@ -3811,7 +3771,7 @@ http://www.imdb.com/title/tt0043014/
 https://images-na.ssl-images-amazon.com/images/M/MV5BMTc3NDYzODAwNV5BMl5BanBnXkFtZTgwODg1MTczMTE@._V1_UX182_CR0,0,182,268_AL_.jpg
 (1950) A hack screenwriter writes a screenplay for a former silent-film star who has faded into Hollywood obscurity. dIR: Billy Wilder
 </pre>
-
+</div><!--filmNotes-->
     		</div>
 
   <div data-dojo-type="dijit/Dialog" data-dojo-id="filmFormDlg" title="Film Form Dialog">
@@ -24354,7 +24314,7 @@ postCovid imports into allData</td>
             <section>
     		<div id="devNotes" data-dojo-type="dijit/layout/ContentPane" title="Notes">
 
-<center>  <div id="notesTagCloudHdr">Tag cloud:<br></div></center>
+<center>  <div id="notesTagCloudHdr"></div></center>
 
 <div class="mBox-container" id="NotesBoxContainer">
           <div class="mBox notes mBoxes postbin task">
