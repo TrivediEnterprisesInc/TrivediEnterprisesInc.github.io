@@ -825,7 +825,94 @@ todoTask + todoTaskList nd Open Exts, see <a href='https://learn.microsoft.com/e
 <br>
               </div>
           </div>
-	
+          <div class="mBox notes webhooks Agents" >
+             Webhooks SaaS options
+              <div class="caption" style="display:none;">
+Azure [Fns](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview?pivots=programming-language-csharp)
+* Run scheduled Task
+* Build a serverless workflow
+	Create an event-driven workflow from a series of functions using Durable Functions.
+  e.g. trigger -> fn -> update CosmosDb
+
+Related: MailHog
+MailHog is an email testing tool that makes it super easy to install and configure a local email server. MailHog sets up a fake SMTP server. 
+
+**_Note: All of the below have HN threads for ref._**
+
+[SVIX](https://www.svix.com/) OSS Webhooks as a Service
+SVIX REST API (or libs) <- api call:
+```
+var svix = new SvixClient("AUTH_TOKEN", new SvixOptions("https://api.svix.com"));
+await svix.Message.CreateAsync("app_Xzx8bQeOB1D1XEYmAJaRGoj0", new MessageIn(
+    eventType: "invoice.paid",
+    payload: new {
+        type: "invoice.paid",
+        id = "invoice_WF7WtCLFFtd8ubcTgboSFNql",
+        status = "paid",
+        attempt = 2
+    },
+    eventId: "evt_Wqb1k73rXprtTm7Qdlr38G"
+));
+);
+```
+In order to send to a specific URL, we need to add endpoints
+```
+endpointOut = await svix.Endpoint.CreateAsync(new EndpointIn(
+    url: "https://api.example.com/svix-webhooks/",
+    version: 1,
+    description: "My main endpoint"
+));
+```
+Svix comes with an application portal for your users that you can use out of the box. Your users can then use it to add endpoints, debug delivery, as well as inspect and replay past webhooks.
+
+[Zapier](https://help.zapier.com/hc/en-us/articles/8496288188429-Set-up-your-Zap-trigger)
+Basically wrkflw is triggered on popular WWW apps
+You can set up a Zap to send a direct message in Slack to yourself every time you receive a new email in Gmail. In this Zap, the trigger is the new email in Gmail.
+
+[Trigger](https://trigger.dev/) OSS Background Jobs framework for TypeScript
+
+[Automatisch](https://automatisch.io/docs) OSS Zapier alternative. Build workflow automation without spending time and money.  Allows you to store your data on your own servers.
+Custom request -> Makes a custom HTTP request by providing raw details.
+SMTP -> Send an email
+Catch raw webhook -> Triggers when the webhook receives a request.
+          </div></div>
+
+          <div class="mBox notes mongo SaaS ISVs" >
+             MongoDB to keep its hands off application building
+              <div class="caption" style="display:none;">
+From TheRegister[article](https://www.theregister.com/2023/10/03/mongodb_cto_interview_on_applications/)
+... 
+"But our fundamental kind of organic development still is, by and large, horizontal, and <mark>we use specialists, ISPs and partners and domain experts</mark>," he said.
+
+The strategy of MongoDB and other more modern database vendors — both NoSQL and so-called NewSQL, the group of RDBMS with distributed back ends — could not be more different from the one that defines the world's largest database vendor: Oracle. From its foundation in the late 1970s until the early 2000s, Oracle had been primarily a database company, with a number of software vendors building on its RDBMS. But from the turn of the century, it went on an application acquisition spree, splashing out billions of dollars on <mark>CRM vendor Siebel Systems<mark> and HR system <mark>PeopleSoft</mark>, through which it acquired ERP technology from <mark>JD Edwards</mark>. The strategy extended to the recent $28.3 billion acquisition of electronic health records vendor <mark>Cerner</mark>, which Oracle says will benefit from using its database and cloud technologies.
+
+While Oracle's strategy with its bag full of business applications has been to integrate them with its databases, and more recently, its cloud services, arch-rival in the application market, SAP, has gone in the opposite direction.
+
+Legacy SAP applications, including R/3 and Business Warehouse, were developed to run on third-party databases, including the Oracle Database, IBM Db2 and Microsoft SQL Server [PDF].
+
+But the strategy shifted when SAP created its own in-memory database, HANA, around 2010, and <mark>built the most recent generation of its ERP application, S/4HANA, on the platform</mark>.
+
+More recent market entrants, such as HR and finance SaaS vendor Workday, have built their applications on their own database. But they will be in the minority, reckons MongoDB CPO Azam.
+
+"The software industry is orders of magnitude larger than it was back when that was the case. That's not to say there aren't going to be verticalized packaged apps — Oracle has the cloud versions of their apps. But if you look at where the spend is, the vast majority of software being created is not just going to be packaged software. It is customers creating their own software to run their own business better," he said.
+
+For <mark>packaged applications</mark>, MongoDB works with <mark>ISVs building SaaS</mark>, rather than build its own. To that end, a banking-as-a-service platform has built <mark>Temenos Transact</mark> on MongoDB, while Salesforce Marketing Cloud's analytics solution is powered by MongoDB. Icon Solutions' <mark>Icon Payments Blueprint</mark> platform and Inovaare's <mark>compliance automation solutions for healthcare</mark> are both also built on MongoDB, for example.
+
+James Governor, co-founder of developer-focused analyst **Redmonk**, said it was true that more businesses were likely to build applications in-house, where there might be some competitive advantage. "People say enterprises want to become software companies. I don't think they do, but they do need to be able to take advantage of software. It doesn't look like buying packaged applications, certainly in the traditional sense, is the preferred model," he said.
+
+<mark>Where customers need packaged software, they might be better served by SaaS vendors rather than a database company, he said.</mark>
+
+But the temptation would always be there to get a slice of the action in the remainder of the software stack, Governor said.
+
+"There was a time when <mark>Oracle only had one product</mark>, so who knows what will happen? The pendulum swinging back a bit. If you've got nine out of the 10 top automotive companies building telemetry-based applications on your platform, then there is a tendency to say, let's lock that in a bit and do a better job of serving them,” he said.
+
+MongoDB's total revenue was $1.28 billion for the full year fiscal 2023, up 47 percent on the previous year. Its losses from operations were $346.7 million for the same period. Financially, it is tiny compared to Oracle, which boasts nearly $50 billion in annual revenue. But MongoDB's claim to be the developer database of choice is not without justification: this year's Stack Overflow survey pegged it as fourth choice — and the highest NoSQL vendor — among professional developers, 26 percent of whom said they used the platform.
+
+"They've clearly got enough on their plate with continuing to build that horizontal functionality," Governor said.
+
+However, it was is the nature of the tech industry to see companies appoint a new CEO to instigate a sudden change in strategy, he said.
+          </div></div>
+
           <div class="mBox notes org" >
              Org Notes mBox test2
               <div class="caption" style="display:none;">
