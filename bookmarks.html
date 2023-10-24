@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- html begins line #1471 -->
+<!-- html begins line #1527 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.10.23 bookmarks update pm">
+<meta name="description" content="2023.10.24 bookmarks update pm">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -61,7 +62,7 @@ async function loadU(u) {
           { UNID: 46, id: "music", name: "music", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 38, id: "social", name: "social", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 39, id: "changeLog", name: "log", type: "layer2", parent: "career" },
-          { UNID: 339, id: "devNotesTagged", name: "notes", type: "layer2", parent: "career" },
+          { UNID: 339, id: "NotesTagged", name: "notes", type: "layer2", parent: "career" },
           { UNID: 50, id: "miscJob", name: "jobs", type: "layer2", parent: "career" },       
           { UNID: 90, id: "fin", name: "finance", type: "layer2", parent: "career" },
           { UNID: 44, id: "mindAmuse", name: "amuse", type: "layer2", population: "6 billion", parent: "mind"},
@@ -434,7 +435,7 @@ code > pre {
         "dijit/Dialog",  "dijit/Tooltip", "dijit/TooltipDialog", "dijit/TitlePane",
         "dijit/Tree",
         /* dijit layout */
-        "dijit/layout/BorderContainer", "dijit/layout/StackContainer", 
+        "dijit/layout/BorderContainer", "dijit/layout/StackContainer", "dijit/layout/TabContainer",
         "dijit/layout/ContentPane", "dijit/layout/AccordionContainer", 
         /* dijit form */
         "dijit/form/Button", "dijit/form/ToggleButton", 
@@ -455,7 +456,7 @@ code > pre {
             registry, Menu, MenuItem, ProgressBar,
             Toolbar, ToolbarSeparator, Dialog,
             Tootip, TooltipDialog, TitlePane, Tree,
-            BorderContainer, StackContainer, ContentPane,
+            BorderContainer, StackContainer, TabContainer, ContentPane,
             AccordionContainer,
             Button, ToggleButton, DropDownButton,
             TextBox, CheckBox, 
@@ -643,12 +644,12 @@ const sortBy = (key) => {
   return (a, b) => (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0);
 };
 
-toJson = (ob) => {
+toJsonStr = (ob) => {
     JSON.stringify(ob, null, 4);
 }
 
 prnOb = (ob) => {
-    console.log(toJson(ob));
+    console.log(toJsonStr(ob));
 }
 
 getTopTabsByCount = (inArr, n) => {
@@ -663,6 +664,63 @@ getTopTabsByCount = (inArr, n) => {
     });
     return topTabs;
 }
+
+mBuildTagArray = function (StoreKey){
+        var mTagArr = {tagName : [], tagCount : []};
+        console.log( "mBuildTagArray...");
+//StoreKey:devNotes RENAME 2 notesTagged; fire mainTxtDiv handler on str.contains('Tagged')
+//ContentDiv:NotesBoxContainer RENAME 2 notesBoxContainer
+        let hashPos = StoreKey.indexOf("Tagged");
+        let mBoxTy = StoreKey.substring(0, (StoreKey.length) - hashPos - 1);
+        let containerDiv = (mBoxTy + "BoxContainer")
+        let allFs = query(".mBox", containerDiv);
+        console.log( "tags:" + allFs.length);
+        for (i = 0; i < allFs.length; i++){
+          var currTags = (allFs[i]).classList;
+          for (j = 0; j < currTags.length; j++){
+            var currTag = currTags[j];
+            if (currTag != "mBox") {
+              var idx = mTagArr['tagName'].indexOf(currTag);
+              if (idx == -1){
+                mTagArr['tagName'].push(currTag);
+                mTagArr['tagCount'].push(1);
+              } else {
+                mTagArr['tagCount'][idx]++;
+              };
+            };
+          };
+        };
+        dP( "JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
+        //mLog( "JSON.stringified Array Tags:" + JSON.stringify(mTagArr));
+        console.log("returning ty: " + mBoxTy);
+        console.log("returning arr: " + mTagArr);
+        return [mBoxTy, mTagArr];
+}
+
+runUpdates = (storeID) => {
+    let res = mBuildTagArray(storeID);
+    let arr = JSON.stringify(res[1], null, 4); //tgNm, tgCt
+    let topTags = getTopTabsByCount(res[1],4);
+
+    let tabFragBeg = "<div style='width: 100%; height: 100%'>" +
+                     "<div data-dojo-type='dijit/layout/TabContainer' style='width: 100%; height: 100%;'>"
+    let tabFragEnd = "</div></div>"
+
+    let tabBldr = (acc,x,idx) => {
+          let line1 = idx = 1 ? "<div data-dojo-type='dijit/layout/ContentPane' title=" + x + " data-dojo-props='selected:true'>" : "<div data-dojo-type='dijit/layout/ContentPane' title=" + x; 
+          let line2 = "Lorem ipsum and all around..." + "</div>";
+          return acc + line1 + line2;
+        };
+    let mappedHTML = (topTags).reduce(tabBldr, tabFragBeg)
+    let allHtml = mappedHTML + tabFragEnd;
+
+    mainDiv.innerHTML = allHtml;
+    parser.parse(mainDiv);
+
+    //@@@
+
+}
+
 /* 		
 	<-- END 2023 updates 4 ES6_refactor
 */
@@ -744,8 +802,7 @@ dP('10');
                 mFetchFilmTags(); //added Oct-20-23 to autoInit
             } else if (strId.includes("Tagged")) {
 		//2023 updates 4 ES6_refactor
-    		var mTestTagArr = {tagName : ["ten","one","two","three"], tagCount : [11,1,2,3]};
-                mainDiv.innerHTML = "Result of getTopTabsByCount(mTagArr,2) -><br>" + getTopTabsByCount(mTestTagArr,2);
+                runUpdates(strId);
             } else {
 
             //Show the edit & update toolbar Buttons 
@@ -901,7 +958,7 @@ dP('10');
           var gistTxt = JSON.stringify(bodyTxt);
           mLog("inside mCreateGist, bodyTxt:" + gistTxt);
           var outputDiv = dom.byId("gistOutput");
-					var docFragment = document.createDocumentFragment();
+	  var docFragment = document.createDocumentFragment();
 
            xhr("https://api.github.com/gists", {
              method: "POST",
@@ -1467,7 +1524,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Oct 23th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Oct 24th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -24329,9 +24386,9 @@ postCovid imports into allData</td>
         </div>    <!-- div MainContent -->
     <!-- Main Content ends-->
 
-            <!--career/devNotes section-->
+            <!--career/devNotesTagged section-->
             <section>
-    		<div id="devNotes" data-dojo-type="dijit/layout/ContentPane" title="Notes">
+    		<div id="devNotesTagged" data-dojo-type="dijit/layout/ContentPane" title="Notes">
 
 <center>  <div id="notesTagCloudHdr"></div></center>
 
