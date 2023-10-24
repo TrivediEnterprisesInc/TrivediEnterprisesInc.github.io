@@ -1,16 +1,228 @@
+<!--script>
+        console.log("INLINE\narray.mapi:\n" + 
+        ([1, 2, 3].map(function (value, index) {
+          console.log("in map closure for x: " + value + "idx: " + index );
+          return (value * 2)
+        })))
+        
+        console.log("INLINE\nobj.map: ?????\n" + 
+        (Object.entries({ 'a': 1, 'b': 2, 'c': 3 }).map(function ([key, value], index) {
+          console.log("obj.map-> val: " + value + " indx: " + index);
+          return (value * 2)
+        })))
+        
+        console.log("INLINE\narray.reduce:\n" + 
+        [0, 1, 2, 3, 4].reduce(function (previousValue, currentValue, currentIndex, array) {
+          return previousValue + currentValue
+        }))
+        
+        var array = [1, 2, 3]
+        console.log("array.rev:\n" + array.reverse())
+        
+        var array = [1]
+        var other = array.concat(2, [3], [[4]])
+        console.log(other)
+        
+        console.log("INLINE\narray.concat:\n" + 
+        [].concat(2, [3], [[4]]))
+        
+        var array = [2, 9, 9]
+        var result = array.indexOf(2)
+        console.log("INLINE\narray.indexOf:\n" + result)
+        
+        var users = [
+          { 'user': 'barney',  'age': 36, 'active': true },
+          { 'user': 'fred',    'age': 40, 'active': false },
+          { 'user': 'pebbles', 'age': 1,  'active': true }
+        ]
+        
+        var index = users.findIndex(function (o) { return o.age >= 40; })
+        console.log("array.findIndex:\n" + index)
+        
+        function isBigEnough (value) {
+          return value >= 10
+        }
+        var array = [12, 5, 8, 130, 44]
+        var filtered = array.filter(isBigEnough)
+        console.log("INLINE\narray.filter:\n" + filtered)
+        
+        //fns below nd 'use moz' or 'use esnext'
+        
+        const fruits = [
+          {name:"banana", amount: 2},
+          {name:"apple", amount: 4},
+          {name:"pineapple", amount: 2},
+          {name:"mango", amount: 1}
+        ];
+        
+        const sortBy = (key) => {
+          return (a, b) => (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0);
+        };
+        
+        // The native sort modifies the array in place, so we
+        // use `.concat()` to copy the array, then sort.
+        console.log("INLINE\narray.orderBy:\n" + 
+        fruits.concat().sort(sortBy("name")));
+        
+        const flattenDeep = (arr) => Array.isArray(arr)
+          ? arr.reduce( (a, b) => a.concat(flattenDeep(b)) , [])
+          : [arr]
+        
+        console.log("INLINE\narray.flattenDeep:\n" + flattenDeep([1, [[2], [3, [4]], 5]]))
+        
+        
+        const [ head, ...tail ] = array
+        console.log("head:\n" + head)
+        // output: 1
+        console.log("tail:\n" + tail)
+        // output [2, 3]
+        
+        var array = [1, 2, 1, 4, 1, 3];
+        var result = [...new Set(array)];
+        console.log("INLINE\narray.unique:\n" + result)
+        
+</script-->
+/*
+Sat Oct 21
+Notes (mBoxes redux)
+
+- You nailed it the 1st time
+- The reason the notes Boxes don't appear: Front/Back end doc semantics
+  (that's why the prefix '#__#' exists in the 1st place)
+
+Here's what we nd 4 the ReFactor ->
+- Parameterize the procs w/ability to accept ALL necc params
+- Localize the tagArrays coz we'll have to manipulate 'em
+- Rename front/backend flds with these suffixes (so we never have to reason abt that agn)
+- As b4, storeKey contains 'Tagged' to identify candidates
+- split mBoxes to mFilm/mNotes etc. for indiv styling/evtHandlers
+
+- instd of using backEnd doc programatically bld tagOutputDiv (there4 no conflicts)
+- mRenderTags() combines:  mbuildFilmTagArray + mFetchFilmTags(has domConstr 4 tagBtns)
+- in __mRenderTags()__ do
+  - find top 4/5 tags [parameterize via globalVar tagCountNum]
+  - Map.forEa bld tabCont with onFocus -> tabName + divName (Film/Notes) exclude, qry, rebld
+- __mDisplayTag()__ nee mShowFilmTag = function (tagArr, isChkd, txtP) ... (add tagArr)
+   (this shd be all that's reqd; the tagOutputDiv is by def unique (created via domConstr)
+
+*  Proceed w/refactor in b.html 'in situ' coz standalone doesn't have framework (mainDiv issues)
+BUT apply func to notes; not film
+*  New fn/var names to avoid conflicts
+
+*/
+mFetchFilmTags <- called via tags  REFERS 2 mfilmTagArr
+...
+            <section>
+    		<div id="filmDiv" data-dojo-type="dijit/layout/ContentPane" title="Film">
+            <br>
+              <div id="NotesBoxContainer" class="mBox-container">
+                Output:<br>
+              </div> 
+
+
+mShowTaggedContent = function (isChkd, txtP) {
+          var fldOut = dom.byId("filmOutPutDiv");
+          if (isChkd) {
+              var strQry = "." + txtP;
+      
+              var chosenTagArr = query( strQry, "filmSection");
+                for (i = 0; i < chosenTagArr.length; i++){
+                    if(dom.isDescendant(chosenTagArr[i].id, fldOut)){ 
+                      console.log("this id already present " + chosenTagArr[i].id);
+                    } else {
+                        fldOut.innerHTML += chosenTagArr[i].outerHTML;
+                    }
+                };
+          } else {
+              var strQry = "." + txtP;
+              var chosenTagArr = query( strQry, fldOut);
+                for (i = 0; i < chosenTagArr.length; i++){
+                  chosenTagArr[i].outerHTML = "";
+                };
+          };
+        }
+
+mBuildTagArray = function (StoreKey){
+        var mTagArr = {tagName : [], tagCount : []};
+        console.log( "mBuildTagArray...");
+//StoreKey:devNotes RENAME 2 notesTagged; fire mainTxtDiv handler on str.contains('Tagged')
+//ContentDiv:NotesBoxContainer RENAME 2 notesBoxContainer
+        let hashPos = StoreKey.indexOf("Tagged");
+        let mBoxTy = StoreKey.substring(0, (StoreKey.length) - hashPos - 1);
+        let containerDiv = (mBoxTy + "BoxContainer")
+        let allFs = query(".mBox", containerDiv);
+        console.log( "tags:" + allFs.length);
+        for (i = 0; i < allFs.length; i++){
+          var currTags = (allFs[i]).classList;
+          for (j = 0; j < currTags.length; j++){
+            var currTag = currTags[j];
+            if (currTag != "mBox") {
+              var idx = mTagArr['tagName'].indexOf(currTag);
+              if (idx == -1){
+                mTagArr['tagName'].push(currTag);
+                mTagArr['tagCount'].push(1);
+              } else {
+                mTagArr['tagCount'][idx]++;
+              };
+            };
+          };
+        };
+        dP( "JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
+        //mLog( "JSON.stringified Array Tags:" + JSON.stringify(mTagArr));
+        return [mBoxTy, mTagArr]
+}
+
+mRenderTags = function (StoreKey){
+        //REM var tagBtn = registry.byId("tagBuilderBtn");   
+        let tagArrRes = mBuildTagArray(StoreKey);
+        const mBoxTy = tagArrRes[0];
+        const mTagArr = tagArrRes[1];
+
+
+
+
+
+
+        for (t = 0; t < mTagArr['tagName'].length; t++){
+          var tagNm = mTagArr['tagName'][t];
+          var tagC = mTagArr['tagCount'][t];
+          var tagHtml = tagNm + "<span><sup>" + tagC + "</sup></span>";
+          domConstruct.create("button", 
+                              { innerHTML: tagHtml ,
+                                'data-dojo-type': "dijit/form/ToggleButton",
+                                checked:false,
+                                id: tagNm,
+                                iconClass:'dijitCheckBoxIcon',
+                                onChange:"mShowTaggedContent(this.checked,this.id)"
+                              }, "tagCloudHdr", "last");
+        };
+
+  //REFACTOR parser.parse(dom.byId("tagCloudHdr"));
+  //tagBtn.set({style: "visibility: hidden;"});
+}
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Strings</h1>
+<h2>The substring() Method</h2>
+
+<p>substring() extracts a part of a string:</p>
+
+<p id="demo"></p>
+
+<script>
 const sortBy = (key) => {
   return (a, b) => (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0);
 };
 
-toJson = (ob) => {
-    JSON.stringify(ob, null, 4);
+prnOb = function (ob) {
+    console.log(JSON.stringify(ob, null, 4));
 }
 
-prnOb = (ob) => {
-    console.log(toJson(ob));
-}
-
-getTopTabsByCount = (inArr, n) => {
+getTopTabsByCount = function (inArr, n) {
     let tabNm = inArr.tagName;
     let tabCt = inArr.tagCount;
     var zip_w_idx = (tabCt).map(function (value, index) {
@@ -22,3 +234,43 @@ getTopTabsByCount = (inArr, n) => {
     });
     return topTabs;
 }
+
+let text = "notesTagged";
+let hashPos = text.indexOf("Tagged");
+const fruits = [
+  {name:"banana", amount: 2},
+  {name:"apple", amount: 4},
+  {name:"pineapple", amount: 2},
+  {name:"mango", amount: 1}
+];
+
+
+var mTagArr = {tagName : ["ten","one","two","three"], tagCount : [11,1,2,3]};
+
+let result = text.substring(0, (text.length) - hashPos - 1);
+// The native sort modifies the array in place. `_.orderBy` and `_.sortBy` do not, so we use `.concat()` to
+// copy the array, then sort.
+let res1 = fruits.concat().sort(sortBy("name"));
+let res = fruits.concat();
+
+let comb1 = [mTagArr.tagName, mTagArr.tagCount].concat()
+let comb = comb1.sort(sortBy("tagCount"));
+//let res2 = mTagArr.sort(sortBy("name"));
+
+//prnOb(comb1);
+//prnOb(comb);
+
+var zip_w_idx = (mTagArr.tagCount).map(function (value, index) {
+  return [value,index];
+})
+
+var sorted_top2 = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(0, 2);
+//prnOb(sorted_top2);
+
+prnOb(getTopTabsByCount(mTagArr,2));
+
+document.getElementById("demo").innerHTML = "prnOb(comb1) prnOb(comb)";
+</script>
+
+</body>
+</html>
