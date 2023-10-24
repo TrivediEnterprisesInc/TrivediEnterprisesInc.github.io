@@ -61,7 +61,7 @@ async function loadU(u) {
           { UNID: 46, id: "music", name: "music", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 38, id: "social", name: "social", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 39, id: "changeLog", name: "log", type: "layer2", parent: "career" },
-          { UNID: 339, id: "devNotes", name: "notes", type: "layer2", parent: "career" },
+          { UNID: 339, id: "devNotesTagged", name: "notes", type: "layer2", parent: "career" },
           { UNID: 50, id: "miscJob", name: "jobs", type: "layer2", parent: "career" },       
           { UNID: 90, id: "fin", name: "finance", type: "layer2", parent: "career" },
           { UNID: 44, id: "mindAmuse", name: "amuse", type: "layer2", population: "6 billion", parent: "mind"},
@@ -636,6 +636,36 @@ code > pre {
       		 }).play();
 	}/*mShowDir*/
 
+/* 		
+	BEGIN 2023 updates 4 ES6_refactor -->
+*/
+const sortBy = (key) => {
+  return (a, b) => (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0);
+};
+
+toJson = (ob) => {
+    JSON.stringify(ob, null, 4);
+}
+
+prnOb = (ob) => {
+    console.log(toJson(ob));
+}
+
+getTopTabsByCount = (inArr, n) => {
+    let tabNm = inArr.tagName;
+    let tabCt = inArr.tagCount;
+    var zip_w_idx = (tabCt).map(function (value, index) {
+      return [value,index];
+    });
+    let topCts = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(0, n);
+    let topTabs = topCts.map(function (value, index) {
+      return tabNm[value[1]];
+    });
+    return topTabs;
+}
+/* 		
+	<-- END 2023 updates 4 ES6_refactor
+*/
         mShowTxtDiv = function (strId){
             mLog("clicked on id:" + strId );
 
@@ -712,6 +742,10 @@ dP('10');
                   };
                 });
                 mFetchFilmTags(); //added Oct-20-23 to autoInit
+            } else if (strId.includes("Tagged") {
+		//2023 updates 4 ES6_refactor
+    		var mTestTagArr = {tagName : ["ten","one","two","three"], tagCount : [11,1,2,3]};
+                mainDiv.innerHTML = "Result of getTopTabsByCount(mTagArr,2) -><br>" + getTopTabsByCount(mTestTagArr,2);
             } else {
 
             //Show the edit & update toolbar Buttons 
@@ -1097,35 +1131,10 @@ mbuildTagArrays = function (){
         mbuildFilmTagArray();
         mbuildNotesTagArray();
 }
-/*
-2023 changes for notesBoxes ->
-there exists a <!--career/devNotes section--> (to be consildated w/below)
-
-
-var mNotesTagArr = {tagName : [], tagCount : []};  <- in init()
-
-mbuildFilmTagArray() <- called in init() REFERS 2 mfilmTagArr
-
-mFetchFilmTags <- called via tags  REFERS 2 mfilmTagArr
-
-mShowFilmTag = function (isChkd, txtP) {
-          var fldOut = dom.byId("NotesBoxContainer");
-          if (isChkd) {
-...
-
-            <section>
-    		<div id="filmDiv" data-dojo-type="dijit/layout/ContentPane" title="Film">
-            <br>
-              <div id="NotesBoxContainer" class="mBox-container">
-                Output:<br>
-              </div> 
-
-*/
 
 mFetchFilmTags = function (){
 /*
         var allFs = query(".mBox", "filmSection");
-
 
   for (i = 0; i < allFs.length; i++){
           var currTags = (allFs[i]).classList;
