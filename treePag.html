@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>dgrid tree w/Pagination</title>
+		<meta name="viewport" content="width=570">
+		<style>
+			@import "https://dgrid.io/js/dojo/resources/dojo.css";
+			@import "https://dgrid.io/js/dgrid/css/dgrid.css";
+			@import "https://dgrid.io/js/dgrid/css/skins/claro.css";
+			.heading {
+				font-weight: bold;
+				padding-bottom: 0.25em;
+			}
+			.dgrid {
+				width: 750px;
+				margin: 10px;
+			}
+
+			#grid2 .dgrid-row {
+				height: 22px;
+			}
+			#grid2 .dgrid-cell {
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		</style>
+<script>
+//embedded data for treeStore, src: https://dgrid.io/js/dgrid/test/data/rest.php
+    var dgridTree = [
+    {
+        "id": "00",
+        "name": "Item 0",
+        "comment": "hello"
+    },
+    {
+        "id": "01",
+        "name": "Item 1",
+        "comment": "hello"
+    },
+    {
+        "id": "02",
+        "name": "Item 2",
+        "comment": "hello"
+    },
+    {
+        "id": "03",
+        "name": "Item 3",
+        "comment": "hello"
+    },
+    {
+        "id": "04",
+        "name": "Item 4",
+        "comment": "hello"
+    },
+    {
+        "id": "05",
+        "name": "Item 5",
+        "comment": "hello"
+    },
+    {
+        "id": "06",
+        "name": "Item 6",
+        "comment": "hello"
+    },
+    {
+        "id": "07",
+        "name": "Item 7",
+        "comment": "hello"
+    },
+    {
+        "id": "08",
+        "name": "Item 8",
+        "comment": "hello"
+    },
+    {
+        "id": "09",
+        "name": "Item 9",
+        "comment": "hello"
+    },
+    {
+        "id": "010",
+        "name": "Item 10",
+        "comment": "hello"
+    },
+    {
+        "id": "011",
+        "name": "Item 11",
+        "comment": "hello"
+    },
+    {
+        "id": "012",
+        "name": "Item 12",
+        "comment": "hello"
+    },
+    {
+        "id": "013",
+        "name": "Item 13",
+        "comment": "hello"
+    },
+    {
+        "id": "014",
+        "name": "Item 14",
+        "comment": "hello"
+    },
+    {
+        "id": "015",
+        "name": "Item 15",
+        "comment": "hello"
+    },
+    {
+        "id": "016",
+        "name": "Item 16",
+        "comment": "hello"
+    },
+    {
+        "id": "017",
+        "name": "Item 17",
+        "comment": "hello"
+    },
+    {
+        "id": "018",
+        "name": "Item 18",
+        "comment": "hello"
+    },
+    {
+        "id": "019",
+        "name": "Item 19",
+        "comment": "hello"
+    },
+    {
+        "id": "020",
+        "name": "Item 20",
+        "comment": "hello"
+    },
+    {
+        "id": "021",
+        "name": "Item 21",
+        "comment": "hello"
+    },
+    {
+        "id": "022",
+        "name": "Item 22",
+        "comment": "hello"
+    },
+    {
+        "id": "023",
+        "name": "Item 23",
+        "comment": "hello"
+    },
+    {
+        "id": "024",
+        "name": "Item 24",
+        "comment": "hello"
+    },
+    {
+        "id": "025",
+        "name": "Item 25",
+        "comment": "hello"
+    },
+    {
+        "id": "026",
+        "name": "Item 26",
+        "comment": "hello"
+    },
+    {
+        "id": "027",
+        "name": "Item 27",
+        "comment": "hello"
+    },
+    {
+        "id": "028",
+        "name": "Item 28",
+        "comment": "hello"
+    },
+    {
+        "id": "029",
+        "name": "Item 29",
+        "comment": "hello"
+    },
+    {
+        "id": "030",
+        "name": "Item 30",
+        "comment": "hello"
+    },
+    {
+        "id": "031",
+        "name": "Item 31",
+        "comment": "hello"
+    },
+    {
+        "id": "032",
+        "name": "Item 32",
+        "comment": "hello"
+    },
+    {
+        "id": "033",
+        "name": "Item 33",
+        "comment": "hello"
+    },
+    {
+        "id": "034",
+        "name": "Item 34",
+        "comment": "hello"
+    },
+    {
+        "id": "035",
+        "name": "Item 35",
+        "comment": "hello"
+    },
+    {
+        "id": "036",
+        "name": "Item 36",
+        "comment": "hello"
+    },
+    {
+        "id": "037",
+        "name": "Item 37",
+        "comment": "hello"
+    },
+    {
+        "id": "038",
+        "name": "Item 38",
+        "comment": "hello"
+    },
+    {
+        "id": "039",
+        "name": "Item 39",
+        "comment": "hello"
+    }
+]
+</script>
+
+		<script src="https://dgrid.io/js/dojo/dojo.js"
+			data-dojo-config="async: true"></script>
+		<script>
+			require(["dgrid/Grid", "dgrid/extensions/Pagination", "dgrid/Selection", "dgrid/Tree",
+					"dojo/_base/lang", "dojo/_base/declare", "dojo/dom-construct", "dojo/dom-form",
+					"dstore/Rest", "dstore/Cache", "dstore/Trackable", "dstore/Tree", "dojo/domReady!"],
+				function(Grid, Pagination, Selection, Tree,
+						lang, declare, domConstruct, domForm,
+						Rest, Cache, Trackable, TreeStore){
+
+					var CustomGrid = declare([Grid, Selection, Pagination, Tree]);
+					var testStore;
+//@mpt					var testStore = dgridTree;
+
+					function createStore(config){
+						testStore = new declare([ Rest, Cache, Trackable, TreeStore ])(lang.mixin({
+//@mpt							target:dgridTree
+//@mpt							target:"file:///C:/Users/inets/Desktop/treeData.txt"
+							target:"http://dgrid.io/js/dgrid/test/data/rest.php"
+						}, config));
+					}
+//@mpt					createStore();
+
+					function getColumns(){
+						return [
+							{label:'Name', field:'name', sortable: false, renderExpando: true},
+							{label:'Id', field:'id', sortable: true},
+							{label:'Comment', field:'comment', sortable: false}
+						];
+					}
+
+					window.grid2 = new CustomGrid({
+						className: "dgrid-autoheight",
+						collection: testStore,
+						columns: getColumns(),
+						pagingLinks: false,
+						pagingTextBox: true,
+						firstLastArrows: true,
+						pageSizeOptions: [10, 15, 25]
+					}, "grid2");
+
+					function createGrid(args){
+						window.grid = new CustomGrid(lang.mixin({
+									collection: testStore,
+									columns: getColumns()
+								}, args),
+							"grid");
+					}
+					createGrid();
+
+					var form = document.getElementById("configForm");
+					form.onsubmit = function() {
+						var args = domForm.toObject(form);
+						args.pagingLinks = +args.pagingLinks;
+						if (!args.previousNextArrows) { args.previousNextArrows = false; }
+						if (!args.showLoadingMessage) { args.showLoadingMessage = false; }
+
+						// recreate grid using args from form
+						window.grid.destroy();
+						domConstruct.create("div", { id: "grid" }, form, "after");
+						createStore({ useRangeHeaders: args.useRangeHeaders});
+						args.useRangeHeaders = undefined;
+						createGrid(args);
+
+						return false;
+					};
+				});
+		</script>
+	</head>
+	<body class="claro">
+<center><h2>dgrid Tree w/<a href='https://dgrid.io/js/dgrid/test/extensions/Pagination_Tree.html'>pagination</a></h2>
+<p>
+<mark>Current status (Oct 26)</mark>: CORs prevents accessing store; nd to read up on store & allow local store (see the gridFromHtml ex)<p>
+
+</center>
+		<h2>A basic grid with the Pagination extension with tree plugin</h2>
+		<h3>Configuration</h3>
+		<form id="configForm">
+			<div><label><input type="checkbox" name="useRangeHeaders">
+				Use request range headers (rather than limit parameter)</label></div>
+			<div><label><input type="checkbox" name="firstLastArrows">
+				Show first/last page arrows</label></div>
+			<div><label><input type="checkbox" name="previousNextArrows" checked>
+				Show previous/next page arrows</label></div>
+			<div><label><input type="checkbox" name="pagingTextBox">
+				Show "jump-to" textbox</label></div>
+			<div><label><input type="checkbox" name="showLoadingMessage" checked>
+				Show loading message while loading data</label></div>
+			<div>
+				<label><input type="text" name="pagingLinks" value="2" size="1">
+					Number of neighboring page numbers to display to each side of current
+					(0 to disable)</label>
+			</div>
+			<div><button type="submit">Update Grid</button></div>
+		</form>
+		<div id="grid"></div>
+		<h2>An autoheight grid with the Pagination extension,
+			with a rows-per-page drop-down</h2>
+		<div id="grid2"></div>
+	</body>
+</html>

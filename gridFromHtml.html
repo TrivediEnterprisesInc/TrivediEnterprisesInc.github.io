@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>dgrid:GridFromHtml</title>
+		<meta name="viewport" content="width=570">
+		<style>
+			@import "https://dgrid.io/js/dojo/resources/dojo.css";
+			@import "https://dgrid.io/js/dgrid/css/dgrid.css";
+			@import "https://dgrid.io/js/dgrid/css/skins/claro.css";
+			body {
+				padding: 0 80px; /* side padding to make it easier to scroll doc */
+			}
+
+			/* tests for renderCell / renderHeaderCell */
+			.renderedCell {
+				font-style: italic;
+			}
+			.renderedHeaderCell {
+				text-decoration: underline;
+			}
+		</style>
+
+<script>
+    var orderedData = {
+		identifier: 'name',
+		items: [
+			{ order: 1, name: 'preheat', description: 'Preheat your oven to 350°F' },
+			{ order: 2, name: 'mix dry', description: 'In a medium bowl, combine flour, salt, and baking soda' },
+			{ order: 3, name: 'mix butter', description: 'In a large bowl, beat butter, then add the brown sugar and white sugar then mix' },
+			{ order: 4, name: 'mix together', description: 'Slowly add the dry ingredients from the medium bowl to the wet ingredients in the large bowl, mixing until the dry ingredients are totally combined' },
+			{ order: 5, name: 'chocolate chips', description: 'Add chocolate chips' },
+			{ order: 6, name: 'make balls', description: 'Scoop up a golf ball size amount of dough with a spoon and drop in onto a cookie sheet' },
+			{ order: 7, name: 'bake', description: 'Put the cookies in the oven and bake for about 10-14 minutes' },
+			{ order: 8, name: 'remove', description: 'Using a spatula, lift cookies off onto wax paper or a cooling rack' },
+			{ order: 9, name: 'eat', description: 'Eat and enjoy!' }
+		]
+    }
+
+    var djConfig = {
+      isDebug: true, 
+      popup:true, 
+      parseOnLoad: true, 
+      useCustomLogger:true,
+      debugPrintStr : "dojoConfig"
+    };
+</script>
+
+		<script src="https://dgrid.io/js/dojo/dojo.js"></script>
+		<script>
+			var store; // defined later, Memory store containing data
+
+			function getOrdinal(num){
+				// returns a String consisting of num + the appropriate ordinal suffix
+				var ord = 'th';
+				switch (num % 10) {
+					case 1:
+						ord = 'st';
+						break;
+					case 2:
+						ord = 'nd';
+						break;
+					case 3:
+						ord = 'rd';
+						break;
+				}
+				return num + ord;
+			}
+
+			function testFormatter(item){
+				return "<h3>Step " + item.order + ": " + item.name + "</h3><p>" +
+					item.description + "</p>";
+			}
+
+			function testGet(item){
+				return getOrdinal(item.order);
+			}
+
+			function testRenderHeaderCell(th){
+				var div = document.createElement("div");
+				div.className = "renderedHeaderCell";
+				div.innerHTML = "Step";
+				return div;
+			}
+
+			function testRenderCell(object, data, td, options){
+				var div = document.createElement("div");
+				div.className = "renderedCell";
+				div.innerHTML = getOrdinal(object.order);
+				return div;
+			}
+
+
+
+			require(["dgrid/GridFromHtml", "dgrid/OnDemandList",
+				"dojo/_base/declare", "dgrid/test/data/createSyncStore", 
+				"dojo/parser", "dojo/domReady!"],
+			function(GridFromHtml, OnDemandList, declare, createSyncStore, parser){
+
+				window.gridFromHtmlLegacyGet = new GridFromHtml({},
+					"gridFromHtmlLegacyGet");
+				gridFromHtmlLegacyGet.renderArray(orderedData.items);
+
+				// Need to expose GridFromHtml as a global for parser to find.
+				// Mix in OnDemandList and create a store, since otherwise there's not
+				// much of a way to add data.
+				window.dgrid = { GridFromHtml: declare([GridFromHtml, OnDemandList]) };
+				store = createSyncStore({data: orderedData});
+				parser.parse();
+			});
+
+		</script>
+	</head>
+	<body class="claro">
+
+		<h2>GridFromHtml with embedded orderedData store</h2>
+		<h6><i>1b: GridFromHtml with single column with get for order field, and blank label for 3rd column</i><br>
+Uses:
+<ul><li>dgrid srcRefs</li>
+<li>dgrid test src</li>
+<li>default dgrid claro</li>
+<li>dgrid libs: 
+<ul><li>dgrid/<a href='https://github.com/SitePen/dgrid/blob/v1.2.1/GridFromHtml.js'>GridFromHtml</a></li>
+<li>dgrid/<a href='https://github.com/SitePen/dgrid/blob/v1.2.1/OnDemandList.js'>OnDemandList</a></li>
+<li>dgrid/test/data/<a href='https://github.com/SitePen/dgrid/blob/v1.2.1/test/data/createSyncStore.js'>createSyncStore</a></li>
+</ul>
+</li>
+</ul>
+</h6>
+
+		<table id="gridFromHtmlLegacyGet">
+			<tbody>
+				<tr>
+					<th data-dgrid-column="{field:'order', get:testGet}">Step</th>
+					<th>name</th>
+					<th data-dgrid-column="{label:'', field:'description', sortable:false}">what to do</th>
+				</tr>
+			</tbody>
+		</table>
+
+	</body>
+</html>
