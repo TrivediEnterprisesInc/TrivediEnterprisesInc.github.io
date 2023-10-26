@@ -655,7 +655,7 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	 - [ ] Begin impl custom stuff
 	 - [ ] AutoDownload (cli+dsk) on 1st login
 	 - [ ] Add get/post capab from non-stdrd cli.s
-	 - [ ] Chk post mechanics SigR
+	 - [ ] Chk post mechanics SigR (see [this](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#signalr))
  - [ ] [Windowing](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#windowing)
 	 - [ ] @ this pt. or at any pt. earlier (@mbi) switch 2 completing all outstanding tks under this umbrella
 - [ ] Demo(s)
@@ -674,6 +674,7 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 - [ ] Org
 	- [ ] mBoxes
 		- [ ] Port Notes 2 mBoxes (see [this](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#mboxes-redux)); add tab func
+			- [x] Began work, basic stuff done; extracts content see [this](https://trivedienterprisesinc.github.io/mBoxNotes.html)
 		- [ ] Complete priorTk: dlgBox 4 contents (curr uses msgBx)
 		- [ ] Determine whether to use a Form 4 entry.  See notes (link above) 4 options; cld always do them serially as be4
 		- [ ] 1st port Notes (this doc) + from sys
@@ -693,7 +694,13 @@ So, it’s a game of inches you have to fight really, really hard for every inch
    - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
      Cre8 new sections 4 these & move there so they can be expanded upon
    - The winForms [gist](https://gist.github.com/TrivediEnterprisesInc/987b23e0a256182a0ac29bb36820d6d9)
-   - Frm [tester](https://trivedienterprisesinc.github.io/frm.html)
+   - Dojo stuff: 
+   	- [Frm](https://trivedienterprisesinc.github.io/frm.html) 
+   	- [Notes](https://trivedienterprisesinc.github.io/mBoxNotes.html) 
+   	- [func](https://trivedienterprisesinc.github.io/func.html)
+   	- dgrid: [gridFromHtml](https://trivedienterprisesinc.github.io/gridFromHtml.html)
+	- dgrid: [treePag](https://trivedienterprisesinc.github.io/treePag.html)
+   	- (placeholdr) [snip](https://trivedienterprisesinc.github.io/snip.html)
 
 ## mBoxes Redux?
   - We nd a b8r way to org these notes; MD fine but not v searchable; so revert to mBoxes w/tags
@@ -1464,6 +1471,15 @@ The same query works in LINQ2 using doc["FieldName"] or in LINQ3 with a POCO usi
 
 ## Reading Shelf
 
+#### 10/13 
+
+  - https://12factor.net/
+  - Free and Open Source Machine Translation API: https://github.com/LibreTranslate/LibreTranslate
+  - *** form posts w/new syntax .net [8](https://andrewlock.net/exploring-the-dotnet-8-preview-form-binding-in-minimal-apis/)
+  - Personal websites? There are way more of them than there were "back in the day", you just have to know how to [find them]( https://search.marginalia.nu/)
+  - Show me yr half-baked [project](https://news.ycombinator.com/item?id=37857231)
+
+	
 @ToDo: Add updateable links to Culture (hn + lobst) et al...
   
 **everything** by Alexis King (he wrote Parse, don't validate.  v lucid, 
@@ -1847,6 +1863,16 @@ Some shows avail, others not:
    - Related [article](https://learn.microsoft.com/en-us/aspnet/core/signalr/dotnet-client?view=aspnetcore-7.0&source=recommendations&tabs=visual-studio)
    - SignalR [winForms](https://learn.microsoft.com/en-us/archive/msdn-magazine/2018/may/cutting-edge-under-the-covers-of-asp-net-core-signalr#non-web-clients) 2018 (not current)
    - An informal descr of the SignalR [protocol](https://blog.3d-logic.com/2015/03/29/signalr-on-the-wire-an-informal-description-of-the-signalr-protocol/)
+	
+#### Form Post Mechanics
+
+   - Best [resource](https://www.c-sharpcorner.com/article/building-a-real-time-chat-application-with-net-core-7-signalr/) (also current)
+   - SO: Use persistence after a [post](https://stackoverflow.com/questions/12786220/signalr-use-persistance-after-a-post)
+   - SO: cs codebehind [form](https://stackoverflow.com/questions/18143599/can-signalr-be-used-with-asp-net-webforms)
+   - SO: multi-cli async [return](https://stackoverflow.com/questions/70949774/signalr-multi-client-method-call-async-return-net-core-6)
+   - SO: svr2cli [asp.net](https://stackoverflow.com/questions/73163987/message-does-not-send-from-server-to-client-in-signalr-asp-net-core-web-applicat)
+
+
 
 ### Headers
 `
@@ -2071,3 +2097,60 @@ Make [G-Sheets](https://news.ycombinator.com/item?id=34413960) a UI for your Mon
 Sync Google Sheets with MongoDB: [4 ways](https://www.usebracket.com/post/connect-gsheets-to-mongo) to do it
 
 Ask HN: Where can one learn about [boring](https://news.ycombinator.com/item?id=33570740) web development?
+
+	
+#### Rec (Noir + bks)
+
+1172 noir titles: https://archive.org/details/Film_Noir?sort=-downloads
+
+Welles's third completed feature film as director and his first film noir: 
+  https://en.wikipedia.org/wiki/The_Stranger_(1946_film)
+
+https://commons.wikimedia.org/wiki/Category:Films_in_the_public_domain
+
+From guardian's  100-best-novels->
+  - Money: A Suicide Note by Martin Amis (1984)
+    era-defining ode to excess
+  - The End of the Affair by Graham Greene (1951)
+    adultery and its aftermath
+  - Voss by Patrick White (1957)
+    disappearance of an explorer in the outback
+  - Under the Volcano by Malcolm Lowry (1947)
+    Last hours of an alcoholic ex-diplomat in Mexico
+  - Party Going by Henry Green (1939)
+    It tells the story of a group of wealthy people travelling by train to a house party.
+  - All the King’s Men by Robert Penn Warren (1946)
+    Gov Willie Stark and his political machinations in the Depression-era Deep South
+  - Wharton was 58, rec'd 1st Pulitzer 4 https://en.wikipedia.org/wiki/The_Age_of_Innocence
+  - As I Lay Dying by William Faulkner (1930)
+  - Gentlemen Prefer Blondes by Anita Loos (1925) defined the jazz age
+  - https://en.wikipedia.org/wiki/The_Moonstone
+  - The Golden Bowl by Henry James (1904)
+  - https://en.wikipedia.org/wiki/New_Grub_Street
+  - The Call of the Wild by Jack London (1903)
+  - The History of Mr Polly by HG Wells (1910) 
+    (comedy - drapery - Mr. Polly's struggle with life, told "in the full-blooded Dickens tradition")
+  - Babbitt by Sinclair Lewis (1922)
+  - Nineteen Nineteen by John Dos Passos (1932)
+  - The Beginning of Spring by Penelope Fitzgerald (1988)
+    Russia b4 the Bolshevik revolution
+
+	
+XFers 4 any hard surface ->
+[1](https://www.etsy.com/listing/1481768491/custom-uv-dtf-stickers-uv-transfer)
+[2](https://www.etsy.com/listing/1489348100/custom-uv-dtf-stickers-permanent)
+
+60% mech [keybd](https://www.amazon.com/dp/B096VKLF4S)
+Bltooth Ergo [mouse](https://www.microsoft.com/en/accessories/products/mice/microsoft-bluetooth-ergonomic-mouse?activetab=pivot:overviewtab)
+
+Keycaps:
+[green](https://www.etsy.com/listing/1307771747/epoxy-resin-artisan-keycap-custom)
+[moss+flower](https://www.etsy.com/listing/1259858081/mossflower-artisan-keycap-real-moss-and)
+[moss](https://www.etsy.com/listing/1513448257/moss-artisan-keycap-custom-keycaps)
+[katana](https://www.etsy.com/listing/1526858412/the-katana-collection-artisan-resin}
+[Enter](https://www.etsy.com/listing/1450930413/resin-elevated-artisan-keycap-for-mx)
+[astronaut](https://www.etsy.com/listing/1005243836/interstellar-resin-keycap-interstellar)
+	
+Reading [Leftovers](https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/raw/main/ReadingLeftovers.docx)
+
+
