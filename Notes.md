@@ -1,4 +1,3 @@
-
 # Table of Contents
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
@@ -11,12 +10,14 @@
         - [Dropping (any ctrl)](#dropping-any-ctrl)
       - [Handling DnD drops betw rows](#handling-dnd-drops-betw-rows)
   - [Wireframes Tabbed PropBox](#wireframes-tabbed-propbox)
+  - [Wireframes WebCli](#wireframes-webcli)
   - [Templating](#templating)
     - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
   - [Process Flows `S`](#process-flows-s)
   - [Process Flows `A`](#process-flows-a)
   - [Process Flows `G`](#process-flows-g)
   - [Process Flows `H`](#process-flows-h)
+    - [Notes for H](#notes-for-h)
   - [Process Flows `O`](#process-flows-o)
     - [Notes for Other](#notes-for-other)
   - [Reading](#reading)
@@ -99,6 +100,7 @@
       - [Expando Casting](#expando-casting)
       - [Other links](#other-links)
   - [Reading Shelf](#reading-shelf)
+      - [10/13](#1013)
     - [SaaS reading (from a Bing Chat sess.)](#saas-reading-from-a-bing-chat-sess)
   - [Notes from reading](#notes-from-reading)
     - [Indie music submissions (Founder Story)](#indie-music-submissions-founder-story)
@@ -137,6 +139,7 @@
     - [Shows](#shows)
 - [Other](#other)
     - [SignalR](#signalr)
+      - [Form Post Mechanics](#form-post-mechanics)
     - [Headers](#headers)
     - [allFlds (from baseTkDatAux)](#allflds-from-basetkdataux)
     - [TaskDVAux dat brkdn + raw](#taskdvaux-dat-brkdn--raw)
@@ -153,7 +156,7 @@
     - [Tally (form builder) 70k mrr](#tally-form-builder-70k-mrr)
     - [Thu Oct 12](#thu-oct-12)
       - [Mongo stories/refs from HN](#mongo-storiesrefs-from-hn)
-
+      - [Rec (Noir + bks)](#rec-noir--bks)
 
 
 
@@ -310,6 +313,25 @@ List<rows>.filter(isOdd) |> processForLayout()
   - Add new ty, switch on selTy (nds Cell(s) - if plu don't show labels) | Frm (incl title, icon)
   - Wherever appropr, tab gets btn `Set all to this`
   - `Display` switches on selTy to offer wids; dynamic updates
+
+## Wireframes WebCli
+- Grid
+	- dojox: [treeGrid]
+	- dgrid: [gridFromHtml](https://trivedienterprisesinc.github.io/gridFromHtml.html)
+	- dgrid: [treePag](https://trivedienterprisesinc.github.io/treePag.html)
+		- Pagination totals are for categs, not records (huh?)
+		- @ToDo: Adapt to accept all data from ctor
+		- @ToDo: Adapt to local store w/html dataSrc
+		- @ToDo: v2? Combine Grid+PagBar
+- Form
+	- [Frm](https://trivedienterprisesinc.github.io/frm.html) 
+	- Just gen tds svrSide
+	- Found flat schemes for ref (see: dev/web/Dojo/links)  Look limp but whatever.
+	- _TBar style (normalTxt) until hover_
+- [mBoxNotes](https://trivedienterprisesinc.github.io/mBoxNotes.html) 
+- ES6 [func](https://trivedienterprisesinc.github.io/func.html)
+- (placeholdr) [snip](https://trivedienterprisesinc.github.io/snip.html)
+
 
 ## Templating
 ### Brij flow using ρ setup ->
@@ -553,6 +575,10 @@ graph TB
     class gh2Y ltBrn
     end
 ```
+### Notes for H
+For GreenH et al 'cli:Refs to itm Ex?' 
+  - For v1 @ least -> stop right here; make cli removeRefs
+  - L8r -> autoRemove/Rename where appropriate.
 
 ## Process Flows `O`
 ```mermaid
@@ -626,7 +652,10 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 ...you give them the features and when you do give them the features you fight for that elegance and that simplicity, you fight for <mark>hiding the complicated functionality</mark> under the surface sort of a viewer user interface, so you only give them <mark>one choice instead of six</mark> but they still have all the <mark>same options</mark>.
 
 # Outstanding Tks
-(Last updated Oct 13 2023)
+(Last updated Oct 27 2023)
+ - [ ] General
+ 	 - [ ] Nd to chk bundle reqmts 2 run dotNet in new env.
+ 	 (Note that other tasks e.g. Svr depend on this task)
  - [ ] [DnD Impl](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#links-all-winforms-dnd-docs)
 	 - [ ] Cell Tbl struct
 		 - [x] Dynamic bld (10/11/23)
@@ -675,9 +704,9 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	- [ ] mBoxes
 		- [ ] Port Notes 2 mBoxes (see [this](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#mboxes-redux)); add tab func
 			- [x] Began work, basic stuff done; extracts content see [this](https://trivedienterprisesinc.github.io/mBoxNotes.html)
-		- [ ] Complete priorTk: dlgBox 4 contents (curr uses msgBx)
+		- [x] Complete priorTk: dlgBox 4 contents (curr uses msgBx)
 		- [ ] Determine whether to use a Form 4 entry.  See notes (link above) 4 options; cld always do them serially as be4
-		- [ ] 1st port Notes (this doc) + from sys
+		- [x] 1st port Notes (this doc) + from sys
 		- [ ] Port snippets et al aussi
 		- [ ] Incorp in2 bkmrks
 - [ ] Research
@@ -694,13 +723,6 @@ So, it’s a game of inches you have to fight really, really hard for every inch
    - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
      Cre8 new sections 4 these & move there so they can be expanded upon
    - The winForms [gist](https://gist.github.com/TrivediEnterprisesInc/987b23e0a256182a0ac29bb36820d6d9)
-   - Dojo stuff: 
-   	- [Frm](https://trivedienterprisesinc.github.io/frm.html) 
-   	- [Notes](https://trivedienterprisesinc.github.io/mBoxNotes.html) 
-   	- [func](https://trivedienterprisesinc.github.io/func.html)
-   	- dgrid: [gridFromHtml](https://trivedienterprisesinc.github.io/gridFromHtml.html)
-	- dgrid: [treePag](https://trivedienterprisesinc.github.io/treePag.html)
-   	- (placeholdr) [snip](https://trivedienterprisesinc.github.io/snip.html)
 
 ## mBoxes Redux?
   - We nd a b8r way to org these notes; MD fine but not v searchable; so revert to mBoxes w/tags
