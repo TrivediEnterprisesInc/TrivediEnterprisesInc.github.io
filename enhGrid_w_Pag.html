@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html >
+<head>
+
+<style type="text/css">
+
+@import "https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css";
+@import "https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/resources/dojo.css";
+@import "https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css";
+@import "https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/EnhancedGrid_rtl.css";
+
+/*Grid need a explicit width/height by default*/
+#grid {
+    width: 43em;
+    height: 20em;
+}
+	</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1">
+    </script>
+	
+	<script>
+require(['dojox/grid/EnhancedGrid', 
+'dojox/grid/enhanced/plugins/Pagination',
+'dojo/data/ItemFileWriteStore', 'dojo/domReady!'],
+    function(grid, pagination, store, dom){
+
+    /*set up data store*/
+    var data = {
+      identifier: 'id',
+      items: []
+    };
+    var data_list = [
+      { col1: "normal", col2: false, col3: 'But are not followed by two hexadecimal', col4: 29.91},
+      { col1: "important", col2: false, col3: 'Because a % sign always indicates', col4: 9.33},
+      { col1: "important", col2: false, col3: 'Signs can be selectively', col4: 19.34}
+    ];
+    var rows = 200;
+    for(var i=0, l=data_list.length; i<rows; i++){
+      data.items.push(dojo.mixin({ id: i+1 }, data_list[i%l]));
+    }
+    var store = new store({data: data});
+
+    /*set up layout*/
+    var layout = [[
+      {name: 'Column 1', field: 'id'},
+      {name: 'Column 2', field: 'col2'},
+      {name: 'Column 3', field: 'col3', width: "230px"},
+      {name: 'Column 4', field: 'col4'}
+    ]];
+
+    /*create a new grid:*/
+    var grid = new grid({
+        id: 'grid',
+        store: store,
+        structure: layout,
+        rowSelector: '20px',
+        plugins: {
+          pagination: {
+              pageSizes: ["25", "50", "100", "All"],
+              description: true,
+              sizeSwitch: true,
+              pageStepper: true,
+              gotoButton: true,
+                      /*page step to be displayed*/
+              maxPageStep: 4,
+                      /*position of the pagination bar*/
+              position: "bottom"
+          }
+        }
+    }, document.createElement('div'));
+
+    /*append the new grid to the div*/
+    dojo.byId("gridDiv").appendChild(grid.domNode);
+
+    /*Call startup() to render the grid*/
+    grid.startup();
+});
+	</script>
+</head>
+<body class="claro">
+<center><h2>Enhanced Grid w/Pagination</h2></center>
+<ul>
+<li>The styles are embedded</li>
+<li>Some missing img files (looks for them locally)<br>
+e.g., Pag bar bottomRight has GoToPg btn img (upArr)</li>
+<li>Store generated locally</li>
+</ul>
+<p>
+<p>
+<p>
+<center>
+    <div id="gridDiv"></div>
+</center>
+</body>
+</html>
