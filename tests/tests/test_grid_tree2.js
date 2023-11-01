@@ -129,34 +129,6 @@ require([
 		].join('');
 	};
 
-	layout1 = [
-		//Anything except natual number (1, 2, 3...) means all levels are expanded in this column.
-		{id: 'number', name: 'number', field: 'number',
-			expandLevel: 'all',
-			width: '200px',
-			widgetsInCell: true,
-			decorator: progressDecorator,
-			editable: true,
-			editor: 'dijit/form/NumberTextBox'
-		},
-		{id: 'id', name: 'id', field: 'id'},
-		{id: 'string', name: 'string', field: 'string'},
-		{id: 'date', name: 'date', field: 'date'},
-		{id: 'time', name: 'time', field: 'time'},
-		{id: 'bool', name: 'bool', field: 'bool'}
-	];
-	layout2 = [
-		//Expandable column defaults to the first one, if no expandLevel provided.
-		{id: 'id', name: 'id', field: 'id'},
-		{id: 'number', name: 'number', field: 'number',
-			widgetsInCell: true,
-			decorator: progressDecorator
-		},
-		{id: 'string', name: 'string', field: 'string'},
-		{id: 'date', name: 'date', field: 'date'},
-		{id: 'time', name: 'time', field: 'time'},
-		{id: 'bool', name: 'bool', field: 'bool'}
-	];
 	layout3 = [
 		{id: 'number', name: 'number', field: 'number'},
 		{id: 'string', name: 'string', field: 'string'},
