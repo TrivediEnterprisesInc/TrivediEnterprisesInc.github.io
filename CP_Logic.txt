@@ -1,0 +1,96 @@
+/* jshint esnext: true */
+
+
+/* 
+-----------------
+UIAux ->
+-----------------
+    type કલકતી_પાન_Aux<'t when 't :> ITblMarker> (dvTy, dFrm, ctorDef:CalcuttiMasaloAux<'t>, inDat, procId, winTy) as g =
+...
+        let mutable dat:obj list list = inDat
+        let (CalcuttiMasaloAux(nm, tblDef, docInf, colCellFont, colHdrs, visCols, fldLi, fixedSz, fltr, categBy, sortBy, openCategs, xSt, rowTips, Ttips, pOpts)) = def
+        let (SaadoMasaloAux( tblNm, flds, dskIcn,tblTy)) = tblDef
+        let (DVPaginationOptsAux(pgSz, currPg, totPgs,  recFrm , recTo , totRecs)) = pOpts.Value
+        let categExpando =
+            g.CellClick.AddHandler(new DataGridViewCellEventHandler (fun sender (e:DataGridViewCellEventArgs) -> 
+                                if (g.isCategRow(e.RowIndex)) then
+                                    let categ:string = unbox (dat.[e.RowIndex].[g.getColNamed("Parent")])
+                                    g.upd( svrReqAux "kathoCalcuttiCateg" categ def )
+                                  else ()))
+...
+                regTBar.Items.Add (getTSButtonAux "expandAll" "unfold_more_double.png" (Some("Expand All Categories")) (Some(new EventHandler (fun sender e -> 
+                        def <- (CalcuttiMasaloAux(nm, tblDef, docInf, colCellFont, colHdrs, visCols, fldLi, fixedSz, fltr, categBy, sortBy, openCategs, XAll, rowTips, Ttips, pOpts))
+                        g.upd( svrReqAux "kathoCalcuttiCategExpando" "" def )))) wld)
+
+-----------------
+Defs in Brij.fs ->
+-----------------
+type DVPaginationOpts = | DVPaginationOpts of pgSz:int * currPg:int * totPgs:int * recFrm:int * recTo:int * totRecs:int
+
+type expandoState = | XAll | XNone | XUserSel
+
+type CalcPred<'t when 't :> ITblMarker> = | CalcPred of ((BrijTy<'t> -> bool) * SOrd)
+
+type CalcuttiMasaloAux<'t when 't :> ITblMarker> = | CalcuttiMasaloAux of nm:string * tblDef:SaadoMasaloAux<'t> * docInf:DesDocInf
+                                                            * colCellFont:list<(int * Font)> option
+                                                            * colHdrs:list<string> * visCols:int
+                                                            * fldLi:list<string> * fixedSz:(int* int) option
+                                                            * categBy:CalcPred<'t> list option * sortBy:CalcPred<'t> list option * fltr:CalcPred<'t> list option
+                                                            * openCategs:list<string> * xState:expandoState
+                                                            * rowTips:bool * Ttips:list<string*list<string>> option
+                                                            * pOpts:DVPaginationOptsAux option with
+    override this.ToString() = "CalcuttiMasalo ob..."
+
+
+----------------------------------
+CP ctor call in LoggedUIRnr ->
+----------------------------------
+Note: tDef, dz unnecc..
+
+...                             | "TaskDVAux" -> 
+                                     let tplFLi = baseTkDatAux tDef tkFldLiLocalAux |> fst
+                                     let tkDt = baseTkDatAux tDef tkFldLiLocalAux |> snd
+                                     let dvD = CalcuttiMasaloAux("Default tkDV", tDef, DesDocInfDeflt(), None, tplFLi, 6, tplFLi, None, None, None, None, [], XAll, true, None, Some(pagOptsAux))
+                                     let tDv = કલકતી_પાન_Aux(Dt, dsk, dvD, tkDt, "procId", "winTy")
+                                     (tDv.getFrm()).Show()
+
+
+
+*/
+
+    var outDiv = document.getElementById("outDiv");
+    let mixedArr = [1, "twi", false];
+    const mLog = function(str) {
+        let curr = outDiv.innerHTML;
+        console.log("for: " + str + "\ncurr:" + curr);
+        outDiv.innerHtml = curr + "<br>" + str;
+    }
+    console.log("mixed2: " + mixedArr[1]);
+    
+    const a = function() {
+        mLog("INLINE\narray.mapi:\n" + 
+        ([1, "twi", false].map(function (value, index) {
+          /*mLog("in map closure for x: " + value + "idx: " + index );*/
+            if (Number.isFinite(value)){
+              return (value * 2);
+            } else {
+              return value;
+            }
+          }
+        )));
+    };
+        
+    const o = function() {
+        mLog("INLINE\nobj.map: ?????\n" + 
+        (Object.entries({ 'a': 1, 'b': 2, 'c': 3 }).map(function ([key, value], index) {
+          /*mLog("obj.map-> val: " + value + " indx: " + index);*/
+          return (value * 2)
+        })));
+    }
+
+window.onload = (event) => {
+  mLog("page is fully loaded");
+  a();
+  o();
+};
+    
