@@ -4,7 +4,7 @@
 <head>
 <!-- html begins line #1527 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.10.26 bookmarks update pm">
+<meta name="description" content="2023.11.08 bookmarks update pm">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -666,15 +666,36 @@ getTopTabsByCount = (inArr, n) => {
 }
 
 mBuildTagArray = function (StoreKey){
+/*
+    Two flows: * 1-arg: blds [tags] 4 StoreKey div;
+               * forTag -> yields only subtags for Tag passed in
+*/
+
+
         var mTagArr = {tagName : [], tagCount : []};
         console.log( "mBuildTagArray...");
-//StoreKey:devNotes RENAME 2 notesTagged; fire mainTxtDiv handler on str.contains('Tagged')
-//ContentDiv:NotesBoxContainer RENAME 2 notesBoxContainer
-        let hashPos = StoreKey.indexOf("Tagged");
-        let mBoxTy = StoreKey.substring(0, (StoreKey.length) - hashPos - 1);
-        let containerDiv = (mBoxTy + "BoxContainer")
-        let allFs = query(".mBox", containerDiv);
-        console.log( "tags:" + allFs.length);
+        var allFs = []; //depends on args
+        var mBoxTy = "";
+
+        switch(arguments.length) {
+            case 1:
+		//StoreKey:devNotes RENAME 2 notesTagged; fire mainTxtDiv handler on str.contains('Tagged')
+		//ContentDiv:NotesBoxContainer RENAME 2 notesBoxContainer
+	        let hashPos = StoreKey.indexOf("Tagged");
+	        mBoxTy = StoreKey.substring(0, (StoreKey.length) - hashPos - 1);
+	        let containerDiv = (mBoxTy + "BoxContainer"); //@@@
+	        allFs = query(".mBox", containerDiv);
+	        console.log( "tags:" + allFs.length);
+                break;
+            case 3:
+		allFs = query(arguments[1], arguments[2]);
+	        console.log( "tags:" + allFs.length);
+                break;
+            default:
+                console.log("mBuildTagArray argsLen:  -> unknown ...");
+            }
+
+
         for (i = 0; i < allFs.length; i++){
           var currTags = (allFs[i]).classList;
           for (j = 0; j < currTags.length; j++){
@@ -692,7 +713,7 @@ mBuildTagArray = function (StoreKey){
         };
         dP( "JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
         //mLog( "JSON.stringified Array Tags:" + JSON.stringify(mTagArr));
-        console.log("returning ty: " + mBoxTy);
+        //console.log("returning ty: " + mBoxTy);
         console.log("returning arr: " + mTagArr);
         return [mBoxTy, mTagArr];
 }
@@ -702,17 +723,21 @@ runUpdates = (storeID) => {
     let arr = JSON.stringify(res[1], null, 4); //tgNm, tgCt
     let topTags = getTopTabsByCount(res[1],4);
 
-    let tabFragBeg = "<div style='width: 100%; height: 100%'>" +
-                     "<div data-dojo-type='dijit/layout/TabContainer' style='width: 100%; height: 100%;'>"
-    let tabFragEnd = "</div></div>"
+    let tabFragBeg = "<div style='width: 100%; height: 100%'>\n" +
+                     "<div data-dojo-type='dijit/layout/TabContainer' style='width: 100%; height: 100%;'>\n";
+    let tabFragEnd = "</div></div>\n";
 
     let tabBldr = (acc,x,idx) => {
-          let line1 = idx = 1 ? "<div data-dojo-type='dijit/layout/ContentPane' title=" + x + " data-dojo-props='selected:true'>" : "<div data-dojo-type='dijit/layout/ContentPane' title=" + x; 
-          let line2 = "Lorem ipsum and all around..." + "</div>";
+          let line1 = idx == 0 ? "<div data-dojo-type='dijit/layout/ContentPane' title='" + x + "' data-dojo-props='selected:true'>" : "<div data-dojo-type='dijit/layout/ContentPane' title='" + x + "'>"; 
+          //let line2 = "Lorem ipsum and all around..." + "</div>\n";
+          let tagArrForThisPane = mBuildTagArray("", x, storeID);
+          let line2 = JSON.stringify(tagArrForThisPane) + "</div>\n";
           return acc + line1 + line2;
         };
     let mappedHTML = (topTags).reduce(tabBldr, tabFragBeg)
-    let allHtml = mappedHTML + tabFragEnd;
+    //add final tab if necc.
+    let otherTab = "<div data-dojo-type='dijit/layout/ContentPane' title='Other'></div>\n";
+    let allHtml = mappedHTML + otherTab + tabFragEnd;
 
     mainDiv.innerHTML = allHtml;
     parser.parse(mainDiv);
@@ -1524,7 +1549,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Oct 26th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 8th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
