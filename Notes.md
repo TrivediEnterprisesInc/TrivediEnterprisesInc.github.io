@@ -315,22 +315,38 @@ List<rows>.filter(isOdd) |> processForLayout()
   - `Display` switches on selTy to offer wids; dynamic updates
 
 ## Wireframes WebCli
-- Grid
-	- dojox: [treeGrid]
-	- dgrid: [gridFromHtml](https://trivedienterprisesinc.github.io/gridFromHtml.html)
-	- dgrid: [treePag](https://trivedienterprisesinc.github.io/treePag.html)
-		- Pagination totals are for categs, not records (huh?)
-		- @ToDo: Adapt to accept all data from ctor
-		- @ToDo: Adapt to local store w/html dataSrc
-		- @ToDo: v2? Combine Grid+PagBar
-- Form
-	- [Frm](https://trivedienterprisesinc.github.io/frm.html) 
+   - GridX
+		- [Splash](https://oria.github.io/gridx/) pg    |  [repo](https://github.com/oria/gridx/tree/master)
+		- Also has Pag totals from cols/grps, not recs BUT selecting a group selects subRecs
+(BONUS) exc 4 qUpd
+		- Repo contribs're all IBMers So this is probably the way 2 go
+		- **_Local versions_** ->
+			- [Tree](https://trivedienterprisesinc.github.io/ui/brij1.html) Grid: Expandoes in different columns (nested), async store
+			- [Dod](https://trivedienterprisesinc.github.io/ui/brij2.html) Grid: Details on demand
+			- [TBar](https://trivedienterprisesinc.github.io/ui/brij3.html) Grid: Toolbar (doesn't show)
+			- [Slanted](https://trivedienterprisesinc.github.io/ui/brij4.html) hdr Grid: Doesn't work in this version
+			- Group [Hdr](https://trivedienterprisesinc.github.io/ui/brij5.html) Grid: Details on demand
+			- [PagedBody](https://trivedienterprisesinc.github.io/ui/brij6.html) Grid: no pagBar, btns to load more (or auto via scroll)
+			- [Summary](https://trivedienterprisesinc.github.io/ui/brij7.html) Grid: Doesn't work - code has remmed stuff
+			- [Slanted](https://trivedienterprisesinc.github.io/ui/brij8.html) hdr Grid: Works in this version
+
+
+   - Dojox
+			- dojox: [enhanced](https://trivedienterprisesinc.github.io/ui/dojox_enhGrid_w_Pag.html) Grid w/Pagination
+			- dojox: [treeGrid](https://trivedienterprisesinc.github.io/ui/dojox_treeGrid.html)
+   - Dgrid
+			- dgrid: [gridFromHtml](https://trivedienterprisesinc.github.io/ui/dgrid_gridFromHtml.html)
+			- above w/[Flat](https://trivedienterprisesinc.github.io/ui/dgrid_gridFromHtml_Flat.html) schm 
+			- dgrid: [treePag](https://trivedienterprisesinc.github.io/ui/dgrid_treePag.html)
+				- Pagination totals are for categs, not records (huh?)
+   - Form
+	- **_Local version_** [Frm](https://trivedienterprisesinc.github.io/frm.html) 
 	- Just gen tds svrSide
 	- Found flat schemes for ref (see: dev/web/Dojo/links)  Look limp but whatever.
 	- _TBar style (normalTxt) until hover_
-- [mBoxNotes](https://trivedienterprisesinc.github.io/mBoxNotes.html) 
-- ES6 [func](https://trivedienterprisesinc.github.io/func.html)
-- (placeholdr) [snip](https://trivedienterprisesinc.github.io/snip.html)
+   - [mBoxNotes](https://trivedienterprisesinc.github.io/mBoxNotes.html) 
+   - ES6 [func](https://trivedienterprisesinc.github.io/func.html)
+   - (placeholdr) [snip](https://trivedienterprisesinc.github.io/snip.html)
 
 
 ## Templating
@@ -488,7 +504,6 @@ graph TB
     class grA1 red
     end
 ```
-
 ## Process Flows `G`
 ```mermaid
 graph TB
@@ -511,24 +526,28 @@ graph TB
     class a1,a6 red
     end
     subgraph HornG
-    hg1[svr.HornCmd param]-->hg2[CambattAd]
+    hg1[svr.HornCmd param]-->hgWeb{WebCli req?}
+    hgWeb-->|Yes|hgWeb1[Cast to reg request<br>*Forces chks*]
+    hgWeb-->|No|hg2
+    hgWeb1-->hg2[CambattAd]
     hg2-->hg3[Push 2 appropri8]
     hg3-->hg4[Await Next]
     class hg4 offWhite
-    class hg3 ltBrn
+    class hgWeb drkBlue
+    class hgWeb1,hg3 ltBrn
     class hg2 green
     class hg1 red
     end
     subgraph GandhiG
-    gg1[svr.GandhiGCmd param]-->hg2
+    gg1[svr.GandhiGCmd param]-->hgWeb
     class gg1 red
     end
     subgraph SupG
-    sg1[svr.SupGCmd param]-->hg2
+    sg1[svr.SupGCmd param]-->hgWeb
     class sg1 red
     end   
     subgraph GreenG
-    grg1[svr.GreenGCmd param]-->hg2
+    grg1[svr.GreenGCmd param]-->hgWeb
     class grg1 red
     end
 ```
@@ -657,14 +676,9 @@ So, it’s a game of inches you have to fight really, really hard for every inch
  	 - [ ] Nd to chk bundle reqmts 2 run dotNet in new env.
  	 (Note that other tasks e.g. Svr depend on this task)
  - [ ] [DnD Impl](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#links-all-winforms-dnd-docs)
-	 - [ ] Cell Tbl struct
-		 - [x] Dynamic bld (10/11/23)
-			 - [x] bld operational, tested (10/11/23)
-		 - [ ] Dynamic upd8t on DnD
-	 - [ ] Blank drop tgts
-		 - [ ] Bld/ins betw cells
-		 - [ ] Bld/ins betw rows
-		 - [ ] Dynamic rebld struct
+	 - [x] Dynamic bld (10/11/23)
+	 - [x] bld operational, tested (10/11/23)
+	 - [ ] Monadic state upd8t on DnD
  - [ ] [Wireframes Tabbed PropBox](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#wireframes-tabbed-propbox)
  	 - [ ] reimpl frm w/declarative|domConstr
 	 - [ ] New Tys 4 tabbedPgs
@@ -674,13 +688,20 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	 - [ ] Reuse/reImpl 4 other els
 	 - [ ] Use ResX for assets
  - [ ] [Wireframes WebCli](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#djcli)
-	 - [ ] Impl/test. **See** form [tester](https://trivedienterprisesinc.github.io/frm.html)
-	 - [ ] Poss gd idea 2 impl Auth @ this pt.
+ 	 - [ ] Impl/test Grid. **See** [Notes](https://trivedienterprisesinc.github.io/CP_Logic.txt)
+	 	 - [x] Impl barebones working test ver w/all func necc.
+	 	 - [_] Refactor code to accept direct defs
+	 	 - [ ] Refactor code to accept dat in more or less similar fmt
+	 	 - [ ] Ensure all necc mods in place (auto-col-resize etc.)
+	 	 - [ ] Essentially all func shd mirror Desktop + use same params (Cleaner on svrSide)
+	 - [ ] Impl/test Forms. **See** form [tester](https://trivedienterprisesinc.github.io/frm.html)
+	 - [ ] Hold off for now on impl Auth
  - [ ] Import Module
  	 - [ ] We nd an Export mod 2; basic func only (also nded for `ReddHat`)
 	 - [ ] Impl/test; just basic func will do **_this is the last major mod left to complete_**
 - [ ] Svr
-	 - [ ] Setup/test chat svr
+	 - [x] Setup/test chat svr
+	 - [ ] Port to F#
 	 - [ ] Begin impl custom stuff
 	 - [ ] AutoDownload (cli+dsk) on 1st login
 	 - [ ] Add get/post capab from non-stdrd cli.s
@@ -713,11 +734,41 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	- [ ] Myers/Briggs & current updates
 		- [ ] How 2 best ask pointed Qns/gather info?
 		- [ ] Tailored decision trees per user ty?
-   - [ ] Backend
+- [ ] Backend
 	   - [ ] @rsch BsonDoc [Qry](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#qry)
 	   - [ ] Collect all poss mongodb Qry params; incorp into code; impl.
 - [ ] Rec
 	- [ ] Need to begin creating/adding to bkmrks/Gear et al
+
+- [ ] Monad Updates
+	- [ ] ren bind to DzFrmBind etc.; custom bldrs 4ea.; all we nd
+- [ ] FSvr
+	- [ ] Commencez le travaille
+- [ ] Dat
+	- [ ] Chk w/frmwrk instd of netCore
+	- [ ] Can we run LoggedUI (only rel parts w/o UI) to regen?
+	- [ ] Nuget 4.6 is platform-indep (? is it?) so cld try in shell
+      		- via fat OR
+      		- via reInstall
+- [ ] mBoxes
+	- [ ] Continue
+- [ ] @Rsch
+	- [ ] Mongo realm/ roll-yr-own (lk 4 c#) must accomodate webTkns
+	- [ ] look also @repl/GitH setup on their repo
+- [ ] Nd Reset
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+winFrms Gist Hdr Updates
+
+<<note this this ver of the file contains mods perm onwards; recover prior?>>
+
+(betw frmDelta + clientInit)
+dizCopy (has templating handlers/logic + li<allPossHndlrs>)
+
+(after clientInit)
+propBox (much compl)
+
+(after dndOps)
+DnDMonad 
 
 ## Updates to this doc
    - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
@@ -820,6 +871,11 @@ ACL impl requires two facets:
      **Cols**: | Create | Read | Write | Delete | 
      (each col hdr is a button; clicking allows assigning NAB entries ie nms/grps)  These appear one entry to a row; stored as []
 
+### Links
+   - [Role](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles?view=aspnetcore-7.0)-based authorization in ASP.NET Core
+   - Using Custom schema w/aspNetC Identity:<br>
+2018 [article](http://danderson.io/posts/using-your-own-database-schema-and-classes-with-asp-net-core-identity-and-entity-framework-core/)<br>
+[SO](https://stackoverflow.com/questions/21529291/asp-net-identity-use-custom-schema) qn<br>
 
 ## Qry
   - Deep Dive into qry CE 
@@ -1481,9 +1537,8 @@ var getlist = grdfeatchobjlist.Select((IDictionary<string, object> x) => x["batc
   - CodeGuru [using](https://www.codeguru.com/csharp/using-dynamicobject-and-expandoobject/) dynamic w/expandoOb
   - Accessing Dynamic obs in [F#](https://stackoverflow.com/questions/36539639/accessing-dynamic-objects-in-f)
   - [This](https://stackoverflow.com/questions/21290133/how-do-i-use-linq-to-query-nested-dynamic-bsondocuments) Qn has a 2015 way to flatten nested docs & qry on a subDoc (using Linq)
-  - Mongo Jira Bug (fixed, see [link](
-https://www.codeguru.com/csharp/using-dynamicobject-and-expandoobject))
-Given a Collection<BsonDocument>, LINQ3 queries using doc["FieldName"] syntax fail with the following exception:
+  - Mongo Jira Bug (fixed, see [link](https://jira.mongodb.org/browse/CSHARP-3940)) 
+Given a Collection<BsonDocument>, LINQ3 queries using doc["FieldName"] syntax fails with the following exception:
 ```
 Unhandled Exception: MongoDB.Driver.Linq.Linq3Implementation.ExpressionNotSupportedException: 
 Expression not supported: doc.get_Item("FieldName").
@@ -2157,7 +2212,20 @@ From guardian's  100-best-novels->
   - The Beginning of Spring by Penelope Fitzgerald (1988)
     Russia b4 the Bolshevik revolution
 
-	
+From FadedPage (CA)
+   - [Wimsey](https://www.fadedpage.com/showbook.php?pid=20140327): The nine tailors
+   - The Chinese Lake Murders (Judge [Dee](https://www.fadedpage.com/showbook.php?pid=20221146) #4) 
+
+Books which have movies avail. online ->
+   - https://en.wikipedia.org/wiki/The_Mystery_of_the_Blue_Train
+	(Series 10 ep 1)
+   - https://en.wikipedia.org/wiki/After_the_Funeral
+	(Series 10 ep 3)
+   - Wimsey: Clouds of Witness
+	https://en.wikipedia.org/wiki/Clouds_of_Witness
+	fadedPg: https://www.fadedpage.com/showbook.php?pid=20081011
+	(5 episodes; avail on utube)
+
 XFers 4 any hard surface ->
 [1](https://www.etsy.com/listing/1481768491/custom-uv-dtf-stickers-uv-transfer)
 [2](https://www.etsy.com/listing/1489348100/custom-uv-dtf-stickers-permanent)
@@ -2174,5 +2242,37 @@ Keycaps:
 [astronaut](https://www.etsy.com/listing/1005243836/interstellar-resin-keycap-interstellar)
 	
 Reading [Leftovers](https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/raw/main/ReadingLeftovers.docx)
+lrb blog stuff contd (poss read some) ... https://pastes.io/u1b2gf08oq
+https://news.ycombinator.com/?p=7
+https://news.ycombinator.com/item?id=38161369
+https://old.reddit.com/r/LocalLLaMA/comments/17pv1aw/openais_devday_made_me_determined_to_work_more/
+https://www.npr.org/2023/11/03/1209865472/berlin-clubs-tourism-nightlife-germany-economy
 
 
+Word Wildcard replace: 
+^013 for return char
+Find: ^013|||(*)|||
+Repl: ^013\1
+
+Add to markup editor : [Html](https://html-online.com/editor/) editor
+
+<h2>Cli:</h2>
+<ol>
+<li><strong>Data</strong>: Feed in the foll:
+<ol>
+<li>Independant tiny hierarch struct</li>
+<li>Above with only leaves (as continuation)</li>
+<li>Item marked parent w/no leaves (expdoShow?)</li>
+</ol>
+</li>
+<li>Adapt <strong>Pag</strong> Mod to get data from pyld</li>
+<li>Adapt to get <strong>layout</strong> from pyld</li>
+<li>Adapt to get customized <strong>props</strong> (ttips etc) from pyld</li>
+<li>Adapt functionality to hit svr instd of <strong>store</strong> (e.g. sorts)</li>
+<li>Ensure all mods <strong>present</strong> (col resize, sort, etc.)</li>
+</ol>
+<h2>Svr:</h2>
+<ul>
+<li>Begin work on <strong>render</strong> fns</li>
+<li>Complete work w/<strong>DnD</strong> (monad? @rsch)</li>
+</ul>
