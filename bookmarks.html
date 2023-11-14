@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- html begins line #1527 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.11.08 bookmarks update pm">
+<meta name="description" content="2023.11.14 bookmarks update pm">
 <title>Bookmarks</title>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
-    <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.11.2/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
 
 <script>
 async function fetchHtmlAsText(url) {
@@ -62,7 +61,7 @@ async function loadU(u) {
           { UNID: 46, id: "music", name: "music", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 38, id: "social", name: "social", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 39, id: "changeLog", name: "log", type: "layer2", parent: "career" },
-          { UNID: 339, id: "NotesTagged", name: "notes", type: "layer2", parent: "career" },
+          { UNID: 339, id: "devNotesTagged", name: "notes", type: "layer2", parent: "career" },
           { UNID: 50, id: "miscJob", name: "jobs", type: "layer2", parent: "career" },       
           { UNID: 90, id: "fin", name: "finance", type: "layer2", parent: "career" },
           { UNID: 44, id: "mindAmuse", name: "amuse", type: "layer2", population: "6 billion", parent: "mind"},
@@ -80,9 +79,10 @@ async function loadU(u) {
           { UNID: 50, id: "amusetravel", name: "travel", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 51, id: "travelNYC", name: "nyc", type: "layer4", population: "6 billion", parent: "amusetravel"},
           { UNID: 96, id: "tv", name: "tv", type: "layer3", population: "6 billion", parent: "mindAmuse"},
+          { UNID: 111, id: "BrijLog", name: "2021-", type: "layer3", parent: "changeLog" },
           { UNID: 112, id: "2021cL", name: "2021", type: "layer3", parent: "changeLog" },
           { UNID: 110, id: "2020cL", name: "2020", type: "layer3", parent: "changeLog" },
-          { UNID: 111, id: "2019cL", name: "2019", type: "layer3", parent: "changeLog" },
+          { UNID: 304, id: "2019cL", name: "2019", type: "layer3", parent: "changeLog" },
           { UNID: 115, id: "noSQLGen", name: "general", type: "layer4", parent: "devNoSQL" },
           { UNID: 117, id: "devJava", name: "java", type: "layer3", parent: "dev" },
           { UNID: 118, id: "recM2S", name: "m2s", type: "layer3", parent: "mindAmuse" },
@@ -97,7 +97,6 @@ async function loadU(u) {
           { UNID: 310, id: "BrijServerAPI", name: "BrijServer", type: "layer3", parent: "apiCurrent" },
           { UNID: 310, id: "winFrms", name: "wFrms", type: "layer3", parent: "apiCurrent" },
           { UNID: 303, id: "BrijScreenShots", name: "ScreenShots", type: "layer3", parent: "apiCurrent" },
-          { UNID: 304, id: "BrijLog", name: "2021-", type: "layer3", parent: "changeLog" },
           { UNID: 131, id: "F_Links", name: "Links", type: "layer4", parent: "devFS" },
           { UNID: 132, id: "F_Snippets", name: "Snippets", type: "layer4", parent: "devFS" },
           { UNID: 133, id: "F_Freeware", name: "Freeware", type: "layer4", parent: "devFS" },
@@ -652,17 +651,47 @@ prnOb = (ob) => {
     console.log(toJsonStr(ob));
 }
 
+remKey = (arr, strKey) => {
+    const index = arr.indexOf(strKey);
+    if (index > -1) { // only splice array when item is found
+      return arr.splice(index, 1); // 2nd parameter means remove one item only
+    } else { 
+      return arr;
+    }
+}
+
+
 getTopTabsByCount = (inArr, n) => {
     let tabNm = inArr.tagName;
     let tabCt = inArr.tagCount;
     var zip_w_idx = (tabCt).map(function (value, index) {
       return [value,index];
     });
-    let topCts = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(0, n);
+    //slice: remove 1st coz it'll always be 'notes' 4 "NotesTagged"
+    let topCts = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(1, n);
     let topTabs = topCts.map(function (value, index) {
       return tabNm[value[1]];
     });
+    //let remaindr = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(n+1);
+    //return topTabs.concat(remaindr);
+    //@@@ above nds work: bld 'Other' entries.  Alt approach: (All - sel)
     return topTabs;
+}
+
+mBldTagBtns = (arr) => {
+        //console.log("mBldTagBtns for arr: " + JSON.stringify(arr));
+        var out = "";
+        for (t = 0; t < arr[1]['tagName'].length; t++){
+          var tagNm = arr[1]['tagName'][t];
+          var tagC = arr[1]['tagCount'][t];
+          var tagHtml = tagNm + "<span><sup>" + tagC + "</sup></span>";
+          out = out + "\n" + 
+              "<button data-dojo-type='dijit/form/ToggleButton' data-dojo-props='iconClass:\"dijitCheckBoxIcon\", checked: false, id=" + tagNm + ", onChange:\"mShowFilmTag(this.checked,this.id)\"'>" + "\n" + 
+              tagHtml + "\n" + 
+              "</button>"
+        };
+        //console.log("mBldTagBtns returning: " + out);
+	return out;
 }
 
 mBuildTagArray = function (StoreKey){
@@ -671,25 +700,25 @@ mBuildTagArray = function (StoreKey){
                * forTag -> yields only subtags for Tag passed in
 */
 
-
         var mTagArr = {tagName : [], tagCount : []};
         console.log( "mBuildTagArray...");
         var allFs = []; //depends on args
-        var mBoxTy = "";
+        let hashPos = StoreKey.indexOf("Tagged");
+        let mBoxTy = StoreKey.substring(0, (StoreKey.length) - hashPos - 1);
 
         switch(arguments.length) {
             case 1:
 		//StoreKey:devNotes RENAME 2 notesTagged; fire mainTxtDiv handler on str.contains('Tagged')
 		//ContentDiv:NotesBoxContainer RENAME 2 notesBoxContainer
-	        let hashPos = StoreKey.indexOf("Tagged");
-	        mBoxTy = StoreKey.substring(0, (StoreKey.length) - hashPos - 1);
+                //Actually, nix above: much more elastic to run caseIndifferent matches...
+                //(plus manual entry in the Boxes has diff cases throughout...)
 	        let containerDiv = (mBoxTy + "BoxContainer"); //@@@
+       //n.b.: we nd 2 remove 'notes' for NotesBox (as per setup for now) or it'll crop up in ea pane
 	        allFs = query(".mBox", containerDiv);
-	        console.log( "tags:" + allFs.length);
+	        //console.log( "****mBuildTagArray:Tag:" + allFs.length);
                 break;
             case 3:
-		allFs = query(arguments[1], arguments[2]);
-	        console.log( "tags:" + allFs.length);
+		allFs = query("." + arguments[1], arguments[2]);
                 break;
             default:
                 console.log("mBuildTagArray argsLen:  -> unknown ...");
@@ -700,7 +729,9 @@ mBuildTagArray = function (StoreKey){
           var currTags = (allFs[i]).classList;
           for (j = 0; j < currTags.length; j++){
             var currTag = currTags[j];
-            if (currTag != "mBox") {
+       //n.b.: we nd 2 remove 'notes' for NotesBox (as per setup for now) or it'll crop up in ea pane
+            if ( (currTag != "mBox") && (currTag.toLowerCase() != (mBoxTy.toLowerCase())) ) {
+              //console.log("//////////currTag: " + currTag + " mboxTy:" + mBoxTy.toLowerCase());
               var idx = mTagArr['tagName'].indexOf(currTag);
               if (idx == -1){
                 mTagArr['tagName'].push(currTag);
@@ -713,12 +744,31 @@ mBuildTagArray = function (StoreKey){
         };
         dP( "JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
         //mLog( "JSON.stringified Array Tags:" + JSON.stringify(mTagArr));
-        //console.log("returning ty: " + mBoxTy);
-        console.log("returning arr: " + mTagArr);
+        console.log("mBuildTagArray for StoreKey: " + StoreKey + " ty:" + mBoxTy + " returning arr: " + JSON.stringify(mTagArr));
         return [mBoxTy, mTagArr];
 }
 
 runUpdates = (storeID) => {
+
+//- - - - - - - - - - - - - - - 
+//Replace begin
+    //This approach - though not ideal - was used w/the filmTags, so is reproduced until a better
+    //way to address front/backend conflicts is found...
+
+    var strStoreDivHTML = dom.byId(storeID).innerHTML;
+    var strStoreDivHash = "#__#";
+    var hashPos = strStoreDivHTML.indexOf(strStoreDivHash);
+               
+    while (hashPos !== -1) {
+         strStoreDivHTML = ( strStoreDivHTML.substring(0,hashPos) + strStoreDivHTML.substring(hashPos+4) );
+         hashPos = strStoreDivHTML.indexOf(strStoreDivHash);
+    };
+    mainDiv.innerHTML = strStoreDivHTML;
+    parser.parse(mainDiv);
+//Replace end
+//- - - - - - - - - - - - - - - 
+
+
     let res = mBuildTagArray(storeID);
     let arr = JSON.stringify(res[1], null, 4); //tgNm, tgCt
     let topTags = getTopTabsByCount(res[1],4);
@@ -728,19 +778,19 @@ runUpdates = (storeID) => {
     let tabFragEnd = "</div></div>\n";
 
     let tabBldr = (acc,x,idx) => {
-          let line1 = idx == 0 ? "<div data-dojo-type='dijit/layout/ContentPane' title='" + x + "' data-dojo-props='selected:true'>" : "<div data-dojo-type='dijit/layout/ContentPane' title='" + x + "'>"; 
-          //let line2 = "Lorem ipsum and all around..." + "</div>\n";
-          let tagArrForThisPane = mBuildTagArray("", x, storeID);
-          let line2 = JSON.stringify(tagArrForThisPane) + "</div>\n";
+          let noSelected = "<div data-dojo-type='dijit/layout/ContentPane' title='" + x
+          let line1 = idx == 0 ? noSelected + "' data-dojo-props='selected:true'>" : noSelected + "'>"; 
+          let tagArrForThisPane = mBuildTagArray(storeID, x, "NotesBoxContainer");
+          let line2 = mBldTagBtns(tagArrForThisPane) + "</div>\n";
           return acc + line1 + line2;
         };
     let mappedHTML = (topTags).reduce(tabBldr, tabFragBeg)
     //add final tab if necc.
     let otherTab = "<div data-dojo-type='dijit/layout/ContentPane' title='Other'></div>\n";
-    let allHtml = mappedHTML + otherTab + tabFragEnd;
+    let tcHtml = mappedHTML + otherTab + tabFragEnd;
 
-    mainDiv.innerHTML = allHtml;
-    parser.parse(mainDiv);
+    dom.byId("tagCloudHdr").innerHTML = tcHtml;
+    parser.parse(dom.byId("tagCloudHdr"));
 
     //@@@
 
@@ -749,6 +799,7 @@ runUpdates = (storeID) => {
 /* 		
 	<-- END 2023 updates 4 ES6_refactor
 */
+
         mShowTxtDiv = function (strId){
             mLog("clicked on id:" + strId );
 
@@ -1549,7 +1600,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 8th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 14th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -24424,6 +24475,53 @@ postCovid imports into allData</td>
 <center>  <div id="notesTagCloudHdr"></div></center>
 
 <div class="mBox-container" id="NotesBoxContainer">
+
+          <div class="mBox notes product pricing">
+              Pricing
+              <div class="caption" style="display:none;">
+Spolsky on <a href='https://www.joelonsoftware.com/2004/12/15/camels-and-rubber-duckies/'>Pricing</a>.<br>
+Mentions charging diff. clients what they can afford is the best BUT doesn't work out (e.g., Airlies figured enterpr. clients didn't stayover Saturdays, so assumed anyone who did wasn't enterprise 4 pricing) Led to people finding out, beauc. resentment, people playing the system (2 weeks incl wkend; another flight to fly back in the middle) and the advent of SouthWest etc. low-cost liners who took advantage of the resentment to win the customers over.<br>
+On a similar note, an NPR PlanetMoney seg on Ice Cream Conspiracy laid out how HagenDz + Ben&J carved out indiv pies of the mkt (plain/mixed) & essentially colluded to keep prices high - not competing w/each other but not reducing prices either - this is illegal.<br>
+<p><mark>bubble.io</mark></p>
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr>
+<td style="width: 50%;">(Growth:120/mo)</td>
+<td style="width: 50%;">(Team:350/mo)</td>
+</tr>
+<tr>
+<td style="width: 50%;">2 appEditors</td>
+<td style="width: 50%;">5</td>
+</tr>
+<tr>
+<td style="width: 50%;">auth</td>
+<td style="width: 50%;">'sub-apps'</td>
+</tr>
+<tr>
+<td style="width: 50%;">250k workload units/mo</td>
+<td style="width: 50%;">500k</td>
+</tr>
+<tr>
+<td style="width: 50%;">14 days of serverLogs</td>
+<td style="width: 50%;">20 days</td>
+</tr>
+</tbody>
+</table>
+<p><mark>Formly (Gold plan) 30/mo or 290/yr</mark></p>
+<ul>
+<li>Unlimited forms/qns/responses</li>
+<li>Unlimited pyments</li>
+<li>4gb storage</li>
+<li>upto 5 Registered repondents</li>
+</ul>
+
+
+
+
+              </div>
+          </div>
+
+
           <div class="mBox notes mBoxes postbin task">
               mBoxes Redux?
               <div class="caption" style="display:none;">
@@ -24706,6 +24804,39 @@ _.reduce([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>
 A gd article (SVPG) commending <strong>small, frequent releases</strong> says that if you&#39;re not doing this you&#39;re by def not Agile; the whole point is that if they&#39;re small it&#39;s easy to fix the bugs else (even a 6-mo realease) will yield so many bugs that the next few releases will be spent catching up.
               </div>
           </div>
+
+          <div class="mBox notes mongo" >
+             Mongo Calculated Fields
+              <div class="caption" style="display:none;">
+(mpt: MUCH easier cliSide via exprs on docSave OR triggers via scheduled dbAgent)<br>
+
+SO Ans: Use <b>Aggregation</b>, as below -><br>
+
+...The other approach is to use the $addFields pipeline operator for creating the computed fields and the $match operator for filtering documents based on that computed field:<br>
+<pre><code>
+db.collection.aggregate([
+    { "$addFields": { "C": { "$add": [ "$A", "$B" ] } } },
+    { "$match": { "C": { "$gt": 10 } } }
+])
+</code></pre>
+              </div>
+
+          <div class="mBox notes mongo" >
+             Mongo Agg $push alternative
+              <div class="caption" style="display:none;">
+Aggregation alternative to using $push in grouping:<br>
+(Ans by [chridam](https://stackoverflow.com/users/122005/chridam))<br>
+use the $first operator which returns a value from the first document for each group.<br>
+>>Which should be exc coz there are no poss cases where it wd contain an invalid val for any poss grping.<br>
+see detailed example [here](https://stackoverflow.com/questions/35176641/mongo-group-with-project/35177196#35177196)
+              </div>
+
+
+          <div class="mBox notes mongo" >
+             Mongo Update obj in Nested Array
+              <div class="caption" style="display:none;">
+Update an obj in a [nested arr](https://stackoverflow.com/questions/34431435/mongodb-update-an-object-in-nested-array/34431571#34431571)
+              </div>
 
           <div class="mBox notes mongo" >
              Mongo Queries
