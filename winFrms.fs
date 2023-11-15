@@ -13,6 +13,7 @@
 	Ext (bookmarkPainter/addTreeVwZip/bldPSlideTester)
 	Cambattable
 	deck		
+Note: Somewhere in Aug '23 the monkeyBastas removed all above mods; reinserted Nov15 in all locs.
 	perms (combines earlier Base + Red)
 	Bhojpuri (replaces cPnl, rPnl, etc.; incl new tys)
 	jimmy			Tokenizer
@@ -53,6 +54,1790 @@ marmelab.com/blog/2023/07/04/react-admin-...
 namespace Trivedi
 
 #nowarn "20" "25" "58" "66" "67" "64" "760" "1182" "1558"
+
+open System
+open System.Drawing
+open System.Windows.Forms
+open Trivedi.Core
+open Trivedi.UI
+
+type tyRtb() as r = 
+       inherit System.Windows.Forms.RichTextBox()
+       //the next line fires WindProc PLUS paint, w/o it no firing....
+       do r.SetStyle(ControlStyles.OptimizedDoubleBuffer ||| ControlStyles.DoubleBuffer ||| ControlStyles.AllPaintingInWmPaint ||| ControlStyles.UserPaint, true)
+       let WM_PAINT = 15
+       member r.WindProc(m:System.Windows.Forms.Message) =
+          tibbie "in tyRtb() WindProc..."
+          if (m.Msg = WM_PAINT) then
+            r.Invalidate()
+            base.WndProc(ref m)
+            use g = Graphics.FromHwnd(r.Handle)
+            tibbie "tyRtb() graphics if"
+            g.DrawLine(Pens.Red, Point.Empty, new Point(r.ClientSize.Width - 1, r.ClientSize.Height - 1))
+          else 
+            tibbie "tyRtb() graphics else"
+            base.WndProc(ref m)       
+
+
+
+
+///General Grid/UI skeleton for testing; to be extended per use case
+///Currently has Flash ability; Stable
+///Note that this is NOT the latest version; 
+///    no Flash/autosize hdrs; chk commits (lk 2 log 4 dt)
+#if ModGridTester_RemmedForMonkeyBastas_Jul12_2023
+module GridTester = 
+    open System
+    open System.Collections
+    open FSharp.Collections
+    open System.Drawing
+    open System.IO
+    open System.Text
+    open System.Runtime.Serialization
+    open System.Runtime.Serialization.Formatters.Binary
+    open System.Windows.Forms
+    open Trivedi
+    open Trivedi.Core
+    open Trivedi.UI
+    open Trivedi.UI.Helpers
+
+    printfn "----Initializing module winFrms.GridTester----"
+
+    let getTSButtonAux txt imgNm tt optF wRef :ToolStripItem =
+        printfn "getTSButtonAux0..."
+        //let itm:Option<Image> = (((Mtpl.GetOne "BrijDat" wRef), imgNm) |> uncurry getImageFromDat)
+        let itm:Option<Image> = None
+        let i =
+            match (itm.IsSome) with
+            | true -> itm.Value
+            | _ -> (new Icon(SystemIcons.Information, 40, 40)).ToBitmap() :> Image
+        let newBtn = new ToolStripButton(Image = i, Text = txt, Font = defFont, DisplayStyle = ToolStripItemDisplayStyle.Text, TextAlign = System.Drawing.ContentAlignment.MiddleRight)
+        printfn "getTSButtonAux1..."
+(* remmed 2023
+        match tt with
+        | Some t -> 
+            newBtn.AutoToolTip <- false
+            //newBtn.ToolTipText <- t
+            newBtn.MouseEnter.AddHandler(new EventHandler(fun o e -> 
+                let itm = o :?> ToolStripButton
+                mTtip.SetToolTip(itm.Owner, t)))
+        | None -> ()
+*)
+        printfn "getTSButtonAux2..."
+        match optF with
+        | Some f -> 
+            newBtn.Click.AddHandler f
+        | None -> newBtn.Click.Add (fun ev -> stati "ToolStripButton click; no deflt handler->" imgNm)
+        printfn "getTSButtonAux3..."
+        newBtn :> ToolStripItem
+
+#if NotNecc_RemmedForMonkeyBastas_Jul12_2023
+//Stateless @tbfo
+    let getToolStripDVList =
+        printfn "getToolStripDVList (stateLess)..."
+        let getDropDnItms dvList = List.map (fun dvNm -> getTSButton dvNm "imgNm" (Some ( fun e -> tibbie "getDropDnItms" ))) dvList |> List.toArray
+        let getDVsForTbl tblName = ["DataView one"; "DataView two"; "DataView three"] //@tibbie; hardCoded for now
+        //toolStrip.items.add dropdownBtn
+        let drpDn = new ToolStripDropDown()
+        drpDn.Items.AddRange(getDropDnItms (getDVsForTbl "tbl"))
+        new ToolStripDropDownButton(Text = "Switch DataView...", DropDown = drpDn, DropDownDirection = ToolStripDropDownDirection.Left, ShowDropDownArrow = true)
+#endif //NotNecc_RemmedForMonkeyBastas_Jul12_2023
+
+    let getCol (g:DataGridView) (n:int):DataGridViewColumn = g.Columns.[n]
+
+    let AddRows (g:DataGridView) (rows:DataGridViewRow[]) =
+        //g.InsertRows(g.RowCount - 1, rows)
+        g.Rows.Add(rows) |> ignore
+        g
+
+    let setColHdrStyle  (g: DataGridView) = 
+        g.ColumnHeadersDefaultCellStyle <- new DataGridViewCellStyle(BackColor = Color.Aqua, Font = defFont)
+        g
+
+    let freezeBand (g: DataGridView) (num:int) rowOrcol = 
+        //bands also have a Tag property if nded 2 store propVals
+        let band:DataGridViewBand = 
+            match rowOrcol with 
+            | true -> g.Rows.[num] :> DataGridViewBand
+            | _ -> g.Columns.[num] :> DataGridViewBand
+        band.Frozen <- true
+        let style = new DataGridViewCellStyle()
+        match band.Tag with 
+        | :? string as s ->
+            if s = "xxx" then
+                style.BackColor <- Color.WhiteSmoke
+        | _ -> tibbie "in Freezeband: band.Tag expected string but got something else"
+        band.DefaultCellStyle <- style
+        g
+
+    let addTTip (g: DataGridView) (colNum:int) (str:string) : DataGridView = 
+        (getCol g colNum).ToolTipText <- str
+        g
+
+
+    let origMusicDat() =
+        [[ box "11/22/1968"; box "29"; box "Revolution 9"; box "Beatles"; box "The Beatles [White Album]"];
+        [ box "02/02/1960"; box "6"; box "Fools Rush In"; box "Frank Sinatra"; box "Nice 'N' Easy"];
+        [ box "11/11/1971"; box "1"; box "One of These Days"; box "Pink Floyd"; box "Meddle"];
+        [ box "1/1/1988"; box "7"; box "Where Is My Mind?"; box "Pixies"; box "Surfer Rosa"];
+        [ box "5/5/1981"; box "9"; box "Can't Find My Mind"; box "Cramps"; box "Psychedelic Jungle"];
+        [ box "6/10/2003"; box "13"; box "Scatterbrain. (As Dead As Leaves.)"; box "Radiohead"; box "Hail to the Thief"];
+        [ box "6/30/1992"; box "3"; box "Dress"; box "P J Harvey"; box "Dry"]]
+        |> lim (fun r -> Array.ofList r)
+        |> Array.ofList
+
+    let PopulateDV (g: DataGridView) = 
+        //g.Rows.Insert(int, Object[])
+        g.Rows.Insert(0, "11/22/1968", "29", "Revolution 9", "Beatles", "The Beatles [White Album]")
+        g.Rows.Insert(1,"02/02/1960", "6", "Fools Rush In", "Frank Sinatra", "Nice 'N' Easy")
+        g.Rows.Insert(2,"11/11/1971", "1", "One of These Days", "Pink Floyd", "Meddle")
+        g.Rows.Insert(3,"1/1/1988", "7", "Where Is My Mind?", "Pixies", "Surfer Rosa")
+        g.Rows.Insert(4,"5/5/1981", "9", "Can't Find My Mind", "Cramps", "Psychedelic Jungle")
+        g.Rows.Insert(5,"6/10/2003", "13", "Scatterbrain. (As Dead As Leaves.)", "Radiohead", "Hail to the Thief")
+        g.Rows.Insert(6,"6/30/1992", "3", "Dress", "P J Harvey", "Dry")
+        g
+
+    let getToolStrip = 
+          fun (own: Form) ->
+                printfn "getToolStrip0..."
+                let wld = Mtpl.empty()
+                let regTBar = new ToolStrip(Dock = doc "T")
+                printfn "getToolStrip1..."
+                regTBar.Items.Add (getTSButtonAux "initFlash" "delImg.jpg"  None (Some(new EventHandler (fun sender e -> 
+                    tibbie ("initFlash: recUps len: ")
+                    ))) wld)
+                printfn "getToolStrip2..."
+                regTBar.Items.Add (new ToolStripSeparator())
+                printfn "getToolStrip3..."
+                regTBar
+
+    let addGridToolBar (f: Form) (g:DataGridView) = 
+        printfn "addGridToolBar..."
+        getToolStrip f
+        f
+
+    let SetupDV = 
+        fun (f:Form) (g:DataGridView) ->
+            printfn "setupDV0... reset colWids"
+            g.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader) //.AllCells  //throws on .Fill
+            printfn "setupDV1..."
+            let g_CellFormatting = new DataGridViewCellFormattingEventHandler(fun (sender:obj) (e:DataGridViewCellFormattingEventArgs) -> 
+                if ( (e <> null) && (g.Columns.[e.ColumnIndex].Name = "Release Date") && (e.Value <> null)) then
+                    //tibbie ("trying to parse: " + (e.Value.ToString()))
+                    try
+                        e.Value <- (DateTime.Parse(e.Value.ToString())).ToLongDateString()
+                        e.FormattingApplied <- true
+                    with 
+                    | ex -> 
+                        tibbie ("setupDV:CellFormatting: Couldn't parse dateTimeVal for: " + e.Value.ToString()))
+            //set the colNames...
+            List.fold2 (fun acc (x:int) (y:string) -> g.Columns.[x].Name <- y; "") "" [0..4] ["Release Date";"Track";"Title";"Artist";"Album"] |> ignore
+            g.Columns.[4].DefaultCellStyle.Font <- new Font(g.DefaultCellStyle.Font, FontStyle.Italic)
+            g.CellFormatting.AddHandler(g_CellFormatting)
+            ctrlAddRange [|g;(getToolStrip f)|] f |> ignore
+            Application.Run(f)
+
+    let addImgColAt =
+        fun (i:int) (g:DataGridView) -> 
+            printfn "addImgColAt... %A ..." i
+            let bitmapPadding = 6
+            let b = new Bitmap("filNm")
+            //Add twice the padding for the left & right sides of the cell.
+            let colWidth = b.Width + 2 * bitmapPadding + 1
+            g.Columns.RemoveAt(i)
+            g.Columns.Insert(i, 
+                new DataGridViewImageColumn(Width = colWidth, Image = b))
+            g
+
+    let paintCustomImgCell =
+        fun (g:DataGridView) -> 
+            g.CellPainting.Add(fun (e:DataGridViewCellPaintingEventArgs) -> 
+                e.Graphics.DrawImage(Image.FromFile("SampImag.jpg"), new Rectangle(100, 100, 450, 150))
+            )
+            g
+
+    let getDefDV1 = 
+        printfn "getDefDV1"
+        new DataGridView(
+            SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+            MultiSelect = false,
+            Font = defFont,
+            Dock = DockStyle.Fill,
+            Name = "g",
+            Location = new Point(8, 8),
+            AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders,
+            ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single,
+            CellBorderStyle = DataGridViewCellBorderStyle.Single,
+            GridColor = Color.Black,
+            RowHeadersVisible = false,
+            ColumnCount = 5)
+
+    let setColHdrs (g:DataGridView) = 
+            printfn "setColHdrs"
+            g.ColumnHeadersDefaultCellStyle.BackColor <- Color.Navy
+            g.ColumnHeadersDefaultCellStyle.ForeColor <- Color.White
+            g.ColumnHeadersDefaultCellStyle.Font <- new Font(g.Font, FontStyle.Bold)
+            g
+
+    let getDefDV = setColHdrs (getDefDV1)
+
+(*
+    //note that this mod currently incl 2 dotNet examples:
+    //(1) songCollection tbl (https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.datagridviewrowcollection.addrange?view=net-5.0)
+    //(2) boundDataSrc tbl (https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.datagridview?view=netcore-3.1#examples)
+    // see for obj binding -> https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-bind-objects-to-windows-forms-datagridview-controls?view=netframeworkdesktop-4.8
+    // see for customizing cells/rows/cols -> https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/customizing-the-windows-forms-datagridview-control?view=netframeworkdesktop-4.8
+    // a multi-col row w/custom painting => https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/customize-the-appearance-of-rows-in-the-datagrid?view=netframeworkdesktop-4.8
+    let bld (owner:Form) = 
+        state {
+            PopulateDV |>| SetupDV (new Form(Owner=owner)) (getDefDV)
+        }
+*)
+
+    let bldGrid (owner:Form) = 
+        printfn "bldGrid"
+        getDefDV |> PopulateDV |> SetupDV owner
+
+#endif //ModGridTester_RemmedForMonkeyBastas_Jul12_2023
+
+#if ModuleIde_RemmedForMonkeyBastas_Jul12_2023
+module Ide = 
+    open System
+    open System.IO
+    open System.IO.Compression
+    open System.Drawing
+    open System.Windows.Forms
+    open System.Text.RegularExpressions
+    open System.Diagnostics
+    open DiffMatchPatch
+    open Trivedi
+    open Trivedi.Core
+    open Trivedi.UI
+    open GridTester 
+
+    printfn "----Initializing module winFrms.Ide----"
+
+#if fayette
+
+    let diffOb = new diff_match_patch()
+
+    //extracted from ui.dll where it is remmed for backward compat.
+    let getChoiceDlg_Old msg (i:Form) (l1:list<string>) (l2:list<string>) =
+        let frm = getDefaultDlgFrm_Old i
+        let mutable retPtr = IntPtr.Zero
+        let lbl = new Label(Size = new Size(400, 50), Location=Point(25, 10), Text = msg)
+        let befr = new ComboBox(Size = new Size(200, 50), Location=Point(25, 100), Name = "beforeList")
+        let aftr = new ComboBox(Size = new Size(200, 50), Location=Point(250, 100), Name = "afterList")
+        List.map (fun x -> befr.Items.Add(x) |> ignore
+                           aftr.Items.Add(x) |> ignore) l1 |> ignore
+        let okButton = new Button(DialogResult = DialogResult.OK, Name = "okButton", Size = new Size(125, 50), Location = new Point(100, 150), Text = "&OK")
+        let cancelButton = new Button(DialogResult = DialogResult.Cancel, Name = "cancelButton", Size = new Size(125, 50), Location = new Point(275, 150), Text = "&Cancel")
+        frm.AcceptButton <- okButton
+        frm.CancelButton <- cancelButton
+        frm.Visible <- false
+        frm.Controls.AddRange([|lbl; befr; aftr; okButton; cancelButton|])
+        let result = frm.ShowDialog()
+        result, befr.SelectedIndex, aftr.SelectedIndex
+
+#if PointeCoupeeParish
+    let getDiffsLineMode (bef:string) (aft:string) =
+        let fstD = diffOb.diff_linesToChars(bef, aft)
+        let lineTxt1 = fstD.[0]
+        let lineTxt2 = fstD.[1]
+        let lineArray = fstD.[2]
+        let sndD = diffOb.diff_main(lineTxt1, lineTxt2, false)
+        stati ">>>>>>>>Diff textualRepresentation ->\r\n" (diffOb.diff_charsToLines(sndD, lineArray))
+#endif //PointeCoupeeParish
+
+    let getDiffs (bef:string) (aft:string) =
+        stati ">>>>>>>>Diff textualRepresentation ->\r\n" (diffOb.diff_main(bef, aft))
+
+    let getDiffsHtml (bef:string) (aft:string) =
+        stati ">>>>>>>>Diff HtmlRepresentation ->\r\n" (diffOb.diff_prettyHtml(diffOb.diff_main(bef, aft)))
+
+    let getPatch (bef:string) (aft:string) (benc:bool) =
+        let patches = diffOb.patch_make(bef, aft)
+        match benc with
+         | true -> 
+              tibbie "remmed for b64 ref"
+              //stati ">>>>>>>>Patch textualRepresentation ->\r\n" (b64Enc (diffOb.patch_toText(patches)))
+         | _ -> 
+              //stati ">>>>>>>>Patch textualRepresentation ->\r\n" (diffOb.patch_toText(patches))
+              tibbie "remmed for b64 ref"
+
+    let applyPatch patch =
+      fun (bef:string) ->
+        let res = diffOb.patch_apply(patch, bef)
+        stati ">>>>>>>>Patch applied ->\r\n" (res.[0])
+
+    let testDiff = 
+      fun (bef:string) (aft:string) -> tibbie (">>>>>>>>Patch textualRepresentation ->\r\n" + (diffOb.patch_toText(diffOb.patch_make(bef, aft))))
+
+#if lee
+    let addTreeVw =
+      fun (frm:Form) ->
+          let rec createDirNode =
+              fun dirInf -> 
+                  let dirNode = new TreeNode(dirInf.Name)
+                  dirInf.GetDirectories() |> List.ofArray |> lim (fun sd -> dirNode.Nodes.Add(createDirNode(sd)))
+                  dirInf.GetFiles() |> List.ofArray |> lim (fun fl -> dirNode.Nodes.Add(new TreeNode(fl.Name)))
+                  dirNode
+          let treeVw = new TreeView()
+          treeVw.Nodes.Clear()
+          let rootDirInf = new DirectoryInfo(arcPath)
+          treeVw.Nodes.Add(createDirNode(rootDirectoryInf))
+#endif //lee
+
+#if princeedward
+//https://stackoverflow.com/questions/8624071/save-and-load-memorystream-to-from-a-file
+    let getTreeVwZip() =
+        let zipBA = File.ReadAllBytes(@"E:\tmp\zipTest.zip")
+        use memStream = new MemoryStream(zipBA)
+        let zipArc = new ZipArchive(memStream, ZipArchiveMode.Update)
+        zipArc.Entries |> Seq.cast |> List.ofSeq 
+           |> lifo (fun s en -> 
+                       let (tv, dirLi) = s
+                       match (en.FullName.EndsWith('\')) with
+                       | true -> 
+                           //create dirNode
+                           dirNode.ImageIndex <- 0 //flderIco
+                           (tv, dirLi)
+                       | _ -> 
+                           //create filNode
+                           (tv, dirLi)
+                   ) (tv,[]) |> ignore
+          let flderImgLi = new ImageList()
+          flderImgLi.Images.Add(Image.FromFile(@"E:\src\Data\images\google\folder.png"))
+          let treeVw = new TreeView(ImageList = flderImgLi)
+          treeVw.Nodes.Clear()
+          let zipArc = new ZipArchive(memStream, ZipArchiveMode.Update)
+          zipArc.Entries |> Seq.cast |> List.ofSeq |> lim (fun en -> createNode(en []))
+          let rootDirInf = new DirectoryInfo(arcPath)
+          treeVw.Nodes.Add(createDirNode(rootDirectoryInf))
+          treeVw
+#endif //princeedward
+
+    let setupMainFrm =
+      fun (frm:Form) ->
+        let getLines() = List.fold (fun acc itm -> acc + itm.ToString() + "\r\n") "" [1..100]
+        let tabCtrl = new TabControl(Dock = DockStyle.Fill, Name = "tabControl")
+        ctrlAddTags2 ["tabControl", box tabCtrl] frm
+
+#if princeedward
+//06.29 this works as-is in the other file; the bastas are absolutely loco today throwing 5+ fake errs for methd below
+//BASTAS probably have issues with tags
+        let getCurrentWB = 
+          fun (p:TabPage option) ->
+            let pg:TabPage = Option.ઓર  p tabCtrl.SelectedTab
+            (ctrlGetTag "www" pg).Value
+
+        tabCtrl.DoubleClick.Add(fun e ->
+                       if tabCtrl.SelectedTab.Controls.ContainsKey("www") then 
+                           let nTxt = getInpDlg_Old "Pls enter address:" frm |> snd
+                           let siteAdd = if ( nTxt.StartsWith("http://") || nTxt.StartsWith("https://") ) then nTxt else "http://" + nTxt
+                           match getCurrentWB() with
+                           | Some w -> w.Navigate(siteAdd)
+                           | _ -> ()
+                       else 
+                           let nTxt = getInpDlg_Old "Pls enter new name:" frm |> snd
+                           tabCtrl.SelectedTab.Text <- nTxt )
+#endif //princeedward
+
+        let ideTS = new ToolStrip(Name = "ideToolStrip")
+
+        let getRTB = 
+          fun (p:TabPage option) ->
+//#if princeedward
+            let pg:TabPage = Option.ઓર  p tabCtrl.SelectedTab
+            (ctrlGetTag2 "rtb" pg).Value  :?> RichTextBox
+//#else
+//            new RichTextBox()
+//#endif //princeedward
+
+        let getTxtForPage =
+          fun (p:TabPage option) ->
+            let pg = 
+                match p.IsSome with
+                | true -> p
+                | _ -> Some(tabCtrl.SelectedTab)
+            (getRTB pg :?> RichTextBox).Text
+        let getCurrentRTB() = getRTB None
+        let getCurrentRTBTxt() = getTxtForPage None
+        let addWebPg  = 
+            fun (pgTxt: string) (tabCtrl:TabControl) ->
+#if princeedward
+                let pg = new TabPage( TabIndex = 1, Dock = DockStyle.Fill, Text = pgTxt, Font = defFont, Name = "wwwTabPg")
+                let w = new WebBrowser(TabIndex = 1, Dock = DockStyle.Fill, Font = defFont, Name = "www")
+                pg.Controls.Add(w)
+                pg
+#else
+                printfn "remmed for the monkeyBastas"
+#endif  //princeedward
+
+
+        let addPg (pgTxt: string) (tabCtrl:TabControl) = 
+            let pg = new TabPage( TabIndex = 1, Dock = DockStyle.Fill, Text = pgTxt ,Font = defFont, Name = "TabPg")
+            let spl = new SplitContainer( Anchor = (AnchorStyles.Top ||| AnchorStyles.Left), Dock = DockStyle.Fill, IsSplitterFixed = true, SplitterDistance = 100, SplitterWidth = 1, TabIndex = 2 , FixedPanel = FixedPanel.Panel1, Name = "spl")
+            ctrlAddTags2 ["pg", toOb pg; "spl", toOb spl] tabCtrl
+            spl.SuspendLayout()
+            spl.Panel1.BackColor <- Color.LightGray
+            let rtb = new RichTextBox(ScrollBars = RichTextBoxScrollBars.ForcedBoth, RightMargin = Int32.MaxValue, Anchor = (AnchorStyles.Top ||| AnchorStyles.Left), BorderStyle = BorderStyle.None, Dock = DockStyle.Fill,TabIndex = 0, Font = defFont, AcceptsTab = true, Text = "Text", Name = "rtb" )
+            !!^ ["clipBuffer", box []; "bookmarkBuffer", box []] rtb
+            !!^ ["rtb", box rtb] pg
+            rtb.ContentsResized.Add(fun e -> rtb.ZoomFactor = 0.0f |> ignore)
+            rtb.LinkClicked.Add(fun e -> tibbie ("click recd on txt: " + e.LinkText))
+#if lee
+            //rtb.OnLinkClicked.Add(fun sender e -> tibbie ("click recd on txt: " + e.LinkText))
+            //raises: error FS0491: The member or object constructor 'OnLinkClicked' is not accessible. Private members may only be accessed from within the declaring type. Protected members may only be accessed from an extending type and cannot be accessed from inner lambda expressions.
+            let lineNo = new Label( Text = getLines(), Font = defFont, TabIndex = 1, AutoSize = true, Name = "lineNoLbl" )
+#else
+            let lineNo = new TextBox(Dock = doc "F", Multiline = true, Text = "1", Font = defFont, TextAlign = HorizontalAlignment.Right, Enabled=false)
+            lineNo.Paint.Add(bookmarkPainter())
+#endif //lee
+            let updatelineNo() = 
+#if lee
+                lineNo.SuspendLayout()
+                //we get index of first visible char and number of first visible line
+                let firstIndex = rtb.GetCharIndexFromPosition(new Point(0, 0))
+                let firstLine = rtb.GetLineFromCharIndex(firstIndex) + 1
+                //now we get index of last visible char and number of last visible line
+                let lastIndex = rtb.GetCharIndexFromPosition(new Point( (rtb.ClientRectangle).Width, (rtb.ClientRectangle).Height))
+                let lastLine = rtb.GetLineFromCharIndex(lastIndex)
+                //this is point position of last visible char, we'll use its Y value for calculating numberLabel size
+                let pos = rtb.GetPositionFromCharIndex(lastIndex)
+                let genLineNums (li:list<int>) =
+                    List.fold (fun acc itm -> acc + itm.ToString() + "\r\n") "" li 
+                lineNo.Text <- ( genLineNums [ firstLine .. lastLine ] )
+                lineNo.ResumeLayout()
+                //frm.Invalidate()
+#else
+                let charIdx = rtb.GetCharIndexFromPosition(new Point(0,0))
+                let topLn = rtb.GetLineFromCharIndex(charIdx)
+                lineNo.Text <- List.fold(fun s l -> s + l.ToString() + "\r\n") "" [topLn .. topLn + 40]
+#endif //lee
+
+            let hiliteCurrLn() =
+                let charIdx = rtb.GetCharIndexFromPosition(new Point(0,0))
+                let selStart = rtb.SelectionStart
+                let selLen = rtb.SelectionLength
+                rtb.SelectAll()
+                rtb.SelectionBackColor <- Color.White
+                rtb.Select(selStart, 0)
+                let currLn = rtb.GetLineFromCharIndex(selStart)
+                let firstCharPos = rtb.GetFirstCharIndexOfCurrentLine()
+                let lastCharPos = rtb.GetFirstCharIndexFromLine(currLn + 1)
+                //rtb.SelectionStart = firstCharPos
+                //rtb.SelectionLength = lastCharPos - firstCharPos
+                rtb.Select(firstCharPos, lastCharPos - firstCharPos)
+                rtb.SelectionBackColor <- Color.Yellow
+                rtb.Select(charIdx, 0)
+                rtb.ScrollToCaret() //to ensure same pos
+                rtb.Select(selStart, selLen)
+                printfn "%A" ("rtb curr pos @ line #1: " + currLn.ToString())
+
+            let bookmarkPainter() = 
+                fun (e:PaintEventArgs) -> 
+                    let firstIndex = rtb.GetCharIndexFromPosition(new Point(0, 0))
+                    let firstLine = rtb.GetLineFromCharIndex(firstIndex) + 1
+                    let lastIndex = rtb.GetCharIndexFromPosition(new Point( (rtb.ClientRectangle).Width, (rtb.ClientRectangle).Height))
+                    let lastLine = rtb.GetLineFromCharIndex(lastIndex)
+                    bkmarksLi |> List.filter (fun lineN -> (lineN < lastLine + 1) && (lineN > firstLine - 1)) 
+                      |> lim (fun markable ->
+                            //Retrieves the index of the first character of a given line
+                            let charIdx = rtb.GetFirstCharIndexFromLine markable
+                            //Retrieves the location within the control at the specified character index.
+                            let loc = rtb.GetPositionFromCharIndex charIdx
+                            //(i)Add staticRef to icn in ui.dll (ii)nd to move r
+                            e.Graphics.DrawIcon(new Icon(SystemIcons.Information, 40, 40), 0, 0)) |> ignore
+
+            rtb.MouseDown
+                |> Event.add ( fun e -> hiliteCurrLn())
+
+            rtb.KeyDown
+                |> Event.filter ( fun e -> ( ( (e.Control && e.KeyCode = Keys.X) || (e.Shift && e.KeyCode = Keys.Delete) ) ) || ((e.Control && e.KeyCode = Keys.C)  || (e.Control && e.KeyCode = Keys.Insert)) )
+                |> Event.add ( fun e -> MessageBox.Show("The Cut/Copy Options have been disabled ") |> ignore
+                                        e.Handled <- true )
+
+            rtb.KeyDown
+                |> Event.filter ( fun e -> e.KeyCode = Keys.Tab )
+                |> Event.add ( fun e -> e.Handled <- true
+                                        rtb.SelectedText = new string(' ', 4) )
+
+            //@mpt06.28.23 handler 4 pasteToIntlC
+            rtb.KeyDown
+                |> Event.filter ( fun e -> e.Alt && e.KeyCode = Keys.Delete )
+                |> Event.add ( fun e -> 
+                                 let buffer = !!~ "clipBuffer" (getCurrentRTB())
+                                 !!^ ["clipBuffer", box ([(getCurrentRTB()).SelectedText] @ buffer)] (getCurrentRTB())
+                                 //update StatusBar 'added to clipbd...'
+                                 e.Handled <- true )
+
+            //@mpt06.28.23 handler 4 pasteFromIntlC
+            rtb.KeyDown
+                |> Event.filter ( fun e -> e.Alt && e.KeyCode = Keys.Insert )
+                |> Event.add ( fun e -> 
+                                 let buffer = !!~ "clipBuffer" (getCurrentRTB())
+                                 let ret = (ગપ્પા_પાન (SizeM,Some("Please make your selection (dbl-click):"), None , Some(box (buffer)), None, frm, listDlg())) |> ignore
+                                 match ret with
+                                 | Some r -> (getCurrentRTB()).SelectedText <- r
+                                 | _ -> ()
+                                 e.Handled <- true )
+
+            //@mpt06.28.23 handler 4 //toggleBookmark
+            rtb.KeyDown
+                |> Event.filter ( fun e -> e.Control && e.KeyCode = Keys.B)
+                |> Event.add ( fun e -> 
+                                 let buffer = !!~ "bookmarkBuffer" (getCurrentRTB())
+                                 let rtb = getCurrentRTB()
+                                 let currLnNum = rtb.GetLineFromCharIndex(rtb.SelectionStart)
+                                 match List.contains currLnNum buffer with
+                                 | true -> 
+                                     !!^ ["bookmarkBuffer", (box (List.except ([currLnNum] |> Seq.ofList) buffer))] rtb
+                                     //update StatusBar 'bkmrk removed...'
+                                 | _ -> 
+                                     !!^ ["bookmarkBuffer", (box ([currLnNum] @ buffer))] rtb
+                                     //update StatusBar 'bkmrk added...'
+                                 e.Handled <- true )
+
+#if remmedMBI
+            //@mpt06.28.23 handler 4 gotoNxtBookmark
+            rtb.KeyDown
+                |> Event.filter ( fun e -> e.KeyCode = Keys.F2)
+                |> Event.add ( fun e -> 
+                                 let buffer = !!~ "bookmarkBuffer" (getCurrentRTB())
+                                 let rtb = getCurrentRTB()
+                                 let currLnStart = rtb.SelectionStart
+                                 let currLnNum = rtb.GetLineFromCharIndex(currLnStart)
+                                 match (buffer |> List.sort |> List.tryPick(fun en -> if en > currLnNum then Some(en) else None) with
+                                 | Some n -> rtb.Select(rtb.GetFirstCharIndexFromLine(n), 0)
+                                 | _ -> ()
+                                 e.Handled <- true )
+
+            //@mpt06.28.23 handler 4 gotoPrevBookmark
+            rtb.KeyDown
+                |> Event.filter ( fun e -> e.Shift && e.KeyCode = Keys.F2)
+                |> Event.add ( fun e -> 
+                                 let buffer = !!~ "bookmarkBuffer" (getCurrentRTB())
+                                 let rtb = getCurrentRTB()
+                                 let currLnStart = rtb.SelectionStart
+                                 let currLnNum = rtb.GetLineFromCharIndex(currLnStart)
+                                 match (buffer |> List.sortDescending |> List.tryPick(fun en -> if currLnNum > en then Some(en) else None)) with
+                                 | Some n -> rtb.Select(rtb.GetFirstCharIndexFromLine(n), 0)
+                                 | _ -> ()
+                                 e.Handled <- true )
+#endif //remmedMBI
+
+            rtb.VScroll
+                |> Event.add ( fun e ->
+                    //move location of numberLabel for amount of pixels caused by scrollbar
+                    lineNo.Location <- new Point(0, rtb.GetPositionFromCharIndex(0).Y % (rtb.Font.Height + 1))
+                    updatelineNo() )
+
+            rtb.TextChanged
+                |> Event.add ( fun e -> updatelineNo() )
+
+            rtb.Resize
+                |> Event.add ( fun e ->
+                        //rtb.VScroll(null, null)
+                    lineNo.Location <- new Point(0, rtb.GetPositionFromCharIndex(0).Y % (rtb.Font.Height + 1))
+                    updatelineNo() ) 
+
+            rtb.FontChanged 
+                |> Event.add ( fun e ->
+                    //lineNo.Location <- new Point(0, rtb.GetPositionFromCharIndex(0).Y % (rtb.Font.Height + 1))
+                    printfn "FontChanged event"
+                    updatelineNo() ) 
+            spl.Panel1.Controls.Add(lineNo)
+            spl.Panel2.Controls.Add(rtb)
+            spl.ResumeLayout()
+#if lee
+            //treeVw outerSpl, resizeable, fixed is spl
+            let outerSpl = new SplitContainer( Anchor = (AnchorStyles.Top ||| AnchorStyles.Left), Dock = DockStyle.Fill, IsSplitterFixed = false, SplitterDistance = 100, SplitterWidth = 1, TabIndex = 2 , FixedPanel = FixedPanel.Panel2, Name = "outerSpl")
+            outerSpl.Panel1.Controls.Add(getTreeVwZip())
+            outerSpl.Panel2.Controls.Add(spl)
+            pg.Controls.Add(outerSpl)
+
+            //add to btnBar in Pg
+            hideProjPnlBtn.Click.Add(fun e -> 
+             outerSpl.Panel1Collapsed <- True
+             outerSpl.Panel1.Hide()
+            )
+            //plus IIIlar 4 viewProjPnlBtn ...
+#else
+            pg.Controls.Add(spl)
+#endif //lee 4 treeVw outerSpl
+            pg
+
+        let newP:Process = new Process()
+
+        let bldCmd (p: Process) (exe:string) : Process = 
+            match exe with
+            | "fsc.exe" -> 
+                 p.StartInfo <- new ProcessStartInfo (FileName = exe,
+                                 Arguments = "latest.fs --target:winexe --platform:x64 -r:googleDiff.dll -r:System.Runtime -r:System.Windows.Forms -r:System.IO -I:C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319", 
+                                 UseShellExecute = false, RedirectStandardOutput = false, RedirectStandardError = false,
+                                 WindowStyle = ProcessWindowStyle.Maximized )
+            | _ -> 
+                 p.StartInfo <- new ProcessStartInfo (FileName = exe,
+                                 UseShellExecute = false, RedirectStandardOutput = false, RedirectStandardError = false,
+                                 WindowStyle = ProcessWindowStyle.Maximized )
+            p
+
+        let CompilerProc = bldCmd newP "fsc.exe"
+        let CompiledProc = bldCmd newP "latest.exe"
+
+        let runProcess (cmd:Process) = 
+            //let sb = new StringBuilder()
+            //cmd.OutputDataReceived.Add(fun x -> appendString sb (x.Data + Environment.NewLine) |> ignore)
+            //cmd.ErrorDataReceived.Add(fun x -> appendString sb (x.Data + Environment.NewLine) |> ignore)
+            cmd.Start() |> ignore
+            //cmd.BeginOutputReadLine()
+            cmd.WaitForExit()
+            //cmd.BeginErrorReadLine()
+            //cmd.WaitForExit()
+            //cmd.StandardOutput.ReadToEnd()  |> ignore
+            //cmd.StandardError.ReadToEnd() |> ignore
+            cmd.Close()
+            //tibbie (getString sb)
+            tibbie "runProc finished w/successful cmd.close()"
+
+
+        //This is the source for the test file (compile fine manually)
+        //The bastas are still playing with the File System but we got em on the run now
+        //soon their stealing days will be over... (they will return to lying & cheating)
+        let srcFileTxt = """
+    open System
+    open System.Windows.Forms
+    printfn "----Initializing module main----"
+    [<EntryPoint>]
+    [<STAThread>]
+    let main argv =
+        printfn "----In main1; formshow -------"
+        Application.EnableVisualStyles()
+        Application.Run(new Form(Text = "testing"))
+        printfn "----In main2: before readLine -------"
+        let unused = Console.ReadLine()
+        printfn "----In main3: after readLine -------"
+        0
+"""
+
+        //https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.process.outputdatareceived?view=net-5.0
+        let waitProcess =
+          fun (proc: Process) ->
+             proc.WaitForExit()
+             stati "proc output:" "->"
+             while (not proc.StandardOutput.EndOfStream) do
+                printfn "%A" (proc.StandardOutput.ReadLine())
+                //printfn $"{proc.StandardOutput.ReadLine()}"
+
+        let runFSC() = 
+            //latest.fs
+            use outFl = new FileStream("latest.exe", FileMode.Create, FileAccess.ReadWrite, FileShare.None)
+            use src = new FileStream("latest.fs", FileMode.Create, FileAccess.ReadWrite, FileShare.None)
+            let srcTxt = getCurrentRTBTxt()
+            let fmted =  બાઇટ (રિપ્લ  srcTxt "\t" "    ")
+            let dummy = બાઇટ srcFileTxt
+            src.Write(fmted, 0, fmted.Length)
+            tibbie "finished writing, running fsc..."
+//  -> debug procErr
+            let cmd = CompilerProc
+            tibbie "1.  got cmd, about to start()..."
+            cmd.Start() |> ignore
+            tibbie "2.  waitForExit..."
+            cmd.WaitForExit()
+            tibbie "2.  close()..."
+            cmd.Close()
+//  <- debug procErr
+
+            //runProcess (CompilerProc)
+
+            tibbie "after fsc..."
+//            src.Seek(0, SeekOrigin.Begin) |> ignore
+            src.SetLength(1L)
+            src.Write(dummy, 0, Convert.ToInt32(dummy.Length))
+            tibbie "after writing over src; running new file..."
+            runProcess (CompiledProc)
+
+        let setupMenu = 
+          fun (frm:Form) (tc:TabControl) ->
+            let filMenu = new ToolStripMenuItem("File")
+            let difMenu = new ToolStripMenuItem("Diff")
+            let tstMenu = new ToolStripMenuItem("Test")
+            let toolMenu = new ToolStripMenuItem("Tools")
+
+            let fileNew = new ToolStripMenuItem("New Tab", null, 
+                new EventHandler(fun (o:obj) (e:EventArgs) -> tc.Controls.Add(addPg ("Tab " + (tabCtrl.TabCount + 1).ToString()) tc)), Keys.Control ||| Keys.N)
+
+            let fileNew2 = new ToolStripMenuItem("New Tab2", null, new EventHandler(fun (o:obj) (e:EventArgs) -> 
+#if Suffolk
+                                                                                     match (ctrlGetTag "rtabControl" frm) with
+                                                                                     | Some v -> let tc = v :?> TabControl
+                                                                                                 tc.Controls.Add(addWebPg ("wwwTab " + (tabCtrl.TabCount + 1).ToString()) tc)
+                                                                                     | None ->   ()
+#else 
+                                                                                     tibbie "remmed for mbi (stable otherwise)"
+#endif //Suffolk
+                                                                                      ))
+
+#if losangeles
+            let fileNew = new ToolStripMenuItem(Text = "New",Font = defFont)
+            fileNew.Click.Add (fun evArgs -> 
+                                 match (ctrlGetTag "tabControl" frm) with
+                                  | Some v -> let tc = v :?> TabControl
+                                              tc.Controls.Add(addPg ("Tab " + (tabCtrl.TabCount + 1).ToString()) tc)
+                                  | None ->   () )
+
+#endif //losangeles
+
+            let fileGrid = new ToolStripMenuItem(Text = "Grd tester",Font = defFont)
+            fileGrid.Click.Add (fun evArgs -> bldGrid frm )
+
+#if UIDEBUGGED
+            //refers to module Dlg
+            let fileDlg = new ToolStripMenuItem(Text = "txtDlg",Font = defFont)
+            fileDlg.Click.Add(fun (e:EventArgs) ->
+                                   printfn "db: fileDlg"
+                                   let d = પલંગ_તોડ_પાન frm
+                                   printfn "db: fileDlg2"
+                                   d.ShowDialog() |> ignore )
+                                   //ટેક્ષ્ટ_પીચાક mLTxt (પલંગ_તોડ_પાન mLTxt frm) |> ignore )
+                                           //ટેક્ષ્ટ_પીચાક mLTxt ((પલંગ_તોડ_પાન mLTxt frm).સુપારી(1).લવલી("A test; only (merely?) a test.")) |> ignore ))
+#endif //UIDEBUGGED
+
+            let topFrmMenuItm = fun (m:ToolStripMenuItem) ->
+                                      let cont = m.Container :?> Control
+                                      cont.TopLevelControl :?> Form
+            let getHalfScreenSz = 
+               fun (own:Form) -> 
+                   let newWd = (Screen.GetWorkingArea(own)).Width / 2 
+                   let newHt = (Screen.GetWorkingArea(own)).Height / 2 
+                   new Size(newWd,newHt)
+            let fileDlg2 = new ToolStripMenuItem(Text = "txtDlg noTy",Font = defFont)
+            fileDlg2.Click.Add(fun (e:EventArgs) ->
+
+(*
+	Fake monkeyBastard err: 
+        UI.fs(1470,55): error FS0491: The member or object constructor 'Parent' is not accessible. Private members may only be accessed from within the declaring type. Protected members may only be accessed from an extending type and cannot be accessed from inner lambda expressions.
+
+
+                                            let p =  ((o :?> ToolStripItem).Parent) :?> Control
+                                            let બનાવો =  p.TopLevelControl :?> Form
+*)
+                                            printfn "db: Dlg setupDlg0"
+                                            let બનાવો =  frm
+                                            //nd to test autoscroll behav. ~~~~
+                                            let d = Form(Visible = false, TopMost = true, Size = getHalfScreenSz બનાવો, Owner = બનાવો, WindowState = FormWindowState.Normal, Font = defFont)
+
+#if !setupChk
+
+                                            let innrPnl() = new Panel(Dock = doc "F", Width = d.Width - 20, BackColor = getRandomLightColor() )
+                                            let btnP = new FlowLayoutPanel(FlowDirection = FlowDirection.LeftToRight, Dock = doc "B", AutoSize = true, Width = d.Width, BackColor = Color.DarkGray)
+                                            let okButton = new Button(AutoSize = true, DialogResult = DialogResult.OK, Size = new Size(125, 50), Location = new Point(100, 150), Text = "&OK")
+                                            let cancelButton = new Button(AutoSize = true, DialogResult = DialogResult.Cancel, Size = new Size(125, 50), Text = "&Cancel")
+                                            btnP.Controls.Add(okButton)
+                                            btnP.Controls.Add(cancelButton)
+                                            let midHt = d.Height - btnP.Height - defPadding.Vertical
+                                            let midP = new TableLayoutPanel(GrowStyle = TableLayoutPanelGrowStyle.AddRows, Anchor = anc "N", Width = d.Width - 20, Height = midHt, BackColor = Color.OldLace, AutoScroll = true)
+                                            midP.Controls.Add(innrPnl())
+                                            midP.SetAutoScrollMargin(5, 5)
+                                            d.Controls.Add(midP)
+                                            d.Controls.Add(btnP)
+                                            btnP.Click.Add(fun evA ->
+                                                      let res = MessageBox.Show("Add another pnl?", "System msg", MessageBoxButtons.AbortRetryIgnore)
+                                                      if res = DialogResult.Retry then 
+                                                         let newP = innrPnl()
+                                                         newP.BackColor <- getRandomLightColor()
+                                                         midP.Controls.Add(newP))
+
+#else 
+//                                            setupDlg f
+                                            printfn "db: Dlg setupDlg1"
+                                            let b = (new Icon(SystemIcons.Information, 40, 40)).ToBitmap()
+                                            let icnLbl = new Label(Image = b, Size = (new Size(b.Width, b.Height)), Anchor = anc "N")
+                                            let titTxt = new TextBox(Dock = doc "F", AcceptsReturn = true, Text = "default Title txt", ForeColor = Color.DarkBlue, ReadOnly = true, Multiline = true)
+                                            let titleP = new TableLayoutPanel(RowCount = 1, ColumnCount = 5, Dock = doc "T", BackColor = Color.OldLace, AutoSize = true, Width = d.Width ) //Height = 125
+                                            titleP.SuspendLayout()
+                                            titleP.Controls.Add(icnLbl, 0, 0)
+                                            titleP.Controls.Add(titTxt, 1, 0)
+                                            titleP.SetColumnSpan(titTxt, 4)
+                                            titleP.ResumeLayout(false)
+                                            printfn "db: Dlg setupDlg2"
+                                            let btnP = new FlowLayoutPanel(FlowDirection = FlowDirection.LeftToRight, Dock = doc "B", AutoSize = true, Width = d.Width )
+                                            let okButton = new Button(AutoSize = true, DialogResult = DialogResult.OK, Size = new Size(125, 50), Location = new Point(100, 150), Text = "&OK")
+                                            let cancelButton = new Button(AutoSize = true, DialogResult = DialogResult.Cancel, Size = new Size(125, 50), Text = "&Cancel")
+                                            btnP.Controls.Add(okButton)
+                                            btnP.Controls.Add(cancelButton)
+                                            printfn "db: Dlg setupDlg3"
+                                            let midHt = d.Height - ((max (titleP.Height) (btnP.Height)) * 2) - (defPadding.Vertical)
+                                            let midP = new TableLayoutPanel(Anchor = anc "N", Width = d.Width, Height = midHt)
+                                            let midTxt = new TextBox(Width = d.Width, Height = midHt, Text = mLTxt, Multiline=true, Dock = doc "F", Enabled = false)
+                                            d.Controls.Add(titleP)
+                                            d.Controls.Add(btnP)
+                                            d.Controls.Add(midP)
+                                            ctrlAddTags ["titleP", toOb titleP; "titTxt", toOb titTxt; "icnLbl", toOb icnLbl; "btnP", toOb btnP; "okBtn", toOb okButton;"cancelBtn", toOb cancelButton; "midTxt", toOb midTxt;"midP", toOb midP] d
+                                            printfn "db: Dlg setupDlg4"
+
+#endif //!setupChk
+                                            d.ShowDialog() |> ignore)
+
+
+//refers to module Dlg
+#if UIDEBUGGED
+            let fileDlg3 = new ToolStripMenuItem(Text = "txtDlg rDlgTy",Font = defFont)
+            fileDlg3.Click.Add(fun (e:EventArgs) ->
+
+                                            printfn "db: Dlg setupDlg0"
+                                            let બનાવો =  frm
+                                            let d = Form(Visible = false, TopMost = true, Size = getHalfScreenSz બનાવો, Owner = બનાવો, WindowState = FormWindowState.Normal, Font = defFont)
+
+#if !setupChk
+
+                                            let btnP = new FlowLayoutPanel(FlowDirection = FlowDirection.LeftToRight, Dock = doc "B", AutoSize = true, Width = d.Width, BackColor = Color.DarkGray)
+                                            let okButton = new Button(AutoSize = true, DialogResult = DialogResult.OK, Size = new Size(125, 50), Location = new Point(100, 150), Text = "&OK")
+                                            let cancelButton = new Button(AutoSize = true, DialogResult = DialogResult.Cancel, Size = new Size(125, 50), Text = "&Cancel")
+                                            ctrlsAdd [okButton;cancelButton] btnP
+                                            let midHt = d.Height - btnP.Height - defPadding.Vertical
+                                            let midWd = d.Width - 20
+                                            let midP = rPnl(midHt, midWd)
+                                            d.Controls.Add(midP)
+                                            d.Controls.Add(btnP)
+                                            btnP.Click.Add(fun evA ->
+                                                              let res = MessageBox.Show("Add another pnl?", "System msg", MessageBoxButtons.YesNo)
+                                                              if res = DialogResult.Yes then midP.addPnl())
+
+#else 
+//                                            setupDlg f
+                                            printfn "db: Dlg setupDlg1"
+                                            let b = (new Icon(SystemIcons.Information, 40, 40)).ToBitmap()
+                                            let icnLbl = new Label(Image = b, Size = (new Size(b.Width, b.Height)), Anchor = anc "N")
+                                            let titTxt = new TextBox(Dock = doc "F", AcceptsReturn = true, Text = "default Title txt", ForeColor = Color.DarkBlue, ReadOnly = true, Multiline = true)
+                                            let titleP = new TableLayoutPanel(RowCount = 1, ColumnCount = 5, Dock = doc "T", BackColor = Color.OldLace, AutoSize = true, Width = d.Width ) //Height = 125
+                                            titleP.SuspendLayout()
+                                            titleP.Controls.Add(icnLbl, 0, 0)
+                                            titleP.Controls.Add(titTxt, 1, 0)
+                                            titleP.SetColumnSpan(titTxt, 4)
+                                            titleP.ResumeLayout(false)
+                                            printfn "db: Dlg setupDlg2"
+                                            let btnP = new FlowLayoutPanel(FlowDirection = FlowDirection.LeftToRight, Dock = doc "B", AutoSize = true, Width = d.Width )
+                                            let okButton = new Button(AutoSize = true, DialogResult = DialogResult.OK, Size = new Size(125, 50), Location = new Point(100, 150), Text = "&OK")
+                                            let cancelButton = new Button(AutoSize = true, DialogResult = DialogResult.Cancel, Size = new Size(125, 50), Text = "&Cancel")
+                                            btnP.Controls.Add(okButton)
+                                            btnP.Controls.Add(cancelButton)
+                                            printfn "db: Dlg setupDlg3"
+                                            let midHt = d.Height - ((max (titleP.Height) (btnP.Height)) * 2) - (defPadding.Vertical)
+                                            let midP = new TableLayoutPanel(Anchor = anc "N", Width = d.Width, Height = midHt)
+                                            let midTxt = new TextBox(Width = d.Width, Height = midHt, Text = mLTxt, Multiline=true, Dock = doc "F", Enabled = false)
+                                            d.Controls.Add(titleP)
+                                            d.Controls.Add(btnP)
+                                            d.Controls.Add(midP)
+                                            ctrlAddTags ["titleP", toOb titleP; "titTxt", toOb titTxt; "icnLbl", toOb icnLbl; "btnP", toOb btnP; "okBtn", toOb okButton;"cancelBtn", toOb cancelButton; "midTxt", toOb midTxt;"midP", toOb midP] d
+                                            printfn "db: Dlg setupDlg4"
+
+#endif //!setupChk
+
+                                            d.ShowDialog() |> ignore)
+#endif  //UIDEBUGGED
+
+#if losangeles
+            let fileListDlg = new ToolStripMenuItem(Text = "ListDlg",Font = defFont)
+            fileListDlg.Click.Add 
+             (fun evArgs -> 
+                  //Pick a (random seed val) -> toL() -> bcw
+                  let choiceL = [["John"; "Paul"; "George"];
+                                    ["Ceasar"; "Napoleon"; "Tokugawa"];
+                                    ["Bruce"; "Jackie"; "Chuck"];
+                                    ["Hemingway"; "Fitzgerald"; "Wharton"];
+                                    ["Trump"; "Obama"; "Biden"];
+                                    ["Bezos"; "Musk"; "Gates"];
+                                    ["Morgan"; "Astor"; "Vanderbilt"];
+                                    ["Lemon"; "Orange"; "Lime"];
+                                    ["Scotch"; "Bourbon"; "Vodka"];
+                                    ["Nabokov"; "Mann"; "Brecht"];
+                                    ["Marathon"; "Triathlon"; "Biathlon"];
+                                    ["DeNero"; "Pacino"; "Eastwood"]]
+
+                  let dlg = getListDlg frm (Some(choiceL))
+                                   (Some (fun e -> 
+                                             //scoping issues (new type?)
+                                             let txt = "(lB.SelectedItems).ToString()"
+                                             MessageBox.Show( txt , "chosen items") |> ignore )) 0
+                  dlg.Show())
+#endif //losangeles
+ 
+            let fileTest2 = new ToolStripMenuItem(Text = "TestTblDlg",Font = defFont)
+#if craven
+            //remmed 08.27 : too many @MBI errs (bogus)
+            fileTest2.Click.Add (fun evArgs -> 
+                                    let li = (List.fold (fun x -> Riddle("Riddle Qn " + x.ToString(),"Riddle Key " + x.ToString()) ) [1..9] )
+                                    getTblDlg frm (li)  None 
+                                    )
+#endif //craven
+
+            let fileTest3 = new ToolStripMenuItem(Text = "TestGetConrol3",Font = defFont)
+
+            //remmed 8/27: monkeyBastaInteference because they use Components (WPF), the effers
+#if craven
+            fileTest3.Click.Add (fun evArgs -> 
+                                     getControlByNm3 frm "rtb"
+                                     |> List.fold (fun acc x -> acc + "\r\n" + x.ToString()) ""
+                                     |> logToIde )
+#endif //craven
+
+            let cDlgTest = new ToolStripMenuItem(Text = "cDlgTest",Font = defFont)
+            cDlgTest.Click.Add (fun evArgs -> 
+                                     tibbie "tibbie")
+(*
+            cDlgTest.Click.Add (fun evArgs -> 
+                                     let res, outp = getCInputDlg "enter inpTxt pls." frm 
+                                     tibbie ("res: " + res.ToString() + "\r\nOutput: " + outp.ToString()))
+*)
+
+            let diffTest = new ToolStripMenuItem(Text = "diffTest",Font = defFont)
+            diffTest.Click.Add (fun evArgs -> 
+#if !Suffolk
+                                  let pgs:list<TabPage> = (Seq.cast tc.TabPages) |> Seq.toList
+                                  let pgTitles:list<String> = List.map (fun (x:TabPage) -> x.Text) pgs
+                                  let res, befIdx, aftIdx = getChoiceDlg_Old "Pls select before/after" frm pgTitles pgTitles
+                                  testDiff (getTxtForPage (Some(pgs.[befIdx]))) (getTxtForPage (Some(pgs.[aftIdx])))
+#else 
+                                  tibbie "remmed coz it calls ChoiceDlg; which the monkeyBastas have issues with impl.ing (still slow as eff)"
+#endif //!Suffolk
+                                )
+
+            let fileGoTo =  new ToolStripMenuItem("&GoTo", null, new EventHandler(fun (o:obj) (e:EventArgs) -> 
+                                                                                    let nTxt = getInpDlg_Old "Pls enter lineNum:" frm |> snd
+                                                                                    match (tryParseInt nTxt) with
+                                                                                    | Some i -> 
+                                                                                        let rt = getCurrentRTB() :?> RichTextBox
+                                                                                        let goToPos = rt.GetFirstCharIndexFromLine(i)
+                                                                                        rt.Select(goToPos, 0)
+                                                                                        rt.ScrollToCaret()
+                                                                                    | None ->  ()), Keys.Control ||| Keys.G)
+
+            let fileTest3 = new ToolStripMenuItem(Text = "Test3",Font = defFont)
+            fileTest3.Click.Add (fun evArgs -> 
+                                     tibbie "tibbie" )
+
+            let fileCompile = new ToolStripMenuItem(Text = "Compile",Font = defFont)
+            fileCompile.Click.Add (fun evArgs -> runFSC() )
+
+            let fileExit = new ToolStripMenuItem("E&xit", null, new EventHandler(fun (o:obj) (e:EventArgs) -> Application.Exit()), Keys.Control ||| Keys.X)
+
+            filMenu.DropDownItems.Add(fileNew) |> ignore
+            //filMenu.DropDownItems.Add(fileFetch) |> ignore
+            //filMenu.DropDownItems.Add(fileTest1) |> ignore
+            filMenu.DropDownItems.Add(fileTest2) |> ignore
+            filMenu.DropDownItems.Add(fileGoTo) |> ignore
+            filMenu.DropDownItems.Add(cDlgTest) |> ignore
+            filMenu.DropDownItems.Add(fileTest3) |> ignore
+            filMenu.DropDownItems.Add(fileCompile) |> ignore
+            filMenu.DropDownItems.Add(fileExit) |> ignore
+
+#if !Suffolk
+//connected to getChoiceDlg_Old fakeErrs...
+            let applyPatch2 (bef:string) (pat:string) = 
+                (diffOb.patch_apply(diffOb.patch_fromText(pat), bef)).[0] :?> string
+
+            let applyPatch = new ToolStripMenuItem(Text = "applyPatch",Font = defFont)
+            applyPatch.Click.Add (fun evArgs -> 
+                                  let pgs:list<TabPage> = (Seq.cast tc.TabPages) |> Seq.toList
+                                  let pgTitles:list<String> = List.map (fun (x:TabPage) -> x.Text) pgs
+                                  let res, befIdx, aftIdx = getChoiceDlg_Old "Pls select before/patch" frm pgTitles pgTitles
+                                  let tgtPage = pgs.[befIdx]
+                                  let patchedTxt = (applyPatch2 (getTxtForPage (Some(tgtPage))) (getTxtForPage (Some(pgs.[aftIdx]))))
+                                  (getRTB (Some(tgtPage))).Text <- patchedTxt )
+            difMenu.DropDownItems.Add(diffTest) |> ignore
+            difMenu.DropDownItems.Add(applyPatch) |> ignore
+#endif //!Suffolk
+            tstMenu.DropDownItems.Add(fileGrid) |> ignore
+
+#if UIDEBUGGED
+            //refers to module Dlg
+            tstMenu.DropDownItems.Add(fileDlg) |> ignore
+#endif
+
+            tstMenu.DropDownItems.Add(fileDlg2) |> ignore
+
+#if UIDEBUGGED
+            //refers to module Dlg
+            tstMenu.DropDownItems.Add(fileDlg3) |> ignore
+#endif
+
+            //tstMenu.DropDownItems.Add(fileListDlg) |> ignore
+
+            let ms = new MenuStrip(Dock = DockStyle.Top,Font = defFont)
+            ms.Items.Add(filMenu) |> ignore
+            ms.Items.Add(difMenu) |> ignore
+            ms.Items.Add(tstMenu) |> ignore
+            ms.Items.Add(toolMenu) |> ignore
+            frm.MainMenuStrip <- ms
+            frm.Controls.Add(ms)
+            frm
+
+        let findHandlerOLD = (fun e -> 
+                            let findTxt (r:RichTextBox) (txt:string) = 
+                               let currPos = r.GetPositionFromCharIndex(0)
+                               let currChar = r.GetFirstCharIndexOfCurrentLine()
+                               let start = r.SelectionStart
+                               let length = r.SelectionLength
+
+                               let regex = new Regex(txt, RegexOptions.Singleline)
+                               let matches = regex.Matches((r.Text).Substring(currChar, (r.Text).Length - currChar))
+                               if (matches.Count > 0) then
+                                  //tibbie ("found " + matches.Count.ToString() + " matches")
+                                  //for m in matches do
+                                     r.Select((matches.[0]).Index, (matches.[0]).Length)
+                                     r.SelectionBackColor <- Color.Yellow
+                                     r.ScrollToCaret()
+                                  // put selection back to the way it was
+                                     r.Select(start, length)
+                               else
+                                  tibbie "No matches found"
+                            tibbie "old handler")
+
+        let findHandler = (fun e -> 
+                            let findTxt = 
+                                fun (r:RichTextBox) (txt:string) ->
+                                    let rg = new Regex(txt, RegexOptions.Singleline)
+                                    let li = rg.Matches (getCurrentRTBTxt()) |> Seq.cast |> List.ofSeq
+                                    let mLi:list<_> = List.map(fun (m:Match) -> 
+                                                        let i = m.Groups.[0].Index
+                                                        let len = m.Groups.[0].Value.Length
+                                                        i, len) li
+                                    ctrlAddTags2 ["matches", box mLi; "currIdx" box 0] r
+                                    let (idx, l) = mLi.[0]
+                                    r.Select(idx, l)
+                            let txtToFind() = 
+                                 match (!!~ "findTxtBox" ideTS) with
+                                  | Some v -> let tb:ToolStripTextBox = v :?> ToolStripTextBox
+                                              tb.Text
+                                  | None ->   "" 
+                            if txtToFind() = "" then 
+                                tibbie "findHandler couldn't get text to find" else
+                                    match getCurrentRTB() with
+                                        | Some r -> 
+                                            let rt = r :?> RichTextBox
+                                            findTxt rt txtToFind
+                                        | None ->   
+                                            tibbie "couldn't get handle on rtb"
+                                            ()
+                            )
+
+
+//        let findNxtHandler = (fun e -> 
+//                                let matchLi = ctrlGetTag ...
+
+
+        let TSAddRange (ts:ToolStrip) = 
+            let findBox = getTSTxtBox "findTxtBox"
+            let replBox = getTSTxtBox "replTxtBox"
+            ts.Items.AddRange  
+                (List.toArray 
+                  [
+                    //getTSButton "Find:" "addImg.jpg" (Some( fun e -> tibbie "tbdb (recent changes)...")) ;
+                    getTSButton "Find:" "addImg.jpg" (Some(findHandler)) ;
+                    findBox;
+                    getTSButton "Replace With:" "delImg.jpg" (Some( fun e -> tibbie "no handler yet...")) ;
+                    replBox;
+                    new ToolStripSeparator() :> ToolStripItem;
+                    getTSButton "Add Something" "addImg.jpg" (Some(fun e -> tibbie "no handler yet..." )) ])
+            !!^ ["findTxtBox", box findBox; "replTxtBox", box replBox] ts
+            ts
+        let getToolStrip:ToolStrip = 
+            ideTS |> TSAddRange
+        let TSPanelAddToolStrips (tsPanl:ToolStripPanel) = 
+            tsPanl.Join( getToolStrip )
+            tsPanl
+        let getTSPanel = 
+            (new ToolStripPanel(Dock = DockStyle.Top)) |> TSPanelAddToolStrips
+
+        tabCtrl.Controls.Add(addPg "Tab 1" tabCtrl)
+        let stat = new StatusStrip(SizingGrip = false, Stretch = true, Dock = doc "B", Font = new Font("Tahoma", 18.0f))
+        let statLbl = new ToolStripStatusLabel(Text = "Ready...") :> ToolStripItem
+        stat.Items.AddRange([|statLbl|])
+        frm.Controls.Add(tabCtrl)
+        frm.Controls.Add(getTSPanel)
+        frm.Controls.Add(stat)
+        setupMenu frm tabCtrl
+
+    let oldRunner() = setupMainFrm (new Form(WindowState = FormWindowState.Maximized, Visible = true, Text = "Earlier Spx Form: Copyright (c) M. P. Trivedi 2016-2023.  All rights reserved.", TopMost=true, Font=defFont))
+
+#endif //fayette
+
+
+#endif //ModuleIde_RemmedForMonkeyBastas_Jul12_2023
+
+#if ModuleExt_RemmedForMonkeyBastas_Jul12_2023
+module Ext =
+    open System
+    open System.Drawing
+    open System.IO
+    open System.IO.Compression
+    open System.Text
+    //open System.Buffers.Text
+    open System.Windows.Forms
+    open System.Text.RegularExpressions
+    open System.Diagnostics
+    open DiffMatchPatch
+    open Trivedi
+    open Trivedi.Core
+    open Trivedi.UI
+    open GridTester 
+
+    printfn "in mod winFrms.Ext..."
+
+#if modExt
+
+#if princeedward
+    let ext() = 
+        let f = (new Form(WindowState = FormWindowState.Maximized, Visible = false, Text = "winFrms Test Form: Copyright (c) M. P. Trivedi 2016-2023.  All rights reserved.", TopMost=true, Font=defFont))
+        f.Width <- 800
+        f.Height <- 400
+        let txtEdCtrl = new ICSharpCode.TextEditor.TextEditorControlEx(ContextMenuEnabled = true,
+            ContextMenuShowDefaultIcons = true,
+            ContextMenuShowShortCutKeys = true, FoldingStrategy = "XML", 
+            HideVScrollBarIfPossible = true, Location = new Point(15, 46), Margin = new Padding(4, 4, 4, 4),
+            Name = "textEditorControl1", ShowVRuler = false,
+            Size = new System.Drawing.Size(695, 462),
+            SyntaxHighlighting = "XML", TabIndex = 0,
+            Text = "resources.GetString(textEditorControl1.Text)", VRulerRow = 999)
+        txtEdCtrl.TextChanged.AddHandler(new EventHandler(fun o e ->
+            txtEdCtrl.Document.FoldingManager.UpdateFoldings(null, null)
+            //textBox1.Text = string.Join("\r\n", textEditorControl1.GetFoldingErrors())
+          ))
+        //@mbi, fix l8r
+        //txtEdCtrl.Font = defFont,
+        txtEdCtrl.SetHighlighting("XML")
+        txtEdCtrl.SetFoldingStrategy("XML")
+        txtEdCtrl.Document.FoldingManager.UpdateFoldings(null, null)
+        f.Controls.Add(txtEdCtrl)
+        f
+
+(*
+richTextBox1.Text = "Hello";
+richTextBox1.Select(0,2);
+//Gets or sets the text color of the current text selection or insertion point.
+richTextBox1.SelectionColor = Color.Red 
+*)
+!#else
+
+    let testArchive_v2 =
+        //basically we nd 2 do much LESS work; the archive is sorted & ordered; shd NOT throw
+        //poa is: don't chk for existence of nodes (if the archive contains a 'subdir/file' then
+        //it automatically has to have the subdir already defined; just get the node & attach...
+        hr()
+        printfn "running testArchive..."
+        let zipBA = File.ReadAllBytes(@"./zipTest.zip")
+        use memStream = new MemoryStream(zipBA)
+        let zipArc = new ZipArchive(memStream, ZipArchiveMode.Update)
+        zipArc.Entries |> Seq.cast |> List.ofSeq 
+           |> lifo (fun s (en:ZipArchiveEntry) -> 
+                       let ((tv:TreeView), dirLi) = s
+                       match (en.FullName.EndsWith(dirSep)) with
+                       | true -> 
+                           printfn "testArchive: //create dirNode %A\n" en.FullName 
+#if !tbdb
+                           let dirLi = સપ્લીટ en.FullName dirSep
+                           lifo (fun st (dEn:string) -> 
+                                match (((dEn).Trim()).Length > 0 ) with
+                                | true -> 
+                                  match  (tv.Nodes.ContainsKey dEn) with
+                                  | true -> 
+                                        printfn "TV already contains dir node: %A" dEn
+                                        ()
+                                  | _ ->
+                                        printfn "TV doesn't contain dir node, adding: %A" dEn
+                                        let newDirNd = new Node(dEn, dEn, 0)
+                                        st.Add(newDirNd)
+                                        //get parnt nd, add children
+                                        //let parNdId = tv.GetNode(dirLi.[i - 1])
+                                        //let parNd = tv.Nodes.Find(parNdId, true)
+                                        //parNd.Nodes.Add(dEn, dEn, 0)
+                                        newDirNd.Nodes
+                                | _ -> ()) tv.Nodes dirLi
+                           |> ignore
+                           //dirNode.ImageIndex <- 0 //flderIco
+#endif
+                           (tv, dirLi)
+                       | _ -> 
+                           printfn "testArchive: //create filNode %A" en.FullName
+#if tbdb
+                           let dirLi = સપ્લીટ 
+ en.FullName dirSep |> clearBlanks
+                           let parId = 
+                            lifo (fun s v -> s + dirSep + v) "" (dirLi.[(dirLi.Length) - 1])
+                           let parNd = tv.Nodes.Find(parId, true)
+                           parNd.Nodes.Add(dirLi, dEn, 0)
+                                | _ -> ()) dirLi
+#endif
+                           (tv, dirLi)
+                   ) (new TreeView(),[]) |> ignore
+(*
+    let addTreeVwZip =
+      fun (frm:Form) ->
+          let rec createNode =
+              fun zEnt dirLi -> 
+                  let path = Path.GetFullPath(zEnt.FullName)
+
+                  dirNode
+          let treeVw = new TreeView()
+          treeVw.Nodes.Clear()
+          let zipArc = new ZipArchive(memStream, ZipArchiveMode.Update)
+          zipArc.Entries |> Seq.cast |> List.ofSeq |> lim (fun en -> createNode(en []))
+          let rootDirInf = new DirectoryInfo(arcPath)
+          treeVw.Nodes.Add(createDirNode(rootDirectoryInf))
+*)
+#endif
+
+    let bookmarkPainter (rtb:RichTextBox) = 
+        new PaintEventHandler(fun o (e:PaintEventArgs) -> 
+            let bkmarksLi = [2;4;6;8]
+            let firstIndex = rtb.GetCharIndexFromPosition(new Point(0, 0))
+            let firstLine = rtb.GetLineFromCharIndex(firstIndex) + 1
+            let lastIndex = rtb.GetCharIndexFromPosition(new Point( (rtb.ClientRectangle).Width, (rtb.ClientRectangle).Height))
+            let lastLine = rtb.GetLineFromCharIndex(lastIndex)
+            bkmarksLi |> List.filter (fun lineN -> (lineN < lastLine + 1) && (lineN > firstLine - 1)) 
+                |> lim (fun markable ->
+                    //Retrieves the index of the first character of a given line
+                    let charIdx = rtb.GetFirstCharIndexFromLine markable
+                    //Retrieves the location within the control at the specified character index.
+                    let loc = rtb.GetPositionFromCharIndex charIdx
+                    //(i)Add staticRef to icn in ui.dll (ii)nd to move r
+                    //e.Graphics.DrawIcon(new Icon(SystemIcons.Information, 40, 40), 0, 0)) |> ignore
+                    let exp = new Icon("E:\\tmp\\expand.ico", new Size(10, 10))
+                    let col = new Icon("E:\\tmp\\collapse.ico", new Size(10, 10))
+                    e.Graphics.DrawIcon(exp, 100, 100) ) |> ignore)
+
+#if mbiWithPaint
+    let ext() = 
+        let f = (new Form(WindowState = FormWindowState.Maximized, Visible = false, Text = "winFrms Test Form: Copyright (c) M. P. Trivedi 2016-2023.  All rights reserved.", TopMost=true, Font=defFont))
+        f.Width <- 800
+        f.Height <- 400
+        let spl = new SplitContainer( Anchor = (AnchorStyles.Top ||| AnchorStyles.Left), Dock = DockStyle.Fill, IsSplitterFixed = true, SplitterDistance = 100, SplitterWidth = 1, TabIndex = 2 , FixedPanel = FixedPanel.Panel1, Name = "spl")
+        spl.SuspendLayout()
+        let rtb = new tyRtb(ScrollBars = RichTextBoxScrollBars.ForcedBoth, RightMargin = Int32.MaxValue, Anchor = (AnchorStyles.Top ||| AnchorStyles.Left), BorderStyle = BorderStyle.None, Dock = DockStyle.Fill,TabIndex = 0, Font = defFont, AcceptsTab = true, Text = "Text", Name = "rtb" )
+        rtb.ContentsResized.Add(fun e -> rtb.ZoomFactor = 0.0f |> ignore)
+        rtb.LinkClicked.Add(fun e -> tibbie ("click recd on txt: " + e.LinkText))
+        let lineNo = new TextBox(Dock = doc "F", Multiline = true, Text = "1", Font = defFont, TextAlign = HorizontalAlignment.Right, Enabled=false)
+        //lineNo.Paint.AddHandler(bookmarkPainter rtb)
+        rtb.Text <- """
+let rtb = new tyRtb(ScrollBars = RichTextBoxScrollBars.ForcedBoth, RightMargin = Int32.MaxValue, Anchor = (AnchorStyles.Top ||| AnchorStyles.Left), BorderStyle = BorderStyle.None, Dock = DockStyle.Fill,TabIndex = 0, Font = defFont, AcceptsTab = true, Text = "Text", Name = "rtb" )
+        rtb.ContentsResized.Add(fun e -> rtb.ZoomFactor = 0.0f |> ignore)
+        rtb.LinkClicked.Add(fun e -> tibbie ("click recd on txt: " + e.LinkText))
+        let lineNo = new TextBox(Dock = doc "F", Multiline = true, Text = "1", Font = defFont, TextAlign = HorizontalAlignment.Right, Enabled=false)
+        //lineNo.Paint.AddHandler(bookmarkPainter rtb)
+"""
+        rtb.Paint.Add(fun (e:PaintEventArgs) ->
+            //(rtb :> RichTextBox).Paint() //base.WndProc(ref m)
+            (rtb :> RichTextBox).WndProc(WM_PAINT)
+            let exp = new Icon("E:\\tmp\\expand.ico", new Size(10, 10))
+            let col = new Icon("E:\\tmp\\collapse.ico", new Size(10, 10))
+            let rectF = e.Graphics.ClipBounds
+            let charIdx = rtb.GetCharIndexFromPosition(new Point(int rectF.X, int rectF.Y))
+            let thisLn = rtb.GetLineFromCharIndex(charIdx)
+            if thisLn = 5 then
+               printfn "line # is 5"
+               e.Graphics.DrawIcon(exp, 10, 10)
+               e.Graphics.DrawIcon(col, 200, 10)
+            else printfn "line # %A" thisLn)
+        let charIdx = rtb.GetCharIndexFromPosition(new Point(0,0))
+        let topLn = rtb.GetLineFromCharIndex(charIdx)
+        lineNo.Text <- List.fold(fun s l -> s + l.ToString() + "\r\n") "" [topLn .. topLn + 40]
+        spl.Panel1.Controls.Add(lineNo)
+        spl.Panel2.Controls.Add(rtb)
+        spl.ResumeLayout()
+        f.Controls.Add(spl)
+        f
+#endif //mbiWithPaint
+
+#endif //modExt
+
+    let getListBxHUpDn = 
+        fun (lB:ListBox) opt ->
+            //Qn: alter only selTxt or move ob around here??
+            new EventHandler(fun o e -> 
+                    printfn "tibbie")
+#if tbfo
+                    lV.SelectedIndices |> Seq.cast |> List.ofSeq 
+                        |> lim (fun idx -> 
+                               if idx = 0 && opt = "remove" then
+                                    lB.BeginUpdate()
+                                    let selItm = lV.Items.[idx]
+                                    lB.Items.RemoveAt(idx)
+                                    lB.EndUpdate()
+                                  elif opt = "moveDn" && idx = (lB.Items.Count-1) then ()
+                                  else
+                                       match idx > 0 with
+                                       | true -> 
+                                           lB.BeginUpdate()
+                                           let selItm = lB.Items.[idx]
+                                           lB.Items.RemoveAt(idx)
+                                           match opt with
+                                           | "moveUp" -> lB.Items.Insert(idx - 1, selItm) |> ignore
+                                           | "moveDn" -> lB.Items.Insert(idx + 1, selItm) |> ignore
+                                           | _ -> ()
+                                           lV.EndUpdate()
+                                       | _ -> ()) |> ignore
+#endif
+
+
+    let bldPSlideTester =
+        fun bef aft li f ->
+            let fldFP = new TableLayoutPanel(Margin = new Padding(25), RowCount = 1, ColumnCount = 2, Dock = doc "F", Name="TablePanel", ForeColor = Color.Black, BackColor = Color.White)
+            let FldMidP = new TableLayoutPanel(RowCount = 2, ColumnCount = 1, Dock = doc "F", AutoScroll = true)
+            let btnBarFP = new FlowLayoutPanel(FlowDirection = FlowDirection.LeftToRight, Anchor = anc "N", AutoSize = true, BackColor = Color.White)
+            let btnBarP = new TableLayoutPanel(Dock = doc "T", Width = f.Width)
+            let btnFP = new FlowLayoutPanel(FlowDirection = FlowDirection.TopDown, Anchor = anc "N", AutoSize = true)
+            let lB = new ListBox(Dock = doc "F", ForeColor = Color.Black, BackColor = Color.White)
+            //@mbi !!^ ["lV", box lV] f
+            fldFP.SuspendLayout()
+            lB.SuspendLayout()
+            lB.Items.Add(ComboBox(Name = "BeginBox", DataSource = ([bef] |> Array.ofList), DropDownStyle = ComboBoxStyle.DropDownList))
+            let midChoices = li |> Array.ofList
+            lim (fun n -> lB.Items.Add(ComboBox(Name = "MidBox" + n.ToString(), DataSource = midChoices, DropDownStyle = ComboBoxStyle.DropDownList))) [0..2]
+            lB.Items.Add(ComboBox(Name = "EndBox", DataSource = ([aft] |> Array.ofList), DropDownStyle = ComboBoxStyle.DropDownList))
+            //Qn: alter only selTxt or move ob around here??
+            let moveUpButton = Button(Text = "^") //getImgBtn "Move &up" "arrow_upward.png" w
+            moveUpButton.Click.AddHandler(getListBxHUpDn lB "moveUp")
+            let moveDnButton = Button(Text = "v") //getImgBtn "Move &down" "arrow_downward.png" w
+            moveDnButton.Click.AddHandler(getListBxHUpDn lB "moveDn")
+            [moveUpButton; moveDnButton]
+            |> lim (fun (b:Button) -> b.BackColor <- Color.White
+                                      b :> Control)
+            |> Array.ofList |> btnBarFP.Controls.AddRange
+            fldFP.Controls.Add(btnBarP, 0, 0)
+            fldFP.Controls.Add(lB, 0, 1)
+            fldFP.ResumeLayout(false)
+            lV.ResumeLayout(false)
+            FldMidP.Controls.Add(btnBarFP, 0, 0)
+            FldMidP.Controls.Add(fldFP, 0, 1)
+            FldMidP.SetColumnSpan(fldFP, 3)
+            btnBarP.Controls.Add(btnBarFP)
+            let okButton = new Button(AutoSize = true, DialogResult = DialogResult.OK, Text = "&OK")
+            let cancelButton = new Button(AutoSize = true, DialogResult = DialogResult.Cancel, Text = "&Cancel")
+            btnFP.Controls.Add(okButton)
+            btnFP.Controls.Add(cancelButton)
+            f.Controls.Add(fldFP)
+            f.Controls.Add(btnFP)
+            f
+
+    let multiLineTester = ["This is choice # 0";"This is choice # 1";"This is choice # 2
+ which has two lines";"This is choice # 3";"This is choice # 4";"This is choice # 5
+ which has two lines";"This is choice # 6";"This is choice # 7";"This is choice # 8";"This is choice # 9
+ which has two lines";"This is choice # 10";"This is choice # 11";"This is choice # 12";"This is choice # 13
+ which has two lines";"This is choice # 14";"This is choice # 15
+ which has two lines";"This is choice # 16";"This is choice # 17";"This is choice # 18
+ which has two lines";"This is choice # 19";"This is choice # 20";"This is choice # 21";"This is choice # 22
+ which has two lines";"This is choice # 23";"This is choice # 24";"This is choice # 25
+ which has two lines";"This is choice # 26";"This is choice # 27
+ which has two lines";"This is choice # 28";"This is choice # 29"]
+
+    let getPB = 
+        fun nm -> 
+           let fullNm = nm + ".png"
+           let img = (Image) (Bitmap(Paths.Combine("E:\\src\\Data\\images\\google\\", nm)))
+           new PictureBox(Name = nm, Image = img, CanSelect = true, SizeMode = PictureBoxSizeMode.StretchImage)
+
+    let multiImgTester = lim (fun nm -> getPB nm) ["folder";"info";"insert";"mouse";"rule";"save";"space_Bar";"swap_horiz"]
+
+    let ext() = 
+        let f = (new Form(WindowState = FormWindowState.Maximized, Visible = false, Text = "winFrms Test Form: Copyright (c) M. P. Trivedi 2016-2023.  All rights reserved.", TopMost=true, Font=defFont))
+        f.Width <- 800
+        f.Height <- 400
+        bldPSlideTester "Begin" "End" multiLineTester f
+        bldPSlideTester (getPB "add_box") (getPB "add_circle") multiImgTester f
+
+#endif //ModuleExt_RemmedForMonkeyBastas_Jul12_2023
+
+module Cambattable =
+    open System
+    open System.Drawing
+    open System.IO
+    open System.IO.Compression
+    open System.Text
+    open System.Windows.Forms
+    open System.Text.RegularExpressions
+    open System.Diagnostics
+    open Trivedi
+    open Trivedi.Core
+    open Trivedi.UI
+
+    printfn "in mod winFrms.Cambattable..."
+
+(*
+Aug 8 work ->
+type mWith = interface end
+type mWithout = interface end
+
+type tyA() = interface mWith
+type tyB() = interface mWithout
+
+type TstOne<'t when 't :> mWith> = 
+            | Tsti of int * 't
+            | Tsts of string * 't
+            interface mWith
+
+type TstTwo<'t when 't :> mWithout> = 
+            | Tstj of int * 't
+            | Tstk of string * 't
+            interface mWithout
+
+let t1 = (Tsti(1, tyA()))   //t1 is TstOne<tyA>
+let t2 = (Tstj(1, tyB()))  //t2 is TstTwo<tyB>
+
+*)
+
+    type Bfty = | Bfty of id:string * fty:DocFldType * valu:obj with
+        override this.ToString() = 
+          let (Bfty(nm, t, v)) = this
+          match t with
+          | DFldString -> "Bfty(" + nm + ", " + "string)"
+          | DFldCurrency -> "Bfty(" + nm + ", $" + v.ToString() + ")"
+          | _ -> "Bfty(" + nm + ", " + "unknown)"
+        member this.toPer() = 
+            "test"
+        member this.fromPer() = 
+          "test"
+    
+    let x = Bfty("test1", DFldCurrency, box 2.22)
+    printfn "toString: x:%A x.ToS:%A" x (x.ToString())
+//toString: x:Bfty ("test1", DFldCurrency, 2.22) x.ToS:"Bfty(test1, $2.22)"
+
+    type Btpl = | Btpl of l:list<Bfty> with
+
+type Mtpl = | Mtpl of l:list<(string * obj * System.Type)> with
+    override this.ToString() = 
+        "tibbie"
+    static member empty() = Mtpl([])
+    static member AddOne s o (m:Mtpl) =
+                        match s = "Dat" with
+                        | true -> 
+                            let (Mtpl(l:list<(string * obj * System.Type)>)) = m
+                            let fnd = List.tryFindIndex (fun (x,_,_) -> x = s) l
+                            match fnd.IsSome with
+                            | true -> Mtpl(liUpdAt (fnd.Value) (s, (toOb o), (o.GetType())) l)
+                            | _ -> Mtpl((s, (toOb o), (o.GetType())) :: l)
+                        | _ -> 
+                            let (Mtpl(l:list<(string * obj * System.Type)>)) = m
+                            let fnd = List.tryFindIndex (fun (x,_,_) -> x = s) l
+                            match fnd.IsSome with
+                            | true -> Mtpl(liUpdAt (fnd.Value) (s, (toOb o), (o.GetType())) l)
+                            | _ -> Mtpl((s, (toOb o), (o.GetType())) :: l)
+    static member AddLi li (m:Mtpl) =
+                    let (Mtpl(l:list<(string * obj * System.Type)>)) = m
+                    List.fold (fun s o -> 
+                                let (str, ob) = o
+                                Mtpl.AddOne str ob s) m li
+    static member RemLi li (m:Mtpl) =
+                    let (Mtpl(l)) = m
+                    let remSingle tg li = 
+                        let fnd = List.tryFindIndex (fun (x,_,_) -> x = tg) li
+                        match fnd.IsSome with
+                        | true -> liRemAt (fnd.Value) li
+                        | _ -> li
+                    Mtpl(List.fold (fun s remTag -> remSingle remTag l) [] li)
+    static member GetOne tg (m:Mtpl) =
+                    //printfn "==================================getOne 1"
+                    let (Mtpl(l:list<(string * obj * System.Type)>)) = m
+                    //printfn "==================================getOne 2"
+                    let fnd = List.tryFindIndex (fun itm -> let (x,_,_) = itm
+                                                            x = tg) l
+                    //printfn "==================================getOne 3"
+                    match fnd with
+                    | Some idx -> 
+                        //printfn "==================================getOne 4"
+                        let (tg, ob, ty) = l.[idx]
+                        //printfn "==================================getOne 5"
+                        //run typeChk here to ensure correct expected ty
+                        //printfn "==================================GetOne: found idx:%A tag:%A ty:%A inTy:%A" (idx.ToString()) (tg) (ob.GetType()) (ty.ToString())
+                        Some(unbox ob)
+                    | _ -> None
+    static member Has tg (m:Mtpl) =
+                    let (Mtpl(l:list<(string * obj * System.Type)>)) = m
+                    let fnd = List.tryFindIndex (fun itm -> let (x,_,_) = itm
+                                                            x = tg) l
+                    match fnd with
+                    | Some idx -> true
+                    | _ -> false
+    static member getUNID (m:Mtpl) =
+                    let (Mtpl(l:list<(string * obj * System.Type)>)) = m
+                    let fnd = List.tryFindIndex (fun itm -> let (x,_,_) = itm
+                                                            x = "env_Tick") l
+                    match fnd with
+                    | Some idx -> 
+                        let (tg, ob, ty) = l.[idx]
+                        let newTick = (ob :?> int64) + (1L)
+                        ((Mtpl.AddOne "env_Tick" (box newTick) m), newTick)
+                    | _ -> 
+                        let newTick = idTicks()
+                        Mtpl.AddOne "env_Tick" (box newTick) m
+                        ((Mtpl.AddOne "env_Tick" (box newTick) m), newTick)
+
+
+type BrijTy<'t when 't :> ITblMarker> = | BrijTy of mods:Mod list * m:Mtpl * string * tblTy:'t with
+    override this.ToString() = 
+            let (BrijTy(mds, tpl, s, tblTy)) = this
+            let (CoreMod(CoreM(DocUNID(unid), crDt, modDt, tit, cont, tags, flag))) = mds.[0]
+            let tblT = (genArg this).ToString()
+            "BrijTy of " + tblT + "|id:" + unid + "|title:" + tit + "|"
+    member this.zipWithID() = 
+            let (BrijTy(mds, tpl, s, tblTy)) = this
+            let (CoreMod(CoreM(DocUNID(unid), _, _, _, _, _, _))) = mds.[0]
+            (unid, mds)
+
+#if ref
+    //the Following members exist in BrijTy<'t>
+    static member bld (id:string) (tit:string option) (cont:string option) (tg:string option) = 
+    static member bldSpoo (id:string) (crDt:DateTime )(tit:string option) (cont:string option) (tg:string option) = 
+    member this.contAsS() = 
+    member this.contAsB() =
+    member this.ToShortStr() =
+    member this.getFldDefs() =
+    member this.upd(m:Mtpl) =
+#endif
+
+
+
+#if ModuleDeck_RemmedForMonkeyBastas_Jul18_2023
+module deck =
+    open System
+    open System.IO
+    open System.Diagnostics
+    open System.Windows.Forms
+    open FSharp.Reflection //for dutype
+    open Trivedi.Core
+    open Trivedi.UI
+    //open GridTester
+    //open Ide
+    //open Ext
+
+    printfn "...init module deck..."
+
+#if !deck
+    type Rank = | Two
+                | Three
+                | Four
+                | Five
+                | Six
+                | Seven
+                | Eight
+                | Nine
+                | Ten
+                | Jack 
+                | Queen 
+                | King 
+                | Ace with
+        static member fromStr =
+            function | "Two" -> Two 
+                     | "Three" -> Three
+                     | "Four" -> Four
+                     | "Five" -> Five
+                     | "Six" -> Six
+                     | "Seven" -> Seven
+                     | "Eight" -> Eight
+                     | "Nine" -> Nine
+                     | "Ten" -> Ten
+                     | "Jack" -> Jack
+                     | "Queen" -> Queen
+                     | "King" -> King
+                     | "Ace" -> Ace
+                     | _ -> raise (Trivedi_Core_ex "cards: Invalid Rank supplied to r.fromStr...")
+
+    type Suit = | Spades | Hearts | Diamonds | Clubs with
+        static member fromStr =
+            function | "Clubs" -> Clubs
+                     | "Diamonds" -> Diamonds
+                     | "Hearts" -> Hearts
+                     | "Spades" -> Spades
+                     | _ -> raise (Trivedi_Core_ex "cards: Invalid Suit supplied to s.fromStr...")
+
+    type Card = | Card of Suit * Rank with
+        member c.rnkG() =
+            let (Card(s, r)) = c
+            match r with
+                  | Two -> "2"
+                  | Three -> "3"
+                  | Four -> "4"
+                  | Five -> "5"
+                  | Six -> "6"
+                  | Seven -> "7"
+                  | Eight -> "8"
+                  | Nine -> "9"
+                  | Ten -> "10"
+                  | Jack  -> "jack"
+                  | Queen  -> "queen"
+                  | King  -> "king"
+                  | Ace -> "ace"
+        member c.intVal() =
+            let (Card(s, r)) = c
+            match r with
+                  | Two -> 2
+                  | Three -> 3
+                  | Four -> 4
+                  | Five -> 5
+                  | Six -> 6
+                  | Seven -> 7
+                  | Eight -> 8
+                  | Nine -> 9
+                  | Ten -> 10
+                  | Jack  -> 11
+                  | Queen  -> 12
+                  | King  -> 13
+                  | Ace -> 14
+        member c.suitG() =
+            let (Card(s, r)) = c
+            match s with
+                   | Spades -> "spades"
+                   | Hearts -> "hearts"
+                   | Diamonds -> "diamonds"
+                   | Clubs -> "clubs"
+        member c.suitG_unicode() =
+            let (Card(s, r)) = c
+            match s with
+                   | Spades -> "♠"
+                   | Hearts -> "♥"
+                   | Diamonds -> "♦"
+                   | Clubs -> "♣"
+        member c.isFace() =
+            let (Card(s, r)) = c
+            match r with
+            | Jack | Queen | King  -> true
+            | _ -> false
+        member c.isOneEyed() =
+            let (Card(s, r)) = c
+            match c.isFace() with
+            | true ->
+                match (r, c.suitG_unicode()) with
+                | (J,♠) | (J,♥) | (K,♦) -> true
+                | _ -> false
+            | _ -> false
+        override c.ToString() =
+           let (Card(s, r)) = c
+           //printfn $"{rnkG} of {suitG}" //suitG_unicode()
+           "err: This token is reserved for future use"
+
+#if tbdb
+    type CardHand = | CardHand of Card list with
+        override this.ToString() = 
+           this |> lifo (fun s cd -> 
+                             match (len s) with
+                             | 0 -> cd.ToString()
+                             | _ -> " " + cd.ToString()) ""
+        member this.getRndHand(n) =
+           let rRnk = (typeof<Rank> |> FSharpType.GetUnionCases |> List.ofArray).[getRnum 0 13]
+           let rSt = (typeof<Suit> |> FSharpType.GetUnionCases |> List.ofArray).[getRnum 0 3]
+           [0..n] |> List.collect(fun x -> [Card((Suit.fromStr rSt), (Rank.fromStr rRnk))]) |> liShuffle (getRand()) |> CardHand
+        member this.getRndHand(n s) =
+           let rRnk = (typeof<Rank> |> FSharpType.GetUnionCases |> List.ofArray).[getRnum 0 13]
+           let fst = Card(rRnk, s)
+           [fst] @ c.getRndHand(n - 1) |> liShuffle (getRand()) |> CardHand
+        member this.getRndHand(n r) =
+           let rSt = (typeof<Suit> |> FSharpType.GetUnionCases |> List.ofArray).[getRnum 0 3]
+           let fst = Card(r, rSt)
+           [fst] @ c.getRndHand(n - 1) |> liShuffle (getRand()) |> CardHand
+        member this.runTestsWithPred(n prd) =
+           //if perf necc l8r port to seq
+           (List.filter prd (getRndHand(n)) |> lilen |> string) + " out of " + n.ToString() + " hands passed the test"
+        member this.hasFaceCards() = List.exists (fun c -> c.isFace()) this
+        member this.hasOneEyedCards() = List.exists (fun c -> c.isOneEyed()) this
+        member this.chkSelBySuit(s, selL) =
+           //nds suitFromBase
+           let allowd = List.filter (fun c -> c.suitG() = s) this
+           match not (len selL > len allowd) with
+           | true -> Set.isSubset Set.ofList selL  Set.ofList allowd
+           | _ -> true
+
+        member c.toImgNmG() = 
+           let (Card(s, r)) = c
+           //c.rnkG() + "_of_" + c.suitG() + ".png"
+           printfn "%A of %A.png" c.rnkG c.suitG
+           //rtb.Text <- rtb.Text + (c.rnkG() + " of " + c.suitG() + ".png\n")
+
+
+    let getBDFTpl c =
+                        let file = Path.Combine(@"E:\tmp\PNG-cards-1.3\", c.toImgNmG())
+                        let localEx = if File.Exists(file) then true else false
+                        match localEx with
+                        | true -> 
+                            let localBA = File.ReadAllBytes(file) |> b64EncB_SingleLine
+                            printfn "getBDFTpl Success: Card img exists for Card: %A" (file)
+                            Some(c.rnkG(), c.suitG(), localBA)
+                        | _ -> 
+                            printfn "getBDFTpl ERR: Card img does not exist for Card: %A" (file)
+                            None
+
+    let bldOut rtb =
+      let flatLocal l = l
+      let resDat =
+        typeof<Rank> |> FSharpType.GetUnionCases |> List.ofArray 
+         |> lim (fun rInf -> 
+                     let r = Rank.fromStr(rInf.Name)
+                     typeof<Suit> 
+                     |> FSharpType.GetUnionCases 
+                     |> List.ofArray 
+                     |> lim (fun stInf -> 
+                               let st = stInf.Name
+                               let crd = Card(Suit.fromStr st, r)
+                               getBDFTpl crd )) |> List.concat |> flatLocal
+      printfn "................postProc..."
+      //File.WriteAllBytes("E:\src\Brij\mongo\Cards.bdf", (serBA resDat))
+
+
+    let cardExt() = 
+        let f = (new Form(WindowState = FormWindowState.Maximized, Visible = false, Text = "winFrms Test Form: Copyright (c) M. P. Trivedi 2016-2023.  All rights reserved.", TopMost=true, Font=defFont))
+        f.Width <- 800
+        f.Height <- 400
+        let rtb = new RichTextBox(ScrollBars = RichTextBoxScrollBars.ForcedBoth, RightMargin = Int32.MaxValue, Anchor = (AnchorStyles.Top ||| AnchorStyles.Left), BorderStyle = BorderStyle.None, Dock = DockStyle.Fill,TabIndex = 0, Font = defFont, AcceptsTab = true, Text = "Text", Name = "rtb" )
+        f.Controls.Add(rtb)
+        bldOut rtb
+        f
+#endif //tbdb
+
+#if tbfo
+    let hardCodedBridgeSOrdSupplier(h) =
+        //chkBridgeSOrd h
+        true
+    let hardCodedFCrdSupplier(h) =
+         //One-eyed: J♠, J♥, K♦
+        //chkFCrd h
+        true
+    let hardCodedFiveBaseSupplier(h) = 
+        //getCurrBase() |> chkBase h
+        true
+    let hardCodedStrat4Supplier(h) =
+        //chkStrat4 h
+        true
+    //mnemonic: "Bridge Co_nt_ract - WA_SH_INGTON _D.C._"
+    type G_Strategy = | BridgeSOrd = 1
+                      | FCrd = 2
+                      | FiveBase = 3
+                      | Strat4 with = 4
+
+    let G_Strategy_From_Int(i:int):G_Strategy = enum(i)
+
+    let genDeckTpl() =
+        let h =
+              match (getRnum 1 11) > 5 with
+              | true -> CardHand.getRndHand(5)
+              | _ -> CardHand.getRndHand(3)
+        let strat = G_Strategy_From_Int(getRnum 1 4)
+            match strat with
+            | BridgeSOrd -> (if hardCodedBridgeSOrdSupplier(h)) then true else false
+            | FCrd -> (if hardCodedFCrdSupplier(h)) then true else false
+            | FiveBase -> (if hardCodedFiveBaseSupplier(h)) then true else false
+            | Strat4 -> (if hardCodedStrat4Supplier(h)) then true else false
+            | _ -> false
+        (strat, h)
+
+    let cardExt() = 
+        tibbie "launching rpnl..."
+        RPnl()
+        tibbie "after launching rpnl..."
+#endif //tbfo
+
+#endif //deck
+
+#endif //ModuleDeck_RemmedForMonkeyBastas_Jul18_2023
 
 #if !modPerms
 module perms =
