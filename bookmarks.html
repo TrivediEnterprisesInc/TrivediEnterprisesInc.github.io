@@ -3,7 +3,7 @@
 <head>
 <!-- html begins line #1527 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.11.14 bookmarks update pm">
+<meta name="description" content="2023.11.15 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -694,6 +694,14 @@ mBldTagBtns = (arr) => {
 	return out;
 }
 
+getBoxTyFromStoreKey = function (StoreKey){
+	//@ToDo: complete
+        let hashPos = StoreKey.indexOf("Tagged");
+        //let mBoxTy = StoreKey.substring(0, (StoreKey.length) - hashPos - 1);
+        let mBoxTy = "Notes";
+	return mBoxTy;
+}
+
 mBuildTagArray = function (StoreKey){
 /*
     Two flows: * 1-arg: blds [tags] 4 StoreKey div;
@@ -701,11 +709,8 @@ mBuildTagArray = function (StoreKey){
 */
 
         var mTagArr = {tagName : [], tagCount : []};
-        console.log( "mBuildTagArray...");
         var allFs = []; //depends on args
-        let hashPos = StoreKey.indexOf("Tagged");
-        let mBoxTy = StoreKey.substring(0, (StoreKey.length) - hashPos - 1);
-
+        let mBoxTy = getBoxTyFromStoreKey(StoreKey);
         switch(arguments.length) {
             case 1:
 		//StoreKey:devNotes RENAME 2 notesTagged; fire mainTxtDiv handler on str.contains('Tagged')
@@ -750,6 +755,8 @@ mBuildTagArray = function (StoreKey){
 
 runUpdates = (storeID) => {
 
+    let mBoxTy = getBoxTyFromStoreKey(storeID);
+
 //- - - - - - - - - - - - - - - 
 //Replace begin
     //This approach - though not ideal - was used w/the filmTags, so is reproduced until a better
@@ -789,7 +796,9 @@ runUpdates = (storeID) => {
     let otherTab = "<div data-dojo-type='dijit/layout/ContentPane' title='Other'></div>\n";
     let tcHtml = mappedHTML + otherTab + tabFragEnd;
 
-    dom.byId("tagCloudHdr").innerHTML = tcHtml;
+
+    let tagCloudHdrDiv = dom.byId(mBoxTy + "TagCloudHdr");
+    tagCloudHdrDiv.innerHTML = tcHtml;
     parser.parse(dom.byId("tagCloudHdr"));
 
     //@@@
@@ -1600,7 +1609,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 14th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 15th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -24471,8 +24480,9 @@ postCovid imports into allData</td>
             <!--career/devNotesTagged section-->
             <section>
     		<div id="devNotesTagged" data-dojo-type="dijit/layout/ContentPane" title="Notes">
-
-<center>  <div id="notesTagCloudHdr"></div></center>
+Note: Nov 15th: The monkeys have seriously messed with this (pro'lly frustrated as usual w/their incompet.)<br>
+freeze work for now and reconcile all diffs be4 proceeding.  Basically last 2-3 days work.
+<center>  <div id="NotesTagCloudHdr">NotesTagCloudHdr</div></center>
 
 <div class="mBox-container" id="NotesBoxContainer">
 
@@ -24514,9 +24524,10 @@ On a similar note, an NPR PlanetMoney seg on Ice Cream Conspiracy laid out how H
 <li>4gb storage</li>
 <li>upto 5 Registered repondents</li>
 </ul>
-
-
-
+<br>
+<mark>Pricing 4 JS Devs</mark><br>
+Beauc. JS devs (poss clis) on IndieH., one example is a guy who makes $60k off his app - converting Notion posts 2 blogs, charges users $20/mo - and he wd be willing to pay $300/mo easy (currently pays 500/mo total for SaaS apps)
+<br>
 
               </div>
           </div>
@@ -24819,7 +24830,7 @@ db.collection.aggregate([
     { "$match": { "C": { "$gt": 10 } } }
 ])
 </code></pre>
-              </div>
+              </div></div>
 
           <div class="mBox notes mongo" >
              Mongo Agg $push alternative
@@ -24829,14 +24840,14 @@ Aggregation alternative to using $push in grouping:<br>
 use the $first operator which returns a value from the first document for each group.<br>
 >>Which should be exc coz there are no poss cases where it wd contain an invalid val for any poss grping.<br>
 see detailed example [here](https://stackoverflow.com/questions/35176641/mongo-group-with-project/35177196#35177196)
-              </div>
+              </div></div>
 
 
           <div class="mBox notes mongo" >
              Mongo Update obj in Nested Array
               <div class="caption" style="display:none;">
 Update an obj in a [nested arr](https://stackoverflow.com/questions/34431435/mongodb-update-an-object-in-nested-array/34431571#34431571)
-              </div>
+              </div></div>
 
           <div class="mBox notes mongo" >
              Mongo Queries
