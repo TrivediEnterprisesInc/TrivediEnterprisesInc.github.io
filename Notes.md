@@ -509,6 +509,7 @@ graph TB
 graph TB
     classDef red  fill:#FFCACC,stroke:#333,stroke-width:4px
     classDef ltBrn fill:#EEE0C9,stroke:#333,stroke-width:2px
+    classDef ltBrnD fill:#EEE0C9,stroke:#333,stroke-width:4px,stroke-dasharray: 5 5
     classDef offWhite fill:#F1F0E8,stroke:#333,stroke-width:2px
     classDef drkBlue fill:#96B6C5,stroke:#333,stroke-width:2px
     classDef ltBlue fill:#ADC4CE,stroke:#333,stroke-width:2px
@@ -534,7 +535,8 @@ graph TB
     hg3-->hg4[Await Next]
     class hg4 offWhite
     class hgWeb drkBlue
-    class hgWeb1,hg3 ltBrn
+    class hg3 ltBrn
+    class hgweb1 ltBrnD
     class hg2 green
     class hg1 red
     end
@@ -551,6 +553,15 @@ graph TB
     class grg1 red
     end
 ```
+### Notes for G
+_*Request*_ 
+  - reqHandlers For "Expand args" et al already ∃
+  - Add member .wobbly() to Defs where necc 
+
+_*Query*_
+  - ONLY chng reqd is to xfrm openCats 2 Fltr >> apply >> skip >> take
+
+
 ## Process Flows `H`
 ```mermaid
 graph TB
@@ -671,15 +682,15 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 ...you give them the features and when you do give them the features you fight for that elegance and that simplicity, you fight for <mark>hiding the complicated functionality</mark> under the surface sort of a viewer user interface, so you only give them <mark>one choice instead of six</mark> but they still have all the <mark>same options</mark>.
 
 # Outstanding Tks
-(Last updated Oct 27 2023)
+(Last updated Nov 15 2023)
  - [ ] General
  	 - [ ] Nd to chk bundle reqmts 2 run dotNet in new env.
  	 (Note that other tasks e.g. Svr depend on this task)
- - [ ] [DnD Impl](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#links-all-winforms-dnd-docs)
+ - [ ] DnD Impl
 	 - [x] Dynamic bld (10/11/23)
 	 - [x] bld operational, tested (10/11/23)
 	 - [ ] Monadic state upd8t on DnD
- - [ ] [Wireframes Tabbed PropBox](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#wireframes-tabbed-propbox)
+ - [ ] Wireframes Tabbed PropBox
  	 - [ ] reimpl frm w/declarative|domConstr
 	 - [ ] New Tys 4 tabbedPgs
 	 - [ ] New Tys 4 PropBox (bld via above)
@@ -687,7 +698,7 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	 - [ ] Make ctxtMenus modular, test w/curr setup
 	 - [ ] Reuse/reImpl 4 other els
 	 - [ ] Use ResX for assets
- - [ ] [Wireframes WebCli](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#djcli)
+ - [ ] Wireframes WebCli
  	 - [ ] Impl/test Grid. **See** [Notes](https://trivedienterprisesinc.github.io/CP_Logic.txt)
 	 	 - [x] Impl barebones working test ver w/all func necc.
 	 	 - [_] Refactor code to accept direct defs
@@ -697,8 +708,11 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	 - [ ] Impl/test Forms. **See** form [tester](https://trivedienterprisesinc.github.io/frm.html)
 	 - [ ] Hold off for now on impl Auth
  - [ ] Import Module
- 	 - [ ] We nd an Export mod 2; basic func only (also nded for `ReddHat`)
 	 - [ ] Impl/test; just basic func will do **_this is the last major mod left to complete_**
+	 - [ ] File|New >> 'Do you have a data dump (CSV) file? 'hlp:what is this?' ie, yes/no dlgBoxes; no wizardLike stuff.
+	 - [ ] Ideally use continuationMonad to terminate if errors > preset %age limit of totalInputSz i.e., **deterministic** flow with prompt + option to continue/break.
+ 	 - [ ] We nd an Export mod 2; basic func only (also nded for `ReddHat`)
+
 - [ ] Svr
 	 - [x] Setup/test chat svr
 	 - [ ] Port to F#
@@ -706,21 +720,37 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	 - [ ] AutoDownload (cli+dsk) on 1st login
 	 - [ ] Add get/post capab from non-stdrd cli.s
 	 - [ ] Chk post mechanics SigR (see [this](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#signalr))
- - [ ] [Windowing](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#windowing)
+-  [ ] Embedded Dox / CalcFlds
+	- [ ] New fldTy **_subForm : li&lt;fldTy&gt;_**
+	- Naming follows dot convention: 'subFrmNm.fldNm'
+	- Auto-trans to/from via member wobbly() as usu
+	- Offer canned calc flds whenever frm has embedded subFrm: *_count|total|avg|mean|median_*
+	-  These shd be **_updated cliSide_** on docSave/docUpd8.
+	- **(earlier Notes) SubForms** 
+		- @Tbd: Sched for v2+ BUT if it's less of a hassle impl now:
+		- Instd of hideWhens forEa; just use formulas for subForms (tblPnl insertable) 
+		- They'll appear as greyed uneditable boxes in Dz 
+		Gen8ing both vers shdn't be much trouble.
+	- see 'Canned Db Example w/Orders' in tk for Demo(s)
+ - [ ] Windowing
 	 - [ ] @ this pt. or at any pt. earlier (@mbi) switch 2 completing all outstanding tks under this umbrella
+
 - [ ] Demo(s)
 	 - [ ] Poss utility in separate demos 4 scenarios 
 	 - [ ] ReddHat
 	 	- [ ] Find online src 4 canned order frm; use/reImpl
--   [ ] [DbClipboard](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#dbclipboard)
+	 - [ ] Canned Db example (v2?): Need one with 'Orders' **_embedded_** (n.b. 32M limit so no go for blogs CMSs etc.) WITH example embedded form, full functionality
+-   [ ] DbClipboard
 	- [ ] Impl/test
--  [ ] [DbServants](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#dbservants)
-	- [ ] Rename 2 Scriptlets? Functions?
--  [ ] SubForms
-	- [ ] @Tbd: Sched for v2+ BUT if it's less of a hassle impl now:
-		Instd of hideWhens forEa; just use formulas for subForms (tblPnl insertable) 
-		They'll appear as greyed uneditable boxes in Dz 
-		Gen8ing both vers shdn't be much trouble.
+-  [ ] DbFuncs
+	- [ ] Impl MessageBox queue to proc
+	- [ ] Will run as Indep svc full-time on svr
+	- [ ] Will def nd 2 offer users ability to trigger on Save/Update
+	- [ ] Offer some canned fns e.g. **_sendMail_** aka transactional emails 
+	- [ ] Offer triggers 4 *_onEvent|manualRun|hourly|daily|wkly|monthly_*
+	- [ ] We have sketched out the types for this elsewhere (@ToDo: loc8) what's key is **_LastRunOn_** and **_LastRunStatus_**; the currRn will collect docs/filter based on these flds.
+	- [ ] The assoc dox 4 dbFuncs will go into the AdDb (nd to impl ids etc.)
+
 - [ ] Org
 	- [ ] mBoxes
 		- [ ] Port Notes 2 mBoxes (see [this](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#mboxes-redux)); add tab func
@@ -734,27 +764,22 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	- [ ] Myers/Briggs & current updates
 		- [ ] How 2 best ask pointed Qns/gather info?
 		- [ ] Tailored decision trees per user ty?
-- [ ] Backend
-	   - [ ] @rsch BsonDoc [Qry](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#qry)
-	   - [ ] Collect all poss mongodb Qry params; incorp into code; impl.
+	- [ ] Auth
+		- [ ] Mongo realm/ roll-yr-own (lk 4 c#) must accomodate webTkns
+		- [ ] look also @repl/GitH setup on their repo
+
+- [ ] Backend 
+   - [ ] @rsch BsonDoc [Qry](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#qry)
+   - [ ] Collect all poss mongodb Qry params; incorp into code; impl.
 - [ ] Rec
 	- [ ] Need to begin creating/adding to bkmrks/Gear et al
 
-- [ ] Monad Updates
-	- [ ] ren bind to DzFrmBind etc.; custom bldrs 4ea.; all we nd
-- [ ] FSvr
-	- [ ] Commencez le travaille
 - [ ] Dat
 	- [ ] Chk w/frmwrk instd of netCore
 	- [ ] Can we run LoggedUI (only rel parts w/o UI) to regen?
 	- [ ] Nuget 4.6 is platform-indep (? is it?) so cld try in shell
       		- via fat OR
       		- via reInstall
-- [ ] mBoxes
-	- [ ] Continue
-- [ ] @Rsch
-	- [ ] Mongo realm/ roll-yr-own (lk 4 c#) must accomodate webTkns
-	- [ ] look also @repl/GitH setup on their repo
 - [ ] Nd Reset
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 winFrms Gist Hdr Updates
@@ -788,20 +813,11 @@ Cons:
 - nd 2 clean up
 Pros: 
 - no data loss ever
-- no nd 2 cleanup pastebins
-
-#### Postbin (a pastebin [API](https://www.toptal.com/developers/postbin/api) for devs)
-
-To add a webhook OR save outpt from Pgs to bin: 
-
-This API tries to be RESTful and can be used programatically to create a bin and query it's contents to help your unit testing, your constant integration tests or your build server. 
-
-`https://www.toptal.com/developers/postbin/:binId` returns a RequestId
-`GET /developers/postbin/api/bin/:binId/req/:reqId` returns payload
+- no nd 2 cleanup pastes.io
 
 ## Versioning
 
- - PrVers are a **_source of truth! Should be poss 2 reconstruct
+ - PrVers are a **_source of truth_**! Should be poss 2 reconstruct
  - Therefore nd delta FldInfo + UnDel Info preserved
  - Ren/Chg flds 4 EmbedDox?
 
