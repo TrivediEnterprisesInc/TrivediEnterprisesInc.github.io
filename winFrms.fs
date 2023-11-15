@@ -19,7 +19,7 @@
 	Folding			FilePanelUpdates
 	Outliner		frmDelta (ty DeltaTracker...)
 	clientInit (UI/UIAux/Brij updates) <- !!contains new Keywds!!
-	Dnd_ops
+	Dnd_ops		dndState
 	main
 	
 New reqmt:  Zeep :  user auth/registration/assign API keys.  Is this doable via webhooks/gitEmail?
@@ -1642,9 +1642,9 @@ module DnD_ops =
     open System.Drawing
     open System.Windows.Forms
 
-/*
+(*
     What:           MVP for impl/testing DnD func + (l8r) Dojo wireframes...
-    Last updated:   Thu Oct 12 2023
+    Last updated:   Mon Nov 06 2023  //ready 4 work on the UIMonad; runs on glob etc.
     Stat:           interimRes3:
                     [RoTgt -0.5; DzCell ("Cell 1", 1, 1, 0, 0); DzCell ("Cell 2", 1, 1, 1, 0); DzCell ("Cell 3", 1, 1, 2, 0); 
                     RoTgt 0.5; DzCell ("Cell 4", 1, 1, 0, 1); DzCell ("Cell 5", 3, 1, 1, 1); DzCell ("Cell 6", 2, 1, 4, 1); 
@@ -1660,19 +1660,29 @@ module DnD_ops =
                      - as decided, changes via UI updates def & autoUpdates UI
                      - @Add: bld_v1 interleaves dropCells(see output); nd to manually do that
 
-*/
+*)
     
+    
+    printfn "1.1"
     
     let printHR() = printfn " - - - - - - - - - - - - - - - - - "
     let tibbie = fun (s:string) -> MessageBox.Show(s, "System Msg") |> ignore
     let defPadding:Padding = new Padding(40)
+    
+    //Throws on glot
+(*
     let defFont:Font = new Font("Tahoma", 26.0F)
-    let defColor:Color = Color.White
-    let defForeColor:Color = Color.Black //dCobaltBlue
-    let defBackColor:Color = Color.White
     let getCtrlHt() = 
             let g = (new Button()).CreateGraphics()
             ((g.MeasureString("nm", defFont)).ToSize()).Height
+*)
+    let getCtrlHt() = 100
+
+
+    let defColor:Color = Color.White
+    let defForeColor:Color = Color.Black //dCobaltBlue
+    let defBackColor:Color = Color.White
+
     let colN = 3
     let isEven num = (num % 2 = 0)
     let toCellSlug = fun n -> "Cell " + n.ToString()
@@ -1689,15 +1699,17 @@ module DnD_ops =
                 elif r < 5 then 1
                 else 2
 
-
+    printfn "2.1"
+    
     type DzCell =    | DzCell of string * int * int * int * int
                      | BetwTgt of float * float
                      | RoTgt of float
 
-    type DzRow = | DzRowBlank of DzCell
-                 | DzRowFilled of list<DzCell>
+    type DzRow = | DzRow of list<DzCell>
 
     type DzTbl = | DzTable of list<DzRow>
+
+    printfn "3.1"
 
     ///No longer using Random values + State Support + consise 4 doL()
     let tbl = [DzCell ("Cell 1",1,1,0,0); DzCell ("Cell 2",1,1,1,0);
@@ -1708,11 +1720,11 @@ module DnD_ops =
                DzCell ("Cell 11",2,1,0,4); DzCell ("Cell 12",2,1,2,4);
                DzCell ("Cell 13",2,1,0,5); DzCell ("Cell 14",2,1,2,5)]
 
-    /*  Utils for processing cells: interleaving Tgts   */
+    //*  Utils for processing cells: interleaving Tgts   */
     
     let addTgts = 
         fun cellStruc ->
-            /*
+            (*
                  - map over [0..totRows]
                  - split by rows (either earlier approach: conv cells 2 rows
                                   OR approach used in v3 below)
@@ -1723,18 +1735,18 @@ module DnD_ops =
                      - addHandler
                  - add DzRowBlank @ end
                      - addHandler
-            */
+            *)
             printfn "tibbie"
     
-    let remTgts = List.filter (fun cell -> match cell with
-                                           | DzRowBlank | BetwTgt ->  false
-                                           | _ -> true)
+    let onlyCells = fun cell -> match cell with
+                                   | DzCell(_,_,_,_,_) -> true
+                                   | _ -> false
 
-    /*  Tbl processing utils  */
+    //*  Tbl processing utils  */
     
     let preProc =
         fun tbl ->
-            //if tbl.HasTargets then remTgts
+            //if tbl.HasTargets then onlyCells
             printfn "tibbie"
             
     let postProc =
@@ -1742,12 +1754,14 @@ module DnD_ops =
             //if not(tbl.HasTargets) then addTgts
             printfn "tibbie"
     
-    let totRows =
-        List.filter(DzCell)
-        |> List.collect(fun x -> 
-                          let (DzCell(_, _, _, _, crI) = x)
-                          crI) 
-        |> List.max
+    let totRows = 
+        fun tbl -> 
+            tbl
+            |> List.filter(onlyCells)
+            |> List.collect(fun x -> 
+                              let (DzCell(_, _, _, _, crI)) = x
+                              [crI]) 
+            |> List.max
 
     let getIdxOfFirstCellForRow =
         fun tbl ro -> 
@@ -1761,29 +1775,32 @@ module DnD_ops =
         fun tbl oldPos newPos ->
             printfn "tibbie"
 
-
-    /*  Dnd handlers   */
+(*
+    //*  Dnd handlers   */
 
     ///Add to src.MouseDown
     let dragInitHandler = 
-        fun (o,e -> 
-            button1.DoDragDrop(src.Text, DragDropEffects.Copy))
+        new DragEventHandler( fun (sender:obj) (e:System.Windows.Forms.DragEventArgs) -> 
+            let button1 = (Button) obj
+            button1.DoDragDrop(src.Text, DragDropEffects.Copy) |> ignore)
 
     let tgtDragEnterHandler =
-        fun (o,e -> 
+        new DragEventHandler( fun (sender:obj) (e:System.Windows.Forms.DragEventArgs) -> 
             match e.Data.GetDataPresent(DataFormats.Text) with
             | true -> e.Effect <- DragDropEffects.Copy
             | _ -> e.Effect <- DragDropEffects.None)
 
     let rowTgtDragDropHandler =
-        fun (o,e ->
+        new DragEventHandler( fun (sender:obj) (e:System.Windows.Forms.DragEventArgs) -> 
             //update the struct directly
-            textBox1.Text = e.Data.GetData(DataFormats.Text).ToString())
+            textBox1.Text <- e.Data.GetData(DataFormats.Text).ToString())
             
     let b4TgtDragDropHandler =
-        fun (o,e ->
+        new DragEventHandler( fun (sender:obj) (e:System.Windows.Forms.DragEventArgs) -> 
             //update the struct directly
-            textBox1.Text = e.Data.GetData(DataFormats.Text).ToString())
+            textBox1.Text <- e.Data.GetData(DataFormats.Text).ToString())
+
+*)
 
     let bld_v3 = 
         fun li -> 
@@ -1862,6 +1879,110 @@ module DnD_ops =
     frm.ResumeLayout(false)
     printfn "eom..."
 
+module DnDMonad =
+
+(*
+    What:           UIMonad 4 above mod; init tests OK
+    Last updated:   Tue Nov 07 2023
+    Stat:           @ end of this mod
+*)
+
+    type DnDState<'M, 'T> = 'M -> 'M * 'T
+
+    let adder = fun l -> ("adder" + (List.length l).ToString()) :: l
+        //(List.tail l @ l)
+
+    let getS = fun s -> (s,s)
+    let putS s = fun _ -> (s,())
+    let eval m s = m s |> fst
+    let exec m s = m s |> snd
+    let empty = fun s -> (s,())
+    let modif f s = let x = getS in (putS (f x))
+    let bind k m = fun s -> 
+        let (s', a) = m s
+        printfn "Step (a) bind #1: %A" s'
+        let s'' = adder s'
+        printfn "adder res: %A" s''
+        let tmp = (k a) s''
+        printfn "Step (b) bind #2 for inSt: %A %A" tmp s'
+        tmp
+
+    type DnDStateBuilder() =
+        member this.Return(a) : DnDState<'M,'T> = fun s -> (s,a)
+        member this.ReturnFrom(m:DnDState<'M, 'T>) = m
+        member this.Bind(m:DnDState<'M,'T>, k:'T -> DnDState<'M,'U>) : DnDState<'M,'U> =  bind k m
+        member this.Zero() = this.Return()
+        member this.Delay(f) = this.Bind(this.Return (), f)
+    let ``⍒`` = new DnDStateBuilder()
+
+    let sRun = 
+        ["ob"] |>
+        ``⍒`` {
+               printfn "DnDStateful init()"
+               let! a = getS
+               printfn "Step (c) tplRun 1: %A" a
+               do! putS ("ob2" :: a)
+               let! b = getS
+               printfn "Step (d) tplRun 2: %A" b
+               return b
+            }
+
+(*  res: (note the lag in effects)
+    Step (a) bind #1: [ob]
+    adder res: [adder1; ob]
+    DnDStateful init()
+    Step (a) bind #1: [adder1; ob]
+    adder res: [adder2; adder1; ob]
+    Step (c) tplRun 1: [adder1; ob]
+    Step (a) bind #1: [ob2; adder1; ob]
+    adder res: [adder3; ob2; adder1; ob]
+    Step (a) bind #1: [adder3; ob2; adder1; ob]
+    adder res: [adder4; adder3; ob2; adder1; ob]
+    Step (d) tplRun 2: [adder3; ob2; adder1; ob]
+    Step (b) bind #2 for inSt: [adder4; adder3; ob2; adder1; ob],[adder3; ob2; adder1; ob] [adder3; ob2; adder1; ob]
+    Step (b) bind #2 for inSt: [adder4; adder3; ob2; adder1; ob],[adder3; ob2; adder1; ob] [ob2; adder1; ob]
+    Step (b) bind #2 for inSt: [adder4; adder3; ob2; adder1; ob],[adder3; ob2; adder1; ob] [adder1; ob]
+    Step (b) bind #2 for inSt: [adder4; adder3; ob2; adder1; ob],[adder3; ob2; adder1; ob] [ob]
+*)
+
+module bldDat =
+    open System.Web
+
+    //just a placeholdr 4 eventual wobbly() generation...
+
+    let quoted = fun input -> HttpUtility.JavaScriptStringEncode(input)
+
+    let inStr = """
+    This is a "line" with many 'quotes' and 'quotations'.
+    This is the 2nd line...
+"""
+
+    
+(*
+    from https://github.com/oria/gridx/blob/master/tests/support/data/TreeNestedTestData.js
+	var generateItem = function(parentId, index, level){
+		return {
+			id: parentId + "-" + (index + 1),
+			number: level <= 1 ? randomNumber(10000) : null,
+			string: level <= 2 ? randomString() : null,
+			date: level <= 3 ? randomDate().toDateString() : null,
+			time: randomDate().toTimeString().split(' ')[0],
+			bool: randomNumber(10) < 5
+		};
+	};    //note that the layout below is pro'lly not the one actually used (there's another one in calling pg)
+		layouts: [
+			[
+				{id: 'number', name: 'number', field: 'number', expandLevel: 1},
+				{id: 'string', name: 'string', field: 'string', expandLevel: 2},
+				{id: 'date', name: 'date', field: 'date', expandLevel: 3},
+				{id: 'time', name: 'time', field: 'time'},
+				{id: 'bool', name: 'bool', field: 'bool'},
+				{id: 'id', name: 'id', field: 'id'}
+			],...
+*)
+    
+    printfn "res:%A" (quoted(inStr))
+
 #if forRepl
 module main =
   open System
@@ -1909,6 +2030,149 @@ module main =
     printfn "toString: x:%A x.ToS:%A" x (x.ToString())
 //toString: x:Bfty ("test1", DFldCurrency, 2.22) x.ToS:"Bfty(test1, $2.22)"
 #endif //Camba
+
+module dndState = 
+    open System
+    open System.Diagnostics
+    open System.Drawing
+    open System.Drawing.Imaging
+    open System.IO
+    open System.Text
+    open System.Text.RegularExpressions
+    open System.Globalization
+    //open System.Windows.Forms
+    open Trivedi
+    open Trivedi.Core
+    open Trivedi.Control
+    open Trivedi.Brij
+    open Trivedi.UI
+    open Trivedi.UI.Form
+    open Trivedi.UI.Dlg
+    open Trivedi.UIAux
+    open FSharp.Reflection
+
+(*
+Nov 15 '23:
+****DnDMonad: (Notes to be ins into mod)
+
+Here's the deal:
+  - For scope within ob (after ctor in monad), we got working mechanics but no get/put.  POSSIBLY this is coz in the new scope (inside) it does NOT continue outside scope; in which case the 'let x = getS' will assign a fn to x.  Check/verify with simple console app if necc.  and then simply revert to getting local state for ea Monaic fn (this is NO PROB coz ea event is indiv & won't adversely affect state in any case)
+  - For now, try the foll.:
+    - Tinker w/ctor (do!)
+    - Perhaps removing the inner {} scope will let getS work
+  - If not, rever to approach identified above.
+*)
+
+    printfn "hey dnd"
+
+    //impl console state test w/bind + doPrnLayout() 
+    //on ty ext Control; impl basic flow to see if works; 
+    //use timer.pause() etc. 4 updates
+    //INCLUDE stubs 4 all handlers reqd 4 cpy/paste into dzOps mod
+    (*
+    Actions:
+      = Move
+      - Change Props (Sz)
+      - Change Props (Details)
+      - Ins BlankRow
+      - New Tbl ColSz
+    Consider: match inside bind with cmd.RequiresLayout -> doL()
+    *)
+    let adder = fun l -> ("adder" + (List.length l).ToString()) :: l
+    //(List.tail l @ l)
+
+    let dndBind_v1 k m = 
+      fun s -> 
+        let (s', a) = m s
+        printfn "Step (a) bind #1: %A" s'
+        let s'' = adder s'
+        printfn "adder res: %A" s''
+        let tmp = (k a) s''
+        printfn "Step (b) bind #2 for inSt: %A %A" tmp s'
+        tmp
+
+    let dndBind k m = 
+      fun s -> 
+        let (s', a) = m s in (k a) s'
+
+    type DnDStateBuilder() =
+        member this.Return(a) : State<'M,'T> = fun s -> (s,a)
+        member this.ReturnFrom(m:State<'M, 'T>) = m
+        member this.Bind(m:State<'M,'T>, k:'T -> State<'M,'U>) : State<'M,'U> =  dndBind k m
+        member this.Zero() = this.Return()
+        member this.Delay(f) = this.Bind(this.Return (), f)
+    let ``⍒`` = new DnDStateBuilder()
+
+
+    type StatefulC(inS:string) as c =
+      //inherit Control()
+      do printfn "new with ctor:%A" inS
+      let moveCmd =
+        let eachSec = new System.Timers.Timer(Interval = 1000)
+        eachSec.Elapsed.AddHandler(fun o e -> 
+              printfn "eachSec timer triggered @ %A" e.SignalTime
+              ``⍒`` {
+                    let! currS = getS
+                    do! putS ((e.SignalTime).ToString() :: currS)
+                    } |> ignore)
+        eachSec.Enabled <- true
+      let propsCmd =
+        let twoSec = new System.Timers.Timer(Interval = 2000)
+        twoSec.Elapsed.AddHandler(fun o e -> 
+              printfn "**TwoSec timer triggered @ %A" e.SignalTime
+              ``⍒`` {
+                  let! currS = getS
+                  do printfn "**current State: %A" (liToString currS)
+                  do! putS ((e.SignalTime).ToString() :: currS)
+                  } |> ignore)
+        twoSec.Enabled <- true
+      do printfn "*** outside initControl..."
+      member c.prnStat() = 
+          ``⍒`` {
+                do printfn "prnStat.."
+                let! currS = getS
+                do printfn "current State: %A" (liToString currS)
+          } |> ignore
+
+(*    mucho issues with this...
+      override c.ToString() =
+          ``⍒`` {
+                let! currS = getS
+                return "current State: " + (liToString currS)
+                } |> eval
+*)
+
+    let statAsync(inst:StatefulC) =
+        async {
+            try
+                do Console.WriteLine("in statAsync, press any key...")
+                while (not( Console.ReadKey().Key = ConsoleKey.Enter)) do inst.prnStat()
+            with
+                | ex -> printfn "err in statAsync: %s" (ex.Message)
+            }
+
+//        ["init"] |>
+    let sRunnr = 
+      fun inpt ->
+        ``⍒`` {
+                let instance = StatefulC("testRun")
+                do statAsync(instance)
+                  |> Async.RunSynchronously
+                  |> ignore
+              }
+
+    let sRun = 
+      fun inS -> 
+        ``⍒`` {
+               printfn "DnDStateful init()"
+               let! a = getS
+               printfn "Step (c) tplRun 1: %A" a
+               do! putS ("ob2" :: a)
+               let! b = getS
+               printfn "Step (d) tplRun 2: %A" b
+               return b
+            }
+
 
     [<EntryPoint>]
     [<STAThread>]
