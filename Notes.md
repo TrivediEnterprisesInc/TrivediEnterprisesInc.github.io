@@ -1,45 +1,35 @@
+
 # Table of Contents
 - [Architecture](#architecture)
   - [Topology Overview](#topology-overview)
   - [Windowing](#windowing)
   - [Wireframes Main](#wireframes-main)
-      - [(Mon Oct 2)](#mon-oct-2)
-      - [Links: All winForms DnD docs](#links-all-winforms-dnd-docs)
-      - [Gist of above dox](#gist-of-above-dox)
-        - [Dragging](#dragging)
-        - [Dropping (any ctrl)](#dropping-any-ctrl)
-      - [Handling DnD drops betw rows](#handling-dnd-drops-betw-rows)
   - [Wireframes Tabbed PropBox](#wireframes-tabbed-propbox)
   - [Wireframes WebCli](#wireframes-webcli)
   - [Templating](#templating)
-    - [Brij flow using ρ setup ->](#brij-flow-using--setup--)
   - [Process Flows `S`](#process-flows-s)
   - [Process Flows `A`](#process-flows-a)
   - [Process Flows `G`](#process-flows-g)
   - [Process Flows `H`](#process-flows-h)
-    - [Notes for H](#notes-for-h)
   - [Process Flows `O`](#process-flows-o)
-    - [Notes for Other](#notes-for-other)
   - [Reading](#reading)
-    - [Spolsky: Simplicity vs Value](#spolsky-simplicity-vs-value)
 - [Outstanding Tks](#outstanding-tks)
+- [General Notes](#general-notes)
   - [Updates to this doc](#updates-to-this-doc)
   - [mBoxes Redux?](#mboxes-redux)
     - [Some approaches identified on Oct 4 '23](#some-approaches-identified-on-oct-4-23)
       - [GitHub has a really great API for creating new Gists](#github-has-a-really-great-api-for-creating-new-gists)
-      - [Postbin (a pastebin [API](https://www.toptal.com/developers/postbin/api) for devs)](#postbin-a-pastebin-apihttpswwwtoptalcomdeveloperspostbinapi-for-devs)
   - [Versioning](#versioning)
     - [FldLvl Δs](#fldlvl-s)
     - [Nested/Embedded Dox](#nestedembedded-dox)
+    - [SubForms](#subforms)
+    - [Summary Row](#summary-row)
   - [ACL/Role Impl.](#aclrole-impl)
-    - [Consider:](#consider)
-      - [From Aug 2023](#from-aug-2023)
-      - [From Sep18_23](#from-sep1823)
   - [Qry](#qry)
   - [DbClipboard](#dbclipboard)
-  - [DbServants](#dbservants)
+  - [DbFuncs](#dbfuncs)
   - [Tasks+Notes: To Be Checked](#tasksnotes-to-be-checked)
-    - [From Aug 2023](#from-aug-2023-1)
+    - [From Aug 2023](#from-aug-2023)
       - [PriorVer Info](#priorver-info)
       - [Frm](#frm)
       - [ Validation Rules](#-validation-rules)
@@ -64,24 +54,10 @@
       - [UI](#ui)
 - [Corp](#corp)
   - [Due Diligence](#due-diligence)
-    - ["Refine & React-Admin same tgt in the noCo space: they're going after ReTool"](#refine--react-admin-same-tgt-in-the-noco-space-theyre-going-after-retool)
-    - [VisualDb.com](#visualdbcom)
-    - [frappeframework.com](#frappeframeworkcom)
-    - [Flask AppBuilder](#flask-appbuilder)
-    - [jinjat.com](#jinjatcom)
-    - [github.com/BudiBase](#githubcombudibase)
-    - [github.com/appsmithorg](#githubcomappsmithorg)
-    - [github.com/ToolJet](#githubcomtooljet)
-    - [github.com/lowdefy](#githubcomlowdefy)
-    - [github.com/windmill-labs/windmill](#githubcomwindmill-labswindmill)
-    - [www.superblocks.com](#wwwsuperblockscom)
-    - [Hansura / Supabase](#hansura--supabase)
   - [VC Info](#vc-info)
   - [Founder Info](#founder-info)
-    - [Marketing](#marketing)
   - [Svr Hosting](#svr-hosting)
   - [Going solo](#going-solo)
-    - [Biz Continuity Doc](#biz-continuity-doc)
 - [Ref](#ref)
     - [Markdown Stuff](#markdown-stuff)
     - [Cookie alternatives](#cookie-alternatives)
@@ -100,37 +76,15 @@
       - [Expando Casting](#expando-casting)
       - [Other links](#other-links)
   - [Reading Shelf](#reading-shelf)
-      - [10/13](#1013)
-    - [SaaS reading (from a Bing Chat sess.)](#saas-reading-from-a-bing-chat-sess)
   - [Notes from reading](#notes-from-reading)
-    - [Indie music submissions (Founder Story)](#indie-music-submissions-founder-story)
-    - [HN comments](#hn-comments)
   - [Sales](#sales)
   - [Marketing](#marketing-1)
-    - [SEO](#seo)
   - [Product](#product)
-    - [Demos](#demos)
-    - [UI/UX in Ent S/w](#uiux-in-ent-sw)
   - [Languages](#languages)
-    - [General](#general)
   - [Tools](#tools)
-    - [CheerpX](#cheerpx)
-    - [Theorem Provers](#theorem-provers)
-    - [GitHub alternatives](#github-alternatives)
   - [FsLang](#fslang)
-    - [Free Monad w/Interpreter](#free-monad-winterpreter)
-    - [TomP's Update Monad](#tomps-update-monad)
-    - [Optional Params](#optional-params)
-    - [Eliminating Maybes](#eliminating-maybes)
-    - [Symbolic Links](#symbolic-links)
-    - [More FsLinks](#more-fslinks)
   - [Auth](#auth)
-    - [From  Aug 5 2023](#from--aug-5-2023)
   - [LLM Notes](#llm-notes)
-    - [ReACT pattern for LLMs](#react-pattern-for-llms)
-    - [Embeddings](#embeddings)
-    - [Llama2](#llama2)
-    - [Prompt Injection](#prompt-injection)
 - [Rec](#rec)
     - [Hours](#hours)
     - [PO](#po)
@@ -160,7 +114,7 @@
 
 
 
-> Note: This doc incorporates the Notes.txt file *BUT* only from Aug7; that was the latest preserved before the blue SanD was stolen (chk black?)
+> Note: This doc incorporates the Notes.txt file *BUT* only from Aug_07_23; that was the latest preserved before losing access to the blue SanDsk.
 
 
 # Architecture
@@ -682,7 +636,7 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 ...you give them the features and when you do give them the features you fight for that elegance and that simplicity, you fight for <mark>hiding the complicated functionality</mark> under the surface sort of a viewer user interface, so you only give them <mark>one choice instead of six</mark> but they still have all the <mark>same options</mark>.
 
 # Outstanding Tks
-(Last updated Nov 15 2023)
+(Last updated Nov 17 2023)
  - [ ] General
  	 - [ ] Nd to chk bundle reqmts 2 run dotNet in new env.
  	 (Note that other tasks e.g. Svr depend on this task)
@@ -708,10 +662,11 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	 - [ ] Impl/test Forms. **See** form [tester](https://trivedienterprisesinc.github.io/frm.html)
 	 - [ ] Hold off for now on impl Auth
  - [ ] Import Module
+	 - [ ] We nd an **_export_** mod too; the main task here is to determine which internal flds to expose (Pros: easy rebuilding of cli backed-up dbs; Cons: exposure) 	
+	 Basic func only (also nded for `ReddHat`)
 	 - [ ] Impl/test; just basic func will do **_this is the last major mod left to complete_**
 	 - [ ] File|New >> 'Do you have a data dump (CSV) file? 'hlp:what is this?' ie, yes/no dlgBoxes; no wizardLike stuff.
 	 - [ ] Ideally use continuationMonad to terminate if errors > preset %age limit of totalInputSz i.e., **deterministic** flow with prompt + option to continue/break.
- 	 - [ ] We nd an Export mod 2; basic func only (also nded for `ReddHat`)
 
 - [ ] Svr
 	 - [x] Setup/test chat svr
@@ -720,21 +675,14 @@ So, it’s a game of inches you have to fight really, really hard for every inch
 	 - [ ] AutoDownload (cli+dsk) on 1st login
 	 - [ ] Add get/post capab from non-stdrd cli.s
 	 - [ ] Chk post mechanics SigR (see [this](https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#signalr))
--  [ ] Embedded Dox / CalcFlds
-	- [ ] New fldTy **_subForm : li&lt;fldTy&gt;_**
-	- Naming follows dot convention: 'subFrmNm.fldNm'
-	- Auto-trans to/from via member wobbly() as usu
-	- Offer canned calc flds whenever frm has embedded subFrm: *_count|total|avg|mean|median_*
-	-  These shd be **_updated cliSide_** on docSave/docUpd8.
-	- **(earlier Notes) SubForms** 
-		- @Tbd: Sched for v2+ BUT if it's less of a hassle impl now:
-		- Instd of hideWhens forEa; just use formulas for subForms (tblPnl insertable) 
-		- They'll appear as greyed uneditable boxes in Dz 
-		Gen8ing both vers shdn't be much trouble.
-	- see 'Canned Db Example w/Orders' in tk for Demo(s)
+-  [ ] Embedded Dox
+	- [ ] Impl.   see [notes](#nestedembedded-dox)
+-  [ ] Calculated Flds
+	- [ ] Impl.   see [notes](#subforms)
+-  [ ] SubForms
+	- [ ] Impl.   see [notes](#subforms) and notes under [SummaryRow](@summaryrow)
  - [ ] Windowing
 	 - [ ] @ this pt. or at any pt. earlier (@mbi) switch 2 completing all outstanding tks under this umbrella
-
 - [ ] Demo(s)
 	 - [ ] Poss utility in separate demos 4 scenarios 
 	 - [ ] ReddHat
@@ -795,6 +743,7 @@ propBox (much compl)
 (after dndOps)
 DnDMonad 
 
+# General Notes
 ## Updates to this doc
    - Under `To Be Checked` we curr have stuff like PriorVer Info & ACLs
      Cre8 new sections 4 these & move there so they can be expanded upon
@@ -832,12 +781,34 @@ ADD: Created|LastMod|By (these already exist in CoreMod)
 
 ### Nested/Embedded Dox
   - Versioning wd be a fine way 2 test Impl (Approach2: use Accumulator + only DeltaForCurrVer in currVer; i.e., curr setup)
-  - FldTy = FldTy of list<list<fldTy>>
+  - **_ty NestedDoc = DocFldTy of list&lt;DocfldTy&gt;_**
   |VerId|UserId|CreatedDt|
   - Last ver details -> |DocId|UserId|CrDt|list<fldsMod>|
   Saved in currDoc 4 UI
   - Impl Note: UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
 
+### SubForms
+@TBD: **How does the flow work?**  
+Poss approach: Separate Creation of subform flds (flds not vis in tblFlds) and offer 2 insert the whole thing.  Note that Forms w/subfs will have an embedded View & we'll nd 2 provide ability to [add|edit|del] poss via tBar.  Also they nd a summary line/flds (maybe calcFlds _outside_ of the View) to show, e.g., Order Totals/average/count...  Keeping 'em as calc flds in parentForm allows easy inclusion in Views.
+
+  - New fldTy **_subForm : li&lt;DocFldTy&gt;_**
+  - Naming follows dot convention: 'subFrmNm.fldNm'
+  - Auto-trans to/from via member wobbly() as usu
+  - Offer canned calc flds whenever frm has embedded subFrm: *_count|total|avg|mean|median_*
+  -  These shd be **_updated cliSide_** on docSave/docUpd8.
+  - **(earlier Notes) SubForms** 
+     - @Tbd: Sched for v2+ BUT if it's less of a hassle impl now:
+     - Instd of hideWhens forEa; just use formulas for subForms (tblPnl insertable) 
+     - They'll appear as greyed uneditable boxes in Dz 
+       Gen8ing both vers shdn't be much trouble.
+     - see 'Canned Db Example w/Orders' in tk for Demo(s)
+
+### Summary Row
+  - Optional; all assoc tys nd to be updated to incorp this
+  - **Qry:** Basically extract the logic used for **categCounts**
+  - Needs new fld: curr we have isCateg:bool  Change this to **rowTy:eNum**
+    Categ|Summary|Regular so can be expanded in fut if necc.  All logic'll nd 2 be updated.
+  - This also allows easy customization (e.g. background = yellow) for Summary Rows.
 
 ## ACL/Role Impl.
 
@@ -872,10 +843,10 @@ ADD: Created|LastMod|By (these already exist in CoreMod)
     - If dvlpr wants to hide Salary fld from all except ["EmplNmFieldThisDoc";"MngrFieldThisDoc";"HRGrpThisOrg"]; we still
       need to impl. LDAP/X509/NAB equiv.  Mere logins/OUs won't do; the whole hog necc.
 
-#### From Aug 2023
+#### From Aug_23
 SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault 
 
-#### From Sep18_23
+#### From Sep_18_23
 ACL impl requires two facets: 
 	
 (i) **svrSide**: If usr doesn't have rights, data won't even be sent. 
@@ -886,6 +857,17 @@ ACL impl requires two facets:
 **title**:"Access Control"; **ctrl**:ListBox(Vw?)
      **Cols**: | Create | Read | Write | Delete | 
      (each col hdr is a button; clicking allows assigning NAB entries ie nms/grps)  These appear one entry to a row; stored as []
+     
+#### From Nov_17_23
+One possible approach:
+- All devClients(native) get ids & we impl Auth for them
+- When they 'publish' a Db (ie webView/webForm) it requires no auth.
+  So devs can use these to collect anon data/registration data etc., as Google Forms/Formly et al allow currently.
+- Since brij webEls are 'embeddable components', if they want/nd Auth they bring their own:social auth etc.
+- For this to work we nd a UserID Assign Mechanism:
+  - both the web comps (View/frm) will chk for a global var (say userId).  If exists, use; else assign webUser@anon.com.  Also grab ipAdd/identifier info.
+
+**RELATED:** @TBD Do we allow webClis to view priorVersion info? i think not.
 
 ### Links
    - [Role](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles?view=aspnetcore-7.0)-based authorization in ASP.NET Core
@@ -916,7 +898,7 @@ type BrijLinq() =
     - intlBuffer holds itms until nxt copy/cut
     - **NOTE** that localDbs may need cliSide logic
 
-## DbServants
+## DbFuncs
 > **@ToDo**: @rsch WebHooks impl., esply smtp (we'll nd that 1st)
   - For v1 offer Hourly/12hrs/Daily/Wkly/Monthly
   - For v2 offer spec times + 5|10|15mins
