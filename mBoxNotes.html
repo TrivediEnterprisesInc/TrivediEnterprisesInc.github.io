@@ -1,7 +1,14 @@
-
 <!DOCTYPE html>
 <html >
 <head>
+
+<!-- 
+Last updated:	11-17-2023
+Note: 
+  Unfortunately this content is no longer current.  
+  Find a gd way to determine what's changed AFTER this is impl. 
+  & freeze the other data src.
+-->
 
  <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
 
@@ -27,7 +34,7 @@
     font-family: Arial;
     font-size: 85%;
   }
-  ._mHidden{
+  .mHidden{
     visibility: hidden;
   }
 </style>
@@ -36,9 +43,9 @@
  </script>
     
 	<script>
-require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom", 
-"dojo/on", "dijit/registry", "dojo/query!css3", "dojo/domReady!"],
-        function(Dialog, Button, win, dom, on, registry, query){
+require(["dijit/Dialog", "dijit/form/Button", "dijit/form/ToggleButton", "dojo/window", "dojo/dom", 
+"dojo/on", "dijit/registry", "dojo/query!css3", "dojo/parser", "dojo/domReady!"],
+        function(Dialog, Button, ToggleButton, win, dom, on, registry, query, parser){
 
     // Get the viewport-size of the document:
     var vp = win.getBox();
@@ -51,7 +58,7 @@ require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom",
     });
 
 
-    on(dom.byId("NotesBoxContainer"), on.selector(".mBox", "click"), function(evt){
+    on(dom.byId("devNotesBoxContainer"), on.selector(".mBox", "click"), function(evt){
         // "this" is the node that matched the selector
         var strColl = "";
         var contLi = query(".caption", this).forEach(function(node){
@@ -60,6 +67,198 @@ require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom",
         lrgDialog.set("content", strColl + "\n<div class='dijitDialogPaneActionBar'>\n<button data-dojo-props='onClick:function(){lrgDialog.hide();}' data-dojo-type='dijit/form/Button' id='OK' type='button'>OK</button></div>");
         lrgDialog.show();
     });
+
+
+/* 		
+	BEGIN 2023 updates 4 ES6_refactor -->
+Nov 15 (curr)
+*/
+const sortBy = (key) => {
+  return (a, b) => (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0);
+};
+
+toJsonStr = (ob) => {
+    JSON.stringify(ob, null, 4);
+}
+
+prnOb = (ob) => {
+    console.log(toJsonStr(ob));
+}
+
+Array.prototype.except = function(val) {
+    return this.filter(function(x) { return x !== val; });        
+};
+
+remKey = (arr, strKey) => {
+    const index = arr.indexOf(strKey);
+    if (index > -1) { // only splice array when item is found
+      return arr.splice(index, 1); // 2nd parameter means remove one item only
+    } else { 
+      return arr;
+    }
+}
+
+mShowTag = function (isChkd, txtP) {
+          var fldOut = dom.byId("devNotesBoxContainer");
+          if (isChkd) {
+              var strQry = "." + txtP;
+      
+              var chosenTagArr = query( strQry, "devNotesContent");
+                for (i = 0; i < chosenTagArr.length; i++){
+                    if(dom.isDescendant(chosenTagArr[i].id, fldOut)){ 
+                      console.log("this id already present " + chosenTagArr[i].id);
+                    } else {
+                        fldOut.innerHTML += chosenTagArr[i].outerHTML;
+                    }
+                };
+          } else {
+              var strQry = "." + txtP;
+              var chosenTagArr = query( strQry, fldOut);
+                for (i = 0; i < chosenTagArr.length; i++){
+                  chosenTagArr[i].outerHTML = "";
+                };
+          };
+}
+
+getTopTabsByCount = (inArr, n) => {
+    let tabNm = inArr.tagName;
+    let tabCt = inArr.tagCount;
+    var zip_w_idx = (tabCt).map(function (value, index) {
+      return [value,index];
+    });
+    //slice: remove 1st coz it'll always be 'notes' 4 "NotesTagged"
+    let topCts = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(1, n);
+    let topTabs = topCts.map(function (value, index) {
+      return tabNm[value[1]];
+    });
+    //let remaindr = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(n+1);
+    //return topTabs.concat(remaindr);
+    //@@@ above nds work: bld 'Other' entries.  Alt approach: (All - sel)
+    return topTabs;
+}
+
+mBldTagBtns = (arr,paneNm) => {
+        //console.log("mBldTagBtns for arr: " + JSON.stringify(arr));
+        var out = "";
+        for (t = 0; t < arr[1]['tagName'].length; t++){
+          var tagNm = arr[1]['tagName'][t];
+          var tagC = arr[1]['tagCount'][t];
+          var tagHtml = tagNm + "<span><sup>" + tagC + "</sup></span>";
+          out = out + "\n" + 
+              "<button id=" + tagNm + paneNm + " data-dojo-type='dijit/form/ToggleButton' data-dojo-props='iconClass:\"dijitCheckBoxIcon\", checked: false, onChange:mShowTag(this.checked,this.id)'>" + "\n" + 
+              tagHtml + "\n" + 
+              "</button>"
+        };
+        //console.log("mBldTagBtns returning: " + out);
+	return out;
+}
+
+mBuildTagArray = function (StoreKey){
+/*
+    Two flows: * 1-arg: blds [tags] 4 StoreKey div;
+               * forTag -> yields only subtags for Tag passed in
+*/
+
+        var mTagArr = {tagName : [], tagCount : []};
+        var allFs = []; //depends on args
+        let containerDiv = (StoreKey + "Content"); //@@@
+        switch(arguments.length) {
+            case 1:
+		//StoreKey:devNotes RENAME 2 notesTagged; fire mainTxtDiv handler on str.contains('Tagged')
+		//ContentDiv:NotesBoxContainer RENAME 2 notesBoxContainer
+                //Actually, nix above: much more elastic to run caseIndifferent matches...
+                //(plus manual entry in the Boxes has diff cases throughout...)
+       //n.b.: we nd 2 remove 'notes' for NotesBox (as per setup for now) or it'll crop up in ea pane
+	        allFs = query(".mBox", containerDiv);
+	        console.log( "****mBuildTagArray: Tag:all len:" + allFs.length);
+                break;
+            case 2:
+                console.log("case2 for tag: " + arguments[1]);
+                let qryCase2 = ".mBox:not(." + arguments[1][0] + "):not(." + arguments[1][1] + "):not(." + arguments[1][2] + ")";
+                allFs = query(qryCase2, containerDiv);
+	        //console.log( "****mBuildTagArray: Tag Excl:" + arguments[1] + " len:" + allFs.length);
+                break;
+            case 3:
+                console.log("case3 for tag: " + arguments[1]);
+                console.log("case3 exc: " + arguments[2]);
+                var excl = (arguments[2]).filter( (x) => { return x !== arguments[1]; });
+                console.log("excl: " + excl);
+                let qryCase3 = "." + arguments[1] + ":not(." + excl[0] + "):not(." + excl[1] + ")";
+		allFs = query(qryCase3, containerDiv);
+	        console.log( "****mBuildTagArray: Tag:" + arguments[1] + " len:" + allFs.length + " arg2: " + arguments[2]);
+                break;
+            default:
+                console.log("mBuildTagArray argsLen:  -> unknown ...");
+            }
+
+
+        for (i = 0; i < allFs.length; i++){
+          var currTags = (allFs[i]).classList;
+          for (j = 0; j < currTags.length; j++){
+            var currTag = currTags[j];
+       //n.b.: we nd 2 remove 'notes' for NotesBox (as per setup for now) or it'll crop up in ea pane
+            if ( (currTag != "mBox") && (currTag.toLowerCase() != (StoreKey.toLowerCase())) ) {
+              //console.log("//////////currTag: " + currTag + " mboxTy:" + StoreKey.toLowerCase());
+              var idx = mTagArr['tagName'].indexOf(currTag);
+              if (idx == -1){
+                mTagArr['tagName'].push(currTag);
+                mTagArr['tagCount'].push(1);
+              } else {
+                mTagArr['tagCount'][idx]++;
+              };
+            };
+          };
+        };
+        //dP( "JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
+        //mLog( "JSON.stringified Array Tags:" + JSON.stringify(mTagArr));
+        return [StoreKey, mTagArr];
+}
+
+runUpdates = (storeID) => {
+
+    let mBoxTy = storeID;
+    let res = mBuildTagArray(storeID);
+    let arr = JSON.stringify(res[1], null, 4); //tgNm, tgCt
+    let topTags = getTopTabsByCount(res[1],4);
+    console.log("topTags: " + JSON.stringify(topTags));
+
+    let tabFragBeg = "<div style='width: 100%; height: 100%'>\n" +
+                     "<div data-dojo-type='dijit/layout/TabContainer' style='width: 100%; height: 100%;'>\n";
+    let tabFragEnd = "</div></div>\n";
+
+    let tabBldr = (acc,x,idx) => {
+          let noSelected = "<div data-dojo-type='dijit/layout/ContentPane' title='" + x
+          let line1 = idx == 0 ? noSelected + "' id='" + x + "' data-dojo-props='selected:true'>" : noSelected + "'>"; 
+          let tagArrForThisPane = mBuildTagArray(storeID, x, topTags);
+          let line2 = mBldTagBtns(tagArrForThisPane,x) + "</div>\n";
+          return acc + line1 + line2;
+        };
+    let mappedHTML = (topTags).reduce(tabBldr, tabFragBeg)
+
+    console.log("-------final tab...");
+    //add final tab
+    let tagsForOther = mBuildTagArray(storeID, topTags);
+    let btnsForOther = mBldTagBtns(tagsForOther, "Other");
+    let otherTab = "<div data-dojo-type='dijit/layout/ContentPane' title='Other'>\n" + 
+	btnsForOther + "</div>\n";
+
+    let tcHtml = mappedHTML + otherTab + tabFragEnd;
+
+    let tagCloudHdrDiv = dom.byId(mBoxTy + "TagCloudHdr");
+    tagCloudHdrDiv.innerHTML = tcHtml;
+//    parser.parse(tagCloudHdrDiv);
+//throws on dupe ids
+
+    //@@@
+
+}
+
+/* 		
+	<-- END 2023 updates 4 ES6_refactor
+*/
+
+    runUpdates("devNotes");
+
 });
 	</script>
 </head>
@@ -68,11 +267,14 @@ require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom",
 
             <!--career/devNotes section-->
             <section>
-    		<div id="filmDiv" data-dojo-type="dijit/layout/ContentPane" title="Film">
+    		<div id="devNotes" data-dojo-type="dijit/layout/ContentPane" title="Notes">
 
-<center>  <div id="notesTagCloudHdr">Tag cloud:<br></div></center>
+<center>  <div id="devNotesTagCloudHdr">Tag cloud:<br></div></center>
 
-<div class="mBox-container" id="NotesBoxContainer">
+<div class="mBox-container" id="devNotesBoxContainer">
+</div>
+
+<div id="devNotesContent" class="mHidden">
           <div class="mBox notes mBoxes postbin task">
               mBoxes Redux?
               <div class="caption" style="display:none;">
@@ -921,7 +1123,7 @@ However, it was is the nature of the tech industry to see companies appoint a ne
 
 
 		</div><!--mBoxContainer-->
-                </div>
+</div> <!--devNotesContent-->
                 </section>
                 <!--career/devNotes section-->
 </body>
