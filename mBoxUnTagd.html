@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--mBoxUnTagd Template-->
+<html >
+<head>
+
+ <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+<style>
+  .mBox-container {
+    display: flex;
+    width: 100%;
+    padding: 25px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+  }
+  .mBoxUnTagd {
+    flex: none;
+    max-width: 175px;
+    margin: 7px;
+    padding: 10px;
+    background-color: #EEE0C9;
+    border: solid 0.1em;
+    border-color: gray;
+    border-radius: 20px;
+    text-align: center;
+    font-family: Arial;
+    font-size: 85%;
+  }
+  ._mHidden{
+    visibility: hidden;
+  }
+</style>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 0, parseOnLoad: 1">
+ </script>
+    
+	<script>
+require(["dijit/Dialog", "dijit/form/Button", "dojo/window", "dojo/dom", 
+"dojo/on", "dijit/registry", "dojo/query!css3", "dojo/domReady!"],
+        function(Dialog, Button, win, dom, on, registry, query){
+
+    // Get the viewport-size of the document:
+    var vp = win.getBox();
+    var dlgW = vp.w - 100;
+    var dlgH = vp.h - 100;
+    //a lrg Dlg coz some itms may have substantial content
+    var lrgDialog_old = new Dialog({
+        title: "Notes",
+        style: "width: " + dlgW + "px; height: " + dlgH + "px"
+    });
+
+
+    on(dom.byId("NotesBoxContainer"), on.selector(".mBoxUnTagd", "click"), function(evt){
+        // "this" is the node that matched the selector
+        var strColl = "";
+        var contLi = query(".caption", this).forEach(function(node){
+                            strColl += node.innerHTML;
+                          });
+        lrgDialog.set("content", strColl + "\n<div class='dijitDialogPaneActionBar'>\n<button data-dojo-props='onClick:function(){lrgDialog.hide();}' data-dojo-type='dijit/form/Button' id='OK' type='button'>OK</button></div>");
+        lrgDialog.show();
+    });
+});
+	</script>
+</head>
+<body class="claro">
+                    <div data-dojo-id="lrgDialog" data-dojo-type="dijit/Dialog" title="Notes"></div>
+
+   <div id="UnTagdPane1" data-dojo-props="title:'Title1'" data-dojo-type="dijit/TitlePane"> 
+
+            <!-- section-->
+            <section>
+    		<div id="UnTagdDiv1" data-dojo-type="dijit/layout/ContentPane" title="UnTagdDiv1">
+
+<div class="mBox-container" id="NotesBoxContainer">
+          <div class="mBoxUnTagd notes mBoxes postbin task">
+              mBoxes Redux?
+              <div class="caption" style="display:none;">
+We nd a b8r way to org these notes; MD fine but not v searchable; so revert to mBoxes w/tags
+Bld a quick/dirty input frm & persist a la snippets
+
+<h4>Some approaches identified on Oct 4 '23</h4>
+GitHub has a really great API for creating new Gists
+<i><b>Use this?</b></i>
+Cons:<br>
+<ul><li>nd 2 be logged in</li>
+<li>nd 2 clean up</li></ul>
+<hr>
+Pros:<br>
+<ul><li>no data loss ever</li>
+<li>no nd 2 cleanup pastebins</li></ul>
+<b>Postbin (a pastebin API for devs)</b><br>
+To add a webhook OR save outpt from Pgs to bin:<br>
+
+This API tries to be RESTful and can be used programatically to create a bin and query it's contents to help your unit testing, your constant integration tests or your build server.<br>
+
+<pre><code>https://www.toptal.com/developers/postbin/:binId</code></pre> returns a RequestId <br>
+<pre><code>GET /developers/postbin/api/bin/:binId/req/:reqId</code></pre> returns payload
+              </div>
+          </div>
+
+          <div class="mBoxUnTagd notes org" >
+             Org Notes mBox test2
+              <div class="caption" style="display:none;">
+              </div>
+          </div>
+
+
+		</div><!--mBoxContainer-->
+                </div>
+                </section>
+                <!--career/devNotes section-->
+		</div><!--UnTagdPane1-->
+
+   <div id="UnTagdPane2" data-dojo-props="title:'Title2'" data-dojo-type="dijit/TitlePane"> 
+
+            <!-- section-->
+            <section>
+    		<div id="UnTagdDiv2" data-dojo-type="dijit/layout/ContentPane" title="UnTagdDiv2">
+
+<div class="mBox-container" id="NotesBoxContainer">
+          <div class="mBoxUnTagd notes mBoxes postbin task">
+              mBoxes Redux?
+              <div class="caption" style="display:none;">
+We nd a b8r way to org these notes; MD fine but not v searchable; so revert to mBoxes w/tags
+Bld a quick/dirty input frm & persist a la snippets
+
+<h4>Some approaches identified on Oct 4 '23</h4>
+GitHub has a really great API for creating new Gists
+<i><b>Use this?</b></i>
+Cons:<br>
+<ul><li>nd 2 be logged in</li>
+<li>nd 2 clean up</li></ul>
+<hr>
+Pros:<br>
+<ul><li>no data loss ever</li>
+<li>no nd 2 cleanup pastebins</li></ul>
+<b>Postbin (a pastebin API for devs)</b><br>
+To add a webhook OR save outpt from Pgs to bin:<br>
+
+This API tries to be RESTful and can be used programatically to create a bin and query it's contents to help your unit testing, your constant integration tests or your build server.<br>
+
+<pre><code>https://www.toptal.com/developers/postbin/:binId</code></pre> returns a RequestId <br>
+<pre><code>GET /developers/postbin/api/bin/:binId/req/:reqId</code></pre> returns payload
+              </div>
+          </div>
+
+          <div class="mBoxUnTagd notes org" >
+             Org Notes mBox test2
+              <div class="caption" style="display:none;">
+              </div>
+          </div>
+
+
+		</div><!--mBoxContainer-->
+                </div>
+                </section>
+                <!--career/devNotes section-->
+		</div><!--UnTagdPane2-->
+
+</body>
+</html>
