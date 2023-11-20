@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- html begins line #1527 -->
+<!-- html begins line #1779 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.11.18 bookmarks update am">
+<meta name="description" content="2023.11.20 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -51,7 +50,7 @@ async function loadU(u) {
           { UNID: 46, id: "music", name: "music", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 38, id: "social", name: "social", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 39, id: "changeLog", name: "log", type: "layer2", parent: "career" },
-          { UNID: 339, id: "devNotesTagged", name: "notes", type: "layer2", parent: "career" },
+          { UNID: 339, id: "devNotes", name: "notes", type: "layer2", parent: "career" },
           { UNID: 50, id: "miscJob", name: "jobs", type: "layer2", parent: "career" },       
           { UNID: 90, id: "fin", name: "finance", type: "layer2", parent: "career" },
           { UNID: 44, id: "mindAmuse", name: "amuse", type: "layer2", population: "6 billion", parent: "mind"},
@@ -605,7 +604,193 @@ code > pre {
 
 /* 		
 	BEGIN 2023 updates 4 ES6_refactor -->
+Nov 15 (curr)
 */
+const sortBy = (key) => {
+  return (a, b) => (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0);
+};
+
+toJsonStr = (ob) => {
+    JSON.stringify(ob, null, 4);
+}
+
+prnOb = (ob) => {
+    console.log(toJsonStr(ob));
+}
+
+Array.prototype.except = function(val) {
+    return this.filter(function(x) { return x !== val; });        
+};
+
+remKey = (arr, strKey) => {
+    const index = arr.indexOf(strKey);
+    if (index > -1) { // only splice array when item is found
+      return arr.splice(index, 1); // 2nd parameter means remove one item only
+    } else { 
+      return arr;
+    }
+}
+
+mShowTag = function (isChkd, txtP) {
+          var fldOut = dom.byId("devNotesBoxContainer");
+          if (isChkd) {
+              var strQry = "." + txtP;
+      
+              var chosenTagArr = query( strQry, "devNotesContent");
+                for (i = 0; i < chosenTagArr.length; i++){
+                    if(dom.isDescendant(chosenTagArr[i].id, fldOut)){ 
+                      console.log("this id already present " + chosenTagArr[i].id);
+                    } else {
+                        fldOut.innerHTML += chosenTagArr[i].outerHTML;
+                    }
+                };
+          } else {
+              var strQry = "." + txtP;
+              var chosenTagArr = query( strQry, fldOut);
+                for (i = 0; i < chosenTagArr.length; i++){
+                  chosenTagArr[i].outerHTML = "";
+                };
+          };
+}
+
+getTopTabsByCount = (inArr, n) => {
+    let tabNm = inArr.tagName;
+    let tabCt = inArr.tagCount;
+    var zip_w_idx = (tabCt).map(function (value, index) {
+      return [value,index];
+    });
+    //slice: remove 1st coz it'll always be 'notes' 4 "NotesTagged"
+    let topCts = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(1, n);
+    let topTabs = topCts.map(function (value, index) {
+      return tabNm[value[1]];
+    });
+    //let remaindr = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(n+1);
+    //return topTabs.concat(remaindr);
+    //@@@ above nds work: bld 'Other' entries.  Alt approach: (All - sel)
+    return topTabs;
+}
+
+mBldTagBtns = (arr,paneNm) => {
+        //console.log("mBldTagBtns for arr: " + JSON.stringify(arr));
+        var out = "";
+        for (t = 0; t < arr[1]['tagName'].length; t++){
+          var tagNm = arr[1]['tagName'][t];
+          var tagC = arr[1]['tagCount'][t];
+          var tagHtml = tagNm + "<span><sup>" + tagC + "</sup></span>";
+          out = out + "\n" + 
+              "<button id=" + tagNm + paneNm + " data-dojo-type='dijit/form/ToggleButton' data-dojo-props='iconClass:\"dijitCheckBoxIcon\", checked: false, onChange:mShowTag(this.checked,this.id)'>" + "\n" + 
+              tagHtml + "\n" + 
+              "</button>"
+        };
+        //console.log("mBldTagBtns returning: " + out);
+	return out;
+}
+
+mBuildTagArray = function (StoreKey){
+/*
+    Two flows: * 1-arg: blds [tags] 4 StoreKey div;
+               * forTag -> yields only subtags for Tag passed in
+*/
+
+        var mTagArr = {tagName : [], tagCount : []};
+        var allFs = []; //depends on args
+        let containerDiv = (StoreKey + "Content"); //@@@
+        switch(arguments.length) {
+            case 1:
+		//StoreKey:devNotes RENAME 2 notesTagged; fire mainTxtDiv handler on str.contains('Tagged')
+		//ContentDiv:NotesBoxContainer RENAME 2 notesBoxContainer
+                //Actually, nix above: much more elastic to run caseIndifferent matches...
+                //(plus manual entry in the Boxes has diff cases throughout...)
+       //n.b.: we nd 2 remove 'notes' for NotesBox (as per setup for now) or it'll crop up in ea pane
+	        allFs = query(".mBox", containerDiv);
+	        console.log( "****mBuildTagArray: Tag:all len:" + allFs.length);
+                break;
+            case 2:
+                console.log("case2 for tag: " + arguments[1]);
+                let qryCase2 = ".mBox:not(." + arguments[1][0] + "):not(." + arguments[1][1] + "):not(." + arguments[1][2] + ")";
+                allFs = query(qryCase2, containerDiv);
+	        //console.log( "****mBuildTagArray: Tag Excl:" + arguments[1] + " len:" + allFs.length);
+                break;
+            case 3:
+                console.log("case3 for tag: " + arguments[1]);
+                console.log("case3 exc: " + arguments[2]);
+                var excl = (arguments[2]).filter( (x) => { return x !== arguments[1]; });
+                console.log("excl: " + excl);
+                let qryCase3 = "." + arguments[1] + ":not(." + excl[0] + "):not(." + excl[1] + ")";
+		allFs = query(qryCase3, containerDiv);
+	        console.log( "****mBuildTagArray: Tag:" + arguments[1] + " len:" + allFs.length + " arg2: " + arguments[2]);
+                break;
+            default:
+                console.log("mBuildTagArray argsLen:  -> unknown ...");
+            }
+
+
+        for (i = 0; i < allFs.length; i++){
+          var currTags = (allFs[i]).classList;
+          for (j = 0; j < currTags.length; j++){
+            var currTag = currTags[j];
+       //n.b.: we nd 2 remove 'notes' for NotesBox (as per setup for now) or it'll crop up in ea pane
+            if ( (currTag != "mBox") && (currTag.toLowerCase() != (StoreKey.toLowerCase())) ) {
+              //console.log("//////////currTag: " + currTag + " mboxTy:" + StoreKey.toLowerCase());
+              var idx = mTagArr['tagName'].indexOf(currTag);
+              if (idx == -1){
+                mTagArr['tagName'].push(currTag);
+                mTagArr['tagCount'].push(1);
+              } else {
+                mTagArr['tagCount'][idx]++;
+              };
+            };
+          };
+        };
+        //dP( "JSON.stringified Array Tags:" + JSON.stringify(mfilmTagArr));
+        //mLog( "JSON.stringified Array Tags:" + JSON.stringify(mTagArr));
+        return [StoreKey, mTagArr];
+}
+
+runUpdates = (storeID) => {
+
+    let mBoxTy = storeID;
+    let res = mBuildTagArray(storeID);
+    let arr = JSON.stringify(res[1], null, 4); //tgNm, tgCt
+    let topTags = getTopTabsByCount(res[1],4);
+    console.log("topTags: " + JSON.stringify(topTags));
+
+    let tabFragBeg = "<div style='width: 100%; height: 100%'>\n" +
+                     "<div data-dojo-type='dijit/layout/TabContainer' style='width: 100%; height: 100%;'>\n";
+    let tabFragEnd = "</div></div>\n";
+
+    let tabBldr = (acc,x,idx) => {
+          let noSelected = "<div data-dojo-type='dijit/layout/ContentPane' title='" + x
+          let line1 = idx == 0 ? noSelected + "' id='" + x + "' data-dojo-props='selected:true'>" : noSelected + "'>"; 
+          let tagArrForThisPane = mBuildTagArray(storeID, x, topTags);
+          let line2 = mBldTagBtns(tagArrForThisPane,x) + "</div>\n";
+          return acc + line1 + line2;
+        };
+    let mappedHTML = (topTags).reduce(tabBldr, tabFragBeg)
+
+    console.log("-------final tab...");
+    //add final tab
+    let tagsForOther = mBuildTagArray(storeID, topTags);
+    let btnsForOther = mBldTagBtns(tagsForOther, "Other");
+    let otherTab = "<div data-dojo-type='dijit/layout/ContentPane' title='Other'>\n" + 
+	btnsForOther + "</div>\n";
+
+    let tcHtml = mappedHTML + otherTab + tabFragEnd;
+
+    let tagCloudHdrDiv = dom.byId(mBoxTy + "TagCloudHdr");
+    tagCloudHdrDiv.innerHTML = tcHtml;
+//    parser.parse(tagCloudHdrDiv);
+//throws on dupe ids
+
+    //@@@
+
+}
+
+/* 		
+	<-- END 2023 updates 4 ES6_refactor
+*/
+/* 		
+	BEGIN 2023 updates 4 ES6_refactor --> *****PRIORVER******
 const sortBy = (key) => {
   return (a, b) => (a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0);
 };
@@ -670,10 +855,10 @@ getBoxTyFromStoreKey = function (StoreKey){
 }
 
 mBuildTagArray = function (StoreKey){
-/*
-    Two flows: * 1-arg: blds [tags] 4 StoreKey div;
-               * forTag -> yields only subtags for Tag passed in
-*/
+
+    //Two flows: * 1-arg: blds [tags] 4 StoreKey div;
+    //           * forTag -> yields only subtags for Tag passed in
+
 
         var mTagArr = {tagName : [], tagCount : []};
         var allFs = []; //depends on args
@@ -772,8 +957,7 @@ runUpdates = (storeID) => {
 
 }
 
-/* 		
-	<-- END 2023 updates 4 ES6_refactor
+	<-- END 2023 updates 4 ES6_refactor *****PRIORVER******
 */
 
         mShowTxtDiv = function (strId){
@@ -867,9 +1051,10 @@ dP('10');
                   };
                 });
                 mFetchFilmTags(); //added Oct-20-23 to autoInit
-            } else if (strId.includes("Tagged")) {
-		//2023 updates 4 ES6_refactor
+            } else if (strId == "devNotes") {
                 runUpdates(strId);
+                mainDiv.innerHTML = dom.byId("devNotes").innerHTML;
+                parser.parse(mainDiv);
             } else {
 
             //Show the edit & update toolbar Buttons 
@@ -1591,7 +1776,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 18th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 20th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -12641,7 +12826,7 @@ http://www.storypick.com/mirza-ghalib-shayaris/<br>
 <section>
 <div id="mainNotes">
 
-<div id="mainNotesPane0" data-dojo-props="title:'Freq. Accessed'" data-dojo-type="dijit/TitlePane"> 
+<div id="mainNotesPane0" data-dojo-props="title:'Freq. Accessed', open:true" data-dojo-type="dijit/TitlePane"> 
 <!--LINKS BEGIN-->
 <table id="linksTable" style="background-color: ivory;" class="separate">
 <tbody>
@@ -25143,11 +25328,17 @@ postCovid imports into allData</td>
         </div>    <!-- div MainContent -->
     <!-- Main Content ends-->
 
-            <!--career/devNotesTagged section-->
+            <!--career/devNotes section-->
             <section>
-    		<div id="devNotesTagged" data-dojo-type="dijit/layout/ContentPane" title="Notes">
-Note: Nov 15th: The monkeys have seriously messed with this (pro'lly frustrated as usual w/their incompet.)<br>
-freeze work for now and reconcile all diffs be4 proceeding.  Basically last 2-3 days work.
+    		<div id="devNotes" data-dojo-type="dijit/layout/ContentPane" title="Notes">
+
+<center>  <div id="devNotesTagCloudHdr">Tag cloud:<br></div></center>
+
+<div class="mBox-container" id="devNotesBoxContainer">
+</div>
+
+<div id="devNotesContent" class="mHidden">
+
 <center>  <div id="NotesTagCloudHdr">NotesTagCloudHdr</div></center>
 
 <div class="mBox-container" id="NotesBoxContainer">
@@ -25194,10 +25385,6 @@ On a similar note, an NPR PlanetMoney seg on Ice Cream Conspiracy laid out how H
 <mark>Pricing 4 JS Devs</mark><br>
 Beauc. JS devs (poss clis) on IndieH., one example is a guy who makes $60k off his app - converting Notion posts 2 blogs, charges users $20/mo - and he wd be willing to pay $300/mo easy (currently pays 500/mo total for SaaS apps)
 <br>
-
-              </div>
-          </div>
-
 
           <div class="mBox notes mBoxes postbin task">
               mBoxes Redux?
@@ -25914,6 +26101,374 @@ It lets you take text—a word, a sentence, a paragraph or a whole blog entry—
 </ul>
               </div>
           </div>
+
+          <div class="mBox notes TaskList ToDo Outlook" >
+             TaskLists, Msft ToDo & adding schema extensions etc. (customizing)
+              <div class="caption" style="display:none;">
+<br>
+1st chk this <a href='https://techcommunity.microsoft.com/t5/driving-adoption/microsoft-to-do-vs-outlook-tasks/m-p/3951674'>resource</a>
+<br>
+<h6> The relevant links are @ the bottom</h6>
+<br>
+Here are some of the most popular to-do list apps, according to various sources:
+<br>
+1. **Hive**: A cloud-based app that offers a range of features such as task prioritization, reminders, and collaboration tools for team projects. It is available for free and has a premium version as well¹.<br>
+2. **Todoist**: A popular app that comes with Microsoft 365 and Outlook integration. It allows you to export tasks from there so that you do not have to start from scratch while creating a list. The app has a very smooth workflow that provides lists separated by days¹⁶.<br>
+3. **Google Keep**: A simple and easy-to-use app that allows you to create notes, lists, and reminders. It also offers voice memos and image capture features¹.<br>
+4. **Remember The Milk**: A cloud-based app that offers features such as task prioritization, reminders, and collaboration tools for team projects. It is available for free and has a premium version as well¹.<br>
+5. **Way of Life**: A habit-forming app that helps you track your daily routine and habits. It allows you to set goals and track your progress¹.<br>
+6. **nTask**: A cloud-based app that offers features such as task prioritization, reminders, and collaboration tools for team projects. It is available for free and has a premium version as well¹.<br>
+7. **Microsoft To Do**: A cloud-based app that comes with Microsoft 365 and Outlook integration. It allows you to export tasks from there so that you do not have to start from scratch while creating a list. The app has a very smooth workflow that provides lists separated by days¹⁷.<br>
+8. **TickTick**: A cloud-based app that offers features such as task prioritization, reminders, and collaboration tools for team projects. It is available for free and has a premium version as well¹⁵.<br>
+9. **TeuxDeux**: A simple and easy-to-use app that allows you to create notes, lists, and reminders¹.<br>
+10. **Any.do**: A cloud-based app that offers features such as task prioritization, reminders, and collaboration tools for team projects. It is available for free and has a premium version as well¹.
+<br>
+Please note that the popularity of these apps may vary depending on the source consulted.<br>
+
+Source: Conversation with Bing, 10/18/2023<br>
+(1) Top 16 To-Do List Apps To Stay On Track in 2023 | Hive. https://hive.com/blog/best-to-do-list-apps/.<br>
+(2) undefined. https://clickup.com/blog/to-do-list-app/.<br>
+(3) undefined. https://techengage.com/best-to-do-list-apps/.<br>
+(4) 8 best to do list apps of 2023 | Zapier. https://zapier.com/blog/best-todo-list-apps/.<br>
+(5) . https://bing.com/search?q=top+10+to-do+apps+by+popularity.<br>
+(6) Best todo list app of 2023 | TechRadar. https://www.techradar.com/best/best-todo-list-apps.<br>
+(7) The Best To-Do List Apps for 2023 | PCMag. https://www.pcmag.com/picks/the-best-to-do-list-apps.<br>
+(8) undefined. https://collegeinfogeek.com/best-to-do-list-app/.<br>
+
+<br><br>
+Here are some articles that can help you build an Outlook add-in app:
+<br>
+4. **Outlook add-ins overview - Office Add-ins | Microsoft Learn**: This article provides an overview of Outlook add-ins and offers resources to get started building them, including a quick start guide and tutorial⁴.<br>
+2. **Outlook add-in design - Office Add-ins | Microsoft Learn**: This article provides high-level guidelines for designing and building a compelling add-in that brings the best of your app right into Outlook².<br>
+3. **How To Create An Add-in In Outlook Using ASP.NET - C# Corner**: This article explains how to create a basic Outlook Addin using ASP.NET, and how to locate and run the add-ins in the web and desktop versions of Outlook³.<br>
+1. **Build your first Outlook add-in - Office Add-ins | Microsoft Learn**: This article provides a step-by-step guide to building an Outlook task pane add-in that displays at least one property of a selected message. It also explains how to create the add-in using the Yeoman generator for Office Add-ins or Visual Studio¹.<br>
+I hope you find these resources helpful!
+
+
+
+Source: Conversation with Bing, 10/18/2023<br>
+(1) Build your first Outlook add-in - Office Add-ins | Microsoft Learn. https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/outlook-quickstart.<br>
+(2) Outlook add-in design - Office Add-ins | Microsoft Learn. https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/outlook-addin-design.<br>
+(3) How To Create An Add-in In Outlook Using ASP.NET - C# Corner. https://www.c-sharpcorner.com/article/how-to-create-an-add-in-in-outlook-using-asp-net/.<br>
+(4) Outlook add-ins overview - Office Add-ins | Microsoft Learn. https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/outlook-add-ins-overview.
+<br>
+
+How To Use Tasks in Microsoft Outlook More <a href='https://web.archive.org/web/20130805212604/http://blogs.msdn.com/b/jmeier/archive/2013/05/14/how-to-use-tasks-in-microsoft-outlook-more-effectively.aspx
+'>Effectively</a> (adds a new col + groupsBy that col)
+<br>
+<a href='https://www.outlook-tips.net/tips/custom-priority-field-in-outlook-tasks/'>Custom</a> Priority field in Microsoft Outlook Tasks: another resource for above but incomplete (gives up)
+<br>
+2023: To Do API <a href='https://learn.microsoft.com/en-us/graph/todo-concept-overview'>overview</a>
+<br>
+2020: To Do Graph <a href='https://devblogs.microsoft.com/microsoft365dev/introducing-the-new-microsoft-graph-to-do-api/'>api</a>
+<br>
+todoTask <a href='https://learn.microsoft.com/en-us/graph/api/resources/todotask?view=graph-rest-1.0&source=recommendations'>
+resource</a> type
+<br>
+For more information about Microsoft Graph extensibility including limits for open extensions, see Add custom <a href='https://learn.microsoft.com/en-us/graph/extensibility-overview'>properties</a> to resources using extensions and Add custom <a href='https://learn.microsoft.com/en-us/graph/extensibility-open-users'>data</a> to users using open extensions.
+<br>
+todoTask + todoTaskList nd Open Exts, see <a href='https://learn.microsoft.com/en-us/graph/extensibility-overview?tabs=csharp#comparison-of-extension-types'>this</a> table
+<br>
+              </div>
+          </div>
+          <div class="mBox notes webhooks Agents" >
+             Webhooks SaaS options
+              <div class="caption" style="display:none;">
+Azure [Fns](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview?pivots=programming-language-csharp)
+* Run scheduled Task
+* Build a serverless workflow
+	Create an event-driven workflow from a series of functions using Durable Functions.
+  e.g. trigger -> fn -> update CosmosDb
+
+Related: MailHog
+MailHog is an email testing tool that makes it super easy to install and configure a local email server. MailHog sets up a fake SMTP server. 
+
+**_Note: All of the below have HN threads for ref._**
+
+[SVIX](https://www.svix.com/) OSS Webhooks as a Service
+SVIX REST API (or libs) <- api call:
+```
+var svix = new SvixClient("AUTH_TOKEN", new SvixOptions("https://api.svix.com"));
+await svix.Message.CreateAsync("app_Xzx8bQeOB1D1XEYmAJaRGoj0", new MessageIn(
+    eventType: "invoice.paid",
+    payload: new {
+        type: "invoice.paid",
+        id = "invoice_WF7WtCLFFtd8ubcTgboSFNql",
+        status = "paid",
+        attempt = 2
+    },
+    eventId: "evt_Wqb1k73rXprtTm7Qdlr38G"
+));
+);
+```
+In order to send to a specific URL, we need to add endpoints
+```
+endpointOut = await svix.Endpoint.CreateAsync(new EndpointIn(
+    url: "https://api.example.com/svix-webhooks/",
+    version: 1,
+    description: "My main endpoint"
+));
+```
+Svix comes with an application portal for your users that you can use out of the box. Your users can then use it to add endpoints, debug delivery, as well as inspect and replay past webhooks.
+
+[Zapier](https://help.zapier.com/hc/en-us/articles/8496288188429-Set-up-your-Zap-trigger)
+Basically wrkflw is triggered on popular WWW apps
+You can set up a Zap to send a direct message in Slack to yourself every time you receive a new email in Gmail. In this Zap, the trigger is the new email in Gmail.
+
+[Trigger](https://trigger.dev/) OSS Background Jobs framework for TypeScript
+
+[Automatisch](https://automatisch.io/docs) OSS Zapier alternative. Build workflow automation without spending time and money.  Allows you to store your data on your own servers.
+Custom request -> Makes a custom HTTP request by providing raw details.
+SMTP -> Send an email
+Catch raw webhook -> Triggers when the webhook receives a request.
+          </div></div>
+
+          <div class="mBox notes mongo SaaS ISVs" >
+             MongoDB to keep its hands off application building
+              <div class="caption" style="display:none;">
+From TheRegister[article](https://www.theregister.com/2023/10/03/mongodb_cto_interview_on_applications/)
+... 
+"But our fundamental kind of organic development still is, by and large, horizontal, and <mark>we use specialists, ISPs and partners and domain experts</mark>," he said.
+
+The strategy of MongoDB and other more modern database vendors — both NoSQL and so-called NewSQL, the group of RDBMS with distributed back ends — could not be more different from the one that defines the world's largest database vendor: Oracle. From its foundation in the late 1970s until the early 2000s, Oracle had been primarily a database company, with a number of software vendors building on its RDBMS. But from the turn of the century, it went on an application acquisition spree, splashing out billions of dollars on <mark>CRM vendor Siebel Systems<mark> and HR system <mark>PeopleSoft</mark>, through which it acquired ERP technology from <mark>JD Edwards</mark>. The strategy extended to the recent $28.3 billion acquisition of electronic health records vendor <mark>Cerner</mark>, which Oracle says will benefit from using its database and cloud technologies.
+
+While Oracle's strategy with its bag full of business applications has been to integrate them with its databases, and more recently, its cloud services, arch-rival in the application market, SAP, has gone in the opposite direction.
+
+Legacy SAP applications, including R/3 and Business Warehouse, were developed to run on third-party databases, including the Oracle Database, IBM Db2 and Microsoft SQL Server [PDF].
+
+But the strategy shifted when SAP created its own in-memory database, HANA, around 2010, and <mark>built the most recent generation of its ERP application, S/4HANA, on the platform</mark>.
+
+More recent market entrants, such as HR and finance SaaS vendor Workday, have built their applications on their own database. But they will be in the minority, reckons MongoDB CPO Azam.
+
+"The software industry is orders of magnitude larger than it was back when that was the case. That's not to say there aren't going to be verticalized packaged apps — Oracle has the cloud versions of their apps. But if you look at where the spend is, the vast majority of software being created is not just going to be packaged software. It is customers creating their own software to run their own business better," he said.
+
+For <mark>packaged applications</mark>, MongoDB works with <mark>ISVs building SaaS</mark>, rather than build its own. To that end, a banking-as-a-service platform has built <mark>Temenos Transact</mark> on MongoDB, while Salesforce Marketing Cloud's analytics solution is powered by MongoDB. Icon Solutions' <mark>Icon Payments Blueprint</mark> platform and Inovaare's <mark>compliance automation solutions for healthcare</mark> are both also built on MongoDB, for example.
+
+James Governor, co-founder of developer-focused analyst **Redmonk**, said it was true that more businesses were likely to build applications in-house, where there might be some competitive advantage. "People say enterprises want to become software companies. I don't think they do, but they do need to be able to take advantage of software. It doesn't look like buying packaged applications, certainly in the traditional sense, is the preferred model," he said.
+
+<mark>Where customers need packaged software, they might be better served by SaaS vendors rather than a database company, he said.</mark>
+
+But the temptation would always be there to get a slice of the action in the remainder of the software stack, Governor said.
+
+"There was a time when <mark>Oracle only had one product</mark>, so who knows what will happen? The pendulum swinging back a bit. If you've got nine out of the 10 top automotive companies building telemetry-based applications on your platform, then there is a tendency to say, let's lock that in a bit and do a better job of serving them,” he said.
+
+MongoDB's total revenue was $1.28 billion for the full year fiscal 2023, up 47 percent on the previous year. Its losses from operations were $346.7 million for the same period. Financially, it is tiny compared to Oracle, which boasts nearly $50 billion in annual revenue. But MongoDB's claim to be the developer database of choice is not without justification: this year's Stack Overflow survey pegged it as fourth choice — and the highest NoSQL vendor — among professional developers, 26 percent of whom said they used the platform.
+
+"They've clearly got enough on their plate with continuing to build that horizontal functionality," Governor said.
+
+However, it was is the nature of the tech industry to see companies appoint a new CEO to instigate a sudden change in strategy, he said.
+          </div></div>
+
+          <div class="mBox notes brij" >
+             Prior Versions
+              <div class="caption" style="display:none;">
+<ul><li>PrVers are a <b><i>source of truth</b></i>! Should be poss 2 reconstruct
+</li><li>Therefore nd delta FldInfo + UnDel Info preserved
+</li><li>Ren/Chg flds 4 EmbedDox?
+</li></ul>
+              </div>
+          </div>
+
+          <div class="mBox notes brij" >
+             FldLvl Δs
+              <div class="caption" style="display:none;">
+<ul><li>The current setup is optimized for saving space with performance benefits **BUT** ρ uses fld-level and so should we
+</li><li>Therefore the versioning/Δ fns nd to be updated<br>
+ADD: Created|LastMod|By (these already exist in CoreMod)
+</li><li>These flds updated cliSide not in handlers
+</li><li>Don't send only Δs, send the whole doc which the svr only nds to resend (no svrSide processing @all)
+</li><li>Add to Doc: [SessionDeltas:(fldNm, val)]  to pump into DelltaTracker.  <br>
+<pre><code>
+Fld.LostFocus.Add(fun e -> if (!!~ this.fldNm) <> this.fldNm.Value then !!^ else ())
+</code></pre>
+</li></ul>
+              </div>
+          </div>
+
+          <div class="mBox notes brij" >
+             Nested/Embedded Dox
+              <div class="caption" style="display:none;">
+<ul><li>Versioning wd be a fine way 2 test Impl (Approach2: use Accumulator + only DeltaForCurrVer in currVer; i.e., curr setup)
+</li><li><b><i>ty NestedDoc = DocFldTy of list&lt;DocfldTy&gt;</b></i><br>
+  |VerId|UserId|CreatedDt|
+</li><li>Last ver details -> |DocId|UserId|CrDt|list&lt;fldsMod&gt;|<br>
+  Saved in currDoc 4 UI
+</li><li><b>Impl Note</b>: UI-side ListBox not editable exc via dlg; ditto listVw but can popul8 frm nestedDox (currently imho b8r n tbl)
+</li></ul>
+              </div>
+          </div>
+
+          <div class="mBox notes brij" >
+             SubForms
+              <div class="caption" style="display:none;">
+<h3>@TBD: How does the flow work?</h3><br>
+Poss approach: Separate Creation of subform flds (flds not vis in tblFlds) and offer 2 insert the whole thing.  Note that Forms w/subfs will have an embedded View & we'll nd 2 provide ability to [add|edit|del] poss via tBar.  Also they nd a summary line/flds (maybe calcFlds _outside_ of the View) to show, e.g., Order Totals/average/count...  Keeping 'em as calc flds in parentForm allows easy inclusion in Views.
+<ul><li>
+</li><li>New fldTy <b><i>subForm : li&lt;DocFldTy&gt;</b></i>
+</li><li>Naming follows dot convention: 'subFrmNm.fldNm'
+</li><li>Auto-trans to/from via member wobbly() as usu
+</li><li>Offer canned calc flds whenever frm has embedded subFrm: *_count|total|avg|mean|median_*
+</li><li>These shd be <b><i>updated cliSide</b></i> on docSave/docUpd8.
+</li></ul>
+<ul><li><h3>(earlier Notes) SubForms</h3>
+</li><li>@Tbd: Sched for v2+ BUT if it's less of a hassle impl now:
+</li><li>Instd of hideWhens forEa; just use formulas for subForms (tblPnl insertable) 
+</li><li>They'll appear as greyed uneditable boxes in Dz <br>
+       Gen8ing both vers shdn't be much trouble.
+</li><li>see 'Canned Db Example w/Orders' in tk for Demo(s)
+</li></ul>
+              </div>
+          </div>
+
+          <div class="mBox notes brij" >
+             Summary Row
+              <div class="caption" style="display:none;">
+<ul><li>Optional; all assoc tys nd to be updated to incorp this
+</li><li><b><i>Qry:</b></i> Basically extract the logic used for <b><i>categCounts</b></i>
+</li><li>Needs new fld: curr we have isCateg:bool  Change this to <b><i>rowTy:eNum</b></i><br>
+    Categ|Summary|Regular so can be expanded in fut if necc.  All logic'll nd 2 be updated.
+</li><li>This also allows easy customization (e.g. background = yellow) for Summary Rows.
+</li></ul>
+              </div>
+          </div>
+
+          <div class="mBox notes brij" >
+             ACL/Role Impl.
+              <div class="caption" style="display:none;">
+(see markDown tbl of levels|rights)
+	
+**Levels**: | Doc | Form | Tbl | Sys |
+
+<h3>@Tbd: Editor nds delete rts?</h3>
+
+<h3> Poss. b8r to impl merely Reader/Author for v1 & leave more finely grained sec 4 l8r.</h3>
+
+<h3>The best part of allowing Rewind/Vers capab is that we **_DO NOT_** nd to impl this early.  Schedule for v2+.</h3>
+
+<h4> Consider:</h4>
+
+<ol><li>Is Form here equiv to DesEl?
+
+<ul><li>All access must, by definition, pass through svrReq
+</li><li>Req >> ApplyACL will, even 4 DzLi (say GandhiNms) Filter -> ∴ applied cliSide
+</li><li>fn ApplyAcl = | NoRights -> repl w defVal   | _ -> ()
+</li></ul>
+
+</li><li>Versioning alieviates disaster recovery caused by lack of Role Impl.
+<ul><li>If users can identify/recover from failures it solves most of the burden</li></ul>
+
+</li><li>However, even basic ACLs mean the whole hog
+<ul><li>If dvlpr wants to hide Salary fld from all except ["EmplNmFieldThisDoc";"MngrFieldThisDoc";"HRGrpThisOrg"]; we still need to impl. LDAP/X509/NAB equiv.  Mere logins/OUs won't do; the whole hog necc.
+</li></ul>
+</li></ol>
+
+<h4>From Aug_23</h4>
+SvrSide after recv qry chkACL -> Apply -> Removes(?) Flds -> Tpl -> OptOrDefault 
+
+<h4>From Sep_18_23</h4>
+ACL impl requires two facets: 
+<br>	
+(i) **svrSide**: If usr doesn't have rights, data won't even be sent. <br>
+    This ensures that hacking into raw data won't divulge privileged data.<br> 
+    Recent @rsch pointed out that Mongo now supports RBAC (RoleBasedAccCtrl) svrSide via loginID.  So we'll probably be able to impl. this feature w/o much coding. <br><br>
+	
+(ii) **cliSide**: Usr nds to modify pnl.props to hide if no access (otherwise system'll display a blank box):  We nd a new dlgBox like this: <br>
+**title**:"Access Control"; **ctrl**:ListBox(Vw?)<br>
+     **Cols**: | Create | Read | Write | Delete | <br>
+     (each col hdr is a button; clicking allows assigning NAB entries ie nms/grps)  These appear one entry to a row; stored as []
+<br><br>
+     
+<h4>From Nov_17_23</h4>
+One possible approach:<br>
+<ul><li>All devClients(native) get ids & we impl Auth for them
+</li><li>When they 'publish' a Db (ie webView/webForm) it requires no auth.<br>
+  So devs can use these to collect anon data/registration data etc., as Google Forms/Formly et al allow currently.
+</li><li>Since brij webEls are 'embeddable components', if they want/nd Auth they bring their own:social auth etc.
+</li><li>For this to work we nd a UserID Assign Mechanism:
+  - both the web comps (View/frm) will chk for a global var (say userId).  If exists, use; else assign webUser@anon.com.  Also grab ipAdd/identifier info.
+</li></ul>
+
+<b><i>RELATED:</b></i> @TBD Do we allow webClis to view priorVersion info? <mark>i think not.</mark>
+
+<h3> Links</h3>
+   - <a href='https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles?view=aspnetcore-7.0'>)Role</a>-based authorization in ASP.NET Core<br>
+   - Using Custom schema w/aspNetC Identity:<br><br>
+2018 <a href='http://danderson.io/posts/using-your-own-database-schema-and-classes-with-asp-net-core-identity-and-entity-framework-core/'>article</a><br>
+<a href='https://stackoverflow.com/questions/21529291/asp-net-identity-use-custom-schema'>SO</a> qn<br>
+
+              </div>
+          </div>
+
+          <div class="mBox notes brij" >
+             DbClipboard
+              <div class="caption" style="display:none;">
+<ul><li>Implement an internal DB Clipbd: 1 handler, called via TBar btns.  Bypass the OS clipbd (eat the event)
+</li><li>Cut/Copy([docID]) -> 🌎.intlBuffer gets 
+</li><li>Paste(tblId, [docID]) -> map >> getUNID -> paste 
+</li><li>intlBuffer holds itms until nxt copy/cut
+</li><li><b>NOTE</b> that localDbs may need cliSide logic
+</li></ul>
+              </div>
+          </div>
+
+          <div class="mBox notes brij" >
+             DbFuncs
+              <div class="caption" style="display:none;">
+<pre><code>
+**@ToDo**: @rsch WebHooks impl., esply smtp (we'll nd that 1st)
+</code></pre>
+
+<ul><li>For v1 offer Hourly/12hrs/Daily/Wkly/Monthly
+</li><li>For v2 offer spec times + 5|10|15mins
+</li><li>dzView shd offer a button to select Agent + `Run Now`
+</li><li>svr Reboots shouldn't affect timing/order/missed execs
+</li></ul>
+<pre><code>
+    //cd elaborate with | Hourly | Daily | SpecificTime 
+    type Scheduled of AgentAction * TimeInterval 
+    type Event of EventTrigger(CritExpr) 
+    type AgentType of | Scheduled | Event 
+    type AgentDefDoc of OrgNm * TblNm * AgentNm * AgentTy * LastRunOn:DateTime 
+
+    //below redacted; put info in defDoc
+    type AgentLogDoc of AgDefID * RanOn * Result 
+	
+    let setTrig = 
+       fun agentTy lastRun -> 
+	   match agenTy with 
+	   | Scheduled(actn, intvl) -> 
+	        if (lastRun - now) > intvl then runNow(actn) else skip 
+	
+    ///For v1, keep it simple: run below on a Timer(15min) 
+    ///This will capture all udpates 2 the AgentDocs incl dels 
+    svrInit.AddHandler (fun e v -> 
+       getAllAgentDefs |> lim (fun def -> setTrig agTy lastRun) 
+
+    ///Create/Upd/Del handlers needed 4 SvrCmd_ClassO_AgentDefDoc 
+</code></pre>
+              </div>
+          </div>
+
+          <div class="mBox notes brij" >
+             Deep Dive into qry CE
+              <div class="caption" style="display:none;">
+<ul><li>
+</li><li>dismantle (compose, fetch, deSer) 
+</li><li>retool to fetch raw mqlRes
+</li></ul>
+<code><pre>
+///run this thro the tests; shd suffice 
+///if any issues (Linq might nd fldNms); revert to fld_str_1|fld_bool_1 with get,set... 
+open System.Collections.Generic 
+type BrijLinq() = 
+    let table = new Dictionary<(string* int), float>() 
+    member this.Item 
+        with get(key1, key2) = table.[(key1, key2)] 
+        and set (key1, key2) value = table.[(key1, key2)] <- value 
+</code></pre>
+              </div>
+          </div>
+
           <div class="mBox notes org" >
              Org Notes mBox test2
               <div class="caption" style="display:none;">
@@ -25922,10 +26477,9 @@ It lets you take text—a word, a sentence, a paragraph or a whole blog entry—
 
 
 		</div><!--mBoxContainer-->
-                </div>
+</div> <!--devNotesContent-->
                 </section>
                 <!--career/devNotes section-->
-
 
 </body>
 
