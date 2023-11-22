@@ -1,3 +1,4 @@
+
 <!--script>
         console.log("INLINE\narray.mapi:\n" + 
         ([1, 2, 3].map(function (value, index) {
@@ -267,9 +268,43 @@ var zip_w_idx = (mTagArr.tagCount).map(function (value, index) {
 var sorted_top2 = ((zip_w_idx.sort(sortBy([0]))).reverse()).slice(0, 2);
 //prnOb(sorted_top2);
 
+console.log("res of >> prnOb(getTopTabsByCount(mTagArr,2)) ->");
 prnOb(getTopTabsByCount(mTagArr,2));
 
 document.getElementById("demo").innerHTML = "prnOb(comb1) prnOb(comb)";
+
+// Native: https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_has
+const has = function (obj, key) {
+  var keyParts = key.split('.');
+
+  return !!obj && (
+    keyParts.length > 1
+      ? has(obj[key.split('.')[0]], keyParts.slice(1).join('.'))
+      : hasOwnProperty.call(obj, key)
+  );
+};
+
+const arrFold = (fn, arr) => {
+  return arr.reduce(fn);
+};
+
+console.log("****res of INLINE arrFold***: " + arrFold((s, v, i, arr) => {
+       return s + v
+}, [0, 1, 2, 3, 4]));
+//****res of INLINE arrFold***: 10
+
+var obj = { a: 1, b: "settings", bPL: {a: 1, b: 'settings', arr: [1,"2",3], nestedArr: [["one","two","three"],["une","deux","trois"],["ek","do","teen"]]}};
+var objRes1 = has(obj, 'a');
+console.log("obj.has a: " + objRes1);
+console.log("obj.has bPL: " + has(obj, 'bPL'));
+console.log("obj.has bPL.arr: " + has(obj, 'bPL.arr'));
+var arr2nd = obj.bPL.arr[1];
+console.log("obj.arr2nd: " + arr2nd);
+console.log("obj.has bPL.nestedArr: " + has(obj, 'bPL.nestedArr'));
+var nArr2nd = obj.bPL.nestedArr[2][2];
+console.log("obj.nArr2nd: " + nArr2nd);
+//console.log("obj.spreadSyntax: " + ...bPL);
+
 </script>
 
 </body>
