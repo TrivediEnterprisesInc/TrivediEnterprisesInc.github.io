@@ -1,0 +1,1229 @@
+
+<section>
+  <!-- div BrijLog -->
+    <div id='BrijLog'>
+        <style>
+        .BrijLog {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        .BrijLogtd {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px
+        }
+
+        .BrijLogth {
+          border: 1px solid #dddddd;
+          text-align: center;
+          background-color: #4472C4;
+          padding: 8px;
+          font-size:18.0pt;
+          color:white;
+          font-weight:700;
+          font-family:Calibri
+        }
+
+        .BrijLogtr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+
+        <table class = "BrijLog">
+         <col width=width: 10%;>
+         <col width=width: 15%;>
+         <col width=width: 75%;>
+
+          <tr class = "BrijLogtr">
+            <th class = "BrijLogth">Date</th>
+            <th class = "BrijLogth">Module</th>
+            <th class = "BrijLogth">Entry</th>
+          </tr>                  
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">mod winFrms/<mark>DnDMonad</mark></td>
+          <td class = "BrijLogtd">
+Nov 9:    refactor, retrofit 2 use existing S monad w/only bind 4 ce<br>
+Nov 7:	  init work: logic, monadBldr, initial tests OK</td></tr>
+		
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">mod winFrms/<mark>propBox</mark></td>
+          <td class = "BrijLogtd">
+Oct 19:   refactored tys<br>
+Oct 17:   more Pages, tabCtrl<br>
+Oct 16:	  init work: logic, TabPages, initial flow
+          </td></tr>
+		
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">mod winFrms/<mark>DnD_ops<mark></td>
+          <td class = "BrijLogtd">
+Nov 6:       refactored tys, dragDrop handlers<br>
+Oct 11,12:   refactored tys<br>
+Oct 7:	  further work: blankCell logic, tests<br>
+Oct 6:	  further work: tests, produces DzCell Struct<br>
+Oct 4:	  init work: logic, types, init flow
+          </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+Sep 29	create frm.html (webCli)<br>
+Sep much reOrg, planning/notes updates; dojo work; evals gridx/dgrid/dojox; setup SignalR svr & repo for static, etc.
+          </td></tr>
+		  
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">mod winFrms/<mark>frmDelta</mark></td>
+          <td class = "BrijLogtd">
+              Sep 2:    further work: svrPromoteHandler <br>
+Sep 1:    further work: ViewPriorVersions handler<br>
+Aug 31:   further work: PriorVers CarryFwd logic for deltas<br>
+Aug 28:	  further work<br>
+          </td></tr>
+		
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 16-18</td>
+          <td class = "BrijLogtd">blazor/wasm</td>
+          <td class = "BrijLogtd">
+              @rsch + srid: ran bld: issues w/net5-7 upgrd (CEs 4 bldg els)<br>
+              Got Blazor wasm ToDo launching locally
+          </td></tr>
+		
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 15</td>
+          <td class = "BrijLogtd">blazor/wasm</td>
+          <td class = "BrijLogtd">
+           @rsch + srid: setup/local static run as-is
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 14</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           lazy (gen on Demand) success! typical res window (this is 13 not 12):<br>
+		[["W25"; "V_119"; "V2"; "Cd"; "V_215"]; ["W25"; "V_119"; "V2"; "Cd"; "V_216"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_217"]; ["W25"; "V_119"; "V2"; "Cd"; "V_218"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_219"]; ["W25"; "V_119"; "V2"; "Cd"; "V_220"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_221"]; ["W25"; "V_119"; "V2"; "Cd"; "V_222"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_223"]; ["W25"; "V_119"; "V2"; "Cd"; "V_224"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_225"]; ["W25"; "V_119"; "V2"; "Cd"; "V_226"];<br>
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_227"]]
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 11,12</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Further work w/mockADO<br>
+            Bombs also (outOfMem) one last try w/HashMaps & then we nd 2<br>
+             try blding the entire collectn lazily, ie for a bucket w/seed<br>
+             123458, skip & retn exactly bucketSz itms.<br>
+            Warning: not too much effort; this is easy as pie w/a db BUT<br>
+             poss useful in scenarios such as wasm.<br>
+            Aug12: introduced async & T.K to mod perms, @mbi choked _hard_ as expctd. (hehe, monkeys)
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 10</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Created mod mockADO, ported earlier fable work & refined it; <br>
+            Bucketing logic in place
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 09</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Further work w/permsHarness: ran a few tests, created blders etc.<br>
+            Basic harness is in place
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 08</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Further work w/Cambattable; was able to use intfcs/phTys w/DUs (see notes Aug7)<br>
+            Further work w/perms: added new Cfgs<br>
+              * Gathered nos 4 all scenarios<br>
+              * Decided on optimal cfg (5M tot) genned 20 files on replIt<br>
+            Created mod permsHarness, init. work; Ado.net bombs @ ~ 2M recs
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 07</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Created mod Cambattable, assoc tys 4 Bfty, Btpl...<br>
+           Some issues w/sealed types & tyConstraints so removed constr.<br>
+           The mods'll still be constrained tho...
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">gen</td>
+          <td class = "BrijLogtd">
+           All APIs were way out of date (from Janish) so gend/repl/extracted to extnal<br>
+           Reinst. Op once again, still persistent @mbi
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 05</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Merged mods permsBase/Red<br>
+             created permCfg ty; some deltas
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">gen</td>
+          <td class = "BrijLogtd">
+            Repl ripGrep w/fnr
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 04</td>
+          <td class = "BrijLogtd">gen</td>
+          <td class = "BrijLogtd">
+            generated winFrms map (perms repl); uploaded + modified b.html
+          </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 03</td>
+          <td class = "BrijLogtd">utils/shorty.cs</td>
+          <td class = "BrijLogtd">
+            Some shortcuts in src subDir were missing, so setup/reRan shorty/updated lnkOut
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Further work with ule permsBase: produced 2.35M * 20<br>
+            Created mod permsRed: produced 60k * 20 = 1.2M (30 ea for V1|V2; def 4 Ps)<br>
+            - still nd 2 combine these & ensure unique<br>
+            - can persist a single tbl & use as `seed` to gen indiv. (TBimpl)<br>
+            (10 * 200) * 50 = 100k<br>
+            Created ule dizCopy, some work compl<br>
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Aug 02</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Created ule clientInit w/UI/UIAux/Brij updates<br>
+              related 2 tracking openTbls + versioning etc.<br>
+            Further work with perms; recreated outOfMem err (snafu w/conc)
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 31</td>
+          <td class = "BrijLogtd">gen</td>
+          <td class = "BrijLogtd">
+            @rsch FsCheck/QuickCheck
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 29</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Some work with perms until monkey bastas interfered too much... (hopeless effers)
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">repl/diff</td>
+          <td class = "BrijLogtd">
+            Began/completed work on diff (html 2 rtf); stable<br>
+            @ToDo: 2 wins/merge impl.
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 28</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Created mod uiDelta
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 27</td>
+          <td class = "BrijLogtd">utils/shorty.cs</td>
+          <td class = "BrijLogtd">
+            Collectd info 4all shortcuts into src\lnkOut.txt (c# issues w/a single win32 call 2 getPath)
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 26</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Added Card.intVal(), CardHand.chkSelBySuit(s, selL)
+            Added perms.cacheVvals()
+          </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+            Reinstalled Op (monkeyBastas disabled vpn)
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 25</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Replaced mod FilePnl/'getFilePnl' (monkeyBastas went nutz again & played w/clipbd)<br>
+            Some work on mod perms 2 chk/optimise totLen BUT as before spaces out; <br>
+             two possibilities: (i)lazy eval chokes (chk) (ii)@mbi
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 24</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            more @rsch PropertyTesting<br>
+            setup two tys for same; <br>
+            1st poss impl shd be to test 4 "isSufficientlyR()"
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 22</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Added tab2spc in rtb.keyDn<br>
+            Further work w/getFilePnl() incl. new treeView.DblClick<br>
+            Incorp. replIt work on Folding/Outliner/Tokenizer ici
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 21</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+            Refactor rPnl to typeof&lt;BhojPuri&gt;
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 19-20</td>
+          <td class = "BrijLogtd">test/token.fs + replIt/winFrms</td>
+          <td class = "BrijLogtd">
+            FS.Cmplr.Svcs pkg test 2 tokenize; offers EditorSvcs incl Color/Keywd/tokTy<br>
+            Entirely sufficient 4 synHilighting<br>
+            Much @rsch into other synH applications incl OCaml
+          </td></tr>
+              
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 18</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">Further updates 2 deckstuff/CardHand (added enum, some fns 4 isOneEyed()/genDeckTpl() etc)<br>
+           @Rsch into Syntax Highlighting<br>
+           Resumed work on mod FilePanelUpdates (poss created sometime last wk); reverted to TreeView
+          </td></tr>          
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 17</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Further updates 2 cyclical 2 rndomize
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">replit/winForms repl</td>
+          <td class = "BrijLogtd">
+           Some work on Foldables 4 rtb
+          </td></tr>
+              
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 15</td>
+          <td class = "BrijLogtd">ikvms</td>
+          <td class = "BrijLogtd">
+           Further work, dnloads, tests, works fine but will have to code API in j; put on bkBurner
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Added cyclical (see note below)<br>
+           We nd CYCLICAL not Random for pGen<br>
+             coz we nd to prevent adjacents which Random won't do.<br>
+             Therefore we nd an algo 2 retrofit: cld be as simple as manually iter 0..29
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 14</td>
+          <td class = "BrijLogtd">tmp</td>
+          <td class = "BrijLogtd">
+           Downloaded ikvm (jar -> .net) for testing; both approaches seem viable
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Added ty CardHand, some assoc fns.
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">@Rsch</td>
+          <td class = "BrijLogtd">
+           Property-based testing a la haskell/QuickChk (wlaschin et al)
+           Adding tys 4 exhaustive testing appears enticing
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 12-13</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Beauc updates incl new mod perms<br>
+           Ran many generators; res above expectations: .7M w/one iter 2 go<br>
+           monkeyBastas blew a gasket & bunged a spanner
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 11</td>
+          <td class = "BrijLogtd">standaloneBld.fs</td>
+          <td class = "BrijLogtd">
+           updated/blt bld4 on replIt; gen new dirs; issues w/FSCore ver (4.4 nded)
+           either get(preferred) or recompile(redactions pour l'mbi)
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 10</td>
+          <td class = "BrijLogtd">shorty.fs</td>
+          <td class = "BrijLogtd">
+           Some work on impl Win32 interop to collect shortcuts; beauc. @mbi
+           Worked fine if compiled via csc (effers)
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 08</td>
+          <td class = "BrijLogtd">CC</td>
+          <td class = "BrijLogtd">
+           Worked on new impl of CC in new mod UI.Utils, two tabs ready-ish
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 07</td>
+          <td class = "BrijLogtd">Cards</td>
+          <td class = "BrijLogtd">
+           Worked on old Cards stuff: updated types, 
+            wrote some fns & created .bdf dump w/imgs.  Stable/uploaded to gh.
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 06</td>
+          <td class = "BrijLogtd">Legacy</td>
+          <td class = "BrijLogtd">
+           Repl.it: much work hunting dn art db fr ~Feb18; two files located<br>
+            (feb & oct17) but both unusable.  .64 tampered? @mbi probably coz none<br>
+            of the anonGistLinks work from '18.<br>
+            Put off for now; was enthusiastic abt dumping jdk once/for all but apparently not yet.
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 06</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">
+           Imported Cards mod & made changes to import Google deck imgs; typework etc.
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 05</td>
+          <td class = "BrijLogtd">Legacy</td>
+          <td class = "BrijLogtd">
+           Repl.it: edited Importer.j into oPls.j from 2018 to <br>
+            dump all FT arts; successful.  Some code deltas reqd; committed.
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jul 03</td>
+          <td class = "BrijLogtd">Core</td>
+          <td class = "BrijLogtd">
+           Rebuilt/added liShuffle, getRand(), getRandS(), [a2z]
+          </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jun 23-30</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">var. updates incl a new splitPnl to house Proj bar (user-adjustable)<br>
+               some work on zipArchives on replIt (stable code using Zstd dll but it only works w/single files)<br>
+               work continues on winFrms w/o debugger (@mbi, heh heh)</td></tr>               
+          </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">.Net TextEditor</td>
+          <td class = "BrijLogtd">
+           examined src code for folding to port
+          </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">replIt</td>
+          <td class = "BrijLogtd">
+            created scaffolding/tests w/hdr file 2 use ZStd lib<br> (@ToDo: expand/incorp into Core)<br>
+           stable, but it only works w/single files<br> (not archives)  Cld still be useful l8r 
+          </td></tr>
+           
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jun 26</td>
+          <td class = "BrijLogtd">test/drive.fs</td>
+          <td class = "BrijLogtd">module SubstDrive: interOp using win32 calls to create a disk-based mappable virtual drive<br>
+           stable, but will not be used (we nd a mem-based soln, pro'lly homebrewed)
+          </td></tr>
+
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jun 23</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">Updated launcher w/ToolStrip 4 TaggedView blt from mBoxes.bdf.  Stable.<br>
+           (note: w/o mbi it took only minutes to rejig the whole thing; they soon returned)
+          </td></tr>               
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jun 20-22</td>
+          <td class = "BrijLogtd">mBoxes</td>
+          <td class = "BrijLogtd">Ported all mBoxes to bdf<br>
+              Resolved missing/renamed itms (mongo/mBoxes.fs)<br>
+              mBoxes.bdf now ~45Mb (self-contnd).  @ToDo: port to mongo (poss along w/FT/legArts?)
+          </td></tr>              
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jun 21</td>
+          <td class = "BrijLogtd">data\deepAI.txt</td>
+          <td class = "BrijLogtd">(deepai.org) Ran text-generator<br> w/instr. to generate examples like... (for choices based on training txt)
+          </td></tr>              
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jun 14-20</td>
+          <td class = "BrijLogtd">sWin</td>
+          <td class = "BrijLogtd">Built SignalR cli/svr, used winFrms (below) for flash.PaintRow.  Stable.
+          </td></tr>              
+               
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jun 08-13</td>
+          <td class = "BrijLogtd">test/winFrms.fs</td>
+          <td class = "BrijLogtd">General Grid/UI skeleton for testing; to be extended per use case<br>
+                          Impl flash.  Stable.
+          </td></tr>  
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">mBoxes</td>
+          <td class = "BrijLogtd">FSharp.Data for resolving/lookup wikip infobox via css selectors.  Stable.
+          </td></tr>  
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jun 05-08</td>
+          <td class = "BrijLogtd">TaggedVw</td>
+          <td class = "BrijLogtd">Rebuilt dojo TaggedVw 4 mBoxes
+          </td></tr>  
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">May 01-09</td>
+          <td class = "BrijLogtd">Docs/docFx</td>
+          <td class = "BrijLogtd">docFx udpates incl Mermd porting; <br>
+            publishing; created Discussion/ids; went live with pitch 4 brij
+          </td></tr>  
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr 20-May01</td>
+          <td class = "BrijLogtd">Docs/docFx</td>
+          <td class = "BrijLogtd">Built entire doc set (directly in GitHub repo)<br>
+            Curr status -> Complete exc4 currFigs + 50% snapshots + priorVers (js/java)<br>
+            Blt Mermaid timeline/much hunting down prior code/snapshots as reqd.<br>
+            Added docFx pg to bkmarks as pullout<br>
+            Retrieved FT.jar; earlier c.jar + sys.jar (issues w/baseDir) for snapshots<br>
+            e:/mike/*.* deleted @mbi sleigh-of-hand; we have this+all curr backups @ tan~tahd@outlook.com
+            </td></tr>  
+                  
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-19</td>
+          <td class = "BrijLogtd">DocFx</td>
+          <td class = "BrijLogtd">Worked on generating fn sigs via FSharp.Formatting (codeFmt.fs)<br>
+            Put on backburner (security issues)
+            </td></tr>  
+                  
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-18</td>
+          <td class = "BrijLogtd">DocFx</td>
+          <td class = "BrijLogtd">Generated APIdocs manually via call to --metadata<br>
+            Brij.dll processed; UI works as well; probems w/Core (poss. issues w/Core versions)
+            </td></tr>  
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-17</td>
+          <td class = "BrijLogtd">DocFx</td>
+          <td class = "BrijLogtd">Further docfx work: gen ApiDocs doesn't work on fsproj
+            </td></tr>               
+                  
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-15</td>
+          <td class = "BrijLogtd">DocFx</td>
+          <td class = "BrijLogtd">Further docfx work: gen ApiDocs<br>
+            Unable to run directly on .fs; so ran on Assemblies
+            </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-14</td>
+          <td class = "BrijLogtd">DocFx</td>
+          <td class = "BrijLogtd">setup/customization incl setEnv et al<br>
+            Further testing to bld sample proj (success BUT api fails: consLog mentions proj file err)<br>
+            Built example docset (Seed)
+            </td></tr>                
+                   
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-13</td>
+          <td class = "BrijLogtd">Brij/Parser.fs</td>
+          <td class = "BrijLogtd">Some further work on the new predMods</td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">DocFx</td>
+          <td class = "BrijLogtd">
+           rsch, init testing to bld sample proj (failed)
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-11</td>
+          <td class = "BrijLogtd">Brij/Parser.fs</td>
+          <td class = "BrijLogtd">Some further work on the new predMods</td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-10</td>
+          <td class = "BrijLogtd">off/echo</td>
+          <td class = "BrijLogtd"></td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Apr-01 - 08</td>
+          <td class = "BrijLogtd">Brij/Parser.fs</td>
+          <td class = "BrijLogtd">
+             Contd. work on mod Parser.predNL harness/fleshed out (Apr7 off/cis)
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-31</td>
+          <td class = "BrijLogtd">general</td><td class = "BrijLogtd" bgcolor="#FFFF00">
+          src backup</td>
+           </tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-29 - 31</td>
+          <td class = "BrijLogtd">BrijSvr</td>
+          <td class = "BrijLogtd">
+             Began work on mod Parser.predNL harness
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-27 - 28></td>
+          <td class = "BrijLogtd">BrijSvr</td>
+          <td class = "BrijLogtd">
+             Hectic rsch/coding around using Linq (expects ty)<br>
+             see Notes under 'Linq provis Type' tagged Linq/Mongodb<br>
+             Linq Qry is now running on local mongo instance against mTasks & working as expected.
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-24 to 26</td>
+          <td class = "BrijLogtd">BrijSvr</td>
+          <td class = "BrijLogtd">
+           FParsec contd; ported Json example to monadic ver
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-23</td>
+          <td class = "BrijLogtd">BrijSvr</td>
+          <td class = "BrijLogtd">
+           FParsec deep dive
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-22</td>
+          <td class = "BrijLogtd">loggedUIRunner</td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00">
+           extracted TblSetup pg to ty & worked on it<br>
+           added rec genFldSlg (tbImpl)<br>
+           (@ToDo: this nds 2 be ported to tblID too)
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">Core, UIAux</td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00">
+           Further work on Core.i18n; updates to UI.fs
+           @ToDo: Complete
+           </td></tr>          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-21</td>
+          <td class = "BrijLogtd">loggedUIRunner</td>
+          <td class = "BrijLogtd">
+           Interned મીઠૂ_પાન_Mar23 for work on new MM ver w/tC (stable)<br>
+           Added 2 pgs: TblSetup/FrmSetup; modified latter for instr<br>
+           var updates/workarounds to comp (mbi w/state/currUISchm refs et al)
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           altered tyExt for namespace compErr
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">Core</td>
+          <td class = "BrijLogtd">
+           Began setup for Core.i18n; added li + lookup (stable)
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-20</td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd">
+           (MongoDeSer.fs)Began work on DeSer mod in this file
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           Added tyExt for RichTextBox to add Expr.flds in diff col<br>
+           Updates to એક્સ_પેનલ tbdb (methd render, toTxt now not Relev)
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-10 to 19</td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd">
+           Mostly MongoDB work: completed Qry for 2/3 Cats (MongoQry.fs)<br>
+           Some work on gen mockDb for Mongo per D'wd reqs<br>
+           Located zip/nm tbls; we have enuff to gen 3.2M recs<br>
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar-09-23</td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd">
+          Added tys બોક્સ_પાન, mBoxMasaloAux, mBoxSize<br>
+          Added tys/fns 4 TgDV
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Mar7,8-23</td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd">
+          Some work on importing mBoxes to Mongo
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-23 to Mar6-23</td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00">
+           Generated tkDat/pumped into Mongo; dumped out<br>
+          Nailed down generic Agg pipelines<br>
+          (@ToDo: svrSide WD work to bldDat)<br>
+          Some work on TgDV; incl regen superscripts 4 tagBtns
+           </td>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-28</td>
+          <td class = "BrijLogtd">general</td><td class = "BrijLogtd" bgcolor="#FFFF00">
+          src backup</td>
+           </tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-21,22-23</td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Further MongoDb reading/rsch/testing; setup utils.  Wrote a small F# script to import tkDat into Mongo as JsonEls (success); created a dump.
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Updated Bookmarks: pulled out Mongo links; moved local links to sep. file
+           </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-20-23</td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Further MongoDb reading/rsch; some Qry/Linq rsch; some util work
+           </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-18-23</td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           MongoDb reading/rsch<br>
+           Updated bkmarks/logs online
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-17-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00">
+           Further work on BM refactor/ફીલ્ડ_પેનલ_Aux;<br>
+            Added getBPHnd (@ToDo cases remain) can't pullOut coz diff params + scope<br>
+            Combined fns BM.updSlg + BM.setFldTT to BM.update (@ToDo cases remain)
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Some more messing w net7
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd">
+Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
+           </td></tr>
+
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-16-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           Further work on BM refactor/ફીલ્ડ_પેનલ_Aux; added tBar w/AppTab stuff; <br>
+            added fns BM.updSlg + BM.setFldTT
+           </td></tr>
+           
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-15-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           BM recovery in am (@mbi overwrote yest. pm work) (again, the bastas)<br>
+           Began work on total બનારસી_પાન refactor:<br>
+            new fn setupFlds; incl slotter et al; <br>
+            updated ફીલ્ડ_પેનલ_Aux ctor + all calls; added ctxtMenus<br>
+           selectedPanl saved to ownr + p
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-14-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           Fixed all frmFld issues; we now have the BM tab pages on +<br>
+           BM lv dbl-click launches FldDef dlg<br>
+           BM is online (tho beauc. @mbi)
+           </td></tr>
+           
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-13-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           BM_ValidationBldr<br>
+               Fixed issues w/condCB selection losing focus (dataSrc related)<br>
+               @Note: This is poss @mbi related; this worked quite okay before<br>
+               Note also that combiner et al losing selection; <br>
+                again poss @mbi; leave the rest 4 l8r<br>
+               Updated predConds for 1st blank as unSelected<br>
+               At this pt. we have the params in place and Fld auto-populated +<br>
+                non-selectable (as it shd be).  ctor docFlds all correct.
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">BP</td>
+          <td class = "BrijLogtd">
+            Resumed work on new layout.  BP Online(!)
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-11-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+            CompileErr on new DU case 4 expandoPanel; so edited match<br>
+            st 4 ઍક્સપાનડો_પીચાક to not refer to Validation case (using _); logic retained.<br>
+            BM: @mbi w/tC sidestepped via bypass harness (1 pg @ time)<br>
+                Contd. work on the new ValidnBldr w/fld popul8d;<br>
+                matching on ctor.xPandoPnl<br>
+                Changed SelectedIdxChanged handler (trigger to pop condnCB)<br>
+                coz in Validation/Enabled=false; never runs
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">Core</td>
+          <td class = "BrijLogtd">
+            Added fn runChk dir for testing w/flags
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">logged</td>
+          <td class = "BrijLogtd">
+            "currScheme_Wref": @mbi w/var SM issues (esply wldRef) so <br>
+            created bypass harness ("SM_bypass") 4 working w/ "tabCtrl_MidP"
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-10-23</td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd">
+            tkDat: outpt 2 Brij&lt;_&gt;; new ser ver 4 baseTkDatAux; added to BrijDat
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+            baseTkDatAux Updated for new ty sig; BrijDat all Brij(_) now<br>
+            Spurious err for TStripItm.AddRange remmed as '//@Feb10_mbi_bogusErr '<br>
+            Repurposing એક્સ_પેનલ for BM validation::<br>
+              Case Union 'FldValidation' added 2 ty expandoPanel<br>
+              Updates 2 ઍક્સપાનડો_પીચાક + એક્સ_પેનલ to layout new caseTy (disabled + vErr)<br>
+            Moved DzTypes & the new Dat ty from Aux 2 Brij<br>
+            Some further work on Expr (mod Validatn)
+           </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-09-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00">
+            Added fn defaultImg; reset CP to use wldRef<br>
+            Updated all expand.png refs to add_circle / remove_circle (esp.ly dvs)<br>
+            Updated getTSButtonAux: now takes wRef 4 TSBtn imgs, uses getImgDat<br>
+            Updated all refs to above for wRef (in loggedUIR too)<br>
+            <@ToDo: ALL changes to Aux 4 wRef above remmed as '//@Feb9_mbi '<br>
+            (Lookup indet. ty fake errs)  Remmed to compile 4 BDoc etc.<br>
+            Note: These also Ǝ in loggedUIRnr<br>
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Some more messing w net7; using Ǝing libs w/logged.fsproj<br>
+           Throws on assembly ref Sys.Drawing.Imaging; err persists (poss @mbi on Linux)
+           </td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd">
+           Began proc to unify DesDocAux/BrijTy to type Brij<br>
+           NOTE: Multiple copies of DesDoc exist (two in Brij/etc) @mbi<br>
+           This work nds 2 be xferred to Brij but kept in Aux for refs 2 DesDocAux
+           </td></tr>           
+           
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-08-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+            Added fn getDefErrProv; updates to એક્સ_પેનલ<br>
+            Debugging of CM led 2 many updates incl ફીલ્ડ_પેનલ_Aux સુપારી<br>
+                which cascaded (incl calls)<br>
+            Similarly 4 BM; both showing now tho layout issues
+           </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-07-23</td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Productivity enh.mts (contd): redacted sections/maps frm bkmarks.<br>
+           Updated res/created Addenda w/links
+           </td></tr>
+           <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00">
+           Added the foll validation trips to એક્સ_પેનલ:<br>
+              <ul><li>Connector (and/or) sel reqd</li>
+              <li>inp fld nds 2 match fldty (currently unchecked)</li>
+              <li>@ToDo: nd to resolve "isEmpty" cases (non-unique)</li>
+              <li>Q: REMOVE isEmpty altogether?  We're insisting on defaultVals, y?</li></ul>
+           </td></tr>
+          
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-06-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           Debugged/Compiled lib; note that the Nov18 UI.fs nd'd 2 be changed<br>
+             (src file has notes) for fldTy changed from FldType to FrmFldType<br>
+             (was raising circular errors in Brij via UI + preventing UIAux)<br>
+             This err also raised in BanarasiM (ref in logd), fixed<br>
+             Fixed minor bugs in BM/CategTester validErrHndlr
+           </td></tr>
+           <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Some attempts to get symbols.fs to compile using Corev4/CompSvcs7
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-04-23</td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           Minor updates 2 બનારસી_પીચાક_fld_eoy + ઍક્સપાનડો_પીચાક
+           </td></tr>
+           <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">utils</td>
+          <td class = "BrijLogtd">
+           Some work on symbols.fs + net7 setup
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-03-23</td>
+          <td class = "BrijLogtd">Brij</td>
+          <td class = "BrijLogtd">
+           ren ty FldTy to FrmFldType for disambig; + all refs<br>
+           ren fn DocFldTy2FldTy 2 DocFldTy2FrmFldTy; + all refs
+           </td></tr>
+           <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">UIAux</td>
+          <td class = "BrijLogtd">
+           Added placeholder tys 4 કલકતી_પીચાક: CM_SortPg, CM_FilterPg<br>
+           Refactored ફીલ્ડ_પેનલ_Aux for:<br>
+            * tags set NOT in pnl but in d<br>
+                in btns use em to update d tags<br>
+                use fldNm (intl) 4 ctrlTag; NOT slg<br>
+                REMOVED defaultTags + assoc logic<br>
+           </td></tr>
+           <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00">
+  @ToDo 4 callers:<br>
+        * SET: pass in defaultInitVals via cTor<br>
+        * GET: (for frmFldVals)<br>
+             AFTER ctor in caller just map thro all flds; <br>
+             (hasTag fldNm)? populate else skip </span><br>
+           Some init work on frmValidation (mod Validn)
+           </td></tr>
+           
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-02-23</td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Updated bookmarks w/new maps 4 ???? elements + ported log into it
+           </td></tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Feb-01-23</td>
+          <td class = "BrijLogtd">general</td>
+          <td class = "BrijLogtd">
+           Updated bookmarks w/new maps 4 ???? elements + ported log into it
+</td></tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-31-23</td>
+          <td class = "BrijLogtd">  UIAux</td>
+          <td class = "BrijLogtd">
+                    tabCtrl refactors ->
+                                        àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy 
+                        Done: added tys BM_FldPg + BM_AppPg
+                                        àª•àª²àª•àª¤à«€_àªªà«€àªšàª¾àª•
+                        Done: added tys 4 CM_ColPg + CM_AppPg + CM_CategPg</td>
+                    
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-30-23</td>
+          <td class = "BrijLogtd">  Brij</td>
+          <td class = "BrijLogtd">
+                    Further updates 3 BaseBrijTy deltas: removed imgDatK 
+                    (all func. incorp into AdDatK incl rids)
+                    Unified all dats since they're now BrijTys: spoo, adDat, img, tk (some @mbi)</td><tr class = "BrijLogtr"></tr><td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">
+                   UIAux</td>
+          <td class = "BrijLogtd">
+                    Updated errProvs + all comboBxs to use Text: àª•à«‡àªŸ_àªªà«‡àª¨àª², àªàª•à«àª¸_àªªà«‡àª¨àª²
+                     (apparently if you set a DataSrc you can't use .txt)</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-28-23</td>
+          <td class = "BrijLogtd"></td><td class = "BrijLogtd">  @MBI note: 
+                        as soon as we made state changes (adDatK) bastas went splat(!)<br>so we're offline 4 now, let them twiddle their thumbs</tr>
+        </tr>
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">UIAux</td>
+        <td class = "BrijLogtd">
+                    Updated getImgDat per new datLi ty; added fn getImageFromDat</td></tr>
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd"></td>
+        <td class = "BrijLogtd" bgcolor="#FFFF00">        
+                    @ToDo: TSBtns nd to use this new fn<br>
+                    Added tabCtrls/Pgs 2 BM/CM; skeleton edits/refactors are in
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-27-23</td>
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00">  Last Stable ver (BUT w/o any subseq deltas; see note above)
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">logged</td><td class = "BrijLogtd">
+                    Restored statMsg vwr in SP</td></tr>
+
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">UIAux</td><td class = "BrijLogtd">
+                   
+                    3 new screens impl:<br>
+                    (i) CategTester stable; nds some tuning (only 2 cols vis; no +)<br>
+                    (ii) BM_FldDef stable; nds some tuning<br>
+                         Fix:<br>
+                            1st col of 3 is half size<br>
+                            move FldW after fldTy (up)<br>
+                            B8r lbls<br>
+                            new Ty for fldW (curr uses fldTy) << same(ish) <br>logic as predBldr<br>
+                    (iii) CalcattiDef:<br>
+                            Added ty dvSetupDlg() to UIAux; some further work
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij/others</td><td class = "BrijLogtd">
+                     Added new ty DocFldType (to be used in DocFld) vs exising UI fldTys
+                     Plus new fn DocFldTy2FldTy to translate / feed default wids.
+                     Updated/recompiled all bins
+                     Updated adDatK to insert local images
+                    Downloaded all referenced icons to disk</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-26-23</td>
+          <td class = "BrijLogtd">  UIAux</td><td class = "BrijLogtd">
+                    Many updates to àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy et al; BanarasiM_FldDef form shows now
+                        (nxt: nd to persist fld changes to def)
+                    Also updated all getImgBtn calls to tryPick from State; stable (BanarasiM)
+                    Also impl ttips for reg btns (as TSItms but nds diff impl) (BanarasiM)
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij</td><td class = "BrijLogtd">
+                    Some work on AdDatK et al for imgs + prep 4 BaseBrijTy deltas
+                    Began work w/GoogIcns</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-25-23</td>
+          <td class = "BrijLogtd">  UIAux</td><td class = "BrijLogtd">
+                    Updated getImg (again! @mbi); deltas stable across PredBldr addBtns
+                                    àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy persist to wld</td></tr>
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij & all libs</td><td class = "BrijLogtd">
+                    Added fn db to allow targetted db stmts; 
+                    updated ALL debug calls to clean up cons</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-24-23</td>
+          <td class = "BrijLogtd"></td><td class = "BrijLogtd">  (Below stuff part of BanarasiM -> P)</td>
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Core/Brij</td><td class = "BrijLogtd">
+                   var updates to prnDat et al
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">UIAux</td><td class = "BrijLogtd">
+                    Beauc upds to àª¬àª¨àª¾àª°àª¸à«€_àªªàª¾àª¨<br>
+                    All work on àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy complete (apparently)<br>
+                    cld't confirm coz the bastas began throwing casting errs again<br>
+                    Switch to tkDatAux:<br>
+                        Added catCols, width logic (cleanup reqd); some debugging done</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-23-23</td>
+          <td class = "BrijLogtd">  UIAux</td><td class = "BrijLogtd">
+                    Further updates to àª•à«‡àªŸ_àªªà«‡àª¨àª² et al; alm done, splat(!) @ mbi<br>
+                    Added validation to àªàª•à«àª¸àªªàª¾àª¨àª¡à«‹_àªªà«€àªšàª¾àª•</td>
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Core</td><td class = "BrijLogtd">
+                     Added a new fn HR
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">BanarasiM</td><td class = "BrijLogtd">
+                     Stable; ready to launch into BanarasiP (nds work on mut state)</tr>
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy</td><td class = "BrijLogtd">
+                     Many updates to dynamically bld mut state (repurpose later via dlg)
+                     for testing pop flow to BanarasiP.ctor (line #598 logged)<br>
+                   Updated All api maps; website had Dec 02; some Oct! WAY outdated</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-21-23</td><td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">  àª•à«‡àªŸ_àª¬àª¾àª¯_àªªà«€àªšàª¾àª• nds to be totally refactored 
+                    (for Brevity(dupl) + modularity (call from DV tBar))<br>
+                    The curr version has ~5 catPanels manually blt in midP;
+                      we shd instead use the same approach as àªªà«àª°à«‡àª¡_àªªà«€àªšàª¾àª• w/AddButton<br>
+                    Basically the current PredBldr workFlw is -><br>
+                                        àª—àªªà«àªªàª¾_àªªàª¾àª¨_Pred  ->  àªªà«àª°à«‡àª¡_àªªà«€àªšàª¾àª• ->  which instantiates àªàª•à«àª¸_àªªà«‡àª¨àª²<br>
+                    (1) Ren àªªà«àª°à«‡àª¡_àªªà«€àªšàª¾àª• to àªàª•à«àª¸àªªàª¾àª¨àª¡à«‹_àªªà«€àªšàª¾àª•; rewire PredTester<br>
+                    (2) Add new ty expandoPanel | Pred | Cat | ..<br>
+                    (3) Refactor àª•à«‡àªŸ_àª¬àª¾àª¯_àªªà«€àªšàª¾àª• to use above + inst àª•à«‡àªŸ_àªªà«‡àª¨àª² et les autres.<br>
+                    (4) Also refactor to switch on expPanel for custom behav<br>
+                    (5) Modify àªàª•à«àª¸àªªàª¾àª¨àª¡à«‹_àªªà«€àªšàª¾àª• cTor to accept expPanel<br>
+                  Most of the work listed above completed; PredTester stable.<br>
+                  CategTester alm done; nxt: nd 2 add errHandling</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-20-23</td>
+          <td class = "BrijLogtd">  Core</td><td class = "BrijLogtd"> updated optOr to make more generic (basically @mbi as usu)</td></tr>
+        <tr class = "BrijLogtr" bgcolor="#FFFF00"><td class = "BrijLogtd"></td><td class = "BrijLogtd">UIAux</td><td class = "BrijLogtd">
+                    Current UI didn't contain both àª•à«‡àªŸ_àª¬àª¾àª¯_àªªà«€àªšàª¾àª• + àª•àª²àª•àª¤à«€_àªªà«€àªšàª¾àª•;<br>
+                      so brought em in from another UI file.<br>
+                      @ sometime nd 2 diff/ensure all deltas merged.</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-19-23</td>
+          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
+                    Some updates to PredTester (connecter logic, order of flds, colStyles etc.)<br>
+                    CalcuttiMasaloAux categBy/et al updated to options for ref in Dz cTor<br>
+                    DzDV back online with the new Aux stuff/Masalas/et al</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-18-23</td>
+          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
+                                  àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy: single fld gappa<br>
+                                  àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_fld_eoy (stable; some work compl)<br>
+                   Added ty àª«à«€àª²à«àª¡_àªªà«‡àª¨àª²_Aux for changes (NumUpDn etc)</td>
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Brij</td><td class = "BrijLogtd">
+                   remmed 'let WD' in canned Suppliers 
+                    (@mbi has compile issues + we're using it locally) 
+                   Updated ty FldType</td>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd">general</td><td class = "BrijLogtd" bgcolor="#FFFF00">
+          src backup</td>
+        </tr>
+
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">
+        Jan 14-17</td><td class = "BrijLogtd"></td><td class = "BrijLogtd">Lib net shutdown (connectivity issues)</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-13-23</td>
+          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
+                    major updates to àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy 
+                    (removing btns to consolidate edit single fld gappa)
+                    Stable
+                  Generated new set of screenshots
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-12-23</td>
+          <td class = "BrijLogtd" bgcolor="#FFFF00"> catCols Impl (both)</td><td class = "BrijLogtd">
+                    subCategDisp Completed; now nd to generisize/port [much mbi w/display but it is stable]
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">both</td><td class = "BrijLogtd">
+                    Considerable work on DzAux as a prelude to bakaaNoM; alm compl exc 4 mbi w/ITblTy
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-11-23</td>
+          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
+                    Added new ty CalcPred<'t> for all preds (categ/flt/sort)
+                    Note: CalcMAux now has only 1 genericParam comme les autres; instd of earlier 3
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">logged</td><td class = "BrijLogtd">
+                    Updated the CalcMAux refs (for above; these flds were earlier opts w/None passed in)
+                    Brij: @ present tkDv uses hardCoded categs which were left as is
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">catCols Impl (both)</td><td class = "BrijLogtd">
+                    Added musicDat_Jan (new categSchme) to UIAux
+                    mbi SPLAT(!) w/ return vals from musicDat (expects string * obj * Type') in kathoHandlerAux
+                    Several pieces hardCoded in lieu of mbi BUT everthing working exc subCategDisp
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-10-23</td>
+          <td class = "BrijLogtd"></td>
+          <td class = "BrijLogtd"> FlkBrg pour sId</td>
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-09-23</td>
+          <td class = "BrijLogtd"> UIAux/logged</td><td class = "BrijLogtd">
+                    Some work on DzAux; splat(!) nd 2 revert to leaving them compilerLess...
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-07-23</td>
+          <td class = "BrijLogtd"> UIAux/logged</td><td class = "BrijLogtd">
+                    Further updates to colorSchemes in gappa/pich/etc. to confirm across the board
+                    Some more work on the PredBldr; added errorProv & toTpl()
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-06-23</td>
+          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
+                    Some updates to PredTester
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">logged</td><td class = "BrijLogtd">
+                    updated the openWin stuff in SaadooP; removed the genTyParam
+                    Added ty BrijWin + Saadoo menu
+        <tr class = "BrijLogtr"><td class = "BrijLogtd"></td><td class = "BrijLogtd">Both</td><td class = "BrijLogtd" bgcolor="#FFFF00">
+                    Added a new colorScheme (bblgm) + var updates to store/retrieve currSel frm State
+                    @ToDo: if colSchm names are the same as the MenuItems we can
+                        rem 4 lines (to set marked) via moving into the fn
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-05-23</td>
+          <td class = "BrijLogtd"> Bakaa_no_Masalo</td><td class = "BrijLogtd">basic sketch + pseudoC 
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-04-23</td>
+          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
+                    Interned all PredTester assoc stuff ici; stable
+                    Upd: Added tys | àª—àªªà«àªªàª¾_àªªàª¾àª¨_Pred | àªªà«àª°à«‡àª¡_àªªà«€àªšàª¾àª• | àªàª•à«àª¸_àªªà«‡àª¨àª²
+                    Some work on xTpl type/expr.ToStr() etc.
+                    Impl getImg (despite much mbi); BanarM hangs coz of their ineptitude
+                    Cleaned up dsk itms
+                    Upd. hlp w/a more complete set of screenshots of all major Paans/Masalas
+        </tr>
+          <tr class = "BrijLogtr">
+          <td class = "BrijLogtd">Jan-03-23</td>
+          <td class = "BrijLogtd"> UIAux</td><td class = "BrijLogtd">
+                    As mentioned below issues w/àª•àª²àª•àª¤à«€_àªªàª¾àª¨_Nov (can't find old(er) ver of DVDef)
+                    Ported the refs to curr ver of Brij.CalcuttiMasalo
+                    Updated àª®à«€àª à«‚_àªªàª¾àª¨_eoy cTor param SaadoMasalo to SaadoMasaloAux
+                    SadooP	Applied Dec08 ClrSchm to curr
+        </tr>
+        </table>
+    </div>
+  <!--id=BrijLog-->
+</section>

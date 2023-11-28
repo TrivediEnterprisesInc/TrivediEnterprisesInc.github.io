@@ -1,10 +1,11 @@
+
  
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- html begins line #1779 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.11.20 bookmarks update am">
+<meta name="description" content="2023.11.28 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -69,10 +70,6 @@ async function loadU(u) {
           { UNID: 50, id: "amusetravel", name: "travel", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 51, id: "travelNYC", name: "nyc", type: "layer4", population: "6 billion", parent: "amusetravel"},
           { UNID: 96, id: "tv", name: "tv", type: "layer3", population: "6 billion", parent: "mindAmuse"},
-          { UNID: 111, id: "BrijLog", name: "2021-", type: "layer3", parent: "changeLog" },
-          { UNID: 112, id: "2021cL", name: "2021", type: "layer3", parent: "changeLog" },
-          { UNID: 110, id: "2020cL", name: "2020", type: "layer3", parent: "changeLog" },
-          { UNID: 304, id: "2019cL", name: "2019", type: "layer3", parent: "changeLog" },
           { UNID: 399, id: "devMisc", name: "misc", type: "layer3", parent: "dev" },
           { UNID: 118, id: "recM2S", name: "m2s", type: "layer3", parent: "mindAmuse" },
           { UNID: 119, id: "recOther", name: "other", type: "layer3", parent: "mindAmuse" },
@@ -613,14 +610,19 @@ const sortBy = (key) => {
 
 toJsonStr = (ob) => {
     JSON.stringify(ob, null, 4);
-}
+};
 
 prnOb = (ob) => {
     console.log(toJsonStr(ob));
-}
+};
 
 Array.prototype.except = function(val) {
     return this.filter(function(x) { return x !== val; });        
+};
+
+
+arrFromRange = (size, startAt) => {
+    return [...Array(size).keys()].map(i => i + startAt);
 };
 
 remKey = (arr, strKey) => {
@@ -985,8 +987,72 @@ runUpdates = (storeID) => {
 
                 registry.byId('MainStack').forward();
 
-            } else if (strId == "BrijLog") {
-                    loadU("brijLog.html")
+            } else if (strId == "changeLog") {
+		//New Look Nov 2023
+                mainDiv.innerHTML = "";
+		//Ovvw
+                let overvw = "<h2>TimeLine:</h2><img src='https://trivedienterprisesinc.github.io/brijPitch/articles/images/Timeline.png'><p>" + 
+"<h2>Covid Schedule:</h2>" + 
+"<table style='height: 126px; width: 55.2294%; border-collapse: collapse; border-style: groove;' border='0'>" + 
+"<tbody>" + 
+"<tr style='height: 18px;'>" + 
+"<td style='width: 6.07221%; height: 18px;'><span style='background-color: #ffff99;'>2020</span></td>" + 
+"<td style='width: 12.7462%; height: 18px;'>&nbsp;</td>" + 
+"<td style='width: 9.33518%; height: 18px;'>&nbsp;</td>" + 
+"</tr>" + 
+"<tr style='height: 18px;'>" + 
+"<td style='width: 6.07221%; height: 18px;'>&nbsp;</td>" + 
+"<td style='width: 12.7462%; height: 18px;'>Jan - Mar 15</td>" + 
+"<td style='width: 9.33518%; height: 18px;'>TkUpd @ Lib</td>" + 
+"</tr>" + 
+"<tr style='height: 18px;'>" + 
+"<td style='width: 6.07221%; height: 18px;'>&nbsp;</td>" + 
+"<td style='width: 12.7462%; height: 18px;'>Mar - Aug</td>" + 
+"<td style='width: 9.33518%; height: 18px;'>TkUpd OutSide</td>" + 
+"</tr>" + 
+"<tr style='height: 18px;'>" + 
+"<td style='width: 6.07221%; height: 18px;'>&nbsp;</td>" + 
+"<td style='width: 12.7462%; height: 18px;'>Aug - Oct</td>" + 
+"<td style='width: 9.33518%; height: 18px;'>@Echo</td>" + 
+"</tr>" + 
+"<tr style='height: 18px;'>" + 
+"<td style='width: 6.07221%; height: 18px;'>&nbsp;</td>" + 
+"<td style='width: 12.7462%; height: 18px;'>Nov - Dec</td>" + 
+"<td style='width: 9.33518%; height: 18px;'>OutSide</td>" + 
+"</tr>" + 
+"<tr style='height: 18px;'>" + 
+"<td style='width: 6.07221%; height: 18px;'><span style='background-color: #ffff99;'>2021</span></td>" + 
+"<td style='width: 12.7462%; height: 18px;'>Jan - May</td>" + 
+"<td style='width: 9.33518%; height: 18px;'>WF (Mar -&gt; F#)</td>" + 
+"</tr>" + 
+"<tr style='height: 18px;'>" + 
+"<td style='width: 6.07221%; height: 18px;'>&nbsp;</td>" + 
+"<td style='width: 12.7462%; height: 18px;'>May - Dec</td>" + 
+"<td style='width: 9.33518%; height: 18px;'>@ Lib</td>" + 
+"</tr>" + 
+"</tbody>" + 
+"</table>" + 
+"<p>&nbsp;</p>"
+                let ovTp = new TitlePane({title:"Overview", open:false, content: overvw});
+       	        mainDiv.appendChild(ovTp.domNode);
+               	ovTp.startup();
+		let titles = arrFromRange(5,2019).reverse();
+	        titles.map(function (tVal, idx) {
+	                var tp = null;
+			//2019cL - 21 are divs; rest are urls ###
+                         switch(idx) {
+                           case 0:
+                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog23.html")});
+                             break;
+                           case 1:
+                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog22.html")});
+                             break;
+                           default:
+                              tp = new TitlePane({title:tVal, open:false, content: dom.byId(tVal + "cL")});
+                         };
+         	        mainDiv.appendChild(tp.domNode);
+                	tp.startup();
+        	});
             } else if (strId == "devAPI") {
 		//New Look for API subMenu Nov 2023: ALL API content moved to devAPI
                 mainDiv.innerHTML = "";
@@ -1777,7 +1843,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 20th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 28th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
