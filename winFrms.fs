@@ -20,7 +20,15 @@ Note: Somewhere in Aug '23 the monkeyBastas removed all above mods; reinserted N
 	Folding			FilePanelUpdates
 	Outliner		frmDelta (ty DeltaTracker...)
 	clientInit (UI/UIAux/Brij updates) <- !!contains new Keywds!!
-	Dnd_ops		dndState
+	Dnd_ops		DnDMonad
+	---
+	wobbly mods: 
+		AuxAddenda
+		wobblyDat
+		wobbly
+		deserBrijDotDat
+	---
+	dndState
 	main
 	
 New reqmt:  Zeep :  user auth/registration/assign API keys.  Is this doable via webhooks/gitEmail?
@@ -3815,6 +3823,548 @@ module main =
     printfn "toString: x:%A x.ToS:%A" x (x.ToString())
 //toString: x:Bfty ("test1", DFldCurrency, 2.22) x.ToS:"Bfty(test1, $2.22)"
 #endif //Camba
+
+
+#if AuxAddenda
+module AuxAddenda = 
+    open System
+
+(*
+Note: 
+  baseTkDat bldr also has catLvl & other stuff which we're currently ignoring in this ver.
+see: https://github.com/TrivediEnterprisesInc/Main/blob/73a23f025b0f7e4f096b5e27b5013812d5b35a66/src/UI/UIAux.fs#L304
+
+    [BsonElement("_id", BsonString(splL.[1]));
+     BsonElement("title", BsonString(splL.[4]));
+     BsonElement("project", BsonString(splL.[8]));
+     BsonElement("moduleNm", BsonString(splL.[11]));
+     BsonElement("submodule", BsonString(splL.[10]));
+     BsonElement("objective", BsonString(splL.[9]));
+     BsonElement("importance", BsonInt32(im));
+     BsonElement("urgency", BsonInt32(ur));
+     BsonElement("completed", BsonBoolean(comp));
+     BsonElement("completedOn", BsonDateTime(defDt));
+     BsonElement("tgtVer", BsonString(splL.[17]));
+     BsonElement("docLinks", BsonString(splL.[18]));
+     BsonElement("cont", BsonString(splL.[5]));
+     BsonElement("tags", BsonString(splL.[6]));
+     BsonElement("flag", BsonBoolean(false))])
+
+     let tkFldList() =
+      [DocFld(DFldString, "unid", true, "Document UNID");
+       DocFld(DFldString, "title", false, "Title");
+       DocFld(DFldString, "project", false, "Project");
+       DocFld(DFldString, "moduleNm", false, "Module");
+       DocFld(DFldString, "submodule", false, "SubModule");
+       DocFld(DFldString, "objective", false, "Objective");
+       DocFld(DFldInt, "importance", false, "Importance");
+       DocFld(DFldInt, "urgency", false, "Urgency");
+       DocFld(DFldDate, "completedOn", false, "Completed On");
+       DocFld(DFldChoiceList, "tgtVer", false, "Target Version");
+       DocFld(DFldString, "docLinks", false, "DocLinks");
+       DocFld(DFldLongString, "cont", false, "Content");
+       DocFld(DFldString, "tags", false, "Tags");
+       DocFld(DFldBoolean, "flag", false, "Flag")]
+
+  let tkColHdrs =   ["Title";"Objective";"Importance";"Urgency";"TgtVer";"Tags"]
+
+//let allFlds = (fldLi @ remaindr) @ ["rowTips";"isCateg"; "Parent"]
+
+*)
+
+    type SaadoMasaloAux<'t when 't :> ITblMarker> = | SaadoMasaloAux of tblNm:string * flds:DocFld list * dskIcn:Image * tblTy:'t with
+        override this.ToString() = 
+            let (SaadoMasaloAux(tblNm, flds, _, tblTy)) = this
+            let inf = lifo (fun s f -> s + "|" + f.ToString()) "" flds
+            "SaadoMasaloAux: |Table Name: " + tblNm + "|Fields: " + inf +  "|tblTy: " + (tblTy.GetType()).ToString()
+
+    type CalcuttiMasaloAux<'t when 't :> ITblMarker> = 
+    | CalcuttiMasaloAux of nm:string * tblDef:SaadoMasaloAux<'t> 
+        * docInf:DesDocInf
+        * colCellFont:list<(int * Font)> option
+        * colHdrs:list<string> * visCols:int
+        * fldLi:list<string> * fixedSz:(int* int) option
+        * categBy:CalcPred<'t> list option * sortBy:CalcPred<'t> list option * fltr:CalcPred<'t> list option
+        * openCategs:list<string> * xState:expandoState
+        * rowTips:bool * Ttips:list<string*list<string>> option
+        * pOpts:DVPaginationOptsAux option with
+        override this.ToString() = "CalcuttiMasalo ob..."
+
+(*
+//cliSide code for retrieving ttips from payload ->
+let ttips = { 'a': ["one","two","three"], 'b': ["une","deux","trois"], 'c': ['ek','do','teen'] };
+
+getTtipForRow = (inOb, colNm, ro) => {
+        var res = "";
+        Object.entries(inOb).map(function ([key, value], index) {
+          if (key == colNm) {
+            res = (Array.from(value))[ro];
+        }})
+        return res;
+}
+console.log("res of getTtip: " + getTtipForRow(ttips, "b", 2));
+
+*)      
+       
+    let wobbly =
+      fun CM inDat ->
+        "[" +
+          "colHdrs: " + strLiWobbly colHdrs + ",\n" +
+          "openCats: " + strLiWobbly openCats + ",\n" +
+          "visCols: " + visCols.ToString() + ",\n" +
+          "rowTips: " + rowTips.ToString() + ",\n" +
+          "Ttips: " + ttipsWobbly Ttips + ",\n" +
+          "pOpts: " + pOptsWobbly pOpts + ",\n" +
+          "Layout: " + layoutWobbly colHdrs + ",\n" + 
+          "Dat: " + datWobbly inDat + "]"
+          
+
+    let tDef = SaadoMasaloAux("Task Tbl", tkFldList(), brijLogo, TaskTbl())
+
+    let dvDf = CalcuttiMasaloAux("Default tkDV", tDef, 
+                  DesDocInfDeflt(), None, tkColHdrs, 6, 
+                  tplFLi, None, None, None, None, [], 
+                  XAll, false, None, Some(pagOptsAux))
+      
+
+
+
+#endif //AuxAddenda
+
+
+module wobblyDat = 
+    open System
+    open System.Diagnostics
+    open System.Drawing
+    //open System.Drawing.Imaging
+    open System.IO
+    open System.Text
+    open System.Text.RegularExpressions
+    open System.Globalization
+    open Trivedi
+    open Trivedi.Core
+    open Trivedi.Control
+    open Trivedi.Brij
+    open Trivedi.UI
+    open Trivedi.UI.Form
+    open Trivedi.UI.Dlg
+    open Trivedi.UIAux
+    open FSharp.Reflection
+
+    prn "init module wobblyDat..."
+
+    //from Aux; UPDATED HERE (wasn't final)
+    let formatTtip =
+      fun t ->
+        List.fold (fun s v ->
+                    let ((res:string), (rem:string)) = s
+                    match res = "" with
+                    | true -> 
+                        match rem.Length < 42 with
+                        | true -> rem, ""
+                        | _ -> 
+                          let pt = rem.LastIndexOf(" ",41)
+                          rem.Substring(0,pt), rem.Substring(pt)
+                    | _ -> 
+                      match rem.Length = 0 with
+                      | true -> res, ""
+                      | _ -> 
+                        match (rem.Length < 42) with
+                        | true -> res + crlf + rem + "...",  ""
+                        | _ ->
+                            let pt = rem.LastIndexOf(" ",41)
+                            match v with
+                            | 3 ->
+                              res + crlf + rem.Substring(0,pt),  rem.Substring(pt)
+                            | _ ->
+                              res + crlf + rem.Substring(0,pt) + "...", "") ("", t) [0..3] 
+              |> fst
+
+    let prn = 
+      fun s -> File.AppendAllText("mike.log", ("\n" + s))
+
+    let hr() = 
+        prn "- - - - - - - - - - - - - - - - - - - - - - -"
+
+    let pagOptsDec = DVPaginationOpts(200,1,2000, 200, 400, 800000)
+    let tkDt:list<list<obj>> = deSerBA (File.ReadAllBytes("baseTkDatAux.bdf"))  :?> list<list<_>>
+
+    let tkColHdrsLoc = 
+      ["Title";"Module";"Importance"; "Urgency";"Objective";"Tags";"Document UNID";"Project";"SubModule";"DocLinks";"Completed On";"rowTips";"Parent";"Flag";"Content";"isCateg";"Target Version"]
+
+    let chosenFs = 
+      ["Title";"Module";"SubModule";
+       "Importance";"Urgency";"Tags"]
+
+    let xFrmedHdrs = 
+      ["Title";"Module";"SubModule";
+       "Importance";"Urgency";"Tags";
+       "Objective";"Document UNID";
+       "Project";"DocLinks";"Completed On";
+       "rowTips";"Parent";"Flag";
+       "Content";"isCateg";"Target Version"]
+
+    hr()
+    
+    let prnChosenIdxes() =
+      chosenFs
+      |> lim (fun ch -> 
+              let idx = 
+                tkColHdrsLoc 
+                |> List.tryFindIndex(fun x -> x = ch)
+              idx |> Option.map (fun o -> prn (ch + ": " + o.ToString())))
+    //Title: 0 Module: 1 SubModule: 8
+    //Importance: 2 Urgency: 3 Tags: 5
+
+    let tryGetC = 
+      fun (c:string) -> 
+       try
+          //Encoding.UTF8.GetString(Convert.FromBase64String(c))
+          let dec = Convert.FromBase64String(c)
+          System.Text.Encoding.ASCII.GetString(dec, 0, dec.Length)
+       with
+          | :? Exception as ex -> 
+              //printfn "Exception in tryGetC:%A" ex.Message
+              "err"
+
+    let xFrmedDat:obj list list = 
+      tkDt
+      |> lim(fun r -> 
+              let con = tryGetC (string r.[14])
+              [box r.[0];box r.[1];box r.[8];
+               box r.[2];box r.[3];box r.[5];
+               box r.[4];box r.[6];box r.[7];
+               box r.[9];box r.[10];box (formatTtip con);
+               box r.[12];box r.[13]; (box con);
+               box r.[15];box r.[16]])
+    
+    let prnColHdrs() =
+      hr()
+      prn "tkColHdrs"
+      tkColHdrsLoc
+      |> limi (fun i co -> prn ((i.ToString()) + ": " + (co.ToString())))
+  
+(*     let tDV = DVDef("tkDV", Grid2.TblDef2("task Table", TaskTbl()), docInfDec, None, tkColHdrs, 6,  tkFldLiLocalAux,  None,  None, None, None, [], true, None, Some(pagOptsDec))
+*)
+
+    hr()
+    prn "tkDt:"
+
+    let prnAllFlds = 
+      xFrmedDat
+      |> List.take 21
+      |> lim(fun r -> 
+              hr()
+              r |> 
+              limi (fun itm i ->
+  prn ((itm.ToString()) + ": " 
+  + (xFrmedHdrs.[itm]) + ": " + (i.ToString()))))
+
+
+    prn "tkDt:**"
+
+    let tmp_Fn_2_Chk_Blank_Flds() = 
+      xFrmedDat
+      |> List.filter (fun r ->
+                //4 9 11-13 16
+                //[r.[4]; r.[9]; r.[11]; r.[12]; r.[13];r.[16]]
+                (string r.[16]).Length > 0)
+      |> List.take 5
+      |> lim(fun r -> 
+              hr()
+              r |> 
+              limi (fun itm i ->
+    prn ((itm.ToString()) + ": " + (xFrmedHdrs.[itm]) + ": " + (i.ToString()))))
+
+
+    //This throws on Nix (UIAux pro'lly pulls a font ref somewhere...)
+    let getFS_defs() =
+      prn "1.1"
+      let tplFLi = baseTkDatAux tDef tkFldLiLocalAux |> fst
+      prn "1.2"
+      let tkDt = baseTkDatAux tDef tkFldLiLocalAux |> snd
+      prn ("pgOpts:\n " + pagOptsAux.ToString())
+      prn ("tDef:\n " + tDef.ToString())
+      prn ("tplFli:\n " + tplFLi.ToString())
+      prn ("tkDt.0:\n " + tkDt.[0].ToString())
+      //let dvD = CalcuttiMasaloAux("Default tkDV", tDef, DesDocInfDeflt(), None, tplFLi, 6, tplFLi, None, None, None, None, [], XAll, true, None, Some(pagOptsAux))
+      prn "ok"
+
+    prn "eom wobblyDat..."
+
+
+module wobbly =
+    open System
+    open System.Globalization
+    open System.IO
+    open wobblyDat
+
+    prn "initMod wobbly..."
+
+    type brijEnv = | Dev of string
+                   | Prod of string
+                   | Weebly of string
+    
+    let currEnv = Weebly("""
+    
+                      Notes for weebly-wobbly
+    
+    These mods were developed on Nix with no framewrk support.
+    Since the assemblies weren't accessible, a sufficient test dataset
+    was created from the raw tkDat (earlierVer; no CoreMod support, no mTpl support, no versioning) to be able to begin work on gridx.
+    
+    Most of this code _is_ useable for dev/prod BUT nds esp testing/debugging on richly typed data.  Basically much will nd to be fleshed out.
+    
+    These mods *only* concern the webCli and wobbly methods (toWebObj)
+    The webReqs will have separate handlers anyway and we do pre/post proc b4 feeding to the regular/existing handlers.
+    
+    SvrSide tibbies: 
+      1) We're assuming each View has a deflt Frm assoc w/it.
+      2) We nd 2 standardize dU tys used in fldTys; e.g. TgtVer
+         Make ALL these return a ToString() which's appropriate.
+         Note this comment within the type.  
+         Poss AVOID such tys, that was only a test case anyway.
+    
+    
+    Flow: 
+       View: wwwReqGet -> collect def|dat -> wobbly() -> serve
+       Form: [data incl in above get] -> serve w/o roundTrip
+             wwwReqPut -> wobblyToTpl() -> normal flow
+    """)
+
+    let singleQt = "'"
+    let dblQt = "\""
+
+    let getDojoFldTy =
+      fun colNm -> 
+#if brijEnvProd
+            //this fn exists & works on DocTy
+            match (getFldTy (getFldFromNm colNm)) with
+            | String -> "string"
+            | Boolean -> "bool"
+            | DateTime -> "date"  
+            | _ -> "number"//TimeOnly|DateOnly also TgtVer
+#endif //brijEnvProd
+        match colNm with
+        | "Document UNID" -> "id"
+        | _ ->
+            match colNm with
+            | "isCateg" -> "bool"
+            | "Completed On" -> "date"
+            | "Importance" | "Urgency" -> "number"
+            | _ -> "string"
+    
+    let strLiWobbly =
+      fun l ->
+        match l with 
+        | [] -> "[]"
+        | _ -> 
+          let (st:string) = lifo (fun s v -> s + singleQt + v + singleQt + "; ") "[" l
+          st.Substring(0, st.Length - 2) + "]"
+
+    //v1 wraps ea row in singleQts, this ver strips em
+    let strLiWobbly_v2 =
+      fun l ->
+        match l with 
+        | [] -> "[]"
+        | _ -> 
+          let (st:string) = lifo (fun s v -> s + v + "; ") "[" l
+          st.Substring(0, st.Length - 2) + "]"
+          
+    let ttipsWobbly =
+      fun (l:list<string*list<string>>) ->
+        let st = lifo (fun s v -> 
+            let (ttipC, ttipLi) = v 
+            singleQt + ttipC + singleQt + ": " + strLiWobbly ttipLi + ", \n") "{" l
+        st.Substring(0, st.Length - 3) + "}"
+
+    let pOptsWobbly =
+      fun (pOpts:list<int>) ->
+
+#if brijEnvProd
+        let (DVPaginationOpts(pgNum,recBeg,recEnd, perPg, totRecs)) = pOpts
+#else
+        //let (pgNum,recBeg,recEnd, perPg, totRecs) = pOpts
+        let pgNum = pOpts.[0]
+        let recBeg = pOpts.[1]
+        let recEnd = pOpts.[2]
+        let perPg = pOpts.[3]
+        let totRecs = pOpts.[4]
+        
+#endif //brijEnvProd
+        "[" + pgNum.ToString() + ", " + recBeg.ToString() + ", " +
+        recEnd.ToString() + ", " + perPg.ToString() + ", " + 
+        totRecs.ToString() + "]"
+
+    printfn "res getDojoFldTy \"name\": %A" (getDojoFldTy "name")
+
+    let layoutWobbly =
+      fun colHdrs ->
+          let st =
+            colHdrs
+            |> lim (fun col -> 
+                "\n" + 
+                "  {id: " + singleQt + col + singleQt + ", " +
+                "  name: " + singleQt + col + singleQt + ", " +
+                "  field: " + singleQt + (getDojoFldTy col) + singleQt + "}, ")
+            |> lifo (fun s v -> 
+                      s + v ) "["
+          st.Substring(0, st.Length - 2) + "]"
+
+(* dojox grid layout:
+layout3 = [
+{id: 'number', name: 'number', field: 'number'},
+{id: 'string', name: 'string', field: 'string'},
+{id: 'date', name: 'date', field: 'date'},
+{id: 'time', name: 'time', field: 'time'},
+{id: 'bool', name: 'bool', field: 'bool'},
+{id: 'id', name: 'id', field: 'id'}
+]
+*)
+
+    let toBool (cellVal:obj):bool = cellVal :?> bool
+    let toDate (cellVal:obj):DateTime =
+      let format = "dd/MM/yyyy hh:mm:sstt"
+      DateTime.ParseExact(string cellVal, format, CultureInfo.InvariantCulture)
+    let statChk = 
+      fun (dat:list<_>) ->
+        let fst = dat.[0]
+        printfn "statChk: dat.[0]: %A" (fst)
+        dat
+    
+    let datWobbly =
+      fun (inDat:obj list list) colHdrs tDef ->
+#if brijEnvProd
+        let (SaadoMasaloAux(tblNm, fldLi, logo, ty)) = tDef
+#endif //brijEnvProd
+        let fldLi = xFrmedHdrs
+
+        inDat
+          |> lim (fun (ro:list<_>) -> 
+              let s =
+                ro |> limi (fun i (celVal:_) -> 
+#if brijEnvProd
+                        match (getFldTy (getFldFromNm xFrmedHdrs.[i])) with
+#endif //brijEnvProd
+                        match (getDojoFldTy xFrmedHdrs.[i]) with
+                        | "string" | "id" -> 
+                            ", " + singleQt + ((string) celVal) + singleQt
+                        | "date" ->
+(*
+Examples of ISO format: YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS.
+To parse a date as UTC, append a Z - e.g.: new Date('2011-04-11T10:20:30Z').
+
+To display a date in UTC, use .toUTCString(),
+to display a date in user's local time, use .toString().
+see: https://stackoverflow.com/questions/5619202/parsing-a-string-to-a-date-in-javascript
+*)
+                            //", " + (new DateTime(toDate (string celVal))).ToString("yyyy-MM-ddTHH:mm:ssZ")
+                            ", " + (string celVal)
+                        | "DateOnly" ->
+                            //", " + (new DateTime(celVal)).ToString("MM/dd/yyyy")
+                            ", " + (string celVal)
+                        | "bool" -> 
+                            //case differs
+                            let bVal = (box celVal) |> toBool
+                            let bValStr = if bVal then "true" else "false"
+                            ", " + bValStr
+                        | _ -> ", " + ((string) celVal)
+                      ) |> lifo (fun s c -> s + c) ""
+              "[" + s.Substring(2) + "]" ) //|> statChk
+
+
+    let testWob =
+      let colHdrs = xFrmedHdrs
+      let openCats = []
+      let visCols = 6
+      let pOpts = [200;1;2000; 200; 400; 800000]
+      //let (pgNum,recBeg,recEnd, perPg, totRecs) = pOpts
+
+      let pColHdrs = strLiWobbly colHdrs
+      let pOpenCats = strLiWobbly openCats
+      let pVisCols = visCols.ToString()
+      let pPOpts = pOptsWobbly pOpts
+      let pLayout = layoutWobbly colHdrs
+      let pDatWobbly = ((datWobbly xFrmedDat xFrmedHdrs "tDef") |> List.take 6 |> strLiWobbly_v2)
+      let bPl =
+        "[" +
+          "colHdrs: " + pColHdrs + ",\n" +
+          "openCats: " + pOpenCats + ",\n" +
+          "visCols: " + pVisCols + ",\n" +
+          "pOpts: " + pPOpts + ",\n" +
+          "Layout: " + pLayout + ",\n" + 
+          "Dat: " + pDatWobbly + "]"
+      printfn "****************\n%A" bPl
+      
+
+(* @@@
+"rowTips: " + rowTips.ToString() + ",\n" +
+"Ttips: " + ttipsWobbly Ttips + ",\n" +
+*)
+
+
+    printfn "eom wobbly..."
+
+#if deserBrijDotDatTry
+
+(*	---> System.ArgumentException: 
+Type 'Map`2[[String],[List`1[[Trivedi.Mod, Trivedi.Brij, Version=2022.10.17.1]], FSharp.Core]]' is not deserializable.
+ at System.UnitySerializationHolder.GetRealObject(StreamingContext context)
+*)
+
+module deserBrijDotDat =
+  open System
+  open System.IO
+  //open System.Drawing
+  //open System.Drawing.Font
+  open Trivedi
+  open Trivedi.Core
+  open Trivedi.Control
+  open Trivedi.Brij
+  //open Trivedi.UI
+  //open Trivedi.UI.Form
+  //open Trivedi.UI.Dlg
+  //open Trivedi.UIAux
+  //open FSharp.Reflection
+  
+  printfn "mod deserBrijDotDat loaded..."
+
+//From Brij (loader)
+//let retV = (Mtpl.AddOne "env_Tick" (box ridTik) st4 |>  Mtpl.AddOne "BrijDat" (box finResWrids))
+
+(*
+     let mFrm = new Form(Text = "tkDV")
+     //let pagOptsDec = Grid2.DVPaginationOpts(200,1,2000, 200, 400, 800000)
+     let pagOptsDec = DVPaginationOpts(200,1,2000, 200, 400, 800000)
+     let tkDt = deSerBA (File.ReadAllBytes("baseTkDatAux.bdf")) :?> list<list<_>>
+     //let docInfDec = Grid2.DesDocInf(DateTime.Now, DateTime.Now, "mike@trivedi.com")
+     let docInfDec = DesDocInf(DateTime.Now, DateTime.Now, "mike@trivedi.com")
+     //let tDV = Grid2.DVDef("tkDV", Grid2.TblDef2("task Table", TaskTbl()), docInfDec, None, tkColHdrs, 6,  tkFldLiLocalAux,  None,  None, None, None, [], true, None, Some(pagOptsDec))
+     let tDV = DVDef("tkDV", Grid2.TblDef2("task Table", TaskTbl()), docInfDec, None, tkColHdrs, 6,  tkFldLiLocalAux,  None,  None, None, None, [], true, None, Some(pagOptsDec))
+     let musicF = કલકતી_પાન_Nov(Reg, mFrm, tDV, tkDt)
+     mFrm.Show()
+     
+*)
+  printfn "deser loading..."
+  let w = (deSerBA (File.ReadAllBytes("Brij.dat"))) :?> Mtpl
+  printfn "w typ: %A" (w.GetType().ToString())
+  
+
+  let getFS_defs() =
+    printfn "1"
+    let tplFLi = baseTkDatAux tDef tkFldLiLocalAux |> fst
+    let tkDt = baseTkDatAux tDef tkFldLiLocalAux |> snd
+    printfn "pgOpts:\n %A" pagOptsAux
+    printfn "tDef:\n %A" tDef
+    //This throws on Nix (UIAux pro'lly pulls a font ref somewhere...)
+    //let dvD = CalcuttiMasaloAux("Default tkDV", tDef, DesDocInfDeflt(), None, tplFLi, 6, tplFLi, None, None, None, None, [], XAll, true, None, Some(pagOptsAux))
+    printfn "mod deserBrijDotDat eom"
+
+[<EntryPoint>]
+let main argv =
+    printfn "F#!"
+    0
+#endif //deserBrijDotDatTry
 
 module dndState = 
     open System
