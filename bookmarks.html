@@ -1,11 +1,9 @@
-
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- html begins line #1779 -->
+<!-- html begins line #1846 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.11.28 bookmarks update am">
+<meta name="description" content="2023.12.01 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -51,7 +49,6 @@ async function loadU(u) {
           { UNID: 36, id: "gear", name: "gear", type: "layer1", population: "6 billion", parent: "root"},
           { UNID: 46, id: "music", name: "music", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 38, id: "social", name: "social", type: "layer3", population: "6 billion", parent: "mindAmuse"},
-          { UNID: 39, id: "changeLog", name: "log", type: "layer2", parent: "career" },
           { UNID: 339, id: "devNotes", name: "notes", type: "layer2", parent: "career" },
           { UNID: 50, id: "miscJob", name: "jobs", type: "layer2", parent: "career" },       
           { UNID: 90, id: "fin", name: "finance", type: "layer2", parent: "career" },
@@ -71,9 +68,12 @@ async function loadU(u) {
           { UNID: 51, id: "travelNYC", name: "nyc", type: "layer4", population: "6 billion", parent: "amusetravel"},
           { UNID: 96, id: "tv", name: "tv", type: "layer3", population: "6 billion", parent: "mindAmuse"},
           { UNID: 399, id: "devMisc", name: "misc", type: "layer3", parent: "dev" },
+          { UNID: 39, id: "changeLog", name: "log", type: "layer2", parent: "dev" },
+          { UNID: 120, id: "devAPI", name: "currentPI", type: "layer2", parent: "dev" },
+          { UNID: 398, id: "eagleEye", name: "eagle", type: "layer3", parent: "dev" },
           { UNID: 118, id: "recM2S", name: "m2s", type: "layer3", parent: "mindAmuse" },
           { UNID: 119, id: "recOther", name: "other", type: "layer3", parent: "mindAmuse" },
-          { UNID: 120, id: "devAPI", name: "currentAPI", type: "layer2", parent: "dev" },
+
 ],
       debugPrintStr : "dojoConfig"
     };
@@ -1843,7 +1843,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 28th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 1st, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -26687,6 +26687,75 @@ List<rows>.filter(isOdd) |> processForLayout()
 </div> <!--devNotesContent-->
                 </section>
                 <!--career/devNotes section-->
+
+            <!--dev/eagleEye section-->
+            <section>
+    		<div id="eagleEye" data-dojo-type="dijit/layout/ContentPane" title="eagleEye">
+<table style="border-collapse: collapse;width:100%;">
+    <caption>Eagle-Eye</caption>
+  <tr style="border-bottom: 2px solid black;border-top: 2px solid black;">
+    <th style="width:auto;"></th>
+    <th style="width:30%;">slg</th>
+    <th>mptOf</th>
+    <th>Aud</th>
+    <th>col5</th>
+    <th>col6</th>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td><img src='https://trivedienterprisesinc.github.io/img/Batman.png' alt="Batman" style="width:100px;"></td>
+    <td>Hope wants2 enter the BatCave(inits)</td>
+    <td>Any</td>
+    <td>u</td>
+    <td>?</td>
+    <td>?</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td><img src='https://trivedienterprisesinc.github.io/img/Flash.png' alt="Flash" style="height:100px;"></td>
+    <td>10-min? doz?</td>
+    <td>Both</td>
+    <td>u d</td>
+    <td>?</td>
+    <td>?</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td><img src='https://trivedienterprisesinc.github.io/img/Getafix.png' alt="Getafix" style="height:100px;"></td>
+    <td>?</td>
+    <td>unkn</td>
+    <td>d</td>
+    <td>?</td>
+    <td>?</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td><img src='https://trivedienterprisesinc.github.io/img/Hulk.png' alt="Hulk" style="height:100px;"></td>
+    <td>Ability 2jmp can be givenScope</td>
+    <td>unkn/other</td>
+    <td>d</td>
+    <td>?</td>
+    <td>?</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td><img src='https://trivedienterprisesinc.github.io/img/Knight.png' alt="Knight" style="height:100px;"></td>
+    <td>ImgNm is still Knight</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td><img src='https://trivedienterprisesinc.github.io/img/Spiderman.png' alt="Spiderman" style="height:100px;"></td>
+    <td>Launches slowly & suddenly spreads web of binClses</td>
+    <td>both</td>
+    <td>u d</td>
+    <td>?</td>
+    <td>?</td>
+  </tr>
+</table>
+
+                </div> <!--eagleEyeContent-->
+            </section>
+            <!--dev/eagleEye section-->
+
+
 
 </body>
 
