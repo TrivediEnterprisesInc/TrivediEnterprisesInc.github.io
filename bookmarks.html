@@ -3,7 +3,7 @@
 <head>
 <!-- html begins line #1846 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.12.04 bookmarks update am">
+<meta name="description" content="2023.12.09 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -1843,7 +1843,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 4th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 9th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -12021,6 +12021,68 @@ https://oria.github.io/gridx/demos/tree.html
 </code></pre>
 
 </details>
+<p>
+<hr>
+    <h2>Initial Frm Notes (Dec09)</h2>
+
+<h3>mod propBox</h3>
+<code><pre>
+[MainTab(dzEl)
+BorderTab(dzEl)  ["None";"Single";"3D"]
+FontTab(dzEl)	"LblFont";"ValFont"
+ColorTab(dzEl)	"ForeClr"; "BackClr"
+SizeTab(dzEl)	Wid, Ht		(units shd be cell-rel)
+</pre></code>
+
+<h3>Aux</h3>
+<code><pre>
+    let બનારસી_પીચાક_fld_eoy =
+        fun (ક્વિમામ:option<_>) (d:Form) ->
+        (*
+            CanUhear:   (Huge; will match on cTy)
+                        Pichaak forEa poss cTy (str'll have max, incl Lookup)
+                        -> newDlg (forEa opt) -> AutoFill & user can delete unnecc.
+                        Each Thingy will nd own dlgBox with an example; 
+                            these can be modularized & worked on individually
+        *)
+            let (BanarasiFldAux(DocFld(fldTy, intNm, isInt, dispNm), colSpan, rowSpan, vFn, CanUhear, fldTtip, tblTy)) = fldAux
+
+    //Note: Imported Jan 23 from UI_Jan18.fs; ensure it's the latest
+    type બનારસી_પાન<'t when 't :> ITblMarker> (ctorDef:BanarasiMasaloAux<'t>, own, dzMode, procId, winTy) as f =
+        let (BanarasiMasaloAux(unid, dispNm, સુપારી, usrFlds, usrDefLblFont, usrDefDataFont, usrDefForeColor, usrDefBackColor, docInf)) = બનારસી
+        ...
+        ##### cutoffPt was: ...
+</pre></code>
+
+
+<h3>loggedUI</h3>
+<code><pre>
+  let bmBtn = new Button(Text = "BM", AutoSize = true)
+  bmBtn.Click.AddHandler(new EventHandler(fun (sender:obj) (e:EventArgs) ->
+    let bf:BanarasiFldAux<TaskTbl> list = docF |> lim (fun f -> BanarasiFldAux(f, 1, 1, None, Thingy(""), "", TaskTbl()))
+    let bm = BanarasiMasaloAux((getUNID "^બનારસી_મસાલો"), nm, 2, bf, defIt, defFont, (currentScheme ((!!~ "wld" f).Value)).Fore(), (currentScheme ((!!~ "wld" f).Value)).Back(), DesDocInfDeflt())
+    let frm = (બનારસી_પાન((rejig bm), f, false, "pId", "winTy")) :> Form
+    frm.Show()))
+</pre></code>
+
+
+<h3>brij</h3>
+<code><pre>
+type BanarasiFldAux<'t when 't :> ITblMarker> = | BanarasiFldAux of docF:DocFld * colSpan:int * rowSpan:int * 
+                                                    vFn:('t -> bool) option * CanUhear:Thingy * fldTtip:string * tblTy:'t with
+    override this.ToString() = 
+        let (BanarasiFldAux(docF, colSpan, rowSpan, vFn, CanUhear, fldTtip, tblTy)) = this
+        "BanarasiFldAux: |DocFld: " + docF.ToString() + "|colSp: " + colSpan.ToString() + 
+            "|rowSp: " + rowSpan.ToString() + "|vFn: " + vFn.ToString() + "|tblTy: " + (tblTy.GetType()).ToString()
+
+type BanarasiMasaloAux<'t when 't :> ITblMarker> = | BanarasiMasaloAux of unid:DocUNID * dispNm:string *
+                                                    સુપારી:int * usrFlds:BanarasiFldAux<'t> list * 
+                                                    usrDefLblFont:Font * usrDefDataFont:Font * 
+                                                    usrDefForeColor:Color * usrDefBackColor:Color * 
+                                                    docInf:DesDocInf with
+    static member getDefault(docF:DocFld list, nm, ty:'t) = 
+       ...
+</pre></code>
 <p>
 <hr>
 		</div> <!--misc_dojo-->
@@ -25749,6 +25811,70 @@ postCovid imports into allData</td>
 
 <div class="mBox-container" id="NotesBoxContainer">
 
+<div class="mBox notes product marketing" >
+             Indep. Graphic Artists
+              <div class="caption" style="display:none;">
+(Graphic artists: Tyler alumni)
+https://www.linkedin.com/in/tyler-barber-6a576937<br>
+https://jessicahische.is/bloggable + http://www.dailydropcap.com/tag/m<br>
+https://www.linkedin.com/in/charlottebfriedman<br>
+https://www.linkedin.com/in/emma-kerwin<br>
+
+	</div>
+</div>
+
+<div class="mBox notes product features" >
+             Product features
+              <div class="caption" style="display:none;">
+HN qry results...
+
+<mark>Removing Product Features</mark>
+<br>
+Properly crafted Terms of Use can allow removing product features.
+<br>
+src: When Product Features Disappear <a href='https://steveblank.com/2013/11/21/when-product-features-disappear-amazon-apple-and-tesla-and-troubled-future-of-21st-century-consumers/'>article</a>
+<br>
+2009: Amazon remotely deleted two books users had already downloaded and paid for on their Kindles
+<br>2013: Google repl maps w/slower ver, fewer features (goal: unified UI across platforms)
+<br>2013: Tesla used a software “update” to disable a hardware option customers had bought and paid for (a $2,250 “smart air suspension” option that automatically lowers the car at highway speeds for better mileage and stability): They did this coz cars were hitting road debris & causing fires/accidents.
+<br>
+These companies have crafted the <mark>legal terms of use</mark> for their product to include their ability to modify or remove features.
+<br>
+Cloud-based updates and products have changed the landscape for consumers.
+<br>
+
+
+<mark>Prioritizing Feature Dev</mark>
+<br>
+Putting Product Features into 3 Buckets (<a href='https://www.defmacro.org/2013/09/26/products.html'>src</a>)
+<br>
+<br>(1) A gamechanger. People will want to buy your product because of this feature.
+<br>(2) A showstopper. People won’t buy your product if you’re missing this feature, but adding it won’t generate demand.
+<br>(3) A distraction. This feature will make no measurable impact on adoption.
+<br>
+Says empirically 1-3 (1); dozens of (2) & very few (3)s...<br>
+"Modeling product management in terms of the three categories is extremely valuable because it allows you to treat product management as a resource allocation problem."<br>
+
+Article has key opinions like (given limited time etc.):<br>
+"If you’re doing more than three gamechanging features, you’re wasting resources. Empirically, few disruptive products are good at a dozen things. Shipping gamechanging features is hard. Three is probably the most you can get away with, and even that is a stretch."<br>
+
+Builds a "Product Mission Statement" (after 3 yrs) for <mark>RethinkDB</mark> which really helped them focus.<br>
+
+Many examples on which features to incl/excl based on buckets i.e., prioritization; also covered by the <a href='http://en.wikipedia.org/wiki/Kano_model'>Kano</a> Model.<br><br>
+
+This is exc. advice for prods w/existing <mark>competitors</mark>, but what of category definers?<br><b>ANS</b>: We nd to look at how new categ prods decided on their Prod Features (AirBnB? Graham's YHOO storefrnt? Which others? <mark>determine</mark> & @rsch)<br><br>
+
+SO Discussion thread:<br>
+...There are some showstoppers that apply to all products: Reliability, security, trust, ease of use, speed, customer support.<br><br>
+
+...Reliability and security, for example, are not showstoppers for Zynga games. Security evidently was not a showstopper for Microsoft. Customer support is not a showstopper for Google. Speed is not a showstopper for Gumbo (the HTML5 parsing library I just released).<br>
+Remember that a showstopper is defined as "Something that will prevent a customer from buying your project."...part of building a startup on limited resources is knowing what's nice to have and what will prevent a customer from buying, and not spending resources on the former. You can always go back and fix the nice-to-haves later when you have more resources; you can't go back and resuscitate a company that runs out of money.<br><br>
+
+From another thread:<br>
+...Just apply this formula on each of your feature idea and pick the ones with high score (Revenue growth*Customer happiness*development effort) = Feature priority<br>
+              </div>
+          </div>
+	
           <div class="mBox notes product pricing">
               Pricing
               <div class="caption" style="display:none;">
