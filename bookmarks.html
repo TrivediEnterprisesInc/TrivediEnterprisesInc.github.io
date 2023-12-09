@@ -1083,7 +1083,7 @@ runUpdates = (storeID) => {
             } else if (strId == "devMisc") {
 		//New Look for all misc items Nov 2023
                 mainDiv.innerHTML = "";
-		let titles = ["www_Links", "www_dojo_links", "www_dojo_jsonp", "www_other","www_console","domino","crypto", "java_funct", "java_hotSwap", "java_spxDesign", "java_nlp"];
+		let titles = ["dojo", "www_Links", "www_dojo_links", "www_dojo_jsonp", "www_other","www_console","domino","crypto", "java_funct", "java_hotSwap", "java_spxDesign", "java_nlp"];
 	        (titles.map(function (tVal, idx) {
 	                var tp = new TitlePane({title:tVal, open:false, content: dom.byId("misc_" + tVal)});
         	        mainDiv.appendChild(tp.domNode);
@@ -11699,6 +11699,332 @@ Mechanisms. Computer Journal, 36(3):227237, 1993.
                 
                 <!--dev/Web content-->
                 <section>
+
+                <div id="misc_dojo">
+<h3>Gridx Tasklist</h3>
+<ul><li>
+GRIDX: html: Remove extra layout(s), mod(s) etc.; refer to window.bPl in mNestedData
+</li><li>GRIDX: html: Modify to programmatic ctor so we have access to ob
+</li><li>GRIDX: memStore: try to use this; if issues(roId/idRo) revert.
+<details>
+  <summary><span class='mHG'>memStore + programattic ctor from (test_grid_dod.js)</span></summary>
+
+Notes:<br>
+* we nd to incorp both of these<br>
+* MemStore might lead to issues due to rowFromID / IDtoRow<br>
+
+<pre><code>
+//https://github.com/oria/gridx/blob/master/tests/support/data/MusicData.js
+	var store = new Memory({data: dataSource.getData({size : 100})});
+getData() returns:
+			{   identifier: 'id', 
+				label: 'id', 
+				items: [{"Heard": true, "...},...{}...]
+			};
+
+	window.createGrid = function(){
+		if(window.grid){window.grid.destroy();}
+		grid = new Grid({
+			id: 'grid',
+			cacheClass: Cache,
+			// store: storeFactory({
+			// 	dataSource: dataSource, 
+			// 	size: 100
+			// }),
+			store: store,
+			modules: [
+				VirtualVScroller,
+				RowHeader,
+				'gridx/modules/IndirectSelect',
+				'gridx/modules/extendedSelect/Row',
+				{
+					moduleClass: Dod,
+					defaultShow: defaultShow,
+					useAnimation: useAnimation,
+					showExpando: showExpando,
+					detailProvider: detailProvider
+				}
+			],
+			structure: dataSource.layouts[1]
+		});
+		dojo.connect(grid.dod, 'onShow', function(row){
+			console.log('row with id:#' + row.id + ' shows');
+		});
+		dojo.connect(grid.dod, 'onHide', function(row){
+			console.log('row with id:#' + row.id + ' hides');
+		});
+		grid.placeAt('gridContainer');
+		grid.startup();
+
+		window.dod = grid.dod;
+	};
+...
+	createGrid();
+</code></pre>
+</details>
+<p>
+
+</li><li>DAT: Hidden Cols: instd of removing cols from layout, 
+    add wid0: { field:'id', name:'Id',width:'0px'}.  
+    This preserves easy access w/o adapter code.
+    **Fix this in datGen; map on vizCols to add wid
+</li><li>DAT: AFTER memStore in place (or rejected) <b>redo</b> Dat w/o fldNames etc., min payload - why give the monkeys more than necc?  They'll only (try to) hack it to show how clever they are (Node.js? really?)
+</li><li>GRIDX PagMod: 
+   * create new pagMod combining both w/links in the middle
+   * Modify the pagBar code 2 get vals from payLd (see template)
+<br>
+<details>
+  <summary><span class='mHG'>Tree with updated pagination</span></summary>
+
+<b>Note</b> that this isn't the final one, we nd a combined pagMod w/links in the middle (much better UX)<br>
+
+A test page (note embedded #s, can pump from bPl) <a href='https://plnkr.co/edit/0JITzzVkm8T2Jw7E'>ici</a>
+</details>
+<p>
+<details>
+  <summary><span class='mHG'>pagBar clickable links</span></summary>
+
+* Nd 2 lkup pagBar templates 4 src of #s (model?) -> chg to payload<br>
+Link pagination <a href='https://github.com/oria/gridx/blob/master/templates/LinkPager.html'>template</a> 
+
+The td for the link pager is <mark>gridxPagerStepperTD</mark>
+'<' btn: <mark>span.gridxPagerStepperBtn.gridxPagerPrevPage</mark>
+
+mid td (with #s, elipses & more #s) is <mark>
+span.gridxPagerPages</mark>
+</details>
+
+</li><li>GRIDX BodyMod: Add categRow colSpan logic <br>
+    **chk gridx repo: a method exists for this<br>
+The <a href='https://github.com/oria/gridx/blob/master/modules/Body.js'>bodyMod</a> has
+onAfterRow, onBuildCustomRow<br>
+*See: <a href='https://github.com/oria/gridx/issues/293'>Styling</a> rows based on data attribute for an example of using onAfterRow() INSIDE the grid module def (adds a domClass to childNode) ALL WE ND
+...
+
+</li><li>Identify/write methods for dataAccess incl Casted vals (poss in Model)
+    naming conventions: [[add ext to existing methods]]
+</li><li>Add ttip logic + Add categCol parentCateg ttip
+</li><li>GRIDX tBar: Add<br>
+gridx sample (local cpy w/only topBar): https://plnkr.co/edit/YhhzMlGWfA7TTXPy<br>
+Combined (12/9 Pagination+ProgCtor+Tbar) <a href='https://plnkr.co/edit/uNFP8Xd1lPVgWeKf'>here</a><br>
+This throws on store but it's fake (@mbi), ignore.  Monkeys refuse to hire a high-school kid who can code<br>
+and of course, they're abso hopeless...
+<br>
+</li><li>GRIDX SummaryBar (v2?)<br>
+(nix; it's a 'bar' not a 'row')<br>For this feature use the categRo approach above
+</li></ul>
+<p>
+
+
+<details>
+  <summary><span class='mHG'>Snippets</span></summary>
+
+<pre><code>
+	_getValueAttr: function(value){
+		return [ this.composer.get('value')]
+//this.year.set('value', parseInt(value[2], 10)); 
+</code></pre>
+
+<pre><code>
+	_getValueAttr: function(value){
+		return [ this.composer.get('value')]
+//this.year.set('value', parseInt(value[2], 10)); 
+
+	dojo.connect(grid, Click, function(e){
+		var cell = grid.cell(e, ro);
+		cell.setRawData(parseInt(cell.data(), 10) + 1); 
+</code></pre>
+
+<hr>
+
+**To make a col w/custom formatter re-format**
+  After you set the formatter on the column, please call 
+<pre><code>
+    grid.model._cache.clear()
+    grid.body.refresh() 
+</code></pre>
+
+<hr>
+
+I have a table where a column is Boolean and I used a checkbox with the following structure: 
+<pre><code>
+	var structure = [{field:'enabled', width: '50px ', editable: 'true', dataType: 'boolean', editor: 'dijit/form/CheckBox', editorArgs: {props: 'value: true'}, alwaysEditing: true, name:'Habilitado'}] 
+</code></pre>
+
+<hr>
+<pre><code>
+	t.checkBoxField = this.arg("checkBoxField", "checkBox");
+    var row = t.grid.row(evt.rowId, 1);
+    var rowData = row.rawData();
+    var cStatus = rowData[t.checkBoxField];
+    //status: "checked, unChecked, partial" 
+    rowData[t.checkBoxField] = t.STATUS[status];
+    this.grid.model.store.put(rowData); 
+</code></pre>
+<hr>
+gridx itself in browser will not know if the server side **data has changed**.  You can use this piece of code to **refresh data** in the grid
+<pre><code>
+	grid.model.clearCache();
+	grid.body.refresh(); 
+</code></pre>
+<hr>
+https://github.com/oria/gridx/wiki/How-to-filter-Gridx-with-any-condition%3F 
+<hr>
+
+grid.select.row.getSelected() returns a list of IDs in typeof string.<br>
+
+You can use dojo.query('.gridxRow') to get row node 
+and then get the rowId attribute of those rows.
+<hr>
+AutoResize: var grid = new Grid({      <br>columnWidthAutoResize: true...
+<hr>
+Pagination refs @ grid.pagination.currentPage() / grid.pagination.pageSize()
+<hr>
+gridx tree module has the attribute clearOnSetStore set to true by default, <br>
+which means the expand/collapse info will be cleared when setStore is called.
+
+<hr>
+Workarounds IF using cli-side filter <a href='https://github.com/oria/gridx/issues/168'>here</a>
+
+<hr>
+<h3>memStore impl</h3>
+<pre><code>
+var newStore = function(dataSource){
+  var store = new Memory({
+    data: dataSource,
+    idProperty: 'id',
+    chProperty: 'ch'
+  });
+  store.hasChildren = function(id, item){
+   return item.ch && item.ch.length;
+  };
+  store.getChildren = function(item){
+   return item.ch;
+  };
+  return store;
+};
+dataStore = newStore(data);
+</code></pre>
+
+
+</details>
+<p>
+<details>
+  <summary><span class='mHG'>gridx API Notes</span></summary>
+
+<pre><code>
+g = gridx.instance()
+g.model has 		***when()			byIndex()		byId()		indexToId()		idToIndex()
+							size()		treePath()		hasChildren()***
+unstable 	***insert() 		query() 		sort()***
+// "When" all the required rows are ready....
+g.model.***when***({start: 0}, function(){
+    // anything possible to use these rows...
+    var row1 = model.byIndex(0);
+    var row2 = model.byId('abc');
+    console.log(row1.data.column1);
+    console.log(row2.rawData.field1);	});
+row:ob = g.row(rowId); has: 
+***cell(...)		cells(...)			data()		deselect()
+index() 		isSelected()	item()		moveTo(...)	node()
+parent()	rawData()		select()		setRawData(rawData)
+visualIndex()***
+
+</code></pre>
+<hr>
+
+			<h3>Obj casting props to type</h3>
+
+
+(better approach, see link below)
+The JavaScript specification gives exactly one proper way to determine the class of an object:  Object.prototype.toString.call(t);
+BUT slowest 
+Use typeof to solve some basic problem(String, Number, Boolean...) and use Object.prototype.toString to solve something complex(like Array, Date, RegExp).
+(see: https://stackoverflow.com/questions/7893776/the-most-accurate-way-to-check-js-objects-type)
+
+
+(weaker approach but kept for syntax ref)
+<pre><code>
+
+unkn obj -> class
+
+ function CastClass(obj) {
+  this.fld1 = Date.now();
+  this.fld2 = "";
+  this.metaData = [];
+  this.time = new Date().toISOString();
+  
+  for (var prop in obj) {
+    if (this.hasOwnProperty(prop)) {
+      this[prop] = obj[prop];
+    }else{
+        this.metaData = [ ...this.metaData, {[prop]: obj[prop]} ];
+    }}}
+</code></pre>
+
+<h3>Evt handling</h3>
+
+@ https://github.com/oria/gridx/blob/master/modules/SampleModule.js.txt<br>
+see also: https://github.com/oria/gridx/issues/236<br>
+
+<pre><code>
+		//Even the event relates to some module that is not in our dependency list!
+		this.connect(this.grid, 'onRowDblClick', function(e){
+			this.testColumn(e.rowId);
+		});
+</code></pre>
+
+  try this in the mod where we have access to the grid...
+<pre><code>
+        connect(grid, 'onRowClick', function(e){
+             console.log('in dojo.connect, calling roClick...');
+             roClick(e);
+        });
+</code></pre>
+
+https://github.com/oria/gridx/blob/master/modules/Tree.js<br>
+has (in preloader)<br>
+	t.aspect(g, 'onRowClick', function(e){<br>
+
+</details>
+<p>
+<details>
+  <summary><span class='mHG'>EXPANDOs</span></summary>
+
+<pre><code>
+
+Layout[0] has:
+		[	{id: 'number', name: 'number', field: 'number', expandLevel: 1},
+			{id: 'string', name: 'string', field: 'string', expandLevel: 2},
+			{id: 'date', name: 'date', field: 'date', expandLevel: 3},
+which puts expandos in 1st 3 cols; and items have ids:
+item-i (lvl1)
+item-i-i (lvl2)
+item-i-i-i (lvl3)
+item-i-i-i-i (children)
+
+https://oria.github.io/gridx/demos/tree.html
+
+	Expandoes in different columns (nested), async store
+
+(********this e.g. has 1st 3 cols w/expandos)
+
+	&lt;div id='grid3' jsid='grid3' data-dojo-type='gridx.Grid' data-dojo-props='
+		cacheClass: "gridx/core/model/cache/Async",
+		store: storeNested,
+		structure: layout3,
+		treeNested: true,
+		paginationBarSizes: [1, 2, 0],
+		modules: mods1
+	'&gt;&lt;/div&gt;
+
+</code></pre>
+
+</details>
+<p>
+<hr>
+		</div> <!--misc_dojo-->
+			
                 <div id="misc_www_Links">
                     <br>
                 <br><a href="http://plnkr.co/edit/">Plunker</a>
