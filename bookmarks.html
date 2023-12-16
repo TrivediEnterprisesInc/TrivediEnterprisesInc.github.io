@@ -12175,7 +12175,8 @@ BanarasiMasaloAux has
 //⚠️"dijit/form/Textarea" <a href='https://dojotoolkit.org/reference-guide/1.10/dijit/form/Textarea.html#dijit-form-textarea'>doc</a>
 let getId = "fld" + nm
 let getVal = optOr optVal ""
-"""<textarea id='""" + getId + """' data-dojo-props="value='""" + getVal + """', style='width=100%;'">"""
+//NOTE html escaped for b.html
+"""&lt;textarea id='""" + getId + """' data-dojo-props="value='""" + getVal + """', style='width=100%;'"&gt;"""
 
                     | FrmFldType.FldBlankRow ->
                         new TextBox(Dock = doc "F") :> Control
