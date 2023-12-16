@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- html begins line #1846 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.12.14 bookmarks update am">
+<meta name="description" content="2023.12.16 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -1844,7 +1843,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 14th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 16th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -7955,6 +7954,32 @@ is a fantastic introductory course...
        
       <section>
                                   <br /><br />
+
+                    <section class="mBox-container">
+                        <div class="mBox audio">
+                            <a href="https://www.soundandvision.com/content/monolith-mtm-100-powered-desktop-speaker-21-system-review"><img alt="bkshelf" src="https://www.soundandvision.com/images/styles/600_wide/public/SV_092623_monolith_02_sm.jpg" width=150px></a>
+                            <div class="caption">
+                                Monolith MTM-100 Powered Desktop Speaker Sys w/Subwoofers
+                            </div>
+                        </div>
+
+                        <div class="mBox audio">
+                            <a href="https://www.cnet.com/tech/home-entertainment/back-to-the-future-with-jbls-iconic-l100-classic-speaker/"><img alt="bkshelf" src="https://www.cnet.com/a/img/resize/39255a6144e7633b8998b9f5974a530bdc00b231/hub/2018/11/08/67208906-c8d8-4f68-8b6f-e7dd0998e077/harman-jbl-l100-ong-pair-stand-rt-f2cf4a84.jpg" width=150px></a>
+                            <div class="caption">
+                                JBL L100 Classic speakers see <a href='https://www.theabsolutesound.com/articles/jbl-introduces-l82-classic-bookshelf-loudspeakers-at-ces-2020/'>also</a>
+                            </div>
+                        </div>
+
+                        <div class="mBox audio">
+                            <a href="https://www.crutchfield.com/p_714500M2W/Klipsch-Reference-Premiere-RP-500M-II-Walnut.html?tp=186"><img alt="bkshelf" src="https://images.crutchfieldonline.com/ImageHandler/trim/350/265/products/2022/18/714/g714500M2W-F.jpg" width=150px></a>
+                            <div class="caption">
+                                Klipsch 600M '...in my view, already a <a href='https://www.stereophile.com/content/klipsch-reference-premiere-rp-600m-loudspeaker-rp-600m-ii-august-2023'>classic</a>.'
+                            </div>
+                        </div>
+                    </section>
+
+
+<p>
 http://www.avsforum.com/<br />
                                   http://www.klipsch.com/<br />
                                   http://www.polkaudio.com/<br />
@@ -11754,11 +11779,12 @@ Mechanisms. Computer Journal, 36(3):227237, 1993.
                 <section>
 
                 <div id="misc_dojo">
-<h3>Gridx Tasklist</h3>
+
+<div id="gridxTkli" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Gridx Tasklist', open:false">
 <ul><li>
-GRIDX: html: Remove extra layout(s), mod(s) etc.; refer to window.bPl in mNestedData
-</li><li>GRIDX: html: Modify to programmatic ctor so we have access to ob
-</li><li>GRIDX: memStore: try to use this; if issues(roId/idRo) revert.
+✔ GRIDX: html: Remove extra layout(s), mod(s) etc.; refer to window.bPl in mNestedData
+</li><li>✔ GRIDX: html: Modify to programmatic ctor so we have access to ob
+</li><li>✔ GRIDX: memStore: try to use this; if issues(roId/idRo) revert.
 <details>
   <summary><span class='mHG'>memStore + programattic ctor from (test_grid_dod.js)</span></summary>
 
@@ -11867,10 +11893,10 @@ and of course, they're abso hopeless...
 (nix; it's a 'bar' not a 'row')<br>For this feature use the categRo approach above
 </li></ul>
 <p>
+</div><!--gridxTkli-->
+<p>
 
-
-<details>
-  <summary><span class='mHG'>Snippets</span></summary>
+<div id="gridxSnip" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Gridx Snippets', open:false">
 
 <pre><code>
 	_getValueAttr: function(value){
@@ -11958,12 +11984,10 @@ var newStore = function(dataSource){
 };
 dataStore = newStore(data);
 </code></pre>
+</div><!--gridxSnip-->
 
-
-</details>
 <p>
-<details>
-  <summary><span class='mHG'>gridx API Notes</span></summary>
+<div id="gridxApi" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Gridx API', open:false">
 
 <pre><code>
 g = gridx.instance()
@@ -12039,10 +12063,12 @@ https://github.com/oria/gridx/blob/master/modules/Tree.js<br>
 has (in preloader)<br>
 	t.aspect(g, 'onRowClick', function(e){<br>
 
-</details>
+</div><!--gridxApi-->
 <p>
-<details>
-  <summary><span class='mHG'>EXPANDOs</span></summary>
+
+
+<div id="gridxExpandos" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Gridx Expandos', open:false">
+
 
 <pre><code>
 
@@ -12073,21 +12099,174 @@ https://oria.github.io/gridx/demos/tree.html
 
 </code></pre>
 
-</details>
+</div><!--gridxExpandos-->
 <p>
+
 <hr>
-    <h2>Initial Frm Notes (Dec09)</h2>
+
+<div id="gridxFrm" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Gridx Form', open:false">
+
+    <h2>Initial Frm Notes</h2>
 
 <h3>mod propBox</h3>
 <code><pre>
-[MainTab(dzEl)
-BorderTab(dzEl)  ["None";"Single";"3D"]
+[MainTab(dzEl)   ["Title", "isDflt", "ForeClr"; "BackClr", "nmCols"]
+BorderTab(dzEl)  ["None";"Single";"3D"] -> border-style: none/solid/ridge;
 FontTab(dzEl)	"LblFont";"ValFont"
 ColorTab(dzEl)	"ForeClr"; "BackClr"
 SizeTab(dzEl)	Wid, Ht		(units shd be cell-rel)
 </pre></code>
 
+⚠️ we nd ttips 4 validationErr
+⚠️ (v2?) we nd ttips 4 fld
+⚠️ (v2?) we nd displayTxt 4 fld ('Enter name here')
+
 <h3>Aux</h3>
+
+<ul><li>
+1st:  map wF 2 wids + borders etc.
+</li><li>
+entirely new fn (match l8r) 4 bld (cpy existing one for guidelines + wid varieties)
+</li><li>
+note that caller has to deal w/diff boxCfgs: on cli it is fixed/100% vs. 1/(len-1)
+</li><li>
+nd 2 updt tys 4 new configInfo cells
+</li><li>
+hardCode boyz etc for now, map as us on Opt<val> to populate for editMd
+</li></ul>
+<br>
+BanarasiMasaloAux has
+<br>	usrDefLblFont:Font * usrDefDataFont:Font * 
+<br>	usrDefForeColor:Color * usrDefBackColor:Color *
+<br>	⚠️add:  isDefFrm(Bool, false), frmFore, frmBack, frmTitle, 
+<br>
+<br>BanarasiFldAux(DocFld(fldTy, intNm, isInt, dispNm), colSpan, rowSpan, vFn, CanUhear, fldTtip, tblTy)
+<br>⚠️add: cellBrdr, vErrMsg
+<br>
+<br>⚠️Since these deltas're fewer'n expected we'll post em l8r
+
+<hr>
+<pre><code>
+//⚠️instd of curr setup; for dj it'll be _much_ more conv 2 pass in optVal to ctor below... (say 'optVal')
+
+    type ફીલ્ડ_પેનલ_Aux (nm, fTy, slg, સુપારી, dzMode, ownr:Form)  as p =
+        extnd Panel(Dock = doc "F", ForeColor = sFore, BackColor = sBack)
+        do p.SuspendLayout()
+        do bld =
+            hr()
+            //tibbie ("bld ફીલ્ડ_પેનલ for nm: " + nm.ToString() + " fTy: (FldLongStr?) " + fTy.ToString() + " slg: " + slg)
+            if fTy = FrmFldType.FldInfoBox then
+                let lbl = new Label(Text = slg, Dock = doc "F", ForeColor = sFore, BackColor = sBack)
+                p.Controls.Add(lbl)
+                !!^ ["lbl_"+ nm, box lbl] ownr
+                !!^ [nm, box nm; "lbl_"+ nm, box lbl] p
+              else
+                let fldFP = new TableLayoutPanel(Margin = new Padding(25), RowCount = 1, ColumnCount = 2, Dock = doc "F", Name="TablePanel", ForeColor = sFore, BackColor = sBack)
+                //fldFP.Click.Add(fun e -> tibbie ("controls: " + (liToString (fldFP.Controls |> Seq.cast |> List.ofSeq))))
+                fldFP.SuspendLayout()
+                let lbl = new Label(Text = (nm + ":"), Dock = doc "F") //, ForeColor = sFore, BackColor = sBack)
+                !!^ ["lbl_"+ nm, box lbl] ownr
+                !!^ [nm, box nm; "lbl_"+ nm, box lbl] p
+                let ctrl = 
+                    match fTy with
+                    | FrmFldType.FldLongString ->
+                        new TextBox(Text = "", Multiline=true, Dock = doc "F", Font = defFont, WordWrap = false, ScrollBars = ScrollBars.Both, AcceptsReturn=true, ForeColor = sFore, BackColor = sBack) :> Control
+
+//⚠️"dijit/form/Textarea" <a href='https://dojotoolkit.org/reference-guide/1.10/dijit/form/Textarea.html#dijit-form-textarea'>doc</a>
+let getId = "fld" + nm
+let getVal = optOr optVal ""
+"""<textarea id='""" + getId + """' data-dojo-props="value='""" + getVal + """', style='width=100%;'">"""
+
+                    | FrmFldType.FldBlankRow ->
+                        new TextBox(Dock = doc "F") :> Control
+                    | FrmFldType.FldColor ->
+                        //@REINSTATE: @mbi w/optOr: let colBtn = new Button(Text = "Color", Dock = doc "F", BackColor = (optOr fldVal defBackColor))
+                        let colBtn = new Button(Text = "Color", Dock = doc "F", ForeColor = sFore, BackColor = sBack)
+                        let colDlg = new ColorDialog(AllowFullOpen = true, ShowHelp = true, Color = RoyalBlue)
+                        colBtn.Click.AddHandler(new EventHandler(fun o e -> 
+                                if (colDlg.ShowDialog() = DialogResult.OK) then 
+                                    colBtn.BackColor <- colDlg.Color else ()))
+                        colBtn :> Control
+                    | FrmFldType.FldFont ->
+                        let fontBtn = new Button(Text = defFont.FontFamily.Name.ToString() + " " + defFont.Size.ToString() + " " + defFont.Style.ToString() , Dock = doc "F", BackColor = Color.White)
+                        //@REINSTATE: @mbi w/optOr: let fontDlg = new FontDialog(ShowColor = true, Font = (optOr fldVal defFont), Color = lbl.BackColor)
+                        let fontDlg = new FontDialog(ShowColor = true, Font = defFont, Color = lbl.BackColor)
+                        fontBtn.Click.AddHandler(new EventHandler(fun o e -> 
+                                if (fontDlg.ShowDialog() = DialogResult.OK) then 
+                                    fontBtn.Font <- fontDlg.Font
+                                    fontBtn.BackColor <- fontDlg.Color 
+                                    fontBtn.Text <- fontDlg.Font.FontFamily.Name.ToString() + " " + fontDlg.Font.Size.ToString()
+                                    else ()))
+                        fontBtn :> Control
+                    | FrmFldType.FldBtn ->
+                        new Button(Text = "" , Dock = doc "F", BackColor = Color.White) :> Control
+                    | FrmFldType.FldDate ->
+                        //@REINSTATE: @mbi w/optOr:tagged defaultTags (new DateTimePicker(Value = (optOr fldVal (DateTime.Now)), Dock = doc "F", DropDownAlign = LeftRightAlignment.Right, MinDate = defMinDate, ShowUpDown = false, ShowCheckBox = false, CustomFormat = "MMM dd, yyyy", Format = DateTimePickerFormat.Custom) :> Control)
+                        new DateTimePicker(Value = DateTime.Now, Dock = doc "F", DropDownAlign = LeftRightAlignment.Right, MinDate = defMinDate, ShowUpDown = false, ShowCheckBox = false, CustomFormat = "MMM dd, yyyy", Format = DateTimePickerFormat.Custom) :> Control
+                    | FrmFldType.FldBoolean ->
+                        //@REINSTATE: @mbi w/optOr:tagged defaultTags (new CheckBox(Checked = (optOr fldVal false)) :> Control)
+                        new CheckBox(Checked = false) :> Control
+                    | FrmFldType.FldRange ->
+                        let trP = new FlowLayoutPanel(Dock = doc "F", FlowDirection = FlowDirection.LeftToRight, AutoSize = true)
+                        //@REINSTATE: @mbi w/optOr:let tBr = new TrackBar(Value = (optOr fldVal 0), Maximum = 9,Minimum=0,TickFrequency = 1,LargeChange = 3,SmallChange = 1)
+                        //@REINSTATE: @mbi w/optOr:let tLbl = new Label(Text = (optOr fldVal 0), AutoSize = true, Dock = doc "R",  TextAlign = ContentAlignment.MiddleRight)
+                        let tBr = new TrackBar(Value = 0, Maximum = 9,Minimum=0,TickFrequency = 1,LargeChange = 3,SmallChange = 1)
+                        let tLbl = new Label(Text = (string 0), AutoSize = true, Dock = doc "R",  TextAlign = ContentAlignment.MiddleRight)
+                        tBr.Scroll.Add(fun e -> tLbl.Text <- tBr.Value.ToString())
+                        trP.Controls.Add(tBr)
+                        trP.Controls.Add(tLbl)
+                        !!^ [nm, box tBr] ownr
+                        trP :> Control
+                    | FrmFldType.FldNumUpDn ->
+                        new NumericUpDown(Value = decimal 1 , Maximum = decimal (unbox સુપારી), Minimum = decimal 1, Dock = doc "F") :> Control
+                    | FrmFldType.FldChoiceList ->
+                        //remmed Feb13_23; hardcoded choiceli coz supari absnt
+                        //@ToDo: conv2LookupF
+                        //let (l:list<_>) = (unbox સુપારી)
+                        //let (l2:list<string>) = lim (fun itm -> string (unbox itm)) l
+                        //let a = List.toArray l2
+                        let vLi = verMap |> Map.toList |> lim (fun itm -> 
+                                                                let (k, v) = itm
+                                                                k) |> Array.ofList
+                        new ComboBox(Text = nm, AutoSize = true, Dock = doc "F", DropDownStyle = ComboBoxStyle.DropDownList, AutoCompleteMode = AutoCompleteMode.None, DataSource = vLi) :> Control
+                    | FrmFldType.UserInput ->
+                        new TextBox(Text = "", Dock = doc "F") :> Control
+                    | _ ->
+                        new TextBox(Text = "defTxtBx", Dock = doc "F") :> Control
+                match fTy = FrmFldType.FldBlankRow with
+                | true -> ()
+                | _ ->  fldFP.Controls.Add(lbl, 0, 0)
+                        fldFP.Controls.Add(ctrl, 1, 0)
+                        !!^ [nm, box ctrl] ownr
+                        !!^ ["ctrl", box ctrl] p
+                match dzMode with
+                | true ->
+                    //pnls: selectable, chngCol, TBar enabled
+                    ctrl.Enabled <- false
+                    p.MouseEnter.AddHandler(new EventHandler(fun o e -> 
+                                                let itm = o :?> Panel
+                                                mTtip.SetToolTip(itm, "Right-click to select...")))
+                    p.Click.AddHandler(new EventHandler(fun o e -> 
+                        if (!!?? "selectedPnl" ownr) then
+                            let selP:Panel = (!!~ "selectedPnl" ownr).Value
+                            //tibbie "pnlLayout: found selPnl"
+                            selP.BackColor <- sBack
+                          else ()
+                        p.BackColor <- sAccBack
+                        !!^ ["selectedPnl", box p] ownr
+                        ControlPaint.DrawReversibleFrame(p.ClientRectangle, Color.BurlyWood, FrameStyle.Dashed)
+                        p.Invalidate() //Refresh()
+                    ))
+                | _ -> ()
+                fldFP.ColumnStyles.Clear()
+                fldFP.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, float32 (getBtnWid lbl.Text)))
+                fldFP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100.0f))
+                p.Controls.Add(fldFP)
+                fldFP.ResumeLayout(false)
+            p.ResumeLayout(false)
+
+</code></pre>
+<hr>
 <code><pre>
     let બનારસી_પીચાક_fld_eoy =
         fun (ક્વિમામ:option<_>) (d:Form) ->
@@ -12107,7 +12286,7 @@ SizeTab(dzEl)	Wid, Ht		(units shd be cell-rel)
         ##### cutoffPt was: ...
 </pre></code>
 
-
+<hr>
 <h3>loggedUI</h3>
 <code><pre>
   let bmBtn = new Button(Text = "BM", AutoSize = true)
@@ -12117,7 +12296,7 @@ SizeTab(dzEl)	Wid, Ht		(units shd be cell-rel)
     let frm = (બનારસી_પાન((rejig bm), f, false, "pId", "winTy")) :> Form
     frm.Show()))
 </pre></code>
-
+<hr>
 
 <h3>brij</h3>
 <code><pre>
@@ -12136,6 +12315,7 @@ type BanarasiMasaloAux<'t when 't :> ITblMarker> = | BanarasiMasaloAux of unid:D
     static member getDefault(docF:DocFld list, nm, ty:'t) = 
        ...
 </pre></code>
+</div><!--gridxFrm-->
 <p>
 <hr>
 		</div> <!--misc_dojo-->
@@ -27395,6 +27575,7 @@ List<rows>.filter(isOdd) |> processForLayout()
             <!--dev/eagleEye section-->
             <section>
     		<div id="eagleEye" data-dojo-type="dijit/layout/ContentPane" title="eagleEye">
+<b><i>note: ix-nay slugs pour l'dissemblement</i></b>
 <table style="border-collapse: collapse;width:100%;border: 2px solid black;">
     <caption>Eagle-Eye</caption>
   <tr style="border-bottom: 2px solid black;border-top: 2px solid black;">
@@ -27503,9 +27684,5 @@ List<rows>.filter(isOdd) |> processForLayout()
                 </div> <!--eagleEyeContent-->
             </section>
             <!--dev/eagleEye section-->
-
-
-
 </body>
-
 </html>
