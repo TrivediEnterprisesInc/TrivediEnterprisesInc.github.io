@@ -3,7 +3,7 @@
 <head>
 <!-- html begins line #1846 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.12.18 bookmarks update am">
+<meta name="description" content="2023.12.19 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -1843,7 +1843,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 18th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 19th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -12173,13 +12173,16 @@ BanarasiMasaloAux has
                         new TextBox(Text = "", Multiline=true, Dock = doc "F", Font = defFont, WordWrap = false, ScrollBars = ScrollBars.Both, AcceptsReturn=true, ForeColor = sFore, BackColor = sBack) :> Control
 
 //⚠️"dijit/form/Textarea" <a href='https://dojotoolkit.org/reference-guide/1.10/dijit/form/Textarea.html#dijit-form-textarea'>doc</a>
-let getId = "fld" + nm
-let getVal = optOr optVal ""
+//move outside
+    let wrapinTDs s = fun s -> "&lt;td&gt;" + s + "&lt;/td&gt;"
+    let getId = "fld" + nm
+    let getVal = optOr optVal ""
 //NOTE html escaped for b.html
 """&lt;textarea id='""" + getId + """' data-dojo-props="value='""" + getVal + """', style='width=100%;'"&gt;"""
-
+  |> wrapinTDs
                     | FrmFldType.FldBlankRow ->
                         new TextBox(Dock = doc "F") :> Control
+wrapinTDs "&lt;!--BlankRowPlaceholdr--&gt;"
                     | FrmFldType.FldColor ->
                         //@REINSTATE: @mbi w/optOr: let colBtn = new Button(Text = "Color", Dock = doc "F", BackColor = (optOr fldVal defBackColor))
                         let colBtn = new Button(Text = "Color", Dock = doc "F", ForeColor = sFore, BackColor = sBack)
@@ -12188,6 +12191,7 @@ let getVal = optOr optVal ""
                                 if (colDlg.ShowDialog() = DialogResult.OK) then 
                                     colBtn.BackColor <- colDlg.Color else ()))
                         colBtn :> Control
+//⚠️dataType not necc cliSide (no dz)
                     | FrmFldType.FldFont ->
                         let fontBtn = new Button(Text = defFont.FontFamily.Name.ToString() + " " + defFont.Size.ToString() + " " + defFont.Style.ToString() , Dock = doc "F", BackColor = Color.White)
                         //@REINSTATE: @mbi w/optOr: let fontDlg = new FontDialog(ShowColor = true, Font = (optOr fldVal defFont), Color = lbl.BackColor)
@@ -12199,14 +12203,28 @@ let getVal = optOr optVal ""
                                     fontBtn.Text <- fontDlg.Font.FontFamily.Name.ToString() + " " + fontDlg.Font.Size.ToString()
                                     else ()))
                         fontBtn :> Control
+//⚠️dataType not necc cliSide (no dz)
                     | FrmFldType.FldBtn ->
                         new Button(Text = "" , Dock = doc "F", BackColor = Color.White) :> Control
+//⚠️dataType not necc cliSide (no dz)
                     | FrmFldType.FldDate ->
                         //@REINSTATE: @mbi w/optOr:tagged defaultTags (new DateTimePicker(Value = (optOr fldVal (DateTime.Now)), Dock = doc "F", DropDownAlign = LeftRightAlignment.Right, MinDate = defMinDate, ShowUpDown = false, ShowCheckBox = false, CustomFormat = "MMM dd, yyyy", Format = DateTimePickerFormat.Custom) :> Control)
                         new DateTimePicker(Value = DateTime.Now, Dock = doc "F", DropDownAlign = LeftRightAlignment.Right, MinDate = defMinDate, ShowUpDown = false, ShowCheckBox = false, CustomFormat = "MMM dd, yyyy", Format = DateTimePickerFormat.Custom) :> Control
+//⚠️only DatePicker (perhaps also time?) but not DateTime (see no useCaseScen.)
+"dijit/form/DateTextBox" <a href='https://dojotoolkit.org/reference-guide/1.10/dijit/form/DateTextBox.html#dijit-form-datetextbox'>doc</a>
+//let dateToShow = (OptOr val today()).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture) //nds 2 be '2005-12-30' 
+//⚠️@ToDo: pump in culture + validation; remove name or set to fNm?
+"""&lt;input type="text" name="date1" id='""" + getId + """' value='""" + dateToShow + """'
+    data-dojo-type="dijit/form/DateTextBox"
+    required="true" /&gt;"""
+
                     | FrmFldType.FldBoolean ->
                         //@REINSTATE: @mbi w/optOr:tagged defaultTags (new CheckBox(Checked = (optOr fldVal false)) :> Control)
                         new CheckBox(Checked = false) :> Control
+//⚠️@ToDo: pump in culture + validation; remove name or set to fNm?
+"dijit/form/CheckBox" <a href='https://dojotoolkit.org/reference-guide/1.10/dijit/form/CheckBox.html#dijit-form-checkbox'>doc</a>
+let chkd = OptOr val false
+"""<input id='""" + getId + """' name="mycheck" data-dojo-type="dijit/form/CheckBox" value=""" + chkd + """ />"""
                     | FrmFldType.FldRange ->
                         let trP = new FlowLayoutPanel(Dock = doc "F", FlowDirection = FlowDirection.LeftToRight, AutoSize = true)
                         //@REINSTATE: @mbi w/optOr:let tBr = new TrackBar(Value = (optOr fldVal 0), Maximum = 9,Minimum=0,TickFrequency = 1,LargeChange = 3,SmallChange = 1)
@@ -12218,8 +12236,19 @@ let getVal = optOr optVal ""
                         trP.Controls.Add(tLbl)
                         !!^ [nm, box tBr] ownr
                         trP :> Control
+//⚠️@ToDo: pump in culture + validation; remove name or set to fNm?
+"dijit/form/NumberSpinner" <a href='https://dojotoolkit.org/reference-guide/1.10/dijit/form/NumberSpinner.html#dijit-form-numberspinner'>doc</a>
+let rngVal = OptOr val 0
+let minVal, maxVal, smChg = //fDef nds to be updated @hardCoded
+"""<input data-dojo-type="dijit/form/NumberSpinner"
+    id='""" + getId + """'
+    value='""" + rngVal + """'
+    data-dojo-props="smallDelta:'""" + smChg + """', constraints:{min:'""" + minVal + """',max:'""" + maxVal + """',places:0}"
+    name="someNumber"
+    />
                     | FrmFldType.FldNumUpDn ->
                         new NumericUpDown(Value = decimal 1 , Maximum = decimal (unbox સુપારી), Minimum = decimal 1, Dock = doc "F") :> Control
+//⚠️wtf? dupl? removal candidate? @ToDo: chk incl prevVers
                     | FrmFldType.FldChoiceList ->
                         //remmed Feb13_23; hardcoded choiceli coz supari absnt
                         //@ToDo: conv2LookupF
@@ -12230,6 +12259,7 @@ let getVal = optOr optVal ""
                                                                 let (k, v) = itm
                                                                 k) |> Array.ofList
                         new ComboBox(Text = nm, AutoSize = true, Dock = doc "F", DropDownStyle = ComboBoxStyle.DropDownList, AutoCompleteMode = AutoCompleteMode.None, DataSource = vLi) :> Control
+
                     | FrmFldType.UserInput ->
                         new TextBox(Text = "", Dock = doc "F") :> Control
                     | _ ->
@@ -26098,6 +26128,39 @@ postCovid imports into allData</td>
 
 <div class="mBox-container" id="NotesBoxContainer">
 
+          <div class="mBox notes product org orgMode" >
+             Getting your Demos right
+              <div class="caption" style="display:none;">
+Lots of exc links 4 note-talking|Tagging-Linking|OrgMode <a href='https://blog.jethro.dev/posts/how_to_take_smart_notes_org/'>here</a>
+              </div>
+          </div>
+
+          <div class="mBox notes dev misc wasm" >
+	Wasm reading from HN
+              <div class="caption" style="display:none;">
+<ul><li>
+<mark>Notion</mark> <a href='https://turbosheets.notion.site/How-we-built-a-spreadsheet-editor-5x-faster-than-Google-Sheets-b22d472537c34dbbb572924d43732543'>TurboSheets</a>: How we built a spreadsheet editor 5x faster than Google Sheets
+</li><li>
+Turned my dynamic website into a <mark>static</mark> WASM SPA using <a href='https://news.ycombinator.com/item?id=38489895'>Go</a>
+</li><li>
+Inside Azure innovations with Mark Russinovich (vdo w/<a href='https://build.microsoft.com/en-US/sessions/836e93ad-72b1-49d4-9430-d6277051aba7?source=sessions'>transcript</a>) ref: wasm for cloud fns.
+</li><li>
+Running Wasm Workers Server in Docker <a href='https://wasmlabs.dev/articles/docker-wasm-wws/'>Desktop</a>
+</li><li>
+Reaching the Unix Philosophy's Logical Extreme with <a href='https://xeiaso.net/talks/unix-philosophy-logical-extreme-wasm/'>Webassembly</a>
+</li><li>
+Cloud Native: the Wasm <a href='https://www.cncf.io/blog/2023/09/06/introducing-the-wasm-landscape/'>landscape</a>
+</li><li>
+Will WASM win the web <a href='https://www.theregister.com/2023/09/01/web_assembly_wasm_column/'>wars</a>?
+</li><li>
+Cross-compiling OCaml to JS and <a href='https://semgrep.dev/blog/2023/turbo-mode/'>Wasm</a>
+</li><li>
+Javy: JavaScript-to-WebAssembly toolchain [<a href='https://bytecodealliance.org/articles/javy-hosted-project'>1</a>] & [<a href='https://shopify.engineering/javascript-in-webassembly-for-shopify-functions'>2</a>]
+</li><li>
+<a href='https://hn.algolia.com/?dateRange=all&page=27&prefix=false&query=wasm&sort=byDate&type=story'>more</a> but dated...
+              </div>
+          </div>
+
 <div class="mBox notes product marketing" >
              Indep. Graphic Artists
               <div class="caption" style="display:none;">
@@ -27630,7 +27693,12 @@ List<rows>.filter(isOdd) |> processForLayout()
   <tr style="border-bottom: 1px solid black;">
     <td><img src='https://trivedienterprisesinc.github.io/img/Bizarro.png' alt="Bizarro" style="height:100px;"></td>
     <td><ul><li>To induce atomicity:<br>onTheFlyQry >> sortedD >> head</li>
-    <li>Do v nd 2 prov Q 4 par ops?</li></ul></td>
+    <li>Do v nd 2 prov Q 4 par ops?</li>
+    <li>Huuuuuge mkt if playd rite + 👍Vet</li>
+    <li>1 gd apprch: `ix-restr2wooman+prem-chand-donate`<br>
+Note: curr doesn't really wrk; double-roundtrip (2much)
+</li>
+    </ul></td>
     <td>Both</td>
     <td>d</td>
     <td>SaaS hosted</td>
