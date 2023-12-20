@@ -3,7 +3,7 @@
 <head>
 <!-- html begins line #1846 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.12.19 bookmarks update am">
+<meta name="description" content="2023.12.20 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -174,8 +174,8 @@ code > pre {
     }
     
     #MainTxtDiv {
-        width: 80%;
-        height: 80%;
+	width: 100%;
+        height: 100% !important;
         border: 0px;
         padding: 20px;
         background-color: rgba(255, 255, 255, 1);
@@ -1843,7 +1843,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 19th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 20th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -12347,6 +12347,58 @@ type BanarasiMasaloAux<'t when 't :> ITblMarker> = | BanarasiMasaloAux of unid:D
        ...
 </pre></code>
 </div><!--gridxFrm-->
+<p>
+<hr>
+<div id="fetchAPI" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'fetch API', open:false">
+<p>
+Q: what is the current best practice in Javascript for a way to send a data object from server to client?
+<p>The current best practice for sending data objects from a server to a client in JavaScript is to use the **Fetch API** ¹. The Fetch API is a modern interface that allows you to make HTTP requests to servers from web browsers or other clients. It is based on JavaScript promises and provides a simple and flexible way to fetch resources asynchronously across the network ¹. 
+<p>
+Here is an example of how to use the Fetch API to send a data object from a server to a client:
+<p>
+```javascript
+fetch('/api/data')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+```
+<p>
+In this example, we are using the `fetch()` method to make a GET request to the `/api/data` endpoint on the server. The server responds with a JSON object, which we parse using the `json()` method. The resulting data object is then logged to the console ¹.
+<p>
+If you need to send data to the server, you can use the `POST` method instead of `GET`. Here is an example of how to use the Fetch API to send a data object to the server:
+<p>
+```javascript
+fetch('/api/data', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ key: 'value' })
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+```
+<p>
+In this example, we are using the `fetch()` method to make a POST request to the `/api/data` endpoint on the server. We are also specifying the `Content-Type` header as `application/json` and sending a JSON object in the request body ¹.
+<p>
+I hope this helps! Let me know if you have any other questions.
+<p>
+Source: Conversation with Bing, 12/20/2023<p>
+(1) Fetching data from the server - Learn web development | MDN. https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data.<p>
+(2) javascript - Sending a list of custom objects from server to client .... https://stackoverflow.com/questions/32230979/sending-a-list-of-custom-objects-from-server-to-client.<p>
+(3) JavaScript POST Request – How to Send an HTTP POST Request in JS. https://www.freecodecamp.org/news/javascript-post-request-how-to-send-an-http-post-request-in-js/.<p>
+(4) Writing WebSocket client applications - Web APIs | MDN. https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications.<p>
+(5) javascript - How to send/receive data to/from server via JS fetch .... https://stackoverflow.com/questions/63699557/how-to-send-receive-data-to-from-server-via-js-fetch.
+<p>
+Q: why is this preferred over ajax?<p>
+The Fetch API is preferred over AJAX because it provides a simpler and more modern interface for making HTTP requests in JavaScript . The Fetch API is based on JavaScript promises, which makes it easier to handle asynchronous requests and responses. It also provides a more flexible and powerful way to handle errors and network failures .
+<p>
+In contrast, AJAX is an older technique that uses the `XMLHttpRequest` object to make HTTP requests. While AJAX is still widely used, it has some limitations and drawbacks compared to the Fetch API . For example, AJAX does not support streaming responses, which can be a problem for large files or real-time applications . AJAX also requires more code to handle errors and network failures, which can make it more difficult to use .
+<p>
+Overall, the Fetch API is a more modern and flexible way to make HTTP requests in JavaScript, and it is recommended for most use cases . However, if you are working with legacy code or older browsers that do not support the Fetch API, AJAX may still be a viable option .
+<p>
+</div><!--fetchAPI-->
 <p>
 <hr>
 		</div> <!--misc_dojo-->
@@ -27670,16 +27722,25 @@ List<rows>.filter(isOdd) |> processForLayout()
   </tr>
   <tr style="border-bottom: 1px solid black;">
     <td><img src='https://trivedienterprisesinc.github.io/img/Getafix.png' alt="Getafix" style="height:100px;"></td>
-    <td><ul><li>Nd intuitive UI (www)</li><li>
-                   Chk if common cont wrks (shd)</li><li>
-	Extn pros: intuitive useCase; offline capab.; alwOn</li><li>
-	cons: Managed curr.; debg hassle; decide l8r</li><li>
-	PoA: v1 impl Canned -&gt; v2 refactor Blazor out -&gt; v3 refactor Dojo in -&gt; v4 refactor 2 Fs -&gt; v5 refactor 2 sqlLite -&gt; v6 customize</li</ul></td>
+    <td><ul><li>Nd intuitive UI (www)</li></ul></td>
     <td>unkn</td>
     <td>d `u l8r`</td>
     <td>SaaS hosted</td>
     <td>S</td>
   </tr>
+  <tr><td colspan="100%">
+  <div id="getafixTkli" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Getafix Notes', open:false">
+<ul><li>Extn pros: intuitive useCase; offline capab.; alwOn
+</li><li>cons: Managed curr.; debg hassle; decide l8r
+</li><li>PoA: v1 impl Canned -&gt; v2 refactor Blazor out -&gt; v3 refactor Dojo in -&gt; v4 refactor 2 Fs -&gt; v5 refactor 2 sqlLite -&gt; v6 customize
+</li><li>pro.ly nds / can use biz (e.g. res98)
+</li><li>unids for treeModel autogen after ea chng to preserve order
+</li><li>top ranked feature: FTsrch (indexing? use extTool (ripgrep?) via pump-in?)
+</li><li>we'll nd ability to addAttachments
+</li><li>1st manually create `A` frm via tbl which'll help in the Flash proceedings
+</li><li>img addrBox shd have chkboxes (w/radio behav) "Embed:loRes|hiRes" unchecked=refLink
+<li>Chk if common cont wrks (done;DOES)</li></ul>
+</div></td></tr>
   <tr style="border-bottom: 1px solid black;">
     <td><img src='https://trivedienterprisesinc.github.io/img/Hulk.png' alt="Hulk" style="height:100px;"></td>
     <td><ul><li>Ability 2jmp can be givenScope</li>
@@ -27692,42 +27753,53 @@ List<rows>.filter(isOdd) |> processForLayout()
   </tr>
   <tr style="border-bottom: 1px solid black;">
     <td><img src='https://trivedienterprisesinc.github.io/img/Bizarro.png' alt="Bizarro" style="height:100px;"></td>
-    <td><ul><li>To induce atomicity:<br>onTheFlyQry >> sortedD >> head</li>
-    <li>Do v nd 2 prov Q 4 par ops?</li>
-    <li>Huuuuuge mkt if playd rite + 👍Vet</li>
-    <li>1 gd apprch: `ix-restr2wooman+prem-chand-donate`<br>
-Note: curr doesn't really wrk; double-roundtrip (2much)
-</li>
+    <td><ul><li>Huuuuuge mkt if playd rite + 👍Vet</li>
     </ul></td>
     <td>Both</td>
     <td>d</td>
     <td>SaaS hosted</td>
     <td>M</td>
   </tr>
-  <tr style="border-bottom: 1px solid black;">
+<tr><td colspan="100%">
+	<div id="BizarroTkli" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Bizarro Notes', open:false">
+		<ul><li>To induce atomicity:<br>onTheFlyQry >> sortedD >> head</li>
+		<li>Do v nd 2 prov Q 4 par ops?</li>
+		<li>1 gd apprch: `ix-restr2wooman+prem-chand-donate`<br>
+				Note: curr doesn't really wrk; double-roundtrip (2much)
+		</li></ul>
+	</div></td></tr>
+<tr style="border-bottom: 1px solid black;">
     <td><img src='https://trivedienterprisesinc.github.io/img/lothar.png' alt="Lothar" style="height:100px;"></td>
-    <td><ul><li>Curiously v. exceptions</li>
-          <li>launch ev 2-4d</li>
-    <li>can wrk on arbit/gen incl "I'll/my eagle'll ..."</li>
-    <li>store 5ln @ time; lkup pattns 4 flags</li>
-    <li>store selInfo; sortD >> take(len-5)</li>
-    <li>~6m c# devs</li>
+    <td><ul><li>~6m c# devs</li>
     </ul></td>
     <td>Both</td>
     <td>d</td>
     <td>Dsktp Addin</td>
     <td>S</td>
   </tr>
+    <tr><td colspan="100%">
+  <div id="LotharTkli" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Lothar Notes', open:false">
+<ul><li>Curiously v. exceptions</li>
+          <li>launch ev 2-4d</li>
+    <li>can wrk on arbit/gen incl "I'll/my eagle'll ..."</li>
+    <li>store 5ln @ time; lkup pattns 4 flags</li>
+    <li>store selInfo; sortD >> take(len-5)</li></ul>
+</div></td></tr>
   <tr style="border-bottom: 1px solid black;">
     <td><img src='https://trivedienterprisesinc.github.io/img/Spiderman.png' alt="Spiderman" style="height:100px;"></td>
-    <td><ul><li>Launches slowly & suddenly spreads web of binClses</li>
-    <li>ComnUse ver can be quite diff (only1?)</li>
-    <li>LrgDoc capab can incorp features from other apps (gfix)</li></ul></td>
+    <td><ul><li>Niche mkt but poss lrg unitPrice (demand)</li>
+	</ul></td>
     <td>both</td>
     <td>u d</td>
     <td>Dsktp</td>
     <td>M</td>
   </tr>
+<tr><td colspan="100%">
+	<div id="SpideyTkli" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Spidey Notes', open:false">
+		<ul><li>Launches slowly & suddenly spreads web of binClses</li>
+    <li>ComnUse ver can be quite diff (only1?)</li>
+    <li>LrgDoc capab can incorp features from other apps (gfix)</li></ul>
+	</div></td></tr>
   <tr style="border-bottom: 1px solid black;">
     <td><img src='https://trivedienterprisesinc.github.io/img/BlackJack.png' alt="BlackJack" style="height:100px;"></td>
     <td><ul><li>Outside call</li>
@@ -27749,17 +27821,6 @@ Note: curr doesn't really wrk; double-roundtrip (2much)
     <td>XS</td>
   </tr>
 </table>
-<div id="getafixTkli" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Getafix Tasklist', open:false">
-<ul><li>pro.ly nds / can use biz (e.g. res98)
-</li><li>unids for treeModel autogen after ea chng to preserve order
-</li><li>top ranked feature: FTsrch (indexing? use extTool (ripgrep?) via pump-in?)
-</li><li>we'll nd ability to addAttachments
-</li><li>1st manually create `A` frm via tbl which'll help in the Flash proceedings
-</li><li>img addrBox shd have chkboxes (w/radio behav) "Embed:loRes|hiRes" unchecked=refLink
-</li></ul>
-</div>
-
-	
                 </div> <!--eagleEyeContent-->
             </section>
             <!--dev/eagleEye section-->
