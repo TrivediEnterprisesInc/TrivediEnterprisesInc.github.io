@@ -3,11 +3,18 @@
 <head>
 <!-- html begins line #1846 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.12.20 bookmarks update am">
+<meta name="description" content="2023.12.21 bookmarks update am">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
-    <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+<!--codeFmting support to pre|code blocks added 2023.12.21 BEGIN-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+<!--codeFmting support to pre|code blocks added 2023.12.21 END-->
+
 
 <script>
 async function fetchHtmlAsText(url) {
@@ -1843,7 +1850,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 20th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 21th, 2023"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -9184,6 +9191,7 @@ How Map and Reduce operations are <a href='https://wiki.apache.org/hadoop/Hadoop
 <section>
 <div id="F_Links">
 <br>
+<div data-dojo-id="F_Links1" data-dojo-type="dijit/TitlePane" data-dojo-props='title:"Card Games", open:false'>
 <details><summary>Card Games</summary>
 <ul><li>Google public domain <a href='https://code.google.com/archive/p/vector-playing-cards/downloads'>playing cards</a> image set (PNG/SVG)
 </li><li>A brief <a href='https://www.mrgamez.com/casino-games/bridge/apps/'>review</a> of 3 bridge apps (incl freeware)
@@ -9191,10 +9199,9 @@ How Map and Reduce operations are <a href='https://wiki.apache.org/hadoop/Hadoop
 </li><li>More Bridge <a href='http://www.rpbridge.net/rppz.htm'>puzzles</a>
 </li></ul>
 <br>
-</details>
-<hr>
+</div>
 <p>
-<details><summary>Chess</summary>
+<div data-dojo-id="F_Links2" data-dojo-type="dijit/TitlePane" data-dojo-props='title:"Chess", open:false'>
 pgn <a href='https://www.chessclub.com/help/PGN-spec'>spec</a><br>
 Tons of pgn games by player/<a href='http://www.pgnmentor.com/files.html#openings'>opening</a><br>
 Online FEN position <a href='https://www.dailychess.com/chess/chess-fen-viewer.php'>viewer</a><br>
@@ -9229,10 +9236,9 @@ WikiMedia <a href='https://commons.wikimedia.org/wiki/Chess_pieces'>chess</a> ic
                 <br>
 <p>
 
-</details>
-<hr>
+</div>
 <p>
-<details><summary>Assemblies</summary>
+<div data-dojo-id="F_Links3" data-dojo-type="dijit/TitlePane" data-dojo-props='title:"Assemblies", open:false'>
 <br><a href='https://docs.microsoft.com/en-us/dotnet/standard/assembly/versioning'>Version checking</a> only occurs with strong-named assemblies.
 <br>You can also <a href='https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions#redirect-versions-at-the-app-level'>Limit/require</a> assembly bindings to a specific version, etc.
 <br>To use two or more versions of an assembly in the same application (<a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/extern-alias">extern alias</a>); e.g.
@@ -9248,11 +9254,9 @@ WikiMedia <a href='https://commons.wikimedia.org/wiki/Chess_pieces'>chess</a> ic
 <br>AssemblyDescriptionAttribute("") nature and purpose of the assembly.
 <br>AssemblyDefaultAliasAttribute("") <-String specifying a default alias to be used by referencing assemblies.  can also be used as a short form of the full assembly name.
 <br>AssemblyTitleAttribute("") <-String specifying a friendly name for the assembly. For example, an assembly named comdlg might have the title Microsoft Common Dialog Control.
-</details>
+</div>
 <p>
-<hr>
-<p>
-<details><summary>WebSockets</summary>
+<div data-dojo-id="F_Links4" data-dojo-type="dijit/TitlePane" data-dojo-props='title:"WebSockets", open:false'>
 <p>
 <br><a href='https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/fundamentals/websockets.md'>github .net: websockets on ASP</a>
 <br><a href='https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/fundamentals/websockets/samples/2.x/WebSocketsSample/Startup.cs'>webSock echo</a>
@@ -9265,14 +9269,11 @@ WikiMedia <a href='https://commons.wikimedia.org/wiki/Chess_pieces'>chess</a> ic
 <br>F# <a href='https://gist.github.com/panesofglass/03589f24f14f7c1e5899'>WebSockets</a> : panesofglass (dated but v gd; even has pointers to other work)
 <br>FSharp-WebSocket-Server-Client using Asp.net Core's <a href='https://github.com/jmhickman/FSharp-WebSocket-Server-Client'>Kestrel server</a>
 <br><a href='https://github.com/SuaveIO/suave'>Sauve</a>
-</details>
-<p>
-<hr>
+</div>
 <p>
 <h3>Jack Pappas</h3> (<a href='https://github.com/jack-pappas'>ExtCore</a> + F# yaccs + parsing + logic/theorem proving )
 <p>
 <hr>
-
 <br>Google <a href='https://github.com/google/jimfs'>Jimfs</a> and <a href="https://raw.githubusercontent.com/google/jimfs/master/jimfs/src/test/java/com/google/common/jimfs/WindowsPathTypeTest.java">Windows</a> test
 <br>Google DiffMatchPatch <a href='https://raw.githubusercontent.com/google/diff-match-patch/master/csharp/DiffMatchPatch.cs'>c#</a> version and <a href='https://github.com/google/diff-match-patch/blob/62f2e689f498f9c92dbc588c58750addec9b1654/csharp/tests/DiffMatchPatchTest.cs#L92'> tests</a>
 <p>
@@ -9317,18 +9318,18 @@ Github markdown <a href='https:\\docs.github.com\en\github\writing-on-github\get
  
             <BR>https://github.com/mikhailshilkov/azure-functions-fsharp-examples 
             Regexp (straight net api calls):
-            <code><pre>
+            <pre><code>
             let TestConnString = 
                 """<add name="MyConnString" connectionString="Server=MyServer;Database=MyDatabase;User ID=me;Password=secret;Encrypt=True;TrustServerCertificate=True;Enlist=False;" />"""
             Regex.Match(connectionString, "[dD]atabase=(?<database>.*?);").Groups.["database"].Value
-            </pre></code>
+            </code></pre>
             <p>
 <p>
 </details>
 <br>
            
             <details><summary>SecureString</summary>
-            <code><pre>
+            <pre><code>
             For console.readPwd; look @ Security.SecureString;
             <br>pump into Marshal.SecureStringToGlobalAllocUnicode
             <br>then to Marshal.PtrToStringUni & finallly Marshal.ZeroFreeGlobalAllocUnicode
@@ -9340,12 +9341,12 @@ Github markdown <a href='https:\\docs.github.com\en\github\writing-on-github\get
             | chr -> 
                             Console.Write '*'
                             readKey <| chr :: charList
-            </pre></code>
+            </code></pre>
 </details>    <p>
 <hr>
 <p>
 <details><summary>CSV parsing</summary>
-<code><pre>
+<pre><code>
 // An example of how you might manually parse a CSV file in F#.
  
 open System
@@ -9377,13 +9378,13 @@ data
 |> Seq.countBy(fun row -> row.Home)
 |> Seq.sortByDescending snd
 |> Seq.take 3
-</pre></code>
+</code></pre>
 </details><br>
 <hr>
 <details>
 <summary>List fold snippet from EventSourcing-DIY</summary>
 <br>
-<code><pre>
+<pre><code>
 module List
  
     /// Map a Result producing function over a list to get a new Result
@@ -9402,7 +9403,7 @@ module List
           retn (h :: t) ))
  
       List.foldBack folder list initState
-</pre></code>
+</code></pre>
 </details>
 <p>
 <hr>
@@ -9985,25 +9986,25 @@ http://lambda.jimpryor.net/topics/week9_monad_transformers/</li>
 </li></ul>
 <br>
 <br>manual Transformers ->
-<br><code><pre>
+<br><pre><code>
 let hoist (a: option<a>): Async<option<a>> = async {return a}
 let lift (a: Async<a>): Async<option<a>> = a |> Async.map Some
-</pre></code>
+</code></pre>
 <br>
 <br>https://github.com/ocaml-batteries-team/batteries-included/
 <br>
 here's the batInterface.ml def of Monad:
-<br><code><pre>
+<br><pre><code>
 module type Monad = sig
   type 'a m
   val bind : 'a m -> ('a -> 'b m) -> 'b m
   val return: 'a -> 'a m
 end
-</pre></code>
+</code></pre>
 <br>
 Here's how oCaml defines State (reversed) ->
 <br>(<a href='https://github.com/Chattered/ocaml-monad/blob/master/src/monad.ml'>Chattered</a>/ocaml-monad) ln # 473
-<br><code><pre>
+<br><pre><code>
 module State(T : sig type s end) =
 struct
   include Make(struct
@@ -10019,7 +10020,7 @@ struct
   let eval x s  = snd (x s)
   let modify f  = bind read (fun s -> write (f s))
 end
-</pre></code>
+</code></pre>
 Also chk <a href='https://github.com/Chattered/ocaml-monad/blob/master/src/applicative.ml'>Chattered</a> applicative <br>
 <br>
 
@@ -10159,10 +10160,10 @@ Tom P's ans to an SO qn inv lazy seq / <a href='https://stackoverflow.com/questi
 <a href='https://stackoverflow.com/questions/5671271/what-are-advantages-and-disadvantages-of-point-free-style-in-functional-progra'>SO: Advantages</a> and disadvantages of "point free" style (1st resp v gd., f# eg below)
 <p>
 <a href='https://dev.to/shimmer/f-tip-4-when-not-to-use-point-free-style-57m3'>Brian Berns</a> on point-free style
-<code><pre>let safeSqrt = Option.filter ((<=) 0.0) >> Option.map sqrt</pre></code>
+<pre><code>let safeSqrt = Option.filter ((<=) 0.0) >> Option.map sqrt</code></pre>
 <p>
 Eric T.'s <a href='https://eiriktsarpalis.wordpress.com/2017/04/02/programming-in-the-point-free-style/'>Programming</a> in the Point-Free Style
-<code><pre>let f = Option.map sqrt << Option.filter ((<=) 0.)</pre></code>
+<pre><code>let f = Option.map sqrt << Option.filter ((<=) 0.)</code></pre>
 <p>
 ...Eventually you end up in <a href='https://danielbmarkham.com/f-good-and-bad/'>point-free world</a>, where foo|>bar|>baz and so on.
 <p>
@@ -10267,23 +10268,23 @@ How to serialize and deserialize (marshal and unmarshal) <a href='https://learn.
 <b>Note:</b>
 <br>If you wish to insert array of JSON objects at once, where each array entry shall be treated as separate dtabase entry, you have two options of syntax:
 <br>Array of object with valid coma positions & --jsonArray flag obligatory
-<code><pre>
+<pre><code>
 [
   {obj1},
   {obj2},
   {obj3}
 ]
-</pre></code>
+</code></pre>
 Use file with <b>basically incorrect</b> JSON formatting (i.e. missing , between JSON object instances & without --jsonArray flag
-<code><pre>
+<pre><code>
 {obj1}
 {obj2}
 {obj3}
-</pre></code>
+</code></pre>
 </li><li><a href='https://learn.microsoft.com/en-us/dotnet/api/system.text.json.utf8jsonwriter.writeboolean?view=net-7.0'>Utf8JsonWriter</a> is a high-performance way to write UTF-8 encoded JSON text from common .NET types like String, Int32, and DateTime. The writer is a low-level type that can be used to build custom serializers. The JsonSerializer.Serialize method uses Utf8JsonWriter under the covers.
 <br><b>Usage</b>: Utf8JsonWriter.writeBoolean/Number/String(tg, val)
 <br><b>snippet</b>:
-<code><pre>
+<pre><code>
 open System.Text.Json
 
     let toJson =
@@ -10307,10 +10308,10 @@ open System.Text.Json
     writer.Flush()
 
     Console.WriteLine(Encoding.UTF8.GetString(stream.ToArray()))
-</pre></code>
+</code></pre>
 </li><li>
 <br>BSON Ext <a href='https://github.com/mongodb-js/bson-ext'>parser</a><b>snippet</b>:
-<code><pre>
+<pre><code>
 module BSonExt
 
     //@ToDo: chk if contents curr use '==' delims
@@ -10322,7 +10323,7 @@ module BSonExt
           | Dz -> hardCoded
               
     fun frBE = Def -> BTy -> Dat
-</pre></code>
+</code></pre>
 </li></ul>
 </details>
 <p>
@@ -10357,19 +10358,19 @@ Example: <b>Importing</b> for local debugging
 If you wish to insert array of JSON objects at once, where each array entry shall be treated as separate dtabase entry, you have two options of syntax:
 
 <br>Array of object with valid coma positions & --jsonArray flag obligatory
-<code><pre>
+<pre><code>
 [
   {obj1},
   {obj2},
   {obj3}
 ]
-</pre></code>
+</code></pre>
 <br>Use file with basically <b>incorrect</b> JSON formatting (i.e. missing , between JSON object instances & without --jsonArray flag
-<code><pre>
+<pre><code>
 {obj1}
 {obj2}
 {obj3}
-</pre></code>
+</code></pre>
 <hr></details>
 
 <hr></details>
@@ -10403,11 +10404,11 @@ NOTE that when everything's set up, on db.insert/etc. the system auto-ser/deser 
 The .NET BSON library supports mapping Custom classes to and from BSON/JSON using a <a href='https://mongodb.github.io/mongo-csharp-driver/2.4/reference/bson/mapping/'>BsonClassMap</a>.
 <br>
 If you want to control the creation of the class map, you can provide your own initialization code in the form of a lambda expression:
-<code><pre>
+<pre><code>
 BsonClassMap.RegisterClassMap<MyClass>(cm => {
     cm.MapMember(c => c.SomeProperty);
     cm.MapMember(c => c.AnotherProperty); });
-</pre></code>
+</code></pre>
 </li>
 <li>Good Overview of the process: BSON <a href='https://darkiri.wordpress.com/2013/02/26/bson-serialization-with-mongodb-c-driver/'>Serialization</a> with the MongoDB C# Driver
 <br>Yes, both custom Serializers + ClassMaps are necc.
@@ -10418,8 +10419,8 @@ BsonClassMap.RegisterClassMap<MyClass>(cm => {
   </li>
 So basically we can create a BsonClassMap<Brij> & map the classDef to ea fldNm/ty<br>
 Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
-<code><pre>
-      cm.MapMember(c => c.SomeProperty).SetElementName("sp")</pre></code>
+<pre><code>
+      cm.MapMember(c => c.SomeProperty).SetElementName("sp")</code></pre>
       (from the MongoDox link above)
 <hr>
 </details>  
@@ -10456,24 +10457,24 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
     $function : supports customized transformations
     </li><li>
     (SO <a href='https://stackoverflow.com/questions/70839664/how-to-write-this-mongodb-aggregate-query-into-c-sharp'>Qn</a>)
-    <code><pre>
+    <pre><code>
     public class Employee{
         public int EmpId { get; set; }
         public List<EmployeeProject> Projects { get; set; } }
 
     public class EmployeeProject{
         public DateTime UpdatedDate { get; set; }  }
-    </pre></code>
+    </code></pre>
     1st, nd 2 create a model for unwinded Project.
-    <code><pre>
+    <pre><code>
     public class UnwindEmployeeProject{
         public int EmpId { get; set; }
         public EmployeeProject Projects { get; set; }}
-    </pre></code>
+    </code></pre>
 
     </li><li>
     Full use of AggregateFluent
-    <code><pre>
+    <pre><code>
     var result = _db.GetCollection<Employee>("Employee")
                    .Aggregate()
                    .Unwind<Employee, UnwindEmployeeProject>(i => i.Projects)
@@ -10485,9 +10486,9 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
                            LastUpdated = g.Max(x => x.Projects.LastUpdated)
                        })
                    .ToList();
-    </pre></code>
+    </code></pre>
     Full use of BSonDoc
-    <code><pre>
+    <pre><code>
     PipelineDefinition<Employee, BsonDocument> pipeline = new BsonDocument[]
     {
         new BsonDocument("$unwind", "$Projects"),
@@ -10503,7 +10504,7 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
     var result = _db.GetCollection<Employee>("Employee")
                     .Aggregate(pipeline)
                     .ToList(); 
-    </pre></code>
+    </code></pre>
     </li><li>
     The error <b>"No matching creator found"</b> most likely means that you received the server response, but the returned bson document cannot be converted into History or nested classes in this class.<br>
     So you should look at the proper serialization configuration. Try to avoid using dynamic classes in the projection
@@ -10520,13 +10521,13 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
     ****Aggregate & grp by <a href='https://stackoverflow.com/questions/69163990/mongodb-aggregate-and-group-by-subcategories-of-products'>subCategories</a>
     </li><li>
     *******<a href='https://stackoverflow.com/questions/50983522/mongoose-nested-group-by-with-sorting-on-nested-field'>Nested</a> grp w/sorting on nested fld: The 2nd grp nds to use _id from 1st grp, like so:
-    <code><pre>
+    <pre><code>
       $group: {
           _id: {
               Desc: "$Desc",...
       $group: {
           _id: "$_id.Desc",
-    </pre></code>
+    </code></pre>
     </li><li>
     Getting <a href='https://www.google.com/search?q=dotnet+mongodb+nested+groups+site%3Astackoverflow.com&safe=active&rlz=1C1GCEB_enUS991US1046&source=lnt&tbs=cdr%3A1%2Ccd_min%3A1%2F1%2F2015%2Ccd_max%3A2%2F25%2F2023&tbm=#ip=1'>nested</s> items
     </li><li>
@@ -10539,7 +10540,7 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
     using $replaceRoot after unwinding a match to get @ <a href='https://stackoverflow.com/questions/66913125/cant-unwind-documents-after-group'>nested</a> docs
     </li><li>
     The $group accumulator can be <a href='https://stackoverflow.com/questions/67516488/using-map-in-aggregate-group'>$arrayOfKeyValue</a> as below
-    <code><pre>
+    <pre><code>
         $group: {
           _id: "$arrayofkeyvalue.k",
           value: { $first: "$arrayofkeyvalue.v" }
@@ -10555,7 +10556,7 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
     </li><li>
     <b>Group by multiple flds</b>:
     The key to this is in the <a href='https://stackoverflow.com/questions/68979074/mongodb-aggregate-group-by-multiple-fields'>"_id" value</a> construction:
-    <code><pre>
+    <pre><code>
     IMongoCollection<BsonDocument> collection = GetYourCollectionHere();
 
     // there are many ways to create a filter. Using Builders here.
@@ -10572,17 +10573,17 @@ Note that the ex is for a rec; we nd an alt way to prov fldNm<br>
                     .Aggregate()
                     .Match(filter)
                     .Group(groupby);
-    </pre></code>
+    </code></pre>
     </li><li>
 <b>Basic Grouping</b>:
 When you use the $group stage in aggregation you learn to group by one field as such:<br> { $group: { "_id": "$field1"...<br>
 When you want to group by two or more fields "_id" needs to be a subdocument and you pass the fields as key value pairs inside the subdocument as such:
-<code><pre>
+<pre><code>
 {      $group: { "_id": { "product1": "$product1", "product2": "$prod..
-</pre></code>
+</code></pre>
     </li><li>
 <b>Using $sum</b><br>
-<code><pre>
+<pre><code>
 "total_orders": {"$sum": 1},
   {
     "$set": {
@@ -10591,10 +10592,10 @@ When you want to group by two or more fields "_id" needs to be a subdocument and
       },
     }
   },
-</pre></code>
+</code></pre>
     </li><li>
 <b>Using $set</b><br>
-<code><pre>
+<pre><code>
   // Set (new fld) product id to be the value of the field that was grouped on
   {"$set": {
     "product_id": "$_id",
@@ -10604,11 +10605,11 @@ When you want to group by two or more fields "_id" needs to be a subdocument and
   {"$unset": [
     "_id",
   ]}, 
-</pre></code>
+</code></pre>
     </li><li>
 <b>Using includeArrayIndex (count)</b><br>
 https://stackoverflow.com/questions/60835306/mongodb-add-counter-to-each-retrieved-document
-<code><pre>
+<pre><code>
   {
     $group: {
       _id: null,
@@ -10641,7 +10642,7 @@ https://stackoverflow.com/questions/60835306/mongodb-add-counter-to-each-retriev
       }
     }
   },
-</pre></code>
+</code></pre>
     </li><li>
 <b>Group by mult flds</b><br>
 SO <a href='https://stackoverflow.com/questions/22932364/mongodb-group-values-by-multiple-fields'>qn</a>
@@ -10688,8 +10689,8 @@ You can use $addFields with a $concatArrays expression to add an element to an e
     <details>
     <summary><span class='mHG'>aggregation pagination on grp data</span></summary>
     In $group items you can't directly apply pagination, but below trick will be used ,<br>step 1 - write aggregation on product table, and write groupBY<br>step 2 - prdSkip for skipping , and limit for limiting data , pass it dynamically<br>finally query looks like - params - limit , skip - for category pagination and prdSkip and PrdLimit for products pagination<br>
-    <code><pre>db.products.aggregate([<br>        { $group: { _id: '$prdCategoryId', products: { $push: '$$ROOT' } } },<br>        {<br>            $lookup: {<br>                from: 'categories',<br>                localField: '_id',<br>                foreignField: '_id',<br>                as: 'categoryProducts',<br>            },<br>        },<br>        {<br>            $replaceRoot: {<br>                newRoot: {<br>                    $mergeObjects: [{ $arrayElemAt: ['$categoryProducts', 0] }, '$$ROOT'],<br>                },<br>            },<br>        },<br>        {<br>            $project: {<br>                // pagination for products<br>                products: {<br>                    $slice: ['$products', prdSkip, prdLimit],<br>                },<br>                _id: 1,<br>                catName: 1,<br>                catDescription: 1,<br>            },<br>        },<br>    ])<br>    .limit(limit) // pagination for category<br>    .skip(skip);
-    </pre></code><br>answered Oct 22 '20 at 6:50	Akshay Dhawle
+    <pre><code>db.products.aggregate([<br>        { $group: { _id: '$prdCategoryId', products: { $push: '$$ROOT' } } },<br>        {<br>            $lookup: {<br>                from: 'categories',<br>                localField: '_id',<br>                foreignField: '_id',<br>                as: 'categoryProducts',<br>            },<br>        },<br>        {<br>            $replaceRoot: {<br>                newRoot: {<br>                    $mergeObjects: [{ $arrayElemAt: ['$categoryProducts', 0] }, '$$ROOT'],<br>                },<br>            },<br>        },<br>        {<br>            $project: {<br>                // pagination for products<br>                products: {<br>                    $slice: ['$products', prdSkip, prdLimit],<br>                },<br>                _id: 1,<br>                catName: 1,<br>                catDescription: 1,<br>            },<br>        },<br>    ])<br>    .limit(limit) // pagination for category<br>    .skip(skip);
+    </code></pre><br>answered Oct 22 '20 at 6:50	Akshay Dhawle
     <hr>
     </details>
 </details>  <!--aggregation-->
@@ -10713,41 +10714,41 @@ You can use $addFields with a $concatArrays expression to add an element to an e
     <li>fsharp.tools.eval.<a href='https://github.com/dotnet/fsharp/blob/faa115a2dfd446d2d83ba6dfe19e92a5cc5e13f6/tests/fsharp/tools/eval/test.fsx'>test.fsx</a> contains modules QuotationEvaluation, EvaluationTests, Query(some patterns here)</li>
 
     <li>Expressions/DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionAsTopLevelLet01.fs'>FunctionAsTopLevelLet01.fs</a> contains Various ways of defining functions as a top level let in queries, e.g.<br>
-    <code><pre>
+    <pre><code>
     query { for i in ds do
             let add3 = add 3
             select (add3 i)}
-    </pre></code></li>
+    </code></pre></li>
 
     <li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/MatchInQuery01.fs'>MatchInQuery01.fs</a> as above, but for matches, e.g.<br>
-    <code><pre>
+    <pre><code>
     query { for i in ds do
             let x = 
                 match (i % 2) with
                 | 0 -> i
                 | _ -> i * i
             select x}
-    </pre></code></li>
+    </code></pre></li>
 
     <li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/MatchInQuery02.fs'>MatchInQuery02.fs</a> as above, but using function | for matches</li>
 
     <li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionsDefinedOutsideQuery01.fs'>FunctionsDefinedOutsideQuery01.fs</a> e.g.<br>
-    <code><pre>
+    <pre><code>
     let ie = [1;2;3;4;5]
     let q3 (ds : seq<int>) =    query {   for i in ds do
                                           select (add i i)
                                       } |> Seq.toList
     if q3 ie <> [2;4;6;8;10] then printfn "q3 failed"; exit 1
-    </pre></code></li>
+    </code></pre></li>
 
     <li>DataExpressions/QueryExpressions/<a href='https://github.com/dotnet/fsharp/blob/dbf9a625d3188184ecb787a536ddb85a4ea7a587/tests/fsharpqa/Source/Conformance/Expressions/DataExpressions/QueryExpressions/FunctionWithinTopLevelLet01.fs'>FunctionWithinTopLevelLet01.fs</a> e.g.<br>
-    <code><pre>
+    <pre><code>
     let q1 (ds : seq<int>) =    query { for i in ds do
                                         let aFunc =
                                            let f x = x + 1
                                            f
                                         select (aFunc i)    }
-    </pre></code></li>
+    </code></pre></li>
 
     <li><a href='fsharp/core/queriesCustomQueryOps/test.fsx'>test.fsx</a> has module ShapesOfQueryQuotations which contains several patterns + some more interesting stuff incl evenBldrs/Distributions/etc., all as CEs...</li>
 
@@ -10756,14 +10757,14 @@ You can use $addFields with a $concatArrays expression to add an element to an e
     <li>
 Tests: <a href='https://github.com/dotnet/fsharp/blob/main/tests/fsharp/core/queriesOverIQueryable/test.fsx'>queriesOverIQueryable</a>/test.fsx:
 <br>~2500 lines, allows:
-    <code><pre>
+    <pre><code>
     let data = [Customer]
     let db = System.Linq.Queryable.AsQueryable<Customer>(data |> Seq.ofList)
-    </pre></code>
+    </code></pre>
     line <a href='https://github.com/dotnet/fsharp/blob/285fb61e0befe965b5626d5e009fd1ebd5189084/tests/fsharp/core/queriesOverIQueryable/test.fsx#L1291'>1291</a>
     <br>    // Smoke test for returning an object using property-set notation for member init
     <br>ie, query in below line returns C2 ty w/vals populated
-    <code><pre>
+    <pre><code>
     (query { for x in db do yield C2(V1=1, V2=2) } 
     |> qmap (fun r -> r.V1, r.V2)) 
 ...
@@ -10771,19 +10772,19 @@ Tests: <a href='https://github.com/dotnet/fsharp/blob/main/tests/fsharp/core/que
                 groupBy p.Name into g
                 let s = query { for a in g do sumByNullable a.SomeNullableInt16Value }
                 select (g.Key, s) })
-    </pre></code>
+    </code></pre>
 Note: The above file uses Lists (Queryable); below uses Seq (IEnumerable) (note makes little sense out of ctxt but retained for the diff betw the two...)
     </li>
 <li>
 MANY patterns in CustomQryOps <a href='https://github.com/dotnet/fsharp/blob/main/tests/fsharp/core/queriesCustomQueryOps/test.fsx'>here</a>, incl 
 /// Detect a call to 
-    <code><pre>
+    <pre><code>
       query.Run
       query { ... }
       query.For
       yield
       for .. in do yield x
-    </pre></code>
+    </code></pre>
   </li>    
     </ul>
     </details>
@@ -10795,24 +10796,24 @@ MANY patterns in CustomQryOps <a href='https://github.com/dotnet/fsharp/blob/mai
     <a href='https://stackoverflow.com/questions/66966567/how-to-filter-regular-expression-in-mongodb-with-f'>Regex</a> Filters in Mongo
     <br>
     Brian Berns:  You're close. The only problem I see is that the LINQ expression has to have a return type of Object. This happens implicitly in C#, but in F# you have to explicitly cast it:
-    <code><pre>
+    <pre><code>
     let filter1 =
         Builders<PostDataItem>
             .Filter
             .Regex(
                 (fun n -> n.reference1 :> obj),
                 BsonRegularExpression("1002\d{5}"))
-    </pre></code>
+    </code></pre>
     (IMHO, this is just a bit of C# bias baked into their API. Hopefully they’ll fix it one day.)
     <hr>
     Another similar <a href='https://stackoverflow.com/questions/67101596/how-to-specify-field-mongodb-definition-dynamically-using-a-string-in-f'>filter</a> bld (one fld is a BSonDoc):<br>
-    <code><pre>
+    <pre><code>
     let coll: IMongoCollection<NZPostDataItem> = MongoUtil.getNzpostCollection()
     let filter = Builders<NZPostDataItem>.Filter.And(
             Builders<NZPostDataItem>.Filter.Gte((fun n -> n.dateLodged),DateTime(2020,10,1)),
             Builders<NZPostDataItem>.Filter.Eq((fun n -> n.eshipMatched.Value) , true)
     )// ... etc 
-    </pre></code>
+    </code></pre>
     <hr>
     Using <a href='https://stackoverflow.com/questions/51835975/f-mongodb-using-find-with-string-filter'>Find</a> w/string filter
     <hr>
@@ -11182,7 +11183,7 @@ C# code snippets for DataGridView control ->
 <br>
 <details>
 <summary>Example setting various DataGridView col properties incl tooltips</summary>
-<code><pre>
+<pre><code>
 using System.Windows.Forms;
 using System;
 using System.Drawing;
@@ -11530,7 +11531,7 @@ public class DataGridViewColumnDemo : Form{
         Application.Run(new DataGridViewColumnDemo());
     }
 }
-</pre></code>
+</code></pre>
 </details>
 <hr>
 <details>
@@ -11538,7 +11539,7 @@ public class DataGridViewColumnDemo : Form{
 <br>
 In the following code example, you will paint all the cells in a ContactName column using the DataGridView control's color scheme. Each cell's text content is painted in Crimson, and an inset rectangle is drawn in the same color as the DataGridView control's GridColor property.
 <br>
-<code><pre>
+<pre><code>
 private void dataGridView1_CellPainting(object sender,
 System.Windows.Forms.DataGridViewCellPaintingEventArgs e){
     if (this.dataGridView1.Columns["ContactName"].Index ==
@@ -11577,7 +11578,7 @@ System.Windows.Forms.DataGridViewCellPaintingEventArgs e){
     }
 }
  
-</pre></code>
+</code></pre>
 </details>
 <br>
 MSFT Docs for Customizing the WinForms <a href='https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/customizing-the-windows-forms-datagridview-control?view=netframeworkdesktop-4.8'>DataGridView</a>
@@ -11587,7 +11588,7 @@ MSFT Docs for Customizing the WinForms <a href='https://docs.microsoft.com/en-us
 <li>How to: Customize Cells and Columns in the Windows Forms DataGridView Control by Extending Their Behavior and Appearance</li>
 <li>How to: Host Controls in Windows Forms DataGridView Cells</li></ul>
 <p>
-</pre></code>
+</code></pre>
 </details><!--DataGrid stuff-->
 <p>
 <hr>
@@ -12109,13 +12110,13 @@ https://oria.github.io/gridx/demos/tree.html
     <h2>Initial Frm Notes</h2>
 
 <h3>mod propBox</h3>
-<code><pre>
+<pre><code>
 [MainTab(dzEl)   ["Title", "isDflt", "ForeClr"; "BackClr", "nmCols"]
 BorderTab(dzEl)  ["None";"Single";"3D"] -> border-style: none/solid/ridge;
 FontTab(dzEl)	"LblFont";"ValFont"
 ColorTab(dzEl)	"ForeClr"; "BackClr"
 SizeTab(dzEl)	Wid, Ht		(units shd be cell-rel)
-</pre></code>
+</code></pre>
 
 ⚠️ we nd ttips 4 validationErr
 ⚠️ (v2?) we nd ttips 4 fld
@@ -12298,7 +12299,7 @@ let minVal, maxVal, smChg = //fDef nds to be updated @hardCoded
 
 </code></pre>
 <hr>
-<code><pre>
+<pre><code>
     let બનારસી_પીચાક_fld_eoy =
         fun (ક્વિમામ:option<_>) (d:Form) ->
         (*
@@ -12315,22 +12316,22 @@ let minVal, maxVal, smChg = //fDef nds to be updated @hardCoded
         let (BanarasiMasaloAux(unid, dispNm, સુપારી, usrFlds, usrDefLblFont, usrDefDataFont, usrDefForeColor, usrDefBackColor, docInf)) = બનારસી
         ...
         ##### cutoffPt was: ...
-</pre></code>
+</code></pre>
 
 <hr>
 <h3>loggedUI</h3>
-<code><pre>
+<pre><code>
   let bmBtn = new Button(Text = "BM", AutoSize = true)
   bmBtn.Click.AddHandler(new EventHandler(fun (sender:obj) (e:EventArgs) ->
     let bf:BanarasiFldAux<TaskTbl> list = docF |> lim (fun f -> BanarasiFldAux(f, 1, 1, None, Thingy(""), "", TaskTbl()))
     let bm = BanarasiMasaloAux((getUNID "^બનારસી_મસાલો"), nm, 2, bf, defIt, defFont, (currentScheme ((!!~ "wld" f).Value)).Fore(), (currentScheme ((!!~ "wld" f).Value)).Back(), DesDocInfDeflt())
     let frm = (બનારસી_પાન((rejig bm), f, false, "pId", "winTy")) :> Form
     frm.Show()))
-</pre></code>
+</code></pre>
 <hr>
 
 <h3>brij</h3>
-<code><pre>
+<pre><code>
 type BanarasiFldAux<'t when 't :> ITblMarker> = | BanarasiFldAux of docF:DocFld * colSpan:int * rowSpan:int * 
                                                     vFn:('t -> bool) option * CanUhear:Thingy * fldTtip:string * tblTy:'t with
     override this.ToString() = 
@@ -12345,7 +12346,7 @@ type BanarasiMasaloAux<'t when 't :> ITblMarker> = | BanarasiMasaloAux of unid:D
                                                     docInf:DesDocInf with
     static member getDefault(docF:DocFld list, nm, ty:'t) = 
        ...
-</pre></code>
+</code></pre>
 </div><!--gridxFrm-->
 <p>
 <hr>
@@ -13782,7 +13783,7 @@ by Tomasz Nurkiewicz (of Functors/Monad fame) -> <a href='https://www.nurkiewicz
 Can be used for loading batches (pages) of data from database. Using ResultSet or Iterator is cumbersome but loading whole data set into memory often not feasible. An alternative involves loading first batch of data eagerly and then providing a function to load next batches. Data is loaded only when it's really needed and we don't suffer performance or scalability issues.
 <br>
 
-<code><pre>
+<pre><code>
  First let's define abstract API for loading batches of data from database:
 public List<Record> loadPage(int offset, int max) {
     //load records from offset to offset + max
@@ -13798,7 +13799,7 @@ private LazySeq<Record> records(int from) {
         () -> records(from + PAGE_SIZE)
     );
 }
-</pre></code>
+</code></pre>
 <br>
 </details>
 <p>
@@ -13820,7 +13821,7 @@ https://www.ibm.com/developerworks/java/library/j-ft14/index.html
 <p>
 example class (no getters/setters/noArg constr; all flds final; class final):
 <br>
-<code><pre>
+<pre><code>
 public final class Address {
     private final List<String> streets;
     public final String city;
@@ -13838,7 +13839,7 @@ public final class Address {
         return Collections.unmodifiableList(streets);
     }
 }
-</pre></code>
+</code></pre>
 <br>
 </details>
 
@@ -13852,7 +13853,7 @@ so that the instance can act as the owner of the cache. This could
 be improved, but the improvement is trivial in subsequent examples, 
 so I won't bother here...."
 <p>
-<code><pre>
+<pre><code>
 import fj.F;
 import fj.data.List;
 import java.util.HashMap;
@@ -13911,7 +13912,7 @@ public class FjPrimeNumber {
         return candidate == 2 || sumFactors() == candidate + 1;
     }
 }
-</pre></code>
+</code></pre>
 <p>
 </details>
 
@@ -13949,7 +13950,7 @@ This installment of Evolutionary architecture and emergent design continues the 
 
 <br>Listing 1. Goal syntax for a calendar DSL
 <br>
-<code><pre>
+<pre><code>
 
 public class CalendarDemoChained { 
 
@@ -13980,7 +13981,7 @@ public class CalendarDemoChained {
 	}
   }
 
-</pre></code>
+</code></pre>
 <br>
 <br>After the necessary cruft at the top dealing with Java calendars, you can see the method-chainingfluent interface in action as I add values to the two calendar entries. Notice that I'm using whitespace to separate the parts of what is (from a Java syntax standpoint) a single line of code. It iscommon in internal DSLs to stylize the use of the base language to make the DSL more readable.
 <br>
@@ -13989,7 +13990,7 @@ public class CalendarDemoChained {
 
 <br>Listing 2. Appointment class
 <br>
-<code><pre>
+<pre><code>
 public class Appointment { 
   private String _name; 
   private String _location; 
@@ -14034,7 +14035,7 @@ public class Appointment {
 	(_endTime != null? ", End time: " + _endTime.get(Calendar.HOUR_OF_DAY) : "");
   }
 }
-</pre></code>
+</code></pre>
 <br>
 
 <br>As you can see, building fluent interfaces is straightforward. For each of the mutator methods, youdiverge from standard JavaBean syntax by writing your setter methods to return the host object(this) and by replacing the set naming convention with something more readable. The generaldefinition at the start of this section should now be clear. The context being relayed via the methodchaining is this, meaning that you can make a series of method calls concisely.
@@ -14043,7 +14044,7 @@ public class Appointment {
 <br>
 <br>Listing 3. An API for a train car
 <br>
-<code><pre>
+<pre><code>
 	Car2 car = new CarImpl();
 	MarketingDescription desc = new MarketingDescriptionImpl();
 	desc.setType("Box");
@@ -14052,21 +14053,21 @@ public class Appointment {
 	desc.setAttribute("ladder", "yes");
 	desc.setAttribute("lining type", "cork");
 	car.setDescription(desc);
-</pre></code>
+</code></pre>
 <br>
 <br>The problem domain for train cars is complex because of regulatory rules about contents andhistory. On the project that yielded this example, we had lots of complicated testing scenarios thatrequired dozens of lines of set calls like the ones in Listing 3. We tried to get our business analyststo verify that we had the right magical combination of attributes, but they pushed back becausethey viewed it as Java code, which they had no interest in reading. The ultimate impact of thisproblem was the requirement that a developer verbally translate the details, which is of courseerror-prone and time-consuming.
 <br>
 <br>To resolve this problem, we converted our Car class into a fluent interface, so that the code fromListing 3 became the fluent interface shown in Listing 4:
 <br>
 <br>Listing 4. Fluent interface for train cars
-<code><pre>
+<pre><code>
 	Car car = Car.describedAs() 
 		.box() 
 		.length(50.5) 
 		.type(Type.INSULATED) 
 		.includes(Equipment.LADDER) 
 		.lining(Lining.CORK);
-</pre></code>
+</code></pre>
 <br>
 <br>This code was declarative enough and removed sufficient noise from the Java API version that ourbusiness analysts were happy to verify it for us.
 <br>
@@ -14074,7 +14075,7 @@ public class Appointment {
 <br>
 <br>Listing 5. AppointmentCalendar
 <br>
-<code><pre>
+<pre><code>
 public class AppointmentCalendarChained { 
 
 	private List<Appointment> appointments; 
@@ -14093,7 +14094,7 @@ public class AppointmentCalendarChained {
 		return appt; 
 	}
 }
-</pre></code>
+</code></pre>
 
 <br>
 <br>The add() method:
@@ -14118,14 +14119,14 @@ public class AppointmentCalendarChained {
 <br>
 <br>Listing 6. Adding printing
 <br>
-<code><pre>
+<pre><code>
 	public Appointment add(String name) { 
 		Appointment appt = new Appointment(name); 
 		appointments.add(appt); 
 		System.out.println(appt.toString()); 
 		return appt;
 	}
-</pre></code>
+</code></pre>
 <br>
 <br>When you run the code in Listing 6, the unhappy results illustrated in Figure 2 show up:
 <br>
@@ -14144,7 +14145,7 @@ public class AppointmentCalendarChained {
 <br>
 <br>Listing 7. Wrapping via parameter
 <br>
-<code><pre>
+<pre><code>
 	AppointmentCalendar calendar = new AppointmentCalendar();
 	calendar.add( 
 		new Appointment("Dentist").
@@ -14163,12 +14164,12 @@ public class AppointmentCalendarChained {
 	calendar.add( new Appointment("No Fluff, Just Stuff"). 
 		at(fourPM));
 	displayAppointments(calendar);
-</pre></code>
+</code></pre>
 <br>
 <br>In Listing 7, the add() method's parentheses encapsulate the entire use of the Appointmentfluent interface, allowing the add() method to handle whatever additional behavior that it wants(printing, persistence, and so on). In fact, I couldn't resist adding a bit of a fluent interface toAppointmentCalendar itself: you can now chain together the add() methods, as shown in Listing 7and implemented in Listing 8:
 <br>
 <br>Listing 8. The parameter-wrapping AppointmentCalendar
-<br><code><pre>
+<br><pre><code>
 public class AppointmentCalendar { 
 	private List<Appointment> appointments; 
 
@@ -14185,7 +14186,7 @@ public class AppointmentCalendar {
 		return appointments; 
 	}
 }
-</pre></code>
+</code></pre>
 <br>
 <br>The finishing problem can arise any time you mix fluent-interface classes. It popped up inthis example because I used the appointment calendar to start the method chain, mixingthe construction and wrapping behaviors. By deferring construction and initialization tothe Appointment class, I make it easier to separate additional wrapping behavior (such aspersistence).
 <br>
@@ -14195,7 +14196,7 @@ public class AppointmentCalendar {
 <br>Thus far, I've shown two of the three context-passing techniques for fluent-interface DSLs. The third functional sequence uses inheritance and anonymous inner classes to create a contextwrapper. The calendar application rewritten using functional sequence appears in Listing 9:
 
 <br>Listing 9. Wrapping via functional sequence
-<br><code><pre>
+<br><pre><code>
 	calendar.add(new Appointment() {{ 
 		name("dentist"); 
 		from(fourPM); 
@@ -14207,7 +14208,7 @@ public class AppointmentCalendar {
 		name("birthday party"); 
 		at(fourPM);
 	}});
-</pre></code>
+</code></pre>
 <br>
 <br>Listing 9 shows a pattern that I introduced in "Leveraging reusable code, Part 2" under the guiseof removing structural duplication. The syntax looks odd because of the double {{ braces. The firstset of enclosing braces delineates the construction of an anonymous inner class, and the secondset delineates the instance initializer for the anonymous inner class. (If this sounds a bit confusing,you can refer back to "Leveraging Reusable Code, Part 2" for a lengthy explanation of this Javaidiom.)
 <br>
@@ -14299,7 +14300,7 @@ Understanding streams and mutables in the functional pipeline<br><ul>
 A neat example of Venkat Subramaniam's 'higher-order' or composed fns + DSL + functional style -><br>
 from Akka <a href='https://developer.lightbend.com/start/?group=akka&project=akka-http-quickstart-java'>Http Quickstart</a> Java<br>
 <br>
-<code><pre>
+<pre><code>
 @Override
   public Receive createReceive(){
     return receiveBuilder()
@@ -14323,7 +14324,7 @@ from Akka <a href='https://developer.lightbend.com/start/?group=akka&project=akk
             .build();
   }
 }
-</pre></code>
+</code></pre>
 <p>
 
 
@@ -14411,7 +14412,7 @@ Posted by Bartosz Milewski under Category Theory, Haskell, Monads
 <p>
 <details>
     <summary><span class='mHG'>Fn.al Data Validation</span></summary>
-<code><pre>
+<pre><code>
 def validateName(str: String): Validated[Name] =
     cond(str.length <= 3, Name(str), List("your name is too lo.."))
 
@@ -14420,11 +14421,11 @@ def validateAge(i: Int): Validated[Age] =
 
 def validateTlf(str: String): Validated[Telephone] =
     cond(str.length == 8, Telephone(str), List("No answer!"))
-</pre></code>
+</code></pre>
 <br>
 Because Either is a Monad in Scala we can implement our validation function using the map and flatMap properties provided by the Monad type class:
 <br>
-<code><pre>
+<pre><code>
   def validateUser(name: String, age: Int, tel: String): Validated[User] =
     validateName(name).flatMap(
       n =>
@@ -14434,18 +14435,18 @@ Because Either is a Monad in Scala we can implement our validation function usin
               .map(t => User(n, a, t))
         )
     )
-</pre></code>
+</code></pre>
 <br>
 Using for-comprehensions, which are just syntax sugar for flatMap and map we get very nice syntax for defining a sequence of monadic operations:
 <br>
-<code><pre>
+<pre><code>
 def validateUser(name: String, age: Int, tel: String): Validated[User] =
     for {
       n <- validateName(name)
       a <- validateAge(age)
       t <- validateTlf(tel)
     } yield User(n, a, t)
-</pre></code>
+</code></pre>
 <b>Using the for-comp.'s in Java?  SO consensus is 'use flatMap/map; this is just syntactical sugar'</b>
 <br>
 </details>
@@ -14520,7 +14521,7 @@ language. This answer is misleading.
 <a href='https://medium.com/zyseme-technology/functional-references-lens-and-other-optics-in-scala-e5f7e2fdafe'>Functional References - optics</a><br>
 Debasish Ghosh, in in the book Functional And Reactive Domain Modeling, defined a compose function that allows us to put together Lenses and reuse code:
 <p>
-<code><pre>
+<pre><code>
 def compose[Outer, Inner, Value](
     outer: Lens[Outer, Inner],
     inner: Lens[Inner, Value]
@@ -14528,7 +14529,7 @@ def compose[Outer, Inner, Value](
   get = outer.get andThen inner.get,
   set = (obj, value) => outer.set(obj, inner.set(outer.get(obj), value))
 )
-</pre></code>
+</code></pre>
 <br>
 <a href='https://github.com/martincooper/java-datatable'>Java DataTable</a><br>
 Java DataTable is a lightweight, in-memory table structure written in Java. The implementation is entirely immutable. Modifying any part of the table, adding or removing columns, rows, or individual field values will create and return a new structure, leaving the old one completely untouched. This is quite efficient due to structural sharing.
@@ -14642,7 +14643,7 @@ A value of type U<br>
 
 <br>
 
-</pre></code>
+</code></pre>
 <hr>
 </details>
 <br><a href='https://www.curry-on.org/2019/sessions/the-future-of-dsls-functions-and-formal-methods.html'>Talk 'Future of DSL', creating dsl compiler **</a>
@@ -14663,7 +14664,7 @@ Functional Programming <a href='https://marmelab.com/blog/2018/09/26/functional-
 <details>
 <summary><span class='mHG'>Unfolding multiple Optional variables in Java 8</span></summary>
 
-	<code><pre>
+	<pre><code>
 I have the following problem. Let's say you have 2 Optional variables
 Optional<Contact> c1 = ...
 Optional<Contact> c2 = ...
@@ -14691,7 +14692,7 @@ try {
 If they aren't an exceptional case then I would go with your first option as being more explicit about your intent. In my view it's pretty clear and readable, and easy to change to use orElse if you wish to switch to using defaults if the optionals are empty.
 answered Apr 6 '16 at 11:53 
 sprinter 
-	</pre></code>
+	</code></pre>
 </details>
 
 <p>
@@ -14699,7 +14700,7 @@ sprinter
 <details>
 <summary><span class='mHG'>What's the difference between map and flatMap methods in Java 8?</span></summary>
 
-	<code><pre>
+	<pre><code>
 A: The type signature kinda tells the whole story. 
 map :: Stream T -> (T -> R) -> Stream R, 
 flatMap :: Stream T -> (T -> Stream R) -> Stream R.  Chris Martin Oct 31 '14 at 22:56 
@@ -14798,7 +14799,7 @@ http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html
 answered Feb 24 '17 at 19:54 
 Rusty Core 
 
-	</pre></code>
+	</code></pre>
 </details>
 
 <p>
@@ -14806,7 +14807,7 @@ Rusty Core
 <details>
 <summary><span class='mHG'>Using Flatmap/Filter</span></summary>
 
-	<code><pre>
+	<pre><code>
 Q: I have a Stream of Integer and I would like to find the two numbers whose sum is equals to another number. So I came up with the following solution:
 BiPredicate<Integer, Integer> p = (price1, price2) -> price1.intValue() + price2.intValue() == moneyQty;
 flavoursPrices.filter(p);
@@ -14857,7 +14858,7 @@ public class Main {
 It is worth noting that flatMap one of the most powerful functions there is; almost all stream transformations (filter, map, cartesian product, flatten) can be implemented using it. And rest (like zip) is almost always a fold/reduce (or, rarely, an unfold).
 answered Mar 15 '16 at 21:16  phg 
 
-	</pre></code>
+	</code></pre>
 </details>
 
 
@@ -14870,15 +14871,15 @@ answered Mar 15 '16 at 21:16  phg
     <summary><span class='mHG'>Using Reduce</span></summary>
 
 Q: Given a value foo and a Stream of Consumer<Foo> void functions, what's the most concise way to apply each function to the value? <br>Right now I have
-<code><pre>
+<pre><code>
 consumers.forEach(c -> c.accept(foo));
-	</pre></code>
+	</code></pre>
 which isn't terrible, but I suspect there might be some way to turn this inside out and do it with just method references (no explicit lambda). Possibly something with a singleton list and zip()?
 
 A: You could reduce your consumers by means of the Consumer.andThen method and then apply the resulting consumer to the foo argument:
-	<code><pre>
+	<pre><code>
 consumers.reduce(Consumer::andThen).ifPresent(c -> c.accept(foo));
-	</pre></code>
+	</code></pre>
 But there's no difference between this approach and yours, and yours' is shorter.
 answered Nov 28 '17 at 22:07 Federico Peralta Schaffner 
 </details>
@@ -15008,7 +15009,7 @@ http://rosettacode.org/wiki/Tree_traversal#Java (Level.Order)
 </details>
 
 <h3>Cascading lambdas:</h3>
-<code><pre>
+<pre><code>
 Function&lt;Integer, Predicate&lt;Integer&gt; &gt; isGreaterThan = (pivot) > {
   Predicate&lt;Integer&gt; isGreaterThanPivot = (candidate) > {
     return candidate > pivot;
@@ -15040,7 +15041,7 @@ a lambda expression returned by the outer lambda expression.
 
 since the appMaker/codeStealer bastas can't use jdk8 they WANT explicit type declaration.
 The next time they throw fakeA$$ errs, we can help em behave
-<code><pre>
+<pre><code>
 List(less-thanString> result =
   cars.stream()
     .map((Car c) > c.getRegistration())
@@ -15059,14 +15060,14 @@ List(<String> result =
 </code></pre>
 the explicit type, now redundant, has quietly disappeared.
 <hr><h3>curry using cascadingLambdas</h3>
-<code><pre>
+<pre><code>
 
 	Function<Integer, Function<Integer, Integer>> add = x -> y -> x + y;
 	Function<Integer, Integer> add5 = add.apply(5);
 	System.out.println(add5.apply(2));	//prints 7 and 
-</pre></code>
+</code></pre>
 <hr><h3> compose(f, g) (x) = f(g(x))</h3>
-<code><pre>
+<pre><code>
     public static <A,B,C> Function<A,C> compose(Function<B,C> f, Function<A,B> g) {
         return x -> f.apply(g.apply(x));
     }
@@ -15076,18 +15077,18 @@ the explicit type, now redundant, has quietly disappeared.
  
         System.out.println(sin_asin.apply(0.5)); // prints "0.5"
     } 
-</pre></code>
+</code></pre>
 <hr><h3> fold https://en.wikipedia.org/wiki/Fold_(higher-order_function)</h3>
-<code><pre>
+<pre><code>
         System.out.println(Stream.of(1, 2, 3, 4, 5).reduce(1, (a, b) -> a * b));
-</pre></code>
+</code></pre>
 
 (the 1st param to reduce is the identity value ie val for which b returns itself)
-</pre></code>
+</code></pre>
 <hr><h3> parametric polymorphism: a way to define types or functions that are 
 generic over other types. </h3>
 http://rosettacode.org/wiki/Parametric_polymorphism
-<code><pre>
+<pre><code>
 public class Tree<T>{
 	private T value;
 	private Tree<T> left;
@@ -15101,7 +15102,7 @@ public class Tree<T>{
 			right.replaceAll(value);
 	}
 }
-</pre></code>
+</code></pre>
 
 <br>
 <br>Folds in javaScript; theory (incl folding for composition); list-of-lists to struct
@@ -15140,7 +15141,7 @@ Motherload of links (to JAVA <a href= https://caiorss.github.io/Functional-Progr
 
 <!-- div devJavaHotSwap -->
 <section>
-<div id="misc_java_hotSwap" align=center x:publishsource="Excel">
+<div id="misc_java_hotSwap">
 <p><p>
 
 <details><summary><span class='mHG'>Discussion / notes / options</span></summary>
@@ -15206,7 +15207,7 @@ Feenix</span>
 to the new classLoader with the newly compiled/updated class.  Transparent to the user, no
 reboot. Only issue: STATE]]<p>
 
-<p>https://www.javaworld.com/article/2071777/design-patterns/add-dynamic-java-code-to-your-application.html<p><p><h3>Add dynamic Java code to your application</h3><p><p><h5>Write code that can respond to changes at runtime</h5><p><p>By Li Yang <p> <p>JavaWorld | <p>Jun 12, 2006 1:00 AM PT <p><p><p>JavaServer Pages (JSP) is a more flexible technology than servlets because it can respond to dynamic changes at runtime. Can you imagine a common Java class that has this dynamic capability too? It would be interesting if you could modify the implementation of a service without redeploying it and update your application on the fly.<p><p>The article explains how to write dynamic Java code. It discusses runtime source code compilation, class reloading, and the use of the Proxy design pattern to make modifications to a dynamic class transparent to its caller.<p><p><h4>An example of dynamic Java code</h4><p><p>Let's start with an example of dynamic Java code that illustrates what true dynamic code means and also provides some context for further discussions. Please find this example's complete source code in Resources.<p><p>The example is a simple Java application that depends on a service called Postman. The Postman service is described as a Java interface and contains only one method, deliverMessage():<p><p><code><pre><p>public interface Postman {<p>    void deliverMessage(String msg);<p>}<p></pre></code><p><p><p>A simple implementation of this service prints messages to the console. The implementation class is the dynamic code. This class, PostmanImpl, is just a normal Java class, except it deploys with its source code instead of its compiled binary code:<p><p><code><pre><p>public class PostmanImpl implements Postman {<p><p>    private PrintStream output;<p>    <p>    public PostmanImpl() {<p>        output = System.out;<p>    }<p>    <p>    public void deliverMessage(String msg) {<p>        output.println("[Postman] " + msg);<p>        output.flush();<p>    }<p>}<p></pre></code><p><p>The application that uses the Postman service appears below. In the main() method, an infinite loop reads string messages from the command line and delivers them through the Postman service:<p><p><code><pre><p>public class PostmanApp {<p><p>    public static void main(String[] args) throws Exception {<p>        BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));<p><p>        // Obtain a Postman instance<p>        Postman postman = getPostman();<p><p>        while (true) {<p>            System.out.print("Enter a message: ");<p>            String msg = sysin.readLine();<p>            postman.deliverMessage(msg);<p>        }<p>    }<p><p>    private static Postman getPostman() {<p>        // Omit for now, will come back later<p>    }<p> }<p></pre></code><p><p>Execute the application, enter some messages, and you will see outputs in the console such as the following (you can download the example and run it yourself):<p><p><code><pre><p>[DynaCode] Init class sample.PostmanImpl<p>Enter a message: hello world<p>[Postman] hello world<p>Enter a message: what a nice day!<p>[Postman] what a nice day!<p>Enter a message: <p></pre></code><p><p>Everything is straightforward except for the first line, which indicates that the class PostmanImpl is compiled and loaded.<p><p>Now we are ready to see something dynamic. Without stopping the application, let's modify PostmanImpl's source code. The new implementation delivers all the messages to a text file, instead of the console:<p><p><code><pre><p>// MODIFIED VERSION<p>public class PostmanImpl implements Postman {<p><p>    private PrintStream output;<p>    <p>    // Start of modification<p>    public PostmanImpl() throws IOException {<p>        output = new PrintStream(new FileOutputStream("msg.txt"));<p>    }<p>    // End of modification<p><p>    public void deliverMessage(String msg) {<p>        output.println("[Postman] " + msg);<p><p>        output.flush();<p>    }<p>}<p></pre></code><p><p>Shift back to the application and enter more messages. What will happen? Yes, the messages go to the text file now. Look at the console:<p><p><code><pre><p>[DynaCode] Init class sample.PostmanImpl<p>Enter a message: hello world<p>[Postman] hello world<p>Enter a message: what a nice day!<p>[Postman] what a nice day!<p>Enter a message: I wanna go to the text file.<p>[DynaCode] Init class sample.PostmanImpl<p>Enter a message: me too!<p>Enter a message: <p></pre></code><p><p>Notice <b>[DynaCode] Init class sample.PostmanImpl</b> appears again, indicating that the class <b>PostmanImpl</b> is recompiled and reloaded. If you check the text file msg.txt (under the working directory), you will see the following:<p><p><code><pre><p>[Postman] I wanna go to the text file.<p>[Postman] me too!<p></pre></code><p><p>Amazing, right? We are able to update the Postman service at runtime, and the change is completely transparent to the application. (Notice the application is using the same Postman instance to access both versions of the implementations.)<p><p><h5>Four steps towards dynamic code</h5><p><p>Let me reveal what's going on behind the scenes. Basically, there are four steps to make Java code dynamic:<p><ul><p><li>Deploy selected source code and monitor file changes<p><li>Compile Java code at runtime<p><li>Load/reload Java class at runtime<p><li>Link the up-to-date class to its caller<p></ul><p>Deploy selected source code and monitor file changes<p><p>To start writing some dynamic code, the first question we have to answer is, "Which part of the code should be dynamicthe whole application or just some of the classes?" Technically, there are few restrictions. You can load/reload any Java class at runtime. But in most cases, only part of the code needs this level of flexibility.<p><p>The Postman example demonstrates a typical pattern on selecting dynamic classes. No matter how a system is composed, in the end, there will be building blocks such as services, subsystems, and components. These building blocks are relatively independent, and they expose functionalities to each other via predefined interfaces. Behind an interface, it is the implementation that is free to change as long as it conforms to the contract defined by the interface. This is exactly the quality we need for dynamic classes. So simply put: Choose the implementation class to be the dynamic class.<p><p>For the rest of the article, we'll make the following assumptions about the chosen dynamic classes:<p><ul><p><li>The chosen dynamic class implements some Java interface to expose functionality<p><li>The chosen dynamic class's implementation does not hold any stateful information about its client (similar to the stateless session bean), so the instances of the dynamic class can replace each other<p></ul><p>Please note that these assumptions are not prerequisites. They exist just to make the realization of dynamic code a bit easier so we can focus more on the ideas and mechanisms.<p><p>With the selected dynamic classes in mind, deploying the source code is an easy task. Figure 1 shows the file structure of the Postman example.<p><p>PostmanExample<p>&nbsp;&nbsp;	bin<p>&nbsp;&nbsp;	dynacode<p>&nbsp;&nbsp;	&nbsp;&nbsp;	sample<p>&nbsp;&nbsp;	&nbsp;&nbsp;	&nbsp;&nbsp;	PostmanImpl.java<p>&nbsp;&nbsp;	src<p><p>We know "src" is source and "bin" is binary. One thing worth noting is the dynacode directory, which holds the source files of dynamic classes. Here in the example, there's only one filePostmanImpl.java. The bin and dynacode directories are required to run the application, while src is not necessary for deployment.<p><p>Detecting file changes can be achieved by comparing modification timestamps and file sizes. For our example, a check to PostmanImpl.java is performed every time a method is invoked on the Postman interface. Alternatively, you may spawn a daemon thread in the background to regularly check the file changes. That may result in better performance for large-scale applications.<p><p><h5>Compile Java code at runtime</h5><p><p>After a source code change is detected, we come to the compilation issue. By delegating the real job to an existing Java compiler, runtime compilation can be a piece of cake. Many Java compilers are available for use, but in this article, we use the Javac compiler included in Sun's Java Platform, Standard Edition (Java SE is Sun's new name for J2SE).<p><p>At the minimum, you can compile a Java file with just one statement, providing that the tools.jar, which contains the Javac compiler, is on the classpath (you can find the tools.jar under <JDK_HOME>/lib/):<p><p><code><pre><p>   int errorCode = com.sun.tools.javac.Main.compile(new String[] {<p>            "-classpath", "bin",<p>            "-d", "/temp/dynacode_classes",<p>            "dynacode/sample/PostmanImpl.java" });<p></pre></code><p><p>The class <b>com.sun.tools.javac.Main</b> is the programming interface of the Javac compiler. It provides static methods to compile Java source files. Executing the above statement has the same effect as running <b>javac</b> from the command line with the same arguments. It compiles the source file dynacode/sample/PostmanImpl.java using the specified classpath bin and outputs its class file to the destination directory /temp/dynacode_classes. An integer returns as the error code. Zero means success; any other number indicates something has gone wrong.<p><p>The com.sun.tools.javac.Main class also provides another <b>compile()</b> method that accepts an additional PrintWriter parameter, as shown in the code below. Detailed error messages will be written to the PrintWriter if compilation fails.<p><p><code><pre><p>   // Defined in com.sun.tools.javac.Main<p>    public static int compile(String[] args);<p>    public static int compile(String[] args, PrintWriter out);<p></pre></code><p><p>I assume most developers are familiar with the Javac compiler, so I'll stop here. For more information about how to use the compiler, please refer to Resources.<p><p><h5>Load/reload Java class at runtime</h5><p><p>The compiled class must be loaded before it takes effect. Java is flexible about class loading. It defines a comprehensive class-loading mechanism and provides several implementations of classloaders. (For more information on class loading, see Resources.)<p><p>The sample code below shows how to load and reload a class. The basic idea is to load the dynamic class using our own <b>URLClassLoader</b>. Whenever the source file is changed and recompiled, we discard the old class (for garbage collection later) and create a new URLClassLoader to load the class again.<p><p><code><pre><p>    // The dir contains the compiled classes.<p>    File classesDir = new File("/temp/dynacode_classes/");<p><p>    // The parent classloader<p>    ClassLoader parentLoader = Postman.class.getClassLoader();<p><p>    // Load class "sample.PostmanImpl" with our own classloader.<p>    URLClassLoader loader1 = new URLClassLoader(<p>            new URL[] { classesDir.toURL() }, parentLoader);<p>    Class cls1 = loader1.loadClass("sample.PostmanImpl");<p>    Postman postman1 = (Postman) cls1.newInstance();<p><p>    /*<p>     * Invoke on postman1 ...<p>     * Then PostmanImpl.java is modified and recompiled.<p>     */<p><p>    // Reload class "sample.PostmanImpl" with a new classloader.<p>    URLClassLoader loader2 = new URLClassLoader(<p>            new URL[] { classesDir.toURL() }, parentLoader);<p>    Class cls2 = loader2.loadClass("sample.PostmanImpl");<p>    Postman postman2 = (Postman) cls2.newInstance();<p><p>    /*<p>     * Work with postman2 from now on ...<p>     * Don't worry about loader1, cls1, and postman1<p>     * they will be garbage collected automatically.<p>     */<p></pre></code><p><p>Pay attention to the <b>parentLoader</b> when creating your own classloader. Basically, the rule is that the parent classloader must provide all the dependencies the child classloader requires. So in the sample code, the dynamic class PostmanImpl depends on the interface Postman; that's why we use Postman's classloader as the parent classloader.<p><p>We are still one step away to completing the dynamic code. Recall the example introduced earlier. There, dynamic class reload is transparent to its caller. But in the above sample code, we still have to change the service instance from postman1 to postman2 when the code changes. The fourth and final step will remove the need for this manual change.<p><p><h5>Link the up-to-date class to its caller</h5><p><p>How do you access the up-to-date dynamic class with a static reference? Apparently, a direct (normal) reference to a dynamic class's object will not do the trick. We need something between the client and the dynamic classa proxy. (See the famous book Design Patterns for more on the Proxy pattern.)<p><p>Here, a proxy is a class functioning as a dynamic class's access interface. A client does not invoke the dynamic class directly; the proxy does instead. The proxy then forwards the invocations to the backend dynamic class. Figure 2 shows the collaboration.<p><p>When the dynamic class reloads, we just need to update the link between the proxy and the dynamic class, and the client continues to use the same proxy instance to access the reloaded class. Figure 3 shows the collaboration.<p><p>In this way, changes to the dynamic class become transparent to its caller.<p><p>The Java reflection API includes a handy utility for creating proxies. The class <b>java.lang.reflect.Proxy</b> provides static methods that let you create proxy instances for any Java interface.<p><p>The sample code below creates a proxy for the interface Postman. (If you aren't familiar with java.lang.reflect.Proxy, please take a look at the Javadoc before continuing.)<p><p><code><pre><p>   InvocationHandler handler = new DynaCodeInvocationHandler(...);<p>    Postman proxy = (Postman) Proxy.newProxyInstance(<p>                Postman.class.getClassLoader(),<p>                new Class[] { Postman.class },<p>                handler);<p></pre></code><p><p>The returned proxy is an object of an anonymous class that shares the same classloader with the Postman interface (the <b>newProxyInstance()</b> method's first parameter) and implements the Postman interface (the second parameter). A method invocation on the proxy instance is dispatched to the handler's invoke() method (the third parameter). And handler's implementation may look like the following:<p><p><code><pre><p>public class DynaCodeInvocationHandler implements InvocationHandler {<p><p>    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {<p>        <p>        // Get an instance of the up-to-date dynamic class<p>        Object dynacode = getUpToDateInstance();<p>        <p>        // Forward the invocation<p>        return method.invoke(dynacode, args);<p>    }<p>}<p></pre></code><p><p>The <b>invoke()</b> method obtains an instance of the up-to-date dynamic class and forwards the invocation to it. This may involve source code compilation and class reloading if the dynamic class's source file has been modified.<p><p>Now we have completed the Postman service's dynamic code. A client creates a proxy of the service and calls the method <b>deliverMessage()</b> through the proxy. Each invocation on the proxy is dispatched to the <b>DynaCodeInvocationHandler</b> class's <b>invoke()</b> method. In that method, the latest service implementation is first obtained, which may involve necessary source compilation and class reloading. Then, the invocation forwards to the implementation for real processing.<p><p><h5>Put it all together</h5><p><p>We have gone through all the tricks required for the dynamic Java code. It's time to put them together to build something reusable.<p><p>We can build a utility to ease the adoption of dynamic code by encapsulating the four steps mentioned above. The Postman example relies on such a utility called DynaCode. Remember the PostmanApp application and its omitted <b>getPostman()</b> method? It's time to show it:<p><p><code><pre><p>public class PostmanApp {<p><p>    public static void main(String[] args) throws Exception {<p>        // ......<p>    }<p><p>    private static Postman getPostman() {<p>        DynaCode dynacode = new DynaCode();<p>        dynacode.addSourceDir(new File("dynacode"));<p>        return (Postman) dynacode.newProxyInstance(Postman.class,<p>                "sample.PostmanImpl");<p>    }<p> }<p></pre></code><p><p>See how the getPostman() method creates a dynamic Postman service, creates an instance of DynaCode, specifies a source directory, and returns a proxy of some dynamic implementation. To use your own dynamic Java code, you simply need to write three lines of code. Everything else is taken care of inside DynaCode. Try it yourself (the DynaCode's source code is included in the example).<p><p>I won't go into further details of DynaCode, but as a review of the technologies we've talked about, take a look at the sequence diagram in Figure 4 to see how DynaCode works at a high level.<p><p><h5>Conclusion</h5><p><p>In this article, I introduced the idea of dynamic Java code and the steps required to realize it. I covered topics such as runtime source compilation, class reloading, and the Proxy design pattern. Though none of these topics are new, by putting them together, we create an interesting dynamic feature for common Java classes so they can be modified and refreshed at runtime just like JSP pages.<p><p>An example is provided for demonstration purposes in Resources. It includes a reusable utility called DynaCode that makes writing your own dynamic code much easier.<p><p>I'd like to conclude by discussing the values and applications of dynamic code: Dynamic code can respond quickly to on-demand change requests. It can be used to implement truly dynamic services and business rules that change from time to time, and to replace embedded scripts used by task nodes of workflows. Dynamic code also eases application maintenance and greatly reduces outages caused by application redeployments.<p><p><i>Li Yang joined IBM in April 2004 and is a Certified IBM Rational Consultant on Rational Unified Process, requirements management, and object-oriented analysis and design. He has experience with Java server-side technologies, Web architectures, Java EE projects, and Java SE system library development.</i><p><p><h5>Resources</h5><p><ul><li><p>Download the Postman example (tested with Sun J2SE 1.4.2)<p></li>http://images.techhive.com/downloads/idge/imported/article/jvw/2006/06/jw-0612-dynamic.zip<p>"The Basics of Java Classloaders," Chuck McManis (JavaWorld, October 1996)<p></li>http://www.javaworld.com/javaworld/jw-10-1996/jw-10-indepth.html<p><ul><p>
+<p>https://www.javaworld.com/article/2071777/design-patterns/add-dynamic-java-code-to-your-application.html<p><p><h3>Add dynamic Java code to your application</h3><p><p><h5>Write code that can respond to changes at runtime</h5><p><p>By Li Yang <p> <p>JavaWorld | <p>Jun 12, 2006 1:00 AM PT <p><p><p>JavaServer Pages (JSP) is a more flexible technology than servlets because it can respond to dynamic changes at runtime. Can you imagine a common Java class that has this dynamic capability too? It would be interesting if you could modify the implementation of a service without redeploying it and update your application on the fly.<p><p>The article explains how to write dynamic Java code. It discusses runtime source code compilation, class reloading, and the use of the Proxy design pattern to make modifications to a dynamic class transparent to its caller.<p><p><h4>An example of dynamic Java code</h4><p><p>Let's start with an example of dynamic Java code that illustrates what true dynamic code means and also provides some context for further discussions. Please find this example's complete source code in Resources.<p><p>The example is a simple Java application that depends on a service called Postman. The Postman service is described as a Java interface and contains only one method, deliverMessage():<p><p><pre><code><p>public interface Postman {<p>    void deliverMessage(String msg);<p>}<p></code></pre><p><p><p>A simple implementation of this service prints messages to the console. The implementation class is the dynamic code. This class, PostmanImpl, is just a normal Java class, except it deploys with its source code instead of its compiled binary code:<p><p><pre><code><p>public class PostmanImpl implements Postman {<p><p>    private PrintStream output;<p>    <p>    public PostmanImpl() {<p>        output = System.out;<p>    }<p>    <p>    public void deliverMessage(String msg) {<p>        output.println("[Postman] " + msg);<p>        output.flush();<p>    }<p>}<p></code></pre><p><p>The application that uses the Postman service appears below. In the main() method, an infinite loop reads string messages from the command line and delivers them through the Postman service:<p><p><pre><code><p>public class PostmanApp {<p><p>    public static void main(String[] args) throws Exception {<p>        BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));<p><p>        // Obtain a Postman instance<p>        Postman postman = getPostman();<p><p>        while (true) {<p>            System.out.print("Enter a message: ");<p>            String msg = sysin.readLine();<p>            postman.deliverMessage(msg);<p>        }<p>    }<p><p>    private static Postman getPostman() {<p>        // Omit for now, will come back later<p>    }<p> }<p></code></pre><p><p>Execute the application, enter some messages, and you will see outputs in the console such as the following (you can download the example and run it yourself):<p><p><pre><code><p>[DynaCode] Init class sample.PostmanImpl<p>Enter a message: hello world<p>[Postman] hello world<p>Enter a message: what a nice day!<p>[Postman] what a nice day!<p>Enter a message: <p></code></pre><p><p>Everything is straightforward except for the first line, which indicates that the class PostmanImpl is compiled and loaded.<p><p>Now we are ready to see something dynamic. Without stopping the application, let's modify PostmanImpl's source code. The new implementation delivers all the messages to a text file, instead of the console:<p><p><pre><code><p>// MODIFIED VERSION<p>public class PostmanImpl implements Postman {<p><p>    private PrintStream output;<p>    <p>    // Start of modification<p>    public PostmanImpl() throws IOException {<p>        output = new PrintStream(new FileOutputStream("msg.txt"));<p>    }<p>    // End of modification<p><p>    public void deliverMessage(String msg) {<p>        output.println("[Postman] " + msg);<p><p>        output.flush();<p>    }<p>}<p></code></pre><p><p>Shift back to the application and enter more messages. What will happen? Yes, the messages go to the text file now. Look at the console:<p><p><pre><code><p>[DynaCode] Init class sample.PostmanImpl<p>Enter a message: hello world<p>[Postman] hello world<p>Enter a message: what a nice day!<p>[Postman] what a nice day!<p>Enter a message: I wanna go to the text file.<p>[DynaCode] Init class sample.PostmanImpl<p>Enter a message: me too!<p>Enter a message: <p></code></pre><p><p>Notice <b>[DynaCode] Init class sample.PostmanImpl</b> appears again, indicating that the class <b>PostmanImpl</b> is recompiled and reloaded. If you check the text file msg.txt (under the working directory), you will see the following:<p><p><pre><code><p>[Postman] I wanna go to the text file.<p>[Postman] me too!<p></code></pre><p><p>Amazing, right? We are able to update the Postman service at runtime, and the change is completely transparent to the application. (Notice the application is using the same Postman instance to access both versions of the implementations.)<p><p><h5>Four steps towards dynamic code</h5><p><p>Let me reveal what's going on behind the scenes. Basically, there are four steps to make Java code dynamic:<p><ul><p><li>Deploy selected source code and monitor file changes<p><li>Compile Java code at runtime<p><li>Load/reload Java class at runtime<p><li>Link the up-to-date class to its caller<p></ul><p>Deploy selected source code and monitor file changes<p><p>To start writing some dynamic code, the first question we have to answer is, "Which part of the code should be dynamicthe whole application or just some of the classes?" Technically, there are few restrictions. You can load/reload any Java class at runtime. But in most cases, only part of the code needs this level of flexibility.<p><p>The Postman example demonstrates a typical pattern on selecting dynamic classes. No matter how a system is composed, in the end, there will be building blocks such as services, subsystems, and components. These building blocks are relatively independent, and they expose functionalities to each other via predefined interfaces. Behind an interface, it is the implementation that is free to change as long as it conforms to the contract defined by the interface. This is exactly the quality we need for dynamic classes. So simply put: Choose the implementation class to be the dynamic class.<p><p>For the rest of the article, we'll make the following assumptions about the chosen dynamic classes:<p><ul><p><li>The chosen dynamic class implements some Java interface to expose functionality<p><li>The chosen dynamic class's implementation does not hold any stateful information about its client (similar to the stateless session bean), so the instances of the dynamic class can replace each other<p></ul><p>Please note that these assumptions are not prerequisites. They exist just to make the realization of dynamic code a bit easier so we can focus more on the ideas and mechanisms.<p><p>With the selected dynamic classes in mind, deploying the source code is an easy task. Figure 1 shows the file structure of the Postman example.<p><p>PostmanExample<p>&nbsp;&nbsp;	bin<p>&nbsp;&nbsp;	dynacode<p>&nbsp;&nbsp;	&nbsp;&nbsp;	sample<p>&nbsp;&nbsp;	&nbsp;&nbsp;	&nbsp;&nbsp;	PostmanImpl.java<p>&nbsp;&nbsp;	src<p><p>We know "src" is source and "bin" is binary. One thing worth noting is the dynacode directory, which holds the source files of dynamic classes. Here in the example, there's only one filePostmanImpl.java. The bin and dynacode directories are required to run the application, while src is not necessary for deployment.<p><p>Detecting file changes can be achieved by comparing modification timestamps and file sizes. For our example, a check to PostmanImpl.java is performed every time a method is invoked on the Postman interface. Alternatively, you may spawn a daemon thread in the background to regularly check the file changes. That may result in better performance for large-scale applications.<p><p><h5>Compile Java code at runtime</h5><p><p>After a source code change is detected, we come to the compilation issue. By delegating the real job to an existing Java compiler, runtime compilation can be a piece of cake. Many Java compilers are available for use, but in this article, we use the Javac compiler included in Sun's Java Platform, Standard Edition (Java SE is Sun's new name for J2SE).<p><p>At the minimum, you can compile a Java file with just one statement, providing that the tools.jar, which contains the Javac compiler, is on the classpath (you can find the tools.jar under <JDK_HOME>/lib/):<p><p><pre><code><p>   int errorCode = com.sun.tools.javac.Main.compile(new String[] {<p>            "-classpath", "bin",<p>            "-d", "/temp/dynacode_classes",<p>            "dynacode/sample/PostmanImpl.java" });<p></code></pre><p><p>The class <b>com.sun.tools.javac.Main</b> is the programming interface of the Javac compiler. It provides static methods to compile Java source files. Executing the above statement has the same effect as running <b>javac</b> from the command line with the same arguments. It compiles the source file dynacode/sample/PostmanImpl.java using the specified classpath bin and outputs its class file to the destination directory /temp/dynacode_classes. An integer returns as the error code. Zero means success; any other number indicates something has gone wrong.<p><p>The com.sun.tools.javac.Main class also provides another <b>compile()</b> method that accepts an additional PrintWriter parameter, as shown in the code below. Detailed error messages will be written to the PrintWriter if compilation fails.<p><p><pre><code><p>   // Defined in com.sun.tools.javac.Main<p>    public static int compile(String[] args);<p>    public static int compile(String[] args, PrintWriter out);<p></code></pre><p><p>I assume most developers are familiar with the Javac compiler, so I'll stop here. For more information about how to use the compiler, please refer to Resources.<p><p><h5>Load/reload Java class at runtime</h5><p><p>The compiled class must be loaded before it takes effect. Java is flexible about class loading. It defines a comprehensive class-loading mechanism and provides several implementations of classloaders. (For more information on class loading, see Resources.)<p><p>The sample code below shows how to load and reload a class. The basic idea is to load the dynamic class using our own <b>URLClassLoader</b>. Whenever the source file is changed and recompiled, we discard the old class (for garbage collection later) and create a new URLClassLoader to load the class again.<p><p><pre><code><p>    // The dir contains the compiled classes.<p>    File classesDir = new File("/temp/dynacode_classes/");<p><p>    // The parent classloader<p>    ClassLoader parentLoader = Postman.class.getClassLoader();<p><p>    // Load class "sample.PostmanImpl" with our own classloader.<p>    URLClassLoader loader1 = new URLClassLoader(<p>            new URL[] { classesDir.toURL() }, parentLoader);<p>    Class cls1 = loader1.loadClass("sample.PostmanImpl");<p>    Postman postman1 = (Postman) cls1.newInstance();<p><p>    /*<p>     * Invoke on postman1 ...<p>     * Then PostmanImpl.java is modified and recompiled.<p>     */<p><p>    // Reload class "sample.PostmanImpl" with a new classloader.<p>    URLClassLoader loader2 = new URLClassLoader(<p>            new URL[] { classesDir.toURL() }, parentLoader);<p>    Class cls2 = loader2.loadClass("sample.PostmanImpl");<p>    Postman postman2 = (Postman) cls2.newInstance();<p><p>    /*<p>     * Work with postman2 from now on ...<p>     * Don't worry about loader1, cls1, and postman1<p>     * they will be garbage collected automatically.<p>     */<p></code></pre><p><p>Pay attention to the <b>parentLoader</b> when creating your own classloader. Basically, the rule is that the parent classloader must provide all the dependencies the child classloader requires. So in the sample code, the dynamic class PostmanImpl depends on the interface Postman; that's why we use Postman's classloader as the parent classloader.<p><p>We are still one step away to completing the dynamic code. Recall the example introduced earlier. There, dynamic class reload is transparent to its caller. But in the above sample code, we still have to change the service instance from postman1 to postman2 when the code changes. The fourth and final step will remove the need for this manual change.<p><p><h5>Link the up-to-date class to its caller</h5><p><p>How do you access the up-to-date dynamic class with a static reference? Apparently, a direct (normal) reference to a dynamic class's object will not do the trick. We need something between the client and the dynamic classa proxy. (See the famous book Design Patterns for more on the Proxy pattern.)<p><p>Here, a proxy is a class functioning as a dynamic class's access interface. A client does not invoke the dynamic class directly; the proxy does instead. The proxy then forwards the invocations to the backend dynamic class. Figure 2 shows the collaboration.<p><p>When the dynamic class reloads, we just need to update the link between the proxy and the dynamic class, and the client continues to use the same proxy instance to access the reloaded class. Figure 3 shows the collaboration.<p><p>In this way, changes to the dynamic class become transparent to its caller.<p><p>The Java reflection API includes a handy utility for creating proxies. The class <b>java.lang.reflect.Proxy</b> provides static methods that let you create proxy instances for any Java interface.<p><p>The sample code below creates a proxy for the interface Postman. (If you aren't familiar with java.lang.reflect.Proxy, please take a look at the Javadoc before continuing.)<p><p><pre><code><p>   InvocationHandler handler = new DynaCodeInvocationHandler(...);<p>    Postman proxy = (Postman) Proxy.newProxyInstance(<p>                Postman.class.getClassLoader(),<p>                new Class[] { Postman.class },<p>                handler);<p></code></pre><p><p>The returned proxy is an object of an anonymous class that shares the same classloader with the Postman interface (the <b>newProxyInstance()</b> method's first parameter) and implements the Postman interface (the second parameter). A method invocation on the proxy instance is dispatched to the handler's invoke() method (the third parameter). And handler's implementation may look like the following:<p><p><pre><code><p>public class DynaCodeInvocationHandler implements InvocationHandler {<p><p>    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {<p>        <p>        // Get an instance of the up-to-date dynamic class<p>        Object dynacode = getUpToDateInstance();<p>        <p>        // Forward the invocation<p>        return method.invoke(dynacode, args);<p>    }<p>}<p></code></pre><p><p>The <b>invoke()</b> method obtains an instance of the up-to-date dynamic class and forwards the invocation to it. This may involve source code compilation and class reloading if the dynamic class's source file has been modified.<p><p>Now we have completed the Postman service's dynamic code. A client creates a proxy of the service and calls the method <b>deliverMessage()</b> through the proxy. Each invocation on the proxy is dispatched to the <b>DynaCodeInvocationHandler</b> class's <b>invoke()</b> method. In that method, the latest service implementation is first obtained, which may involve necessary source compilation and class reloading. Then, the invocation forwards to the implementation for real processing.<p><p><h5>Put it all together</h5><p><p>We have gone through all the tricks required for the dynamic Java code. It's time to put them together to build something reusable.<p><p>We can build a utility to ease the adoption of dynamic code by encapsulating the four steps mentioned above. The Postman example relies on such a utility called DynaCode. Remember the PostmanApp application and its omitted <b>getPostman()</b> method? It's time to show it:<p><p><pre><code><p>public class PostmanApp {<p><p>    public static void main(String[] args) throws Exception {<p>        // ......<p>    }<p><p>    private static Postman getPostman() {<p>        DynaCode dynacode = new DynaCode();<p>        dynacode.addSourceDir(new File("dynacode"));<p>        return (Postman) dynacode.newProxyInstance(Postman.class,<p>                "sample.PostmanImpl");<p>    }<p> }<p></code></pre><p><p>See how the getPostman() method creates a dynamic Postman service, creates an instance of DynaCode, specifies a source directory, and returns a proxy of some dynamic implementation. To use your own dynamic Java code, you simply need to write three lines of code. Everything else is taken care of inside DynaCode. Try it yourself (the DynaCode's source code is included in the example).<p><p>I won't go into further details of DynaCode, but as a review of the technologies we've talked about, take a look at the sequence diagram in Figure 4 to see how DynaCode works at a high level.<p><p><h5>Conclusion</h5><p><p>In this article, I introduced the idea of dynamic Java code and the steps required to realize it. I covered topics such as runtime source compilation, class reloading, and the Proxy design pattern. Though none of these topics are new, by putting them together, we create an interesting dynamic feature for common Java classes so they can be modified and refreshed at runtime just like JSP pages.<p><p>An example is provided for demonstration purposes in Resources. It includes a reusable utility called DynaCode that makes writing your own dynamic code much easier.<p><p>I'd like to conclude by discussing the values and applications of dynamic code: Dynamic code can respond quickly to on-demand change requests. It can be used to implement truly dynamic services and business rules that change from time to time, and to replace embedded scripts used by task nodes of workflows. Dynamic code also eases application maintenance and greatly reduces outages caused by application redeployments.<p><p><i>Li Yang joined IBM in April 2004 and is a Certified IBM Rational Consultant on Rational Unified Process, requirements management, and object-oriented analysis and design. He has experience with Java server-side technologies, Web architectures, Java EE projects, and Java SE system library development.</i><p><p><h5>Resources</h5><p><ul><li><p>Download the Postman example (tested with Sun J2SE 1.4.2)<p></li>http://images.techhive.com/downloads/idge/imported/article/jvw/2006/06/jw-0612-dynamic.zip<p>"The Basics of Java Classloaders," Chuck McManis (JavaWorld, October 1996)<p></li>http://www.javaworld.com/javaworld/jw-10-1996/jw-10-indepth.html<p><ul><p>
 
 </details>
 
@@ -15214,7 +15215,7 @@ reboot. Only issue: STATE]]<p>
 
 <details><summary><span class='mHG'>An in-memory compiler from openJdk</span></summary>
 <p>
-<code><pre>
+<pre><code>
 /*
  * Copyright (c) 2013, 2017, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
@@ -15415,7 +15416,7 @@ public class InMemoryJavaCompiler {
         return getCompiler().getTask(null, new FileManagerWrapper(file, moduleOverride), null, opts, null, Arrays.asList(file));
     }
 }
-</pre></code>
+</code></pre>
 </details>
 <p>
 
@@ -15448,7 +15449,7 @@ public class InMemoryJavaCompiler {
 <p>
  
 <section>
-<div id="misc_java_spxDesign" align=center>
+<div id="misc_java_spxDesign">
     <details><summary><span class='mTitle'>custom Fields</span>
 </summary>
 
@@ -15535,7 +15536,7 @@ public final class Predicates {
 
 <br>https://raw.githubusercontent.com/AdoptOpenJDK/openjdk-jdk8u/master/jdk/src/share/classes/java/util/regex/Pattern.java
 <br>regex.Pattern.asPredicate() ->
-<br><code><pre>
+<br><pre><code>
     /**
      * Creates a predicate which can be used to match a string.
      *
@@ -15545,7 +15546,7 @@ public final class Predicates {
     public Predicate<String> asPredicate() {
         return s -> matcher(s).find();
     }
-</pre></code>
+</code></pre>
 <p>
 </details>
 
@@ -15557,7 +15558,7 @@ public final class Predicates {
 
 <!-- div devJavaNLP -->
 <section>
-<div id="misc_java_nlp" align=center>
+<div id="misc_java_nlp">
 <p>
 
 <details>
@@ -15867,7 +15868,7 @@ Setting up a new neural network is as easy as creating a new object:
 
 Deeplearning4j.java (https://gist.github.com/HennTakipi/b932b32633d81c967f34d0fd769ef302#file-deeplearning4j-java)
 <br>
-<code><pre>
+<pre><code>
 MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
 .iterations(1)
 .weightInit(WeightInit.XAVIER)
@@ -15877,7 +15878,7 @@ MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
 // ... other hyperparameters
 .backprop(true)
 .build();
-</pre></code>
+</code></pre>
 <br>
 
 
@@ -16681,419 +16682,419 @@ simply sum their logarithms:
 <summary><span class='mHG'>
 WEKA Related
 </span></summary>
-<pre>
 note: these seem to be all outdated; but anyway:
 
-WEKA FAQ: http://weka.wikispaces.com/Frequently+Asked+Questions
-IBM DevWorks Intro (Data mining with WEKA): https://www.ibm.com/developerworks/opensource/library/os-weka1/index.html
-Another Intro to WEKA: http://ortho.clmed.ncku.edu.tw/~emba/2006EMBA_MIS/3_16_2006/WekaIntro.pdf
+WEKA <a href='http://weka.wikispaces.com/Frequently+Asked+Questions'>FAQ</a> 
+IBM DevWorks Intro (Data mining with <a href='https://www.ibm.com/developerworks/opensource/library/os-weka1/index.html'>WEKA</a>)
+<a href='http://ortho.clmed.ncku.edu.tw/~emba/2006EMBA_MIS/3_16_2006/WekaIntro.pdf'>Another</a> Intro to WEKA
 
 <hr>
 Qn: Learning Weka on the Command Line
-
-I am fairly new to Weka and even more new to Weka on the command line. I find documentation is poor and I am struggling to figure out a few things to do. For example, want to take two .arff files, one for training, one for testing and get an output of predictions for the missing labels in the test data.
-
-How can I do this?
-
-I have this code as a starting block
-
-java -classpath weka.jar weka.classifiers.meta.FilteredClassifier
--t "training_file_with_missing_values.arff"
--T "test_file_with_missing_values.arff"
--F weka.filters.unsupervised.attribute.ReplaceMissingValues -- -c last
--W weka.classifiers.functions.MultilayerPerceptron -- -L 0.3 -M 0.2 -H a
-Running that code gives me "Illegal option -c last" and I am not sure why. I am also not going to be using MLP as NN tend to be too slow when I have a few thousand features from the text data. I know how to change it to another classifier though (like NB or libSVM so that is good).
-
-But I am not sure how to add multiple filters in one call as I also need to add the StringToWordVector filter (and possibly the Reorder filter to make the class the last, instead of first attribute).
-
-And then how do I get it actually output me the prediction labels of each class? And then store so those in an arff with the initial data.
-
-machine-learning classification weka
-
-asked Mar 15 '13 at 20:21
-
-Reily Bourne
-<hr>
-Weka is not really the shining example of documentation, but you can still find valuable information about it on their sites. You should start with the Primer. I understand that you want to classify text files, so you should also have a look at Text categorization with WEKA.
-
-The command line you posted in your question contains an error. I know, you copied it from my answer to another question, but I also just noticed it. You have to omit the -- -c last, because the ReplaceMissingValue filter doesn't like it.
-
-In the Primer it says:
-
-weka.filters.supervised
-
-Classes below weka.filters.supervised in the class hierarchy are for supervised filtering, i.e. taking advantage of the class information. A class must be assigned via -c, for WEKA default behaviour use -c last.
-but ReplaceMissingValue is an unsupervised filter, as is StringToWordVector.
-
-Multiple filters
-
-Adding multiple filter is also no problem, that is what the MultiFilter is for. The command line can get a bit messy, though: (I chose RandomForest here, because it is a lot faster than NN).
-
-java -classpath weka.jar weka.classifiers.meta.FilteredClassifier \
-  -t ~/weka-3-7-9/data/ReutersCorn-train.arff \
-  -T ~/weka-3-7-9/data/ReutersCorn-test.arff \
- -F "weka.filters.MultiFilter \
-     -F weka.filters.unsupervised.attribute.StringToWordVector \
-     -F weka.filters.unsupervised.attribute.Standardize" \
- -W weka.classifiers.trees.RandomForest -- -I 100 \
-Making predictions
-
-Here is what the Primer says about getting the prediction:
-
-However, if more detailed information about the classifier's predictions are necessary, -p # outputs just the predictions for each test instance, along with a range of one-based attribute ids (0 for none).
-It is a good convention to put those general options like -p 0 directly after the class you're calling, so the command line would be
-
-java -classpath weka.jar weka.classifiers.meta.FilteredClassifier \
-  -t ~/weka-3-7-9/data/ReutersCorn-train.arff \
-  -T ~/weka-3-7-9/data/ReutersCorn-test.arff \
-  -p 0 \
- -F "weka.filters.MultiFilter \
-     -F weka.filters.unsupervised.attribute.StringToWordVector \
-     -F weka.filters.unsupervised.attribute.Standardize" \
- -W weka.classifiers.trees.RandomForest -- -I 100 \
-Structure of WEKA classifiers/filters
-
-But as you can see, WEKA can get very complicated when calling it from the command line. This is due to the tree structure of WEKA classifiers and filters. Though you can run only one classifier/filter per command line, it can be structured as complex as you like. For the above command, the structure looks like this:
-
-The FilteredClassifier will initialize a filter on the training data set, filter both training and test data, then train a model on the training data and classify the given test data.
-
-FilteredClassifier
- |
- + Filter
- |
- + Classifier
-If we want multiple filters, we use the MultiFilter, which is only one filter, but it calls multiple others in the order they were given.
-
-FilteredClassifier
- |
- + MultiFilter
- |  |
- |  + StringToWordVector
- |  |
- |  + Standardize
- |
- + RandomForest
-The hard part of running something like this from the command line is assigning the desired options to the right classes, because often the option names are the same. For example, the -F option is used for the FilteredClassifier and the MultiFilter as well, so I had to use quotes to make it clear which -F belongs to what filter.
-
-In the last line, you see that the option -I 100, which belongs to the RandomForest, can't be appended directly, because then it would be assigned to FilteredClassifier and you will get Illegal options: -I 100. Hence, you have to add -- before it.
-
-Adding predictions to the data files
-
-Adding the predicted class label is also possible, but even more complicated. AFAIK this can't be done in one step, but you have to train and save a model first, then use this one for predicting and assigning new class labels.
-
-Training and saving the model:
-
-java -classpath weka.jar weka.classifiers.meta.FilteredClassifier \
-  -t ~/weka-3-7-9/data/ReutersCorn-train.arff \
-  -d rf.model \
-  -F "weka.filters.MultiFilter \
-      -F weka.filters.unsupervised.attribute.StringToWordVector \
-      -F weka.filters.unsupervised.attribute.Standardize" \
-  -W weka.classifiers.trees.RandomForest -- -I 100 \
-This will serialize the model of the trained FilteredClassifier to the file rf.model. The important thing here is that the initialized filter will also be serialized, otherwise the test set wouldn't be compatible after filtering.
-
-Loading the model, making predictions and saving it:
-
-java -classpath weka.jar weka.filters.supervised.attribute.AddClassification \
-  -serialized rf.model \
-  -classification \
-  -remove-old-class \
-  -i ~/weka-3-7-9/data/ReutersCorn-test.arff \
-  -o pred.arff \
-  -c last
-Note:
-
-I want to add that before writing this answer here, I had no knowledge about making predictions from the command line whatsoever. I googled your problems and then came to this answer by trial and error ;)
-
-
-edited Nov 12 '13 at 12:58
-answered Mar 16 '13 at 10:43
-
-Sentry
-3,30721832
-1	 	
-This is one of the most helpful 'guides' to get started using WEKA for prediction purposes - Thanks!  SPi Nov 11 '13 at 23:37
-2	 	
-You are an absolute saint. Is there any way to give you more credit than marking up? You deserve 1k points for this. Gthoma2 Apr 26 '14 at 0:58
-<hr>
-A better way to do all that you want to use the GUI Explorer. Here is how to do all that you want:
-
-1) Take two separate files for training and testing.
-
-Use 'Open File' under the Preprocess tab to choose your training file. Use 'Supplied Test Set' radio under the Classify tab to choose your test file.
-
-2) Output the predictions for the missing labels.
-
-Use 'More Options' and choose 'Output Predictions' under the Classify tab to see predictions.
-
-3) Use more than one filters
-
-Use 'Filter' under the Preprocess tab to apply as many filters as you want before classifying.
-
-4) Make class the last attribute
-
-This is actually unnecessary. You can choose any attribute to be your class. A class is any attribute that you want the classifier to predict. Use the Nom(Class) dropdown on the Classify tab to choose which attribute is your class.
-
-
-answered Mar 15 '13 at 20:33
-
-srrvnn
-373618
-  	 	
-The problem with your answer for (1) is that when I do that I get the error that they are not compatible. This is because they have different features and will not allow me to test them. That's why I believe I need to use the command line to get them to have the same features. Reily Bourne Mar 15 '13 at 22:26
-  	 	
-@JoshWeissbock That's the problem, they must have the same features. Or you must filter them in a way that they have the same features. Sentry Mar 16 '13 at 0:23
-<hr>
-<hr>
-Qn: Precision/recall for multiclass-multilabel classification
-
-I'm wondering how to calculate precision and recall measures for multiclass multilabel classification, i.e. classification where there are more than two labels, and where each instance can have multiple labels?
-
-machine-learning classification precision-recall
-
-edited Mar 12 '16 at 13:31
-
-user2314737
-
-<hr>
-Well, false would be if you didn't classified correctly, and true where it was correctly classified. Why do you worry about multiple labels? Thomas Jungblut Jan 25 '12 at 17:10 
-
-I found a similar question, this might be a duplicate: stackoverflow.com/questions/3856013/ mehaase May 13 '12 at 23:43
-
-The answer is that you have to compute precision and recall for each class, then average them together. E.g. if you classes A, B, and C, then your precision is:
-
-(precision(A) + precision(B) + precision(C)) / 3
-Same for recall.
-
-I'm no expert, but this is what I have determined based on the following sources:
-
-https://list.scms.waikato.ac.nz/pipermail/wekalist/2011-March/051575.html http://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
-
-
-answered May 13 '12 at 23:46
-
-mehaase
-15.3k44257
-3	 	
-If your data has unbalanced number of labels, this averaging may not reflect the real performance.  tashuhka Aug 13 '14 at 14:25
-
-<hr>
-
-For multi-label classification you have two ways to go First consider the following.
-
-$n$ is the number of examples.
-$Y_i$ is the ground truth label assignment of the $i^{th}$ example..
-$x_i$ is the $i^{th}$ example.
-$h(x_i)$ is the predicted labels for the $i^{th}$ example.
-Example based
-
-The metrics are computed in a per datapoint manner. For each predicted label its only its score is computed, and then these scores are aggregated over all the datapoints.
-
-Precision = $\frac{1}{n}\sum_{i=1}^{n}\frac{|Y_{i}\cap h(x_{i})|}{|h(x_{i})|}$ , The ratio of how much of the predicted is correct. The numerator finds how many labels in the predicted vector has common with the ground truth, and the ratio computes, how many of the predicted true labels are actually in the ground truth.
-Recall = $\frac{1}{n}\sum_{i=1}^{n}\frac{|Y_{i}\cap h(x_{i})|}{|Y_{i}|}$ , The ratio of how many of the actual labels were predicted. The numerator finds how many labels in the predicted vector has common with the ground truth (as above), then finds the ratio to the number of actual labels, therefore getting what fraction of the actual labels were predicted.
-There are other metrics as well.
-
-Label based
-
-Here the things are done labels-wise. For each label the metrics (eg. precision, recall) are computed and then these label-wise metrics are aggregated. Hence, in this case you end up computing the precision/recall for each label over the entire dataset, as you do for a binary classification (as each label has a binary assignment), then aggregate it.
-
-The easy way is to present the general form.
-
-This is just an extension of the standard multi-class equivalent.
-
-Macro averaged $\frac{1}{q}\sum_{j=1}^{q}B(TP_{j},FP_{j},TN_{j},FN_{j})$
-Micro averaged $B(\sum_{j=1}^{q}TP_{j},\sum_{j=1}^{q}FP_{j},\sum_{j=1}^{q}TN_{j},\sum_{j=1}^{q}FN_{j})$
-Here the $TP_{j},FP_{j},TN_{j},FN_{j}$ are the true positive, false positive, true negative and false negative counts respectively for only the $j^{th}$ label.
-
-Here $B$ stands for any of the confusion-matrix based metric. In your case you would plug in the standard precision and recall formulas. For macro average you pass in the per label count and then sum, for micro average you average the counts first, then apply your metric function.
-
-You might be interested to have a look into the code for the mult-label metrics here , which a part of the package mldr in R. Also you might be interested to look into the Java multi-label library MULAN.
-
-This is a nice paper to get into the different metrics: A Review on Multi-Label Learning Algorithms
-
-
-edited Sep 9 '16 at 21:42
-answered Sep 9 '16 at 21:33
-
-phoxis
-<hr>
-Let us assume that we have a 3-class multi classification problem with labels A, B and C.
-The first thing to do is to generate a confusion matrix. Note that the values in the diagonal are always the true positives (TP).
-Now, to compute recall for label A you can read off the values from the confusion matrix and compute:
-= TP_A/(TP_A+FN_A)
-= TP_A/(Total gold labels for A)
-Now, let us compute precision for label A, you can read off the values from the confusion matrix and compute:
-= TP_A/(TP_A+FP_A)
-= TP_A/(Total predicted as A)
-You just need to do the same for the remaining labels B and C. This applies to any multi-class classification problem.
-Here is the full article that talks about how to compute precision and recall for any multi-class classification problem, including examples.
-
-
-edited Oct 23 '14 at 20:55
-
-honk
-<hr>
-Simple averaging will do if the classes are balanced.
-
-Otherwise, recall for each real class needs to be weighted by prevalence of the class, and precision for each predicted label needs to be weighted by the bias (probability) for each label. Either way you get Rand Accuracy.
-
-A more direct way is to make a normalized contingency table (divide by N so table adds up to 1 for each combination of label and class) and add the diagonal to get Rand Accuracy.
-
-But if classes aren't balanced, the bias remains and a chance corrected method such as kappa is more appropriate, or better still ROC analysis or a chance correct measure such as informedness (height above the chance line in ROC).
-
-
-answered Mar 20 '15 at 7:18
-
-David M W Powers
-<hr>
-<hr>
-Qn: How to interpret weka classification?
-
-How can we interpret the classification result in weka using naive bayes?
-
-How is mean, std deviation, weight sum and precision calculated?
-
-How is kappa statistic, mean absolute error, root mean squared error etc calculated?
-
-What is the interpretation of the confusion matrix?
-
-computer-vision classification weka
-shareimprove this question
-edited May 10 '12 at 20:54
-
-Atilla Ozgur
-
-Ans:
-
-Below is some sample output for a naive Bayes classifier, using 10-fold cross-validation. There's a lot of information there, and what you should focus on depends on your application. I'll explain some of the results below, to get you started.
-
-=== Stratified cross-validation ===
-=== Summary ===
-
-Correctly Classified Instances          71               71      %
-Incorrectly Classified Instances        29               29      %
-Kappa statistic                          0.3108
-Mean absolute error                      0.3333
-Root mean squared error                  0.4662
-Relative absolute error                 69.9453 %
-Root relative squared error             95.5466 %
-Total Number of Instances              100     
-
-=== Detailed Accuracy By Class ===
-
-               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
-                 0.967     0.692      0.686     0.967     0.803      0.709    0
-                 0.308     0.033      0.857     0.308     0.453      0.708    1
-Weighted Avg.    0.71      0.435      0.753     0.71      0.666      0.709
-
-=== Confusion Matrix ===
-
-  a  b   &lt;-- classified as
- 59  2 |  a = 0
- 27 12 |  b = 1
-The correctly and incorrectly classified instances show the percentage of test instances that were correctly and incorrectly classified. The raw numbers are shown in the confusion matrix, with a and b representing the class labels. Here there were 100 instances, so the percentages and raw numbers add up, aa + bb = 59 + 12 = 71, ab + ba = 27 + 2 = 29.
-
-The percentage of correctly classified instances is often called accuracy or sample accuracy. It has some disadvantages as a performance estimate (not chance corrected, not sensitive to class distribution), so you'll probably want to look at some of the other numbers. ROC Area, or area under the ROC curve, is my preferred measure.
-
-Kappa is a chance-corrected measure of agreement between the classifications and the true classes. It's calculated by taking the agreement expected by chance away from the observed agreement and dividing by the maximum possible agreement. A value greater than 0 means that your classifier is doing better than chance (it really should be!).
-
-The error rates are used for numeric prediction rather than classification. In numeric prediction, predictions aren't just right or wrong, the error has a magnitude, and these measures reflect that.
-
-Hopefully that will get you started.
-
-
-edited Nov 18 '11 at 12:45
-answered Aug 16 '10 at 0:33
-
-michaeltwofish
-
---------------------------------------
-
-To elaborate on michaeltwofish's answer, some notes on the remaining values:
-
-TP Rate: rate of true positives (instances correctly classified as a given class)
-FP Rate: rate of false positives (instances falsely classified as a given class)
-Precision: proportion of instances that are truly of a class divided by the total instances classified as that class
-Recall: proportion of instances classified as a given class divided by the actual total in that class (equivalent to TP rate)
-F-Measure: A combined measure for precision and recall calculated as 2 * Precision * Recall / (Precision + Recall)
-As for the ROC area measurement, I agree with michaeltwofish that this is one of the most important values output by Weka. An "optimal" classifier will have ROC area values approaching 1, with 0.5 being comparable to "random guessing" (similar to a Kappa statistic of 0).
-
-It should be noted that the "balance" of the data set needs to be taken into account when interpreting results. Unbalanced data sets in which a disproportionately large amount of instances belong to a certain class may lead to high accuracy rates even though the classifier may not necessarily be particularly good.
-
-Further reading:
-
-https://www.cs.auckland.ac.nz/courses/compsci367s1c/tutorials/IntroductionToWeka.pdf
-http://en.wikipedia.org/wiki/Receiver_operating_characteristic#Basic_concept
-http://en.wikipedia.org/wiki/Information_retrieval#Performance_and_correctness_measures
-
-edited Mar 19 '14 at 16:30
-
-projekt-fisch
-6411
-answered Feb 4 '14 at 11:31
-
-Hybrid System
-<hr><hr>
-Qn: How to read the classifier confusion matrix in WEKA
-
-Sorry, I am new to WEKA and just learning.
-
-In my decision tree (J48) classifier output, there is a confusion Matrix:
-
-a    b   &lt;----- classified as
-130  8     a = functional
-15   150   b = non-functional
-How do I read this matrix? What's the difference between a & b?
-Also, can anyone explain to me what domain values are?
-classification weka decision-tree
-shareimprove this question
-edited Dec 12 '13 at 17:01
-
-Sam Rad
-
-Ans:
-
-Have you read the wikipedia page on confusion matrices? The text around the matrix is arranged slightly differently in their example (row labels on the left instead of on the right), but you read it just the same.
-
-The row indicates the true class, the column indicates the classifier output. Each entry, then, gives the number of instances of <row> that were classified as <column>. In your example, 15 Bs were (incorrectly) classified as As, 150 Bs were correctly classified as Bs, etc.
-
-As a result, all correct classifications are on the top-left to bottom-right diagonal. Everything off that diagonal is an incorrect classification of some sort.
-
-
-edited Oct 23 '13 at 16:19
-answered Mar 5 '13 at 1:28
-
-Junuxx
-<hr>
-I'd put it this way:
-
-The confusion matrix is Weka reporting on how good this J48 model is in terms of what it gets right, and what it gets wrong.
-
-In your data, the target variable was either "functional" or "non-functional;" the right side of the matrix tells you that column "a" is functional, and "b" is non-functional.
-
-The columns tell you how your model classified your samples - it's what the model predicted:
-
-The first column contains all the samples which your model thinks are "a" - 145 of them, total
-The second column contains all the samples which your model thinks are "b" - 158 of them
-The rows, on the other hand, represent reality:
-
-The first row contains all the samples which really are "a" - 138 of them, total
-The second row contains all the samples which really are "b" - 165 of them
-Knowing the columns and rows, you can dig into the details:
-
-Top left, 130, are things your model thinks are "a" which really are "a" &lt;- these were correct
-Bottom left, 15, are things your model thinks are "a" but which are really "b" &lt;- one kind of error
-Top right, 8, are things your model thinks are "b" but which really are "a" &lt;- another kind of error
-Bottom right, 150 are things your model thinks are "b" which really are "b"
-So top-left and bottom-right of the matrix are showing things your model gets right.
-
-Bottom-left and top-right of the matrix are are showing where your model is confused.
-
-
-answered Oct 28 '14 at 19:14
-
-Mental Nomad
-<hr></pre>
+<br>
+<br>I am fairly new to Weka and even more new to Weka on the command line. I find documentation is poor and I am struggling to figure out a few things to do. For example, want to take two .arff files, one for training, one for testing and get an output of predictions for the missing labels in the test data.
+<br>
+<br>How can I do this?
+<br>
+<br>I have this code as a starting block
+<br>
+<br>java -classpath weka.jar weka.classifiers.meta.FilteredClassifier
+<br>-t "training_file_with_missing_values.arff"
+<br>-T "test_file_with_missing_values.arff"
+<br>-F weka.filters.unsupervised.attribute.ReplaceMissingValues -- -c last
+<br>-W weka.classifiers.functions.MultilayerPerceptron -- -L 0.3 -M 0.2 -H a
+<br>Running that code gives me "Illegal option -c last" and I am not sure why. I am also not going to be using MLP as NN tend to be too slow when I have a few thousand features from the text data. I know how to change it to another classifier though (like NB or libSVM so that is good).
+<br>
+<br>But I am not sure how to add multiple filters in one call as I also need to add the StringToWordVector filter (and possibly the Reorder filter to make the class the last, instead of first attribute).
+<br>
+<br>And then how do I get it actually output me the prediction labels of each class? And then store so those in an arff with the initial data.
+<br>
+<br>machine-learning classification weka
+<br>
+<br>asked Mar 15 '13 at 20:21
+<br>
+<br>Reily Bourne
+<br><hr>
+<br>Weka is not really the shining example of documentation, but you can still find valuable information about it on their sites. You should start with the Primer. I understand that you want to classify text files, so you should also have a look at Text categorization with WEKA.
+<br>
+<br>The command line you posted in your question contains an error. I know, you copied it from my answer to another question, but I also just noticed it. You have to omit the -- -c last, because the ReplaceMissingValue filter doesn't like it.
+<br>
+<br>In the Primer it says:
+<br>
+<br>weka.filters.supervised
+<br>
+<br>Classes below weka.filters.supervised in the class hierarchy are for supervised filtering, i.e. taking advantage of the class information. A class must be assigned via -c, for WEKA default behaviour use -c last.
+<br>but ReplaceMissingValue is an unsupervised filter, as is StringToWordVector.
+<br>
+<br>Multiple filters
+<br>
+<br>Adding multiple filter is also no problem, that is what the MultiFilter is for. The command line can get a bit messy, though: (I chose RandomForest here, because it is a lot faster than NN).
+<br>
+<br>java -classpath weka.jar weka.classifiers.meta.FilteredClassifier \
+<br>  -t ~/weka-3-7-9/data/ReutersCorn-train.arff \
+<br>  -T ~/weka-3-7-9/data/ReutersCorn-test.arff \
+<br> -F "weka.filters.MultiFilter \
+<br>     -F weka.filters.unsupervised.attribute.StringToWordVector \
+<br>     -F weka.filters.unsupervised.attribute.Standardize" \
+<br> -W weka.classifiers.trees.RandomForest -- -I 100 \
+<br>Making predictions
+<br>
+<br>Here is what the Primer says about getting the prediction:
+<br>
+<br>However, if more detailed information about the classifier's predictions are necessary, -p # outputs just the predictions for each test instance, along with a range of one-based attribute ids (0 for none).
+<br>It is a good convention to put those general options like -p 0 directly after the class you're calling, so the command line would be
+<br>
+<br>java -classpath weka.jar weka.classifiers.meta.FilteredClassifier \
+<br>  -t ~/weka-3-7-9/data/ReutersCorn-train.arff \
+<br>  -T ~/weka-3-7-9/data/ReutersCorn-test.arff \
+<br>  -p 0 \
+<br> -F "weka.filters.MultiFilter \
+<br>     -F weka.filters.unsupervised.attribute.StringToWordVector \
+<br>     -F weka.filters.unsupervised.attribute.Standardize" \
+<br> -W weka.classifiers.trees.RandomForest -- -I 100 \
+<br>Structure of WEKA classifiers/filters
+<br>
+<br>But as you can see, WEKA can get very complicated when calling it from the command line. This is due to the tree structure of WEKA classifiers and filters. Though you can run only one classifier/filter per command line, it can be structured as complex as you like. For the above command, the structure looks like this:
+<br>
+<br>The FilteredClassifier will initialize a filter on the training data set, filter both training and test data, then train a model on the training data and classify the given test data.
+<br>
+<br>FilteredClassifier
+<br> |
+<br> + Filter
+<br> |
+<br> + Classifier
+<br>If we want multiple filters, we use the MultiFilter, which is only one filter, but it calls multiple others in the order they were given.
+<br>
+<br>FilteredClassifier
+<br> |
+<br> + MultiFilter
+<br> |  |
+<br> |  + StringToWordVector
+<br> |  |
+<br> |  + Standardize
+<br> |
+<br> + RandomForest
+<br>The hard part of running something like this from the command line is assigning the desired options to the right classes, because often the option names are the same. For example, the -F option is used for the FilteredClassifier and the MultiFilter as well, so I had to use quotes to make it clear which -F belongs to what filter.
+<br>
+<br>In the last line, you see that the option -I 100, which belongs to the RandomForest, can't be appended directly, because then it would be assigned to FilteredClassifier and you will get Illegal options: -I 100. Hence, you have to add -- before it.
+<br>
+<br>Adding predictions to the data files
+<br>
+<br>Adding the predicted class label is also possible, but even more complicated. AFAIK this can't be done in one step, but you have to train and save a model first, then use this one for predicting and assigning new class labels.
+<br>
+<br>Training and saving the model:
+<br>
+<br>java -classpath weka.jar weka.classifiers.meta.FilteredClassifier \
+<br>  -t ~/weka-3-7-9/data/ReutersCorn-train.arff \
+<br>  -d rf.model \
+<br>  -F "weka.filters.MultiFilter \
+<br>      -F weka.filters.unsupervised.attribute.StringToWordVector \
+<br>      -F weka.filters.unsupervised.attribute.Standardize" \
+<br>  -W weka.classifiers.trees.RandomForest -- -I 100 \
+<br>This will serialize the model of the trained FilteredClassifier to the file rf.model. The important thing here is that the initialized filter will also be serialized, otherwise the test set wouldn't be compatible after filtering.
+<br>
+<br>Loading the model, making predictions and saving it:
+<br>
+<br>java -classpath weka.jar weka.filters.supervised.attribute.AddClassification \
+<br>  -serialized rf.model \
+<br>  -classification \
+<br>  -remove-old-class \
+<br>  -i ~/weka-3-7-9/data/ReutersCorn-test.arff \
+<br>  -o pred.arff \
+<br>  -c last
+<br>Note:
+<br>
+<br>I want to add that before writing this answer here, I had no knowledge about making predictions from the command line whatsoever. I googled your problems and then came to this answer by trial and error ;)
+<br>
+<br>
+<br>edited Nov 12 '13 at 12:58
+<br>answered Mar 16 '13 at 10:43
+<br>
+<br>Sentry
+<br>3,30721832
+<br>1	 	
+<br>This is one of the most helpful 'guides' to get started using WEKA for prediction purposes - Thanks!  SPi Nov 11 '13 at 23:37
+<br>2	 	
+<br>You are an absolute saint. Is there any way to give you more credit than marking up? You deserve 1k points for this. Gthoma2 Apr 26 '14 at 0:58
+<br><hr>
+<br>A better way to do all that you want to use the GUI Explorer. Here is how to do all that you want:
+<br>
+<br>1) Take two separate files for training and testing.
+<br>
+<br>Use 'Open File' under the Preprocess tab to choose your training file. Use 'Supplied Test Set' radio under the Classify tab to choose your test file.
+<br>
+<br>2) Output the predictions for the missing labels.
+<br>
+<br>Use 'More Options' and choose 'Output Predictions' under the Classify tab to see predictions.
+<br>
+<br>3) Use more than one filters
+<br>
+<br>Use 'Filter' under the Preprocess tab to apply as many filters as you want before classifying.
+<br>
+<br>4) Make class the last attribute
+<br>
+<br>This is actually unnecessary. You can choose any attribute to be your class. A class is any attribute that you want the classifier to predict. Use the Nom(Class) dropdown on the Classify tab to choose which attribute is your class.
+<br>
+<br>
+<br>answered Mar 15 '13 at 20:33
+<br>
+<br>srrvnn
+<br>373618
+<br>  	 	
+<br>The problem with your answer for (1) is that when I do that I get the error that they are not compatible. This is because they have different features and will not allow me to test them. That's why I believe I need to use the command line to get them to have the same features. Reily Bourne Mar 15 '13 at 22:26
+<br>  	 	
+<br>@JoshWeissbock That's the problem, they must have the same features. Or you must filter them in a way that they have the same features. Sentry Mar 16 '13 at 0:23
+<br><hr>
+<br><hr>
+<br>Qn: Precision/recall for multiclass-multilabel classification
+<br>
+<br>I'm wondering how to calculate precision and recall measures for multiclass multilabel classification, i.e. classification where there are more than two labels, and where each instance can have multiple labels?
+<br>
+<br>machine-learning classification precision-recall
+<br>
+<br>edited Mar 12 '16 at 13:31
+<br>
+<br>user2314737
+<br>
+<br><hr>
+<br>Well, false would be if you didn't classified correctly, and true where it was correctly classified. Why do you worry about multiple labels? Thomas Jungblut Jan 25 '12 at 17:10 
+<br>
+<br>I found a similar question, this might be a duplicate: stackoverflow.com/questions/3856013/ mehaase May 13 '12 at 23:43
+<br>
+<br>The answer is that you have to compute precision and recall for each class, then average them together. E.g. if you classes A, B, and C, then your precision is:
+<br>
+<br>(precision(A) + precision(B) + precision(C)) / 3
+<br>Same for recall.
+<br>
+<br>I'm no expert, but this is what I have determined based on the following sources:
+<br>
+<br>https://list.scms.waikato.ac.nz/pipermail/wekalist/2011-March/051575.html 
+<br>http://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
+<br>
+<br>
+<br>answered May 13 '12 at 23:46
+<br>
+<br>mehaase
+<br>15.3k44257
+<br>3	 	
+<br>If your data has unbalanced number of labels, this averaging may not reflect the real performance.  tashuhka Aug 13 '14 at 14:25
+<br>
+<br><hr>
+<br>
+<br>For multi-label classification you have two ways to go First consider the following.
+<br>
+<br>$n$ is the number of examples.
+<br>$Y_i$ is the ground truth label assignment of the $i^{th}$ example..
+<br>$x_i$ is the $i^{th}$ example.
+<br>$h(x_i)$ is the predicted labels for the $i^{th}$ example.
+<br>Example based
+<br>
+<br>The metrics are computed in a per datapoint manner. For each predicted label its only its score is computed, and then these scores are aggregated over all the datapoints.
+<br>
+<br>Precision = $\frac{1}{n}\sum_{i=1}^{n}\frac{|Y_{i}\cap h(x_{i})|}{|h(x_{i})|}$ , The ratio of how much of the predicted is correct. The numerator finds how many labels in the predicted vector has common with the ground truth, and the ratio computes, how many of the predicted true labels are actually in the ground truth.
+<br>Recall = $\frac{1}{n}\sum_{i=1}^{n}\frac{|Y_{i}\cap h(x_{i})|}{|Y_{i}|}$ , The ratio of how many of the actual labels were predicted. The numerator finds how many labels in the predicted vector has common with the ground truth (as above), then finds the ratio to the number of actual labels, therefore getting what fraction of the actual labels were predicted.
+<br>There are other metrics as well.
+<br>
+<br>Label based
+<br>
+<br>Here the things are done labels-wise. For each label the metrics (eg. precision, recall) are computed and then these label-wise metrics are aggregated. Hence, in this case you end up computing the precision/recall for each label over the entire dataset, as you do for a binary classification (as each label has a binary assignment), then aggregate it.
+<br>
+<br>The easy way is to present the general form.
+<br>
+<br>This is just an extension of the standard multi-class equivalent.
+<br>
+<br>Macro averaged $\frac{1}{q}\sum_{j=1}^{q}B(TP_{j},FP_{j},TN_{j},FN_{j})$
+<br>Micro averaged $B(\sum_{j=1}^{q}TP_{j},\sum_{j=1}^{q}FP_{j},\sum_{j=1}^{q}TN_{j},\sum_{j=1}^{q}FN_{j})$
+<br>Here the $TP_{j},FP_{j},TN_{j},FN_{j}$ are the true positive, false positive, true negative and false negative counts respectively for only the $j^{th}$ label.
+<br>
+<br>Here $B$ stands for any of the confusion-matrix based metric. In your case you would plug in the standard precision and recall formulas. For macro average you pass in the per label count and then sum, for micro average you average the counts first, then apply your metric function.
+<br>
+<br>You might be interested to have a look into the code for the mult-label metrics here , which a part of the package mldr in R. Also you might be interested to look into the Java multi-label library MULAN.
+<br>
+<br>This is a nice paper to get into the different metrics: A Review on Multi-Label Learning Algorithms
+<br>
+<br>
+<br>edited Sep 9 '16 at 21:42
+<br>answered Sep 9 '16 at 21:33
+<br>
+<br>phoxis
+<br><hr>
+<br>Let us assume that we have a 3-class multi classification problem with labels A, B and C.
+<br>The first thing to do is to generate a confusion matrix. Note that the values in the diagonal are always the true positives (TP).
+<br>Now, to compute recall for label A you can read off the values from the confusion matrix and compute:
+<br>= TP_A/(TP_A+FN_A)
+<br>= TP_A/(Total gold labels for A)
+<br>Now, let us compute precision for label A, you can read off the values from the confusion matrix and compute:
+<br>= TP_A/(TP_A+FP_A)
+<br>= TP_A/(Total predicted as A)
+<br>You just need to do the same for the remaining labels B and C. This applies to any multi-class classification problem.
+<br>Here is the full article that talks about how to compute precision and recall for any multi-class classification problem, including examples.
+<br>
+<br>
+<br>edited Oct 23 '14 at 20:55
+<br>
+<br>honk
+<br><hr>
+<br>Simple averaging will do if the classes are balanced.
+<br>
+<br>Otherwise, recall for each real class needs to be weighted by prevalence of the class, and precision for each predicted label needs to be weighted by the bias (probability) for each label. Either way you get Rand Accuracy.
+<br>
+<br>A more direct way is to make a normalized contingency table (divide by N so table adds up to 1 for each combination of label and class) and add the diagonal to get Rand Accuracy.
+<br>
+<br>But if classes aren't balanced, the bias remains and a chance corrected method such as kappa is more appropriate, or better still ROC analysis or a chance correct measure such as informedness (height above the chance line in ROC).
+<br>
+<br>
+<br>answered Mar 20 '15 at 7:18
+<br>
+<br>David M W Powers
+<br><hr>
+<br><hr>
+<br>Qn: How to interpret weka classification?
+<br>
+<br>How can we interpret the classification result in weka using naive bayes?
+<br>
+<br>How is mean, std deviation, weight sum and precision calculated?
+<br>
+<br>How is kappa statistic, mean absolute error, root mean squared error etc calculated?
+<br>
+<br>What is the interpretation of the confusion matrix?
+<br>
+<br>computer-vision classification weka
+<br>shareimprove this question
+<br>edited May 10 '12 at 20:54
+<br>
+<br>Atilla Ozgur
+<br>
+<br>Ans:
+<br>
+<br>Below is some sample output for a naive Bayes classifier, using 10-fold cross-validation. There's a lot of information there, and what you should focus on depends on your application. I'll explain some of the results below, to get you started.
+<br>
+<br>=== Stratified cross-validation ===
+<br>=== Summary ===
+<br>
+<br>Correctly Classified Instances          71               71      %
+<br>Incorrectly Classified Instances        29               29      %
+<br>Kappa statistic                          0.3108
+<br>Mean absolute error                      0.3333
+<br>Root mean squared error                  0.4662
+<br>Relative absolute error                 69.9453 %
+<br>Root relative squared error             95.5466 %
+<br>Total Number of Instances              100     
+<br>
+<br>=== Detailed Accuracy By Class ===
+<br>
+<br>               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+<br>                 0.967     0.692      0.686     0.967     0.803      0.709    0
+<br>                 0.308     0.033      0.857     0.308     0.453      0.708    1
+<br>Weighted Avg.    0.71      0.435      0.753     0.71      0.666      0.709
+<br>
+<br>=== Confusion Matrix ===
+<br>
+<br>  a  b   &lt;-- classified as
+<br> 59  2 |  a = 0
+<br> 27 12 |  b = 1
+<br>The correctly and incorrectly classified instances show the percentage of test instances that were correctly and incorrectly classified. The raw numbers are shown in the confusion matrix, with a and b representing the class labels. Here there were 100 instances, so the percentages and raw numbers add up, aa + bb = 59 + 12 = 71, ab + ba = 27 + 2 = 29.
+<br>
+<br>The percentage of correctly classified instances is often called accuracy or sample accuracy. It has some disadvantages as a performance estimate (not chance corrected, not sensitive to class distribution), so you'll probably want to look at some of the other numbers. ROC Area, or area under the ROC curve, is my preferred measure.
+<br>
+<br>Kappa is a chance-corrected measure of agreement between the classifications and the true classes. It's calculated by taking the agreement expected by chance away from the observed agreement and dividing by the maximum possible agreement. A value greater than 0 means that your classifier is doing better than chance (it really should be!).
+<br>
+<br>The error rates are used for numeric prediction rather than classification. In numeric prediction, predictions aren't just right or wrong, the error has a magnitude, and these measures reflect that.
+<br>
+<br>Hopefully that will get you started.
+<br>
+<br>
+<br>edited Nov 18 '11 at 12:45
+<br>answered Aug 16 '10 at 0:33
+<br>
+<br>michaeltwofish
+<br>
+<br>--------------------------------------
+<br>
+<br>To elaborate on michaeltwofish's answer, some notes on the remaining values:
+<br>
+<br>TP Rate: rate of true positives (instances correctly classified as a given class)
+<br>FP Rate: rate of false positives (instances falsely classified as a given class)
+<br>Precision: proportion of instances that are truly of a class divided by the total instances classified as that class
+<br>Recall: proportion of instances classified as a given class divided by the actual total in that class (equivalent to TP rate)
+<br>F-Measure: A combined measure for precision and recall calculated as 2 * Precision * Recall / (Precision + Recall)
+<br>As for the ROC area measurement, I agree with michaeltwofish that this is one of the most important values output by Weka. An "optimal" classifier will have ROC area values approaching 1, with 0.5 being comparable to "random guessing" (similar to a Kappa statistic of 0).
+<br>
+<br>It should be noted that the "balance" of the data set needs to be taken into account when interpreting results. Unbalanced data sets in which a disproportionately large amount of instances belong to a certain class may lead to high accuracy rates even though the classifier may not necessarily be particularly good.
+<br>
+<br>Further reading:
+<br>
+<br>https://www.cs.auckland.ac.nz/courses/compsci367s1c/tutorials/IntroductionToWeka.pdf
+<br>http://en.wikipedia.org/wiki/Receiver_operating_characteristic#Basic_concept
+<br>http://en.wikipedia.org/wiki/Information_retrieval#Performance_and_correctness_measures
+<br>
+<br>edited Mar 19 '14 at 16:30
+<br>
+<br>projekt-fisch
+<br>6411
+<br>answered Feb 4 '14 at 11:31
+<br>
+<br>Hybrid System
+<br><hr><hr>
+<br>Qn: How to read the classifier confusion matrix in WEKA
+<br>
+<br>Sorry, I am new to WEKA and just learning.
+<br>
+<br>In my decision tree (J48) classifier output, there is a confusion Matrix:
+<br>
+<br>a    b   &lt;----- classified as
+<br>130  8     a = functional
+<br>15   150   b = non-functional
+<br>How do I read this matrix? What's the difference between a & b?
+<br>Also, can anyone explain to me what domain values are?
+<br>classification weka decision-tree
+<br>shareimprove this question
+<br>edited Dec 12 '13 at 17:01
+<br>
+<br>Sam Rad
+<br>
+<br>Ans:
+<br>
+<br>Have you read the wikipedia page on confusion matrices? The text around the matrix is arranged slightly differently in their example (row labels on the left instead of on the right), but you read it just the same.
+<br>
+<br>The row indicates the true class, the column indicates the classifier output. Each entry, then, gives the number of instances of <row> that were classified as <column>. In your example, 15 Bs were (incorrectly) classified as As, 150 Bs were correctly classified as Bs, etc.
+<br>
+<br>As a result, all correct classifications are on the top-left to bottom-right diagonal. Everything off that diagonal is an incorrect classification of some sort.
+<br>
+<br>
+<br>edited Oct 23 '13 at 16:19
+<br>answered Mar 5 '13 at 1:28
+<br>
+<br>Junuxx
+<br><hr>
+<br>I'd put it this way:
+<br>
+<br>The confusion matrix is Weka reporting on how good this J48 model is in terms of what it gets right, and what it gets wrong.
+<br>
+<br>In your data, the target variable was either "functional" or "non-functional;" the right side of the matrix tells you that column "a" is functional, and "b" is non-functional.
+<br>
+<br>The columns tell you how your model classified your samples - it's what the model predicted:
+<br>
+<br>The first column contains all the samples which your model thinks are "a" - 145 of them, total
+<br>The second column contains all the samples which your model thinks are "b" - 158 of them
+<br>The rows, on the other hand, represent reality:
+<br>
+<br>The first row contains all the samples which really are "a" - 138 of them, total
+<br>The second row contains all the samples which really are "b" - 165 of them
+<br>Knowing the columns and rows, you can dig into the details:
+<br>
+<br>Top left, 130, are things your model thinks are "a" which really are "a" &lt;- these were correct
+<br>Bottom left, 15, are things your model thinks are "a" but which are really "b" &lt;- one kind of error
+<br>Top right, 8, are things your model thinks are "b" but which really are "a" &lt;- another kind of error
+<br>Bottom right, 150 are things your model thinks are "b" which really are "b"
+<br>So top-left and bottom-right of the matrix are showing things your model gets right.
+<br>
+<br>Bottom-left and top-right of the matrix are are showing where your model is confused.
+<br>
+<br>
+<br>answered Oct 28 '14 at 19:14
+<br>
+<br>Mental Nomad
+<br>
 <br>
   </details>
 <p>
@@ -17198,9 +17199,10 @@ The code conforms to the GNU coding standards. It is released under the Library 
 <summary><span class='mHG'>
 Snippets of some Mallet classes to @Override
 </span></summary>
-<pre>
+
 As the process moves thro the pipe; the instance data can change type from 1 data type to another.
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+<pre><code>
 /**Alphabet.java
  *  A mapping between integers and objects where the mapping in each
  * direction is efficient.  Integers are assigned consecutively, starting
@@ -17291,7 +17293,7 @@ public class InstanceListPrinter {
 	}
 
 }
-</pre>
+</code></pre>
 </p>
 </details>
 
@@ -27523,7 +27525,7 @@ One possible approach:<br>
 </li><li>dismantle (compose, fetch, deSer) 
 </li><li>retool to fetch raw mqlRes
 </li></ul>
-<code><pre>
+<pre><code>
 ///run this thro the tests; shd suffice 
 ///if any issues (Linq might nd fldNms); revert to fld_str_1|fld_bool_1 with get,set... 
 open System.Collections.Generic 
@@ -27590,10 +27592,10 @@ However, Bing/Bard can look up via srch.  One reason for cutoffs is that 'there 
              Wireframes main: DnD
               <div class="caption" style="display:none;">
 <h3> (Mon Oct 2)</h3>
-<code><pre>
+<pre><code>
 &gt; *** Dropping DnD is made poss by: 
 "A blank cell is a thing" ***
-</pre></code>
+</code></pre>
 
 &gt; This approach redacted <b>Oct 3</b>; most other things remain the same but **DnD is vital**.  See sec 2 below; moving cell from (say) row 6 to row 2 involves Shift-Click + 4 upKeypresses, DnD involves 1 click.  Also more intuitive.
 
@@ -27623,7 +27625,7 @@ However, Bing/Bard can look up via srch.  One reason for cutoffs is that 'there 
   ||e.g. stop if outside frm bounds see 4th art in li|| <br>
 
 <b><i>DoDragDrop</i></b> -> collect data when dragging begin<br>s
-<code><pre>
+<pre><code>
 button1_MouseDown.AddH(o,e ->
    button1.DoDragDrop(button1.Text, DragDropEffects.Copy |
       DragDropEffects.Move))
@@ -27635,21 +27637,21 @@ button1_MouseDown.AddH(o,e ->
   - handle DragEnter & DragDrop events<br>
 
 <b><i>DragEnter</i></b> -> validate ty <br>
-<code><pre>
+<pre><code>
 textBox1_DragEnter.Add(o e ->
    if (e.Data.GetDataPresent(DataFormats.Text))
       e.Effect = DragDropEffects.Copy
    else e.Effect = DragDropEffects.None
 </code></pre>
 <b><i>DragDrop</i></b>
-<code><pre>
+<pre><code>
 textBox1_DragDrop.Add(o e ->
    textBox1.Text = e.Data.GetData(DataFormats.Text).ToString())
 </code></pre>
 
 <h3> Handling DnD drops betw rows</h3>
 (Note that we don't nd this 4 DnD to rowLocs; for that do 
-<code><pre>
+<pre><code>
 tgtCell.isEmpty() ? replace else
    getExistingCellRef 
    |> replace 
@@ -27658,7 +27660,7 @@ tgtCell.isEmpty() ? replace else
        No -> moveExisting to 1stCellNextRow
 </code></pre>
 We nd an <b><i>extra row</i></b> betw ea 'normal' row just to serve as a <b><i>drop tgt</i></b>.  Not highlighted via bckgrnd relief; only 'appears' when used in DnD.  Therefore doLayout logic will include:
-<code><pre>
+<pre><code>
 //just assume that 0,2,4... are tgt rows
 List<rows>.filter(isOdd) |> processForLayout()
 //and in processFor~ add the tgt rows again
