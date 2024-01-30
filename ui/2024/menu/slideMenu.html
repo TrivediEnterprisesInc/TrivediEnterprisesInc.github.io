@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sliding Menu</title>
+  <!--src:https://www.kirupa.com/html5/creating_a_smooth_sliding_menu.htm -->
+
+  <style>
+    body {
+      background-color: #EEE;
+      font-family: Helvetica, Arial, sans-serif;
+      padding: 25px;
+      margin: 0;
+      overflow: auto;
+    }
+
+    #container li {
+      margin-bottom: 10px;
+    }
+
+    #menuBtn {
+      background-color: white;
+      margin-bottom: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none; //10px solid #0065A6;
+      outline: none;
+      transition: transform .3s cubic-bezier(0, .52, 0, 1);
+    }
+
+    #menuBtn:hover {
+      background-color: #96D9FF;
+      cursor: pointer;
+      border-color: #003557;
+      transform: scale(1.2, 1.2);
+    }
+
+    #menuBtn:active {
+      border-color: #003557;
+      background-color: #FFF;
+    }
+	
+#treeMenu {
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFE600;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate3d(-100vw, 0, 0);
+    transition: transform .3s cubic-bezier(0, .52, 0, 1);
+	overflow: scroll;
+	z-index: 1000;
+}
+
+#treeMenu h2 a {
+    color: #333;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+#treeMenu h2 a:hover {
+    text-decoration: underline;
+}
+#treeMenu.show {
+    transform: translate3d(0vw, 0, 0);
+}
+  </style>
+  
+<script>
+		let menuBtn = document.querySelector("#menuBtn");
+		menuBtn.addEventListener("click", showMenu, false);
+
+		let treeMenu = document.querySelector("#treeMenu");
+		/*even if no tgt... which means we'll nd a routine for the DnD ops etc...
+		OR just add another arrow btn (same style) as b4... */
+		treeMenu.addEventListener("click", hideMenu, false);
+
+		function showMenu(e) {
+			treeMenu.classList.add("show");
+			document.body.style.overflow = "hidden";
+		}
+
+		function hideMenu(e) {
+			treeMenu.classList.remove("show");
+			e.stopPropagation();
+			document.body.style.overflow = "auto";
+		}	
+  </script>
+
+</head>
+
+<body>
+	<div id="treeMenu">
+		<h2><a href="#s1">One</a></h2>
+		<h2><a href="#s2">Two</a></h2>
+		<h2><a href="#s3">Three</a></h2>
+		<h2><a href="#s4">Four</a></h2>
+		<h2><a href="#s5">Five</a></h2>
+	</div>
+	<button id="menuBtn">&gt;</button>
+	<div id="container">
+    <div id="s1">Section One</div>
+    <ul>
+      <li>Lorem</li>
+      <li>Ipsum</li>
+      <li>Dolor</li>
+      <li>Sit</li>
+      <li>Bumblebees</li>
+      <li>Aenean</li>
+      <li>Consectetur</li>
+    </ul>
+	<p>
+
+
+    <div id="s2">Section Two</div>
+    <ul>
+      <li>Lorem</li>
+      <li>Ipsum</li>
+      <li>Dolor</li>
+      <li>Sit</li>
+      <li>Bumblebees</li>
+      <li>Aenean</li>
+      <li>Consectetur</li>
+    </ul>
+	<p>
+
+
+    <div id="s3">Section Three</div>
+    <ul>
+      <li>Lorem</li>
+      <li>Ipsum</li>
+      <li>Dolor</li>
+      <li>Sit</li>
+      <li>Bumblebees</li>
+      <li>Aenean</li>
+      <li>Consectetur</li>
+    </ul>
+	<p>
+
+
+    <div id="s4">Section Four</div>
+    <ul>
+      <li>Lorem</li>
+      <li>Ipsum</li>
+      <li>Dolor</li>
+      <li>Sit</li>
+      <li>Bumblebees</li>
+      <li>Aenean</li>
+      <li>Consectetur</li>
+    </ul>
+	<p>
+
+
+    <div id="s1">Section One</div>
+    <ul>
+      <li>Lorem</li>
+      <li>Ipsum</li>
+      <li>Dolor</li>
+      <li>Sit</li>
+      <li>Bumblebees</li>
+      <li>Aenean</li>
+      <li>Consectetur</li>
+    </ul>
+	<p>
+
+
+    <div id="s5">Section Five</div>
+    <ul>
+      <li>Lorem</li>
+      <li>Ipsum</li>
+      <li>Dolor</li>
+      <li>Sit</li>
+      <li>Bumblebees</li>
+      <li>Aenean</li>
+      <li>Consectetur</li>
+    </ul>
+	<p>
+	
+  </div><!--container-->
+
+</body>
+
+</html>
