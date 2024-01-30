@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1></script>
+
+<!--style>
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+</style-->
+<script>
+require([
+    "dijit/ConfirmTooltipDialog",
+    "dijit/form/TextBox",
+    "dijit/form/DropDownButton",
+    "dojo/dom",
+		"dijit/Tooltip",
+    "dojo/domReady!"
+], function(ConfirmTooltipDialog, TextBox, DropDownButton, dom, Tooltip){
+    var myDialog = new ConfirmTooltipDialog({
+        content:
+            '<label for="name">Name:</label> <input data-dojo-type="dijit/form/TextBox" id="name" name="name"><br>' +
+            '<label for="hobby">Hobby:</label> <input data-dojo-type="dijit/form/TextBox" id="hobby" name="hobby"><br>'
+    });
+
+    var myButton = new DropDownButton({
+        label: "show tooltip dialog",
+        dropDown: myDialog
+    });
+    dom.byId("dropDownButtonContainer").appendChild(myButton.domNode);
+    myButton.startup();
+
+    new Tooltip({
+        connectId: ["exampleNode"],
+        label: "the text for the tooltip"
+    });
+});
+
+/*
+notes for i18n
+  All template spans: add class 'ttt' + descriptiveIDs;
+  we'll nd a map of displayStrings
+
+see: https://dojotoolkit.org/reference-guide/1.10/dojo/i18n.html#dojo-i18n
+
+dojo-config:
+    locale: “en-us”
+    overrides browserConfig
+
+dijit/nls/common.js
+    define({ root:
+    //begin v1.x content
+    ({
+      buttonOk: "OK",
+      buttonCancel: "Cancel",
+      buttonSave: "Save",
+      itemClose: "Close"
+    })
+    //end v1.x content
+    ,
+    "fr": true, ...
+
+
+dijit/nls/fr/common.js
+    define(
+    ({
+      buttonOk: "OK",
+      buttonCancel: "Annuler",
+      buttonSave: "Enregistrer",
+      itemClose: "Fermer"
+    })
+    );
+
+And in script:
+    require(["dojo/i18n!../../_static/dijit/nls/common.js",.... function(common,...
+    "<li> buttonOk: " + common.buttonOk + "</li>"
+
+OR in templates:
+    <span data-dojo-attach-point="closeText" class="closeText" title="${buttonCancel}">x</span>
+*/
+
+</script>
+</head>
+<body class="claro">
+
+<span id="exampleNode">Lorem ipsum ${buttonOk}</span>
+<hr>
+drpDnBtn container ->
+<div id="dropDownButtonContainer"></div>
+</body>
+</html>
+
