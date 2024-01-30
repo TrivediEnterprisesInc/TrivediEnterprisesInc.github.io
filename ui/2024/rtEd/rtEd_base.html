@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/editor/plugins/resources/css/FindReplace.css" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/editor/plugins/resources/css/CollapsibleToolbar.css" media="screen" rel="stylesheet" type="text/css">
+
+	<script>
+require(["dojo/dom", "dojo/query", "dojo/parser", "dijit/form/Button", 
+"dijit/TitlePane", "dijit/Editor", "dijit/_editor/plugins/FullScreen", 
+"dijit/_editor/plugins/ViewSource", "dijit/_editor/plugins/AlwaysShowToolbar", 
+"dijit/_editor/plugins/LinkDialog", "dijit/_editor/plugins/FontChoice", "dijit/_editor/plugins/TextColor",
+"dojox/editor/plugins/TablePlugins", "dojox.editor.plugins.ToolbarLineBreak", "dojox.editor.plugins.FindReplace",
+"dojo/domReady!"],
+function(dom, query, parser, button, TitlePane, Editor){
+    this.createEditor = function(){
+        var myEditor = new Editor({
+            height: '250px',
+						width: '100%',
+						plugins: "['collapsibletoolbar', 'undo', 'redo', 'findreplace',
+						'||', 'cut','copy','paste',
+						'||', 'bold','italic','underline','strikethrough','subscript', 'superscript',
+						'||', {name: 'dijit/_editor/plugins/FontChoice', command: 'fontName', generic: true}, 'fontSize', {name: 'formatBlock', plainText: true},
+						'||', 'foreColor', 'hiliteColor',
+						'||', 'createLink', 'unlink', 'insertImage', {name: 'insertTable'}, {name: 'tableContextMenu'},
+						'||',  'viewsource', {name:'fullscreen', zIndex:900}, 'print']"
+        }, dom.byId('prog1'));
+        myEditor.startup();
+        //query('#create2').orphan();   //works on dojo.org not locally throws on 'orphan'
+		parser.parse();
+    };
+	parser.parse();
+});
+	</script>
+</head>
+<body class="claro">
+
+<div id="prog1">
+    <br />
+    <a href="http://www.dojotoolkit.org">The best Ajax Toolkit there is, Dojo!</a>
+    <br />
+    It even has a cool logo: <img src="https://trivedienterprisesinc.github.io/img/Hulk.png" alt="The Dojo Toolkit" height='100px'/>
+    <br> https://dojotoolkit.org/
+<button data-dojo-type="dijit/Form/Button" id="tmp" onclick="alert('working?');">
+    embedded
+</button>
+<div id="tp2" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane Too'">
+    Embedded TitlePn
+</div>
+
+
+	<br>
+<table>
+	<tbody>
+		<tr>
+		<td style="border-style:solid; border-width: 2px; border-color: gray;">One cell</td>
+		<td style="border-style:solid; border-width: 2px; border-color: gray;">
+		Two cell
+		</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<button id="create2" onclick="createEditor();">
+    create expanding editor
+</button>
+</body>
+</html>
