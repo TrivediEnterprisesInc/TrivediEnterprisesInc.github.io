@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+#appLayout {
+    height: 100%;
+}
+#leftCol {
+    width: 14em;
+}
+
+.claro .demoLayout .edgePanel {
+    background-color: #d0e9fc;
+}
+	</style>
+
+    <script>
+    require(["dijit/registry", "dijit/form/Button", "dijit/layout/BorderContainer",
+            "dijit/layout/TabContainer", "dijit/layout/ContentPane", "dojo/dom", "dojo/domReady!"],
+        function(registry, Button, BorderContainer, TabContainer, ContentPane, dom){
+					var appLayout = new BorderContainer({
+							design: "headline"
+					}, "appLayout");
+
+					var contentTabs = new TabContainer({
+							region: "center",
+							id: "contentTabs",
+							tabPosition: "bottom",
+							"class": "centerPanel"
+					});
+
+					appLayout.addChild( contentTabs );
+
+					appLayout.addChild(
+							new ContentPane({
+									region: "top",
+									"class": "edgePanel",
+									content: "FileIO tests"
+							})
+					);
+
+					contentTabs.addChild(
+							new ContentPane({
+									title: "CliSide",
+									content: dom.byId("FileIO_Client")
+							})
+					);
+					contentTabs.addChild(
+							new ContentPane({
+									title: "ServerSide",
+									content: dom.byId("FileIO_Server")
+							})
+					);
+					contentTabs.addChild(
+							new ContentPane({
+									title: "Download from Svr",
+									content: dom.byId("FileIO_ServerDownload")
+							})
+					);
+					appLayout.startup();
+				});
+    </script>
+</head>
+<body class="claro">
+    <div id="appLayout" class="demoLayout"></div>
+
+
+	<div id="FileIO_Client">
+See also mozilla's extension <a href='https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Working_with_files'>docs</a> for Downloading info
+<p>
+
+	<input onchange="readFile(this)" type="file">
+	<p id="result"></p>
+	<script>
+		function readFile(input) {
+			let file = input.files[0]; 
+			let fileReader = new FileReader(); 
+//        fileReader.readAsText(file); 
+			fileReader.readAsBinaryString(file); 
+			fileReader.onload = function() {
+				document.getElementById("result").innerText = fileReader.result
+				alert(`Last modified: ${new Date(file.lastModified)}`);
+				alert('nm: ' + file.name);
+			}; 
+			fileReader.onerror = function() {
+				alert(fileReader.error);
+			}; 
+		}
+	</script>
+	</div>
+
+	<div id="FileIO_Server">
+   <h3>Notes</h3>
+   File <a href='https://developer.mozilla.org/en-US/docs/Web/API/File/File'>ctor</a>: (1stParam can contain 1/more byteArrays)<br>
+   <pre>
+   const file = new File([bA], "fileNm.txt", {
+                  type: "text/plain",
+                  });
+   </pre>
+   Option2: ctor accepts b64 enc string from fs-side<br>
+   Note: you can use -><i> 
+      img.src = URL.createObjectURL(this.files[i]);</i><br>
+  see this on <a href='https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications#example_using_object_urls_to_display_images'>obURLs</a> for fileObs
+<br><hr>
+
+   img: <img id="ItemPreview" src=""><br>
+   <button onclick="loadImgBytes()">loadFromSvr</button>
+   <script>
+     const loadImgBytes = () => {
+       alert('in func');
+       let myB64Barr = "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAQVJREFUSEvNlDEOAUEUhr+9ipaOA1BLaNBxAJ2EnppC4wJ0dEKNntIB1G6gYV6yk4zNzs4OmWRfufPP/828+fdFBK4osD+FAIyBueWmE2CR1QXXDfrA2tHGAbCxaUzAFOgA5RTxTH2TdbNs8DNw0XoTcALqOc21zNa+O1ARkQl4x7tcbXMF78vHB9BS71ECXsADOFpIPwG2QDdheANqKRBvwBWoxkbygE8DtgN6CYgXoKlOeYgNGioEApCSMEgopNrA3oB4AYbASkU37aQ6dSNgWVhA8BbJzYM+sm5t0JhqSNAfzTUezHVrTG3Dzsdca1OHXda49oFYx7WPSW7tv6PZCQoO+ACejEwZExbgDQAAAABJRU5ErkJggg==";
+       document.getElementById("ItemPreview").src = "data:image/png;base64," + myB64Barr;
+       alert('done');
+     };
+</script>
+</div>
+
+	<div id="FileIO_ServerDownload">
+<p>
+  We need to:
+  <ul><li>
+  - Create an obUrl<br>
+  The URL.createObjectURL() static method creates a string containing a URL representing the object given in the parameter
+  </li><li>
+  - Call 'browser.downloads.download(options);'<br>
+  (see <a href='https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/downloads/download'>this</a> for options; shd accept the obUrl)
+  </li><li>
+  If you use URL.createObjectURL() to download data created in JavaScript and you want to revoke the object URL (with <a href='https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL_static'>revokeObjectURL</a>) later (as it is strongly recommended), you need to do that after the download has been completed. To do so, listen to the downloads.<a href='https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/downloads/onChanged'>onChanged</a> event.
+  </li></ul>
+<p>
+
+
+<script>
+  // return a promise that resolves with a File instance
+//see: <a href='https://stackoverflow.com/questions/35940290/how-to-convert-base64-string-to-javascript-file-object-like-as-from-file-input-f/38935990#38935990'>SO</a>
+const urltoFile = (url, b64Str, filename, mimeType) => {
+    if (url.startsWith('data:')) {
+        var arr = url,
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[arr.length - 1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        var file = new File([u8arr], filename, {type:mime || mimeType});
+        return Promise.resolve(file);
+    }
+    return fetch(url)
+        .then(res => res.arrayBuffer())
+        .then(buf => new File([buf], filename,{type:mimeType}));
+}
+
+//Usage example:
+urltoFile('data:text/plain;base64', 'aGVsbG8=', 'hello.txt','text/plain')
+.then(function(file){ console.log(file);});
+  </script>
+	</div>
+
+</body>
