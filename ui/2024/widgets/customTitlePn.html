@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+  <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script>dojoConfig = {parseOnLoad: true}</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1">
+    </script>
+
+<style>
+.TitlePnIcn {
+  padding:4px;
+  display: inline-block;
+  text-align: center;
+  float:right;
+}
+
+</style>
+	
+	<script>
+require(["dojo/_base/lang", "dijit/TitlePane", "dojo/dom", "dojo/dom-class", "dojo/text!./support/customTitlePn_template.html", "dojo/domReady!"], function(lang, TitlePane, dom, domClass, template){
+
+    lang.extend(TitlePane, {
+      templateString: template,
+      docID: '',
+      docTags: '',
+      selBtnClick: function(evt){
+                     //alert('sel clicked 4: "' + this.title + '"');
+                     //nd to copy id for action >> state >> selItems >> clear
+                     if (this.selBtn.innerHTML === "check_box"){
+                        this.selBtn.innerHTML = "check_box_outline_blank"
+                     } else {
+                        this.selBtn.innerHTML = "check_box"
+                     };
+                     evt.stopPropagation();
+                 },
+      docLBtnClick: function(evt){
+                     alert('docL clicked');
+                     evt.stopPropagation();
+                 },
+      editBtnClick: function(evt){
+                     alert('editBtn clicked');
+                     evt.stopPropagation();
+                 },
+    });
+
+//<span class="material-symbols-outlined">edit</span>
+    //console.log("the class (unmodified):", JSON.stringify(TitlePane.prototype));
+    console.log("the class (modified with lang.extend):", JSON.stringify(TitlePane.prototype));
+
+
+    var tp = new TitlePane({title:"I'm a TitlePane", content: "Collapse me!"});
+    dom.byId("holder").appendChild(tp.domNode);
+    tp.startup();
+});
+	</script>
+</head>
+<body class="claro">
+    <div id="holder"></div>
+</body>
+</html>`
