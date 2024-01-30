@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+	
+<script>
+require([
+     "dojo/_base/declare", "dojo/parser", "dojo/ready",
+     "dijit/_WidgetBase", "dijit/_TemplatedMixin"
+ ], function(declare, parser, ready, _WidgetBase, _TemplatedMixin){
+
+     declare("DocLink", [_WidgetBase, _TemplatedMixin], {
+         docID: "",
+
+         templateString: "<div>" +
+             "<span class='material-symbols-outlined' data-dojo-attach-event='onclick: increment'>" +
+             "text_snippet</span>" +
+             "</div>",
+
+         increment: function(){
+             //this.docID = ++this._i;
+             alert('click recd for docL: ' + this.docID);
+         }
+     });
+
+     ready(function(){
+         parser.parse();
+     });
+ });
+	</script>
+</head>
+<body class="claro">
+    <span data-dojo-type="DocLink">press me</span>
+</body>
+</html>
