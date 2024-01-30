@@ -1,0 +1,15 @@
+DocLink flows
+	Note: Use System.Windows.Clipboard (not winFrms.Clipbd)
+	In fact, try not to use *any* winFrms lib
+
+copy (browser side)->
+function copy2clipbd() {
+	//get this.paneId
+	//let linkTxt = <span class='docLink'>paneId</span>
+  navigator.clipboard.writeText(linkTxt);
+}
+paste (svr) -> 
+	let isDocLink = fun txt -> ~~
+	if Clipbd.ContainsText(TextDataFormat.Html) && isDocLink(Clipbd.GetText(TextDataFormat.Html))
+	   paste
+	   swallowEvt
