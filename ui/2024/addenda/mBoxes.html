@@ -1,0 +1,803 @@
+          <div class="mBox mind amuse tv" >
+             Mostly mysteries
+              <div class="caption" style="display:none;">
+
+Word of Honor (2003 tv film)
+<a href='https://www.youtube.com/watch?v=7Ou-OKumS4E&pp=ygUSd29yZCBvZiBob25vciAyMDAz'>youtube</a> - 
+based on Nelson DeMille's novel; <mark>Don Johnson</mark>
+<br>
+Ed McBain's 87th Precinct: Heatwave (1997) (TV film)
+<a href='https://www.youtube.com/watch?v=PIjnKYLaFbE&pp=ygUNODd0aCBwcmVjaW5jdA%3D%3D'>youtube</a>
+<br>
+Ed McBain's 87th Precinct: Ice (1996) (TV film) 
+<a href='https://www.youtube.com/watch?v=siW4zZgSiys&pp=ygUdZWQgbWNiYWluJ3MgODd0aCBwcmVjaW5jdCBpY2U%3D'>youtube</a>
+<br>
+The Brokenwood Mysteries 2014-20
+<a href='https://en.wikipedia.org/wiki/The_Brokenwood_Mysteries'>wikip.</a>
+<a href='https://www.youtube.com/playlist?list=PLt-pwF95D2agTMAXpBlTxWPB8uAIFe_SO'>youtube</a>
+***NZ's <mark>north isl</mark>***
+<br>
+George Gently
+set in the 1960s in NE Northumberland etc.
+<a href=''>wikip.</a>https://en.wikipedia.org/wiki/Inspector_George_Gently
+<a href=''>youtube</a>https://www.youtube.com/playlist?list=PLlZm75oytJBw2Wmh7x630Ky01Echxcqb2
+(more links exist)
+<br>
+Wallander
+<a href='https://en.wikipedia.org/wiki/Wallander_(British_TV_series)'>wikip.</a>
+<a href='https://www.youtube.com/watch?v=EeOjx3u_tbI&pp=ygUTd2FsbGFuZGVyIGVwaXNvZGUgMQ%3D%3D'>youtube</a> s1e1
+<br>
+Worricker  2013
+Trilogy: Page Eight, Turks & Caicos, and Salting the Battlefield form The Worricker 
+three gripping films that follow the exploits of Worricker
+from <mark>MI5</mark> headquarters in London to exile on a Caribbean island to life on the run with his former lover and fellow agent Margot Tyrrell.
+The all-star cast includes Oscar winner Christopher Walken.
+<a href='https://en.wikipedia.org/wiki/Page_Eight'>wikip.</a>
+(3of3) salting<a href='https://www.youtube.com/watch?v=AP1XhcdtLhc&pp=ygURd29ycmlja2VyIHRyaWxvZ3k%3D'>youtube</a>
+<br>
+Arthur & George (TV series)
+based on 2005 book of the same name by <mark>Julian Barnes</mark>
+Arthur Conan Doyle real-life case, 3 eps (all avail)
+<a href='https://en.wikipedia.org/wiki/Arthur_%26_George_(TV_series)'>wikip.</a>
+<a href='https://www.youtube.com/watch?v=nql3tvDphdQ&pp=ygUZYXJ0aHVyICYgZ2VvcmdlIHR2IHNlcmllcw%3D%3D'>youtube</a>s1e1 
+<a href='https://www.youtube.com/watch?v=wrbg0sqWD_0&pp=ygUZYXJ0aHVyICYgZ2VvcmdlIHR2IHNlcmllcw%3D%3D'>youtube</a>s1e2 
+<a href='https://www.youtube.com/watch?v=k6HJLcw21kU&pp=ygUZYXJ0aHVyICYgZ2VvcmdlIHR2IHNlcmllcw%3D%3D'>youtube</a>s1e3 
+
+              </div>
+          </div>
+
+          <div class="mBox notes corpus dataset" >
+             IMDB titles corpus (refreshed daily) 128mb
+              <div class="caption" style="display:none;">
+
+<a href='https://datasets.imdbws.com/title.basics.tsv.gz'>IMDB titles corpus (refreshed daily)128mb</a>
+<br>
+Details: 
+<br>title.basics.tsv.gz - Contains the following information for titles:
+ 
+<br>tconst (string) - alphanumeric unique identifier of the title
+<br>titleType (string) – the type/format of the title (e.g. movie, short, tvseries, tvepisode, video, etc)
+<br>primaryTitle (string) – the more popular title / the title used by the filmmakers on promotional materials at the point of release
+<br>originalTitle (string) - original title, in the original language
+<br>isAdult (boolean) - 0: non-adult title; 1: adult title
+<br>startYear (YYYY) – represents the release year of a title. In the case of TV Series, it is the series start year
+<br>endYear (YYYY) – TV Series end year. ‘\N’ for all other title types
+<br>runtimeMinutes – primary runtime of the title, in minutes
+<br>genres (string array) – includes up to three genres associated with the title
+              </div>
+          </div>
+
+
+          <div class="mBox notes APIKey auth rsch" >
+             Ask HN: What do you use for API Key Management?
+              <div class="caption" style="display:none;">
+Q: 	
+Many developer portals allow you to generate API Keys. Is there a SaaS service that is powering these or is all of that logic being built in-house?
+<br>... 
+I'm not so much talking about the type of token issued (JWT/Opaque), but more about the service that manages issuing and revoking keys. (i.e. something similar to what Stripe has on their developer portal.<br>Was hoping Auth0 had a solution for this but Auth0 but doesn't <a href='https://community.auth0.com/t/how-to-implement-api-keys-using-auth0/6296/10'>look</a> like they do
+<br>
+A: Typically an API gateway is behind a lot of these. Lookup KrakenD, Gloo Mesh as examples.  Also Kong
+<p>
+Q: 	
+I need to implement API-key generation and management for a multi-tenant SaaS.  I already use Keycloak for user+password logins<br>
+A: If you are using Keycloak, the solution might be in this <a href='https://stackoverflow.com/questions/52230634/issuing-api-keys-using-keycloak'>SO</a> post
+<ul><li>
+OpenAI: Best Practices for <a href='https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety'>API Key</a> Safety
+</li><li>
+Goog Cloud: Why and when to use <a href='https://cloud.google.com/endpoints/docs/openapi/when-why-api-key#:~:text=It%20makes%20sense%20to%20do%20this%20if%3A%20You,the%20number%20of%20calls%20made%20to%20your%20API.'>API keys</a><br>
+API keys aren't as secure as authentication tokens, but they identify the application or project that's calling an API.<br>
+While API keys identify the calling project, they don't identify the calling user. For instance, if you have created an application that is calling an API, an API key can identify the application that is making the call, but not the identity of the person who is using the application.<br>
+API keys are generally not considered secure<br>
+When to use API keys:
+<ul><li>
+  You do want to block anonymous traffic.
+</li><li>
+  You want to control the number of calls made to your API.
+</li><li>
+  You want to identify usage patterns in your API's traffic.
+</li><li>
+  You want to filter logs by API key.
+</li></ul>
+API keys cannot be used for:<br>
+- Identifying individual users
+- Secure authorization
+</li></ul>
+              </div>
+          </div>
+
+
+          <div class="mBox notes mongo auth rsch" >
+             MongoDb auth
+              <div class="caption" style="display:none;">
+<h3><a href='https://www.mongodb.com/docs/atlas/app-services/authentication/api-key/'>API Key</a> Authentication</h3>
+App Services supports the following two types of API keys:
+<br>
+<b>Server API keys</b>: API keys associated with server users that is created from the App Services CLI, API or UI.
+<br>
+You can provide a server key to external applications and services to allow them to authenticate directly with App Services.
+<br>
+You can associate up to 100 server API keys with an app.<br>
+<b>User API keys</b>: API keys created from the Realm SDKs associated with application users.
+Each user API Key is associated with a single non-anonymous user. <br>Each user can associate up to 20 user API keys with their account.
+<p>
+  <h3>Email/Password Authentication</h3>
+Note: App Services can automatically send a confirmation email<br>
+Email/password authentication allows users to create an identity in your application based on a username and a password.<br>
+To enable Email/password authentication, your application should support a method of email confirmation, and a method of resetting a user's password<br>
+There are multiple implementation options for each of these requirements.
+              </div>
+          </div>
+
+
+          <div class="mBox notes ext rsch" >
+             Browser Extensions 
+              <div class="caption" style="display:none;">
+<h3>How 2 monetize?</h3>
+Some people take pymts w/GumRoad which gens license keys 4 ea sale; users paste key into ext, you verify w/gumroad's license api; unlock features etc. (mpt: probably stripe on the backend)<br>
+Others use <a href='https://extensionpay.com'>ExtPay</a> w/secure pymts 4 exts; geared towards js usrs.  Free trials, subscriptions, fremium, premium.  backed by stripe.
+
+<h3>Some Chrome exts w/impressive rev</h3>
+<ul><li>Gmass (email campaigns w/gmail) 130k mrr
+</li><li>Closet Tools (automate posting on fashion resale site Poshmark, charges users 30/mo) 42k mrr
+</li><li>CSS Scan (view/modify css rules on pages; one-time $69): IH listed, prodHunt launches 100k+
+</li><li>GoFullPage (screen capt $1/mo) over 4m usrs
+</li><li>NightEye (auto-creates darkMode vers of sites) 3k mrr
+</li><li>Weather Ext Tim Leland 200k usrs ~3k/mo
+</li><li>AdBlock Michael Gundlach 4m/mo</li></ul>
+Spreadsheet w/all Chrome exts + themes <a href='https://glench.gumroad.com/l/MeHsz'>here</a>
+<hr>
+<h3>Sales Tax</h3>
+Need to registered for a Certificate of Authority (w/yr state) a month before first sale (see <a href='https://www.simonmweber.com/2016/07/11/launching-a-chrome-extension-part-1-taxes-and-legal.html'>this</a>)
+
+              </div>
+          </div>
+
+          <div class="mBox notes mrr corp" >
+             HN: On MRR as a metric
+              <div class="caption" style="display:none;">
+Q: Can someone educate me on why MRR is the primary metric? MRR doesn't tell you if the startup is profitable, which is presumably the goal - to make money. If your costs are $3M/month, an MRR of $100K sounds like a terrible deal. Wouldn't it make more sense to report profits?<br>
+A: revenue is hard to manipulate, while profits are very easy. Buy and furnish a new office and then your cost suddenly hits $3m that month.
+<br>
+Anyone who takes any kind of venture capital is expected to have negative profits. They can hire contractors, outsource social media marketing to agencies, outsource hiring contractors to agencies, and so on. Uber used to buy cars and then sell them to their drivers, to get more drivers. Grab gave out free phones so taxi drivers could download the app.
+<br>
+Startups aren't about profits, they're about growing an asset as fast as possible and then selling it off to someone who can utilize same asset for higher value. e.g. YouTube and WhatsApp don't bring in money themselves, but work very well into Google and Meta strategically.
+<br>
+It's also common to seed "marketing cost" into unsustainable coupons/discounts and such. That's unhealtht revenue, but it's also why unit economics (the cost of one unit sale) is another metric. Turns out it's bloody difficult to fix unit economics. But this is why people check that unit economics are positive and then read MRR.<br>
+A2: As long as you believe you can acquire customers for some margin less than (you project) they will pay you across their lifetime as a customer, the rational choice to to maximise your money is to spend all the money you have (and more!) on acquiring more customers.<br>
+As a result, the majority of SaaS businesses aren't profitable, and people talk mostly about MRR.<br>
+A3: Because revenue is hard to fake, while a lot of the other metrics are easy. For example, a manager could cut costs via layoffs, get their bonus because the profitability increases in the short term and then they would leave to the next company. The old company may die as it has lost talent, knowledge and motivation in the long run. Doing these kind of tricks with revenue is much harder to pull off.<hr><br>
+Startups spend like $2-$5 per $1 of MRR, which is why they run out of runway and constantly need more investors.<br>
+Successful startups spend more like $1.25 per $1 of MRR.<br>
+Profit is for solo founders and bootstrapers.<br><hr>
+<b>5x ARR</b> is normally for what SAAS software cos get acquired.<br>
+
+Related:<br>
+Had to find the article, but I recently read <a href='https://commoncog.com/cash-flow-games/'>this</a> talks about the guy who <b>invented EBITDA</b>, explains WHY profit is a bad measure and why cash flow rules.
+              </div>
+          </div>
+
+
+          <div class="mBox notes corp ext keep evernote" >
+             Goog Keep vs Evernote?
+              <div class="caption" style="display:none;">
+Google <a href='https://www.online-tech-tips.com/computer-tips/google-keep-vs-evernote-which-one-is-best/'>Keep</a> or Evernote?
+<br>
+<br>Google Keep:
+<br>Users can create four different types of notes: text, image, drawing, and lists.  You can also add reminders to notes, color code them, and create custom tags.
+<br>To find notes, use 
+Grid View and a List View. Users can also sort between regular notes and reminders. For sorting features beyond this, users need to employ custom tags. 
+<br>
+Extensions & Ease of Use
+<br>One of the many strengths of services like Google Keep and Evernote is how easy it is for users to save websites, images, and video clips from the web. If you come across something relevant to your research, you don’t need to copy the link and create a new note. Just click the extension or add-on icon to automatically create a note.
+<br>Google Keep automatically creates a note when you activate the extension, but it does give you the option to title the note and include details about what the note entails. 
+
+<br>The Evernote Web Clipper functions in much the same way, but it gives users more options when saving content. <a href='https://www.online-tech-tips.com/wp-content/uploads/2020/03/Evernote-Snip.png'>img</a><br> 
+              </div>
+          </div>
+
+          <div class="mBox notes corp ext browser bookmarks" >
+             Browser Bookmark file format(s)
+              <div class="caption" style="display:none;">
+from <a href='https://github.com/Dissimilis/BookmarksManager/blob/master/src/BookmarksManager.Chrome/ChromeBookmarksReader.cs'ChromeBookmarksReader.cs</a>
+<br>/// JSON from Chrome API (as per https://developer.chrome.com/extensions/bookmarks#type-BookmarkTreeNode)
+<br>/// JSON from Chrome bookmarks file (%AppData%\Local\Google\Chrome\User Data\Default\bookmarks)
+
+<br><b>Firefox</b> stores bookmarks in SQLite tbl in folder "places"
+<br><b>Chrome</b> in JSON
+<br><b>Edge</b> in Netscape fmt
+<br>
+Sync your bookmarks privately across browsers and devices: <a href='https://github.com/floccusaddon/floccus'>Repo</a>
+<br>
+Uses GitHub's Gist records to store browser bookmarks (Chrome/FireF/Edge): <a href='https://github.com/dudor/BookmarkHub'>Repo</a>
+              </div>
+          </div>
+
+<div class="mBox work finance" >
+             Alan Rufus (Hastings): Richest of all time
+              <div class="caption" style="display:none;">
+From Tim Noah's NewRepublic bkRev of <u>As Gods Among Men</u> by Guido Alfani
+<br>
+Princeton University Press, 440 pp., $35.00<br>
+
+In late September 1066, William of Normandy asked his second cousin, Alan Rufus (<i>en français</i>: Alain le Roux), to join the Normans’ fateful war party against the Saxons. Rufus was the second son of a Breton count, at a time when the firstborn son would inherit the title and all the family wealth. It was unlikely that he would prosper if he remained in France. So he enlisted in William’s expedition to England, distinguishing himself as a commander at the Battle of Hastings. After William’s victory, he had himself crowned king, confiscated lands from the Saxon nobility, and doled out their vast estates to his favorites. Rufus received a great deal of property in Cambridgeshire. After he then helped William suppress various Saxon rebellions, he was given a lordship and even more land in Yorkshire (where Rufus’s castle <a href='https://www.english-heritage.org.uk/visit/places/richmond-castle/history-and-stories/history/'>still stands</a>).
+<br>
+Before Rufus died in 1093, the economic historian Guido Alfani informs us in As Gods Among Men: A History of the Rich in the West, the combined revenues from his landholdings reached, by one estimate, more than 7 percent of England’s entire national income. That would make Rufus just about the richest person ever to live in England (excluding kings and queens), Alfani writes. One calculation puts Rufus’s wealth, in 2023 dollars, at $242 billion. By comparison, the cosmetics tycoon Bernard Arnault, who topped Forbes’s 2023 list of the richest people in the world, has a combined family wealth of $211 billion.<br>
+Rufus was born into wealth and benefited from a family connection, but he earned most of his fortune through his own labors—that is, by <mark>shedding</mark> copious quantities of Saxon blood. With the advent of Norman feudalism, this path to wealth largely gave way to the <mark>quality</mark> of one’s own blood—that is, to being born into nobility.<br>
+...
+<br>
+In Marx’s time, ... wage growth, which had been virtually nonexistent through the second half of the eighteenth century, accelerated dramatically starting around 1820, and had risen somewhere between <b>30 and 50</b> percent by the time Marx published the first volume of Das Kapital 47 years later. Even though capital’s share of the pie expanded, the pie itself grew so fast that workers prospered.<br>
+
+Observing this phenomenon with amusement, in 1858 Friedrich Engels wrote that England was acquiring <b>“a bourgeois proletariat alongside the bourgeoisie.”</b> The working class was living better than it had in most people’s living memory. Engels and, later, Vladimir Lenin attributed this to <b>colonial plunder</b>. Engels’s collaborator Marx judged both cause and effect immaterial. Excessive interest in matters of economic distribution, he wrote, was <b>“vulgar socialism,”</b>
+              </div>
+          </div>
+
+
+<div class="mBox notes browsers" >
+             Firefox/Safari
+              <div class="caption" style="display:none;">
+Both are funded entirely by Google's Ads.<br>
+Google pays Apple 20b/yr in a srch deal.
+              </div>
+          </div>
+
+          <div class="mBox notes email utils">
+             Domains
+              <div class="caption" style="display:none;">
+Sev HN usrs recommend using CloudFlare <a href='https://blog.cloudflare.com/registrar-for-everyone'>Registrar</a> over NameCheap.<br>
+(GoDaddy is an <b>abso</b> no)<br>
+              </div>
+          </div>
+
+          <div class="mBox notes product utils">
+             Tracking mentions
+              <div class="caption" style="display:none;">
+<a href='https://f5bot.com/'>F5Bot</a> is a free service that emails you when your selected keywords are mentioned on Reddit, Hacker News, or Lobsters. Use it to monitor your brand, your projects, or just topics that you're interested in.
+<hr>
+<a href='https://syften.com/'>Syften</a> ($20/mo for 3 keywds) covers these communicties:<br>
+Twitter Keyword Alerts&nbsp;&nbsp;&nbsp;&nbsp;Reddit Keyword Alerts
+<br>Indie Hackers&nbsp;&nbsp;&nbsp;&nbsp;Hacker News Keyword Alerts
+<br>ProductHunt&nbsp;&nbsp;&nbsp;&nbsp;The Stack Exchange family
+<br>Forums&nbsp;&nbsp;&nbsp;&nbsp;Blogs and News
+<br>Lobste.rs&nbsp;&nbsp;&nbsp;&nbsp;Dev.to&nbsp;&nbsp;&nbsp;&nbsp;Steemit
+Upwork&nbsp;&nbsp;&nbsp;&nbsp;Spiceworks&nbsp;&nbsp;&nbsp;&nbsp;Various Slack communities
+<br>Private Facebook group monitoring&nbsp;&nbsp;&nbsp;&nbsp;Newsletters
+<br>Quora Keyword Alerts
+              </div>
+          </div>
+
+          <div class="mBox notes product marketing ads">
+             Marketing via Ads
+              <div class="caption" style="display:none;">
+Many HN devs report no results, e.g. <a href='https://hn.algolia.com/?dateRange=all&page=0&prefix=false&query=hetzner%20servers%20solo%20saas&sort=byPopularity&type=comment'>this</a> guy who repots zero signups through ads in Goog, fb, LinkedIn, Quora.<br>
+Adds that he uses limited content mktg (writing articles) and 'organic' spread, and gets a consistent amt of signups.<br>Thinks he cld get more but @ what expense?
+              </div>
+          </div>
+          <div class="mBox notes email utils">
+             Transactional email + grp send
+              <div class="caption" style="display:none;">
+Currently, setting up yr own SMTP svr won't do coz it won't be whitelisted in most (GMail etc.) providers, so it'll go to spam.<br>
+"If you launch something new (new Domain, few doz subscribers/transactional emails/day) it's difficult to build up enough reputation such that it gets even delivered @ all"<br>
+"Even if email's incl @ yr hoster, use a provider to make sure emails make it to inboxes."<br>
+
+		Basically <b>many</b> HN users say avoid SendGrid
+    <ul><li>support/service gone way down after acq by Twilio
+      </li><li>Gmail was actively rejecting SendGrid 'low sender reputation'
+      </li><li>They're on many blocklists
+        </li></ul>
+Other options recommended incl.:
+    <ul><li>PostMark
+      </li><li>SparkPost
+        </li><li>Sev usrs use GMail w/own IP add 4 smtp fwding + auto-labelling
+          </li><li><a href='https://forwardemail.net/en/private-business-email?pricing=true#free'>Forward</a> Email has free fwdng for unlimited domains
+        </li></ul>
+              </div>
+          </div>
+
+          <div class="mBox work finance" >
+              Fin Reading links
+              <div class="caption" style="display:none;">
+
+Here is a list of top writers on the US economy 
+(macro or markets) with columns or blogs that have no paywall:
+<ul><li>
+Paul Krugman @ <a href='https://www.nytimes.com/column/paul-krugman'>NYT</a>
+<br>
+[Note: is syndicated; so srch by colTitle will give full-txt elsewhere]
+</li><li>
+Barry <a href='https://ritholtz.com/'>Ritholtz</a>: The Big Picture Blog
+</li><li>
+Bloomberg <a href='https://www.bloomberg.com/opinion'>Opinion</a>
+</li><li>
+Brad <a href='https://www.bradford-delong.com/'>DeLong</a>: Grasping Reality with Both Hands Blog
+</li><li>
+Dean Baker - Beat the <a href='https://cepr.net/blog/dean-bakers-beat-the-press/'>Press</a>
+</li><li>
+Yves Smith - <a href='https://www.nakedcapitalism.com/'>Naked</a> Capitalism Blog
+</li><li>
+Mike Konczal's <a href='https://mikekonczal.substack.com/'>Blog</a>
+</li></ul>
+</div></div>
+
+          <div class="mBox notes product caseStudy" >
+             Solo dev Watermarking imgs
+              <div class="caption" style="display:none;">
+"Still my 5 year old watermarking tool making around 3-5k$ a month." - 
+prod <a href='https://www.watermark-image.com/'>website</a><br>
+Free for limited time/personal use<br>Plans: Pro: $30, Pro+Share:$60, SecureShare: $140<br>
+Uses license key; activate s/w to remove the "trial" watermark<br>
+"If you purchase a license for our products you will receive a license key by e-mail, you must then enter this key into the product by clicking the Registration menu."
+              </div>
+          </div>
+
+          <div class="mBox notes corp" >
+             IP for sole 2 corp
+              <div class="caption" style="display:none;">
+                Comment #1<br>
+"Some founders are tempted to simply increase the purchase price of their common stock, to get the desired amount of capital into the corporation when they pay for their shares. Most startup lawyers recommend against this approach because it can affect the FMV of the common stock. The value of equity compensation for employees and consultants is tied to the difference between the common stock FMV at the time of issuance, and the price at which the equity is eventually sold. Therefore, startups typically try to avoid prematurely causing an increase in the common stock FMV, to maximize the value of the equity compensation."
+<br>
+“Instead, founders typically contribute cash to the corporation in the form of a simple loan. With a simple loan, the company would be obligated to repay the founder at a later time, along with nominal interest.”
+<br>
+Wikip Corp <a href='https://en.wikipedia.org/wiki/Piercing_the_corporate_veil'>Veil</a>
+<hr>
+Comment#2<br>
+Q: Would it be "piercing the corporate veil" to accept payments before incorporating, then moving everything to separate accounts afterwards?<br>
+A: No you simply convert the sole proprietorship to an LLC (or corporation). You <mark>"sell" your intellectual property</mark> to the newly created corporation in exchange for your founder stock. A sole proprietorship is sort of like the default business structure, you don't really need to do anything to start it, everything just ends up on your personal tax return.
+              </div>
+          </div>
+
+          <div class="mBox notes product caseStudy" >
+             FlowCrypt (email encr) extensions
+              <div class="caption" style="display:none;">
+                "GMail encryption in 60 seconds"<br>
+<a href='https://flowcrypt.com/download'>FlowCrypt</a> simplifies email encryption (PGP) so that anyone can use it. It's available for Chrome, Brave, Firefox, Android, and iOS.<br>
+Built/ran it for 2 yrs; then (2016) hired 3 devs<br>
+free for up to 100 users. Enterprise > 100? send email
+              </div>
+          </div>
+
+          <div class="mBox notes product caseStudy" >
+             Scribe transcription s/w
+              <div class="caption" style="display:none;">
+"Made a no frills transcription services that uses AWS transcribe on the backend: (http://scribe.thence.io). I run a podcast and use it to generate multi-speaker transcripts. It's fully automated and generates a nice little revenue"<br>
+<a href='https://www.businesswire.com/news/home/20211018005677/en/Scribe-Raises-30-Million-to-Build-the-First-Operating-System-for-Know-How'>BusinessWire</a>: Scribe Raises $30 Million to Build the First Operating System for Know-How<br>
+Groundbreaking software platform seamlessly gathers and surfaces digital know-how so everyone can do, and share, their best work.
+              </div>
+          </div>
+
+          <div class="mBox notes product caseStudy" >
+             Ebay
+              <div class="caption" style="display:none;">
+eBay started as a website to sell Pez dispensers for the founders girlfriend.
+
+https://time.com/4013672/ebay-founded-story/
+<br>
+	delouvois on Jan 21, 2020 | root | parent | next [–]<br>
+
+Yeah. That really was some PR story, completely fake. Omidiyar admitted it later on. I think the first thing to ever be listed on eBay was a broken laser pointer.
+<br>
+	
+wikibob on Jan 23, 2020 | root | parent | next [–]<br>
+
+How interesting! Thanks for posting, I had no idea and bought it even though I've been aware of other similar sorts of submarine PR stories.<br>
+Do you have a link to the debunking?<br>
+	
+delouvois on Jan 30, 2020 | root | parent | next [–]<br>
+
+Sorry I don't often go on HN. I believe this was in an interview of Pierre Omidyar, although it may unfortunately be in French. He has not done much of these, so I think I may be able find it, I'll check.<br>
+
+	
+delouvois on Jan 30, 2020 | root | parent | next [–]<br>
+
+https://www.achievement.org/achiever/pierre-omidyar/<br>
+This is it, a link to the video and the transcript, just type laser on the and you'll find it !
+<br>
+              </div>
+          </div>
+
+
+
+          <div class="mBox notes product caseStudy" >
+             Solo dev Comapny profiles
+              <div class="caption" style="display:none;">
+<a href='https://bigpicture.io/'>BigPicture</a>: Skip the hassle of scraping – access 20M+ company profiles via API and flat file download to power cybersecurity, finance, and B2B applications at scale.<br>
+HN Solo dev founder, now has emps.<br>
+Turn any domain into a full company profile<br>
+Free: 1k unique lookups/mo<br>
+Biz: 2.5k lookups $100<br>
+Enterp: Contact Sales
+              </div>
+          </div>
+
+          <div class="mBox notes product caseStudy" >
+             Solo dev Watermarking imgs
+              <div class="caption" style="display:none;">
+<a href='https://docspring.com/'>DocSpring</a>: Fill out PDFs with an API request<br>
+- Upload yr form<br>
+- Set up yr fields<br>
+- Send POST req to get PDF filled out<br>
+Plans: Starter: $50/mo Pro: $100 Biz: $250<br>
+ has a docspring JS library on NPM + ts<br>
+ Has an EU office<br>
+ Founder's area code is NJ (so this is pro'lly another *medhu* uthao attempt)
+              </div>
+          </div>
+
+          <div class="mBox notes product pricing" >
+             Pro & Pro+ Plans
+              <div class="caption" style="display:none;">
+		Idea: Only Pro & Pro+ plans get:
+    <ul><li>support
+      </li><li>direct email contact w/dev
+        </li></ul>
+One solo dev () offers usrs to move data off platform to own (in-house) app for a $200 one-time fee (says manual proc so charges consulting rates)
+              </div>
+          </div>
+
+
+          <div class="mBox notes product design" >
+             Handling 'hacked' exceptions
+              <div class="caption" style="display:none;">
+		Spolski: Don't display the err msg.  Let them feel it succeeded, this will deflect most attacks.  It's the s/w equivalent of playing dead.<br>
+It only works 95% of the time, but worth doing coz it'll reduce your problems by 20x.<br>
+              </div>
+          </div>
+
+          <div class="mBox notes product design features" >
+             Spolski on Product Design (msft Activity Based Planning)
+              <div class="caption" style="display:none;">
+From Spolski's article: <b>The Process of Designing a Product</b>
+<p>
+Refers to 'Activity Based Planning' idea of Mike Conte/Excel Team<br>
+The key insight is to figure out the activity that the user is doing, and focus on making it easy to accomplish.<br>
+(instd of) blank canvas w/menu items; offer a list of activities the usr might do, eg. top three (for a card design site): <br>
+* Make a birthday card <br>* Party Invitation <br>* Anniversary Greeting
+<br>
+Now you're thinking like the user; and they'll find it easier to get started w/o browsing the menus etc.<br>
+You already have a list of activities your usr needs; decide which ones you want to focus on.<br>
+Later you may wish to add-on features for ea activity; e.g., for Birthdays/Anniv.s set up a recurring reminder.<br>
+The other great thing abt Activity Based Planning is that it lets you make a list of features NOT to do: evaluate which of the (long) feature list support the most imp. user activities.<br>
+<hr>
+From another article titled 'Simplicity':
+<br>
+80% of the people use 20% of the features.<br>
+So if you only impl 20% of the features you can still sell 80% as many copies.
+<br>
+Making simple, 20% prods is an exc bootstrapping strategy coz you need limited resources & min. audience.<br>
+You're using your weakness as a strength (Judo strategy)
+<br>
+Works for bootstrapping, however, this won't work as a long-term strategy<br>
+Nothing they've done @ Fog Creek increased rev more than releasing a ver w/new features<br>
+Most new featuress result in a permanent rev increase.<br>
+"Simple" as in easy to use is fine, but can't go far if you leave features out.
+              </div>
+          </div>
+
+          <div class="mBox notes corp mission" >
+             Spolski on Mission Statements
+              <div class="caption" style="display:none;">
+From Spolski's article: <b>Figuring out what your company is all about</b>
+<br>
+Kathy Sierra's blog 'Creating Passionate Users' & 'Head First' series of bks says explain the mission in the form:<br>
+"We help $TYPE_OF_PERSON to be awesome at $THING"<br>
+for FogBugz: helping software engineers be awesome @ making software.<br>
+This exercise makes it easy to figure out what belongs in future versions of the s/w and what doesn't.
+              </div>
+          </div>
+
+          <div class="mBox notes corp product vision" >
+             Spolski on Product Vision Statements
+              <div class="caption" style="display:none;">
+From Spolski's article: <b>Product Vision</b>
+<br>
+Jim Highsmith devised a way to come up w/ a vision stmt, which he calls <b>Design the Box</b>:<br>
+helps bld an elevator pitch<br>
+Assume the prod is sold in a shrink-wrapped box.  Design the box, front & back.<br>
+Come up w/a name, graphic, 3 or 4 key bullet points on the front to 'sell' the prod<br>
+Plus a detailed desc on the back and operating requirements<br>
+Follows the form:
+<ul><li>For (tgt cust)
+</li><li>Who (nd/opportunity)
+</li><li>The (prod) is a (prod categ)
+</li><li>That (key benefit, compelling reason2buy)
+</li><li>Unlike (primary competitn)
+</li><li>Our product (stmt of differentiation)
+</li></ul><br>
+
+Helps you focus on critical aspects of the product<br>
+Even with short-term issues.
+              </div>
+          </div>
+
+          <div class="mBox notes corp product features" >
+             Spolski on Feature Prioritization
+              <div class="caption" style="display:none;">
+From Spolski's article: <b>Set Your Priorities</b>
+<br>
+If you ever find yourself implementing a feature promised to <mark>one</mark> customer, red lights shd be going off in your head.  You're drifting towards consultingware.
+<br>
+Shrinkwrap is a take-it-or-leave-it model of software development.
+<br>
+Shrinkwrap has no marginal costs for ea additional customer.  You're essentially selling the same thing over and over again.
+<br>
+The kind of features big, rich customers want are not the ones the mass market wants.
+<br>
+Also, don't do things because they're inevitable.  (ie, "you'll eventually have to do it anyway") If they're not <b>essential</b>, you don't have to do them.
+<br>
+At any given point what is the most important thing to get done <b>right now</b>?
+<br>
+For feature priorities, consider each impl.'s cost, then poss popularity/cust feedback
+<br>
+This approach was used @ the Excel team, roughly 50% of the features they didn't have time to do were 'really stupid' and the <mark>prod was better coz they didn't get done</mark>.
+              </div>
+          </div>
+
+<div class="mBox notes util bookmarks" >
+             Importing Bookmarks (any browser)
+             <div class="caption" style="display:none;">
+Main (Go) <a href='https://github.com/moonD4rk/HackBrowserData'>repo</a><br>
+C# <a href='https://github.com/S3cur3Th1sSh1t/Sharp-HackBrowserData/tree/main'>port</a> of above (dated)
+<br>
+see also:<br>
+Convert & <a href='https://whatsoftware.com/convert-and-transfer-browser-bookmarks-to-another-web-browser/'>XFer</a> bookmarks to other browsers<br>
+Best Bookmark <a href='https://techrrival.com/best-bookmark-managers/'>'Managers</a>
+              </div>
+          </div>
+
+<div class="mBox notes product wasm dotnet" >
+             More dotNet Wasm info
+             <div class="caption" style="display:none;">
+
+<ul><li>.net assembly System.Runtime.InteropServices.<a href='https://learn.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.javascript?view=net-8.0'>JavaScript</a>
+
+</li><li>interop.
+/JSImportExport<a href = 'https://github.com/dotnet/runtime/blob/main/src/libraries/System.Runtime.InteropServices.JavaScript/tests/System.Runtime.InteropServices.JavaScript.UnitTests/System/Runtime/InteropServices/JavaScript/JSImportExportTest.cs'>Test</a>.cs
+
+</li><li>JSImport async task signatures (for <a href='https://stackoverflow.com/questions/75185720/need-c-sharp-jsimport-async-signature-interop-example-to-match-async-javascript'>attributes</a>)
+
+</li><li><mark>.net <a href='https://stackoverflow.com/questions/75336499/how-to-pass-a-c-sharp-string-array-to-javascript-using-jsexport-in-webassembly'>String[]</a> to js (full example)</mark>
+</li></ul>
+<p>
+<mark>Security</mark>
+<ul><li>
+6 Security <a href='https://thenewstack.io/6-security-risks-to-consider-with-webassembly/'>Risks</a> to Consider with wasm
+</li><li>(from above) <br>
+OWASP's Top 10 Vulnerabilities 4 <a href='https://www.jit.io/blog/the-in-depth-guide-to-owasps-top-10-vulnerabilities'>wasm</a>
+
+</li><li><a href='https://arxiv.org/abs/2204.12575'>Wasmati</a>: An Efficient Static Vulnerability Scanner for WebAssembly
+</li></ul>
+</div></div>
+
+<div class="mBox notes memory" >
+             Resources abt Memory
+             <div class="caption" style="display:none;">
+Articl on Assessing <a href='https://www.frontiersin.org/articles/10.3389/fnbeh.2013.00033/full'>Episodic</a> Memory
+<br>
+Full paper, investigate for studies of <a href='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5404722/'>recall</a> (ep)
+'Why do we remember? The communicative function of episodic memory'
+</div></div>
+
+<div class="mBox notes memory" >
+             TLS: 100 most influential bks since WWI
+             <div class="caption" style="display:none;">
+[poss dupl; chk]
+<b>From TLS: The Hundred Most Influential Books Since the War</b>
+<br>
+Berlin's 'Russian Thinkers' @ https://archive.org/details/russianthinkers0000berl/page/n7/mode/2up
+<br>p 14: The Hedgehog & the Fox
+<br>
+<br>https://en.wikipedia.org/wiki/The_Emperor%27s_New_Mind
+<br>https://en.wikipedia.org/wiki/On_Aggression
+<br>https://en.wikipedia.org/wiki/Mythologies_(book)
+<br>https://en.wikipedia.org/wiki/The_Presentation_of_Self_in_Everyday_Life
+<br>Czesław Miłosz https://en.wikipedia.org/wiki/The_Captive_Mind
+<br>Primo Levi https://en.wikipedia.org/wiki/The_Drowned_and_the_Saved
+<br>David Riesman https://en.wikipedia.org/wiki/The_Lonely_Crowd
+<br> 1950 considered a landmark study of American character
+<br>
+Andre Malraux https://en.wikipedia.org/wiki/Man%27s_Fate
+<br> Failed communist insurrection Shanghai 1927, and the existential quandaries facing a diverse group of people associated with the revolution.
+<br>
+Antonio Gramsci: Prison Notebooks
+<br> Italian Marxist philosopher, cover a wide range of topics,
+<br>Claude Lévi-Strauss Tristes Tropiques
+<br> memoir, travel, anthropological Brazil
+<br>Thomas Schelling The Strategy of Conflict (1960) https://en.wikipedia.org/wiki/Thomas_Schelling#The_Strategy_of_Conflict
+<br> game theory, 2005 Nobel Econ
+<br>Karl August Wittfogel https://en.wikipedia.org/wiki/Oriental_Despotism
+<br> 57 comparative hist incl ancient Egypt and Mesopotamia, Hellenistic Greece and imperial Rome, the Abbasid Caliphate, imperial China, the Moghul empire, and Incan Peru.
+<br>Emmanuel Le Roy Ladurie https://en.wikipedia.org/wiki/Emmanuel_Le_Roy_Ladurie#Les_paysans_de_Languedoc
+<br> 66 The Peasants of Languedoc "culture prevented them from advancing"
+<br>
+</div></div>
+
+
+          <div class="mBox notes product features" >
+             Features: Ignore the competition
+              <div class="caption" style="display:none;">
+from: <a href='https://web.archive.org/web/20060809075850/http://www.headrush.typepad.com/creating_passionate_users/2006/07/avoiding_the_fe.html'>Ignore</a> the competition by Kathy Sierra Jul 2006
+<br>
+I'm so tired of seeing so many products with the same features <b>that nobody wants</b>. It's bad enough to let feature requests from users get out of control, but when we start adding features just because our <b>competitors</b> have them, we're all screwed.
+<br>
+New features are <b>easier to promote</b> than better/working versions of existing ones. Or so we think...
+<br>
+Perhaps if we devote all of our attention to users (and our own ability to innovate), we'll stop being dragged off into areas that build our feature list, but often at the expense of users.
+<br>
+...the more features we add, the more danger there is of the dreaded featuritis:
+<img src='https://web.archive.org/web/20060809075850im_/http://headrush.typepad.com/photos/uncategorized/featuritis_2.jpg'>
+<br>
+If our only "competitive advantage" is by staying one step ahead of The Feature Arms Race, we're vulnerable.
+<br>
+I think in many cases, the more you <b>try</b> to compete, the less competitve you actually <b>are</b>.
+              </div>
+          </div>
+
+          <div class="mBox notes product design" >
+             Devs falling in love w s/w & Tools
+              <div class="caption" style="display:none;">
+from "Take your pragmatism for a <a href='https://twitchard.github.io/posts/2023-01-18-unicycles.html'>unicycle</a> ride" : Richard Marmorstein, Jan '23
+<br>
+Though not a design article, offers <b>many</b> ideas for our prods.
+<br>
+Sometimes the tool that brings the best results isn’t the tool that is “best” on the practical merits. How a tool <b>makes us feel</b> can completely <b>overshadow</b> the actual technical characteristics of the tool.
+<br>
+Vim makes me more disposed to dive in and engage with the code, rather than to sit around and dither.
+<br>
+...Even after all these years, there’s this surge of excitement and a feeling of coming home I get...
+<br>
+All these tools promised that, in exchange for some effort up front to configure and learn, they will save me time and make me a more efficient developer.  (which they actually don't... but he gets "energized")
+<br>
+Similarly for mech. keyboards, ML langs, Ruby tests (Cucumber)...
+              </div>
+          </div>
+
+          <div class="mBox dev devFS core monads" >
+             Monadic Rollbacks
+              <div class="caption" style="display:none;">
+from "<a href='https://twitchard.github.io/posts/2020-07-26-monads.html'>Monads</a> and Mom" : Richard Marmorstein, Jul '20
+<br>
+You'd think using a Cont. Monad would do the trick, but this guy uses a combination of <i>Except</i> and <i>Writer</i>
+<br>
+Defines a rollbackable function which does an inverse operation; this entire thing is modular; poss only works in Haskell but looks like this:
+<br>
+<pre><code>
+type InverseOperation = ExceptT String IO ()
+type Rollbackable =
+  ExceptT String 
+    ( WriterT [InverseOperation]
+      IO
+    )
+</code></pre>
+<br>and<br>
+<pre><code>
+makeRollbackable
+  :: IO (Either String a)
+  -> IO (Either String ())
+  -> Rollbackable a
+makeRollbackable doIt undoIt = do
+  -- `liftIO` makes "doIt" return a `Rollbackable (Either String a)`
+  -- instead of an `IO (Either String a)`
+  result <- liftIO doIt
+  case result of
+    -- If `doIt` fails, then we use 
+    -- `throwError` from `Except` to short-circuit.
+    Left err -> throwError err
+    Right result -> do
+      -- If `doIt` succeeds, then we use `tell` from the
+      -- `Writer` monad to "emit" its inverse, `undoIt`.
+      lift . tell $ [ExceptT undoIt]
+      return result
+</code></pre>
+              </div>
+          </div>
+
+          <div class="mBox notes product design" >
+             Self-modifying Applications
+              <div class="caption" style="display:none;">
+from "An argument for <a href='https://macoy.me/blog/programming/SelfModifyingApplications'>self-modifying</a> applications" Macoy Madson, Oct '22
+<br>
+...Stop Writing Dead Programs (video) by Jack <a href='https://www.youtube.com/watch?v=8Ab3ArE8W3s'>Rusher</a> captures a lot of where my head is at here.
+<br>
+Emacs is the only program where I truly feel that I can naturally modify it....
+<br>
+The amount of friction to this sort of modifiability is crucial to the amount of value it can add. In Interface ergonomics I argue for lowering friction because it often changes what things people are willing to do.
+<br>
+Self-modifiability is the exception, not the rule in modern applications.
+<br>
+By building tightly integrated, unlimited, and convenient modifiability into your applications, you give your users the chance to solve their own problems.
+<br>
+you can provide <b>a huge amount of value</b> to users by empowering them to modify your application.
+<br>
+We should leverage the fact that tailoring a software application to your individual needs is easier than any other product in history. As an industry, we need to admit that one size does not fit all.
+<br>
+Author blt <a href='https://macoy.me/blog/programming/CakelispIntro'>CakeLisp</a>, a prog lang w/
+<ul><li>compile-time code generation
+  </li><li>runtime code hot-loading
+    </li></ul>
+
+<br>
+<hr>
+<br>
+see also: Drew DeVault, "How I wish I could <a href='https://drewdevault.com/2022/08/10/Organizing-my-thoughts.html'>organize</a> my thoughts" Aug 22
+<br>
+Uses pen/notbk 4 ad-hoc todo lists, notes on problems I’m working on, tables, flowcharts, etc.<br>
+Limits: sharing, no edits.<br>
+there are not any applications available which can support the note-taking paradigm that I wish I could have<br>
+I should be able to zoom in and out and pan around<br>
+A PDF exporter should let me arrange the pages in the desired linear order<br>
+Naturally this application should be free software and should run on Linux. However, I would be willing to pay a premium price for this tool — a one-time fee of as much as $1000, or subscriptions on the order of $100/month if real-time collaboration or cloud synchronization are included. 
+<br>Asks bldrs to contact him. <b>Send indiv email on launch</b>
+              </div>
+          </div>
+
+          <div class="mBox notes product design" >
+             Work on stuff that matters
+              <div class="caption" style="display:none;">
+<br>
+from "Work on stuff that <a href='https://www.oreilly.com/library/view/wtf-whats-the/9780062565723/text/9780062565723_Chapter_16.xhtml'>matters</a>" Tim O'Reilly (the publisher) Jan 2009
+<br>
+When Clayton Christensen introduced the term <b>disruptive tech</b> in his 1997 business classic, <u>The Innovator’s Dilemma</u>, he wanted to know why existing companies <b>fail to take advantage</b> of new opportunities. He discovered that breakthrough technologies that are not yet mature first succeed by <b>finding radically new markets</b>, and only later disrupt existing markets.
+<br>
+The point of a disruptive technology is not the market or the competitors that it destroys. It is the new markets and the new possibilities that it creates.
+<br>
+This was true of Microsoft, of Google, Facebook, and Amazon, and it is also true of current disruptors like Uber, Lyft, and Airbnb or the researchers who are taking us pell-mell into a future of self-driving cars and other applications of artificial intelligence. They started out trying to solve a problem.
+<br>
+I urge you to forget disruption and instead work on stuff that matters.
+<br>
+<ol><li>
+
+Whatever you do, think about what you <b>really value</b>
+  <ul><li>
+great companies have <b>“big hairy audacious goals.”</b><br>
+“Solve the biggest problem you can.”
+</li><li>
+Pursue something so important that even if you fail, the world is better off for you having tried.
+</li></ul>
+</li><li>
+  Create more value than you capture
+  <br>
+  ...create a self-reinforcing value loop with and for others. 
+  <br>
+Focusing on solving big problems rather than on making money, and focusing on creating more value than you capture, are closely related principles. The first one is a test that applies to those starting something new; the second is the harder test that you must pass in order to create something enduring.
+</li><li>
+  Take the long view, focus on the big picture
+  <br>
+</li><li>
+  Aspire to be better tommorrow than you are today
+  <br>
+  If we are to lead the world into a better future, we must first dream of it.
+  <br>
+  Scenario planning: develop “robust strategies” that work in the face of radically different futures
+  <br>
+  Bill Gates: “We always overestimate the change that will occur in the next two years and underestimate the change that will occur in the next ten. Don’t let yourself be lulled into inaction.”
+</li></ol>
+              </div>
+          </div>
+
+          <div class="mBox notes product design" >
+             Wessis and Ossis
+              <div class="caption" style="display:none;">
+<br>
+lrb article by Neal Ascherson Dec '23 <a href=''>here</a> <a href='https://en.wikipedia.org/wiki/Ossi_and_Wessi'>wikip</a><br>
+see also mBox 4 movie: Good Bye Lenin!
+<br>
+Bk Rev of 2 bks on Ostalgie, one pro East & one not; both post WW2 - today.
+<br>
+...there exists in the resentment of older people at the 'cancellation' of their memories after lives of hard effort, some achievements and some joy in a country that was 'more than a walled Stasiland'... regret for lost security, schools, support for women in the workplace...Questions complacent German tendency to see clean breaks in history where there are continuities.
+<br>
+Author: Travelling around Mecklenburg in 1991 was reminded of post-Civil War Reconstruction in America: a sullen, defeated society (w) Germany felt as victorious as the US North must have done...
+<br>
+Gap betw living standards east/west is still 26% oin 2000
+<br>
+KPD (German Communist Party) heir to German revolutionary socialism 'senior working-class mvmt in the world' - fled to Moscow after Hitler took power but fell in Stalin's purges: 55k arrested, 42k of whom were later shot.
+<br>
+By 61 the GDR had lost 3m people - esply skilled elites - escaping thro Berlin
+<br>
+US/UK propaganda: "they're rejecting communism w/their feet" - actually they dreaded the implosion of the E German state & Soviet intervention/nuclear war.
+<br>
+Denazification: early yrs post WWII proportion purged east/west same.  L8r, the no. of old Nazis hrehired in the west became a global scandal.  Max Brauer, mayor of Hamburg: "95% of the german ppl had worked w/the Nazi regime.  You can't bld a state w/ only 5%."<br>
+...shocking & enduring local hostility toward the Vertriebenen - the 12m destitute Germans expelled after the war to both Germanies: assimilation took a generation.<br>
+In 2005 Merckel accepted millions of immigrants 'Wir schaffen das!': 'we can manage this' seemd that Germany re-emerged as the moral beacon for the wrld.
+<br>
+The Gaza war has set this govt oscillating betw free speech rights & sacred principle that the maintenance of an Israeli state is a fundamental component of Germany's <i>raison d'etre</i>.
+              </div>
+          </div>
