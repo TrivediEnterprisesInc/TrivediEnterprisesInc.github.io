@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+	<script>
+		/*
+		1. port to new AMD
+		2. convt 2 recv fsArgs
+
+			com.trivedienterprisesinc.gfx.desktop
+			Copyright (c) 2016-2024 M. P. Trivedi.  All rights reserved.
+			Last updated: Jan 27th pm
+			left off @ desktopContainer().layout().customAddChild()//EOD
+		*/
+	</script>
+
+<script>
+
+		/*	com.trivedienterprisesinc.gfx.tblIcon	*/
+	require([
+		"dojo/_base/declare", "dojo/parser", 
+		"dijit/_WidgetBase", "dijit/_TemplatedMixin", "dojo/domReady!"
+	], function(declare, parser, _WidgetBase, _TemplatedMixin){
+    declare("com.trivedienterprisesinc.gfx.tblIcon", [_WidgetBase, _TemplatedMixin], {
+		imgUrl: "divClassForIcon",
+		descTxt:"This is the desc of the widget...",
+		tblName:"The Table Name goes here",
+		accessLevel:"user",
+		dataViews: null,
+		MinimizedBox: null,
+
+		templateString:
+			"<div class='oPlsTblIconLg' dojoAttachPoint='iconOuter'>"+
+			"<center><div class='${imgUrl}' style='width:36px;overflow: hidden;' dojoAttachPoint='iconInner'>"+
+			"<br></div><div class='oPlsIconLabel' dojoAttachPoint='iconLabel'>${tblName}</div></center></div>",
+
+		postCreate: function(){
+			this.inherited(arguments);
+			dojo.connect(this, "onClick", function(evt){
+				//dojo.stopEvent(evt);
+				alert("adding pane for : " + dijit.byId(this.id).tblName);
+				this.MinimizedBox = dojo._getMarginBox(this.iconOuter);
+				//dP('iconClick ->  left: ' + window.clickSourceMinimizedBox.l + ' top: ' + window.clickSourceMinimizedBox.t + ' width: ' + window.clickSourceMinimizedBox.w + ' ht: ' + window.clickSourceMinimizedBox.h);
+				window.desktop.addDesktopPane(this.id, this.MinimizedBox);
+			});
+
+			/*
+			dojo.connect(this, "onmouseenter", function(evt){
+				dojo.stopEvent(evt);
+				alert("this.descTxt: " + dijit.byId(this.id).descTxt);
+				//this.imgUrl = this.imgUrl.replace("on", "off");
+				alert(' imgUrl before ' + this.imgUrl);
+				this.set('imgUrl',"ui\\css\\images\\sysIconoff.gif");
+				alert(' imgUrl after ' + this.get('imgUrl'));
+			});
+
+			dojo.connect(this, "onmouseleave", function(evt){
+				//dojo.stopEvent(evt);
+				//alert("this.descTxt: " + dijit.byId(this.id).descTxt);
+				this.imgUrl = this.imgUrl.replace("off", "on");	 			
+			});
+			*/
+			
+			/*
+			//	temp disabled;  the monkeys have requested a 
+			//	"holiday season Menu" for the rest of the month.
+			//create & attach Menu
+			iconMenu = new dijit.Menu({targetNodeIds:[this.id], id:"iMenu", leftClickToOpen: false});
+		        var mItem1 = new dijit.MenuItem({label:"dojo.event clicking", iconClass:"fas fa-database"});
+				var mItem2 = new dijit.MenuItem({label:"Info"});
+				var mItem3 = new dijit.MenuItem({label:"Open"});
+		        dojo.connect(mItem1, "onClick", function(){alert("click! handler created via dojo.connect()")});
+		        iconMenu.addChild(mItem1);
+				iconMenu.addChild(mItem2);
+				iconMenu.addChild(mItem3);
+				if ( this.accessLevel == "Admin" ) {
+					var mItem4 = new dijit.MenuItem({label:"Design"});
+					iconMenu.addChild(mItem4);
+				};
+				
+				var dvSubMenu = new dijit.Menu({parentMenu:iconMenu, id:"dvSubMenu"});
+				for (var key in this.dvs){
+					dv = itm.dvs[key];
+					//alert('dvItem: label:' + dv.dvLabel + ' name: ' + dv.dvName );
+					var dvsubMenuItem = new dijit.MenuItem({label:dv.dvLabel});
+					var tmpCmd = "get" + dv.dvName;
+					dojo.connect(dvsubMenuItem, "onClick", function(){alert(tmpCmd)});
+					dvSubMenu.addChild(dvsubMenuItem);
+				};
+			iconMenu.addChild(new dijit.PopupMenuItem({label:"View", popup:dvSubMenu, id:"dvSubMenu"}));
+			iconMenu.startup();
+			*/
+		},
+		
+		startup: function(){
+			if(!this._started){
+				this.inherited(arguments);
+				//alert(this.tblName + ' icon started');
+			}
+		},
+		
+		center: function(e){
+			// summary: public function to center a particular image
+			//var p = dijit.getEnclosingWidget(this.domNode.parentNode);
+			//p._center(this.domNode);
+		},
+        });
+        parser.parse();
+	});
+</script>
+
+<script>
+
+		/*	com.trivedienterprisesinc.gfx.tblIcon	*/
+	require([
+		"dojo/_base/declare", "dojo/parser", 
+		"dijit.layout.AccordionContainer", "dijit/_WidgetBase", "dojo/domReady!"
+	], function(declare, parser, AccordionContainer, _WidgetBase){
+		declare("com.trivedienterprisesinc.gfx._AccordionButton", [_WidgetBase], {
+	//@mpt: we probably nd to incl AccBtn as below (prev syntax) coz we're extending...
+	//dojo.declare("com.trivedienterprisesinc.gfx._AccordionButton", dijit.layout._AccordionButton, {
+		_setSelectedAttr: function(/*Boolean*/ isSelected){
+			dP('in _setSelectedAttr for accPane');
+			alert('custom_accBtn-> in _setSelectedAttr() for accPane');
+			//consoleTail();
+			this.selected = isSelected;
+			dijit.setWaiState(this.focusNode, "expanded", isSelected);
+			dijit.setWaiState(this.focusNode, "selected", isSelected);
+			this.focusNode.setAttribute("tabIndex", isSelected ? "0" : "-1");
+			if ( !isSelected && (this.contentWidget.id.indexOf('desktopLayoutPane') < 0)) {
+				setTimeout(function(){
+					window.desktopContainer.removeChild(dijit.byId(window.tblPane.id));
+				}, 1500);
+			};
+		}
+		});
+	});
+</script>
+<script>
+
+		/*	com.trivedienterprisesinc.gfx.desktopPane	*/
+	require([
+		"dojo/_base/declare", "dojo/parser", 
+		"dijit.layout.AccordionPane", "dijit/_WidgetBase", "dojo/domReady!"
+	], function(declare, parser, AccordionPane, _WidgetBase){
+		declare("com.trivedienterprisesinc.gfx.desktopPane", [_WidgetBase, dijit.layout.AccordionPane], {
+		minimizedBox: null,
+		maximizedBox: null
+		});
+	});
+</script>
+
+<script>
+
+		/*	com.trivedienterprisesinc.gfx.desktopContainer	*/
+dojo.provide("com.trivedienterprisesinc.gfx.desktopContainer");
+
+	dojo.require("dijit.layout.AccordionContainer");
+
+dojo.declare("com.trivedienterprisesinc.gfx.desktopContainer", dijit.layout.AccordionContainer, {
+		//		The name of the widget used to display the title of each pane
+		buttonWidget: "com.trivedienterprisesinc.gfx._AccordionButton",
+
+		__getTargetWidth: function(/* Node */ node){
+			var cs = dojo.getComputedStyle(node);
+			//@mpt 12.13 h = node._contentBox.h;w = node._contentBox.w;
+			w = this._containerContentBox.w;
+			return Math.max(w - dojo._getPadBorderExtents(node, cs).w - dojo._getMarginExtents(node, cs).w, 0);
+		},
+		__getTargetHeight: function(/* Node */ node){
+			var cs = dojo.getComputedStyle(node);
+			//@mpt 12.13 h = node._contentBox.h;
+			h = this._verticalSpace;
+			return Math.max(h - dojo._getPadBorderExtents(node, cs).h - dojo._getMarginExtents(node, cs).h, 0);
+		},
+		
+		layout: function(){
+		
+			// Implement _LayoutWidget.layout() virtual method.
+			// Set the height of the open pane based on what room remains.
+
+			var openPane = this.selectedChildWidget;
+			
+			if(!openPane){ return;}
+
+
+			if ( openPane.declaredClass.indexOf('LayoutContainer') < 0 ) {
+
+			var openPaneContainer = openPane._wrapperWidget.domNode,
+				openPaneContainerMargin = dojo._getMarginExtents(openPaneContainer),
+				openPaneContainerPadBorder = dojo._getPadBorderExtents(openPaneContainer),
+				mySize = this._contentBox;
+
+			// get cumulative height of all the unselected title bars
+			var totalCollapsedHeight = 0;
+			dojo.forEach(this.getChildren(), function(child){
+			if(child != openPane){
+					totalCollapsedHeight += dojo.marginBox(child._wrapperWidget.domNode).h;
+				}
+			});
+			this._verticalSpace = mySize.h - totalCollapsedHeight - openPaneContainerMargin.h 
+			 	- openPaneContainerPadBorder.h - openPane._buttonWidget.getTitleHeight();
+
+				// Memo size to make displayed child
+				this._containerContentBox = {
+					h: this._verticalSpace,
+					w: this._contentBox.w - openPaneContainerMargin.w - openPaneContainerPadBorder.w
+				};
+
+
+				openPane.maximizedBox = this._containerContentBox;
+				alert('accContainer.layout() sizing regular (not container) pane of type ' + openPane.baseClass + 
+				"openPane.minimizedBox.t = " + openPane.minimizedBox.t + 
+				"openPane.maximizedBox.t = " + openPane.maximizedBox.t );
+				openPane.resize(openPane.minimizedBox);
+
+			} else {
+				alert('accContainer.layout() sizing container pane of type ' + openPane.declaredClass);
+ 
+				//'max: ' + openPane.maximizedBox.t);
+				openPane.resize(this._containerContentBox);
+			}
+
+		},
+		
+		_setupChild: function(child){
+			// Overrides _LayoutWidget._setupChild().
+			// Put wrapper widget around the child widget, showing title
+			alert('in _setupChild for desktopContainer - 1');
+			/*@mpt 0114: wtf? monkey biz
+			child._wrapperWidget = new dijit.layout._AccordionInnerContainer({
+				contentWidget: child,
+				buttonWidget: this.buttonWidget,
+				id: child.id + "_wrapper",
+				dir: child.dir,
+				lang: child.lang,
+				parent: this
+			});*/
+			alert('in _setupChild for desktopContainer - calling this.inherited');
+			dojo.addClass(child.domNode, this.baseClass+"-child");
+			if(child.baseClass){
+				dojo.addClass(child.domNode, this.baseClass+"-"+child.baseClass);
+			}
+		},
+		
+		customAddChild: function(/*dijit._Widget*/ child, /*Integer?*/ insertIndex){	
+			alert('desktopContainer-> in in customAddChild() for pane: ' + child.domNode.id);
+			if(this._started){
+				// Adding a child to a started Accordion is complicated because children have
+				// wrapper widgets.  Default code path (calling this.inherited()) would add
+				// the new child inside another child's wrapper.
+
+				// First add in child as a direct child of this AccordionContainer
+				dojo.place(child.domNode, this.containerNode, insertIndex);
+
+				//@1216;  store curr size & leave this for later.
+				//child.resize({w: window.clickSourceMinimizedBox.w, h: window.clickSourceMinimizedBox.h,
+					//l: window.clickSourceMinimizedBox.l, t: window.clickSourceMinimizedBox.t});
+				
+
+				if(!child._started){
+					child.startup();
+				}
+				
+				if (child.minimizedBox) {
+
+					dojo.marginBox(child.domNode, {w: child.minimizedBox.w, h: child.minimizedBox.h, l: child.minimizedBox.l, t: child.minimizedBox.t});
+					//proc iconBoxes
+					alert('marginBoxes after startup & before _setupChild -> ' +
+					' l-> max ' + dojo.marginBox(child.domNode).l +
+					' l-> min ' + child.minimizedBox.l +
+					' h-> max ' + dojo.marginBox(child.domNode).h +
+					' t-> max ' + dojo.marginBox(child.domNode).t +
+					' w-> max ' + dojo.marginBox(child.domNode).w );
+					//EODchild.resize({ child.minimizedBox.w, child.minimizedBox.h });
+				}
+				// Then stick the wrapper widget around the child widget
+				this._setupChild(child);
+				alert('desktopContainer-> in customAddChild() for pane: ' + child.domNode.id + ' -> going to run _setupChild' + "\r\n(sticks the wrapper widget around the child widget)");
+
+				//@mpt 0114: ERROR getting _wrapperWidget (called something else now);  get it WHILE CREATING IT
+				//child.maximizedBox = dojo.marginBox(child._wrapperWidget.domNode);
+				
+
+				// Code below copied from StackContainer	
+				//alert('in customAddChild-> going to run this.layout();  child has minBox.t: ' + 
+				//	child.minimizedBox.t);
+				//alert('desktopContainer-> in customAddChild() for pane: ' + child.domNode.id + ' -> going to run layout() on container');
+				//@12.29this.layout();
+				
+				/*@12.17: accContainer.layout() does the foll -> 
+				this is where we need to capture fut. child size.
+				so ignore the customAddChild & override layout() in accCont
+							// Memo size to make displayed child
+							this._containerContentBox = {
+								h: this._verticalSpace,
+								w: this._contentBox.w - openPaneContainerMargin.w - openPaneContainerPadBorder.w
+							};
+
+							if(openPane){
+								openPane.resize(this._containerContentBox);
+							}
+				*/
+				
+				if(!this.selectedChildWidget){
+					this.selectChild(child);
+				}
+			}else{
+				// We haven't been started yet so just add in the child widget directly,
+				// and the wrapper will be created on startup()
+				this.inherited(arguments);
+			}
+		},
+		
+		/* we need to resize earlier*/
+		transition: function(/*dijit._Widget?*/newWidget, /*dijit._Widget?*/oldWidget, /*Boolean*/ animate){
+			alert('desktopContainer-> in transition();  newWidget= ' + newWidget.id + ' oldWidget= ' + oldWidget.id);
+			// Overrides StackContainer._transition() to provide sliding of title bars etc.
+			if(this._inTransition){ return;  }
+			var animations = [];
+			var paneHeight = this._verticalSpace;
+			if(newWidget){
+				// Size the new widget, in case this is the first time it's being shown,
+				// or I have been resized since the last time it was shown.
+				// Note that page must be visible for resizing to work.
+				if(this.doLayout && newWidget.resize){
+					if ( !newWidget.minimizedBox ) {
+						alert("in transition() -> newWidget -> DOESN'T HAVE minBox, calling resize to containersize");
+						newWidget.resize(this._containerContentBox);
+					}
+				}
+
+				newWidget._wrapperWidget.set("selected", true);
+				this._showChild(newWidget);	 // prepare widget to be slid in
+
+				var newContents = newWidget.domNode;
+				dojo.addClass(newContents, "dijitVisible");
+				dojo.removeClass(newContents, "dijitHidden");
+						
+
+				if(animate){
+					var newContentsOverflow = newContents.style.overflow;
+					newContents.style.overflow = "hidden";
+					
+					if (newWidget.minimizedBox) {
+
+
+				alert('_transition: newWidget HAS maxBox -> ' +
+				' l-> max ' + newWidget.maximizedBox.l +
+				' h-> max ' + newWidget.maximizedBox.h +
+				' t-> max ' + newWidget.maximizedBox.t +
+				' w-> max ' + newWidget.maximizedBox.w );
+
+				//@12.29 mpt: the maxBox is wrong;  it's being set AFTER the new pane is created/pushed below screen
+				//consequently the anim runs from screen bottom to below the screen
+				//However, the wrapperWidget comes into play too & there is a jitter.  We need to debug this to find out what's what.
+
+				  alert('_transition: newWidget HAS minBox -> ' +
+				' l-> min ' + newWidget.minimizedBox.l +
+				' h-> min ' + newWidget.minimizedBox.h +
+				' t-> min ' + newWidget.minimizedBox.t +
+				' w-> min ' + newWidget.minimizedBox.w +
+				' running animations for newWidget from minBox to targetHeight.  First setting to minBox' + newWidget.domNode.innerHTML);
+
+					//newWidget._wrapperWidget.resize({w: newWidget.minimizedBox.w, h: newWidget.minimizedBox.h, l: newWidget.minimizedBox.l, t: newWidget.minimizedBox.t});
+					/*var s = newContents.style;
+					s.top = "-9999px";*/
+					dojo.marginBox(newContents, {w: newWidget.minimizedBox.w, h: newWidget.minimizedBox.h, l: newWidget.minimizedBox.l, t: newWidget.minimizedBox.t});
+					//this sets the OFFSET dims
+
+					//newContents.resize({w: newWidget.minimizedBox.w, h: newWidget.minimizedBox.h, l: newWidget.minimizedBox.l, t: newWidget.minimizedBox.t});
+
+					alert('just set to minBox');
+
+					animations.push(dojo.animateProperty({
+						node: newContents,
+						duration: 9000,
+						properties: {
+							left: { start: newWidget.minimizedBox.l, end: newWidget.maximizedBox.l },
+							top: { start: newWidget.minimizedBox.t, end: newWidget.maximizedBox.t },
+							height: { start: newWidget.minimizedBox.h, end: newWidget.maximizedBox.h },
+							width: { start: newWidget.minimizedBox.w, end: newWidget.maximizedBox.w }
+						},
+
+
+							/*left: { start: newWidget.minimizedBox.l, end: newWidget.maximizedBox.l },
+							top: { start: newWidget.minimizedBox.t, end: newWidget.maximizedBox.t },
+							height: { start: newWidget.minimizedBox.h, end: newWidget.maximizedBox.h },
+							width: { start: newWidget.minimizedBox.w, end: newWidget.maximizedBox.w }
+							*/
+						onEnd: function(){
+							newContents.style.overflow = newContentsOverflow;
+
+							// Kick IE to workaround layout bug, see #11415
+							if(dojo.isIE){
+								setTimeout(function(){
+									dojo.removeClass(newContents.parentNode, "dijitAccordionInnerContainerFocused");
+									setTimeout(function(){
+										dojo.addClass(newContents.parentNode, "dijitAccordionInnerContainerFocused");
+									}, 0);
+								}, 0);
+							}
+						}
+					}));
+					} else {
+						//no minimizedBox
+						//non-custom pane;  proceed as normal
+
+						  alert('_transition: newWidget HAS NO minBox -> ' +
+						'running animations for a normal newWidget from 1 to targetHeight');
+						animations.push(dojo.animateProperty({
+						node: newContents,
+						duration: this.duration,
+						properties: {
+							height: { start: 1, end: this._getTargetHeight(newContents) }
+						},
+						onEnd: function(){
+							newContents.style.overflow = newContentsOverflow;
+
+							// Kick IE to workaround layout bug, see #11415
+							if(dojo.isIE){
+								setTimeout(function(){
+									dojo.removeClass(newContents.parentNode, "dijitAccordionInnerContainerFocused");
+									setTimeout(function(){
+										dojo.addClass(newContents.parentNode, "dijitAccordionInnerContainerFocused");
+									}, 0);
+								}, 0);
+							}
+						}
+						}));  //animations.push
+					}
+				}//else if animate
+			}
+			if(oldWidget){
+				oldWidget._wrapperWidget.set("selected", false);
+				var oldContents = oldWidget.domNode;
+				if(animate){
+					var oldContentsOverflow = oldContents.style.overflow;
+					oldContents.style.overflow = "hidden";
+					animations.push(dojo.animateProperty({
+						node: oldContents,
+						duration: this.duration,
+						properties: {
+
+						},
+						onEnd: function(){
+							dojo.addClass(oldContents, "dijitHidden");
+							dojo.removeClass(oldContents, "dijitVisible");
+							oldContents.style.overflow = oldContentsOverflow;
+							if(oldWidget.onHide){
+								oldWidget.onHide();
+							}
+						}
+					}));
+				}else{
+					dojo.addClass(oldContents, "dijitHidden");
+					dojo.removeClass(oldContents, "dijitVisible");
+					if(oldWidget.onHide){
+						oldWidget.onHide();
+					}
+				}
+			}
+
+			if(animate){
+				this._inTransition = true;
+				var combined = dojo.fx.combine(animations);
+				combined.onEnd = dojo.hitch(this, function(){
+					delete this._inTransition;
+				});
+				combined.play();
+			}			
+		}
+		
+	});
+</script>
+
+<script>
+
+		/*	com.trivedienterprisesinc.gfx.desktop	*/
+dojo.declare("com.trivedienterprisesinc.gfx.desktop", null, {
+
+	prop: "prop1",
+	removedFromArr: [],
+        doxTagArr: {tagName : [], tagCount : []},
+
+	constructor: function(){
+		dP('UI constructor -> new desktopUI ob created');
+	},
+	
+	dAlert: function(inp) {
+		alert('alert triggered from com.trivedienterprisesinc.gfx.desktop ' + inp);
+	},
+
+	addDesktopPane: function(name, minBox) {
+		var newBtn = new dijit.form.Button({
+			label: "chkOpenPane"
+		});
+
+		alert('in desktop.addDesktopPane() for pane: ' + name + ' minBox.t: ' + minBox.t);
+		if (name.indexOf('Task') > 0 ) {
+			alert('taskClick');
+			var pane = new com.trivedienterprisesinc.gfx.desktopPane({
+				title: name,
+				minimizedBox: minBox,
+				content: "<div id='gridContainer'>gridContainer</div>"
+			});
+			//@12.16 window.desktopContainer.customAddChild(pane);
+			window.desktopContainer.addChild(pane);
+			window.desktopContainer.selectChild(pane, true);
+			dijit.focus(pane.focusNode);
+			paneOpen = true;
+			var gridPane = new com.trivedienterprisesinc.gfx.gridPane();
+			gridPane.placeAt(dojo.byId('gridContainer'), "last");
+			window.tblPane = pane;
+		} else {
+			alert('adding pane');
+			var pane = new com.trivedienterprisesinc.gfx.desktopPane({
+				title: name,
+				minimizedBox: minBox,
+				content: "<div><h2>" + name + "</h2></div>"
+			});
+			//window.desktopContainer.customAddChild(pane);
+			window.desktopContainer.selectChild(pane, true);
+			dijit.focus(pane.focusNode);
+			paneOpen = true;
+			newBtn.placeAt(pane.id, "last");
+			dojo.connect(newBtn, "onClick", function(){
+				var currPane = window.desktopContainer.selectedChildWidget;
+				alert("current Pane id val: " + currPane.id + ";  " + window.desktopContainer.id);
+			});
+			window.tblPane = pane;
+		};
+	},
+	
+	runMe: function() {
+		var outerAcc = new com.trivedienterprisesinc.gfx.desktopContainer({style:"padding: 10px;  height: 500px;  width: 1100px;background-color: #00275E;"}, dojo.body());
+		var oAID = outerAcc.id;
+		
+		dP("created outerAcc accContainer");
+		var desktopLayout = new dijit.layout.LayoutContainer({
+			title: "desktop Layout Pane",
+			id: 'desktopLayoutPane'
+		});
+		outerAcc.addChild(desktopLayout);
+		dP("added desktopContainer");
+		outerAcc.startup();
+		
+		var innerLayout = new dijit.layout.LayoutContainer({
+			style:"background-color: #E5F0FF;"
+		});
+		var topPane = new dijit.layout.ContentPane({
+			layoutAlign: "top",
+			style:"height: 50px;",
+		});
+		var centerPane = new dijit.layout.ContentPane({
+			style:"height: 280px;",
+			layoutAlign: "client"
+		});
+		var bottomPane = new dijit.layout.ContentPane({
+			style:"height: 50px;",
+			layoutAlign: "bottom",
+			content: "<table><tr  class='footerPanel'><td>Copyright (c) 2016-2020 <span id=\"aboutDiv\">M. P. Trivedi</span>. All rights reserved.</td>"+
+					"<td id='consoleBtn' align='right'><div class='oPlsConsoleIcon'>icon</div></td></tr></table>"
+		});
+		
+		var mapNode = centerPane[centerPane.attributeMap["class"] || 'domNode'];
+		dojo.addClass(mapNode, "oPlsTblIcon-container");
+		
+		innerLayout.addChild(topPane);
+		innerLayout.addChild(centerPane);
+		innerLayout.addChild(bottomPane);
+		desktopLayout.addChild(innerLayout);
+
+		var btn1 = new dijit.form.Button({
+			id: "btn1",
+			label: "chkPane id"
+		});
+		var btn2 = new dijit.form.Button({
+			id: "btn2",
+			iconClass: "oPlsFlameIcon",
+			label: "HotFilter"
+		});
+		var btn3 = new dijit.form.Button({
+			id: "btn3",
+			class: "nnew",
+			label: "log()"
+		});
+		btn2disabled = true;
+		for (var key in initPayload){
+			itm = initPayload[key];
+			dP("Creating icon for: " + itm.id + " " + itm.name + " " + itm.desc);
+
+			var icon = new com.trivedienterprisesinc.gfx.tblIcon({
+				id: "icon_" + itm.id,
+				tblName: itm.name,
+				descTxt: itm.desc,
+				imgUrl: itm.icon,
+				accessLevel: itm.accLvl,
+				dataViews: itm.dvs
+			});
+			dojo.place(icon.domNode, centerPane.id, "last");
+			icon.startup();
+		};
+
+		dojo.place(btn1.domNode, topPane.id, "last");
+		dojo.place(btn2.domNode, topPane.id, "last");
+		dojo.place(btn3.domNode, topPane.id, "last");
+
+		/*@mpt 01.14: monkeys changed the method signature (cld also be coz o' backporting)
+		btn1.place(topPane.id, "last");
+		btn2.place(topPane.id, "last");
+		btn3.place(topPane.id, "last");*/
+		dojo.connect(btn1, "onClick", function(){
+			var currPane = window.desktopContainer.selectedChildWidget;
+			alert("current Pane id val: " + currPane.id + ";;" + window.desktopContainer.id);
+		});
+
+/*		dojo.connect(window.desktopContainer.selectedChildWidget._buttonWidget, "onClick", function(){
+			alert('click on desktopContainer title!');
+		});*/
+
+		dojo.connect(dojo.byId('consoleBtn'), "onclick", function(){
+			alert('...user clicked on the consoleButton');
+			var pane = new com.trivedienterprisesinc.gfx.desktopPane({
+				title: 'Console',
+				content: "<div>" + consTxt + "</div>"
+			});
+			//window.desktopContainer.customAddChild(pane);
+			window.desktopContainer.addChild(pane);
+			window.desktopContainer.selectChild(pane, true);
+			dijit.focus(pane.focusNode);
+			paneOpen = true;
+			window.tblPane = pane;
+		});	 
+
+		dojo.connect(btn2, "onClick", function(){
+			alert(dojo.byId(centerPane.id).innerHTML + " " + this.id);
+		});
+		dojo.connect(btn3, "onClick", function(){
+			//window.desktop.mAlert('btn onclick');
+			//addDesktopPane("added by btn3");
+			//dojo.addClass(this.domNode, "nnew");
+			var newC = dojo.hasClass(this.domNode, "nnew");
+			var butC = dojo.hasClass(this.domNode, "dijitButtonNode");
+			dP('button has new class? ' + newC + 
+					'\r\n btn has domNode class? ' + butC);
+				dP('\r\nbtn3 innerHTML->' + this.domNode.innerHTML);
+				dP('\r\nbtn3 outerHTML->' + this.domNode.outerHTML);
+				fakeAlert = window.prompt('btn3 outerHTML->', this.domNode.outerHTML);
+		});
+			window.desktopContainer = outerAcc;
+	},
+		
+	mAlert: function(arg) {
+		alert("mAlert -> " + arg);
+	},
+	
+	testClose: function(pane,tab){
+		return confirm("Please confirm that you want tab "+tab.title+" closed");
+	}
+
+});
+
+</script>
+
+<script>
+
+	var consTxt = "Console logging began @ " + new Date().toTimeString() + "<br>";
+	var consoleTail = function(){
+		var l = consTxt.length;
+		var tail = consTxt.substring( l- 999, l);
+		alert(tail);
+	};
+	
+	var dP = function(strLogEntry){
+		var now = new Date();
+		var tmStamp = (now.toTimeString()) + "--> ";
+		consTxt += "<span class='mLogInfo'>" + tmStamp + strLogEntry + "</span><br>";
+		console.log(tmStamp + strLogEntry );
+	};
+
+	var initPayload = [{
+				id: "System.opl",
+				name: "System", 
+				desc: "System Table", 
+				icon: "oPlsSysTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "By Source", dvName: "view1"},
+					  {	dvLabel: "View2\By PubDate", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Article.opl",
+				name: "Article", 
+				desc: "Article Table", 
+				icon: "oPlsDocTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "By Module\Priority", dvName: "view1"},
+					  {	dvLabel: "View2\By Due Date", dvName: "view2"},
+					  {	dvLabel: "View3\Completed Items", dvName: "view3"},
+					  {	dvLabel: "View4\By Priority", dvName: "view4"}]
+			},
+			{ 	id: "Task.opl",
+				name: "Task", 
+				desc: "Task Table", 
+				icon: "oPlsTaskTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image.opl",
+				name: "Image And This and That", 
+				desc: "Image Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image1.opl",
+				name: "Image1", 
+				desc: "Image1 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image2.opl",
+				name: "Image2", 
+				desc: "Image2 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image3.opl",
+				name: "Image3", 
+				desc: "Image3 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image4.opl",
+				name: "Image4", 
+				desc: "Image4 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image5.opl",
+				name: "Image5", 
+				desc: "Image5 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image6.opl",
+				name: "Image6", 
+				desc: "Image6 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image7.opl",
+				name: "Image7", 
+				desc: "Image7 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image8.opl",
+				name: "Image8", 
+				desc: "Image8 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image9.opl",
+				name: "Image9", 
+				desc: "Image9 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image19.opl",
+				name: "Image19", 
+				desc: "Image19 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			}/*,
+			{ 	id: "Image29.opl",
+				name: "Image29", 
+				desc: "Image29 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image39.opl",
+				name: "Image39", 
+				desc: "Image39 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image494.opl",
+				name: "Image49", 
+				desc: "Image49 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			},
+			{ 	id: "Image59.opl",
+				name: "Image59", 
+				desc: "Image59 Table", 
+				icon: "oPlsImgTblIcon",
+				accLvl: "Admin",
+				dvs: [{	dvLabel: "dataView1", dvName: "view1"},
+					  {	dvLabel: "View2\By Date", dvName: "view2"},
+					  {	dvLabel: "View3\By Priority", dvName: "view3"}]
+			}*/
+		];
+
+
+
+dojo._hasResource["com.trivedienterprisesinc.gfx.desktop"] = true;
+
+dojo.provide("com.trivedienterprisesinc.gfx.desktop");
+		dojo.require("dijit.layout.LayoutContainer");
+		/*dojo.require("dijit.layout.AccordionContainer");*/
+		dojo.require("com.trivedienterprisesinc.gfx.desktopContainer");
+		dojo.require("com.trivedienterprisesinc.gfx.gridPane");
+		dojo.require("dijit.layout.TabContainer");
+		dojo.require("dijit.layout.SplitContainer");
+		dojo.require("dijit.layout.ContentPane");
+		dojo.require("dijit.Tooltip");
+		dojo.require("dijit.Dialog");
+		dojo.require("dijit.Menu");
+		/*dojo.require("dijit.form.FilteringSelect");*/
+		dojo.require("dijit.form.CheckBox");
+		dojo.require("dijit.form.Textarea");
+		dojo.require("dojo.parser");
+
+		dijit.Tooltip.defaultPosition=['above', 'below'];   //alt values: 'after', 'before' (default)
+		var currLoc = window.location.toString().toLowerCase();
+		var runLocal = currLoc.includes('file');
+		var taskCheckedArray = [];
+		var taskRemovedFromArr = [];
+
+</script>
+
+<script>
+	/*Desktop scriptlet*/
+
+/*
+	if(typeof dojo == "undefined"){
+		alert("oooops;  typeof dojo=undef;  the monkeys are getting too clever! p'haps time to kick some a**");
+	}
+	*/
+		alert("/*Desktop scriptlet*/ 1");
+		dojo.require("com.trivedienterprisesinc.gfx.desktop");
+		dojo.require("com.trivedienterprisesinc.gfx.tblIcon");
+		dojo.require("dojo.parser");
+		alert("/*Desktop scriptlet*/ 2");
+	dojo.addOnLoad(function(){
+		alert("dojo.addOnLoad");
+	  try {
+
+		hdrNode = dojo.doc.createElement("div");
+		hdrNode.innerHTML = "<p><h1>Desktop Scriptlet</h1><p><hr><p>";
+		hdrNode.normalize();
+		dojo.place(hdrNode, dojo.body(), "first");
+
+
+		alert('begin onLoad, creating desktop...');
+	        window.desktop = new com.trivedienterprisesinc.gfx.desktop();
+	        desktop.runMe();
+		alert('exit onLoad');
+	  } catch(e){
+		alert('error in onLoad -> ' + e);
+	  }
+	});
+</script>
+
+<!--script>
+/* @mpt mPane remmed Jan 27 unused @ present*/
+dojo.provide("com.trivedienterprisesinc.gfx.mPane");
+
+	dojo.require("dojo.parser");
+	dojo.require("dijit._Widget");
+	dojo.require("dijit._Templated");
+	dojo.require("dijit.TitlePane");
+	dojo.require("dojo.fx");
+	dojo.require("dijit.Menu");
+
+	dojo.declare("com.trivedienterprisesinc.gfx.mPane",
+		[dijit.TitlePane, dijit._Widget, dijit._Templated],{
+
+		boxType: "unknown",
+		tags: "none",
+		MinimizedBox: null,
+		title: "mPaneTitle",
+		selected: false,
+
+		templateString:
+		"    <div class=\"mPane\">"+
+		"      <div tabindex=\"0\""+
+		"		waiRole=\"button\" class=\"mPaneTitle\" dojoAttachPoint=\"focusNode\">"+
+		"        <div dojoAttachPoint=\"titleNode\" dojoAttachEvent=\"onclick:titleClick\" class=\"mPaneTitleNode\">"+
+		"	    <table class='dijitReset'><tr class='dijitReset'><td  class='dijitReset' align='left' dojoAttachPoint=\"iconNode\"></td>"+
+		"	      <td>${boxType}</td><td class='dijitReset' align='right' dojoAttachPoint=\"selectIconNode\" class=\"\"></td></tr></table>"+
+		"	 </div></div>"+
+		"      <div class=\"mPaneContentOuter\" dojoAttachPoint=\"hideNode\" style='max-width: 175px;'>${title}"+
+		"	<div class=\"mPaneContentInner\" dojoAttachPoint=\"containerNode\"  style='display:none;' waiRole=\"region\" tabindex=\"-1\">"+
+		"      </div></div></div>",
+
+		//postCreate: function(){
+		startup: function(){
+			this.inherited(arguments);
+
+			if ( this.tags.indexOf("snippet") >=0 ) { this.boxType = "snippet"; };
+			if ( this.tags.indexOf("link")>=0 ) {  alert('found a link');this.boxType = "link"; };
+			if ( this.tags.indexOf("bookmark")>=0 ) { this.boxType = "bookmark"; };
+			if ( this.tags.indexOf("notes")>=0 ) { this.boxType = "notes"; };
+			if ( this.tags.indexOf("article")>=0 ) { this.boxType = "article"; };
+
+		
+			switch (this.boxType) {
+			 case 'snippet':
+			    dojo.addClass(this.iconNode, 'oPlsCodeIcon');
+			    break;
+			 case 'link':
+			    dojo.addClass(this.iconNode, 'oPlsBookmarkIcon');
+			    break;
+			 case 'bookmark':
+			    dojo.addClass(this.iconNode, 'oPlsBookmarkIcon');
+			    break;
+			 case 'notes':
+			    dojo.addClass(this.iconNode, 'oPlsFileIcon2');
+			    break;
+			 case 'article':
+			    dojo.addClass(this.iconNode, 'oPlsFileIcon2');
+			    break;
+			 default:
+			    dojo.addClass(this.iconNode, 'oPlsHelpIcon');
+			}
+			if(!this._started){
+				this.inherited(arguments);
+			}
+		},
+
+
+		titleClick: function(/*Object*/ tgt){
+			alert('mpane toggle');
+			alert('mpane toggle -> item type -> ' + this.boxType + ' content -> \r\n' + this.containerNode.innerHTML );
+			dojo.addClass(this.selectIconNode, 'oPlsDoneIcon');
+			this.selected = true;
+		},
+		
+		xstartup: function(){
+			if(!this._started){
+				this.inherited(arguments);
+			}
+		}
+});
+
+</script-->
+
+
+</head>
+<body class="claro">
+</body>
+</html>
