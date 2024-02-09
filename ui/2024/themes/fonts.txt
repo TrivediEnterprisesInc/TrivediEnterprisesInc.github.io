@@ -1,0 +1,30 @@
+Top goog fonts:
+    Roboto
+
+Font pairing style: Elegant, Serif + Sans Serif
+Title font: Lora | Paragraph font: Roboto 
+
+
+<span class="material-symbols-outlined">undo</span>
+
+button w/icon below ->
+
+<span class="dijitReset dijitStretch dijitButtonContents" data-dojo-attach-point="titleNode,focusNode" role="button" aria-labelledby="dijit_form_Button_0_label" id="dijit_form_Button_0" title="Undo" tabindex="-1" style="user-select: none;">
+
+<!--key span
+    <span class="dijitReset dijitInline dijitIcon dijitEditorIcon dijitEditorIconUndo" data-dojo-attach-point="iconNode"></span>
+-->
+    <span class="dijitReset dijitToggleButtonIconChar">●</span>
+    
+    <span class="dijitReset dijitInline dijitButtonText dijitDisplayNone" id="dijit_form_Button_0_label" data-dojo-attach-point="containerNode">Undo</span>
+</span>
+
+
+.dijitEditorIcon {
+	background-image: url('images/editorIconsEnabled.png'); /* editor icons sprite image for the enabled state */
+	background-repeat: no-repeat;
+	width: 18px;
+	height: 18px;
+	text-align: center;
+}
+.dijitEditorIconUndo { background-position: -144px; }
