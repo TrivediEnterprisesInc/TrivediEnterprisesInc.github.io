@@ -1,0 +1,49 @@
+//for the toolbar
+<span class="material-symbols-outlined">
+
+Undo: undo 
+Redo: redo
+Cut: content_cut
+Copy: content_copy
+Paste: content_paste
+Bold: format_bold
+Ital: format_italic
+Underl: format_underlined
+StrikeThru: format_strikethrough
+numLi: format_list_numbered
+bullLi: format_list_bulleted
+indent: format_indent_increase
+outdent: format_indent_decrease
+alignL: format_align_left
+alignR: format_align_right
+alignCtr: format_align_center
+alignJustify: format_align_justify
+subscr: subscript
+super: supercript
+viewSource: code
+createLnk: add_link
+remLink: link_off
+insImg: image
+
+foreColor (for TextColor.js): format_color_text
+hiliteColor (for TextColor.js): ink_highlighter
+
+print: print
+InsertEntity: special_character
+Breadcrumb: (no icon nded)
+
+issues w/tableContextMenu (p'haps nds custom)
+9 icons here: https://github.com/dojo/dojox/blob/master/editor/plugins/resources/images/tableIcons.png
+
+findReplace: plugin (https://github.com/dojo/dojox/blob/master/editor/plugins/FindReplace.js) gets 
+srchIcon (set via btnIconClass='dijitEditorIconsFindReplaceClose')
+	FindReplaceTBar has 3 icons: find | replace | replaceAll ;
+ALL set via btn. iconClass
+
+						plugins: "['collapsibletoolbar', 'undo', 'redo', 'findreplace',
+						'||', 'cut','copy','paste',
+						'||', 'bold','italic','underline','strikethrough','subscript', 'superscript',
+						'||', {name: 'dijit/_editor/plugins/FontChoice', command: 'fontName', generic: true}, 'fontSize', {name: 'formatBlock', plainText: true},
+						'||', 'foreColor', 'hiliteColor',
+						'||', 'createLink', 'unlink', 'insertImage', {name: 'insertTable'}, {name: 'tableContextMenu'},
+						'||',  'viewsource', {name:'fullscreen', zIndex:900}, 'print']"
