@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+<!--script>
+//Remmed Feb_08_24 this is stable; not necc in this particular setup
+require(["dojo/_base/lang", "dijit/form/Button", "dojo/dom", 
+        "dojo/dom-class", "dojo/domReady!"], function(lang, Btn, dom, domClass){
+
+      lang.extend(Btn, {
+         templateString: 
+            "<span class='dijit dijitReset dijitInline' role='presentation'" +
+            "	><span class='dijitReset dijitInline dijitButtonNode'" +
+            "		data-dojo-attach-event='ondijitclick:__onClick' role='presentation'" +
+            "		><span class='dijitReset dijitStretch dijitButtonContents'" +
+            "			data-dojo-attach-point='titleNode,focusNode'" +
+            "			role='button' aria-labelledby='${id}_label'" +
+            "			><span class='dijitReset dijitInline dijitIcon material-symbols-outlined' data-dojo-attach-point='iconNode'></span" +
+            "			><span class='dijitReset dijitToggleButtonIconChar'>&#x25CF;</span" +
+            "			><span class='dijitReset dijitInline dijitButtonText'" +
+            "				id='${id}_label'" +
+            "				data-dojo-attach-point='containerNode'" +
+            "			></span" +
+            "		></span" +
+            "	></span" +
+            "	><input ${!nameAttrSetting} type='${type}' value='${value}' class='dijitOffScreen'" +
+            "		data-dojo-attach-event='onclick:_onClick'" +
+            "		tabIndex='-1' aria-hidden='true' data-dojo-attach-point='valueNode'" +
+            "/></span>",
+         postCreate: function(){
+            if ((this.iconClass === "dijitNoIcon") || (!this.iconClass)) {
+              this.iconNode.innerHTML = "new_releases";
+            } else {
+              this.iconNode.innerHTML = "indeterminate_question_box";
+            };
+            //fall-through for toggleBtns
+            let toggleNd = this.iconNode;
+            if (domClass.contains(toggleNd, "dijitCheckBoxIcon")){
+                if(this.checked){
+                    this.iconNode.innerHTML = "toggle_on";
+                } else {
+                    this.iconNode.innerHTML = "toggle_off";
+                }
+            }
+         }
+      });
+	  });
+</script-->
+
+
+	<script>
+require(["dojo/dom", "dojo/dom-construct", "dojo/parser", "dijit/form/Button", 
+"dijit/TitlePane", "dijit/layout/ContentPane", "dijit/Editor", "dijit/_editor/plugins/FullScreen", 
+"dijit/_editor/plugins/ViewSource", "dijit/_editor/plugins/AlwaysShowToolbar", 
+"dijit/_editor/plugins/LinkDialog", "dijit/_editor/plugins/FontChoice", 
+"dojo/domReady!"],
+function(dom, domConstr, parser, button, TitlePane, ContentPane, Editor, fullscreen, 
+viewsrc, AlwaysShowToolbar){
+
+
+	this.postFiltFn1 = (domNd) => {
+		alert('in postFiltFn1');
+		return domNd;
+	};
+	
+	var postFilts = [this.postFiltFn1];
+
+
+    this.createEditor = (tgtId) => {
+        let edHdr = 
+    "    <div id='edPane' data-dojo-type='dijit/layout/ContentPane'>" +
+    "        <table id='edDlgTbl'>" +
+    "            <tr>" +
+    "                <td><label for='title'>Title: </label></td>" +
+    "                <td><input data-dojo-type='dijit/form/TextBox' type='text' name='title' id='title'></td>" +
+    "                <td><label for='tags'>Tags: </label></td>" +
+    "                <td><input data-dojo-type='dijit/form/TextBox' type='text' name='tags' id='tags' placeHolder='pls use spaces between tags, not commas'></td>" +
+    "                <td><button id='AutoOpenBtn' data-dojo-type='dijit/form/ToggleButton'" + 
+    "  data-dojo-props=\"iconClass:'dijitCheckBoxIcon', checked: false\">AutoOpen</button></td>" +
+    "            </tr>" +
+    "        </table>" +
+    "        <div id='editorDiv'></div>";
+        let edFtr = 
+    "		<div class='editorDivActionBar'>" +
+    "			<button data-dojo-props='onClick:function(){edSave();)}' data-dojo-type='dijit/form/Button' id='edSaveBtn' type='button'>Save</button>" +
+    "			<button data-dojo-props='onClick:function(){alert(\"lrgDialog.hide();\")}' data-dojo-type='dijit/form/Button' id='edCancelBtn' type='button'>Cancel</button>" +
+    "		</div></div>";
+        let hdrFrag = document.createDocumentFragment();
+        let hdrDiv = domConstr.create("div", {innerHTML: edHdr}, hdrFrag);
+        let ftrFrag = document.createDocumentFragment();
+        let ftrDiv = domConstr.create("div", {innerHTML: edFtr}, ftrFrag);
+        let mainDiv = dom.byId("mainDiv");
+		let edContent = (dom.byId('tp1')).innerHTML;
+		alert(edContent.length);
+        domConstr.empty(mainDiv);
+        domConstr.place(hdrFrag, mainDiv);
+        domConstr.place(ftrFrag, mainDiv, "after");
+        parser.parse(mainDiv);
+        let ed = new Editor({
+            id: 'inLineEditor',
+            height: '250px',
+            extraPlugins: ['subscript', 'superscript', 'viewsource', {name:'fullscreen', zIndex:900}, 'createLink', 'unlink', 'insertImage', /*'fontName',*/ 'fontSize', 'formatBlock']
+        }, dom.byId('editorDiv'));
+        //pre-Filters
+		ed.onLoadDeferred.then(function(){
+			ed.set("value", edContent);
+			ed.set("contentDomPostFilters", postFilts);
+		});
+        ed.startup();
+    };
+    this.edSave = function(){
+        var titl = dijit.byId("title");
+        var tgs = dijit.byId("tags");
+        var opn = dijit.byId("AutoOpenBtn");
+        var ed = dijit.byId("inLineEditor");
+        let outp = "Title: " + titl.get("value") +
+        "Tags: " + tgs.get("value") +
+        "isOpn: " + opn.get("checked") +
+        "Entry: " + ed.get("value")
+        alert(outp);
+        domConstr.empty(mainDiv);
+        let outFrag = document.createDocumentFragment();
+        let outDiv = domConstr.create("div", {innerHTML: outp}, outFrag);
+        domConstr.place(outFrag, mainDiv);
+        parser.parse();
+    };
+	parser.parse();
+});
+
+	</script>
+</head>
+<body class="claro">
+<button id="create2" onclick="createEditor('tp1');">
+    create expanding editor
+</button>
+<button id="sv" onclick="edSave();">
+    tst
+</button>
+
+<div id='mainDiv'>
+
+    <div id="tp0" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m top TitlePane', open:false">
+  This div will become an auto-expanding editor.<br>
+      <a href="http://tinyurl.com" target="_blank">tiny</a><br />
+    </div>
+<hr>
+    <div id="tp1" data-dojo-id='teepee1' data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane', open:false">
+        <br />
+        <br />
+        <a href="http://www.dojotoolkit.org">The best Ajax Toolkit there is, Dojo!</a>
+        <br />
+        It even has a cool logo: <img src="https://trivedienterprisesinc.github.io/img/Hulk.png" alt="The Dojo Toolkit" height='100px'/>
+        <br> https://dojotoolkit.org/
+        <p>
+        <button data-dojo-type="dijit/form/Button" id="tmp" onclick="alert('working?');">
+            embedded dijit Btn
+        </button>
+        <table>
+            <tbody>
+                <tr>
+                <td style="border-style:solid; border-width: 2px; border-color: gray;">One cell</td>
+                <td style="border-style:solid; border-width: 2px; border-color: gray;">
+                Two cell
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<hr>
+    <div id="tp2" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane Too', open:false">
+        Embedded TitlePn # 2<br>
+    </div>
+</div>
+</body>
+</html>
