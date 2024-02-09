@@ -1,0 +1,72 @@
+https://github.com/dojo/dijit/blob/master/_editor/RichText.js
+
+Note: the editor 'node' == this.editNode == <div id='dijitEditorBody'...
+		since it's using an iFrame it is actually 'body'
+
+// contentPreFilters: Function(String)[]
+			//		Pre content filter function register array.
+			//		these filters will be executed before the actual
+			//		editing area gets the html content.
+			this.contentPreFilters = [];
+
+...post...
+
+// contentDomPreFilters: Function(DomNode)[]
+			//		Pre content dom filter function register array.
+			//		These filters are applied after the result from
+			//		contentPreFilters are set to the editing area.
+			this.contentDomPreFilters = [];
+
+getValue()
+...this._postFilterContent(null, nonDestructive)
+
+setValue()
+...html = this._preFilterContent(html);
+this._preDomFilterContent(node);
+
+
+	_postFilterContent: function(/*DomNode|DomNode[]|String?*/ dom, /*Boolean?*/ nonDestructive){
+			// summary:
+			//		filter the output after getting the content of the editing area
+			//
+			// description:
+			//		post-filtering allows plug-ins and users to specify any number
+			//		of transforms over the editor's content, enabling many common
+			//		use-cases such as transforming absolute to relative URLs (and
+			//		vice-versa), ensuring conformance with a particular DTD, etc.
+			//		The filters are registered in the contentDomPostFilters and
+			//		contentPostFilters arrays. Each item in the
+			//		contentDomPostFilters array is a function which takes a DOM
+			//		Node or array of nodes as its only argument and returns the
+			//		same. It is then passed down the chain for further filtering.
+			//		The contentPostFilters array behaves the same way, except each
+			//		member operates on strings. Together, the DOM and string-based
+			//		filtering allow the full range of post-processing that should
+			//		be necessaray to enable even the most agressive of post-editing
+			//		conversions to take place.
+			//
+			//		If nonDestructive is set to "true", the nodes are cloned before
+			//		filtering proceeds to avoid potentially destructive transforms
+			//		to the content which may still needed to be edited further.
+			//		Once DOM filtering has taken place, the serialized version of
+			//		the DOM which is passed is run through each of the
+			//		contentPostFilters functions.
+			//
+			// dom:
+			//		a node, set of nodes, which to filter using each of the current
+			//		members of the contentDomPostFilters and contentPostFilters arrays.
+			//
+			// nonDestructive:
+			//		defaults to "false". If true, ensures that filtering happens on
+			//		a clone of the passed-in content and not the actual node
+			//		itself.
+			//
+			// tags:
+			//		private
+
+
+_inserthtmlImpl: function(argument){
+			// summary:
+			//		This function implements the insertion of HTML content into
+			//		a point on the page.
+
