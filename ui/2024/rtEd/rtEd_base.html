@@ -13,13 +13,11 @@ require(["dojo/dom", "dojo/query", "dojo/parser", "dijit/form/Button",
 "dijit/TitlePane", "dijit/Editor", "dijit/_editor/plugins/FullScreen", 
 "dijit/_editor/plugins/ViewSource", "dijit/_editor/plugins/AlwaysShowToolbar", 
 "dijit/_editor/plugins/LinkDialog", "dijit/_editor/plugins/FontChoice", "dijit/_editor/plugins/TextColor",
-"dojox/editor/plugins/TablePlugins", "dojox.editor.plugins.ToolbarLineBreak", "dojox.editor.plugins.FindReplace",
-"dojo/domReady!"],
+"dojox/editor/plugins/TablePlugins", "dojox/editor/plugins/ToolbarLineBreak", "dojox/editor/plugins/FindReplace",
+"dojox/editor/plugins/CollapsibleToolbar", "dojo/domReady!"],
 function(dom, query, parser, button, TitlePane, Editor){
-    this.createEditor = function(){
-        var myEditor = new Editor({
-            height: '250px',
-						width: '100%',
+
+/*
 						plugins: "['collapsibletoolbar', 'undo', 'redo', 'findreplace',
 						'||', 'cut','copy','paste',
 						'||', 'bold','italic','underline','strikethrough','subscript', 'superscript',
@@ -27,6 +25,15 @@ function(dom, query, parser, button, TitlePane, Editor){
 						'||', 'foreColor', 'hiliteColor',
 						'||', 'createLink', 'unlink', 'insertImage', {name: 'insertTable'}, {name: 'tableContextMenu'},
 						'||',  'viewsource', {name:'fullscreen', zIndex:900}, 'print']"
+
+*/
+
+
+    this.createEditor = function(){
+        var myEditor = new Editor({
+            height: '250px',
+	    width: '100%',
+	plugins: "['collapsibletoolbar', 'undo', 'redo']"
         }, dom.byId('prog1'));
         myEditor.startup();
         //query('#create2').orphan();   //works on dojo.org not locally throws on 'orphan'
