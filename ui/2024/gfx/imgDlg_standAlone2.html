@@ -1,0 +1,233 @@
+<html>
+<head>
+<link rel="stylesheet" href="common.css">
+<script src="common.js"></script>
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<style>
+#appLayout {
+    height: 100%;
+}
+#leftCol {
+    width: 14em;
+}
+
+.claro .demoLayout .edgePanel {
+    background-color: #d0e9fc;
+}
+</style>
+<script>
+require(["dijit/ConfirmDialog", "dijit/form/Select", "dojo/dom", "dojo/on", "dojo/dom-construct", "dojo/domReady!"], function(Dialog, Select, dom, on, domConstr){
+
+/*
+consider using this (SO: image blob)
+		var myImageDiv = document.querySelector('img');
+		fetch('flowers.jpg').then(function(response) {
+			return response.blob();
+		}).then(function(myBlob) {
+			var objectURL = URL.createObjectURL(myBlob);
+			myImageDiv.src = objectURL;
+		});
+*/
+
+
+    let dlgActionBarTempl = "<div class='dijitDialogPaneActionBar' data-dojo-attach-point='actionBarNode'>" +
+	"<button data-dojo-type='dijit/form/Button' type='submit'" +
+        "    data-dojo-attach-point='okButton'></button>" +
+	"<button data-dojo-type='dijit/form/Button' type='button'" +
+	"		data-dojo-attach-point='cancelButton' data-dojo-attach-event='click:onCancel'></button>" +
+        "</div>";
+
+		let args = [["img", [["https://source.unsplash.com/random/150x50?sig=1", "New York"],
+												["https://source.unsplash.com/random/150x50?sig=2", "Tennessee"],
+												["https://source.unsplash.com/random/150x50?sig=3", "Virginia"],
+												["https://source.unsplash.com/random/150x50?sig=4", "Washington"],
+												["https://source.unsplash.com/random/150x50?sig=5", "Florida"],
+												["https://source.unsplash.com/random/150x50?sig=6", "California"],
+												["https://source.unsplash.com/random/150x50?sig=7", "Oregon"]]],
+								["c15", [["https://source.unsplash.com/random/150x50?sig=8", "9H"],
+												["https://source.unsplash.com/random/150x50?sig=9", "JD"],
+												["https://source.unsplash.com/random/150x50?sig=10", "4S"],
+												["https://source.unsplash.com/random/150x50?sig=11", "QC"],
+												["https://source.unsplash.com/random/150x50?sig=12", "AC"]]],
+								["r", ["https://source.unsplash.com/random/150x50?sig=8", "9H"]]];
+		let currStep = 1;
+		let totSteps = args.length;
+		let res = [];
+
+    let sel = new Select({
+        name: "select2",
+        required: true,
+        //style: 'width:375px;',
+        options: [
+            { label: "-- SELECT --", value: " " },
+            { label: "<img src='https://source.unsplash.com/random/150x50?sig=1'/>", value: "Tennessee" },
+            { label: "<img src='https://source.unsplash.com/random/150x50?sig=2'/>", value: "Virginia"},
+            { label: "<img src='https://source.unsplash.com/random/150x50?sig=3'/>", value: "Washington" },
+            { label: "<img src='https://source.unsplash.com/random/150x50?sig=4'/>", value: "Florida" },
+            { label: "<img src='https://source.unsplash.com/random/150x50?sig=5'/>", value: "California" }
+        ]
+    });
+
+		const getc15D = (inArr) => {
+			return "";
+		}
+		const getc35D = (inArr) => {
+			return "";
+		}
+		const getrD = (inArr) => {
+			return "";
+		}
+		let imgFrag = 
+			"<div data-dojo-attach-point='hdrLblDiv'><img src='" + args[0][1][0][0] + "'/></div>" + 
+			"   <select id='dlgSelect' data-dojo-type='dijit/form/Select' required=true>" + 
+			"     <option label=\"<img src='" + args[0][1][1][0] + "'/>' value='" + args[0][1][1][1] + "'></option>" + 
+			"     <option label='" + args[0][1][2][0] + "' value='" + args[0][1][2][1] + "'></option>" + 
+			"     <option label='" + args[0][1][3][0] + "' value='" + args[0][1][3][1] + "'></option>" + 
+			"     <option label='" + args[0][1][4][0] + "' value='" + args[0][1][4][1] + "'></option>" + 
+			"     <option label='" + args[0][1][5][0] + "' value='" + args[0][1][5][1] + "'></option>" + 
+			"  </select>" + 
+			"   <div data-dojo-attach-point='ftrLblDiv'>" + args[0][1][6][0] + "</div>" + 
+			"</div>";
+
+		const getImgD = () => {
+			return imgFrag;
+		}
+
+        window.showDlg = () => {
+					dom.byId('firstTab').innerHTML = imgFrag;
+					const myDialog = new Dialog({
+									title: ("Step " + currStep + " of " + totSteps),
+									id: "gfxDlg",
+									content: getImgD(),
+									actionBarTemplate: dlgActionBarTempl
+					});
+					on(myDialog.okButton, "click", function(e){
+/*
+No, no.  NO, NO, NO.
+This will lead to a tower of case stmts, comme ca ->
+(we nd. ver 3)
+chk: can we run isValid on myDlg?  If not, will have to switch on dlgTy to check valid
+switch(expression) {
+casex:
+// code block
+break;
+casey:
+// code block
+break;
+default:
+//code block
+}
+*/
+
+									if (sel.isValid()){
+													res.push(sel.get('value'));
+													if (currStep == totSteps){
+														//return res
+														myDialog.destroy();
+													} else {
+														showNext();
+													}
+									} else {
+													alert('event.stop(e)');
+									}
+					});
+
+					myDialog.show();
+					return res;
+        }
+})
+</script>
+<script>
+    require(["dojo/parser", "dojo/_base/fx", "dijit/registry", 
+			"dijit/form/Button", "dijit/layout/BorderContainer", 
+			"dijit/layout/TabContainer", "dijit/layout/ContentPane", "dojox/layout/ExpandoPane",
+			"dojo/dom", "dojo/dom-style", "dojo/domReady!"],
+        function(parser, fx, registry, Button, BorderContainer,
+        TabContainer, ContentPane, ExpandoPane, dom, style){
+
+    var appLayout = new BorderContainer({
+            design: "headline"
+    }, "appLayout");
+
+    var leftPn = new ExpandoPane({
+            region: "leading",
+            id: "leftPane",
+            splitter:true,
+            style: "width: 300px",
+            content: "<br>this is a test<br>this is only a test<br>and here is a very long line which will show wrapped or not depending....<br>xx<button id='progButtonNode' type='button'></button>"
+    });
+    appLayout.addChild( leftPn );
+
+    var contentTabs = new TabContainer({
+            region: "center",
+            id: "contentTabs",
+            tabPosition: "bottom",
+            "class": "centerPanel"
+    });
+
+    appLayout.addChild( contentTabs );
+
+    appLayout.addChild(
+            new ContentPane({
+                    region: "top",
+                    "class": "edgePanel",
+                    content: "FileIO tests"
+            })
+    );
+    contentTabs.addChild(
+            new ContentPane({
+                    id: "firstTab",
+                    title: "CliSide",
+                    content: 'dom.byId("FileIO_Client")'
+            })
+    );
+    contentTabs.addChild(
+            new ContentPane({
+                    title: "ServerSide",
+                    content: 'dom.byId("FileIO_Server")'
+            })
+    );
+    contentTabs.addChild(
+            new ContentPane({
+                    title: "Download from Svr",
+                    content: 'dom.byId("FileIO_ServerDownload")'
+            })
+    );
+    appLayout.startup();
+    parser.parse();
+
+    var myButton = new Button({
+        label: "gfx_Run!",
+        onClick: function(){
+        /*  remmed 2.14: monkeyBastas
+            gfxRun().then(res => 
+                let red = arrFold((s, v, i, arr) => {
+                                return s + ("\n" + i + ": " + JSON.stringify(v))
+                        }, "", res);
+                alert(red);
+                );
+        */
+        window.showDlg();
+            alert("after: " + "output");
+            }
+    }, "progButtonNode").startup();
+
+        //parser.parse();
+        dijit.byId("appLayout").layout();
+});
+</script>
+
+
+</head>
+<body class="claro">
+    <div id="appLayout" class="demoLayout"></div>
+
+</body>
+
+</body>
+</html>
