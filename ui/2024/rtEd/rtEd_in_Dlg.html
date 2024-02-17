@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+	<script>
+require(["dojo/dom", "dojo/query", "dojo/parser", "dojo/window",
+"dojo/dom-construct", "dijit/form/Button", "dijit/form/TextBox", 
+"dijit/form/ToggleButton", "dijit/Dialog",
+"dijit/TitlePane", "dijit/Editor", "dijit/_editor/plugins/FullScreen", 
+"dijit/_editor/plugins/ViewSource", "dijit/_editor/plugins/AlwaysShowToolbar", 
+"dijit/_editor/plugins/LinkDialog", "dijit/_editor/plugins/FontChoice", 
+"dojo/domReady!"],
+function(dom, query, parser, win, domConstr, button, TextBox, ToggleButton, Dialog, TitlePane, Editor, fullscreen, 
+viewsrc, AlwaysShowToolbar){
+    //Feb 01 '24: Looks like iFrame issues; probably no go in dlg
+    // Get the viewport-size of the document:
+    var vp = win.getBox();
+    var dlgW = vp.w - 100;
+    var dlgH = vp.h - 100;
+    let dlgHdr = "        <table id='edDlgTbl'>" +
+"            <tr>" +
+"                <td><label for='name'>Name: </label></td>" +
+"                <td><input data-dojo-type='dijit/form/TextBox' type='text' name='name' id='name'></td>" +
+"            </tr>" +
+"            <tr>" +
+"                <td><label for='loc'>Location: </label></td>" +
+"                <td><input data-dojo-type='dijit/form/TextBox' type='text' name='loc' id='loc'></td>" +
+"            </tr>" +
+"            <tr>" +
+"                 <td><button id='AutoOpenBtn' data-dojo-type='dijit/form/ToggleButton'" + 
+"  data-dojo-props=\"iconClass:'dijitCheckBoxIcon', checked: true\">AutoOpen</button></td>" +
+"            </tr>" +
+"        </table>" +
+"        <br>";
+    let dlgFtr = 
+"				<div class='dijitDialogPaneActionBar'>" +
+"					<button data-dojo-props='onClick:function(){lrgDialog.hide();}' data-dojo-type='dijit/form/Button' id='OK' type='button'>OK</button>" +
+"				</div>";
+
+    //a lrg Dlg coz some itms may have substantial content
+    var edDlg = new Dialog({
+        title: "Editing",
+        style: "width: " + dlgW + "px; height: " + dlgH + "px"
+    });
+    //,        content: (dlgHdr + dlgFtr)
+
+    this.createEditor = function(){
+        var myEditor = new Editor({
+            height: '250px',
+            extraPlugins: ['subscript', 'superscript', 'viewsource', {name:'fullscreen', zIndex:900}, 'createLink', 'unlink', 'insertImage', /*'fontName',*/ 'fontSize', 'formatBlock']
+        });
+				myEditor.setValue((dom.byId("programmatic1")).innerHTML);
+                var hdrNd = domConstr.toDom(dlgHdr);
+                var ftrNd = domConstr.toDom(dlgFtr);
+                var docFragment = document.createDocumentFragment();
+                //domConstr.place(hdrNd, docFragment, "after");
+                //domConstr.place(myEditor, docFragment, "after");
+                //domConstr.place(ftrNd, docFragment, "after");
+                //alert(docFragment.innerHTML);
+                //edDlg.content = docFragment;
+
+                //in short, issues w/iFrames
+                
+                edDlg.content = myEditor.innerHTML;
+                myEditor.startup();
+				edDlg.show();
+				parser.parse();
+    };
+	parser.parse();
+});
+	</script>
+</head>
+<body class="claro">
+<div id="programmatic2">
+  This div will become an auto-expanding editor.<br>
+      <a href="http://tinyurl.com" target="_blank">tiny</a><br />
+  </div>
+<div id="programmatic1">
+    <br />
+    <br />
+    <a href="http://www.dojotoolkit.org">The best Ajax Toolkit there is, Dojo!</a>
+    <br />
+    It even has a cool logo: <img src="https://trivedienterprisesinc.github.io/img/Hulk.png" alt="The Dojo Toolkit" height='100px'/>
+    <br> https://dojotoolkit.org/
+    <p>
+<button data-dojo-type="dijit/Form/Button" id="tmp" onclick="alert('working?');">
+    embedded
+</button>
+<div id="tp2" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane Too'">
+    Embedded TitlePn
+</div>
+
+
+	<br>
+<table>
+	<tbody>
+		<tr>
+		<td style="border-style:solid; border-width: 2px; border-color: gray;">One cell</td>
+		<td style="border-style:solid; border-width: 2px; border-color: gray;">
+		Two cell
+		</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<button id="create2" onclick="createEditor();">
+    create expanding editor
+</button>
+</body>
+</html>
