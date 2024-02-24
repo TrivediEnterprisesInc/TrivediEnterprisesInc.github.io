@@ -126,6 +126,35 @@ cognition</span>Good poss. feature for <b>Gfx</b>: embeddable tasks for curr Pro
 This time around nodes automatically contain both (if setup to do so)
 </div>
 
+<hr>
+<code><pre>
+/*
+consider using this (SO: image blob)
+		var myImageDiv = document.querySelector('img');
+		fetch('flowers.jpg').then(function(response) {
+			return response.blob();
+		}).then(function(myBlob) {
+			var objectURL = URL.createObjectURL(myBlob);
+			myImageDiv.src = objectURL;
+		});
+
+<a href='https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL'>URL.createObjectURL()</a> API allows us to make a valid URL 
+(it's called "object URL") that is linked to the "Blob" 
+object. 
+A fn to save a pdf file :
+function saveByteArray(reportName, bArr) {
+    // pass your byte response to this constructor
+    var bytes = new Uint8Array(bArr); 
+    var blob = new Blob([bytes], {type: "application/pdf"});
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    var fileName = reportName;
+    link.download = fileName;
+    link.click();
+};
+
+*/
+</pre></code>
 
 </body>
 </html>
