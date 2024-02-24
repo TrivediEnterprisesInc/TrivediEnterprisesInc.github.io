@@ -1,30 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
-<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<!--Note that this has non-standard weight+sz 4 rtEd icons-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@32,600,0,0" />
 
 <style>
-html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-}
-
-#appLayout {
-    height: 100%;
-}
-#leftCol {
-    width: 14em;
-}
-
-.claro .demoLayout .edgePanel {
-    background-color: #d0e9fc;
+/*Change to fix the icons' vertical-align; flex won't work on IE8
+  Note: Alignment was off even for the dojo icons... */
+.material-symbols-outlined {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
 
@@ -53,24 +44,197 @@ require(["dojo/_base/lang", "dijit/form/Button", "dojo/dom",
             "		tabIndex='-1' aria-hidden='true' data-dojo-attach-point='valueNode'" +
             "/></span>",
          postCreate: function(){
+            const setIcn = (slg, nd, cls) => {
+              nd.innerHTML = slg;
+              domClass.remove(nd, cls);
+            }
             if ((this.iconClass === "dijitNoIcon") || (!this.iconClass)) {
+              //@FixMe
               this.iconNode.innerHTML = "new_releases";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUndo") {
+              setIcn("undo", this.iconNode, "dijitEditorIcon dijitEditorIconUndo");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconRedo") {
+              setIcn("redo", this.iconNode, "dijitEditorIcon dijitEditorIconRedo");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCut") {
+              setIcn("content_cut", this.iconNode, "dijitEditorIcon dijitEditorIconCut");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCopy") {
+              setIcn("content_copy", this.iconNode, "dijitEditorIcon dijitEditorIconCopy");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconPaste") {
+              setIcn("content_paste", this.iconNode, "dijitEditorIcon dijitEditorIconPaste");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconBold") {
+              setIcn("format_bold", this.iconNode, "dijitEditorIcon dijitEditorIconBold");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconItalic") {
+              setIcn("format_italic", this.iconNode, "dijitEditorIcon dijitEditorIconItalic");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUnderline") {
+              setIcn("format_underlined", this.iconNode, "dijitEditorIcon dijitEditorIconUnderline");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconStrikethrough") {
+              setIcn("format_strikethrough", this.iconNode, "dijitEditorIcon dijitEditorIconStrikethrough");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertOrderedList") {
+              setIcn("format_list_numbered", this.iconNode, "dijitEditorIcon dijitEditorIconInsertOrderedList");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertUnorderedList") {
+              setIcn("format_list_bulleted", this.iconNode, "dijitEditorIcon dijitEditorIconInsertUnorderedList");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconIndent") {
+              setIcn("format_indent_increase", this.iconNode, "dijitEditorIcon dijitEditorIconIndent");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconOutdent") {
+              setIcn("format_indent_decrease", this.iconNode, "dijitEditorIcon dijitEditorIconOutdent");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyLeft") {
+              setIcn("format_align_left", this.iconNode, "dijitEditorIcon dijitEditorIconJustifyLeft");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyRight") {
+              setIcn("format_align_right", this.iconNode, "dijitEditorIcon dijitEditorIconJustifyRight");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyCenter") {
+              setIcn("format_align_center", this.iconNode, "dijitEditorIcon dijitEditorIconJustifyCenter");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyFull") {
+              setIcn("format_align_justify", this.iconNode, "dijitEditorIcon dijitEditorIconJustifyFull");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconSubscript") {
+              setIcn("subscript", this.iconNode, "dijitEditorIcon dijitEditorIconSubscript");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconSuperscript") {
+              setIcn("supercript", this.iconNode, "dijitEditorIcon dijitEditorIconSuperscript");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconViewSource") {
+              setIcn("code", this.iconNode, "dijitEditorIcon dijitEditorIconViewSource");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUnlink") {
+              setIcn("link_off", this.iconNode, "dijitEditorIcon dijitEditorIconUnlink");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCreateLink") {
+              //@FixMe: add_link isn't a btn, it's a dropdnBtn
+              setIcn("add_link", this.iconNode, "dijitEditorIcon dijitEditorIconCreateLink");
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertImage") {
+              //@FixMe: image isn't a btn, it's a dropdnBtn
+              setIcn("image", this.iconNode, "dijitEditorIcon dijitEditorIconInsertImage");
             } else {
+              console.log("unlisted icon found - " + this.iconClass);
               this.iconNode.innerHTML = "indeterminate_question_box";
             };
+            /*
+tmp.html:40 - dijitEditorIcon dijitEditorIconFullScreen
+            */
+            //fall-through for toggleBtns
+            let toggleNd = this.iconNode;
+            if (domClass.contains(toggleNd, "dijitCheckBoxIcon")){
+                if(this.checked){
+                    this.iconNode.innerHTML = "toggle_on";
+                } else {
+                    this.iconNode.innerHTML = "toggle_off";
+                }
+            }
          }
       });
-
-        var myButton = new Btn({
-            label: "Click me!",
-            onClick: function(){
-                dom.byId("result1").innerHTML += "Thank you!<br>";
-            }
-        }, "progButtonNode").startup();
-})
+	  });
 </script>
+
+
+	<script>
+require(["dojo/dom", "dojo/dom-construct", "dojo/parser", "dijit/form/Button", 
+"dijit/TitlePane", "dijit/layout/ContentPane", "dijit/Editor", "dijit/_editor/plugins/FullScreen", 
+"dijit/_editor/plugins/ViewSource", "dijit/_editor/plugins/AlwaysShowToolbar", 
+"dijit/_editor/plugins/LinkDialog", "dijit/_editor/plugins/FontChoice", 
+"dojo/domReady!"],
+function(dom, domConstr, parser, button, TitlePane, ContentPane, Editor, fullscreen, 
+viewsrc, AlwaysShowToolbar){
+
+
+	this.postFiltFn1 = (domNd) => {
+		//alert('in postFiltFn1');
+		return domNd;
+	};
+	
+	var postFilts = [this.postFiltFn1];
+
+
+    this.createEditor = (tgtId) => {
+        let edHdr = 
+    "    <div id='edPane' data-dojo-type='dijit/layout/ContentPane'>" +
+    "        <table id='edDlgTbl'>" +
+    "            <tr>" +
+    "                <td><label for='title'>Title: </label></td>" +
+    "                <td><input data-dojo-type='dijit/form/TextBox' type='text' name='title' id='title'></td>" +
+    "                <td><label for='tags'>Tags: </label></td>" +
+    "                <td><input data-dojo-type='dijit/form/TextBox' type='text' name='tags' id='tags' placeHolder='pls use spaces between tags, not commas'></td>" +
+    "                <td><button id='AutoOpenBtn' data-dojo-type='dijit/form/ToggleButton'" + 
+    "  data-dojo-props=\"iconClass:'dijitCheckBoxIcon', checked: false\">AutoOpen</button></td>" +
+    "            </tr>" +
+    "        </table>" +
+    "        <div id='editorDiv'></div>";
+        let edFtr = 
+    "		<div class='editorDivActionBar'>" +
+    "			<button data-dojo-props='onClick:function(){edSave();)}' data-dojo-type='dijit/form/Button' id='edSaveBtn' type='button'>Save</button>" +
+    "			<button data-dojo-props='onClick:function(){alert(\"lrgDialog.hide();\")}' data-dojo-type='dijit/form/Button' id='edCancelBtn' type='button'>Cancel</button>" +
+    "		</div></div>";
+        let hdrFrag = document.createDocumentFragment();
+        let hdrDiv = domConstr.create("div", {innerHTML: edHdr}, hdrFrag);
+        let ftrFrag = document.createDocumentFragment();
+        let ftrDiv = domConstr.create("div", {innerHTML: edFtr}, ftrFrag);
+        let mainDiv = dom.byId("mainDiv");
+		let edContent = (dom.byId('tp1')).innerHTML;
+		//alert("dom.byId('tp1') len: " + edContent.length);
+        domConstr.empty(mainDiv);
+        domConstr.place(hdrFrag, mainDiv);
+        domConstr.place(ftrFrag, mainDiv, "after");
+        parser.parse(mainDiv);
+        let ed = new Editor({
+            id: 'inLineEditor',
+            height: '250px',
+            extraPlugins: ['subscript', 'superscript', 'viewsource', {name:'fullscreen', zIndex:900}, 'createLink', 'unlink', 'insertImage', /*'fontName',*/ 'fontSize', 'formatBlock']
+        }, dom.byId('editorDiv'));
+        //pre-Filters
+		ed.onLoadDeferred.then(function(){
+			ed.set("value", edContent);
+			ed.set("contentDomPostFilters", postFilts);
+		});
+        ed.startup();
+    };
+    this.edSave = function(){
+        var titl = dijit.byId("title");
+        var tgs = dijit.byId("tags");
+        var opn = dijit.byId("AutoOpenBtn");
+        var ed = dijit.byId("inLineEditor");
+        let outp = "Title: " + titl.get("value") +
+        "Tags: " + tgs.get("value") +
+        "isOpn: " + opn.get("checked") +
+        "Entry: " + ed.get("value")
+        alert(outp);
+        domConstr.empty(mainDiv);
+        let outFrag = document.createDocumentFragment();
+        let outDiv = domConstr.create("div", {innerHTML: outp}, outFrag);
+        domConstr.place(outFrag, mainDiv);
+        parser.parse();
+    };
+	parser.parse();
+});
+
+	</script>
 </head>
 <body class="claro">
-<div id="progButtonNode"></div>
-<div id="result1"></div>
+<button id="create2" onclick="createEditor('tp1');">
+    create expanding editor
+</button>
+<button id="sv" onclick="edSave();">
+    tst
+</button>
+
+<div id='mainDiv'>
+
+    <div id="tp1" data-dojo-id='teepee1' data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane', open:false">
+        <br />
+        <br />
+        <a href="http://www.dojotoolkit.org">The best Ajax Toolkit there is, Dojo!</a>
+        <br />
+        It even has a cool logo: <img src="https://trivedienterprisesinc.github.io/img/Hulk.png" alt="The Dojo Toolkit" height='100px'/>
+        <br> https://dojotoolkit.org/
+        <p>
+        <button data-dojo-type="dijit/form/Button" id="tmp" onclick="alert('working?');">
+            embedded dijit Btn
+        </button>
+        <table>
+            <tbody>
+                <tr>
+                <td style="border-style:solid; border-width: 2px; border-color: gray;">One cell</td>
+                <td style="border-style:solid; border-width: 2px; border-color: gray;">
+                Two cell
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
 </body>
+</html>
