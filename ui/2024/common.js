@@ -1,3 +1,5 @@
+/*                Cookies + ipInfo
+*/
 //this is the new version (includes init)
 const arrFold = (fn, init, arr) => {
   return arr.reduce(fn, init);
@@ -75,4 +77,6 @@ require(["dojo/store/Memory"], function(Memory){
     store.remove(3); // delete the object
 });
 
+*/
+/*                Cookies + ipInfo
 */
