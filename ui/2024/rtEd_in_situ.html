@@ -4,8 +4,9 @@
 
 <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-<!--script>
+<script>
 //Remmed Feb_08_24 this is stable; not necc in this particular setup
 require(["dojo/_base/lang", "dijit/form/Button", "dojo/dom", 
         "dojo/dom-class", "dojo/domReady!"], function(lang, Btn, dom, domClass){
@@ -33,22 +34,74 @@ require(["dojo/_base/lang", "dijit/form/Button", "dojo/dom",
          postCreate: function(){
             if ((this.iconClass === "dijitNoIcon") || (!this.iconClass)) {
               this.iconNode.innerHTML = "new_releases";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUndo") {
+              this.iconNode.innerHTML = "undo";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconRedo") {
+              this.iconNode.innerHTML = "redo";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCut") {
+              this.iconNode.innerHTML = "content_cut";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCopy") {
+              this.iconNode.innerHTML = "content_copy";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconPaste") {
+              this.iconNode.innerHTML = "content_paste";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconBold") {
+              this.iconNode.innerHTML = "format_bold";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconItalic") {
+              this.iconNode.innerHTML = "format_italic";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUnderline") {
+              this.iconNode.innerHTML = "format_underlined";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconStrikethrough") {
+              this.iconNode.innerHTML = "format_strikethrough";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertOrderedList") {
+              this.iconNode.innerHTML = "format_list_numbered";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertUnorderedList") {
+              this.iconNode.innerHTML = "format_list_bulleted";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconIndent") {
+              this.iconNode.innerHTML = "format_indent_increase";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconOutdent") {
+              this.iconNode.innerHTML = "format_indent_decrease";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyLeft") {
+              this.iconNode.innerHTML = "format_align_left";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyRight") {
+              this.iconNode.innerHTML = "format_align_right";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyCenter") {
+              this.iconNode.innerHTML = "format_align_center";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyFull") {
+              this.iconNode.innerHTML = "format_align_justify";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconSubscript") {
+              this.iconNode.innerHTML = "subscript";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconSuperscript") {
+              this.iconNode.innerHTML = "supercript";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconViewSource") {
+              this.iconNode.innerHTML = "code";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCreateLink") {
+              this.iconNode.innerHTML = "add_link";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUnlink") {
+              this.iconNode.innerHTML = "link_off";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertImage") {
+              this.iconNode.innerHTML = "image";
             } else {
+              console.log("unlisted icon found - " + this.iconClass);
               this.iconNode.innerHTML = "indeterminate_question_box";
             };
+            /*
+tmp.html:40 - dijitEditorIcon dijitEditorIconFullScreen
+            */
             //fall-through for toggleBtns
             let toggleNd = this.iconNode;
             if (domClass.contains(toggleNd, "dijitCheckBoxIcon")){
                 if(this.checked){
                     this.iconNode.innerHTML = "toggle_on";
                 } else {
+		    //this doesn't fire here (coz this is postCreate) chk where it does & update that snippet
+                    //will poss need to extend toggleBtn
                     this.iconNode.innerHTML = "toggle_off";
                 }
             }
          }
       });
 	  });
-</script-->
+</script>
 
 
 	<script>
@@ -94,7 +147,7 @@ viewsrc, AlwaysShowToolbar){
         let ftrDiv = domConstr.create("div", {innerHTML: edFtr}, ftrFrag);
         let mainDiv = dom.byId("mainDiv");
 		let edContent = (dom.byId('tp1')).innerHTML;
-		alert(edContent.length);
+		alert("dom.byId('tp1') len: " + edContent.length);
         domConstr.empty(mainDiv);
         domConstr.place(hdrFrag, mainDiv);
         domConstr.place(ftrFrag, mainDiv, "after");
@@ -142,11 +195,6 @@ viewsrc, AlwaysShowToolbar){
 
 <div id='mainDiv'>
 
-    <div id="tp0" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m top TitlePane', open:false">
-  This div will become an auto-expanding editor.<br>
-      <a href="http://tinyurl.com" target="_blank">tiny</a><br />
-    </div>
-<hr>
     <div id="tp1" data-dojo-id='teepee1' data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane', open:false">
         <br />
         <br />
@@ -169,10 +217,7 @@ viewsrc, AlwaysShowToolbar){
             </tbody>
         </table>
     </div>
-<hr>
-    <div id="tp2" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'I\'m a TitlePane Too', open:false">
-        Embedded TitlePn # 2<br>
-    </div>
+
 </div>
 </body>
 </html>
