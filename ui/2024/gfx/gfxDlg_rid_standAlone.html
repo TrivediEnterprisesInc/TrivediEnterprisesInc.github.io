@@ -1,0 +1,160 @@
+<html>
+<head>
+<link rel="stylesheet" href="common.css">
+<script src="common.js"></script>
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<style>
+#appLayout {
+    height: 100%;
+}
+#leftCol {
+    width: 14em;
+}
+
+.claro .demoLayout .edgePanel {
+    background-color: #d0e9fc;
+}
+</style>
+<script>
+require(["dijit/ConfirmDialog", "dijit/registry", "dijit/form/Select", "dojo/dom", "dojo/on", "dojo/dom-construct", "dojo/domReady!"], function(Dialog, registry, Select, dom, on, domConstr){
+
+/*
+        This snippet contains imgDlg creation/getting val functionality but w/o extensions
+        also not incl: domConstr for contents (hdr/ftr) coz @mbi
+        **_pass in_ the arrayRef in ctor to append result(s) to ensure no issues**
+*/
+
+
+    let dlgActionBarTempl = "<div class='dijitDialogPaneActionBar' data-dojo-attach-point='actionBarNode'>" +
+	"<button data-dojo-type='dijit/form/Button' type='submit'" +
+        "    data-dojo-attach-point='okButton'></button>" +
+	"<button data-dojo-type='dijit/form/Button' type='button'" +
+	"		data-dojo-attach-point='cancelButton' data-dojo-attach-event='click:onCancel'></button>" +
+        "</div>";
+
+        window.showDlg = () => {
+
+        let 3line = "This is line one\n    This is line two\n    This is line three";
+        let 4line = "This is line one\n    This is line two\n    This is line three\n    This is line four";
+        let ridContent = 
+//"<textarea id='ridQ' name: 'ridQ' style: 'width:300px;' value: '" + 3line + "'>" +
+"<textarea id='ridQ' name: 'ridQ' style: 'width:300px;'>" +
+"<input type='password' name='rid' required='true'" +
+"    data-dojo-type='dijit/form/TextBox'" +
+"    data-dojo-props='trim:true' id='rid' />"
+
+
+                const myDialog = new Dialog({
+                        title: "My Dialog",
+                        id: "imgDlg",
+                        content: ridContent,
+                        actionBarTemplate: dlgActionBarTempl
+                });
+                on(myDialog.okButton, "click", function(e){
+                        if (myDialog.isValid()){
+                                //put ref local to callingSite
+                                var box0 = registry.byId("rid");
+                                dom.byId('firstTab').innerHTML = box0.get('value');
+                                myDialog.destroy();
+                        } else {
+                                event.stop(e);
+                        }
+                });
+        return myDialog;
+        }
+})
+</script>
+<script>
+    require(["dojo/parser", "dojo/_base/fx", "dijit/registry", 
+			"dijit/form/Button", "dijit/layout/BorderContainer", 
+			"dijit/layout/TabContainer", "dijit/layout/ContentPane", "dojox/layout/ExpandoPane",
+			"dojo/dom", "dojo/dom-style", "dojo/domReady!"],
+        function(parser, fx, registry, Button, BorderContainer,
+        TabContainer, ContentPane, ExpandoPane, dom, style){
+
+    var appLayout = new BorderContainer({
+            design: "headline"
+    }, "appLayout");
+
+    var leftPn = new ExpandoPane({
+            region: "leading",
+            id: "leftPane",
+            splitter:true,
+            style: "width: 300px",
+            content: "<br>this is a test<br>this is only a test<br>and here is a very long line which will show wrapped or not depending....<br>xx<button id='progButtonNode' type='button'></button>"
+    });
+    appLayout.addChild( leftPn );
+
+    var contentTabs = new TabContainer({
+            region: "center",
+            id: "contentTabs",
+            tabPosition: "bottom",
+            "class": "centerPanel"
+    });
+
+    appLayout.addChild( contentTabs );
+
+    appLayout.addChild(
+            new ContentPane({
+                    region: "top",
+                    "class": "edgePanel",
+                    content: "FileIO tests"
+            })
+    );
+    contentTabs.addChild(
+            new ContentPane({
+                    id: "firstTab",
+                    title: "CliSide",
+                    content: 'dom.byId("FileIO_Client")'
+            })
+    );
+    contentTabs.addChild(
+            new ContentPane({
+                    title: "ServerSide",
+                    content: 'dom.byId("FileIO_Server")'
+            })
+    );
+    contentTabs.addChild(
+            new ContentPane({
+                    title: "Download from Svr",
+                    content: 'dom.byId("FileIO_ServerDownload")'
+            })
+    );
+    appLayout.startup();
+    parser.parse();
+
+    var myButton = new Button({
+        label: "gfx_Run!",
+        onClick: function(){
+        /*  remmed 2.14: monkeyBastas
+            gfxRun().then(res => 
+                let red = arrFold((s, v, i, arr) => {
+                                return s + ("\n" + i + ": " + JSON.stringify(v))
+                        }, "", res);
+                alert(red);
+                );
+        */
+        (window.showDlg()).show();
+            alert("after: " + "output");
+            }
+    }, "progButtonNode").startup();
+
+        //parser.parse();
+        dijit.byId("appLayout").layout();
+});
+</script>
+
+
+</head>
+<body class="claro">
+    <div id="appLayout" class="demoLayout"></div>
+
+</body>
+
+</body>
+</html>
