@@ -4,6 +4,9 @@
 <script src="common.js"></script>
 
 <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -19,6 +22,7 @@
 .claro .demoLayout .edgePanel {
     background-color: #d0e9fc;
 }
+
 </style>
 
 <script>
@@ -83,8 +87,6 @@
         label: "Click me!",
         onClick: function(){
             //alert('Do something');
-//          (dom.byId("firstTab")).innerHTML = resolve(usrDetails());
-            usrDetails().then(res => alert(res));
             alert("after: " + "output");
             }
     }, "progButtonNode").startup();
