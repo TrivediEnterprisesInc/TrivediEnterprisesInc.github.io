@@ -7,7 +7,7 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
@@ -28,10 +28,10 @@
 <script>
     require(["dojo/parser", "dojo/_base/fx", "dijit/registry", 
 			"dijit/form/Button", "dijit/layout/BorderContainer", 
-			"dijit/layout/TabContainer", "dijit/layout/ContentPane", "dojox/layout/ExpandoPane",
+			"dijit/layout/TabContainer", "dijit/layout/ContentPane", "dojox/layout/ExpandoPane", "dijit/Dialog", "dojo/on", 
 			"dojo/dom", "dojo/dom-style", "dojo/domReady!"],
         function(parser, fx, registry, Button, BorderContainer,
-        TabContainer, ContentPane, ExpandoPane, dom, style){
+        TabContainer, ContentPane, ExpandoPane, Dialog, on, dom, style){
 
     var appLayout = new BorderContainer({
             design: "headline"
@@ -42,7 +42,7 @@
             id: "leftPane",
             splitter:true,
             style: "width: 300px",
-            content: "<br>this is a test<br>this is only a test<br>and here is a very long line which will show wrapped or not depending....<br>xx<button id='progButtonNode' type='button'></button>"
+            content: "<br>this is a test<br>this is only a test<br>and here is a very long line which will show wrapped or not depending....<br><div id='abtDiv'>About</div><button id='progButtonNode' type='button'></button>"
     });
     appLayout.addChild( leftPn );
 
@@ -91,10 +91,12 @@
             }
     }, "progButtonNode").startup();
 
-			//parser.parse();
+			parser.parse();
 			dijit.byId("appLayout").layout();
-
-				});
+      on(dom.byId('abtDiv'), mouse.enter, function(evt){
+            myAboutDlg.show();
+      });
+});
 </script>
 
 
@@ -102,7 +104,12 @@
 <body class="claro">
     <div id="appLayout" class="demoLayout"></div>
 
+<div data-dojo-id="myAboutDlg" data-dojo-type="dijit/Dialog" title="About me...">
+                        <img height="300px" src="https://upload.wikimedia.org/wikipedia/commons/archive/0/09/20150318141725%21Rabindranath_with_Einstein.jpg">
+                        <div class="dijitDialogPaneActionBar">
+                            <button data-dojo-props="onClick:function(){myAboutDlg.hide();}" data-dojo-type="dijit/form/Button" id="OK" type="button">OK</button>
+                        </div>
+                    </div>
 </body>
 
-</body>
 </html>
