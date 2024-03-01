@@ -1,10 +1,16 @@
-/*                Cookies + ipInfo
-*/
 //this is the new version (includes init)
 const arrFold = (fn, init, arr) => {
   return arr.reduce(fn, init);
 }
 
+/* min (inclusive) and max (exclusive)*/
+const rNext = (min, max) => {
+  return (Math.random() * (max - min)) + min;
+}
+
+
+/*                Cookies + ipInfo
+*/
 const setCookie = (nm, val, days) => {
   const d = new Date();
   d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -50,7 +56,6 @@ const usrDetails = async () => {
       //.then(data => console.log(data));
 }
 
-
 const gfxRun = async () => {
   try{
     //const res = await fetch("http://ip-api.com/line/?fields=9264");
@@ -80,3 +85,39 @@ require(["dojo/store/Memory"], function(Memory){
 */
 /*                Cookies + ipInfo
 */
+
+
+/*                Mock Fetch Calls
+see: https://stackoverflow.com/questions/45425169/intercept-fetch-api-requests-and-responses-in-javascript
+*/
+const {fetch: origFetch} = window;
+window.fetch = async (...args) => {
+  console.log("fetch called with args:", args);
+  const response = await origFetch(...args);
+
+  /* work with the cloned response in a separate promise
+     chain -- could use the same chain with `await`. */
+  response
+    .clone()
+    .json()
+    .then(data => console.log("intercepted response data:", data))
+    .catch(err => console.error(err));
+
+  //return response;   /* original response */
+
+  /* mocked response: */
+  return new Response(JSON.stringify({
+    userId: 1,
+    id: 1,
+    title: "Mocked!!",
+    completed: false
+  }));
+};
+
+const testFetchCall = () => {
+   fetch("https://jsonplaceholder.typicode.com/todos/1")
+     .then(response => response.json())
+     .then(data => console.log("original caller received:", data))
+     .catch(err => console.error(err));
+}
+
