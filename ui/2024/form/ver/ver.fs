@@ -3,12 +3,16 @@ module mockPV =
     //@NotAvail: remmed coz not avail on glot/paiza/any other
     //@NotAvail open System.Text.Json
     //@NotAvail open System.Text.Json.Serialization
-    
+
+    //Note: only issue w/this mock generator: timeStamps are not sorted Desc
+    //however they'll be auto-created in correct sortOrd in impl. so no probs.
 
     type VerPLd = | VerPLd of id:string * dt:DateTime * usr:string * log:string list with
         member x.toWeb() = 
+            let qt = "'"
             let (VerPLd(i,d,u,l)) = x
-            "{'id':" + i.ToString() + ", 'user:'" + u + ", 'timeSt:'" + d.ToString() + ", 'log:'" + l.ToString() + "}"
+            let logWeb() = (List.fold (fun s v -> s + " " + v) "" l).Trim()
+            "{'id':" + i.ToString() + ", 'user':" + qt + u + qt + ", 'timeSt':" + qt + d.ToString() + qt + ", 'log':" + qt + logWeb() + qt +  "}"
 
     let r:Random = new Random()
     
@@ -25,7 +29,9 @@ module mockPV =
         fun n ->
             List.map(fun x -> 
                         let deltas = r.Next(1,10)
-                        List.map(fun d -> (fNms()).[d]) [0..(deltas-1)]) [0..(n-1)]
+                        List.map(fun d -> (fNms()).[(r.Next(1,10))]) [0..(deltas-1)]
+                        |> List.sort
+                        |> List.distinct) [0..(n-1)]
 
     let getNxtDt =
         fun (f:System.DateTime) (s:System.DateTime) ->
@@ -43,13 +49,71 @@ module mockPV =
             |> List.map (fun x -> (getNxtDt fstD secD))
             |> List.sort
 
+    //hardCoded vals in lieu of Core fn.
+    //note that mocked result lkups'll have to confirm to this spec
+    let genDocID =
+        fun d u -> 
+            "DocID_" + (d.Ticks).ToString() + "^" + u + "^Table01" + "^BrijCorp"
+
     let getSample = 
         fun n ->
             List.zip3 (getEms [] n) (getFNms n) (getDts n)
-            |> List.mapi (fun i e -> 
+            |> List.map (fun e -> 
                             let (em, fn, dt) = e
-                            VerPLd(i.ToString(), dt, em, fn))
+                            VerPLd((genDocID dt em), dt, em, fn))
             |> List.map(fun v -> v.toWeb())
             //@NotAvail |> JsonSerializer.Serialize
 
-    printfn "%A\n%A" "out:" (getSample 3)
+    let genPayloads() = 
+            List.mapi (fun i x -> 
+                        let pv_hist_len = r.Next(1,10)
+                        printfn "%A)\n %A" i (getSample pv_hist_len)
+                        ) [0..9]
+
+/*
+produces outpt in this fmt:
+ [{"id":"DocID_632294224800000000^usr2@brij.com^Table01^BrijCorp", "user":"tmeldrum2j@loc.gov", "timeSt":"08/30/2004 00:28:00", "log":"field_1 field_6 field_7 field_8"},
+ {"id":"DocID_633018827400000000^usr2@brij.com^Table01^BrijCorp", "user":"hloker1m@miitbeian.gov.cn", "timeSt":"12/16/2006 16:19:00", "log":"field_1 field_2 field_3 field_4 field_6 field_7 field_8 field_9"},
+ ...
+we need (to confirm to JSONspcs):
+[{"id":"1","col1":"normal","col2":false,"col3":"But are not followed by two hexadecimal","col4":29.91},
+{"id":"2","col1":"important","col2":false,"col3":"Because a % sign always indicates","col4":9.33},...
+coding not worth it (we can use the serializer l8r)
+so manually repl/massage the outpt.
+*/
+
+    //toBeDebugged
+    let toWebOb =
+        fun tplLi ->
+            let writerOptions = new JsonWriterOptions() { Indented = true}
+            use stream = new MemoryStream()
+            use writer = new Utf8JsonWriter(stream, writerOptions)
+            let rec procSingleTpl = 
+                fun v ->
+                    let (MTpl(slg, v, t)) = v
+                        match t with
+                        | String -> 
+                            writer.WriteStartObject()
+                            writer.WritePropertyName(slg)
+                            writer.WriteStringValue(v)
+                            writer.WriteEndObject()
+                            writer.Flush()
+                        | Boolean -> 
+                            writer.WriteStartObject()
+                            writer.WritePropertyName(slg)
+                            writer.WriteBooleanValue(v)
+                            writer.WriteEndObject()
+                        | Number -> 
+                            writer.WriteStartObject()
+                            writer.WritePropertyName(slg)
+                            writer.WriteNumberValue(v)
+                            writer.WriteEndObject()
+                        | List<_> ->
+                            writer.WriteStartArray(slg)
+                            lim (fun x -> procSingleTpl x) v
+                            writer.WriteEndArray()
+                        | _ ->
+                            //we won't allow nulls
+                            printfn "Lvl SEVERE: null encountered in tpl! for key: %A" slg
+            lim (fun x -> procSingleTpl x) tplLi
+            Encoding.UTF8.GetString(stream.ToArray())
