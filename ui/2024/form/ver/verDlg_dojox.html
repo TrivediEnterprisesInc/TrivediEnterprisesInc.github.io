@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html >
+<head>
+<!--This page uses dojox/Datagrid (the basic one)
+with default settings.-->
+<script src="common.js"></script>
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<style type="text/css">
+@import "https://dojotoolkit.org/reference-guide/1.10/_static/js/dojox/grid/resources/claroGrid.css";
+
+/*Grid needs an explicit height by default*/
+#gridDiv {
+    height: 20em;
+}
+</style>
+
+	
+<script>
+  require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 
+  "dijit/ConfirmDialog", "dijit/registry", "dojo/on", "dojo/dom-construct",
+  "dijit/form/Button", 'dojo/dom', 'dojo/parser', 'dojo/domReady!'],
+    function(lang, DataGrid, ItemFileWriteStore, 
+             Dialog, registry, on, domConstr, Button, dom, parser){
+
+  showPvDlg = () => {
+    //Consider moving this to common for all the Dlgs
+    let dlgActionBarTempl = "<div class='dijitDialogPaneActionBar' data-dojo-attach-point='actionBarNode'>" +
+	"<button data-dojo-type='dijit/form/Button' type='submit'" +
+        "    data-dojo-attach-point='okButton'></button>" +
+	"<button data-dojo-type='dijit/form/Button' type='button'" +
+	"		data-dojo-attach-point='cancelButton' data-dojo-attach-event='click:onCancel'></button>" +
+        "</div>";
+    const pvDlg = new Dialog({
+                title: "PV...",
+                id: "pvDlg",
+                content: "",
+                style: "height:90%;width:24em;",
+                actionBarTemplate: dlgActionBarTempl
+    });
+
+    //output from ver.fs
+    var verOutput = 
+      [{"id":0, "user":"mcohen10@tinyurl.com", "timeSt":"06/10/1997 11:49:00", "log":"field_2 field_4 field_6 field_8"},
+      {"id":1, "user":"eferagh1i@slate.com", "timeSt":"11/17/1997 12:53:00", "log":"field_1 field_2 field_7"},
+      {"id":2, "user":"brobins3@cdbaby.com", "timeSt":"07/07/2004 19:31:00", "log":"field_2 field_3 field_4 field_5 field_8 field_9"},
+      {"id":3, "user":"sellerayl@epa.gov", "timeSt":"08/01/2013 07:40:00", "log":"field_2 field_3 field_5 field_8 field_9"},
+      {"id":4, "user":"jvanhalen2c@webnode.com", "timeSt":"07/13/2015 21:02:00", "log":"field_5 field_6 field_9"},
+      {"id":5, "user":"jcristofalos@indiatimes.com", "timeSt":"07/22/2015 14:30:00", "log":"field_1 field_6"},
+      {"id":6, "user":"wshovell1f@squarespace.com", "timeSt":"07/08/2020 00:21:00", "log":"field_1 field_3"},
+      {"id":7, "user":"gmacconnulty2r@about.com", "timeSt":"08/21/2021 07:29:00", "log":"field_1 field_3 field_6 field_7 field_9"}];
+
+    var data = {
+      identifier: "id",
+      items: []
+    };
+
+    data.items = verOutput;
+    var store = new ItemFileWriteStore({data: data});
+    var layout = [[
+      {'name': '#', 'field': 'id', 'width': '100px'},
+      {'name': 'EditedBy', 'field': 'user', 'width': '100px'},
+      {'name': 'on', 'field': 'timeSt', 'width': '200px'},
+      {'name': 'FieldsChanged', 'field': 'log', 'width': '150px'}
+    ]];
+
+    var pvGrid = new DataGrid({
+        id: 'grid',
+        store: store,
+        structure: layout,
+        rowSelector: '20px'});
+
+    on(pvGrid, "onRowMouseOver", (e) => {
+        //e contains info 4 grid, cell, and rowIndex
+        alert(JSON.stringify(e));
+        var val = pvGrid.store.getValue(grid.getItem(e.rowIndex), "FieldsChanged");
+        alert("init_PV_handlr > val: " + val);
+        /*
+        if (pvDlg.isValid()){
+                var box0 = registry.byId("userId");
+                //alert("got: " + box0.get('value'));
+                uId = box0.get('value');
+                pvDlg.hide();
+        } else {
+                alert('event.stop(e)');
+        }
+        */
+    });
+    on(pvGrid, "onRowDblClick", (e) => {
+        var val = pvGrid.store.getValue(grid.getItem(e.rowIndex), "user");
+        //(i) fetch
+        //(ii) frm/Mngr: setFormValues([{key,val}])
+        //(iii) ensure frm is disabled via form/Mngr: dijit.byId('form').disable()
+        //(iv) show newDlg w/frm
+        //...handle makeCurr() if necc
+        alert("rowDblClick 4 user: " + val);
+    });
+    pvDlg.set('title',"PV Dlg ");
+    pvDlg.set('content', pvGrid);
+    pvGrid.startup();
+    pvDlg.show();
+  }
+
+})
+</script>
+</head>
+<body class="claro">
+<button data-dojo-type="dijit/form/Button" data-dojo-id="myToggleButton" onClick="showPvDlg();" type="button">
+pvDlg
+</button>
+</body>
+</html>
