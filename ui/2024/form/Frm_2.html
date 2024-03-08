@@ -2,6 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+<script src="common.js"></script>
 	<title>dojox/form/Manager (test #2)</title>
 <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
@@ -80,18 +82,19 @@ require(["dojox/form/Manager", "dijit/Toolbar", "dijit/form/Button", "dijit/form
 	"<button data-dojo-type='dijit/form/Button' type='button'" +
 	"		data-dojo-attach-point='cancelButton' data-dojo-attach-event='click:onCancel'></button>" +
         "</div>";
+	var vp = win.getBox();
+    var dlgW = vp.w - 100;
+    var dlgH = vp.h - 100;
+
     let dlgC = dom.byId('frmDlgContents').innerHTML;
-    const pvDlg = new Dialog({
+    const frmDlg = new Dialog({
                 title: "Frm...",
                 id: "frmDlg",
                 content: dlgC,
-                style: "height:90%;width:90%;",
-                actionBarTemplate: dlgActionBarTempl
+                style: "width: " + dlgW + "px; height: " + dlgH + "px",
+				actionBarTemplate: dlgActionBarTempl
     });
-
-//    pvDlg.setValue('content', dom.byId('frmDlgContents').innerHTML);
-    pvDlg.show();
-
+    frmDlg.show();
 	});
 </script>
 
@@ -114,8 +117,8 @@ edit_note</span>Edit</div
 history</span>Prior Versions</div></div>
 
 
-	<div dojoType="dijit/layout/BorderContainer" design="sidebar" gutters="false" liveSplitters="false" style="height: 90%;width: 100%;">
-		<div dojoType="dijit/layout/ContentPane" region="center" splitter="false">
+	<div dojoType="dijit/layout/BorderContainer" design="sidebar" gutters="false" liveSplitters="false" style="height: 50em;">
+		<div dojoType="dijit/layout/ContentPane" region="center" splitter="false" style="width: 100%;">
 			<form dojoType="dojox/form/Manager" id="form">
 				<table>
           <tr>
@@ -143,7 +146,10 @@ history</span>Prior Versions</div></div>
 						</td>
           </tr>
           <tr>
-            <td>
+						<td style='text-align:center;border-top: thin solid;border-left:thin solid;border-right:thin solid;background-color:AliceBlue;' colspan='2'><span style='color:Brown;'>0 to 5: Low, 5 to 9: High</span></td>
+					</tr>
+					<tr>
+            <td style='border-bottom: thin solid;border-left:thin solid;background-color:AliceBlue;'>
 						<label for="impSlider">Importance</label>
 						<div id="impSlider"
 							style="width:400px;"
@@ -169,7 +175,7 @@ history</span>Prior Versions</div></div>
 					</div>
 					<input type="text" id="impValue" data-dojo-props="disabled:true" value="0" data-dojo-type="dijit/form/TextBox" />
 					</td>
-            <td>
+            <td style='border-bottom: thin solid;border-right:thin solid;background-color:AliceBlue;'>
 						<label for="urgSlider">Urgency</label>
 						<div id="urgSlider"
 							style="width:400px;"
@@ -215,38 +221,42 @@ history</span>Prior Versions</div></div>
 						</td>
           </tr>
           <tr>
+						<td colspan='2'>
 					<label for="ContentFld">Content</label><br>
 					<textarea dojoType="dijit/form/SimpleTextarea" id="ContentFld" name="ContentFld" observer="showValues"
 						rows="3" cols="15" style="width: 100%;" >Content</textarea>
+							</td>
           </tr>
 					<tr>
+						<td>
 					<hr>
 					<br>Non-incl widgets ->	<br>
 					<hr>
+					</td>
 					</tr>
-					<tr>
+					<tr><td>
 							<input type="radio" data-dojo-type="dijit/form/RadioButton" name="drink" id="radioOne" checked value="tea"/>
 							<label for="radioOne">Tea</label> <br />
 							<input type="radio" data-dojo-type="dijit/form/RadioButton" name="drink" id="radioTwo" value="coffee"/>
 							<label for="radioTwo">Coffee</label>
-					</tr>
-					<tr>
+					</td>
+					<td>
 							<label for="income1">U.S. Dollars</label>
 							<input type="text" name="income1" id="income1" value="54775.53" required="true"
 									data-dojo-type="dijit/form/CurrencyTextBox"
 									data-dojo-props="constraints:{fractional:true},
 									currency:'USD',
 									invalidMessage:'Invalid amount. Cents are required.'" />
-					</tr>
-					<tr>
+					</td></tr>
+					<tr><td>
 						<label for="time1">Drop down Time box:</label>
 						<input type="text" name="date1" id="time1" value="T15:00:00"
 								data-dojo-type="dijit/form/TimeTextBox"
 								onChange="require(['dojo/dom'], function(dom){dom.byId('val').value=dom.byId('time1').value.toString().replace(/.*1970\s(\S+).*/,'T$1')})"
 								required="true" />
-						<br>(DoWeNdThis???)Time strVal: <input id="val" value="value not changed" readonly="readonly" disabled="disabled" />
-					</tr>
-			  	<tr>
+						</td><td>(DoWeNdThis???)Time strVal: <input id="val" value="value not changed" readonly="readonly" disabled="disabled" />
+					</td></tr>
+			  	<tr><td>
 						<div data-dojo-type="dojo/store/Memory"
 								data-dojo-id="stateStore"
 								data-dojo-props="data: [
@@ -268,9 +278,9 @@ history</span>Prior Versions</div></div>
 								data-dojo-props="store:stateStore, searchAttr:'name'"
 								name="state"
 								id="stateInput" />
-					</tr>
-					<tr><b>Need rtEd here</b>
-					</tr>
+					</td></tr>
+					<tr><td><b>Need rtEd here</b>
+					</td></tr>
 <tr>
 
 				</table>
