@@ -1,71 +1,112 @@
-<!DOCTYPE html>
-<html >
-<head>
-<!--This page uses dojox/Datagrid (the basic one)
-with default settings.-->
-<script src="common.js"></script>
+require(['dojo/_base/lang', "dojo/_base/declare", 'dojo/store/Memory', 'gridx/core/model/cache/Sync', "gridx/Grid",
+  "dijit/ConfirmDialog", "dijit/registry", "dojo/on", "dojo/dom-construct",
+  "dijit/form/Button", 'dojo/dom', 'dojo/parser', 'dojo/domReady!'],
+    function(lang, declare, Memory, Cache, Grid,
+             Dialog, registry, on, 
+             domConstr, Button, dom, parser){
 
-<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+//use dojo.declare
+/*
+define(["dojo/_base/declare"], function(declare){
+  return declare(null, {
+    constructor: function(name, age, residence){
+      this.name = name;
+      this.age = age;
+      this.residence = residence;
+    }
+  });
+});
+Using the class:
+.."dojo/text!./templates/Grid.html",
+require(["my/Person"], function(Person){
+  var folk = new Person("phiggins", 42, "Tennessee");
+});
+*/ 
 
-<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+  return declare(null, {
+    constructor: function(itms){
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  let getPvDlg = (dat) => {
+    //Consider moving this to common for all the Dlgs
+    let dlgActionBarTempl = "<div class='dijitDialogPaneActionBar' data-dojo-attach-point='actionBarNode'>" +
+	"<button data-dojo-type='dijit/form/Button' type='submit'" +
+        "    data-dojo-attach-point='okButton'></button>" +
+	"<button data-dojo-type='dijit/form/Button' type='button'" +
+	"		data-dojo-attach-point='cancelButton' data-dojo-attach-event='click:onCancel'></button>" +
+        "</div>";
+    const pvDlg = new Dialog({
+                title: "PV...",
+                id: "pvDlg",
+                content: "",
+                style: "height:90%;width:24em;",
+                actionBarTemplate: dlgActionBarTempl
+    });
 
-	<style type="text/css">
-@import "https://dojotoolkit.org/reference-guide/1.10/_static/js/dojox/grid/resources/claroGrid.css";
+    //output from ver.fs
+    var verOutput = 
+      [{"id":0, "user":"mcohen10@tinyurl.com", "timeSt":"06/10/1997 11:49:00", "log":"field_2 field_4 field_6 field_8"},
+      {"id":1, "user":"eferagh1i@slate.com", "timeSt":"11/17/1997 12:53:00", "log":"field_1 field_2 field_7"},
+      {"id":2, "user":"brobins3@cdbaby.com", "timeSt":"07/07/2004 19:31:00", "log":"field_2 field_3 field_4 field_5 field_8 field_9"},
+      {"id":3, "user":"sellerayl@epa.gov", "timeSt":"08/01/2013 07:40:00", "log":"field_2 field_3 field_5 field_8 field_9"},
+      {"id":4, "user":"jvanhalen2c@webnode.com", "timeSt":"07/13/2015 21:02:00", "log":"field_5 field_6 field_9"},
+      {"id":5, "user":"jcristofalos@indiatimes.com", "timeSt":"07/22/2015 14:30:00", "log":"field_1 field_6"},
+      {"id":6, "user":"wshovell1f@squarespace.com", "timeSt":"07/08/2020 00:21:00", "log":"field_1 field_3"},
+      {"id":7, "user":"gmacconnulty2r@about.com", "timeSt":"08/21/2021 07:29:00", "log":"field_1 field_3 field_6 field_7 field_9"}];
 
-/*Grid needs an explicit height by default*/
-#gridDiv {
-    height: 20em;
-}
-	</style>
-
-	
-	<script>
-  require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dojo/dom', 'dojo/domReady!'],
-    function(lang, DataGrid, ItemFileWriteStore, dom){
-
-    /*set up data store*/
     var data = {
       identifier: "id",
-      items: []
+      label: 'id',
+      items: dat
     };
-    var data_list = [
-      { col1: "normal", col2: false, col3: 'But are not followed by two hexadecimal', col4: 29.91},
-      { col1: "important", col2: false, col3: 'Because a % sign always indicates', col4: 9.33},
-      { col1: "important", col2: false, col3: 'Signs can be selectively', col4: 19.34}
+
+    var store = new Memory({data: data});
+    var layout = [
+      {id: '#', name: "#", field: 'id', width: '10px'},
+      {id: 'EditedBy', name: "EditedBy", field: 'user', width: '150px'},
+      {id: 'on', name: "on", field: 'timeSt', width: '200px'}
+/*      {id: 'FieldsChanged', name: "FieldsChanged",  field: 'log', width: '0px'}*/
     ];
-    var rows = 60;
-    for(var i = 0, l = data_list.length; i < rows; i++){
-        data.items.push(lang.mixin({ id: i+1 }, data_list[i%l]));
-    }
-    var store = new ItemFileWriteStore({data: data});
 
-    /*set up layout*/
-    var layout = [[
-      {'name': 'Column 1', 'field': 'id', 'width': '100px'},
-      {'name': 'Column 2', 'field': 'col2', 'width': '100px'},
-      {'name': 'Column 3', 'field': 'col3', 'width': '200px'},
-      {'name': 'Column 4', 'field': 'col4', 'width': '150px'}
-    ]];
-
-    /*create a new grid*/
-    var grid = new DataGrid({
+    var pvGrid = new Grid({
         id: 'grid',
         store: store,
-        structure: layout,
-        rowSelector: '20px'});
+        cacheClass: Cache,
+        structure: layout
+        });
 
-        /*append the new grid to the div*/
-        //grid.placeAt("gridDiv");
-        dom.byId("gridDiv").innerHTML = JSON.stringify(data);
-
-        /*Call startup() to render the grid*/
-        grid.startup();
+    on(pvGrid, "onRowMouseOver", (e) => {
+        //e contains info 4 grid, cell, and rowIndex
+        alert(JSON.stringify(e));
+        var val = pvGrid.store.getValue(grid.getItem(e.rowIndex), "FieldsChanged");
+        alert("init_PV_handlr > val: " + val);
+        /*
+        if (pvDlg.isValid()){
+                var box0 = registry.byId("userId");
+                //alert("got: " + box0.get('value'));
+                uId = box0.get('value');
+                pvDlg.hide();
+        } else {
+                alert('event.stop(e)');
+        }
+        */
+    });
+    on(pvGrid, "onRowDblClick", (e) => {
+	alert("onRowDblClick");
+        var val = pvGrid.store.getValue(grid.getItem(e.rowIndex), "user");
+        //(i) fetch
+        //(ii) frm/Mngr: setFormValues([{key,val}])
+        //(iii) ensure frm is disabled via form/Mngr: dijit.byId('form').disable()
+        //(iv) show newDlg w/frm
+        //...handle makeCurr() if necc
+        alert("rowDblClick 4 user: " + val);
+    });
+    pvDlg.set('title',"PV Dlg ");
+    pvDlg.set('content', pvGrid);
+    pvGrid.startup();
+    alert('returning pvDlg');
+    return pvDlg;
+  }
+  getPvDlg(items);
+}
 });
-	</script>
-</head>
-<body class="claro">
-    <div id="gridDiv"></div>
-</body>
-</html>
+})
