@@ -1,0 +1,357 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <title>An attempt to run TEnt's Grid locally but errors out on dataSrc</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+	<!--link rel='stylesheet' href="support/common.css" /-->
+
+<!--the full txt of support/common.css-->
+<style>
+@import "https://oria.github.io/gridx/build/dojo/resources/dojo.css";
+@import "https://oria.github.io/gridx/build/dijit/themes/claro/claro.css";
+@import "https://oria.github.io/gridx/build/dijit/themes/claro/document.css";
+/*@import "../../resources/_old/claro/Gridx.css";*/
+/*@import "../../resources/_old/claro/Gridx_rtl.css";*/
+@import "https://oria.github.io/gridx/build/gridx/resources/claro/Gridx.css";
+
+body {
+	background:#fff url("https://oria.github.io/gridx/build/dijit/tests/images/testsBodyBg.gif") repeat-x top left;
+	padding:2em 2em 2em 2em;
+	margin: 5em;
+}
+
+h3 {
+	color: blue;
+	margin: 0;
+	padding: 0;
+}
+
+.title {
+	font-size: large;
+	font-weight: bolder;
+}
+
+#ctrlPane {
+	width: 200px;
+	height: 500px;
+	padding: 0 20px;
+	vertical-align: top;
+}
+
+#ctrlPane .dijitAccordionContainer {
+	width: 100%;
+	height: 100%;
+}
+
+.pane {
+	vertical-align: top;
+}
+
+#mainPane {
+	vertical-align: top;
+}
+
+.apiTester {
+}
+.apiTesterLog {
+	overflow: auto;
+	width: 300px;
+	height: 200px;
+	border: 1px solid blue;
+}
+</style>
+
+	<style type="text/css">
+		#gridContainer {
+			width: 800px;
+			height: 500px;
+		}
+		#grid {
+			width: 100%;
+			height: 100%;
+		}
+		#ctrlPane .dijitAccordionContainer {
+			height: auto;
+		}
+	</style>
+  <style type="text/css">
+    .gridx {
+      width: 800px;
+      height: 400px;
+    }
+  </style>
+<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+<!--script src="https://oria.github.io/gridx/build/gridx/tests/allInOne.js"></script-->
+
+	<script type="text/javascript" src='https://oria.github.io/gridx/build/gridx/tests/support/common.js'></script>
+
+<script>
+//bPl stuff added Nov 28 '23
+//Deltas 4 wobbly: 
+// * bPl outsideWrapper changed from '[]' to '{}'
+// * colHdrs + Dat seps changed from ';' to ','
+// * Dat: this ver (not l8tst) fills categCols w/slugs, which 
+//is a prob for non-string cols (imp/urg/etc)  manually reset
+// * Dat: ComplOn changed from '01/01/0001 00:00:00' to '01/01/0001'
+window.bPlOLD = 
+  {
+  colHdrs: ['Title', 'Module', 'SubModule', 'Importance', 'Urgency', 'Tags', 'Objective', 'Document UNID', 'Project','DocLinks', 'Completed On', 'rowTips', 'Parent', 'Flag', 'Content', 'isCateg', 'Target Version'],
+  openCats: [],
+  visCols: 6,
+  pOpts: [200, 1, 2000, 200, 400],
+  Layout: [
+    {id: 'Title',   name: 'Title',   field: 'string'}, 
+    {id: 'Module',   name: 'Module',   field: 'string'}, 
+    {id: 'SubModule',   name: 'SubModule',   field: 'string'}, 
+    {id: 'Importance',   name: 'Importance',   field: 'number'}, 
+    {id: 'Urgency',   name: 'Urgency',   field: 'number'}, 
+    {id: 'Tags',   name: 'Tags',   field: 'string'}, 
+    {id: 'Objective',   name: 'Objective',   field: 'string'}, 
+    {id: 'Document UNID',   name: 'Document UNID',   field: 'id'}],
+  Dat: [['spxServer (235  items)', 'spxServer (235  items)', 'spxServer (235  items)', 0, 0, 'spxServer (235  items)', 'spxServer (235  items)', 'spxServer (235  items)', 'spxServer (235  items)', 'spxServer (235  items)', null, 'err', 'spxServer (235  items)', 'spxServer (235  items)', 'err', true, 'spxServer (235  items)'], ['Research (5  items)', 'Research (5  items)', 'Research (5  items)', 0, 0, 'Research (5  items)', 'Research (5  items)', 'Research (5  items)', 'Research (5  items)', 'Research (5  items)', null, 'err', 'Research (5  items)', 'Research (5  items)', 'err', true, 'Research (5  items)'], ['Data Import - json', 'spawn', 'Research', 9, 9, 'oldId:20187171202284654800^Task ', '', '638056736839239230^Task', 'spxServer', '', 01/01/0001, 'Chk jdk json import/proc libs.</div>', '', '', 'Chk jdk json import/proc libs.</div>', false, 'Research'], ['Data Import - json', 'procEngine', 'Research', 5, 5, 'oldId:20187171202284654800^2^Task ', '', '638056736839238497^Task', 'spxServer', '', 01/01/0001, 'Chk jdk json import/proc libs.</div>', '', '', 'Chk jdk json import/proc libs.</div>', false, 'Research'], ['Data Import - json', 'spawn', 'Research', 5, 5, 'oldId:20187171202284654800^3^Task ', '', '638056736839238496^Task', 'spxServer', '', 01/01/0001, 'Chk jdk json import/proc libs.</div>', '', '', 'Chk jdk json import/proc libs.</div>', false, 'Research'], ['Data Import - json', 'general', 'Research', 5, 5, 'oldId:20187171202284654800^1^Task ', '', '638056736839238495^Task', 'spxServer', '', 01/01/0001, 'Chk jdk json import/proc libs.</div>', '', '', 'Chk jdk json import/proc libs.</div>', false, 'Research']]
+  }
+/*
+  console.log("bPl dat chk...");
+  console.log("bPl.colHdrs" + JSON.stringify(window.bPl.colHdrs));
+  console.log("bPl.openCats" + JSON.stringify(window.bPl.openCats));
+  console.log("bPl.visCols" + JSON.stringify(window.bPl.visCols));
+  console.log("bPl.pOpts" + JSON.stringify(window.bPl.pOpts)); 
+  console.log("bPl.Layout" + JSON.stringify(window.bPl.Layout));
+  console.log("bPl.Dat" + JSON.stringify(window.bPl.Dat));
+*/
+</script>
+<script>
+ define(["bPl"], function(bPl){
+
+   var bPlOLD = 
+       {
+       colHdrs: ['Title', 'Module', 'SubModule', 'Importance', 'Urgency', 'Tags', 'Objective', 'Document UNID', 'Project','DocLinks', 'Completed On', 'rowTips', 'Parent', 'Flag', 'Content', 'isCateg', 'Target Version'],
+       openCats: [],
+       visCols: 6,
+       pOpts: [200, 1, 2000, 200, 400],
+       Layout: 
+       [[
+         {id: 'Title',   name: 'Title',   field: 'string', expandLevel: 1}, 
+         {id: 'Module',   name: 'Module',   field: 'string', expandLevel: 2},
+         {id: 'SubModule',   name: 'SubModule',   field: 'string', expandLevel: 3},
+         {id: 'Importance',   name: 'Importance',   field: 'number'}, 
+         {id: 'Urgency',   name: 'Urgency',   field: 'number'}, 
+         {id: 'Tags',   name: 'Tags',   field: 'string'}, 
+         {id: 'Objective',   name: 'Objective',   field: 'string'}, 
+         {id: 'Document UNID',   name: 'Document UNID',   field: 'id'}, 
+         {id: 'Project',   name: 'Project',   field: 'string'}, 
+         {id: 'DocLinks',   name: 'DocLinks',   field: 'string'}, 
+         {id: 'Completed On',   name: 'Completed On',   field: 'date'}, 
+         {id: 'rowTips',   name: 'rowTips',   field: 'string'}, 
+         {id: 'Parent',   name: 'Parent',   field: 'string'}, 
+         {id: 'Flag',   name: 'Flag',   field: 'string'}, 
+         {id: 'Content',   name: 'Content',   field: 'string'}, 
+         {id: 'isCateg',   name: 'isCateg',   field: 'bool'}, 
+         {id: 'Target Version',   name: 'Target Version',   field: 'string'}
+       ],
+        [
+         {id: 'Title',   name: 'Title',   field: 'string'}, 
+         {id: 'Module',   name: 'Module',   field: 'string'}, 
+         {id: 'SubModule',   name: 'SubModule',   field: 'string'}, 
+         {id: 'Importance',   name: 'Importance',   field: 'number'}, 
+         {id: 'Urgency',   name: 'Urgency',   field: 'number'}, 
+         {id: 'Tags',   name: 'Tags',   field: 'string'}, 
+         {id: 'Objective',   name: 'Objective',   field: 'string'}, 
+         {id: 'Document UNID',   name: 'Document UNID',   field: 'id'}, 
+         {id: 'Project',   name: 'Project',   field: 'string'}, 
+         {id: 'DocLinks',   name: 'DocLinks',   field: 'string'}, 
+         {id: 'Completed On',   name: 'Completed On',   field: 'date'}, 
+         {id: 'rowTips',   name: 'rowTips',   field: 'string'}, 
+         {id: 'Parent',   name: 'Parent',   field: 'string'}, 
+         {id: 'Flag',   name: 'Flag',   field: 'string'}, 
+         {id: 'Content',   name: 'Content',   field: 'string'}, 
+         {id: 'isCateg',   name: 'isCateg',   field: 'bool'}, 
+         {id: 'Target Version',   name: 'Target Version',   field: 'string'}]],
+          Dat: [{"id":'spxServer (235  items)', "Title":'spxServer (235  items)', "Module":'spxServer (235  items)', "SubModule":'spxServer (235  items)', "Importance":0, "Urgency":0, "Tags":'spxServer (235  items)', "Objective":'spxServer (235  items)', "Project":'spxServer (235  items)', "DocLinks":'spxServer (235  items)', "Completed On":null, "rowTips":'err', "Parent":'spxServer (235  items)', "Flag":'spxServer (235  items)', "Content":'err', "isCateg":true, "Target Version":'spxServer (235  items)', "children":[{ "id":'spxServer (235  items) CHILD', "Title":'spxServer (235  items)', "Module":'spxServer (235  items)', "SubModule":'spxServer (235  items)', "Importance":0, "Urgency":0, "Tags":'spxServer (235  items)', "Objective":'spxServer (235  items)', "Project":'spxServer (235  items)', "DocLinks":'spxServer (235  items)', "Completed On":null, "rowTips":'err', "Parent":'spxServer (235  items)', "Flag":'spxServer (235  items)', "Content":'err', "isCateg":true, "Target Version":'spxServer (235  items)', "children":[]}]}, {"id":'Research (5  items)', "Title":'Research (5  items)', "Module":'Research (5  items)', "SubModule":'Research (5  items)', "Importance":0, "Urgency":0, "Tags":'Research (5  items)', "Objective":'Research (5  items)', "Project":'Research (5  items)', "DocLinks":'Research (5  items)', "Completed On":null, "rowTips":'err', "Parent":'Research (5  items)', "Flag":'Research (5  items)', "Content":'err', "isCateg":true, "Target Version":'Research (5  items)', "children":[]}, {"id":'638056736839239230^Task', "Title":'Data Import - json', "Module":'spawn', "SubModule":'Research', "Importance":9, "Urgency":9, "Tags":'oldId:20187171202284654800^Task ', "Objective":'', "Project":'spxServer', "DocLinks":'', "Completed On":01/01/0001, "rowTips":'Chk jdk json import/proc libs.</div>', "Parent":'', "Flag":'', "Content":'Chk jdk json import/proc libs.</div>', "isCateg":false, "Target Version":'Research', "children":[]}, {"id":'638056736839238497^Task', "Title":'Data Import - json', "Module":'procEngine', "SubModule":'Research', "Importance":5, "Urgency":5, "Tags":'oldId:20187171202284654800^2^Task ', "Objective":'', "Project":'spxServer', "DocLinks":'', "Completed On":01/01/0001, "rowTips":'Chk jdk json import/proc libs.</div>', "Parent":'', "Flag":'', "Content":'Chk jdk json import/proc libs.</div>', "isCateg":false, "Target Version":'Research', "children":[]}, {"id":'638056736839238496^Task', "Title":'Data Import - json', "Module":'spawn', "SubModule":'Research', "Importance":5, "Urgency":5, "Tags":'oldId:20187171202284654800^3^Task ', "Objective":'', "Project":'spxServer', "DocLinks":'', "Completed On":01/01/0001, "rowTips":'Chk jdk json import/proc libs.</div>', "Parent":'', "Flag":'', "Content":'Chk jdk json import/proc libs.</div>', "isCateg":false, "Target Version":'Research', "children":[]}, {"id":'638056736839238495^Task', "Title":'Data Import - json', "Module":'general', "SubModule":'Research', "Importance":5, "Urgency":5, "Tags":'oldId:20187171202284654800^1^Task ', "Objective":'', "Project":'spxServer', "DocLinks":'', "Completed On":01/01/0001, "rowTips":'Chk jdk json import/proc libs.</div>', "Parent":'', "Flag":'', "Content":'Chk jdk json import/proc libs.</div>', "isCateg":false, "Target Version":'Research', "children":[]}]
+          }
+
+   return {
+     getData: function(args){
+       var data = {
+         identifier: 'id', 
+         label: 'id', 
+         items: bPlOLD.Dat
+       };
+
+       console.log(data);
+       return data;
+     },
+     layouts: [[
+         {id: 'Title',   name: 'Title',   field: 'string', expandLevel: 1}, 
+         {id: 'Module',   name: 'Module',   field: 'string', expandLevel: 2},
+         {id: 'SubModule',   name: 'SubModule',   field: 'string', expandLevel: 3},
+         {id: 'Importance',   name: 'Importance',   field: 'number'}, 
+         {id: 'Urgency',   name: 'Urgency',   field: 'number'}, 
+         {id: 'Tags',   name: 'Tags',   field: 'string'}, 
+         {id: 'Objective',   name: 'Objective',   field: 'string'}, 
+         {id: 'Document UNID',   name: 'Document UNID',   field: 'id'}, 
+         {id: 'Project',   name: 'Project',   field: 'string'}, 
+         {id: 'DocLinks',   name: 'DocLinks',   field: 'string'}, 
+         {id: 'Completed On',   name: 'Completed On',   field: 'date'}, 
+         {id: 'rowTips',   name: 'rowTips',   field: 'string'}, 
+         {id: 'Parent',   name: 'Parent',   field: 'string'}, 
+         {id: 'Flag',   name: 'Flag',   field: 'string'}, 
+         {id: 'Content',   name: 'Content',   field: 'string'}, 
+         {id: 'isCateg',   name: 'isCateg',   field: 'bool'}, 
+         {id: 'Target Version',   name: 'Target Version',   field: 'string'}
+       ],
+        [
+         {id: 'Title',   name: 'Title',   field: 'string'}, 
+         {id: 'Module',   name: 'Module',   field: 'string'}, 
+         {id: 'SubModule',   name: 'SubModule',   field: 'string'}, 
+         {id: 'Importance',   name: 'Importance',   field: 'number'}, 
+         {id: 'Urgency',   name: 'Urgency',   field: 'number'}, 
+         {id: 'Tags',   name: 'Tags',   field: 'string'}, 
+         {id: 'Objective',   name: 'Objective',   field: 'string'}, 
+         {id: 'Document UNID',   name: 'Document UNID',   field: 'id'}, 
+         {id: 'Project',   name: 'Project',   field: 'string'}, 
+         {id: 'DocLinks',   name: 'DocLinks',   field: 'string'}, 
+         {id: 'Completed On',   name: 'Completed On',   field: 'date'}, 
+         {id: 'rowTips',   name: 'rowTips',   field: 'string'}, 
+         {id: 'Parent',   name: 'Parent',   field: 'string'}, 
+         {id: 'Flag',   name: 'Flag',   field: 'string'}, 
+         {id: 'Content',   name: 'Content',   field: 'string'}, 
+         {id: 'isCateg',   name: 'isCateg',   field: 'bool'}, 
+         {id: 'Target Version',   name: 'Target Version',   field: 'string'}]]
+
+   };
+ });
+</script>
+<script>
+require([
+  'dojo/parser',
+  'dojo/_base/Deferred',
+/*  'gridx/tests/support/data/mNestedTestData',
+  'dojo/text!./gridx/tests/support/data/mNestedTestData.js',
+above fails on CORS policy locally 
+  'https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/main/ui/2024/mNestedTestData.js',*/
+  'gridx/tests/support/stores/ItemFileWriteStore',
+  'gridx/allModules',
+  'gridx/Grid',
+  'gridx/core/model/cache/Async',
+  'dojo/domReady!'
+], function(parser, Deferred, /*mNested,*/ storeFactory, modules){
+
+  window.addRow = function() {
+    var newItem = {id: "itemId", type: "itemType"},
+      parentId = dojo.byId('parentIdInput').value;
+
+    if (!parentId) return;
+
+    this.store.fetchItemByIdentity({identity: parentId, onItem: function(parentItem) {
+      if (!parentItem) return;
+
+      this.store.newItem({id: new Date().getTime()}, {
+        parent: parentItem,
+        attribute: "children"
+      });
+    }});
+  };
+
+  window.deleteRow = function() {
+    var newItem = {id: "itemId", type: "itemType"},
+      deleteRowId = dojo.byId('deleteRowId').value;
+
+    if (!deleteRowId) return;
+
+    this.store.fetchItemByIdentity({identity: deleteRowId, onItem: function(item) {
+      if (!item) return;
+
+      this.store.deleteItem(item);
+      // this.store.newItem({id: new Date().getTime()}, {
+      // 	parent: parentItem,
+      // 	attribute: "children"
+      // });
+    }});
+  };
+  
+  storeNested = storeFactory({
+    dataSource: bPl,
+    maxLevel: 4,
+    maxChildrenCount: 10
+  });
+  storeNested.hasChildren = function(id, item){
+    return Boolean((storeNested._getItemByIdentity(id)).isCateg);
+  };
+  storeNested.getChildren = function(item){
+    var d = new Deferred();
+    setTimeout(function(){
+      //prompt("fetch!");
+      var children = storeNested.getValues(item, 'children');
+      d.callback(children);
+    }, 1000);
+    return d;
+  };
+
+// Native
+const has = function (obj, key) {
+
+/* tmp changed by mpt (err: key.split is not a fn happens when key isn't a str
+var keyParts = key.split('.');
+  return !!obj && (
+    keyParts.length > 1
+      ? has(obj[key.split('.')[0]], keyParts.slice(1).join('.'))
+      : hasOwnProperty.call(obj, key)
+  );
+*/
+  return !!obj && hasOwnProperty.call(obj, key);
+};
+
+
+
+  window.fetchRow = function(rowId){
+    console.log("fetchRow for : " + rowId);
+    var res2 = this.storeNested._getItemByIdentity(rowId);
+    console.log("res2: " + res2);
+    console.log("res2 isCateg: " + res2.isCateg);
+    window.bPl.Layout.map(function (value, index) {
+          console.log('for val: ' + JSON.stringify(value) + 'id ' + value.id);
+          console.log("obj has this fld? " + has(res2,value.id));
+          var tmp = value.id
+          console.log("this fld: " + res2.tmp);
+    });
+  };
+  
+
+  mods = [
+    modules.Tree,
+    modules.Filter,
+    modules.FilterBar,
+    modules.QuickFilter,
+    modules.Pagination,
+    modules.PaginationBar,
+    modules.ColumnResizer,
+    // modules.SelectRow,
+    modules.ExtendedSelectRow,
+    //modules.CellWidget,
+    //modules.Edit,
+    modules.IndirectSelectColumn,
+    modules.SingleSort,
+    modules.VirtualVScroller
+  ];
+
+  parser.parse();
+});
+</script>
+
+</head>
+<body class='claro'>
+
+  <h2>Dec4.10 (conv DocID to 'id'): Expandoes in different columns (nested), async store</h2>
+  <div id='grid3' jsid='grid3' data-dojo-type='gridx.Grid' data-dojo-props='
+    cacheClass: "gridx/core/model/cache/Async",
+    store: storeNested,
+    structure: window.bPl.Layout,
+    treeNested: true,
+    paginationBarSizes: [1, 2, 0],
+    modules: mods
+  '></div>
+
+</body>
+</html>
