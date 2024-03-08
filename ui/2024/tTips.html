@@ -1,98 +1,250 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Gridx Tree Grid with Ttips</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
 
-<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1></script>
+<script src="https://oria.github.io/gridx/build/gridx/tests/allInOne.js"></script>
 
-<!--style>
-html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-}
-</style-->
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/gridx/tests/support/common.js"></script>
+
+
 <script>
 require([
-    "dijit/ConfirmTooltipDialog",
-    "dijit/form/TextBox",
-    "dijit/form/DropDownButton",
-    "dojo/dom",
-		"dijit/Tooltip",
-    "dojo/domReady!"
-], function(ConfirmTooltipDialog, TextBox, DropDownButton, dom, Tooltip){
-    var myDialog = new ConfirmTooltipDialog({
-        content:
-            '<label for="name">Name:</label> <input data-dojo-type="dijit/form/TextBox" id="name" name="name"><br>' +
-            '<label for="hobby">Hobby:</label> <input data-dojo-type="dijit/form/TextBox" id="hobby" name="hobby"><br>'
-    });
+	'dojo/parser',
+	'dojo/on', 'dojo/dom', 'dojo/mouse',
+	'dojo/_base/Deferred', 'dijit/Tooltip',
+	'gridx/tests/support/data/TreeColumnarTestData',
+	'gridx/tests/support/data/TreeNestedTestData',
+	'gridx/tests/support/stores/ItemFileWriteStore',
+	'gridx/allModules',
+	'gridx/Grid',
+	'gridx/core/model/cache/Sync',
+	'gridx/core/model/cache/Async',
+	'dojo/domReady!'
+], function(parser, on, dom, mouse, Deferred, Tooltip, dataSource, nestedDataSource, storeFactory, modules, Grid){
 
-    var myButton = new DropDownButton({
-        label: "show tooltip dialog",
-        dropDown: myDialog
-    });
-    dom.byId("dropDownButtonContainer").appendChild(myButton.domNode);
-    myButton.startup();
+	window.addRow = function() {
+		var newItem = {id: "itemId", type: "itemType"},
+			parentId = dojo.byId('parentIdInput').value;
 
-    new Tooltip({
-        connectId: ["exampleNode"],
-        label: "the text for the tooltip"
-    });
-});
+		if (!parentId) return;
 
-/*
-notes for i18n
-  All template spans: add class 'ttt' + descriptiveIDs;
-  we'll nd a map of displayStrings
+		this.store.fetchItemByIdentity({identity: parentId, onItem: function(parentItem) {
+			if (!parentItem) return;
+			
+			this.store.newItem({id: new Date().getTime()}, {
+				parent: parentItem,
+				attribute: "children"
+			});
+		}});
+	};
 
-see: https://dojotoolkit.org/reference-guide/1.10/dojo/i18n.html#dojo-i18n
+	window.deleteRow = function() {
+		var newItem = {id: "itemId", type: "itemType"},
+			deleteRowId = dojo.byId('deleteRowId').value;
 
-dojo-config:
-    locale: “en-us”
-    overrides browserConfig
+		if (!deleteRowId) return;
 
-dijit/nls/common.js
-    define({ root:
-    //begin v1.x content
-    ({
-      buttonOk: "OK",
-      buttonCancel: "Cancel",
-      buttonSave: "Save",
-      itemClose: "Close"
-    })
-    //end v1.x content
-    ,
-    "fr": true, ...
+		this.store.fetchItemByIdentity({identity: deleteRowId, onItem: function(item) {
+			if (!item) return;
+			
+			this.store.deleteItem(item);
+			// this.store.newItem({id: new Date().getTime()}, {
+			// 	parent: parentItem,
+			// 	attribute: "children"
+			// });
+		}});
+	};
+
+	store = storeFactory({
+		dataSource: dataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	store.hasChildren = function(id, item){
+		return item && store.getValues(item, 'children').length;
+	};
+	/* 
+	 * Dojo don't provide sort interface for tree store, so it's hard to do sorting for children. 
+	 * User should add their own sorting logic here to sort children manually.
+	 */
+	store.getChildren = function(item, req){
+		var children = store.getValues(item, 'children'),
+			attr,
+			t = this,		//store object
+			sorts = req.sort;
+
+		var sorting = function (a, b, index) {
+			if (!sorts[index]) return 0;
+
+			var attr = sorts[index].attribute;
+			var va = t.getValue(a, attr);
+			var vb = t.getValue(b, attr);
+
+			if (va == vb) {
+				return sorting(a, b, ++index);
+			}
+			return !sorts[index].descending ? (va > vb ? 1 : -1) : (va <= vb ? 1 : -1);
+		}
+
+		if (sorts && sorts.length) {
+			children.sort(function(a, b) {
+				return sorting(a, b, 0);
+			});
+		}
+
+		return children;
+	};
+
+	storeAsync = storeFactory({
+		isAsync: true,
+		dataSource: dataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	storeAsync.hasChildren = function(id, item){
+		return item && storeAsync.getValues(item, 'children').length;
+	};
+	storeAsync.getChildren = function(item){
+		var d = new Deferred();
+		console.log('getChildren: ', storeAsync.getIdentity(item));
+		setTimeout(function(){
+			var children = storeAsync.getValues(item, 'children');
+			d.callback(children);
+		}, 1000);
+		return d;
+	};
+
+	storeNested = storeFactory({
+		dataSource: nestedDataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	storeNested.hasChildren = function(id, item){
+		return item && storeNested.getValues(item, 'children').length;
+	};
+	storeNested.getChildren = function(item){
+		var d = new Deferred();
+		setTimeout(function(){
+			var children = storeNested.getValues(item, 'children');
+			d.callback(children);
+		}, 1000);
+		return d;
+	};
+
+	var progressDecorator = function(){
+		return [
+			"<div data-dojo-type='dijit.ProgressBar' data-dojo-props='maximum: 10000' ",
+			"class='gridxHasGridCellValue' style='width: 100%;'></div>"
+		].join('');
+	};
+
+	layout3 = [
+		{id: 'number', name: 'number', field: 'number'},
+		{id: 'string', name: 'string', field: 'string'},
+		{id: 'date', name: 'date', field: 'date'},
+		{id: 'time', name: 'time', field: 'time'},
+		{id: 'bool', name: 'bool', field: 'bool'},
+		{id: 'id', name: 'id', field: 'id'}
+	];
+	layout4 = [
+		{id: 'id', name: 'id', field: 'id'},
+		{id: 'number', name: 'number *', field: 'number', expandLevel: 1},
+		{id: 'string', name: 'string *', field: 'string', expandLevel: 2},
+		{id: 'date', name: 'date', field: 'date'},
+		{id: 'time', name: 'time *', field: 'time', expandLevel: 3},
+		{id: 'bool', name: 'bool', field: 'bool'}
+	];
 
 
-dijit/nls/fr/common.js
-    define(
-    ({
-      buttonOk: "OK",
-      buttonCancel: "Annuler",
-      buttonSave: "Enregistrer",
-      itemClose: "Fermer"
-    })
-    );
+	mods = [
+		modules.Tree,
+		modules.Filter,
+		modules.FilterBar,
+		modules.QuickFilter,
+		modules.Pagination,
+		modules.PaginationBar,
+		modules.ColumnResizer,
+		modules.SelectRow,
+		// modules.ExtendedSelectRow,
+		modules.CellWidget,
+		modules.Edit,
+		modules.IndirectSelectColumn,
+		modules.SingleSort,
+		// modules.NestedSort,
+		modules.VirtualVScroller
+	];
 
-And in script:
-    require(["dojo/i18n!../../_static/dijit/nls/common.js",.... function(common,...
-    "<li> buttonOk: " + common.buttonOk + "</li>"
+	mods1 = [
+		modules.Tree,
+		modules.Filter,
+		modules.FilterBar,
+		modules.QuickFilter,
+		modules.Pagination,
+		modules.PaginationBar,
+		modules.ColumnResizer,
+		// modules.SelectRow,
+		modules.ExtendedSelectRow,
+		modules.CellWidget,
+		modules.Edit,
+		modules.IndirectSelectColumn,
+		modules.SingleSort,
+		modules.VirtualVScroller
+	];
 
-OR in templates:
-    <span data-dojo-attach-point="closeText" class="closeText" title="${buttonCancel}">x</span>
+		grid = new Grid({
+			cacheClass: "gridx/core/model/cache/Async",
+			store: storeNested,
+			structure: layout3,
+			autoWidth: true,
+			autoHeight: true,
+			treeNested: true,
+			paginationBarSizes: [1, 2, 0],
+			modules: mods1
+		});
+		grid.placeAt('grid');
+		grid.startup();
+		//see: https://github.com/oria/gridx/blob/a05e8b910bc88106792c2c68ebdbdbea45cb63f8/Grid.js#L263C3-L263C4
+		dojo.connect(grid, "onRowMouseOver", function(e){
+			console.log("rowId: " + e.rowId + JSON.stringify(e));
+			grid.store.fetchItemByIdentity({identity: e.rowId, onItem: function(item) {
+				if (!item) return;
+				console.log("fetchedItem: " + item['time']);
+                                let roNd = grid.body.getRowNode({visualIndex: e.visualIndex})
+				Tooltip.show(("row Time fld: " + item['time']), roNd);
+				on.once(roNd, mouse.leave, function(){
+				      Tooltip.hide(roNd);
+				});
+			}});
+		});
+
+
+/* See this for embedding a whole mod (good 4 testing) in shell ->
+//https://github.com/oria/gridx/issues/293
+//see https://github.com/oria/gridx/blob/master/tests/test_grid_events.js
 */
 
+	parser.parse();
+});
 </script>
-</head>
-<body class="claro">
 
-<span id="exampleNode">Lorem ipsum ${buttonOk}</span>
-<hr>
-drpDnBtn container ->
-<div id="dropDownButtonContainer"></div>
+</head>
+
+<body class='claro'>
+	<h1 class='title' tabindex='0' onfocus='this.style.color="blue"' onblur='this.style.color=""'>
+		Tree Grid
+	</h1>
+	
+	<h2>Expandoes in different columns (nested), async store</h2>
+	<div id='grid'></div>
 </body>
 </html>
-
