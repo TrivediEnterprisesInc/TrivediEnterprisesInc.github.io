@@ -1,10 +1,11 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@375&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0');
 
-h1, h2, h3, h4, h5, h6{
-    font-family: 'Lora', serif;  
+h1, h2, h3, h4, h5, h6, label {
+    font-family: 'Lora', serif;
 }
+
 html, body {
     font: 12px;
     font-family: 'Roboto', sans-serif;
@@ -14,5 +15,67 @@ html, body {
     border: 0px;
     background-color: oldlace;
     overflow:scroll;
+}
+
+.brijFrm .dijitSelect, .brijFrm .dijitTextBox {
+    width: 300px;
+}
+
+.brijFrm form, .dijitBorderContainer, .dijitBorderContainerNoGutter{
+   background-color: #e6e6e6; /*#f2f2f2;*/
+}
+
+/* These are right in claro, throws em off from others */
+.brijFrm .dijitNumberTextBox input.dijitInputInner, .brijFrm .dijitCurrencyTextBox input.dijitInputInner, .brijFrm .dijitSpinner input.dijitInputInner {
+    text-align: left;
+}
+
+.brijFrm td {
+    /*display: flex;*/
+    display: table-cell;
+    flex-flow: flex wrap;
+    align-content: flex-start;
+}
+.brijFrm label {
+    padding-inline: 10px;
+    flex-grow: 0;
+    font-family: 'Lora', serif;
+    font-size: small;
+}
+.brijFrm .infoBox {
+    flex-grow: 1;
+    background-color: #efefef;
+    color:Brown;
+    text-align:center;
+    border: thin solid;
+}
+.brijFrm .cellWid {
+    flex-grow: 4;
+}
+
+/*      Gridx updates to repl expandoIcon       */
+.gridxTreeExpandoIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/ExpandoIcon.png");
+	background-repeat:repeat;
+	background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.gridxTreeExpandoIcon:hover{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/ExpandoIconHover.png");
+	background-repeat:repeat;
+	background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.gridxTreeExpandoCellOpen .gridxTreeExpandoIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/ExpandoCellOpen.png");
+	background-repeat:repeat;
+	background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.gridxTreeExpandoCellOpen .gridxTreeExpandoIcon:hover{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/ExpandoCellOpenHover.png");
+	background-repeat:repeat;
+	background-position:0% 0%;
+    background-size: 16px 16px;
 }
 
