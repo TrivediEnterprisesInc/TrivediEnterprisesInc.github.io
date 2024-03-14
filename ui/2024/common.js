@@ -5,7 +5,7 @@ const arrFold = (fn, init, arr) => {
 
 /* min (inclusive) and max (exclusive)*/
 const rNext = (min, max) => {
-  return (Math.random() * (max - min)) + min;
+  return parseInt(((Math.random() * (max - min)) + min));
 }
 
 
