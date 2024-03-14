@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@375&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0');
+@import url("https://ajax.googleapis.com/ajax/libs/dojo/1.17.3/dijit/themes/claro/claro.css");
+@import url("https://ajax.googleapis.com/ajax/libs/dojo/1.17.3/dojo/resources/dojo.css");
+
 
 h1, h2, h3, h4, h5, h6, label {
     font-family: 'Lora', serif;
@@ -13,18 +16,25 @@ html, body {
     width: 95%;
     padding: 5px;
     border: 0px;
-    background-color: oldlace;
     overflow:scroll;
 }
-
+.claro html, body {
+    background-color: white;
+}
+.claroDark html, body {
+    background-color: #020202;
+    color:#E1E1E1;
+}
 .brijFrm .dijitSelect, .brijFrm .dijitTextBox {
     width: 300px;
 }
 
-.brijFrm form, .dijitBorderContainer, .dijitBorderContainerNoGutter{
+.claro .brijFrm form, .dijitBorderContainer, .dijitBorderContainerNoGutter{
    background-color: #e6e6e6; /*#f2f2f2;*/
 }
-
+.claroDark .brijFrm form, .dijitBorderContainer, .dijitBorderContainerNoGutter{
+   background-color: #020202;
+}
 /* These are right in claro, throws em off from others */
 .brijFrm .dijitNumberTextBox input.dijitInputInner, .brijFrm .dijitCurrencyTextBox input.dijitInputInner, .brijFrm .dijitSpinner input.dijitInputInner {
     text-align: left;
@@ -44,10 +54,16 @@ html, body {
 }
 .brijFrm .infoBox {
     flex-grow: 1;
-    background-color: #efefef;
-    color:Brown;
     text-align:center;
     border: thin solid;
+}
+.claro .brijFrm .infoBox {
+    background-color: #efefef;
+    color:Brown;
+}
+.claroDark .brijFrm .infoBox {
+    background-color: gray;
+    color:Brown;
 }
 .brijFrm .cellWid {
     flex-grow: 4;
@@ -77,5 +93,14 @@ html, body {
 	background-repeat:repeat;
 	background-position:0% 0%;
     background-size: 16px 16px;
+}
+/*      claro updates to reverse ttips       */
+.claro .dijitTooltipConnector {
+  background-image: url("https://trivedienterprisesinc.github.io/ui/2024/tooltipReverse.png");
+}
+.claro .dijitTooltipContainer {
+  background-image: none;
+  background-color: #000000;
+  color: #ffffff;
 }
 
