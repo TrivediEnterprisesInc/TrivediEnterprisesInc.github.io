@@ -1,0 +1,59 @@
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   
+    Open    Open    Open    Open    Open    Open    Open    Open    
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   
+FrmManager:
+/*	_Given_
+			- We have access to all vars in blding svrSide
+			- We can call _specific_ hardCoded validation methds
+			- Add/Build to an obj which is the res
+			- Order unknown @ callTime, params known/expandable
+			- Note that this must be modular (all state incl., svr only has 2 methods: gen() & proc(); no links in-betw)
+		
+		Maximize 4 simplicity
+*/
+
+
+
+* gfxDlg nds new versions for
+    - windowed Ps: P, Pr, (x)Pi, (x)Pri (nd ver for longTxt?)
+    - Crd (which nds more member funcs to restrict outpt to face/etc.)
+    - Tr?  (can we repurpose the rid stuff?)
+* Form (cliSide) nds work to populate vals from dat on load 
+* gfxDlg
+------Consider using faux Dlgs (no popup, w/in pg via TPanes)------
+* ttips
+>>     let ttipsWobbly = fun (l:list<string*list<string>>) -> ...
+Nd cell-based ttip read/disp (tho we pro'lly nd work completed on 
+svrSide toJson/wobbly before continuing with this tk)  Currently 2 vers of toWebOb: manual & using JsonWriter (latter pref)
+
+
+
+
+/*
+consider using this (SO: image blob)
+		var myImageDiv = document.querySelector('img');
+		fetch('flowers.jpg').then(function(response) {
+			return response.blob();
+		}).then(function(myBlob) {
+			var objectURL = URL.createObjectURL(myBlob);
+			myImageDiv.src = objectURL;
+		});
+
+<a href='https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL'>URL.createObjectURL()</a> API allows us to make a valid URL 
+(it's called "object URL") that is linked to the "Blob" 
+object. 
+A fn to save a pdf file :
+function saveByteArray(reportName, bArr) {
+    // pass your byte response to this constructor
+    var bytes = new Uint8Array(bArr); 
+    var blob = new Blob([bytes], {type: "application/pdf"});
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    var fileName = reportName;
+    link.download = fileName;
+    link.click();
+};
+
+*/
+
+
