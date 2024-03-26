@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html >
+<head>
+
+  <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+	<script>dojoConfig = {parseOnLoad: true}</script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1">
+    </script>
+
+	<script>
+require([
+    "dojo/_base/lang", "dojo/aspect", "dojo/_base/window", "dojo/store/Memory", "dojo/store/Observable", "dojo/dom",
+    "dijit/Tree", "dijit/tree/ObjectStoreModel", "dijit/tree/dndSource", "dijit/ConfirmDialog",
+    "dijit/registry", "dijit/Menu", "dijit/MenuItem", "dojo/query!css2",
+    "dojo/domReady!"
+], function(lang, aspect, win, Memory, Observable, dom, Tree, ObjectStoreModel, dndSource, dialog, registry, Menu, MenuItem){
+
+
+/*              Notes
+
+    This file contains a manual build of path; however found l8r that
+    tree already has a path property + methods to get;
+    this file updated (sections annotated //@mpt Jan17) w/new method usage.
+
+    Earlier notes:
+    - Look @ the console msgs for addChild(); the tree maintains an additional internal index FOR ea parent to decide order (you can place a new stub anywhere in the hierarchy)
+    - Calls to serverSide need this int; plus grab/send to svr to gen order & push back to cli model [[poss b8r to just send the whole thing; trivial nowadays]]
+
+*/
+        var memoryStore = new Memory({
+            data: [
+                { id: 'root', name:'The earth', path: [], population: '6 billion'},
+                { id: 'AF', name:'Africa', path: [], population:'900 million', area: '30,221,532 sq km',
+                        timezone: '-1 UTC to +4 UTC', parent: 'root'},
+                    { id: 'EG', name:'Egypt', path: [], parent: 'AF' },
+                    { id: 'KE', name:'Kenya', path: [], parent: 'AF' },
+                        { id: 'Nairobi', name:'Nairobi', path: [], parent: 'KE' },
+                        { id: 'Mombasa', name:'Mombasa', path: [], parent: 'KE' },
+                    { id: 'SD', name:'Sudan', path: [], parent: 'AF' },
+                        { id: 'Khartoum', name:'Khartoum', path: [], parent: 'SD' },
+                { id: 'AS', name:'Asia', path: [], parent: 'root' },
+                    { id: 'CN', name:'China', path: [], parent: 'AS' },
+                    { id: 'IN', name:'India', path: [], parent: 'AS' },
+                    { id: 'RU', name:'Russia', path: [], parent: 'AS' },
+                    { id: 'MN', name:'Mongolia', path: [], parent: 'AS' },
+                { id: 'OC', name:'Oceania', path: [], population:'21 million', parent: 'root'},
+                    { id: 'AU', name:'Australia', path: [], population:'21 million', parent: 'OC'},
+                { id: 'EU', name:'Europe', path: [], parent: 'root' },
+                    { id: 'DE', name:'Germany', path: [], parent: 'EU' },
+                    { id: 'FR', name:'France', path: [], parent: 'EU' },
+                    { id: 'ES', name:'Spain', path: [], parent: 'EU' },
+                    { id: 'IT', name:'Italy', path: [], parent: 'EU' },
+                { id: 'NA', name:'North America', path: [], parent: 'root' },
+                    { id: 'MX', name:'Mexico', path: [],  population:'108 million', area:'1,972,550 sq km',
+                            parent: 'NA' },
+                        { id: 'Mexico City', name:'Mexico City', path: [], population:'19 million', timezone:'-6 UTC', parent: 'MX'},
+                        { id: 'Guadalajara', name:'Guadalajara', path: [], population:'4 million', timezone:'-6 UTC', parent: 'MX' },
+                    { id: 'CA', name:'Canada', path: [],  population:'33 million', area:'9,984,670 sq km', parent: 'NA' },
+                        { id: 'Ottawa', name:'Ottawa', path: [], population:'0.9 million', timezone:'-5 UTC', parent: 'CA'},
+                        { id: 'Toronto', name:'Toronto', path: [], population:'2.5 million', timezone:'-5 UTC', parent: 'CA' },
+                    { id: 'US', name:'United States of America', path: [], parent: 'NA' },
+                { id: 'SA', name:'South America', path: [], parent: 'root' },
+                    { id: 'BR', name:'Brazil', path: [], population:'186 million', parent: 'SA' },
+                    { id: 'AR', name:'Argentina', path: [], population:'40 million', parent: 'SA' }
+            ],
+            getChildren: function(object){
+                return this.query({parent: object.id});
+            }
+        });
+
+	//@mpt Jan13
+        const getPath = (ob) => {
+	      	var currOb = ob;
+		var foundRoot = true;
+		let pathArr = [];
+                const getPar = (obj) => {
+                        //console.log("in getPar for: " + obj.nm + " id: " + obj.id);
+			let res = memoryStore.query({id: obj.parent});
+                        let nm = res[0].name;
+                        //console.log("par fnd: " + nm + " id: " + res[0].id);
+                        return res[0];
+		};
+		do {
+                   //console.log("DO curr: " + currOb.id + " currob: " + JSON.stringify(currOb));
+                   let innerRes = getPar(currOb);
+                   if (innerRes.id == 'root'){
+                       foundRoot = false;
+		   } else {
+                       pathArr.push(innerRes.name);
+                       currOb = innerRes;
+		   };
+		} while (foundRoot);
+                //console.log("for op on: " + ob.id + "\ngetPath yielded: " + JSON.stringify(pathArr.reverse()));
+        }
+
+        let popPaths = 
+	        ((memoryStore.data).map(function (value, index) {
+        	  //console.log("in map closure for nm: " + value.name + " " + value + " idx: " + index );
+                  if (index == 0){
+			  return value;
+                  } else {
+			  return Object.assign(value, {"path": getPath(value)});
+                  }
+        	}));
+
+        //console.log("dat b4:\n" + JSON.stringify(memoryStore.data));
+        //Object.assign(memoryStore.data, popPaths);
+        //console.log("popd:\n" + JSON.stringify(memoryStore.data));
+
+	//@mpt Jan13      
+
+        aspect.around(memoryStore, "put", function(originalPut){
+            // To support DnD, the store must support put(child, {parent: parent}).
+            // Since memory store doesn't, we hack it.
+            // Since our store is relational, that just amounts to setting child.parent
+            // to the parent's id.
+            return function(obj, options){
+                if(options && options.parent){
+                    obj.parent = options.parent.id;
+                }
+
+	        getPath(obj);	//@mpt Jan13
+
+                return originalPut.call(memoryStore, obj, options);
+            }
+        });
+
+        // Wrap the store in Observable so that updates to the store are reflected to the Tree
+        var observableStore = new Observable(memoryStore);
+
+        // Create the model
+        var obModel = new ObjectStoreModel({
+            store: observableStore,
+            query: {id: 'root'}
+        });
+
+        var t = (new Tree({
+            model: obModel,
+            showRoot: false,
+            betweenThreshold: 5,
+            dndController: dndSource
+        }));
+        t.placeAt(dom.byId('treeDiv')).startup();
+
+        var treeMenu = new Menu({
+            targetNodeIds: ["treeDiv"],
+            selector: ".dijitTreeNode"
+        });
+        treeMenu.addChild(new MenuItem({
+            label: "Add",
+            onClick: function(evt){
+                var node = this.getParent().currentTarget;
+                console.log("menu clicked for add Node 4 node::\n" + JSON.stringify(t.path));
+                var ndEntry = (t.path[t.path.length - 1]);
+                console.log("\nnode 4 op:" + JSON.stringify(ndEntry));
+                //myStore.add({id: 'US', name:'United States', type:'country', parent: 'NA'});
+            }
+        }));
+
+        window.ndRenameEvt = (nm) => {
+          console.log("newNodeNm rec'd value: " + nm);
+          //get store entry by nm & send update 2 svr...
+        };
+        treeMenu.addChild(new MenuItem({
+            label: "Rename",
+            onClick: function(evt){
+                var node = this.getParent().currentTarget;
+                var nPath = t.path;
+                var nm = (nPath[nPath.length - 1])["name"];
+                renDlg = new dialog({
+                        title: "Rename a Section",
+                        content: "<div><input data-dojo-type='dijit/form/TextBox' style='width: 10em;' name='newNm' data-dojo-props='onChange:function(val){" +
+                            "window.ndRenameEvt(val);}' data-dojo-id='newNm' value='" + nm + "\'></div>",
+                        style: "width: 300px"
+                });
+                console.log("menu clicked for edit Node 4 node::\n" + JSON.stringify(t.path));
+              renDlg.show();
+
+            }
+        }));
+        https://plnkr.co/edit/1UyWJrYZeur3rw8E
+        treeMenu.addChild(new MenuItem({
+            label: "Delete",
+            onClick: function(evt){
+                var node = this.currentTarget;
+                console.log("menu clicked for del Node 4 ::\n" + JSON.stringify(t.path));
+                //"myStore.remove('EU');
+            }
+        }));
+/*
+<button onclick="myStore.add({id: 'US', name:'United States', type:'country', parent: 'NA'});">
+    Add U.S. as child of North America
+</button>
+<button onclick="myStore.remove('EU');">
+    Remove Europe
+</button>
+
+	const treeOnItemChange = () => {
+		console.log("t.OnItemChange()");
+        };
+        window.tOnItemChange = treeOnItemChange();
+	aspect.after(t.model, "onChange", treeOnItemChange());
+	aspect.after(t.model, "onChildrenChange", function(evt){
+		console.log("after onChildrenChange()");
+//                var node = evt.currentTarget;
+//                console.log("menu clicked for node ", node);
+        });
+*/
+	aspect.after(t.model, "pasteItem", function(/*Item*/ childItem, /*Item*/ oldParentItem, /*Item*/ newParentItem, /*Boolean*/ bCopy, /*int?*/ insertIndex){
+                var oldP = oldParentItem;
+//0 is itm, 1 is oldPar, 2 is newPar
+		console.log("AFTER pasteitem 4 oldpar: " + JSON.stringify(oldP["1"]) + " newPar: " + JSON.stringify(oldP["2"]) + " itm: " + JSON.stringify(oldP["0"]));
+    console.log("\nupdated store:\n" + JSON.stringify(memoryStore.data))
+        });
+
+    });
+	</script>
+</head>
+<body class="claro">
+    <div id='treeDiv'></div>
+</body>
+</html>
