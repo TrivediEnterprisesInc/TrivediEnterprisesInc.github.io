@@ -1,7 +1,29 @@
+For below, just use the .net8 bypass...
+Using MessagePack instd of BinaryFormatter for serialization dotNet7+:
+https://steven-giesel.com/blogPost/4271d529-5625-4b67-bd59-d121f2d8c8f6
+    Benchmarks: 
+| SerializeAndDeserializeBinaryFormatter         | 27.831 us |
+| SerializeAndDeserializeSystemTextJson          |  5.699 us |
+| SerializeAndDeserializeMessagePack             |  2.137 us | (***)
+| SerializeAndDeserializeSystemTextJsonUtf8Bytes |  5.465 us |
+
+var bytes = MessagePackSerializer.Serialize(People, ContractlessStandardResolver.Options);
+return MessagePackSerializer.Deserialize<List<Person>>(bytes, ContractlessStandardResolver.Options);
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+JSImport: 
+Can't pass Bytes from svr to JS easily (using MemoryView) pointer issues, see
+https://github.com/dotnet/runtime/issues/77784
+
+Instd just do the manual base64 enc ->
+$("#imgUserImage").attr("src", 'data:image/jpeg;base64,'+data.PhotoString);
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 - The *only* pg we need (includes MarshalAs info): 
 https://learn.microsoft.com/en-us/aspnet/core/client-side/dotnet-interop?view=aspnetcore-8.0
 - re: marshalling, jsOb (.netType) signif overhead; just bypass by using toStrArr since we know the ob structs; pipe into ty on svrSide
+
+
+
 
 All other links in wasi-divs @ bot of this doc
 -----------------------------------------------------------------
@@ -15,26 +37,72 @@ dotnet workload install wasm-experimental
 dotnet new wasmbrowser
 dotnet build -o wasm
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+JSON objects in interop:
+As a workaround I go through strings:
 
-TRY THE APPROACH BELOW; if not use C# now & call F# dlls....
+//js
+dotNetObjRef.invokeMethodAsync("DotNetMethod", JSON.stringify(jsObject));
+.
+//C#
+[JSInvokable]
+public void DotNetMethod(string jsObjectJSON)
+{
+    JsonObject jsObject = SimpleJson.DeserializeObject<JsonObject>(jsObjectJSON);
+}
 
-This has a basic fmt & some info for adding an attrib
-https://github.com/extism/dotnet-pdk/tree/main
-------------------------------------------------------------------------
-[<UnmanagedCallersOnly(EntryPoint = "greet")>]
-let Greet () : int32 =
-    let name = Pdk.GetInputString()
-    let greeting = $"Hello, {name}!"
-    Pdk.SetOutput(greeting)
-    0
-    
-[<EntryPoint>]
-let Main args  =
-    // Note: an `EntryPoint` function is required for the app to compile
-    0
-------------------------------------------------------------------------
-**The [UnmanagedCallersOnly(EntryPoint = "greet")] is required, this marks the Greet function as an export with the name greet that can be called by the host. EntryPoint is optional.
-**We need a Main but it's unused. If you do want to use it, it's exported as a function called _start.
+//public static System.Text.Json.JsonDocument Parse (string json, System.Text.Json.JsonDocumentOptions options = default);
+//@ https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsondocument.parse?view=net-8.0#system-text-json-jsondocument-parse(system-string-system-text-json-jsondocumentoptions)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ByteArrays w/Blazor:
+Blazor supports optimized byte array JavaScript (JS) interop that avoids encoding/decoding byte arrays into Base64, see <a href='https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/call-javascript-from-dotnet?view=aspnetcore-8.0#byte-array-support'>this</a>
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+plnkr.co/AsbMQ1tQyZI31ckD ->
+-----------------------------------------------------------------
+The below setup works OK:
+-mike.csproj----------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+
+<ItemGroup>
+  <Reference Include="Trivedi.Core">
+    <HintPath>C:\Users\inets\Desktop\mike\bin\Trivedi.Core.dll</HintPath>
+  </Reference>
+  <Reference Include="FSharp.Core">
+    <HintPath>C:\Users\inets\Desktop\mike\bin\FSharp.Core.dll</HintPath>
+  </Reference>
+</ItemGroup>
+
+</Project>
+-Program.cs----------------------------------------------------------------
+using System;
+using System.Runtime.InteropServices.JavaScript;
+using Trivedi;
+
+Console.WriteLine("Hello, Browser!");
+
+public partial class MyClass
+{
+    [JSExport]
+    internal static string Greeting()
+    {
+        var text = $"Hello, World! Greetings from {GetHRef()}";
+        Console.WriteLine(text);
+        var strL = (Core.len(text)).ToString();
+
+//        var deS = (Core.deSerToList("")).ToString();
+
+        return (text + "\n(from fs) len: " + strL);
+    }
+
+    [JSImport("window.location.href", "main.js")]
+    internal static partial string GetHRef();
+}
 
 
 ----------------------------------------------------------
@@ -163,4 +231,3 @@ WebAssembly & SignalR & Github-<a href='https://github.com/StardustDL/acblog'>Pa
 GitHub repo srch <a href='https://github.com/search?q=wasm+NOT+Blazor+language%3AC%23&type=Repositories&ref=advsearch&l=C%23&l=&s=stars&o=desc'>url</a> 4 `<i>DotNet C# wasm NOT Blazor</i>`
 
 </div></div>
-
