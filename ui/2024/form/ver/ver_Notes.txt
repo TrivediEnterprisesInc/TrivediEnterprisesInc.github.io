@@ -1,0 +1,8 @@
+Mar 2024:
+
+VerDlg depr
+
+grid > frmDlg > verDlg > (poss) prVerDlg
+too many windows open; instd move verDlg to a TitleP @ bot of frmDlg
+
+retain code for poss repurposing
