@@ -2,30 +2,14 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>brijFrm w/flex tds</title>
-<!--link rel="stylesheet" href="claro.css"-->
-<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+	<title>gfxFrm w/steps</title>
+<link rel="stylesheet" href="claro.css">
+<!--link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css"-->
 <link rel="stylesheet" href="common.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
 
 <script src="common.js"></script>
-
-<!--script>
-/*	_Given_
-			- We have access to all vars in blding svrSide
-			- We can call _specific_ hardCoded validation methds
-			- Add/Build to an obj which is the res
-			- Order unknown @ callTime, params known/expandable
-			- Note that this must be modular (all state incl., svr only has 2 methods: gen() & proc(); no links in-betw)
-		
-		Maximize 4 simplicity
-
-		Mar 18th: Nix extending _anything_; we can do this with local vars
-		Even the formState is a huge obj which's a local var
-		NO CASES; read stepTy >> call approp method
-*/
-</script-->
 
 <script>
 require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/form/RadioButton", 
@@ -37,19 +21,8 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 		BorderContainer, ContentPane, query, dom, on, domAttr, domConstr, parser){
 
 		let frmDef = {
-				"P_LongTxt": {
-					"divId": "test_P_LongTxt_Div",
-					"CurrDispNum": 0,
-					"inpData": [
-						{ hash: "P_LongTxtaasd", value: "One: A Textarea widget is like a regular HTML textarea element, but it dynamically resizes to fit the content of the text inside. It takes nearly all the parameters (name, value, etc.) that a vanilla textarea takes."},
-						{ hash: "P_LongTxt4o5", value: "Two: You can use content panes by themselves, but usually you will place content panes inside of a layout container. For example, in a tabbed layout, content pane tags surround each tab of information."},
-						{ hash: "P_LongTxtbmmb", value: "Three: attributeMap sets up a \"binding\" between attributes (aka properties) of the widget and the widget's DOM. Changes to widget attributes listed in attributeMap will be reflected into the DOM."},
-						{ hash: "P_LongTxtopop", value: "Four: Hash of initialization parameters for widget, including scalar values (like title, duration etc.) and functions, typically callbacks like onClick."},
-						{ hash: "P_LongTxtxcxc", value: "Five: Subclasses may define a cssStateNodes property that lists sub-nodes within the widget that need CSS classes applied on mouse hover/press and focus."}
-					]
-				},
-				"P_Img": {
-					"divId": "test_1_of_3_Div1",
+				"Img": {
+					"divId": "P_Img_Div",
 					"imgsNdd": 2,
 					"okDisabled":true,
 					"inpData": [
@@ -58,6 +31,32 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
             { hash: "P_Imgemrm", label: "<img src='https://source.unsplash.com/random/150x50?sig=3'/>", value: "Washington" },
             { hash: "P_Imgnono", label: "<img src='https://source.unsplash.com/random/150x50?sig=4'/>", value: "Florida" },
             { hash: "P_Imgspxk", label: "<img src='https://source.unsplash.com/random/150x50?sig=5'/>", value: "California" }
+					]
+				},
+				"P_Img": {
+					"divId": "P_Img_Div",
+					"imgsNdd": 1,
+					"okDisabled":true,
+					"inpData": [
+            { hash: "P_Imgacsd", label: "<img src='https://source.unsplash.com/random/150x50?sig=1'/>", value: "Tennessee" },
+            { hash: "P_Imguiui", label: "<img src='https://source.unsplash.com/random/150x50?sig=2'/>", value: "Virginia"},
+            { hash: "P_Imgemrm", label: "<img src='https://source.unsplash.com/random/150x50?sig=3'/>", value: "Washington" },
+            { hash: "P_Imgnono", label: "<img src='https://source.unsplash.com/random/150x50?sig=4'/>", value: "Florida" },
+            { hash: "P_Imgspxk", label: "<img src='https://source.unsplash.com/random/150x50?sig=5'/>", value: "California" }
+					]
+				},
+				"Rid1": {
+					"divId": "Rid_Div_1"
+				},
+				"P_LongTxt": {
+					"divId": "P_LongTxt_Div",
+					"CurrDispNum": 0,
+					"inpData": [
+						{ hash: "P_LongTxtaasd", value: "One: A Textarea widget is like a regular HTML textarea element, but it dynamically resizes to fit the content of the text inside. It takes nearly all the parameters (name, value, etc.) that a vanilla textarea takes."},
+						{ hash: "P_LongTxt4o5", value: "Two: You can use content panes by themselves, but usually you will place content panes inside of a layout container. For example, in a tabbed layout, content pane tags surround each tab of information."},
+						{ hash: "P_LongTxtbmmb", value: "Three: attributeMap sets up a \"binding\" between attributes (aka properties) of the widget and the widget's DOM. Changes to widget attributes listed in attributeMap will be reflected into the DOM."},
+						{ hash: "P_LongTxtopop", value: "Four: Hash of initialization parameters for widget, including scalar values (like title, duration etc.) and functions, typically callbacks like onClick."},
+						{ hash: "P_LongTxtxcxc", value: "Five: Subclasses may define a cssStateNodes property that lists sub-nodes within the widget that need CSS classes applied on mouse hover/press and focus."}
 					]
 				}
 		};
@@ -81,17 +80,17 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 
 		getNextLongTxt = (nxt) => {
 			alert('getNextLongTxt');
-			//let currDisp = lang.getObject(frmDef.P_LongTxt.CurrDispNum);
+			let currDisp = frmDef.P_LongTxt.CurrDispNum;
 			alert('currStepNum: ' + currStepNum + " CurrDispNum: " + CurrDispNum);
 			let nextV;
 			if (nxt) {
-				nextV = (lang.getObject(frmDef.P_LongTxt.inpData))[currDisp++];
+				nextV = frmDef.P_LongTxt.inpData[currDisp++];
 			} else {
-				nextV = (lang.getObject(frmDef.P_LongTxt.inpData))[currDisp--];
+				nextV = frmDef.P_LongTxt.inpData[currDisp--];
 			}
-      			alert(JSON.stringify(nextV));
-			dom.byId('LongTxt_Div_Center').content = nextV;
-			lang.setObject(frmDef.P_LongTxt.CurrDispNum, nextV);
+			alert('nextV: ' + nextV);
+			LongTxt_Div_Center.set("content", nextV);
+			frmDef.P_LongTxt.CurrDispNum = nextV;
 		}
 
 		imgSel = (btnId, frmFldId, parentNdId, numNded) => {
@@ -99,7 +98,15 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 			let parNd = dom.byId(parentNdId);
 			let frmFldNdVal = frmFldNd.innerHTML;
       			//dom.byId(btnId).checked = true;
-			let numSel = (query(".dijitToggleButtonChecked", parNd)).length;
+			let nl = query(".dijitToggleButtonChecked", parNd);
+			let numSel = nl.length;
+					//rebuild resArr; store as val in dojoFormValue wid
+					//note that we nd 2 push hash, not btnId
+					let resArr = [];
+					nl.forEach(function(nd){
+							resArr.push(btnId);
+					});
+					parentNdId.value = resArr;
 			if ((frmDef.P_Img.imgsNdd) === numSel){
 				okBtn.set("disabled", false);
 			} else {
@@ -109,9 +116,10 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 		nextStep = () => {
 			let defKeys = Object.keys(frmDef)
 			gfxTp.set("Title", "Step " + (currStepNum+1) + " of " + (defKeys.length));
-			okBtn.set("disabled", true);
 			let currStep = defKeys[currStepNum];
 			let divForStep = frmDef[currStep].divId;
+			let okB = frmDef[currStep].okDisabled;
+			okBtn.set("disabled", okB);
 			contentDiv.innerHTML = dom.byId(divForStep).innerHTML;
 		};
 		gfxOk = () => {
@@ -132,7 +140,7 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 
     <div id="gfxDiv" class="gfxDiv">
 
-	<div data-dojo-id="gfxTp" dojoType="dijit/TitlePane" data-dojo-props="toggleable: false, title: 'Login'">
+	<div data-dojo-id="gfxTp" dojoType="dijit/TitlePane" data-dojo-props="style:'width:75%;height:75%', toggleable: false, title: 'Login'">
 			<form class="gfxFrm" dojoType="dojox/form/Manager" data-dojo-id="gfxFrm">
         <div id='gfxFrmContent'>
 
@@ -147,8 +155,8 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 
         <div id='ContentDivs' style="display:none;">
 
-    <div id='test_P_LongTxt_Div'>
-			  <input class="cellWid dojoFormValue" type="text" name="P_LongTxt_Div" data-dojo-id="P_LongTxt_Div" value=""
+    <div id='P_LongTxt_Div'>
+			  <input class="cellWid dojoFormValue" type="text" name="P_LongTxt_Div" data-dojo-id="P_LongTxt_Wid" value=""
   	observer="showValues" style="display:none;"/>
 				<table>
 				<tr><td colspan='3'>
@@ -157,7 +165,7 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 				<tr>
 				<td>
   				<button id='LongTxt_Div_BtnL' data-dojo-type="dijit/form/Button" data-dojo-props="onClick: function(val){getNextLongTxt(false);}"><span class="material-symbols-outlined">arrow_left</span></button></td>
-				<td><div style='border: solid 1px;' data-dojo-type="dijit/layout/ContentPane" id='LongTxt_Div_Center' name='LongTxt_Div_Center' style= 'width:95%;' content="The F# community provides many libraries and tools that solve a variety of developer challenges. Offerings include libraries for .NET front end applications and JavaScript transpilers that enable you to write full stack applications in F#. The community also provides developer tools for editing, code formatting, and linting."></td>
+				<td><div style='border: solid 1px;' data-dojo-type="dijit/layout/ContentPane" data-dojo-id='LongTxt_Div_Center' name='LongTxt_Div_Center' style= 'width:95%;' content="The F# community provides many libraries and tools that solve a variety of developer challenges. Offerings include libraries for .NET front end applications and JavaScript transpilers that enable you to write full stack applications in F#. The community also provides developer tools for editing, code formatting, and linting."></td>
 				<td>
   				<button id='LongTxt_Div_BtnR' data-dojo-type="dijit/form/Button" data-dojo-props="onClick: function(val){getNextLongTxt(true);}">
 					<span class="material-symbols-outlined">arrow_right</span></button></td>
@@ -166,9 +174,24 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 				</tr></table>
     </div>
 
+    <div id='Img_Div'>
+			<input class="cellWid dojoFormValue" type="text" name="imgDivWid" data-dojo-id="Img_Wid" value=""
+				observer="showValues" style="display:none;"/>
+									<span>Lorem ipsum salt and gypsum</span>
+			<select name="imgDivSelect" data-dojo-id="imgDivSelect" data-dojo-type="dijit/form/Select" data-dojo-props="onChange: function(val){Img_Wid.set('value', this.value);}">
+					<div data-dojo-attach-point='hdrLblDiv'><img src='https://source.unsplash.com/random/150x50?sig=0'/></div>
+					<option value=" ">-- SELECT --</option>
+					<option value="Tennessee"><img src='https://source.unsplash.com/random/150x50?sig=1'/></option>
+					<option value="Virginia"><img src='https://source.unsplash.com/random/150x50?sig=2'/></option>
+					<option value="Washington"><img src='https://source.unsplash.com/random/150x50?sig=3'/></option>
+					<option value="Florida"><img src='https://source.unsplash.com/random/150x50?sig=4'/></option>
+					<option value="California"><img src='https://source.unsplash.com/random/150x50?sig=5'/></option>
+					<div data-dojo-attach-point='ftrLblDiv'><img src='https://source.unsplash.com/random/150x50?sig=6'/></div>
+			</select>
+    </div>
 
-    <div id='test_1_of_3_Div1'>
-  <input class="cellWid dojoFormValue" type="text" name="imgTest1" id="imgTest1" value=""
+    <div id='P_Img_Div'>
+  <input class="cellWid dojoFormValue" type="text" name="imgTest1" data-dojo-id="P_Img_Wid" value=""
   	observer="showValues" style="display:none;"/>
 									<span>Lorem ipsum salt and gypsum</span>
 									<table style="width:95%;">
@@ -202,12 +225,13 @@ require(["dijit/TitlePane", "dojox/form/Manager", "dijit/form/Button", "dijit/fo
 									</table>
 						</div>
 
-    <div id='rDiv'>
-									<textarea id='ridQ' name: 'ridQ' style: 'width:300px;'>
-									<input type='password' name='rid' required='true'" 
+    <div id='Rid_Div_1'>
+									<data-dojo-type="dijit/layout/ContentPane"  data-dojo-id='ridWid1' name: 'rid1Q' style: 'width:300px;'
+										content="This is line one\n\tThis is line two\n\tThis is line three">
+									<input type='password' name='rid1' required='true'
 											data-dojo-type='dijit/form/TextBox'
-											data-dojo-props='trim:true' id='ridA' />
-						</div>
+											data-dojo-props='trim:true' data-dojo-id='rid1A' />
+		</div>
         </div>
 </center>
 
