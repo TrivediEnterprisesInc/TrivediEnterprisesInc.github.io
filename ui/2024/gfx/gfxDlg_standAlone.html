@@ -38,22 +38,31 @@ require(["dijit/ConfirmDialog", "dijit/form/Select", "dojo/dom", "dojo/on", "doj
                 content: "",
                 actionBarTemplate: dlgActionBarTempl
         });
-        let initHandler = 
-                on(gwDlg.okButton, "click", (e) => {
+        let loginContent = "<input type='text' name='userId' id='userId' required='true' " +
+            "data-dojo-type='dijit/form/ValidationTextBox'" +
+            "data-dojo-props='regExp:\"[\\w]+\", invalidMessage:\"Invalid Non-Space Text.\", " +
+            "promptMessage:\"email address\"'/>";
+        let initHandler = on(gwDlg.okButton, "click", (e) => {
                 if (gwDlg.isValid()){
-                        uId = (sel.get('value'));
+                        uId = (userId.get('value'));
                         //fetch args after step1
                         args = fetch();
                         gwDlg.hide();
                 } else {
                         alert('event.stop(e)');
                 }
-                });
+          });
         let gfxRes = arrFold((s, v, i, a) => {
                 if (i == 0){
+                        gwDlg.title = ("Login ");
+                        gwDlg.content = loginContent;
                         gwDlg.show();
-                        let newS = if uId ? s.push(uId) : s;
-                        return newS;
+                        /* this already happens in initHandler
+                        if (gwDlg.isValid()){
+                                let newS = if userId ? s.push(userId) : s;
+                                gwDlg.hide();
+                                return newS;
+                        }*/
                 } else {
                         let stepRes = null;
                         //if args[0] = uId then fetch succeeded (also args > 0??) else reattempt fetch
