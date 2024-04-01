@@ -1,3 +1,11 @@
+wasm TkLi addns:
+* repl existing unids w/gen + Li.idx
+  getUNID() returns (len + 1) + fmtd
+* Imp all divs manually via RegEx to ctor, use triple-Qtd
+  >> then SerToDk one-by-one
+* B4 adding the tkLi mod add the Snippets
+* Project port 2 Fs/dll
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 For below, just use the .net8 bypass...
 Using MessagePack instd of BinaryFormatter for serialization dotNet7+:
 https://steven-giesel.com/blogPost/4271d529-5625-4b67-bd59-d121f2d8c8f6
