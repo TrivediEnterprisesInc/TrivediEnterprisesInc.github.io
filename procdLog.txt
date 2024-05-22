@@ -1,52 +1,58 @@
+The combined log files, somewhat further cleaned up
+There are ~155 recs tot
 
+[[[Nov 7||mod winFrms/<mark>DnDMonad</mark>||
+refactor, retrofit 2 use existing S monad w/only bind 4 ce]]]
 
-|||||mod winFrms/<mark>DnDMonad</mark>||
+[[[Nov 7||mod winFrms/<mark>propBox</mark>||
+init work: logic, monadBldr, initial tests OK]]]
+
+[[[Nov 6||blazor/wasm||
+refactored tys, dragDrop handlers]]]
+         
+
+[[[Oct 19||blazor/wasm||
+	refactored tys]]]
+
+[[[Oct 17||blazor/wasm||
+	more Pages, tabCtrl]]]
           
-Nov 9:    refactor, retrofit 2 use existing S monad w/only bind 4 ce<br>
-Nov 7:	  init work: logic, monadBldr, initial tests OK</td>|||
+[[[Oct 16||blazor/wasm||
+	init work: logic, TabPages, initial flow<br>
+<b>mod winFrms/<mark>DnD_ops<mark></b>]]]
 
-|||||mod winFrms/<mark>propBox</mark>||
-          
-Oct 19:   refactored tys<br>
-Oct 17:   more Pages, tabCtrl<br>
-Oct 16:	  init work: logic, TabPages, initial flow
-          </td>|||
+[[[Oct 11-12||blazor/wasm||
+	refactored tys]]]
 
-|||||mod winFrms/<mark>DnD_ops<mark>||
-          
-Nov 6:       refactored tys, dragDrop handlers<br>
-Oct 11,12:   refactored tys<br>
-Oct 7:	  further work: blankCell logic, tests<br>
-Oct 6:	  further work: tests, produces DzCell Struct<br>
-Oct 4:	  init work: logic, types, init flow
-          </td>|||
+[[[Oct 7||blazor/wasm||
+	  further work: blankCell logic, tests]]]
 
-|||||general||
-          
-Sep 29	create frm.html (webCli)<br>
-Sep much reOrg, planning/notes updates; dojo work; evals gridx/dgrid/dojox; setup SignalR svr & repo for static, etc.
-          </td>|||
+[[[Oct 6||blazor/wasm||
+	  further work: tests, produces DzCell Struct]]]
 
-|||||mod winFrms/<mark>frmDelta</mark>||
-          
-              Sep 2:    further work: svrPromoteHandler <br>
-Sep 1:    further work: ViewPriorVersions handler<br>
-Aug 31:   further work: PriorVers CarryFwd logic for deltas<br>
-Aug 28:	  further work<br>
-          </td>|||
+[[[Oct 4||blazor/wasm||
+	  init work: logic, types, init flow]]]
 
-|||Aug 16-18||blazor/wasm||
+[[[Sep 2-30||blazor/wasm||
+create frm.html (webCli)<br>
+Sep much reOrg, planning/notes updates; dojo work; evals gridx/dgrid/dojox; setup SignalR svr & repo for static, etc.<br>
+<b>mod winFrms/<mark>frmDelta</mark></b>
+]]]
+
+[[[Sep 02||blazor/wasm||further work: svrPromoteHandler]]]
+
+[[[Sep 01||blazor/wasm||further work: ViewPriorVersions handler]]]
+
+[[[Aug 31||blazor/wasm||further work: PriorVers CarryFwd logic for deltas<br>]]]
+   
+[[[Aug 16-18||blazor/wasm||
           
               @rsch + srid: ran bld: issues w/net5-7 upgrd (CEs 4 bldg els)<br>
-              Got Blazor wasm ToDo launching locally
-          </td>|||
-
-|||Aug 15||blazor/wasm||
+              Got Blazor wasm ToDo launching locally]]]
+[[[Aug 15||blazor/wasm||
           
-           @rsch + srid: setup/local static run as-is
-          </td>|||
-
-|||Aug 14||test/winFrms.fs||
+           @rsch + srid: setup/local static run as-is]]]
+[[[Aug 14||test/winFrms.fs||
           
            lazy (gen on Demand) success! typical res window (this is 13 not 12):<br>
 		[["W25"; "V_119"; "V2"; "Cd"; "V_215"]; ["W25"; "V_119"; "V2"; "Cd"; "V_216"];<br>
@@ -55,10 +61,8 @@ Aug 28:	  further work<br>
 		 ["W25"; "V_119"; "V2"; "Cd"; "V_221"]; ["W25"; "V_119"; "V2"; "Cd"; "V_222"];<br>
 		 ["W25"; "V_119"; "V2"; "Cd"; "V_223"]; ["W25"; "V_119"; "V2"; "Cd"; "V_224"];<br>
 		 ["W25"; "V_119"; "V2"; "Cd"; "V_225"]; ["W25"; "V_119"; "V2"; "Cd"; "V_226"];<br>
-		 ["W25"; "V_119"; "V2"; "Cd"; "V_227"]]
-          </td>|||
-
-|||Aug 11,12||test/winFrms.fs||
+		 ["W25"; "V_119"; "V2"; "Cd"; "V_227"]]]]]
+[[[Aug 11,12||test/winFrms.fs||
           
            Further work w/mockADO<br>
             Bombs also (outOfMem) one last try w/HashMaps & then we nd 2<br>
@@ -66,450 +70,295 @@ Aug 28:	  further work<br>
              123458, skip & retn exactly bucketSz itms.<br>
             Warning: not too much effort; this is easy as pie w/a db BUT<br>
              poss useful in scenarios such as wasm.<br>
-            Aug12: introduced async & T.K to mod perms, @mbi choked _hard_ as expctd. (hehe, monkeys)
-          </td>|||
-
-|||Aug 10||test/winFrms.fs||
+            Aug12: introduced async & T.K to mod perms, @mbi choked _hard_ as expctd. (hehe, monkeys)]]]
+[[[Aug 10||test/winFrms.fs||
           
            Created mod mockADO, ported earlier fable work & refined it; <br>
-            Bucketing logic in place
-          </td>|||
-
-|||Aug 09||test/winFrms.fs||
+            Bucketing logic in place]]]
+[[[Aug 09||test/winFrms.fs||
           
            Further work w/permsHarness: ran a few tests, created blders etc.<br>
-            Basic harness is in place
-          </td>|||
-
-|||Aug 08||test/winFrms.fs||
+            Basic harness is in place]]]
+[[[Aug 08||test/winFrms.fs||
           
            Further work w/Cambattable; was able to use intfcs/phTys w/DUs (see notes Aug7)<br>
             Further work w/perms: added new Cfgs<br>
               * Gathered nos 4 all scenarios<br>
               * Decided on optimal cfg (5M tot) genned 20 files on replIt<br>
-            Created mod permsHarness, init. work; Ado.net bombs @ ~ 2M recs
-          </td>|||
-
-|||Aug 07||test/winFrms.fs||
+            Created mod permsHarness, init. work; Ado.net bombs @ ~ 2M recs]]]
+[[[Aug 07||test/winFrms.fs||
           
            Created mod Cambattable, assoc tys 4 Bfty, Btpl...<br>
            Some issues w/sealed types & tyConstraints so removed constr.<br>
-           The mods'll still be constrained tho...
-          </td>|||
-
-|||||gen||
+           The mods'll still be constrained tho...<br>
+<b>gen</b>
           
            All APIs were way out of date (from Janish) so gend/repl/extracted to extnal<br>
-           Reinst. Op once again, still persistent @mbi
-          </td>|||
-
-|||Aug 05||test/winFrms.fs||
+           Reinst. Op once again, still persistent @mbi]]]
+[[[Aug 05||test/winFrms.fs||
           
             Merged mods permsBase/Red<br>
-             created permCfg ty; some deltas
-          </td>|||
-
-|||||gen||
+             created permCfg ty; some deltas<br>
+<b>gen</b>
           
-            Repl ripGrep w/fnr
-          </td>|||
-
-|||Aug 04||gen||
+            Repl ripGrep w/fnr]]]
+[[[Aug 04||gen||
           
-            generated winFrms map (perms repl); uploaded + modified b.html
-          </td>|||
-
-|||Aug 03||utils/shorty.cs||
+            generated winFrms map (perms repl); uploaded + modified b.html]]]
+[[[Aug 03||utils/shorty.cs||
           
-            Some shortcuts in src subDir were missing, so setup/reRan shorty/updated lnkOut
-          </td>|||
-
-|||||test/winFrms.fs||
+            Some shortcuts in src subDir were missing, so setup/reRan shorty/updated lnkOut<br>
+<b>test/winFrms.fs</b>
           
             Further work with ule permsBase: produced 2.35M * 20<br>
             Created mod permsRed: produced 60k * 20 = 1.2M (30 ea for V1|V2; def 4 Ps)<br>
             - still nd 2 combine these & ensure unique<br>
             - can persist a single tbl & use as `seed` to gen indiv. (TBimpl)<br>
             (10 * 200) * 50 = 100k<br>
-            Created ule dizCopy, some work compl<br>
-          </td>|||
-
-|||Aug 02||test/winFrms.fs||
+            Created ule dizCopy, some work compl<br>]]]
+[[[Aug 02||test/winFrms.fs||
           
             Created ule clientInit w/UI/UIAux/Brij updates<br>
               related 2 tracking openTbls + versioning etc.<br>
-            Further work with perms; recreated outOfMem err (snafu w/conc)
-          </td>|||
-
-|||Jul 31||gen||
+            Further work with perms; recreated outOfMem err (snafu w/conc)]]]
+[[[Jul 31||gen||
           
-            @rsch FsCheck/QuickCheck
-          </td>|||
-
-|||Jul 29||test/winFrms.fs||
+            @rsch FsCheck/QuickCheck]]]
+[[[Jul 29||test/winFrms.fs||
           
-            Some work with perms until monkey bastas interfered too much... (hopeless effers)
-          </td>|||
-
-|||||repl/diff||
+            Some work with perms until monkey bastas interfered too much... (hopeless effers)<br>
+<b>repl/diff</b>
           
             Began/completed work on diff (html 2 rtf); stable<br>
-            @ToDo: 2 wins/merge impl.
-          </td>|||
-
-|||Jul 28||test/winFrms.fs||
+            @ToDo: 2 wins/merge impl.]]]
+[[[Jul 28||test/winFrms.fs||
           
-            Created mod uiDelta
-          </td>|||
-
-|||Jul 27||utils/shorty.cs||
+            Created mod uiDelta]]]
+[[[Jul 27||utils/shorty.cs||
           
-            Collectd info 4all shortcuts into src\lnkOut.txt (c# issues w/a single win32 call 2 getPath)
-          </td>|||
-
-|||Jul 26||test/winFrms.fs||
+            Collectd info 4all shortcuts into src\lnkOut.txt (c# issues w/a single win32 call 2 getPath)]]]
+[[[Jul 26||test/winFrms.fs||
           
             Added Card.intVal(), CardHand.chkSelBySuit(s, selL)
-            Added perms.cacheVvals()
-          </td>|||
-
-|||||general||
+            Added perms.cacheVvals()<br>
+<b>general</b>
           
-            Reinstalled Op (monkeyBastas disabled vpn)
-          </td>|||
-
-|||Jul 25||test/winFrms.fs||
+            Reinstalled Op (monkeyBastas disabled vpn)]]]
+[[[Jul 25||test/winFrms.fs||
           
             Replaced mod FilePnl/'getFilePnl' (monkeyBastas went nutz again & played w/clipbd)<br>
             Some work on mod perms 2 chk/optimise totLen BUT as before spaces out; <br>
-             two possibilities: (i)lazy eval chokes (chk) (ii)@mbi
-          </td>|||
-
-|||Jul 24||test/winFrms.fs||
+             two possibilities: (i)lazy eval chokes (chk) (ii)@mbi]]]
+[[[Jul 24||test/winFrms.fs||
           
             more @rsch PropertyTesting<br>
             setup two tys for same; <br>
-            1st poss impl shd be to test 4 "isSufficientlyR()"
-          </td>|||
-
-|||Jul 22||test/winFrms.fs||
+            1st poss impl shd be to test 4 "isSufficientlyR()"]]]
+[[[Jul 22||test/winFrms.fs||
           
             Added tab2spc in rtb.keyDn<br>
             Further work w/getFilePnl() incl. new treeView.DblClick<br>
-            Incorp. replIt work on Folding/Outliner/Tokenizer ici
-          </td>|||
-
-|||Jul 21||test/winFrms.fs||
+            Incorp. replIt work on Folding/Outliner/Tokenizer ici]]]
+[[[Jul 21||test/winFrms.fs||
           
-            Refactor rPnl to typeof&lt;BhojPuri&gt;
-          </td>|||
-
-|||Jul 19-20||test/token.fs + replIt/winFrms||
+            Refactor rPnl to typeof&lt;BhojPuri&gt;]]]
+[[[Jul 19-20||test/token.fs + replIt/winFrms||
           
             FS.Cmplr.Svcs pkg test 2 tokenize; offers EditorSvcs incl Color/Keywd/tokTy<br>
             Entirely sufficient 4 synHilighting<br>
-            Much @rsch into other synH applications incl OCaml
-          </td>|||
-
-|||Jul 18||test/winFrms.fs||
+            Much @rsch into other synH applications incl OCaml]]]
+[[[Jul 18||test/winFrms.fs||
           Further updates 2 deckstuff/CardHand (added enum, some fns 4 isOneEyed()/genDeckTpl() etc)<br>
            @Rsch into Syntax Highlighting<br>
-           Resumed work on mod FilePanelUpdates (poss created sometime last wk); reverted to TreeView
-          </td>|||
-
-|||Jul 17||test/winFrms.fs||
+           Resumed work on mod FilePanelUpdates (poss created sometime last wk); reverted to TreeView]]]
+[[[Jul 17||test/winFrms.fs||
           
-           Further updates 2 cyclical 2 rndomize
-          </td>|||
-
-|||||replit/winForms repl||
+           Further updates 2 cyclical 2 rndomize<br>
+<b>replit/winForms repl</b>
           
-           Some work on Foldables 4 rtb
-          </td>|||
-
-|||Jul 15||ikvms||
+           Some work on Foldables 4 rtb]]]
+[[[Jul 15||ikvms||
           
-           Further work, dnloads, tests, works fine but will have to code API in j; put on bkBurner
-          </td>|||
-
-|||||test/winFrms.fs||
+           Further work, dnloads, tests, works fine but will have to code API in j; put on bkBurner<br>
+<b>test/winFrms.fs</b>
           
            Added cyclical (see note below)<br>
            We nd CYCLICAL not Random for pGen<br>
              coz we nd to prevent adjacents which Random won't do.<br>
-             Therefore we nd an algo 2 retrofit: cld be as simple as manually iter 0..29
-          </td>|||
-
-|||Jul 14||tmp||
+             Therefore we nd an algo 2 retrofit: cld be as simple as manually iter 0..29]]]
+[[[Jul 14||tmp||
           
-           Downloaded ikvm (jar -> .net) for testing; both approaches seem viable
-          </td>|||
-
-|||||test/winFrms.fs||
+           Downloaded ikvm (jar -> .net) for testing; both approaches seem viable<br>
+<b>test/winFrms.fs</b>
           
-           Added ty CardHand, some assoc fns.
-          </td>|||
-
-|||||@Rsch||
+           Added ty CardHand, some assoc fns.<br>
+<b>@Rsch</b>
           
            Property-based testing a la haskell/QuickChk (wlaschin et al)
-           Adding tys 4 exhaustive testing appears enticing
-          </td>|||
-
-|||Jul 12-13||test/winFrms.fs||
+           Adding tys 4 exhaustive testing appears enticing]]]
+[[[Jul 12-13||test/winFrms.fs||
           
            Beauc updates incl new mod perms<br>
            Ran many generators; res above expectations: .7M w/one iter 2 go<br>
-           monkeyBastas blew a gasket & bunged a spanner
-          </td>|||
-
-|||Jul 11||standaloneBld.fs||
+           monkeyBastas blew a gasket & bunged a spanner]]]
+[[[Jul 11||standaloneBld.fs||
           
            updated/blt bld4 on replIt; gen new dirs; issues w/FSCore ver (4.4 nded)
-           either get(preferred) or recompile(redactions pour l'mbi)
-          </td>|||
-
-|||Jul 10||shorty.fs||
+           either get(preferred) or recompile(redactions pour l'mbi)]]]
+[[[Jul 10||shorty.fs||
           
            Some work on impl Win32 interop to collect shortcuts; beauc. @mbi
-           Worked fine if compiled via csc (effers)
-          </td>|||
-
-|||Jul 08||CC||
+           Worked fine if compiled via csc (effers)]]]
+[[[Jul 08||CC||
           
-           Worked on new impl of CC in new mod UI.Utils, two tabs ready-ish
-          </td>|||
-
-|||Jul 07||Cards||
+           Worked on new impl of CC in new mod UI.Utils, two tabs ready-ish]]]
+[[[Jul 07||Cards||
           
            Worked on old Cards stuff: updated types, 
-            wrote some fns & created .bdf dump w/imgs.  Stable/uploaded to gh.
-          </td>|||
-
-|||Jul 06||Legacy||
+            wrote some fns & created .bdf dump w/imgs.  Stable/uploaded to gh.]]]
+[[[Jul 06||Legacy||
           
            Repl.it: much work hunting dn art db fr ~Feb18; two files located<br>
             (feb & oct17) but both unusable.  .64 tampered? @mbi probably coz none<br>
             of the anonGistLinks work from '18.<br>
-            Put off for now; was enthusiastic abt dumping jdk once/for all but apparently not yet.
-          </td>|||
-
-|||Jul 06||test/winFrms.fs||
+            Put off for now; was enthusiastic abt dumping jdk once/for all but apparently not yet.]]]
+[[[Jul 06||test/winFrms.fs||
           
-           Imported Cards mod & made changes to import Google deck imgs; typework etc.
-          </td>|||
-
-|||Jul 05||Legacy||
+           Imported Cards mod & made changes to import Google deck imgs; typework etc.]]]
+[[[Jul 05||Legacy||
           
            Repl.it: edited Importer.j into oPls.j from 2018 to <br>
-            dump all FT arts; successful.  Some code deltas reqd; committed.
-          </td>|||
-
-|||Jul 03||Core||
+            dump all FT arts; successful.  Some code deltas reqd; committed.]]]
+[[[Jul 03||Core||
           
-           Rebuilt/added liShuffle, getRand(), getRandS(), [a2z]
-          </td>|||
-
-|||Jun 23-30||test/winFrms.fs||
+           Rebuilt/added liShuffle, getRand(), getRandS(), [a2z]]]]
+[[[Jun 23-30||test/winFrms.fs||
           var. updates incl a new splitPnl to house Proj bar (user-adjustable)<br>
                some work on zipArchives on replIt (stable code using Zstd dll but it only works w/single files)<br>
-               work continues on winFrms w/o debugger (@mbi, heh heh)</td>|||
-
-               
-          </td>|||
-
-|||||.Net TextEditor||
+               work continues on winFrms w/o debugger (@mbi, heh heh)</td>|||<br>
+<b>.Net TextEditor</b>
           
-           examined src code for folding to port
-          </td>|||
-
-|||||replIt||
+           examined src code for folding to port<br>
+<b>replIt</b>
           
             created scaffolding/tests w/hdr file 2 use ZStd lib<br> (@ToDo: expand/incorp into Core)<br>
-           stable, but it only works w/single files<br> (not archives)  Cld still be useful l8r 
-          </td>|||
-
-|||Jun 26||test/drive.fs||
+           stable, but it only works w/single files<br> (not archives)  Cld still be useful l8r]]]
+[[[Jun 26||test/drive.fs||
           module SubstDrive: interOp using win32 calls to create a disk-based mappable virtual drive<br>
-           stable, but will not be used (we nd a mem-based soln, pro'lly homebrewed)
-          </td>|||
-
-|||Jun 23||test/winFrms.fs||
+           stable, but will not be used (we nd a mem-based soln, pro'lly homebrewed)]]]
+[[[Jun 23||test/winFrms.fs||
           Updated launcher w/ToolStrip 4 TaggedView blt from mBoxes.bdf.  Stable.<br>
-           (note: w/o mbi it took only minutes to rejig the whole thing; they soon returned)
-          </td>|||
-
-|||Jun 20-22||mBoxes||
+           (note: w/o mbi it took only minutes to rejig the whole thing; they soon returned)]]]
+[[[Jun 20-22||mBoxes||
           Ported all mBoxes to bdf<br>
               Resolved missing/renamed itms (mongo/mBoxes.fs)<br>
-              mBoxes.bdf now ~45Mb (self-contnd).  @ToDo: port to mongo (poss along w/FT/legArts?)
-          </td>|||
-
-|||Jun 21||data\deepAI.txt||
-          (deepai.org) Ran text-generator<br> w/instr. to generate examples like... (for choices based on training txt)
-          </td>|||
-
-|||Jun 14-20||sWin||
-          Built SignalR cli/svr, used winFrms (below) for flash.PaintRow.  Stable.
-          </td>|||
-
-|||Jun 08-13||test/winFrms.fs||
+              mBoxes.bdf now ~45Mb (self-contnd).  @ToDo: port to mongo (poss along w/FT/legArts?)]]]
+[[[Jun 21||data\deepAI.txt||
+          (deepai.org) Ran text-generator<br> w/instr. to generate examples like... (for choices based on training txt)]]]
+[[[Jun 14-20||sWin||
+          Built SignalR cli/svr, used winFrms (below) for flash.PaintRow.  Stable.]]]
+[[[Jun 08-13||test/winFrms.fs||
           General Grid/UI skeleton for testing; to be extended per use case<br>
-                          Impl flash.  Stable.
-          </td>|||
-
-|||||mBoxes||
-          FSharp.Data for resolving/lookup wikip infobox via css selectors.  Stable.
-          </td>|||
-
-|||Jun 05-08||TaggedVw||
-          Rebuilt dojo TaggedVw 4 mBoxes
-          </td>|||
-
-|||May 01-09||Docs/docFx||
+                          Impl flash.  Stable.<br>
+<b>mBoxes</b>
+          FSharp.Data for resolving/lookup wikip infobox via css selectors.  Stable.]]]
+[[[Jun 05-08||TaggedVw||
+          Rebuilt dojo TaggedVw 4 mBoxes]]]
+[[[May 01-09||Docs/docFx||
           docFx udpates incl Mermd porting; <br>
-            publishing; created Discussion/ids; went live with pitch 4 brij
-          </td>|||
-
-|||Apr 20-May01||Docs/docFx||
+            publishing; created Discussion/ids; went live with pitch 4 brij]]]
+[[[Apr 20-May01||Docs/docFx||
           Built entire doc set (directly in GitHub repo)<br>
             Curr status -> Complete exc4 currFigs + 50% snapshots + priorVers (js/java)<br>
             Blt Mermaid timeline/much hunting down prior code/snapshots as reqd.<br>
             Added docFx pg to bkmarks as pullout<br>
             Retrieved FT.jar; earlier c.jar + sys.jar (issues w/baseDir) for snapshots<br>
-            e:/mike/*.* deleted @mbi sleigh-of-hand; we have this+all curr backups @ tan~tahd@outlook.com
-            </td>|||
-
-|||Apr-19||DocFx||
+            e:/mike/*.* deleted @mbi sleigh-of-hand; we have this+all curr backups @ tan~tahd@outlook.com]]]
+[[[Apr-19||DocFx||
           Worked on generating fn sigs via FSharp.Formatting (codeFmt.fs)<br>
-            Put on backburner (security issues)
-            </td>|||
-
-|||Apr-18||DocFx||
+            Put on backburner (security issues)]]]
+[[[Apr-18||DocFx||
           Generated APIdocs manually via call to --metadata<br>
-            Brij.dll processed; UI works as well; probems w/Core (poss. issues w/Core versions)
-            </td>|||
-
-|||Apr-17||DocFx||
-          Further docfx work: gen ApiDocs doesn't work on fsproj
-            </td>|||
-
-|||Apr-15||DocFx||
+            Brij.dll processed; UI works as well; probems w/Core (poss. issues w/Core versions)]]]
+[[[Apr-17||DocFx||
+          Further docfx work: gen ApiDocs doesn't work on fsproj]]]
+[[[Apr-15||DocFx||
           Further docfx work: gen ApiDocs<br>
-            Unable to run directly on .fs; so ran on Assemblies
-            </td>|||
-
-|||Apr-14||DocFx||
+            Unable to run directly on .fs; so ran on Assemblies]]]
+[[[Apr-14||DocFx||
           setup/customization incl setEnv et al<br>
             Further testing to bld sample proj (success BUT api fails: consLog mentions proj file err)<br>
-            Built example docset (Seed)
-            </td>|||
-
-|||Apr-13||Brij/Parser.fs||
-          Some further work on the new predMods</td>|||
-
-|||||DocFx||
+            Built example docset (Seed)]]]
+[[[Apr-13||Brij/Parser.fs||
+          Some further work on the new predMods</td>]]]
+[[[||DocFx||
           
-           rsch, init testing to bld sample proj (failed)
-           </td>|||
-
-|||Apr-11||Brij/Parser.fs||
-          Some further work on the new predMods</td>|||
-
-|||Apr-10||off/echo||
-          </td>|||
-
-|||Apr-01 - 08||Brij/Parser.fs||
+           rsch, init testing to bld sample proj (failed)]]]
+[[[Apr-11||Brij/Parser.fs||
+          Some further work on the new predMods</td>]]]
+[[[Apr-10||off/echo||]]]
+[[[Apr-01 - 08||Brij/Parser.fs||
           
-             Contd. work on mod Parser.predNL harness/fleshed out (Apr7 off/cis)
-           </td>|||
-
-|||Mar-31||general||<mark>
+             Contd. work on mod Parser.predNL harness/fleshed out (Apr7 off/cis)]]]
+[[[Mar-31||general||<mark>
           src backup</mark>
-           |||
-
-|||Mar-29 - 31||BrijSvr||
+           ]]]
+[[[Mar-29 - 31||BrijSvr||
           
-             Began work on mod Parser.predNL harness
-           </td>|||
-
-|||Mar-27 - 28>||BrijSvr||
+             Began work on mod Parser.predNL harness]]]
+[[[Mar-27 - 28>||BrijSvr||
           
              Hectic rsch/coding around using Linq (expects ty)<br>
              see Notes under 'Linq provis Type' tagged Linq/Mongodb<br>
-             Linq Qry is now running on local mongo instance against mTasks & working as expected.
-           </td>|||
-
-|||Mar-24 to 26||BrijSvr||
+             Linq Qry is now running on local mongo instance against mTasks & working as expected.]]]
+[[[Mar-24 to 26||BrijSvr||
           
-           FParsec contd; ported Json example to monadic ver
-           </td>|||
-
-|||Mar-23||BrijSvr||
+           FParsec contd; ported Json example to monadic ver]]]
+[[[Mar-23||BrijSvr||
           
-           FParsec deep dive
-           </td>|||
-
-|||Mar-22||loggedUIRunner||
+           FParsec deep dive]]]
+[[[Mar-22||loggedUIRunner||
           <mark>
            extracted TblSetup pg to ty & worked on it<br>
            added rec genFldSlg (tbImpl)<br>
            (@ToDo: this nds 2 be ported to tblID too)
-           </mark>|||
-
-|||||Core, UIAux||
+           </mark>]]]
+[[[||Core, UIAux||
           <mark>
            Further work on Core.i18n; updates to UI.fs
            @ToDo: Complete
-           </mark>|||
-
-|||Mar-21||loggedUIRunner||
+           </mark>]]]
+[[[Mar-21||loggedUIRunner||
           
            Interned મીઠૂ_પાન_Mar23 for work on new MM ver w/tC (stable)<br>
            Added 2 pgs: TblSetup/FrmSetup; modified latter for instr<br>
-           var updates/workarounds to comp (mbi w/state/currUISchm refs et al)
-           </td>|||
-
-|||||UIAux||
+           var updates/workarounds to comp (mbi w/state/currUISchm refs et al)<br>
+<b>UIAux</b>
           
-           altered tyExt for namespace compErr
-           </td>|||
-
-|||||Core||
+           altered tyExt for namespace compErr<br>
+<b>Core</b>
           
-           Began setup for Core.i18n; added li + lookup (stable)
-           </td>|||
-
-|||Mar-20||Brij||
+           Began setup for Core.i18n; added li + lookup (stable)]]]
+[[[Mar-20||Brij||
           
-           (MongoDeSer.fs)Began work on DeSer mod in this file
-           </td>|||
-
-|||||UIAux||
+           (MongoDeSer.fs)Began work on DeSer mod in this file<br>
+<b>UIAux</b>
           
            Added tyExt for RichTextBox to add Expr.flds in diff col<br>
-           Updates to એક્સ_પેનલ tbdb (methd render, toTxt now not Relev)
-           </td>|||
-
-|||Mar-10 to 19||Brij||
+           Updates to એક્સ_પેનલ tbdb (methd render, toTxt now not Relev)]]]
+[[[Mar-10 to 19||Brij||
           
            Mostly MongoDB work: completed Qry for 2/3 Cats (MongoQry.fs)<br>
            Some work on gen mockDb for Mongo per D'wd reqs<br>
-           Located zip/nm tbls; we have enuff to gen 3.2M recs<br>
-           </td>|||
-
-|||Mar-09-23||Brij||
+           Located zip/nm tbls; we have enuff to gen 3.2M recs<br>]]]
+[[[Mar-09-23||Brij||
           
           Added tys બોક્સ_પાન, mBoxMasaloAux, mBoxSize<br>
-          Added tys/fns 4 TgDV
-           </td>|||
-
-|||Mar7,8-23||Brij||
+          Added tys/fns 4 TgDV]]]
+[[[Mar7,8-23||Brij||
           
-          Some work on importing mBoxes to Mongo
-           </td>|||
-
-|||Feb-23 to Mar6-23||Brij||
+          Some work on importing mBoxes to Mongo]]]
+[[[Feb-23 to Mar6-23||Brij||
           <mark>
            Generated tkDat/pumped into Mongo; dumped out<br>
           Nailed down generic Agg pipelines<br>
@@ -519,69 +368,49 @@ Aug 28:	  further work<br>
 
 |||Feb-28||general||<mark>
           src backup</mark>
-           |||
-
-|||Feb-21,22-23||general||
+           ]]]
+[[[Feb-21,22-23||general||
           
-           Further MongoDb reading/rsch/testing; setup utils.  Wrote a small F# script to import tkDat into Mongo as JsonEls (success); created a dump.
-           </td>|||
-
-|||||general||
+           Further MongoDb reading/rsch/testing; setup utils.  Wrote a small F# script to import tkDat into Mongo as JsonEls (success); created a dump.<br>
+<b>general</b>
           
-           Updated Bookmarks: pulled out Mongo links; moved local links to sep. file
-           </td>|||
-
-|||Feb-20-23||general||
+           Updated Bookmarks: pulled out Mongo links; moved local links to sep. file]]]
+[[[Feb-20-23||general||
           
-           Further MongoDb reading/rsch; some Qry/Linq rsch; some util work
-           </td>|||
-
-|||Feb-18-23||general||
+           Further MongoDb reading/rsch; some Qry/Linq rsch; some util work]]]
+[[[Feb-18-23||general||
           
            MongoDb reading/rsch<br>
-           Updated bkmarks/logs online
-           </td>|||
-
-|||Feb-17-23||UIAux||
+           Updated bkmarks/logs online]]]
+[[[Feb-17-23||UIAux||
           <mark>
            Further work on BM refactor/ફીલ્ડ_પેનલ_Aux;<br>
             Added getBPHnd (@ToDo cases remain) can't pullOut coz diff params + scope<br>
             Combined fns BM.updSlg + BM.setFldTT to BM.update (@ToDo cases remain)
-           </mark>|||
-
-|||||general||
+           </mark>]]]
+[[[||general||
           
-           Some more messing w net7
-           </td>|||
-
-|||||Brij||
+           Some more messing w net7<br>
+<b>Brij</b>
           
-Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
-           </td>|||
-
-|||Feb-16-23||UIAux||
+Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy]]]
+[[[Feb-16-23||UIAux||
           
            Further work on BM refactor/ફીલ્ડ_પેનલ_Aux; added tBar w/AppTab stuff; <br>
-            added fns BM.updSlg + BM.setFldTT
-           </td>|||
-
-|||Feb-15-23||UIAux||
+            added fns BM.updSlg + BM.setFldTT]]]
+[[[Feb-15-23||UIAux||
           
            BM recovery in am (@mbi overwrote yest. pm work) (again, the bastas)<br>
            Began work on total બનારસી_પાન refactor:<br>
             new fn setupFlds; incl slotter et al; <br>
             updated ફીલ્ડ_પેનલ_Aux ctor + all calls; added ctxtMenus<br>
-           selectedPanl saved to ownr + p
-           </td>|||
-
-|||Feb-14-23||UIAux||
+           selectedPanl saved to ownr + p]]]
+[[[Feb-14-23||UIAux||
           
            Fixed all frmFld issues; we now have the BM tab pages on +<br>
            BM lv dbl-click launches FldDef dlg<br>
-           BM is online (tho beauc. @mbi)
-           </td>|||
-
-|||Feb-13-23||UIAux||
+           BM is online (tho beauc. @mbi)]]]
+[[[Feb-13-23||UIAux||
           
            BM_ValidationBldr<br>
                Fixed issues w/condCB selection losing focus (dataSrc related)<br>
@@ -590,15 +419,11 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
                 again poss @mbi; leave the rest 4 l8r<br>
                Updated predConds for 1st blank as unSelected<br>
                At this pt. we have the params in place and Fld auto-populated +<br>
-                non-selectable (as it shd be).  ctor docFlds all correct.
-           </td>|||
-
-|||||BP||
+                non-selectable (as it shd be).  ctor docFlds all correct.<br>
+<b>BP</b>
           
-            Resumed work on new layout.  BP Online(!)
-           </td>|||
-
-|||Feb-11-23||UIAux||
+            Resumed work on new layout.  BP Online(!)]]]
+[[[Feb-11-23||UIAux||
           
             CompileErr on new DU case 4 expandoPanel; so edited match<br>
             st 4 ઍક્સપાનડો_પીચાક to not refer to Validation case (using _); logic retained.<br>
@@ -606,26 +431,18 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
                 Contd. work on the new ValidnBldr w/fld popul8d;<br>
                 matching on ctor.xPandoPnl<br>
                 Changed SelectedIdxChanged handler (trigger to pop condnCB)<br>
-                coz in Validation/Enabled=false; never runs
-           </td>|||
-
-|||||Core||
+                coz in Validation/Enabled=false; never runs<br>
+<b>Core</b>
           
-            Added fn runChk dir for testing w/flags
-           </td>|||
-
-|||||logged||
+            Added fn runChk dir for testing w/flags<br>
+<b>logged</b>
           
             "currScheme_Wref": @mbi w/var SM issues (esply wldRef) so <br>
-            created bypass harness ("SM_bypass") 4 working w/ "tabCtrl_MidP"
-           </td>|||
-
-|||Feb-10-23||Brij||
+            created bypass harness ("SM_bypass") 4 working w/ "tabCtrl_MidP"]]]
+[[[Feb-10-23||Brij||
           
-            tkDat: outpt 2 Brij&lt;_&gt;; new ser ver 4 baseTkDatAux; added to BrijDat
-           </td>|||
-
-|||||UIAux||
+            tkDat: outpt 2 Brij&lt;_&gt;; new ser ver 4 baseTkDatAux; added to BrijDat<br>
+<b>UIAux</b>
           
             baseTkDatAux Updated for new ty sig; BrijDat all Brij(_) now<br>
             Spurious err for TStripItm.AddRange remmed as '//@Feb10_mbi_bogusErr '<br>
@@ -633,10 +450,8 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
               Case Union 'FldValidation' added 2 ty expandoPanel<br>
               Updates 2 ઍક્સપાનડો_પીચાક + એક્સ_પેનલ to layout new caseTy (disabled + vErr)<br>
             Moved DzTypes & the new Dat ty from Aux 2 Brij<br>
-            Some further work on Expr (mod Validatn)
-           </td>|||
-
-|||Feb-09-23||UIAux||
+            Some further work on Expr (mod Validatn)]]]
+[[[Feb-09-23||UIAux||
           <mark>
             Added fn defaultImg; reset CP to use wldRef<br>
             Updated all expand.png refs to add_circle / remove_circle (esp.ly dvs)<br>
@@ -645,85 +460,63 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
             <@ToDo: ALL changes to Aux 4 wRef above remmed as '//@Feb9_mbi '<br>
             (Lookup indet. ty fake errs)  Remmed to compile 4 BDoc etc.<br>
             Note: These also Ǝ in loggedUIRnr<br>
-           </mark>|||
-
-|||||general||
+           </mark>]]]
+[[[||general||
           
            Some more messing w net7; using Ǝing libs w/logged.fsproj<br>
-           Throws on assembly ref Sys.Drawing.Imaging; err persists (poss @mbi on Linux)
-           </td>|||
-
-|||||Brij||
+           Throws on assembly ref Sys.Drawing.Imaging; err persists (poss @mbi on Linux)<br>
+<b>Brij</b>
           
            Began proc to unify DesDocAux/BrijTy to type Brij<br>
            NOTE: Multiple copies of DesDoc exist (two in Brij/etc) @mbi<br>
-           This work nds 2 be xferred to Brij but kept in Aux for refs 2 DesDocAux
-           </td>|||
-
-|||Feb-08-23||UIAux||
+           This work nds 2 be xferred to Brij but kept in Aux for refs 2 DesDocAux]]]
+[[[Feb-08-23||UIAux||
           
             Added fn getDefErrProv; updates to એક્સ_પેનલ<br>
             Debugging of CM led 2 many updates incl ફીલ્ડ_પેનલ_Aux સુપારી<br>
                 which cascaded (incl calls)<br>
-            Similarly 4 BM; both showing now tho layout issues
-           </td>|||
-
-|||Feb-07-23||general||
+            Similarly 4 BM; both showing now tho layout issues]]]
+[[[Feb-07-23||general||
           
            Productivity enh.mts (contd): redacted sections/maps frm bkmarks.<br>
-           Updated res/created Addenda w/links
-           </td>|||
-
-|||||UIAux||
+           Updated res/created Addenda w/links<br>
+<b>UIAux</b>
           <mark>
            Added the foll validation trips to એક્સ_પેનલ:<br>
               <ul><li>Connector (and/or) sel reqd</li>
               <li>inp fld nds 2 match fldty (currently unchecked)</li>
               <li>@ToDo: nd to resolve "isEmpty" cases (non-unique)</li>
               <li>Q: REMOVE isEmpty altogether?  We're insisting on defaultVals, y?</li></ul>
-           </mark>|||
-
-|||Feb-06-23||UIAux||
+           </mark>]]]
+[[[Feb-06-23||UIAux||
           
            Debugged/Compiled lib; note that the Nov18 UI.fs nd'd 2 be changed<br>
              (src file has notes) for fldTy changed from FldType to FrmFldType<br>
              (was raising circular errors in Brij via UI + preventing UIAux)<br>
              This err also raised in BanarasiM (ref in logd), fixed<br>
-             Fixed minor bugs in BM/CategTester validErrHndlr
-           </td>|||
-
-|||||general||
+             Fixed minor bugs in BM/CategTester validErrHndlr<br>
+<b>general</b>
           
-           Some attempts to get symbols.fs to compile using Corev4/CompSvcs7
-           </td>|||
-
-|||Feb-04-23||UIAux||
+           Some attempts to get symbols.fs to compile using Corev4/CompSvcs7]]]
+[[[Feb-04-23||UIAux||
           
-           Minor updates 2 બનારસી_પીચાક_fld_eoy + ઍક્સપાનડો_પીચાક
-           </td>|||
-
-|||||utils||
+           Minor updates 2 બનારસી_પીચાક_fld_eoy + ઍક્સપાનડો_પીચાક<br>
+<b>utils</b>
           
-           Some work on symbols.fs + net7 setup
-           </td>|||
-
-|||Feb-03-23||Brij||
+           Some work on symbols.fs + net7 setup]]]
+[[[Feb-03-23||Brij||
           
            ren ty FldTy to FrmFldType for disambig; + all refs<br>
-           ren fn DocFldTy2FldTy 2 DocFldTy2FrmFldTy; + all refs
-           </td>|||
-
-|||||UIAux||
+           ren fn DocFldTy2FldTy 2 DocFldTy2FrmFldTy; + all refs<br>
+<b>UIAux</b>
           
            Added placeholder tys 4 કલકતી_પીચાક: CM_SortPg, CM_FilterPg<br>
            Refactored ફીલ્ડ_પેનલ_Aux for:<br>
             * tags set NOT in pnl but in d<br>
                 in btns use em to update d tags<br>
                 use fldNm (intl) 4 ctrlTag; NOT slg<br>
-                REMOVED defaultTags + assoc logic<br>
-           </td>|||
-
-|||||||
+                REMOVED defaultTags + assoc logic<br><br>
+<b></b>
           <mark>
   @ToDo 4 callers:<br>
         * SET: pass in defaultInitVals via cTor<br>
@@ -731,19 +524,14 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
              AFTER ctor in caller just map thro all flds; <br>
              (hasTag fldNm)? populate else skip </span><br>
            Some init work on frmValidation (mod Validn)
-           </mark>|||
-
-|||Feb-02-23||general||
+           </mark>]]]
+[[[Feb-02-23||general||
           
-           Updated bookmarks w/new maps 4 ???? elements + ported log into it
-           </td>|||
-
-|||Feb-01-23||general||
+           Updated bookmarks w/new maps 4 ???? elements + ported log into it]]]
+[[[Feb-01-23||general||
           
-           Updated bookmarks w/new maps 4 ???? elements + ported log into it
-</td>|||
-
-|||Jan-31-23||  UIAux||
+           Updated bookmarks w/new maps 4 ???? elements + ported log into it]]]
+[[[Jan-31-23||UIAux||
           
                     tabCtrl refactors ->
                                         àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy 
@@ -751,36 +539,37 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
                                         àª•àª²àª•àª¤à«€_àªªà«€àªšàª¾àª•
                         Done: added tys 4 CM_ColPg + CM_AppPg + CM_CategPg</td>
                     
-        |||
-
-|||Jan-30-23||  Brij||
+        ]]]
+[[[Jan-30-23||Brij||
           
                     Further updates 3 BaseBrijTy deltas: removed imgDatK 
                     (all func. incorp into AdDatK incl rids)
-                    Unified all dats since they're now BrijTys: spoo, adDat, img, tk (some @mbi)</td><tr class = "BrijLogtr">|||||
-          
-                   UIAux</td>
+                    Unified all dats since they're now BrijTys: spoo, adDat, img, tk (some @mbi)</td><tr class = "BrijLogtr"><br>
+<b>UIAux</b><br>
+
           
                     Updated errProvs + all comboBxs to use Text: àª•à«‡àªŸ_àªªà«‡àª¨àª², àªàª•à«àª¸_àªªà«‡àª¨àª²
                      (apparently if you set a DataSrc you can't use .txt)</td>
-        |||
-
-|||Jan-28-23||||  @MBI note: 
+        ]]]
+[[[Jan-28-23||||  @MBI note: 
                         as soon as we made state changes (adDatK) bastas went splat(!)<br>so we're offline 4 now, let them twiddle their thumbs|||
 
 
         |||||UIAux</td>
         
-                    Updated getImgDat per new datLi ty; added fn getImageFromDat</td>|||||</td>
+                    Updated getImgDat per new datLi ty; added fn getImageFromDat<br>
+<b></b><br>
+
         <mark>        
                     @ToDo: TSBtns nd to use this new fn<br>
                     Added tabCtrls/Pgs 2 BM/CM; skeleton edits/refactors are in
-        |||
-
-|||Jan-27-23||||
+        ]]]
+[[[Jan-27-23||||
           <mark>  Last Stable ver (BUT w/o any subseq deltas; see note above)
         <tr class = "BrijLogtr"></mark>logged</td>
-                    Restored statMsg vwr in SP</td>|||||UIAux</td>
+                    Restored statMsg vwr in SP<br>
+<b>UIAux</b><br>
+
                    
                     3 new screens impl:<br>
                     (i) CategTester stable; nds some tuning (only 2 cols vis; no +)<br>
@@ -791,56 +580,59 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
                             B8r lbls<br>
                             new Ty for fldW (curr uses fldTy) << same(ish) <br>logic as predBldr<br>
                     (iii) CalcattiDef:<br>
-                            Added ty dvSetupDlg() to UIAux; some further work
-        <tr class = "BrijLogtr"></td>Brij/others</td>
+                            Added ty dvSetupDlg() to UIAux; some further work<br>
+<b>Brij/others</b><br>
+
                      Added new ty DocFldType (to be used in DocFld) vs exising UI fldTys
                      Plus new fn DocFldTy2FldTy to translate / feed default wids.
                      Updated/recompiled all bins
                      Updated adDatK to insert local images
                     Downloaded all referenced icons to disk</td>
-        |||
-
-|||Jan-26-23||  UIAux||
+        ]]]
+[[[Jan-26-23||UIAux||
                     Many updates to àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy et al; BanarasiM_FldDef form shows now
                         (nxt: nd to persist fld changes to def)
                     Also updated all getImgBtn calls to tryPick from State; stable (BanarasiM)
-                    Also impl ttips for reg btns (as TSItms but nds diff impl) (BanarasiM)
-        <tr class = "BrijLogtr"></td>Brij</td>
+                    Also impl ttips for reg btns (as TSItms but nds diff impl) (BanarasiM)<br>
+<b>Brij</b><br>
+
                     Some work on AdDatK et al for imgs + prep 4 BaseBrijTy deltas
                     Began work w/GoogIcns</td>
-        |||
-
-|||Jan-25-23||  UIAux||
+        ]]]
+[[[Jan-25-23||UIAux||
                     Updated getImg (again! @mbi); deltas stable across PredBldr addBtns
-                                    àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy persist to wld</td>|||||Brij & all libs</td>
+                                    àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy persist to wld<br>
+<b>Brij & all libs</b><br>
+
                     Added fn db to allow targetted db stmts; 
                     updated ALL debug calls to clean up cons</td>
-        |||
+        ]]]
+[[[Jan-24-23||||  (Below stuff part of BanarasiM -> P)</td><br>
+<b>Core/Brij</b><br>
 
-|||Jan-24-23||||  (Below stuff part of BanarasiM -> P)</td>
-        <tr class = "BrijLogtr"></td>Core/Brij</td>
-                   var updates to prnDat et al
-        <tr class = "BrijLogtr"></td>UIAux</td>
+                   var updates to prnDat et al<br>
+<b>UIAux</b><br>
+
                     Beauc upds to àª¬àª¨àª¾àª°àª¸à«€_àªªàª¾àª¨<br>
                     All work on àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy complete (apparently)<br>
                     cld't confirm coz the bastas began throwing casting errs again<br>
                     Switch to tkDatAux:<br>
                         Added catCols, width logic (cleanup reqd); some debugging done</td>
-        |||
-
-|||Jan-23-23||  UIAux||
+        ]]]
+[[[Jan-23-23||UIAux||
                     Further updates to àª•à«‡àªŸ_àªªà«‡àª¨àª² et al; alm done, splat(!) @ mbi<br>
-                    Added validation to àªàª•à«àª¸àªªàª¾àª¨àª¡à«‹_àªªà«€àªšàª¾àª•</td>
-        <tr class = "BrijLogtr"></td>Core</td>
-                     Added a new fn HR
-        <tr class = "BrijLogtr"></td>BanarasiM</td>
+                    Added validation to àªàª•à«àª¸àªªàª¾àª¨àª¡à«‹_àªªà«€àªšàª¾àª•</td><br>
+<b>Core</b><br>
+
+                     Added a new fn HR<br>
+<b>BanarasiM</b><br>
+
                      Stable; ready to launch into BanarasiP (nds work on mut state)|||||àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy</td>
                      Many updates to dynamically bld mut state (repurpose later via dlg)
                      for testing pop flow to BanarasiP.ctor (line #598 logged)<br>
                    Updated All api maps; website had Dec 02; some Oct! WAY outdated</td>
-        |||
-
-|||Jan-21-23||||
+        ]]]
+[[[Jan-21-23||||
             àª•à«‡àªŸ_àª¬àª¾àª¯_àªªà«€àªšàª¾àª• nds to be totally refactored 
                     (for Brevity(dupl) + modularity (call from DV tBar))<br>
                     The curr version has ~5 catPanels manually blt in midP;
@@ -854,136 +646,128 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
                     (5) Modify àªàª•à«àª¸àªªàª¾àª¨àª¡à«‹_àªªà«€àªšàª¾àª• cTor to accept expPanel<br>
                   Most of the work listed above completed; PredTester stable.<br>
                   CategTester alm done; nxt: nd 2 add errHandling</td>
-        |||
+        ]]]
+[[[Jan-20-23||Core|| updated optOr to make more generic (basically @mbi as usu)<br>
+<b>UIAux</b><br>
 
-|||Jan-20-23||  Core|| updated optOr to make more generic (basically @mbi as usu)</td>|||||UIAux</td>
                     Current UI didn't contain both àª•à«‡àªŸ_àª¬àª¾àª¯_àªªà«€àªšàª¾àª• + àª•àª²àª•àª¤à«€_àªªà«€àªšàª¾àª•;<br>
                       so brought em in from another UI file.<br>
                       @ sometime nd 2 diff/ensure all deltas merged.</td>
-        |||
-
-|||Jan-19-23|| UIAux||
+        ]]]
+[[[Jan-19-23||UIAux||
                     Some updates to PredTester (connecter logic, order of flds, colStyles etc.)<br>
                     CalcuttiMasaloAux categBy/et al updated to options for ref in Dz cTor<br>
                     DzDV back online with the new Aux stuff/Masalas/et al</td>
-        |||
-
-|||Jan-18-23|| UIAux||
+        ]]]
+[[[Jan-18-23||UIAux||
                                   àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy: single fld gappa<br>
                                   àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_fld_eoy (stable; some work compl)<br>
-                   Added ty àª«à«€àª²à«àª¡_àªªà«‡àª¨àª²_Aux for changes (NumUpDn etc)</td>
-        <tr class = "BrijLogtr"></td>Brij</td>
+                   Added ty àª«à«€àª²à«àª¡_àªªà«‡àª¨àª²_Aux for changes (NumUpDn etc)</td><br>
+<b>Brij</b><br>
+
                    remmed 'let WD' in canned Suppliers 
                     (@mbi has compile issues + we're using it locally) 
                    Updated ty FldType</td>
 
 |||||general||<mark>
           src backup</mark>
-        |||
-
-|||||Lib net shutdown (connectivity issues)</td>
-        |||
-
-|||Jan-13-23|| UIAux||
+        ]]]
+[[[||Lib net shutdown (connectivity issues)</td>
+        ]]]
+[[[Jan-13-23||UIAux||
                     major updates to àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•_eoy 
                     (removing btns to consolidate edit single fld gappa)
                     Stable
                   Generated new set of screenshots
-        |||
-
-|||Jan-12-23||
+        ]]]
+[[[Jan-12-23||
                     subCategDisp Completed; now nd to generisize/port [much mbi w/display but it is stable]
         <tr class = "BrijLogtr">||both</td>
                     Considerable work on DzAux as a prelude to bakaaNoM; alm compl exc 4 mbi w/ITblTy
-        |||
-
-|||Jan-11-23|| UIAux||
+        ]]]
+[[[Jan-11-23||UIAux||
                     Added new ty CalcPred<'t> for all preds (categ/flt/sort)
-                    Note: CalcMAux now has only 1 genericParam comme les autres; instd of earlier 3
-        <tr class = "BrijLogtr"></td>logged</td>
+                    Note: CalcMAux now has only 1 genericParam comme les autres; instd of earlier 3<br>
+<b>logged</b><br>
+
                     Updated the CalcMAux refs (for above; these flds were earlier opts w/None passed in)
-                    Brij: @ present tkDv uses hardCoded categs which were left as is
-        <tr class = "BrijLogtr"></td>catCols Impl (both)</td>
+                    Brij: @ present tkDv uses hardCoded categs which were left as is<br>
+<b>catCols Impl (both)</b><br>
+
                     Added musicDat_Jan (new categSchme) to UIAux
                     mbi SPLAT(!) w/ return vals from musicDat (expects string * obj * Type') in kathoHandlerAux
                     Several pieces hardCoded in lieu of mbi BUT everthing working exc subCategDisp
-        |||
-
-|||Jan-10-23||||
+        ]]]
+[[[Jan-10-23||||
            FlkBrg pour sId</td>
-        |||
-
-|||Jan-09-23|| UIAux/logged||
+        ]]]
+[[[Jan-09-23||UIAux/logged||
                     Some work on DzAux; splat(!) nd 2 revert to leaving them compilerLess...
-        |||
-
-|||Jan-07-23|| UIAux/logged||
+        ]]]
+[[[Jan-07-23||UIAux/logged||
                     Further updates to colorSchemes in gappa/pich/etc. to confirm across the board
                     Some more work on the PredBldr; added errorProv & toTpl()
-        |||
+        ]]]
+[[[Jan-06-23||UIAux||
+                    Some updates to PredTester<br>
+<b>logged</b><br>
 
-|||Jan-06-23|| UIAux||
-                    Some updates to PredTester
-        <tr class = "BrijLogtr"></td>logged</td>
                     updated the openWin stuff in SaadooP; removed the genTyParam
-                    Added ty BrijWin + Saadoo menu
-        <tr class = "BrijLogtr"></td>Both</td><mark>
+                    Added ty BrijWin + Saadoo menu<br>
+<b>Both</b><br>
+<mark>
                     Added a new colorScheme (bblgm) + var updates to store/retrieve currSel frm State
                     @ToDo: if colSchm names are the same as the MenuItems we can
                         rem 4 lines (to set marked) via moving into the fn
-        |||
-
-|||Jan-05-23|| Bakaa_no_Masalo||basic sketch + pseudoC 
-        |||
-
-|||Jan-04-23|| UIAux||
+        ]]]
+[[[Jan-05-23||Bakaa_no_Masalo||basic sketch + pseudoC 
+        ]]]
+[[[Jan-04-23||UIAux||
                     Interned all PredTester assoc stuff ici; stable
                     Upd: Added tys | àª—àªªà«àªªàª¾_àªªàª¾àª¨_Pred | àªªà«àª°à«‡àª¡_àªªà«€àªšàª¾àª• | àªàª•à«àª¸_àªªà«‡àª¨àª²
                     Some work on xTpl type/expr.ToStr() etc.
                     Impl getImg (despite much mbi); BanarM hangs coz of their ineptitude
                     Cleaned up dsk itms
                     Upd. hlp w/a more complete set of screenshots of all major Paans/Masalas
-        |||
-
-|||Jan-03-23|| UIAux||
+        ]]]
+[[[Jan-03-23||UIAux||
                     As mentioned below issues w/àª•àª²àª•àª¤à«€_àªªàª¾àª¨_Nov (can't find old(er) ver of DVDef)
                     Ported the refs to curr ver of Brij.CalcuttiMasalo
                     Updated àª®à«€àª à«‚_àªªàª¾àª¨_eoy cTor param SaadoMasalo to SaadoMasaloAux
                     SadooP	Applied Dec08 ClrSchm to curr
-        |||
-
-|||Dec-30-22|| UIAux||
+        ]]]
+[[[Dec-30-22||UIAux||
             ported BM/MeethoM to main fork in UIAux (ren to ~Aux + ~eoy)<br>
                   (nded to up the UI ass to 11.17 which causes some issues w/Calcut)<br>
                   gen screenshots of all major Paans/Masalas, to be compl.</td>
-        |||
-
-|||Dec-29-22||||
+        ]]]
+[[[Dec-29-22||||
            Phat_Nov17_LastWithFormCfgMeethoo_Patch4<br>
                     FrmCfg opts are now wired to ctorDef (stable)<br>
-                    Label Font default to ital</td>
-        <tr class = "BrijLogtr"></td>Brij.fs</td>
+                    Label Font default to ital</td><br>
+<b>Brij.fs</b><br>
+
                     Colors default frm currSchm (in Brij:BanarasiMasalo.getDeflt)<br>
                     Ttip subCol<br>
                     defUpd hndlrs on OK/Save</td>
-        |||
-
-|||Dec-28-22||||
+        ]]]
+[[[Dec-28-22||||
            Phat_Nov17_LastWithFormCfgMeethoo_Patch3<br>
                     ren frm_pich to àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª• (per current UI)<br>
-                    added Thingy ty (placehldr)
-        <tr class = "BrijLogtr"></td>Brij.fs</td>
-                    inserted/updated BM/BFld tys in patch Brij.fs per new constraints
-        <tr class = "BrijLogtr"></td>loggedUIRunner.fs</td><mark>
+                    added Thingy ty (placehldr)<br>
+<b>Brij.fs</b><br>
+
+                    inserted/updated BM/BFld tys in patch Brij.fs per new constraints<br>
+<b>loggedUIRunner.fs</b><br>
+<mark>
                     moved banarasiPich_eoy + gappa_eoy here to use the new Core; stable
                     ALL subseq. updates will be made ici
                     generated BanarasiM
                     added getDefault() to BanarasiMasalo + BanarasiFld; stable
                     issues w/GK et al BUT stable impl of àªŸà«‡àª¨à«àª—/GT (effortless!)
                         needs followup: can see the Ks in iLspy but compiler doesn't ?!
-        |||
-
-|||Dec-27-22|||| Phat_Nov17_LastWithFormCfgMeethoo_Patch2<br>
+        ]]]
+[[[Dec-27-22|||| Phat_Nov17_LastWithFormCfgMeethoo_Patch2<br>
                     Further updates to meethoo paan:<br>
                     updated gappa to work w/frmSetup<br>
                     fixed bugs: lv itm#1 can't be moved down<br>
@@ -996,157 +780,134 @@ Added fn datGetAllOfTy, datGetAllDocOfTy, datGetAllDizOfTy
                     updated gappa wldRef for above (NDS 2 go to UI_current)<br>
                         added tmpWorkaround (@mbi w/hkt) to return brijLogo<br>
                         DOESN'T nd to be grafted (getImg tmp returns icon since mbi w/wld)</td>
-        |||
-
-|||Dec-22-22||||
+        ]]]
+[[[Dec-22-22||||
            Phat_Nov17_LastWithFormCfgMeethoo_Patch1<br>
                     Further updates to meethoo paan:<br>
                     merged handlers to one: tblDefAddModFld
                       (uses àªŸà«‡àª¬àª²_àª¡à«‡àª«_àªàª¡_àª®à«‹àª¡_àª«àª¿àª²à«àª¡_àªªà«€àªšàª¾àª• )<br>
-                    added inline handler for RemoveFld
-        <tr class = "BrijLogtr"></td>Brij.fs</td>
-            Minor updates to bring type SaadoMasalo to current</td>
-        |||
+                    added inline handler for RemoveFld<br>
+<b>Brij.fs</b><br>
 
-|||Dec-21-22|| Brij.fs||
+            Minor updates to bring type SaadoMasalo to current</td>
+        ]]]
+[[[Dec-21-22||Brij.fs||
             Added isCateg/Parent flds 2 CoreM; compileErrs shd cascade
-        </td>||||| UI.fs</td>
+        <br>
+<b> UI.fs</b><br>
+
              Worked w/(UI+Brij Phat_Nov17)<br>
                         Several updates incl meethoo paan<br>
                         blt 2 pichaak handlers mostly tested<br>
                                 Deltas merged into UI current (nd to create patches for continual updates)<br>
                                 nxt: nd to add a SaveBtn
-        |||
-
-|||Dec-20-22|| loggedUIRunner; UIAux||
+        ]]]
+[[[Dec-20-22||loggedUIRunner; UIAux||
                             Various stuff moved to UIAux, rejiggered dsk etc<br>
                             (basically all yesterday pm's stuff redone coz
                              @mbi: deleted archive files pre-save) along w/some deltas</td>
-        |||
+        ]]]
+[[[Dec-19-22||Core.fs||
+           Updated some Core fns, incl to3Tpl -> to3T ...<br>
+<b>Brij.fs</b><br>
 
-|||Dec-19-22|| Core.fs||
-           Updated some Core fns, incl to3Tpl -> to3T ...
-        <tr class = "BrijLogtr"></td>Brij.fs</td>
                   Added isDeleted fld 2 CoreM; compileErrs shd cascade
                   loggedUIRunner<br>>
                     Some updates incl to SaaduPaan; dsk imgs/moving menuItms to dsk;
                     updates to ColorSchms etc.</td>
-        |||
-
-|||Dec-17-22|| SignalR   ||</td>
-        |||
-
-|||Dec-16-22|| SignalR||   Ported missing fns to allow standalone CScli; it works (svr still cs)
+        ]]]
+[[[Dec-17-22||SignalR   ||</td>
+        ]]]
+[[[Dec-16-22||SignalR||   Ported missing fns to allow standalone CScli; it works (svr still cs)
                             Began creating FScli
-        |||
-
-|||Dec-15-22||||           Archive recovery/rebuilding
+        ]]]
+[[[Dec-15-22||||           Archive recovery/rebuilding
                             tkDat ser; ported the new tkDV to Nov ver for tbdb<br>
                   BrijServer.fs several updates to datRoutines for ttips etc.</td>
-        |||
-
-|||||general||<mark>
+        ]]]
+[[[||general||<mark>
           src backup</mark>
-        |||
-
-|||Dec-14-22|| BrijServer.fs||<mark>
+        ]]]
+[[[Dec-14-22||BrijServer.fs||<mark>
             rewrote rec tkDatAux; tkDV is stable with the foll caveats:<br>
                                 - tkDat doesn't work (no colHdrs/Cats) w/either new or old Calcutti<br>
                                 - musicDat behaves similarly (chk) as above<br>
                                 - issue is poss related 2 colOrdr; tbdb</mark>
-        |||
-
-|||Dec-13-22||           SignalR
-        |||
-
-|||Dec-12-22||
-           BrijServer.fs||
+        ]]]
+[[[Dec-13-22||           SignalR
+        ]]]
+[[[Dec-12-22||BrijServer.fs||
                             tkDV/Brij.Server
-        |||
-
-|||Dec-10-22||||           Moved all new dat mods to UIAux for concurrent ref
-        |||
-
-|||Dec-09-22||||<mark>           tkDV (stable-ish)
+        ]]]
+[[[Dec-10-22||||           Moved all new dat mods to UIAux for concurrent ref
+        ]]]
+[[[Dec-09-22||||<mark>           tkDV (stable-ish)
             </mark>
-        |||
-
-|||||var updates (tbfo)</td>
-        |||
-
-|||Dec-05-22|| Brij.fs||   nailed down tkDat w/gen from hardCoded flds; some updates to UI calcti.</td>
-        |||
-
-|||Dec-03-22|| Brij.fs||
+        ]]]
+[[[||var updates (tbfo)</td>
+        ]]]
+[[[Dec-05-22||Brij.fs||   nailed down tkDat w/gen from hardCoded flds; some updates to UI calcti.</td>
+        ]]]
+[[[Dec-03-22||Brij.fs||
            updated tkPics for testing the new calcutti stuff
-        |||
-
-|||Dec-02-22|| gen||
+        ]]]
+[[[Dec-02-22||gen||
                updated bookmarks w/latest maps
-        |||
+        ]]]
+[[[Dec-01-22||Brij.fs||
+           added BrijTy<'t></td><br>
+<b>UI.fs</b><br>
 
-|||Dec-01-22|| Brij.fs||
-           added BrijTy<'t></td>|||||
-                  UI.fs</td>
              further work on UI.àª•à«‡àªŸ_àª¬àª¾àª¯_àªªà«€àªšàª¾àª•
-        |||
-
-|||Nov-30-22|| UI.fs||
+        ]]]
+[[[Nov-30-22||UI.fs||
              further work on UI.àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•<br>
                             some work on àª®à«€àª à«‚_àªªà«€àªšàª¾àª• + àª•àª²àª•àª¤à«€_àªªà«€àªšàª¾àª•<br>
                             added àªšà«‡àª•à«àª¡_àªªà«€àªšàª¾àª• + àª®à«€àª à«‚_àªªà«€àªšàª¾àª• + àª•à«‡àªŸ_àª¬àª¾àª¯_àªªà«€àªšàª¾àª•
-        |||
-
-|||Nov-29-22|| UI.fs||
+        ]]]
+[[[Nov-29-22||UI.fs||
              deltas from earlier work + flash (compl tho @mbi) moved into this<br>
                             changes to UI.àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª• to incl CanUHear
-        |||||
-                  Brij.fs</td>
+        <br>
+<b>Brij.fs</b><br>
+
            added type Thingy for UI.àª¬àª¨àª¾àª°àª¸à«€_àªªà«€àªšàª¾àª•
-        |||
-
-|||Nov-28-22|| loggedUIRunner||
-                                                àª¬àª¨àª¾àª°àª¸à«€_àªªàª¾àª¨ work completed on fldPop w/noSkips
-        </td>|||
-
-|||||
-                  UI.fs||
+        ]]]
+[[[Nov-28-22||loggedUIRunner||
+                                                àª¬àª¨àª¾àª°àª¸à«€_àªªàª¾àª¨ work completed on fldPop w/noSkips<br>
+<b>
+                  UI.fs</b>
          àª«à«€àª²à«àª¡_àªªà«‡àª¨àª² ctor now accepts fldVal & sets ea ctrl to (optOr ~~)<br>
                         TtipMngr.formatTtip (wrap+ell)</td>|||
 
-|||||
-                  loggedUIRunner||
+<br>
+<b>loggedUIRunner||
          (Nov2ver w/ClrSchemes/Grid/etc.; much remmed in this ver;
                                   also nded Brij from Nov02)<br>
                         Some work on g.Flash
-        |||
-
-|||Nov-22-22|| UI.fs||<mark>
+        ]]]
+[[[Nov-22-22||UI.fs||<mark>
          Brij.gullo + hdnlr framewrk
                         @ToDo: Some renaming to bring all terms in line (pichaak); more remains: 
                           run a FindFiles on "masalo"
                         Added runG impl + runGDlg() ty/pichaak
-        |||
-
-|||Nov-22-22|| UI.fs||
+        ]]]
+[[[Nov-22-22||UI.fs||
          expandoState & svrCmd "openDVexpando" + added tbarBtns to g<br>
                         dsk.ms + winSwitch
-        </td>|||||
-        
-                  loggedUIRunner</td>
+        </b><br>
+<br>
+<b>loggedUIRunner</b><br>
+
                         getDatImgNov22: shim to avoid @mbi w/BaseBrij
                         updated all getTSBtn calls w/actual icons from dat
-        |||
-
-|||Nov-21-22|| UI.fs||
+        ]]]
+[[[Nov-21-22||UI.fs||
          mdiUpdates incorp ici
-        |||
-
-|||Nov-19-22||general||<mark>
+        ]]]
+[[[Nov-19-22||general||<mark>
          src backup
-        |||
-
-|||Nov-18-22|| UI.fs||
+        ]]]
+[[[Nov-18-22||UI.fs||
          All work on FrmCfg+Meethoo incorp ici 
         |||
-
