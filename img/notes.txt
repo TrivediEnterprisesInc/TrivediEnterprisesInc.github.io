@@ -1,0 +1,9 @@
+- The colors nd 2 be changed to match the existing gfx colorScheme 
+- Can't use red for the editorIconModifyTbl: since we're using green for plus we nd 2 use red for x; use the alt color (ochre-ish) in the gfxClrScheme.
+- The x for the remove row/col might nd to be brighter/lighter
+- The psd file contains all layers to rebuild (gimp)
+- The rest of the icons in this dir were retrieved to help compose/edit the existing tableIcons
+
+For the disabled icons, open the indiv icn & take the foll steps in Photopea:
+1) Image -> Adjustments -> Black & White 
+2) Image -> Adjustments -> Hue/Saturation -> Set lightness to 40
