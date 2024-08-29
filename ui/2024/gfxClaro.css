@@ -1,0 +1,3448 @@
+/* ======= Styling for the document itself (overriding dojo.css) ======== */
+
+.claro {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 0.688em;
+  color: #131313;
+}
+/* Headings */
+
+.claro h1 {
+  font-size: 1.545em;
+  margin-bottom: 0.727em;
+}
+.claro h2 {
+  font-size: 1.364em;
+  line-height: 1.455em;
+  margin-top: 1em;
+  margin-bottom: 0.6em;
+  font-weight: normal;
+}
+.claro h3,
+.claro h4,
+.claro h5,
+.claro h6 {
+  font-size: 1.091em;
+  font-weight: normal;
+}
+/* paragraphs, quotes and lists */
+
+.claro p {
+  line-height: 1.3em;
+}
+/* pre and code */
+
+.claro pre,
+.claro code {
+  font-family: inherit;
+  background-color: #efefef;
+  border: 1px solid #d3d3d3;
+}
+/* tables */
+
+.claro table.dojoTabular thead,
+.claro table.dojoTabular tfoot {
+  background-color: #efefef;
+  border: 1px solid #d3d3d3;
+}
+/* Button | DropDownButton | ComboButton | ToggleButton
+ * 
+ * Styling Buttons mainly includes:
+ * 
+ * 1. Containers
+ * 		.dijitButton
+ * 		.dijitDropDownButton
+ * 		.dijitComboButton
+ * 		.dijitButtonNode - common button/arrow wrapper shared across all three button types 
+ *
+ * 2. Button text
+ * 		.dijitButtonText
+ * 
+ * 3. Arrows - only for DropDownButton and ComboButton
+ * 	     There are total four directions arrows - down, left, right, up:
+ * 		.dijitArrowButtonInner - down arrow by default
+ *      .dijitLeftArrowButton .dijitArrowButtonInner - left arrow
+ *      .dijitRightArrowButton .dijitArrowButtonInner - right arrow
+ *      .dijitUpArrowButton .dijitArrowButtonInner - up arrow
+ * 
+ * 4. States - Hover, Active, Disabled, e.g.
+ * 		.dijitButtonHover .dijitButtonNode
+ * 		.dijitButtonActive .dijitButtonNode
+ * 		.dijitButtonDisabled .dijitButtonNode
+ *      
+ *      .dijitDisabled .dijitArrowButtonInner  - disabled arrow states 
+ */
+
+.claro .dijitButtonNode {
+  /* rules for dijit.form.*Button widgets and arrow nodes on ComboBox, Spinner etc. */
+
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.claro .dijitButton .dijitButtonNode,
+.claro .dijitDropDownButton .dijitButtonNode,
+.claro .dijitComboButton .dijitButtonNode,
+.claro .dijitToggleButton .dijitButtonNode {
+  /* rules for the dijit.form.*Button widgets (see also ComboButton section below) */
+  border: 1px solid #759dc0;
+  padding: 2px 4px 4px 4px;
+  color: #000;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  background-color: #bcd8f4;
+  background-image: url("images/buttonEnabled.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
+  background-image: -webkit-linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
+  background-image: -o-linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
+  background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.75) 100%);
+  _background-image: none;
+}
+.claro .dijitComboButton .dijitArrowButton {
+  border-left-width: 0;
+  padding: 4px 2px 4px 2px;
+  /* TODO: still needed? */
+
+}
+/*arrow styles for down/up/left/right directions*/
+
+.claro .dijitArrowButtonInner {
+  width: 15px;
+  height: 15px;
+  margin: 0 auto;
+  background-image: url("../form/images/buttonArrows.png");
+  background-repeat: no-repeat;
+  background-position: -51px 53%;
+}
+.claro .dijitLeftArrowButton .dijitArrowButtonInner {
+  background-position: -77px 53%;
+}
+.claro .dijitRightArrowButton .dijitArrowButtonInner {
+  background-position: -26px 53%;
+}
+.claro .dijitUpArrowButton .dijitArrowButtonInner {
+  background-position: 0 53%;
+}
+.claro .dijitDisabled .dijitArrowButtonInner {
+  background-position: -151px 53%;
+}
+.claro .dijitDisabled .dijitLeftArrowButton .dijitArrowButtonInner {
+  background-position: -177px 53%;
+}
+.claro .dijitDisabled .dijitRightArrowButton .dijitArrowButtonInner {
+  background-position: -126px 53%;
+}
+.claro .dijitDisabled .dijitUpArrowButton .dijitArrowButtonInner {
+  background-position: -100px 53%;
+}
+.claro .dijitButtonText {
+  padding: 0 0.3em;
+  text-align: center;
+}
+/* hover status */
+
+.claro .dijitButtonHover .dijitButtonNode,
+.claro .dijitDropDownButtonHover .dijitButtonNode,
+.claro .dijitComboButton .dijitButtonNodeHover,
+.claro .dijitComboButton .dijitDownArrowButtonHover,
+.claro .dijitToggleButtonHover .dijitButtonNode {
+  background-color: #86bdf2;
+  color: #000;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+/* active, checked status */
+
+.claro .dijitButtonActive .dijitButtonNode,
+.claro .dijitDropDownButtonActive .dijitButtonNode,
+.claro .dijitComboButtonActive .dijitButtonNode,
+.claro .dijitToggleButtonActive .dijitButtonNode,
+.claro .dijitToggleButtonChecked .dijitButtonNode {
+  background-color: #86bdf2;
+  -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+/* disabled status */
+
+.claro .dijitButtonDisabled,
+.claro .dijitDropDownButtonDisabled,
+.claro .dijitComboButtonDisabled,
+.claro .dijitToggleButtonDisabled {
+  background-image: none;
+  outline: none;
+}
+.claro .dijitButtonDisabled .dijitButtonNode,
+.claro .dijitDropDownButtonDisabled .dijitButtonNode,
+.claro .dijitComboButtonDisabled .dijitButtonNode,
+.claro .dijitToggleButtonDisabled .dijitButtonNode {
+  background-color: #efefef;
+  border: solid 1px #d3d3d3;
+  color: #818181;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  background-image: url("images/buttonDisabled.png");
+  background-image: -moz-linear-gradient(#ffffff 0%, rgba(255, 255, 255, 0) 40%);
+  background-image: -webkit-linear-gradient(#ffffff 0%, rgba(255, 255, 255, 0) 40%);
+  background-image: -o-linear-gradient(#ffffff 0%, rgba(255, 255, 255, 0) 40%);
+  background-image: linear-gradient(#ffffff 0%, rgba(255, 255, 255, 0) 40%);
+  _background-image: none;
+}
+.claro .dijitComboButtonDisabled .dijitArrowButton {
+  border-left-width: 0;
+}
+/* for ComboButton */
+
+.claro table.dijitComboButton {
+  border-collapse: separate;
+  /* override dijit.css so that ComboBox rounded corners work */
+
+}
+.claro .dijitComboButton .dijitStretch {
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+.claro .dijitComboButton .dijitArrowButton {
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+/* Combo Button */
+
+.claro .dijitComboButtonRtl .dijitStretch {
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+.claro .dijitComboButtonRtl .dijitArrowButton {
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+  padding: 3px 0 4px;
+  border-left-width: 1px;
+  border-right-width: 0;
+}
+/* End Combo Button */
+
+/* ContentPane 
+ *	
+ * .dijitContentPane
+ * 	set padding for basic content pane
+ * 	
+ * Nested layouts:
+ * 
+ * .dijitTabContainerTop-dijitContentPane,
+ * .dijitTabContainerLeft-dijitContentPane,
+ * .dijitTabContainerBottom-dijitContentPane,
+ * .dijitTabContainerRight-dijitContentPane
+ * 	set background-color and padding of ContentPanes nested within TabContainer (can do top, left, bottom, or right) or Accordion Container
+ *
+ * .dijitAccordionContainer-dijitContentPane
+ * 	set background-color and padding of ContentPane nested within Accordion
+ *
+ * .dijitSplitContainer-dijitContentPane, 
+ *	set background-color and padding of ContentPane nested within a SplitContainer 
+ *
+ * .dijitBorderContainer-dijitContentPane
+ *	set background-color and padding of ContentPane nested within a BorderContainer 
+ */
+
+.claro .dijitContentPane {
+  padding: 8px;
+}
+/* nested layouts */
+
+.claro .dijitTabContainerTop-dijitContentPane,
+.claro .dijitTabContainerLeft-dijitContentPane,
+.claro .dijitTabContainerBottom-dijitContentPane,
+.claro .dijitTabContainerRight-dijitContentPane,
+.claro .dijitAccordionContainer-dijitContentPane {
+  background-color: #fff;
+  padding: 8px;
+}
+.claro .dijitSplitContainer-dijitContentPane,
+.claro .dijitBorderContainer-dijitContentPane {
+  background-color: #fff;
+  padding: 8px;
+}
+/* Accordion
+ * 
+ * Styling AccordionContainer basically means styling the accordion pane (dijitAccordionInnerContainer)
+ * and the title inside of it (dijitAccordionTitle).   There are 4 basic states to style:
+ * 
+ * 1. closed pane (and default styling): 
+ * 		.dijitAccordionInnerContainer - container for each accordion child
+ * 		.dijitAccordionTitle - title for each accordion child
+ *
+ * 2. active closed pane (ie, mouse down on a title bar)
+ * 		.dijitAccordionInnerContainerActive - for background-color, border
+ * 		.dijitAccordionInnerContainerActive dijitAccordionTitle - for text color
+ * 
+ * 3. open pane (expanded child)
+ *		.dijitAccordionChildWrapper - wraps around the child widget (typically ContentPane)
+ *			setting a margin so that there's blue trim all the way around the child
+ *
+ * 		These rules need to override the closed pane active:
+ *
+ * 		.dijitAccordionInnerContainerSelected - for background-color, border
+ * 		.dijitAccordionInnerContainerSelected .dijitAccordionTitle - for text color
+ * 
+ * 4. hovered pane, open or closed
+ * 		The selectors below affect hovering over both a closed pane (ie, hovering a title bar),
+ * 		and hovering over an open pane.   Also, treat mouse down on an open pane as a hover:
+ *
+ * 		.dijitAccordionInnerContainerHover, .dijitAccordionInnerContainerSelectedActive - for background-color, border
+ * 		.dijitAccordionInnerContainerHover .dijitAccordionTitle - for text color
+ */
+
+.claro .dijitAccordionContainer {
+  border: none;
+}
+.claro .dijitAccordionInnerContainer {
+  background-color: #efefef;
+  /* gray, for closed pane */
+  border: solid 1px #b5bcc7;
+  margin-bottom: 1px;
+  -webkit-transition-property: background-color, border;
+  -moz-transition-property: background-color, border;
+  transition-property: background-color, border;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+.claro .dijitAccordionTitle {
+  background-color: transparent;
+  /* pick up color from dijitAccordionInnerContainer */
+
+  background-image: url("../images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 5px 7px 2px 7px;
+  min-height: 17px;
+  color: #494949;
+}
+.claro .dijitAccordionContainer .dijitAccordionChildWrapper {
+  /* this extends the blue trim styling of the title bar to wrapping around the node.
+	 * done by setting margin
+	 */
+  background-color: #fff;
+  border: 1px solid #759dc0;
+  margin: 0 2px 2px;
+}
+.claro .dijitAccordionContainer .dijitAccordionContainer-child {
+  /* this is affecting the child widget itself */
+  padding: 9px;
+}
+/* Hover state for closed pane */
+
+.claro .dijitAccordionInnerContainerHover {
+  border: 1px solid #759dc0;
+  background-color: #abd6ff;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.claro .dijitAccordionInnerContainerHover .dijitAccordionTitle {
+  color: #000;
+}
+/* Active state for closed pane */
+
+.claro .dijitAccordionInnerContainerActive {
+  border: 1px solid #759dc0;
+  background-color: #7dbdfa;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+.claro .dijitAccordionInnerContainerActive .dijitAccordionTitle {
+  background-image: url("../images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  color: #000;
+}
+/* Open (a.k.a. selected) pane */
+
+.claro .dijitAccordionInnerContainerSelected {
+  border-color: #759dc0;
+  background-color: #cfe5fa;
+}
+.claro .dijitAccordionInnerContainerSelected .dijitAccordionTitle {
+  color: #000;
+  background-image: url("../images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  /* avoid effect when clicking the title of the open pane */
+
+}
+/* BorderContainer 
+
+Splitters and gutters separate panes within a BorderContainer. Splitters can be moved up and down (horizonal splitters) or left and right (vertical splitters), while Gutters are static. A "thumb" is the slit on a Splitter that indicates it is movable. 
+
+Styling the BorderContainer widget consists of the following: 
+
+.dijitBorderContainer - for border and padding of the entire border container
+
+.dijitSplitContainer-child, .dijitBorderContainer-child - for border or child panes of the border container. By default borders are put on all children of BorderContainer.  
+
+.dijitBorderContainer-dijitTabContainerTop,
+.dijitBorderContainer-dijitTabContainerBottom,
+.dijitBorderContainer-dijitTabContainerLeft,
+.dijitBorderContainer-dijitTabContainerRight,
+.dijitBorderContainer-dijitAccordionContainer   -for border of the border containers within TabContainer or AccordionContainer widget
+
+.dijitBorderContainer-dijitBorderContainer - for border and padding of nested BorderContainers
+
+Splitters and gutters:  
+
+.dijitSplitterH, .dijitGutterH - for height, background, and border of a horizontal splitter and gutter 
+.dijitSplitterH .dijitSplitterThumb - for color, height/width of the thumb on a horizontal splitter
+.dijitSplitterV, .dijitGutterV - - for height, background, and border of a vertical splitter and gutter 
+.dijitSplitterV .dijitSplitterThumb - for color, height/width of the thumb on a vertical splitter
+.dijitSplitterHHover - for background-color of a hovered horizontal splitter
+.dijitSplitterHHover .dijitSplitterThumb - for background-color of a hovered thumb on a horizontal splitter
+.dijitSplitterVHover  - for background-color of a hovered vertical splitter
+.dijitSplitterVHover .dijitSplitterThumb - for background-color of a hovered thumb on a vertical splitter
+.dijitSplitterHActive - for background-color of an active horizontal splitter
+.dijitSplitterVActive - for background-color of an active horizontal splitter
+*/
+
+.claro .dijitBorderContainer {
+  /* matches the width of the splitters between panes */
+  padding: 5px;
+}
+.claro .dijitSplitContainer-child,
+.claro .dijitBorderContainer-child {
+  /* By default put borders on all children of BorderContainer,
+	 *  to give illusion of borders on the splitters themselves.
+	 */
+  border: 1px #b5bcc7 solid;
+}
+.claro .dijitBorderContainer-dijitTabContainerTop,
+.claro .dijitBorderContainer-dijitTabContainerBottom,
+.claro .dijitBorderContainer-dijitTabContainerLeft,
+.claro .dijitBorderContainer-dijitTabContainerRight,
+.claro .dijitBorderContainer-dijitAccordionContainer {
+  /* except that TabContainer defines borders on it's sub-nodes (tablist and dijitTabPaneWrapper),
+	 * so override rule setting border on domNode
+	 */
+  border: none;
+}
+.claro .dijitBorderContainer-dijitBorderContainer {
+  /* make nested BorderContainers look like a single big widget with lots of splitters */
+  border: 0;
+  padding: 0;
+}
+/* Splitters and gutters */
+
+.claro .dijitSplitterH,
+.claro .dijitGutterH {
+  background: none;
+  border: 0;
+  height: 5px;
+}
+.dj_ios .claro .dijitSplitterH,
+.dj_android .claro .dijitSplitterH {
+  height: 11px;
+}
+.claro .dijitSplitterH .dijitSplitterThumb {
+  background: #b5bcc7 none;
+  height: 1px;
+  top: 2px;
+  width: 19px;
+}
+.dj_ios .claro .dijitSplitterH .dijitSplitterThumb,
+.dj_android .claro .dijitSplitterH .dijitSplitterThumb {
+  top: 5px;
+}
+.claro .dijitSplitterV,
+.claro .dijitGutterV {
+  background: none;
+  border: 0;
+  width: 5px;
+  margin: 0;
+}
+.dj_ios .claro .dijitSplitterV,
+.dj_android .claro .dijitSplitterV {
+  width: 11px;
+}
+.claro .dijitSplitterV .dijitSplitterThumb {
+  background: #b5bcc7 none;
+  height: 19px;
+  left: 2px;
+  width: 1px;
+  margin: 0;
+}
+.dj_ios .claro .dijitSplitterV .dijitSplitterThumb,
+.dj_android .claro .dijitSplitterV .dijitSplitterThumb {
+  left: 5px;
+}
+/* hovered splitter */
+
+.claro .dijitSplitterHHover,
+.claro .dijitSplitterVHover {
+  font-size: 1px;
+  background-color: #cfe5fa;
+}
+.claro .dijitSplitterHHover {
+  background-image: -moz-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
+  background-image: -webkit-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
+  background-image: -o-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
+  background-image: linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
+}
+.claro .dijitSplitterVHover {
+  background-image: -moz-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
+  background-image: -webkit-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
+  background-image: -o-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
+  background-image: linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0) 50%, #ffffff 100%);
+}
+.claro .dijitSplitterHHover .dijitSplitterThumb,
+.claro .dijitSplitterVHover .dijitSplitterThumb {
+  background: #759dc0 none;
+}
+/* active splitter */
+
+.claro .dijitSplitterHActive,
+.claro .dijitSplitterVActive {
+  font-size: 1px;
+  background-color: #abd6ff;
+  background-image: none;
+}
+/* Calendar
+ * 
+ * Styling Calendar mainly includes:
+ * 
+ * 1. Calendar container
+ * 		.dijitCalendar - main container
+ * 		.dijitCalendarHover / .dijitCalendarActive - states e.g. hover,active
+ * 
+ * 2. Month
+ * 		.dijitCalendarMonthContainer
+ * 		.dijitCalendarMonthLabel
+ *      .dijitCalendarDecrease / .dijitCalendarDecrease - icons for switching to previous/next month
+ *      .dijitCalendarArrowActive .dijitCalendarDecrease - states e.g. hover,active
+ * 
+ * 3. Date
+ * 		.dijitCalendarDayLabelTemplate - week day column header e.g. S M T W T F S
+ * 		.dijitCalendarDateTemplate - date label wrapper
+ * 		.dijitCalendarPreviousMonth .dijitCalendarDateLabel - special labels for previous or next month
+ *      .dijitCalendarSelectedDate .dijitCalendarDateLabel - styles for selected date
+ * 		.dijitCalendarDisabledDate .dijitCalendarDateLabel - styles for disabled date
+ * 		.dijitCalendarActiveDate .dijitCalendarDateLabel - states e.g. hover,active
+ * 
+ * 4. Year
+ * 		.dijitCalendarYearContainer
+ * 		.dijitCalendarYearLabel
+ * 		.dijitCalendarPreviousYear /.dijitCalendarNextYear
+ *      .dijitCalendarNextYearHover / .dijitCalendarPreviousYearHover - states e.g. hover,active
+ *      
+ * 5. Dropdown Month Menu
+ * 		.dijitCalendarMonthMenu - menu container     
+ * 		.dijitCalendarMonthMenu .dijitCalendarMonthLabel - month label in menu item
+ * 		.dijitCalendarMonthMenu .dijitCalendarMonthLabelHover - menu item hover state
+ */
+
+.claro .dijitCalendar {
+  border: solid 1px #b5bcc7;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #cfe5fa;
+  background-image: url("images/calendar.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0.4) 2px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0.4) 2px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0.4) 2px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(#ffffff 0px, rgba(255, 255, 255, 0.4) 2px, rgba(255, 255, 255, 0) 100%);
+  text-align: center;
+  padding: 6px 5px 3px 5px;
+}
+.dj_ie6 .claro .dijitCalendar {
+  background-image: none;
+}
+.claro .dijitCalendar img {
+  border: none;
+}
+.claro .dijitCalendarHover,
+.claro .dijitCalendar:hover,
+.claro .dijitCalendarActive {
+  /* treat dijitCalendarActive like hover since there's
+	 * no concept of clicking a Calendar as a whole (although you can click things inside the calendar)
+	 */
+  background-color: #abd6ff;
+  border: solid 1px #759dc0;
+}
+.claro .dijitCalendar table {
+  border-collapse: separate;
+}
+.claro .dijitCalendarMonthContainer th {
+  text-align: center;
+  padding-bottom: 4px;
+  vertical-align: middle;
+}
+.claro .dijitCalendarMonthLabel {
+  color: #000;
+  font-size: 1.091em;
+  padding: 0 4px;
+}
+/* next/previous month arrows */
+
+.claro .dijitCalendarIncrementControl {
+  width: 18px;
+  height: 16px;
+  background-image: url("images/calendarArrows.png");
+  background-repeat: no-repeat;
+}
+.dj_ie6 .claro .dijitCalendarIncrementControl {
+  background-image: url("images/calendarArrows8bit.png");
+}
+.claro .dijitCalendarIncrease {
+  background-position: -18px 0;
+}
+.claro .dijitCalendarArrowHover .dijitCalendarDecrease,
+.claro .dijitCalendarArrow:hover .dijitCalendarDecrease {
+  background-position: -36px 0;
+}
+.claro .dijitCalendarArrowHover .dijitCalendarIncrease,
+.claro .dijitCalendarArrow:hover .dijitCalendarIncrease {
+  background-position: -55px 0;
+}
+.claro .dijitCalendarArrowActive .dijitCalendarDecrease,
+.claro .dijitCalendarArrow:active .dijitCalendarDecrease {
+  background-position: -72px 0;
+}
+.claro .dijitCalendarArrowActive .dijitCalendarIncrease,
+.claro .dijitCalendarArrow:active .dijitCalendarIncrease {
+  background-position: -91px 0;
+}
+.claro .dijitA11ySideArrow {
+  /* text +/- labels instead of arrow icons, for high contrast mode */
+  display: none;
+}
+.claro .dijitCalendarDayLabelTemplate {
+  padding-bottom: 0;
+  text-align: center;
+  border-bottom: 1px solid #b5bcc7;
+  padding: 0 3px 2px;
+}
+.claro .dijitCalendarDayLabel {
+  padding: 0 4px 0 4px;
+  font-weight: bold;
+  font-size: 0.909em;
+  text-align: center;
+  color: #000;
+}
+.claro .dijitCalendarDateTemplate {
+  text-align: center;
+  background-color: #fff;
+  border-bottom: 1px solid #d3d3d3;
+  padding-top: 0;
+  font-size: 0.909em;
+  font-family: Arial;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  color: #000;
+}
+.dj_ie6 .claro .dijitCalendarDateTemplate {
+  background-image: none;
+}
+.claro .dijitCalendarPreviousMonth,
+.claro .dijitCalendarNextMonth {
+  background-color: #e5f2fe;
+  background-image: none;
+  border-bottom: solid 1px #d3d3d3;
+  /* todo: redundant with above .dijitCalendarDateTemplate rule */
+
+}
+.claro .dijitCalendarDateTemplate .dijitCalendarDateLabel {
+  text-decoration: none;
+  display: block;
+  padding: 3px 5px 3px 4px;
+  border: solid 1px #fff;
+  /* intentionally matches background-color, no visible border until hover/selection */
+  background-color: rgba(171, 212, 251, 0);
+  /* transparent causes black-flash animation problem on webkit */
+
+  -webkit-transition-property: background-color, border;
+  -moz-transition-property: background-color, border;
+  transition-property: background-color, border;
+  -webkit-transition-duration: 0.35s;
+  -moz-transition-duration: 0.35s;
+  transition-duration: 0.35s;
+}
+.claro .dijitCalendarPreviousMonth .dijitCalendarDateLabel,
+.claro .dijitCalendarNextMonth .dijitCalendarDateLabel {
+  color: #759dc0;
+  border-color: #e5f2fe;
+  /* intentionally matches background-color, no visible border until hover/selection */
+
+}
+.claro .dijitCalendarYearContainer {
+  vertical-align: middle;
+}
+.claro .dijitCalendarYearControl {
+  padding: 1px 2px 2px 2px;
+}
+.claro .dijitCalendarYearLabel {
+  padding: 2px 0 0 0;
+  margin: 0;
+  font-size: 1.17em;
+}
+.claro .dijitCalendarYearLabel span {
+  /* trying to center next/current/previous year vertically, doesn't work on IE6/7 though */
+  vertical-align: middle;
+}
+.claro .dijitCalendarSelectedYear {
+  padding: 0 3px;
+}
+.claro .dijitCalendarNextYear,
+.claro .dijitCalendarPreviousYear {
+  padding: 1px 6px 1px 6px;
+  font-size: 0.909em;
+}
+.claro .dijitCalendarSelectedYear {
+  font-size: 1.091em;
+  color: #000;
+}
+/* End Normal Calendar Style */
+
+/* Hovered Calendar Style */
+
+.claro .dijitCalendarHoveredDate .dijitCalendarDateLabel,
+.claro .dijitCalendarLite .dijitCalendarEnabledDate:hover .dijitCalendarDateLabel {
+  background-color: #abd6ff;
+  border: solid 1px #759dc0;
+  color: #000;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.claro .dijitCalendarNextYearHover,
+.claro .dijitCalendarNextYear:hover,
+.claro .dijitCalendarPreviousYearHover,
+.claro .dijitCalendarPreviousYear:hover {
+  color: #000;
+  border: solid 1px #fff;
+  padding: 0 5px 0 5px;
+  /* reduced by 1 to make room for border */
+  background-color: #e5f2fe;
+}
+/* End Hovered Calendar Style */
+
+/* Active Calendar Style */
+
+.claro .dijitCalendarNextYearActive,
+.claro .dijitCalendarNextYear:active .claro .dijitCalendarPreviousYearActive,
+.claro .dijitCalendarPreviousYear:active {
+  border: solid 1px #759dc0;
+  padding: 0 5px 0 5px;
+  /* reduced by 1 to make room for border */
+  background-color: #7dbdfa;
+}
+.claro .dijitCalendarActiveDate .dijitCalendarDateLabel,
+.claro .dijitCalendarEnabledDate:active .dijitCalendarDateLabel {
+  background-color: #7dbdfa;
+  border: solid 1px #fff;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+.dj_ie6 .claro .dijitCalendarActiveDate .dijitCalendarDateLabel {
+  background-image: none;
+}
+/* End Active Calendar Style */
+
+/* Selected Calendar Style */
+
+.claro .dijitCalendarSelectedDate .dijitCalendarDateLabel {
+  color: #000;
+  background-color: #abd6ff;
+  border-color: #759dc0;
+}
+/* End Selected Calendar Style */
+
+/* Disabled Calendar Style*/
+
+.claro .dijitCalendarDisabledDate .dijitCalendarDateLabel {
+  color: #818181;
+  text-decoration: line-through;
+}
+/* End Disabled Calendar Style */
+
+/* Styling for month DropDownButton */
+
+.claro .dijitCalendar .dijitDropDownButton {
+  margin: 0;
+}
+.claro .dijitCalendar .dijitButtonText {
+  padding: 1px 0 3px;
+  margin-right: -4px;
+}
+.claro .dijitCalendar .dijitDropDownButton .dijitButtonNode {
+  padding: 0 3px 0 2px;
+  border: solid 1px #b5bcc7;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  background-color: transparent;
+  background-image: none;
+}
+.claro .dijitCalendar .dijitDropDownButtonHover .dijitButtonNode,
+.claro .dijitCalendar .dijitDropDownButton:hover .dijitButtonNode {
+  background-color: #e5f2fe;
+  border: solid 1px #fff;
+}
+/* Styling for month drop down list */
+
+.claro .dijitCalendarMonthMenu {
+  border-color: #759dc0;
+  background-color: #fff;
+  text-align: center;
+  background-image: none;
+}
+.claro .dijitCalendarMonthMenu .dijitCalendarMonthLabel {
+  border-top: solid 1px #fff;
+  /* intentionally invisible until hover */
+  border-bottom: solid 1px #fff;
+  padding: 2px 0;
+}
+.claro .dijitCalendarMonthMenu .dijitCalendarMonthLabelHover,
+.claro .dijitCalendarMonthMenu .dijitCalendarMonthLabelActive {
+  border-color: #759dc0;
+  border-width: 1px 0;
+  background-color: #abd6ff;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= #ffffff , endColorstr= #abd6ff );
+}
+.claro .dijitCalendarRtl .dijitCalendarIncrease {
+  background-position: 0 0;
+}
+.claro .dijitCalendarRtl .dijitCalendarDecrease {
+  background-position: -18px 0;
+}
+.claro .dijitCalendarRtl .dijitCalendarArrowHover .dijitCalendarIncrease {
+  background-position: -36px 0;
+}
+.claro .dijitCalendarRtl .dijitCalendarArrowHover .dijitCalendarDecrease {
+  background-position: -55px 0;
+}
+.claro .dijitCalendarRtl .dijitCalendarArrowActive .dijitCalendarIncrease {
+  background-position: -72px 0;
+}
+.claro .dijitCalendarRtl .dijitCalendarArrowActive .dijitCalendarDecrease {
+  background-position: -91px 0;
+}
+/* CheckBox
+ * 
+ * Styling CheckBox mainly includes:
+ * 
+ * 1. Containers
+ * 		.dijitCheckBox|.dijitCheckBoxIcon - for border, padding, width|height and background image
+ * 
+ * 2. CheckBox within ToggleButton
+ * 		.dijitToggleButton|.dijitToggleButtonChecked .* - for background image
+ * 
+ * 3. Checked state
+ * 		.dijitCheckBoxChecked - for checked background-color|image
+ * 		.dijitToggleButtonChecked - for border, background-color|image, display and width|height
+ * 
+ * 4. Hover state
+ * 		.dijitCheckBoxHover|.dijitCheckBoxCheckedHover - for background image
+ * 
+ * 5. Disabled state
+ * 		.dijitCheckBoxDisabled|.dijitCheckBoxCheckedDisabled - for background image
+ */
+
+.claro .dijitToggleButton .dijitCheckBoxIcon {
+  background-image: url("../images/checkmarkNoBorder.png");
+}
+.dj_ie6 .claro .dijitToggleButton .dijitCheckBoxIcon {
+  background-image: url("../images/checkmarkNoBorder.gif");
+}
+.claro .dijitCheckBox,
+.claro .dijitCheckBoxIcon/* inside a toggle button */ {
+  background-image: url("../form/images/checkboxRadioButtonStates.png");
+  /* checkbox sprite image */
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 16px;
+  margin: 0 2px 0 0;
+  padding: 0;
+}
+.dj_ie6 .claro .dijitCheckBox,
+.dj_ie6 .claro .dijitCheckBoxIcon/* inside a toggle button */ {
+  background-image: url("../form/images/checkboxAndRadioButtons_IE6.png");
+  /* checkbox sprite image */
+
+}
+.claro .dijitCheckBox,
+.claro .dijitToggleButton .dijitCheckBoxIcon {
+  /* unchecked */
+  background-position: -15px;
+}
+.claro .dijitCheckBoxChecked,
+.claro .dijitToggleButtonChecked .dijitCheckBoxIcon {
+  /* checked */
+  background-position: 0;
+}
+.claro .dijitCheckBoxDisabled {
+  /* disabled */
+  background-position: -75px;
+}
+.claro .dijitCheckBoxCheckedDisabled {
+  /* disabled but checked */
+  background-position: -60px;
+}
+.claro .dijitCheckBoxHover {
+  /* hovering over an unchecked enabled checkbox */
+  background-position: -45px;
+}
+.claro .dijitCheckBoxCheckedHover {
+  /* hovering over an checked enabled checkbox */
+  background-position: -30px;
+}
+/* ColorPalette
+ * 
+ * Styling of the ColorPalette consists of the following:
+ * 
+ * 1. the whole color palette
+ *		.dijitColorPalette - for outline, border, and background color of the whole color palette
+ *		Note: outline does not work for IE
+ *
+ * 2. the color swatch 
+ *		.dijitColorPalette .dijitPaletteImg
+ *		transparent (but clickable) <img> node inside of each <td>, overlaying the color swatch.
+ *		displays border around a color swatch
+ *
+ * 3. hovered swatch
+ * 		.dijitColorPalette .dijitPaletteCell:hover .dijitPaletteImg
+ *		the hovered state of the color swatch - adds border
+ * 	
+ * 4. active and selected swatch
+ * 		.dijitColorPalette .dijitPaletteCell:active .dijitPaletteImg
+ *		.dijitColorPalette .dijitPaletteCellSelected .dijitPaletteImg
+ *		adds border for active or selected state
+ */
+
+.claro .dijitColorPalette {
+  border: 1px solid #b5bcc7;
+  background: #fff;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.claro .dijitColorPalette .dijitPaletteImg {
+  /* transparent (but clickable) <img> node inside of each <td>, overlaying the color swatch.
+	 * displays border around a color swatch
+	 * overrides border color in dijit.css */
+  border: 1px solid #d3d3d3;
+}
+.claro .dijitColorPalette .dijitPaletteCell:hover .dijitPaletteImg {
+  border: 1px solid #000;
+}
+.claro .dijitColorPalette .dijitPaletteCell:active .dijitPaletteImg,
+.claro .dijitColorPalette .dijitPaletteTable .dijitPaletteCellSelected .dijitPaletteImg {
+  border: 2px solid #000;
+}
+/* ========= Styling rules to affect widgets ========= */
+
+.claro .dijitPopup {
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+.claro .dijitTooltipDialogPopup {
+  /* exception popups: do not use a shadow on these because they aren't rectangular */
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* The highlight is shown in the ComboBox menu.  TODO: move to form/Common.less */
+
+.claro .dijitComboBoxHighlightMatch {
+  background-color: #abd6ff;
+}
+.claro .dijitFocusedLabel {
+  /* for checkboxes or radio buttons, hatch border around the corresponding label, to indicate focus */
+  outline: 1px dotted #494949;
+}
+/* Drag and Drop*/
+
+.claro .dojoDndItem {
+  border-color: rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+  -webkit-transition-property: background-color, border-color;
+  -moz-transition-property: background-color, border-color;
+  transition-property: background-color, border-color;
+}
+.claro .dojoDndItemOver {
+  background-color: #abd6ff;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 1px;
+  border: solid 1px #759dc0;
+  color: #000;
+}
+.claro .dojoDndItemAnchor,
+.claro .dojoDndItemSelected {
+  background-color: #cfe5fa;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 1px;
+  border: solid 1px #759dc0;
+  color: #000;
+}
+.claro .dojoDndItemBefore,
+.claro .dojoDndItemAfter {
+  border-color: #759dc0;
+}
+.claro table.dojoDndAvatar {
+  border: 1px solid #b5bcc7;
+  border-collapse: collapse;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.claro .dojoDndAvatarHeader td {
+  height: 20px;
+  padding-left: 21px;
+}
+.claro.dojoDndMove .dojoDndAvatarHeader,
+.claro.dojoDndCopy .dojoDndAvatarHeader {
+  background-image: url("images/dnd.png");
+  background-repeat: no-repeat;
+  background-position: 2px -122px;
+}
+.claro .dojoDndAvatarItem td {
+  padding: 5px;
+}
+.claro.dojoDndMove .dojoDndAvatarHeader {
+  background-color: #f58383;
+  background-position: 2px -103px;
+}
+.claro.dojoDndCopy .dojoDndAvatarHeader {
+  background-color: #f58383;
+  background-position: 2px -68px;
+}
+.claro.dojoDndMove .dojoDndAvatarCanDrop .dojoDndAvatarHeader {
+  background-color: #97e68d;
+  background-position: 2px -33px;
+}
+.claro.dojoDndCopy .dojoDndAvatarCanDrop .dojoDndAvatarHeader {
+  background-color: #97e68d;
+  background-position: 2px 2px;
+}
+/* claro/form/Common_rtl.css */
+
+.claro .dijitTextBoxRtlError .dijitValidationContainer {
+  border-left-width: 0;
+  border-right-width: 1px;
+}
+/* Dialog 
+ * 
+ * Styling Dialog includes two sections: Dialog and Tooltip & TooltipDialog
+ * 
+ * Dialog:
+ * 1. Dialog (default styling): 
+ * 		.dijitDialog - styles for dialog's bounding box
+ *
+ * 2. Dialog title 
+ * 		.dijitDialogTitleBar - styles for the title container at the top of dialog
+ * 		.dijitDialogTitle - the text container in dialog title
+ * 
+ * 3. Dialog content 
+ * 		.dijitDialogPaneContent - main container for content area and action bar
+ * 		.dijitDialogPaneContentArea - styles for content container
+ * 
+ * 4. Dialog action bar 
+ * 		.dijitDialogPaneActionBar - styles for action buttons lie at the bottom of dialog pane content
+ * 
+ * 5. Dialog underlay 
+ * 		.dijitDialogUnderlay - div under the dialog which used for separate dialog and page content
+ * 
+ * 
+ * Tooltip & TooltipDialog:
+ * 1. tooltip content container: 
+ * 		.dijitTooltipContainer - tooltip content container
+ *
+ * 2. tooltip connector: 
+ * 		.dijitTooltipConnector - tooltip anchor includes 4 direction(up, down, left, right)
+ */
+
+.claro .dijitDialog {
+  border: 1px solid #759dc0;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+.claro .dijitDialogPaneContent {
+  background: #fff repeat-x top left;
+  border-top: 1px solid #759dc0;
+  padding: 10px 8px;
+  position: relative;
+}
+.claro .dijitDialogPaneContentArea {
+  /* trick to get action bar (gray bar at bottom with OK/cancel buttons) to span from
+	 * left to right but still indent dialog content
+	 */
+  margin: -10px -8px;
+  padding: 10px 8px;
+}
+.claro .dijitDialogPaneActionBar {
+  /* gray bar at bottom of dialog with OK/Cancel buttons */
+  background-color: #efefef;
+  padding: 3px 5px 2px 7px;
+  text-align: right;
+  border-top: 1px solid #d3d3d3;
+}
+.claro .dijitDialogPaneContent .dijitDialogPaneActionBar {
+  margin: 10px -8px -10px;
+}
+.claro .dijitTooltipDialog .dijitDialogPaneActionBar {
+  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  margin: 10px -10px -8px;
+}
+.claro .dijitDialogPaneActionBar .dijitButton {
+  float: none;
+}
+.claro .dijitDialogTitleBar {
+  /* outer container for the titlebar of the dialog */
+  border: 1px solid #fff;
+  border-top: none;
+  background-color: #abd6ff;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 5px 7px 4px 7px;
+}
+.claro .dijitDialogTitle {
+  /* typography and styling of the dialog title */
+  padding: 0 1px;
+  font-size: 1.091em;
+  color: #000;
+}
+.claro .dijitDialogCloseIcon {
+  /* the default close icon for the dialog */
+  background: url("images/dialogCloseIcon.png");
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 5px;
+  height: 15px;
+  width: 21px;
+}
+.dj_ie6 .claro .dijitDialogCloseIcon {
+  background-image: url("images/dialogCloseIcon8bit.png");
+}
+.claro .dijitDialogCloseIconHover {
+  background-position: -21px;
+}
+.claro .dijitDialogCloseIcon:active {
+  background-position: -42px;
+}
+/* Tooltip and TooltipDialog */
+
+.claro .dijitTooltip,
+.claro .dijitTooltipDialog {
+  /* the outermost dom node, holding the connector and container */
+  background: transparent;
+  /* make the area on the sides of the arrow transparent */
+
+}
+.dijitTooltipBelow {
+  /* leave room for arrow above content */
+  padding-top: 13px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.dijitTooltipAbove {
+  /* leave room for arrow below content */
+  padding-bottom: 13px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.claro .dijitTooltipContainer {
+  /* the part with the text */
+  background-color: #fff;
+  background-image: -moz-linear-gradient(bottom, rgba(207, 229, 250, 0.1) 0px, #fff 10px);
+  background-image: -webkit-linear-gradient(bottom, rgba(207, 229, 250, 0.1) 0px, #fff 10px);
+  background-image: -o-linear-gradient(bottom, rgba(207, 229, 250, 0.1) 0px, #fff 10px);
+  background-image: linear-gradient(bottom, rgba(207, 229, 250, 0.1) 0px, #fff 10px);
+  background-position: bottom;
+  border: 1px solid #759dc0;
+  padding: 6px 8px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  font-size: 1em;
+  color: #000;
+}
+.claro .dijitTooltipConnector {
+  /* the arrow piece */
+  border: 0;
+  z-index: 2;
+  background-image: url("images/tooltip.png");
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 14px;
+}
+.dj_ie6 .claro .dijitTooltipConnector {
+  background-image: url("images/tooltip8bit.png");
+}
+.claro .dijitTooltipBelow .dijitTooltipConnector {
+  /* the arrow piece for tooltips below an element */
+  top: 0;
+  left: 3px;
+  background-position: -31px 0;
+  width: 16px;
+  height: 14px;
+}
+.claro .dijitTooltipAbove .dijitTooltipConnector {
+  /* the arrow piece for tooltips above an element */
+  bottom: 0;
+  left: 3px;
+  background-position: -15px 0;
+  width: 16px;
+  height: 14px;
+}
+.dj_ie7 .claro .dijitTooltipAbove .dijitTooltipConnector,
+.dj_ie6 .claro .dijitTooltipAbove .dijitTooltipConnector {
+  bottom: -1px;
+}
+.claro .dijitTooltipABRight .dijitTooltipConnector {
+  /* above or below tooltip, but the arrow appears on the right,
+		and the right edges of target and tooltip are aligned rather than the left.
+		Override above rules for .dijitTooltipBelow, .dijitTooltipAbove */
+  left: auto;
+  right: 3px;
+}
+.claro .dijitTooltipLeft {
+  padding-right: 14px;
+}
+.claro .dijitTooltipLeft .dijitTooltipConnector {
+  /* the arrow piece for tooltips to the left of an element, bottom borders aligned */
+  right: 0;
+  background-position: 0 0;
+  width: 16px;
+  height: 14px;
+}
+.claro .dijitTooltipRight {
+  padding-left: 14px;
+}
+.claro .dijitTooltipRight .dijitTooltipConnector {
+  /* the arrow piece for tooltips to the right of an element, bottom borders aligned */
+  left: 0;
+  background-position: -48px 0;
+  width: 16px;
+  height: 14px;
+}
+.claro .dijitDialogUnderlay {
+  background: #fff;
+}
+/* Dialog */
+
+.claro .dijitDialogRtl .dijitDialogCloseIcon {
+  right: auto;
+  left: 5px;
+}
+.claro .dijitDialogRtl .dijitDialogPaneActionBar {
+  text-align: left;
+  padding: 3px 7px 2px 5px;
+}
+/* ======= Styling for the document itself (overriding dojo.css) ======== */
+
+.claro {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.688em;
+  color: #131313;
+}
+/* Headings */
+
+.claro h1 {
+  font-size: 1.545em;
+  margin-bottom: 0.727em;
+}
+.claro h2 {
+  font-size: 1.364em;
+  line-height: 1.455em;
+  margin-top: 1em;
+  margin-bottom: 0.6em;
+  font-weight: normal;
+}
+.claro h3,
+.claro h4,
+.claro h5,
+.claro h6 {
+  font-size: 1.091em;
+  font-weight: normal;
+}
+/* paragraphs, quotes and lists */
+
+.claro p {
+  line-height: 1.3em;
+}
+/* pre and code */
+
+.claro pre,
+.claro code {
+  font-family: inherit;
+  background-color: #efefef;
+  border: 1px solid #d3d3d3;
+}
+/* tables */
+
+.claro table.dojoTabular thead,
+.claro table.dojoTabular tfoot {
+  background-color: #efefef;
+  border: 1px solid #d3d3d3;
+}
+/* Editor 
+ * 
+ * Styling Editor means styling the Editor inside iframe container (dijitEditorIFrameContainer)
+ * 
+ * 1. Editor iframe container (default styling): 
+ * 		.dijitEditorIFrameContainer - normal state styles: background-color, border, padding
+ *
+ * 2. hovered Editor iframe container (ie, mouse hover on editor)
+ * 		.dijitEditorHover .dijitEditorIFrameContainer/dijitEditorIFrame - styles when mouse hover on the container
+ * 
+ * 3. focused Editor iframe container (ie, mouse focus on the editor pane)
+ * 		.dijitEditorFocused .dijitEditorIFrameContainer/dijitEditorIFrame - styles when container focused
+ * 
+ * 3. disabled Editor iframe container 
+ * 		.dijitEditorDisabled - editor's inner iframe container disable status styles: background, border
+ */
+
+.claro .dijitEditorIFrameContainer {
+  padding: 3px 3px 1px 10px;
+}
+.claro .dijitEditorIFrame {
+  background-color: #fff;
+}
+.claro .dijitEditor {
+  border: 1px solid #b5bcc7;
+}
+.claro .dijitEditor .dijitEditorIFrameContainer {
+  background-color: #fff;
+  background-repeat: repeat-x;
+}
+.claro .dijitEditorHover .dijitEditorIFrameContainer,
+.claro .dijitEditorHover .dijitEditorIFrameContainer .dijitEditorIFrame {
+  background-color: #e5f2fe;
+}
+.claro .dijitEditorFocused .dijitEditorIFrameContainer,
+.claro .dijitEditorFocused .dijitEditorIFrameContainer .dijitEditorIFrame {
+  background-color: #fff;
+}
+.claro .dijitEditorHover .dijitEditorIFrameContainer,
+.claro .dijitEditorFocused .dijitEditorIFrameContainer {
+  background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+  background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+  background-image: -o-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+  background-image: linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+}
+/* Disabled */
+
+.claro .dijitEditorDisabled {
+  border: 1px solid #d3d3d3;
+  color: #818181;
+}
+.claro .dijitDisabled .dijitEditorIFrame,
+.claro .dijitDisabled .dijitEditorIFrameContainer,
+.claro .dijitDisabled .dijitEditorIFrameContainer .dijitEditorIFrame {
+  background-color: #efefef;
+  background-image: none;
+}
+/* Editor */
+
+.claro .dijitEditorRtl .dijitEditorIFrameContainer {
+  padding: 3px 10px 1px 3px;
+}
+.dj_ie6 .claro .dijitEditorRtl .dijitEditorIFrameContainer,
+.dj_ie7 .claro .dijitEditorRtl .dijitEditorIFrameContainer,
+.dj_ie8 .claro .dijitEditorRtl .dijitEditorIFrameContainer {
+  padding: 3px 0px 1px 10px;
+  margin-right: 0px;
+  border: 0px solid #d3d3d3;
+}
+/* InlineEditBox
+ * 
+ * Styling InlineEditBox mainly includes:
+ * 
+ * 1. Normal state
+ * 		.dijitInlineEditBoxDisplayMode  - for border
+ * 
+ * 2. Hover state
+ * 		.dijitInlineEditBoxDisplayModeHover - for border and background color
+ */
+
+.claro .dijitInlineEditBoxDisplayMode {
+  border: 1px solid transparent;
+}
+.claro .dijitInlineEditBoxDisplayModeHover {
+  background-color: #e5f2fe;
+  border: solid 1px #759dc0;
+}
+.dj_ie6 .claro .dijitInlineEditBoxDisplayMode {
+  border: none;
+}
+/* Menu 
+
+There are three areas of styling for the Menu:  
+ 
+ 1. The menu 
+ 	There are three types of menus:
+ 	i) Context Menu
+ 	ii) Drop down Menu
+ 	iii) Navigation Menu
+ 	All three types of menus are affected by the .dijitMenu class in which you can set the background-color, padding and border
+ 	.dijitMenu affects the drop down menu in TimeTextBox, Calendar, ComboBox and FilteringSelect
+  .dijitMenuTable - for padding - also affects Select widget 	
+
+ 2. The menu bar
+ 	.dijitMenuBar - for border, margins, padding, background-color of the menu bar
+ 	.dijitMenuBar .dijitMenuItem - for padding, text color of menu items in the menu bar (overrides .dijitMenuItem) 
+ 	
+ 3. Menu items - items in the menu.  
+ 	.dijitMenuItem - for color
+ 	.dijitMenuItemHover, .dijitMenuItemSelected - for background-color, border, text color, padding of a menu item or menubar item that has been hovered over or selected	
+ 	.dijitMenuItemActive - for background-color of an active (mousedown) menu item
+	td.dijitMenuItemIconCell - for padding around a  menu item's icon
+	td.dijitMenuItemLabel - for padding around a menu item's label	
+	.dijitMenuSeparatorTop - for border, top border, of the separator
+	.dijitMenuSeparatorBottom - for bottom margin of the separator
+	
+	Styles specific to ComboBox and FilteringSelect widgets: 
+	.dijitComboBoxMenu .dijitMenuItem - for padding and border of a menu item in a ComboBox or FilteringSelect widget's menu
+	.dijitComboBoxMenu .dijitMenuItemSelected- for text color, background-color and border of a menu item in a ComboBox or FilteringSelect widget's menu
+
+*/
+
+.claro .dijitMenuBar {
+  border: 1px solid #b5bcc7;
+  margin: 0;
+  padding: 0;
+  background-color: #efefef;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.claro .dijitMenu {
+  background-color: #fff;
+  border: 1px solid #759dc0;
+}
+.claro .dijitMenuItem {
+  color: #000;
+}
+.claro .dijitMenuBar .dijitMenuItem {
+  padding: 6px 10px 7px;
+  margin: -1px;
+}
+.claro .dijitMenuBar .dijitMenuItemHover,
+.claro .dijitMenuBar .dijitMenuItemSelected {
+  border: solid 1px #759dc0;
+  padding: 5px 9px 6px;
+}
+/* this prevents jiggling upon hover of a menu item */
+
+.claro .dijitMenuTable {
+  border-collapse: separate;
+  border-spacing: 0 0;
+  padding: 0;
+}
+.claro .dijitMenu .dijitMenuItem td,
+.claro .dijitComboBoxMenu .dijitMenuItem {
+  padding: 2px;
+  border-width: 1px 0 1px 0;
+  border-style: solid;
+  border-color: #fff;
+}
+/* hover over a MenuItem or MenuBarItem */
+
+.claro .dijitMenu .dijitMenuItemHover td,
+.claro .dijitMenu .dijitMenuItemSelected td,
+.claro .dijitMenuItemHover,
+.claro .dijitComboBoxMenu .dijitMenuItemHover,
+.claro .dijitMenuItemSelected {
+  border-color: #759dc0;
+  background-color: #abd6ff;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.claro .dijitMenuItemActive {
+  background-image: url("images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.dj_ie .claro .dijitMenuActive .dijitMenuItemHover,
+.dj_ie .claro .dijitMenuActive .dijitMenuItemSelected,
+.dj_ie .claro .dijitMenuPassive .dijitMenuItemHover,
+.dj_ie .claro .dijitMenuPassive .dijitMenuItemSelected {
+  padding-top: 6px;
+  padding-bottom: 5px;
+  margin-top: -3px;
+}
+.claro td.dijitMenuItemIconCell {
+  padding: 2px;
+  margin: 0 0 0 4px;
+}
+.claro td.dijitMenuItemLabel {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.claro .dijitMenuExpand {
+  width: 7px;
+  height: 7px;
+  background-image: url("images/spriteArrows.png");
+  background-position: -14px 0;
+  margin-right: 3px;
+  margin-bottom: 4px;
+}
+.claro .dijitMenuSeparatorTop {
+  height: auto;
+  margin-top: 1px;
+  /* prevents spacing above/below separator */
+  border-bottom: 1px solid #b5bcc7;
+}
+.claro .dijitMenuSeparatorBottom {
+  height: auto;
+  margin-bottom: 1px;
+}
+/* the checked menu item */
+
+.claro .dijitCheckedMenuItem .dijitMenuItemIcon,
+.claro .dijitRadioMenuItem .dijitMenuItemIcon {
+  background-image: url("form/images/checkboxRadioButtonStates.png");
+  background-repeat: no-repeat;
+  background-position: -15px 50%;
+  /* unchecked checkbox */
+  width: 15px;
+  height: 16px;
+}
+.dj_ie6 .claro .dijitCheckedMenuItem .dijitMenuItemIcon,
+.dj_ie6 .claro .dijitRadioMenuItem .dijitMenuItemIcon {
+  background-image: url("form/images/checkboxAndRadioButtons_IE6.png");
+}
+.claro .dijitCheckedMenuItemChecked .dijitCheckedMenuItemIcon {
+  background-position: 0 50%;
+  /* checked checkbox */
+
+}
+.claro .dijitRadioMenuItem .dijitMenuItemIcon {
+  background-position: -105px 50%;
+  /* unfilled circle */
+
+}
+.claro .dijitRadioMenuItemChecked .dijitMenuItemIcon {
+  background-position: -90px 50%;
+  /* filled circle */
+
+}
+/*ComboBox Menu*/
+
+.claro .dijitComboBoxMenu {
+  margin-left: 0;
+  background-image: none;
+}
+.claro .dijitMenu .dijitMenuItemSelected td,
+.claro .dijitComboBoxMenu .dijitMenuItemSelected {
+  color: #000;
+  border-color: #759dc0;
+  background-color: #abd6ff;
+}
+.claro .dijitComboBoxMenuActive .dijitMenuItemSelected {
+  background-color: #7dbdfa;
+  /* TODO: why is this a different color than normal .dijitMenuItemSelected? */
+
+}
+.claro .dijitMenuPreviousButton,
+.claro .dijitMenuNextButton {
+  font-style: italic;
+}
+.claro .dijitMenuItemRtl .dijitMenuExpand {
+  background-position: -7px 0;
+  margin-right: 0;
+  margin-left: 3px;
+}
+.claro .dijitMenuItemRtl .dijitMenuItemIcon {
+  margin: 0 4px 0 0;
+}
+/* NumberSpinner - namespace "dijitSpinner"
+ * 
+ * Styling NumberSpinner mainly includes:
+ * 
+ * 1. Arrows
+ * 		Outer containers: .dijitSpinnerButtonContainer|.dijitSpinnerButtonInner  - for border, padding and position
+ * 		Arrows: .dijitArrowButton|.dijitUpArrowButton.|dijitDownArrowButton
+ * 		Inner container: .dijitArrowButtonInner - for border, padding, width|height and background image
+ * 
+ * 2. Hover state
+ * 		.dijitUpArrowButtonHover|.dijitDownArrowButtonHover .*  - for background color|image
+ * 
+ * 3. Active state
+ * 		.dijitUpArrowButtonActive|.dijitDownArrowButtonActive .*  - for border, padding, margin and background color|image
+ * 
+ * 4. Focused state
+ * 		.dijitSpinnerFocused .* - for background color|image
+ * 
+ * 5. Disabled state
+ * 		.dijitSpinnerDisabled .* - for background color|image
+ */
+
+.claro .dijitSpinnerButtonContainer {
+  overflow: hidden;
+  position: relative;
+  width: auto;
+  padding: 0 2px;
+}
+.claro .dijitSpinnerButtonContainer .dijitSpinnerButtonInner {
+  border-width: 1px 0;
+  /* reserve space to match the claro combobox button border with border and not padding to make IE happier */
+  border-style: solid none;
+}
+/* button */
+
+.claro .dijitSpinner .dijitArrowButton {
+  width: auto;
+  background-color: #efefef;
+  background-image: url("../images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  overflow: hidden;
+}
+.dj_iequirks .claro .dijitSpinner .dijitArrowButton {
+  overflow: visible;
+  /* 0 height w/o this */
+
+}
+.claro .dijitSpinner .dijitSpinnerButtonInner {
+  width: 15px;
+}
+/* up & down button icons */
+
+.claro .dijitSpinner .dijitArrowButtonInner {
+  border: solid 1px #fff;
+  border-bottom-width: 0;
+  /* 2 top borders = 1 top+bottom border in ComboBox */
+  background-image: url("../form/images/commonFormArrows.png");
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 15px;
+  padding-left: 1px;
+  padding-right: 1px;
+  /* for up arrow */
+  background-position: -139px center;
+  /* override button.css (TODO: move to Common.css since ComboBox needs this too) */
+  display: block;
+  margin: -1px 0 -1px 0;
+  /* compensate for inner border */
+
+}
+.dj_iequirks .claro .dijitSpinner .dijitArrowButtonInner,
+.dj_ie6 .claro .dijitSpinner .dijitArrowButtonInner,
+.dj_ie7 .claro .dijitSpinner .dijitArrowButtonInner,
+.dj_ie8 .claro .dijitSpinner .dijitArrowButtonInner {
+  margin-top: 0;
+  /* since its bottom aligned */
+
+}
+.dj_iequirks .claro .dijitSpinner .dijitArrowButtonInner {
+  width: 19px;
+}
+.claro .dijitSpinner .dijitDownArrowButton .dijitArrowButtonInner {
+  background-position: -34px;
+}
+.claro .dijitSpinner .dijitArrowButtonInner .dijitInputField {
+  padding: 0;
+}
+/** hover & focused status **/
+
+.claro .dijitUpArrowButtonActive,
+.claro .dijitDownArrowButtonActive {
+  background-color: #abd6ff;
+}
+.claro .dijitSpinner .dijitUpArrowButtonHover,
+.claro .dijitSpinner .dijitDownArrowButtonHover,
+.claro .dijitSpinnerFocused .dijitArrowButton {
+  background-color: #abd6ff;
+}
+.claro .dijitSpinner .dijitUpArrowButtonHover .dijitArrowButtonInner {
+  background-position: -174px;
+}
+.claro .dijitSpinner .dijitDownArrowButtonHover .dijitArrowButtonInner {
+  background-position: -69px;
+}
+.claro .dijitSpinnerFocused {
+  background-color: #fff;
+  background-image: none;
+}
+/* mouse down status */
+
+.claro .dijitSpinner .dijitDownArrowButtonActive,
+.claro .dijitSpinner .dijitUpArrowButtonActive {
+  background-color: #7dbefa;
+  background-image: url("../images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.claro .dijitSpinner .dijitUpArrowButtonActive .dijitArrowButtonInner,
+.claro .dijitSpinner .dijitDownArrowButtonActive .dijitArrowButtonInner {
+  /* hide inner border while button is depressed */
+  border: 0;
+  padding: 1px;
+  margin-right: 2px;
+  margin-bottom: 1px;
+}
+.claro .dijitSpinner .dijitUpArrowButtonActive .dijitArrowButtonInner {
+  background-position: -173px;
+}
+.claro .dijitSpinner .dijitDownArrowButtonActive .dijitArrowButtonInner {
+  background-position: -68px;
+}
+/* disabled */
+
+.claro .dijitSpinnerDisabled .dijitArrowButtonInner {
+  background-color: #efefef;
+}
+.claro .dijitSpinnerDisabled .dijitUpArrowButton .dijitArrowButtonInner {
+  background-position: -104px;
+}
+.claro .dijitSpinnerDisabled .dijitDownArrowButton .dijitArrowButtonInner {
+  background-position: 1px;
+}
+/** hacks for browsers **/
+
+/* for IE 7, when div is enlarged, 
+ * should be no empty space between dijitInputLayoutContainer and dijitSpinner*/
+
+.dj_ie7 .claro .dijitSpinner {
+  overflow: visible;
+}
+/* ProgressBar
+ * 
+ * Styling of the ProgressBar consists of the following:
+ * 
+ * 1. the base progress bar
+ *		.dijitProgressBar -	sets margins for the progress bar
+ *
+ * 2. the empty bar
+ *		.dijitProgressBarEmpty  - sets background img and color for bar or parts of bar that are not finished yet
+ *		Also sets border color for whole bar
+ *
+ * 3. tile mode
+ * 		.dijitProgressBarTile
+ *		inner container for finished portion when in 'tile' (image) mode 
+ * 	
+ * 4. full bar mode
+ * 		.dijitProgressBarFull
+ *		adds border to right side of the filled portion of bar
+ *
+ * 5. text for label of  bar
+ *		.dijitProgressBarLabel - sets text color, which must contrast with both the "Empty" and "Full" parts. 
+ * 	
+ * 6. indeterminate mode
+ *		.dijitProgressBarIndeterminate .dijitProgressBarTile 
+ * 		sets animated gif for the progress bar in 'indeterminate' mode
+ */
+
+.claro .dijitProgressBar {
+  margin: 2px 0 2px 0;
+}
+.claro .dijitProgressBarEmpty {
+  /* outer container and background of the bar that's not finished yet*/
+  background-color: #fff;
+  border-color: #759dc0;
+}
+.claro .dijitProgressBarTile {
+  /* inner container for finished portion when in 'tile' (image) mode */
+  background-color: #abd6ff;
+  background-image: url("images/progressBarFull.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.93) 0px, rgba(255, 255, 255, 0.41) 1px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.93) 0px, rgba(255, 255, 255, 0.41) 1px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.93) 0px, rgba(255, 255, 255, 0.41) 1px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.93) 0px, rgba(255, 255, 255, 0.41) 1px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 100%);
+  background-attachment: scroll;
+}
+.dj_ie6 .claro .dijitProgressBarTile {
+  background-image: none;
+}
+.claro .dijitProgressBarFull {
+  border: 0px solid #759dc0;
+  border-right-width: 1px;
+  -webkit-transition-property: width;
+  -moz-transition-property: width;
+  transition-property: width;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+.claro .dijitProgressBarLabel {
+  /* Set to a color that contrasts with both the "Empty" and "Full" parts. */
+  color: #000;
+}
+.claro .dijitProgressBarIndeterminate .dijitProgressBarTile {
+  /* use an animated gif for the progress bar in 'indeterminate' mode;
+		background-color won't appear unless user has turned off background images */
+  background: #efefef url("images/progressBarAnim.gif") repeat-x top;
+}
+/* ProgressBar
+ * 
+ * Styling of the ProgressBar when RTL direction is specified
+ */
+
+.claro .dijitProgressBarRtl .dijitProgressBarFull {
+  border-left-width: 1px;
+  border-right-width: 0px;
+}
+.claro .dijitProgressBarIndeterminateRtl .dijitProgressBarTile {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+/* RadioButton
+ * 
+ * Styling RadioButton mainly includes:
+ * 
+ * 1. Containers
+ * 		.dijitRadio|.dijitRadioIcon - for border, padding, width|height and background image
+ * 
+ * 2. RadioButton within ToggleButton
+ * 		.dijitToggleButton|.dijitToggleButtonChecked .* - for background image
+ * 
+ * 3. Checked state
+ * 		.dijitRadioChecked - for checked background-color|image
+ * 		.dijitToggleButtonChecked - for border, background-color|image, display and width|height
+ * 
+ * 4. Hover state
+ * 		.dijitRadioHover|.dijitRadioCheckedHover - for background image
+ * 
+ * 5. Disabled state
+ * 		.dijitRadioDisabled|.dijitRadioCheckedDisabled - for background image
+ */
+
+.claro .dijitToggleButton .dijitRadio,
+.claro .dijitToggleButton .dijitRadioIcon {
+  background-image: url("../form/images/checkboxRadioButtonStates.png");
+}
+.dj_ie6 .claro .dijitToggleButton .dijitRadio,
+.dj_ie6 .claro .dijitToggleButton .dijitRadioIcon {
+  background-image: url("../form/images/checkboxAndRadioButtons_IE6.png");
+}
+.claro .dijitRadio,
+.claro .dijitRadioIcon {
+  /* inside a toggle button */
+  background-image: url("../form/images/checkboxRadioButtonStates.png");
+  /* checkbox sprite image */
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin: 0 2px 0 0;
+  padding: 0;
+}
+.dj_ie6 .claro .dijitRadio,
+.dj_ie6 .claro .dijitRadioIcon {
+  /* inside a toggle button */
+  background-image: url("../form/images/checkboxAndRadioButtons_IE6.png");
+  /* checkbox sprite image */
+
+}
+.claro .dijitRadio {
+  /* unselected */
+  background-position: -105px;
+}
+.claro .dijitToggleButton .dijitRadioIcon {
+  /* unselected */
+  background-position: -107px;
+}
+.claro .dijitRadioDisabled {
+  /* unselected and disabled */
+  background-position: -165px;
+}
+.claro .dijitRadioHover {
+  /* hovering over an unselected enabled radio button */
+  background-position: -135px;
+}
+.claro .dijitRadioChecked {
+  background-position: -90px;
+}
+.claro .dijitToggleButtonChecked .dijitRadioIcon {
+  background-position: -92px;
+}
+.claro .dijitRadioCheckedHover {
+  background-position: -120px;
+}
+.claro .dijitRadioCheckedDisabled {
+  /* selected but disabled */
+  background-position: -150px;
+}
+/* Select
+ * 
+ * Styling Select mainly includes:
+ * 
+ * 1. Containers
+ * 		.dijitSelect - for border, background-color
+ * 		.dijitButtonContents - for border
+ *
+ * 2. Arrow
+ * 		.dijitArrowButton - for border, padding and background-color|image
+ * 		.dijitArrowButtonInner - for border, background-color|image, display and width|height
+ * 
+ * 3. Menu
+ * 		.dijitSelectMenu .* - for border, padding
+ * 
+ * 4. Various states
+ * 		.dijitSelectHover|.dijitSelectFocused|.dijitSelectDisabled .* - for border, padding and background-color|image 
+ */
+
+/* normal status */
+
+.claro .dijitSelect .dijitArrowButtonContainer {
+  border: 1px solid #fff;
+}
+.claro .dijitSelect .dijitArrowButton {
+  padding: 0;
+  background-color: #efefef;
+  background-image: url("../images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.claro .dijitSelect .dijitArrowButton .dijitArrowButtonInner {
+  height: 16px;
+}
+/* hover status */
+
+.claro .dijitSelectHover {
+  background-color: #e5f2fe;
+  background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+  background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+  background-image: -o-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+  background-image: linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+  background-repeat: repeat-x;
+}
+.claro .dijitSelectHover .dijitArrowButton {
+  background-color: #abd6ff;
+}
+.claro .dijitSelectHover .dijitArrowButton .dijitArrowButtonInner {
+  background-position: -70px 53%;
+}
+/* focused status */
+
+.claro .dijitSelectFocused .dijitArrowButton {
+  background-color: #7dbefa;
+  background-image: url("../images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.claro .dijitSelectFocused .dijitArrowButton {
+  border: none;
+  padding: 1px;
+}
+.claro .dijitSelectFocused .dijitArrowButton .dijitArrowButtonInner {
+  background-position: -70px 53%;
+}
+/* disable status */
+
+.claro .dijitSelectDisabled {
+  border-color: #d3d3d3;
+  background-color: #efefef;
+  background-image: none;
+  color: #818181;
+}
+.claro .dijitSelectDisabled .dijitArrowButton .dijitArrowButtonInner {
+  background-position: 0 53%;
+}
+/* Dropdown menu style for select */
+
+.claro .dijitSelectMenu td.dijitMenuItemIconCell,
+.claro .dijitSelectMenu td.dijitMenuArrowCell {
+  /* so that arrow and icon cells from MenuItem are not displayed */
+  display: none;
+}
+.claro .dijitSelectMenu td.dijitMenuItemLabel {
+  /* line up menu text with text in select box (in LTR and RTL modes) */
+  padding: 2px;
+}
+.claro .dijitSelectMenu .dijitMenuSeparatorTop {
+  border-bottom: 1px solid #759dc0;
+}
+/* Slider 
+ * 
+ * Styling Slider mainly includes styling the Slider progress bar (dijitSliderProgressBar)
+ * 
+ * Slider progress bar:
+ * 1. Slider progress bar (default styling): 
+ * 		.dijitSliderProgressBarH - progress bar at the middle of horizontal slider
+ * 		.dijitSliderLeftBumper - bar at the left of horizontal slider
+ * 		.dijitSliderRightBumper - bar at the right of horizontal slider
+ * 		.dijitSliderProgressBarV - progress bar at the middle of vertical slider
+ * 		.dijitSliderTopBumper - bar at the top of vertical slider
+ * 		.dijitSliderBottomtBumper - bar at the bottom of vertical slider
+ * 
+ * 2. hovered Slider progress bar (ie, mouse hover on progress bar)
+ * 		.dijitSliderHover .dijitSliderProgressBarH(horizontal) - hovered bar style: background, border
+ * 
+ * 3. focused Slider progress bar (ie, mouse focused on progress bar)
+ * 		.dijitSliderFocused .dijitSliderProgressBarH(horizontal) - focus bar style: background, border
+ * 
+ * 4. disabled/read-only Slider progress bar 
+ * 		.dijitSliderDisabled .dijitSliderProgressBarH(horizontal) - bar styles when slider is disabled
+ * 
+ * 
+ * Slider Thumbs:
+ * 1. Slider Thumbs (default styling): 
+ * 		.dijitSliderImageHandleH / .dijitSliderImageHandleV - styles for the controller on the progress bar
+ * 
+ * 2. hovered Slider Thumbs (ie, mouse hover on slider thumbs)
+ * 		.dijitSliderHover .dijitSliderImageHandleH - hovered controller style
+ * 
+ * 3. focused Slider progress bar (ie, mouse focused on slider thumbs)
+ * 		.dijitSliderFocused .dijitSliderImageHandleV - focused controller style
+ * 
+ * 
+ * Slider Increment/Decrement Buttons:
+ * 1. Slider Increment/Decrement Buttons (default styling): 
+ * 		.dijitSliderDecrementIconH - decrement icon which lies at the left of horizontal slider
+ * 		.dijitSliderIncrementIconH - increment icon which lies at the right of horizontal slider
+ * 		.dijitSliderDecrementIconV - decrement icon which lies at the bottom of vertical slider
+ * 		.dijitSliderIncrementIconV - increment icon which lies at the top of vertical slider
+ * 
+ * 2. hovered Slider Increment/Decrement Buttons (mouse hover on the icons)
+ * 		.dijitSliderHover .dijitSliderDecrementIconH - for background, border
+ * 
+ * 3. active Slider Increment/Decrement Buttons (mouse down on the icons)
+ * 		.dijitSliderActive .dijitSliderIncrementIconV - for background, border
+ * 
+ * 4. disabled/read-only Slider Increment/Decrement Buttons
+ * 		.dijitSliderDisabled .dijitSliderDecrementIconH - styles for the icons in disabled slider
+ * 		.dijitSliderReadOnly .dijitSliderIncrementIconV - styles for the icons in read-only slider
+ */
+
+.claro .dijitSliderBar {
+  border-style: solid;
+  outline: 1px;
+}
+.claro .dijitSliderFocused .dijitSliderBar {
+  border-color: #759dc0;
+}
+.claro .dijitSliderHover .dijitSliderBar {
+  border-color: #759dc0;
+}
+.claro .dijitSliderDisabled .dijitSliderBar {
+  background-image: none;
+  border-color: #d3d3d3;
+}
+.claro .dijitRuleLabelsContainer {
+  color: #000;
+}
+/* Horizontal Slider */
+
+.claro .dijitRuleLabelsContainerH {
+  padding: 2px 0;
+}
+.claro .dijitSlider .dijitSliderProgressBarH,
+.claro .dijitSlider .dijitSliderLeftBumper {
+  border-color: #b5bcc7;
+  background-color: #cfe5fa;
+  background-image: -moz-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px);
+  background-image: -webkit-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px);
+  background-image: -o-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px);
+  background-image: linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px);
+}
+.claro .dijitSlider .dijitSliderRemainingBarH,
+.claro .dijitSlider .dijitSliderRightBumper {
+  border-color: #b5bcc7;
+  background-color: #fff;
+}
+.claro .dijitSliderRightBumper {
+  border-right: solid 1px #b5bcc7;
+}
+.claro .dijitSliderLeftBumper {
+  border-left: solid 1px #b5bcc7;
+}
+.claro .dijitSliderHover .dijitSliderProgressBarH,
+.claro .dijitSliderHover .dijitSliderLeftBumper {
+  background-color: #abd6ff;
+  border-color: #759dc0;
+}
+.claro .dijitSliderHover .dijitSliderRemainingBarH,
+.claro .dijitSliderHover .dijitSliderRightBumper {
+  background-color: #fff;
+  border-color: #759dc0;
+}
+.claro .dijitSliderFocused .dijitSliderProgressBarH,
+.claro .dijitSliderFocused .dijitSliderLeftBumper {
+  background-color: #abd6ff;
+  border-color: #759dc0;
+  -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.claro .dijitSliderFocused .dijitSliderRemainingBarH,
+.claro .dijitSliderFocused .dijitSliderRightBumper {
+  background-color: #fff;
+  border-color: #759dc0;
+  -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.claro .dijitSliderDisabled .dijitSliderProgressBarH,
+.claro .dijitSliderDisabled .dijitSliderLeftBumper {
+  background-color: #d3d3d3;
+  /* left side of slider, fill matches border */
+  background-image: none;
+}
+.claro .dijitSliderDisabled .dijitSliderRemainingBarH,
+.claro .dijitSliderDisabled .dijitSliderRightBumper {
+  background-color: #efefef;
+}
+/* Vertical Slider */
+
+.claro .dijitRuleLabelsContainerV {
+  padding: 0 2px;
+}
+.claro .dijitSlider .dijitSliderProgressBarV,
+.claro .dijitSlider .dijitSliderBottomBumper {
+  border-color: #b5bcc7;
+  background-color: #cfe5fa;
+  background-image: -moz-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 1px);
+  background-image: -webkit-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 1px);
+  background-image: -o-linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 1px);
+  background-image: linear-gradient(left, #ffffff 0px, rgba(255, 255, 255, 0) 1px);
+}
+.claro .dijitSlider .dijitSliderRemainingBarV,
+.claro .dijitSlider .dijitSliderTopBumper {
+  border-color: #b5bcc7;
+  background-color: #fff;
+}
+.claro .dijitSliderBottomBumper {
+  border-bottom: solid 1px #b5bcc7;
+}
+.claro .dijitSliderTopBumper {
+  border-top: solid 1px #b5bcc7;
+}
+.claro .dijitSliderHover .dijitSliderProgressBarV,
+.claro .dijitSliderHover .dijitSliderBottomBumper {
+  background-color: #abd6ff;
+  border-color: #759dc0;
+}
+.claro .dijitSliderHover .dijitSliderRemainingBarV,
+.claro .dijitSliderHover .dijitSliderTopBumper {
+  background-color: #fff;
+  border-color: #759dc0;
+}
+.claro .dijitSliderFocused .dijitSliderProgressBarV,
+.claro .dijitSliderFocused .dijitSliderBottomBumper {
+  background-color: #abd6ff;
+  border-color: #759dc0;
+  -webkit-box-shadow: inset 1px 0px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 1px 0px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 1px 0px 1px rgba(0, 0, 0, 0.2);
+}
+.claro .dijitSliderFocused .dijitSliderRemainingBarV,
+.claro .dijitSliderFocused .dijitSliderTopBumper {
+  background-color: #fff;
+  border-color: #759dc0;
+  -webkit-box-shadow: inset 1px 0px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 1px 0px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 1px 0px 1px rgba(0, 0, 0, 0.2);
+}
+.claro .dijitSliderDisabled .dijitSliderProgressBarV,
+.claro .dijitSliderDisabled .dijitSliderBottomBumper {
+  background-color: #d3d3d3;
+  /* bottom side of slider, fill matches border */
+
+}
+.claro .dijitSliderDisabled .dijitSliderRemainingBarV,
+.claro .dijitSliderDisabled .dijitSliderTopBumper {
+  background-color: #efefef;
+}
+/* ------- Thumbs ------- */
+
+.claro .dijitSliderImageHandleH {
+  border: 0;
+  width: 18px;
+  height: 16px;
+  background-image: url("../form/images/sliderThumbs.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+.claro .dijitSliderHover .dijitSliderImageHandleH {
+  background-position: -18px 0;
+}
+.claro .dijitSliderFocused .dijitSliderImageHandleH {
+  background-position: -36px 0;
+}
+.claro .dijitSliderProgressBarH .dijitSliderThumbHover {
+  background-position: -36px 0;
+}
+.claro .dijitSliderProgressBarH .dijitSliderThumbActive {
+  background-position: -36px 0;
+}
+.claro .dijitSliderReadOnly .dijitSliderImageHandleH,
+.claro .dijitSliderDisabled .dijitSliderImageHandleH {
+  background-position: -54px 0;
+}
+.claro .dijitSliderImageHandleV {
+  border: 0;
+  width: 18px;
+  height: 16px;
+  background-image: url("../form/images/sliderThumbs.png");
+  background-repeat: no-repeat;
+  background-position: -289px 0;
+}
+.claro .dijitSliderHover .dijitSliderImageHandleV {
+  background-position: -307px 0;
+}
+.claro .dijitSliderFocused .dijitSliderImageHandleV {
+  background-position: -325px 0;
+}
+.claro .dijitSliderProgressBarV .dijitSliderThumbHover {
+  background-position: -325px 0;
+}
+.claro .dijitSliderProgressBarV .dijitSliderThumbActive {
+  background-position: -325px 0;
+}
+.claro .dijitSliderReadOnly .dijitSliderImageHandleV,
+.claro .dijitSliderDisabled .dijitSliderImageHandleV {
+  background-position: -343px 0;
+}
+/* ---- Increment/Decrement Buttons ---- */
+
+.claro .dijitSliderButtonContainerH {
+  padding: 1px 3px 1px 2px;
+}
+.claro .dijitSliderButtonContainerV {
+  padding: 3px 1px 2px 1px;
+}
+.claro .dijitSliderDecrementIconH,
+.claro .dijitSliderIncrementIconH,
+.claro .dijitSliderDecrementIconV,
+.claro .dijitSliderIncrementIconV {
+  background-image: url("../form/images/commonFormArrows.png");
+  background-repeat: no-repeat;
+  background-color: #efefef;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: solid 1px #b5bcc7;
+  font-size: 1px;
+}
+.claro .dijitSliderDecrementIconH,
+.claro .dijitSliderIncrementIconH {
+  height: 12px;
+  width: 9px;
+}
+.claro .dijitSliderDecrementIconV,
+.claro .dijitSliderIncrementIconV {
+  height: 9px;
+  width: 12px;
+}
+.claro .dijitSliderActive .dijitSliderDecrementIconH,
+.claro .dijitSliderActive .dijitSliderIncrementIconH,
+.claro .dijitSliderActive .dijitSliderDecrementIconV,
+.claro .dijitSliderActive .dijitSliderIncrementIconV,
+.claro .dijitSliderHover .dijitSliderDecrementIconH,
+.claro .dijitSliderHover .dijitSliderIncrementIconH,
+.claro .dijitSliderHover .dijitSliderDecrementIconV,
+.claro .dijitSliderHover .dijitSliderIncrementIconV {
+  /* dijitSliderActive should be treated as dijitSliderHover since "clicking the slider" has no meaning */
+  border: solid 1px #759dc0;
+  background-color: #fff;
+}
+.claro .dijitSliderDecrementIconH {
+  background-position: -357px 50%;
+}
+.claro .dijitSliderActive .dijitSliderDecrementIconH .claro .dijitSliderHover .dijitSliderDecrementIconH {
+  background-position: -393px 50%;
+}
+.claro .dijitSliderIncrementIconH {
+  background-position: -251px 50%;
+}
+.claro .dijitSliderActive .dijitSliderIncrementIconH .claro .dijitSliderHover .dijitSliderIncrementIconH {
+  background-position: -283px 50%;
+}
+.claro .dijitSliderDecrementIconV {
+  background-position: -38px 50%;
+}
+.claro .dijitSliderActive .dijitSliderDecrementIconV .claro .dijitSliderHover .dijitSliderDecrementIconV {
+  background-position: -73px 50%;
+}
+.claro .dijitSliderIncrementIconV {
+  background-position: -143px 49%;
+}
+.claro .dijitSliderActive .dijitSliderIncrementIconV .claro .dijitSliderHover .dijitSliderIncrementIconV {
+  background-position: -178px 49%;
+}
+.claro .dijitSliderButtonContainerV .dijitSliderDecrementButtonHover,
+.claro .dijitSliderButtonContainerH .dijitSliderDecrementButtonHover,
+.claro .dijitSliderButtonContainerV .dijitSliderIncrementButtonHover,
+.claro .dijitSliderButtonContainerH .dijitSliderIncrementButtonHover {
+  background-color: #cfe5fa;
+}
+.claro .dijitSliderButtonContainerV .dijitSliderDecrementButtonActive,
+.claro .dijitSliderButtonContainerH .dijitSliderDecrementButtonActive,
+.claro .dijitSliderButtonContainerV .dijitSliderIncrementButtonActive,
+.claro .dijitSliderButtonContainerH .dijitSliderIncrementButtonActive {
+  background-color: #abd6ff;
+  border-color: #759dc0;
+}
+.claro .dijitSliderButtonInner {
+  visibility: hidden;
+}
+.claro .dijitSliderDisabled .dijitSliderBar {
+  border-color: #d3d3d3;
+}
+.claro .dijitSliderReadOnly *,
+.claro .dijitSliderDisabled * {
+  border-color: #d3d3d3;
+  color: #818181;
+}
+.claro .dijitSliderReadOnly .dijitSliderDecrementIconH,
+.claro .dijitSliderDisabled .dijitSliderDecrementIconH {
+  background-position: -321px 50%;
+  background-color: #efefef;
+}
+.claro .dijitSliderReadOnly .dijitSliderIncrementIconH,
+.claro .dijitSliderDisabled .dijitSliderIncrementIconH {
+  background-position: -215px 50%;
+  background-color: #efefef;
+}
+.claro .dijitSliderReadOnly .dijitSliderDecrementIconV,
+.claro .dijitSliderDisabled .dijitSliderDecrementIconV {
+  background-position: -3px 49%;
+  background-color: #efefef;
+}
+.claro .dijitSliderReadOnly .dijitSliderIncrementIconV,
+.claro .dijitSliderDisabled .dijitSliderIncrementIconV {
+  background-position: -107px 49%;
+  background-color: #efefef;
+}
+.claro .dijitSliderRtl .dijitSliderProgressBarH,
+.claro .dijitSliderRtl .dijitSliderRemainingBarH,
+.claro .dijitSliderRtl .dijitSliderLeftBumper,
+.claro .dijitSliderRtl .dijitSliderRightBumper,
+.claro .dijitSliderRtl .dijitSliderTopBumper {
+  background-position: top right;
+}
+.claro .dijitSliderRtl .dijitSliderProgressBarV,
+.claro .dijitSliderRtl .dijitSliderRemainingBarV,
+.claro .dijitSliderRtl .dijitSliderBottomBumper {
+  background-position: bottom right;
+}
+.claro .dijitSliderRtl .dijitSliderLeftBumper {
+  border-left-width: 0;
+  border-right-width: 1px;
+}
+.claro .dijitSliderRtl .dijitSliderRightBumper {
+  border-left-width: 1px;
+  border-right-width: 0;
+}
+.claro .dijitSliderRtl .dijitSliderIncrementIconH {
+  background-position: -357px 50%;
+}
+.claro .dijitSliderRtl .dijitSliderDecrementIconH {
+  background-position: -251px 50%;
+}
+/* TabContainer 
+ * 
+ * Styling TabContainer means styling the TabList and Its content container  (dijitTitlePane)
+ * 
+ * Tab List: (including 4 kinds of tab location)
+ * 		.dijitTabContainerTop-tabs     - tablist container at top
+ * 		.dijitTabContainerBottom-tabs  - tablist container at bottom
+ * 		.dijitTabContainerLeft-tabs    - tablist container at left
+ * 		.dijitTabContainerRight-tabs   - tablist container at right
+ * 
+ * Tab Strip Button:
+ * 		.dijitTabStripIcon - tab strip button icon
+ * 		.dijitTabStripMenuIcon - down arrow icon position
+ * 		.dijitTabStripSlideLeftIcon - left arrow icon position
+ * 		.dijitTabStripSlideRightIcon - right arrow icon position
+ * 
+ * 		.tabStripButtonDisabled - styles for disabled tab strip buttons
+ * 
+ * Tab Button:
+ * 		.dijitTabContainerTop-tabs .dijitTab     - styles for top tab button container
+ * 		.dijitTabContainerBottom-tabs .dijitTab  - styles for bottom tab button container
+ * 		.dijitTabContainerLeft-tabs .dijitTab    - styles for left tab button container
+ * 		.dijitTabContainerRight-tabs .dijitTab   - styles for right tab button container
+ * 
+ * 		.dijitTabContainerTop-tabs .dijitTabChecked .dijitTab
+ * 				- styles for selected status of top tab button
+ * 		same to Bottom, Left, Right Tabs
+ * 
+ * 		.dijitTabHover .dijitTab   - styles when mouse hover on tab buttons
+ * 		.dijitTabActive .dijitTab  - styles when mouse down on tab buttons
+ * 		.dijitTabChecked .dijitTab  - styles when on buttons of selected tab
+ * 
+ * 		.dijitTabCloseButton - the close action buttons lie at the right top of each tab button on closable tabs
+ * 		.dijitTabCloseButtonHover - styles when mouse hover on close action button
+ * 		.dijitTabCloseButtonActive - styles when mouse down on close action button
+ * 
+ * Tab Button: (checked status)
+ * 
+ * Tab Content Container:
+ * 		.dijitTabContainerTop-dijitContentPane
+ * 		.dijitTabContainerBottom-dijitContentPane
+ * 		.dijitTabContainerLeft-dijitContentPane
+ * 		.dijitTabContainerRight-dijitContentPane - for background and padding
+ * 
+ * Nested Tabs:
+ * 		.dijitTabContainerNested - Container for nested tabs
+ * 		.dijitTabContainerTabListNested - tab list container for nested tabs
+ */
+/*** some common features ***/
+
+.claro .dijitTabPaneWrapper {
+  background: #fff;
+}
+.claro .dijitTabPaneWrapper,
+.claro .dijitTabContainerTop-tabs,
+.claro .dijitTabContainerBottom-tabs,
+.claro .dijitTabContainerLeft-tabs,
+.claro .dijitTabContainerRight-tabs {
+  /* todo: add common class name for this div */
+  border-color: #b5bcc7;
+}
+.claro .dijitTabCloseButton {
+  background: url("../layout/images/tabClose.png") no-repeat;
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+  margin-right: -5px;
+}
+.claro .dijitTabCloseButtonHover {
+  background-position: -14px;
+}
+.claro .dijitTabCloseButtonActive {
+  background-position: -28px;
+}
+.claro .dijitTabSpacer {
+  /* set the spacer invisible.  note that height:0 doesn't work on IE/quirks, it's still 10px. */
+  display: none;
+}
+.claro .dijitTab {
+  border: 1px solid #b5bcc7;
+  background-color: #efefef;
+  -webkit-transition-property: background-color, border;
+  -moz-transition-property: background-color, border;
+  transition-property: background-color, border;
+  -webkit-transition-duration: 0.35s;
+  -moz-transition-duration: 0.35s;
+  transition-duration: 0.35s;
+  color: #494949;
+}
+.claro .dijitTabHover {
+  border-color: #759dc0;
+  background-color: #abd6ff;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+  color: #000;
+}
+.claro .dijitTabActive {
+  border-color: #759dc0;
+  background-color: #7dbdfa;
+  color: #000;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+.claro .dijitTabChecked {
+  border-color: #b5bcc7;
+  background-color: #cfe5fa;
+  color: #000;
+}
+.claro .dijitTabDisabled {
+  background-color: #d3d3d3;
+}
+.claro .tabStripButton {
+  background-color: transparent;
+  border: none;
+}
+/*** end common ***/
+
+/*************** top tab ***************/
+
+.claro .dijitTabContainerTop-tabs .dijitTab {
+  /* unselected (and not hovered/pressed) tab */
+  top: 1px;
+  /* used for overlap */
+  margin-right: 1px;
+  padding: 3px 6px;
+  border-bottom-width: 0;
+  min-width: 60px;
+  text-align: center;
+  background-image: url("images/tabTopUnselected.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  -webkit-box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.04);
+  -moz-box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.04);
+}
+.claro .dijitTabContainerTop-tabs .dijitTabChecked {
+  /* selected tab */
+  padding-bottom: 4px;
+  padding-top: 9px;
+  background-image: url("images/tabTopSelected.png");
+  background-image: -moz-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px, #ffffff 7px);
+  background-image: -webkit-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px, #ffffff 7px);
+  background-image: -o-linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px, #ffffff 7px);
+  background-image: linear-gradient(top, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px, #ffffff 7px);
+  -webkit-box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+}
+/** end top tab **/
+
+/*************** bottom tab ***************/
+
+.claro .dijitTabContainerBottom-tabs .dijitTab {
+  /* unselected (and not hovered/pressed) tab */
+  top: -1px;
+  /* used for overlap */
+  margin-right: 1px;
+  padding: 3px 6px;
+  border-top-width: 0;
+  min-width: 60px;
+  text-align: center;
+  background-image: url("images/tabBottomUnselected.png");
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-image: -moz-linear-gradient(bottom, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(bottom, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(bottom, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(bottom, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+/* selected tab */
+
+.claro .dijitTabContainerBottom-tabs .dijitTabChecked {
+  padding-bottom: 9px;
+  padding-top: 4px;
+  background-image: url("images/tabBottomSelected.png");
+  background-image: -moz-linear-gradient(bottom, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px, #ffffff 7px);
+  background-image: -webkit-linear-gradient(bottom, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px, #ffffff 7px);
+  background-image: -o-linear-gradient(bottom, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px, #ffffff 7px);
+  background-image: linear-gradient(bottom, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0) 2px, #ffffff 7px);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/** end bottom tab **/
+
+/*************** left tab ***************/
+
+.claro .dijitTabContainerLeft-tabs .dijitTab {
+  /* unselected (and not hovered/pressed) tab */
+  left: 1px;
+  /* used for overlap */
+  margin-bottom: 1px;
+  padding: 3px 8px 4px 4px;
+  background-image: url("images/tabLeftUnselected.png");
+  background-repeat: repeat-y;
+  background-image: -moz-linear-gradient(left, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(left, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(left, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(left, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+}
+/* selected tab */
+
+.claro .dijitTabContainerLeft-tabs .dijitTabChecked {
+  border-right-width: 0;
+  padding-right: 9px;
+  background-image: url("images/tabLeftSelected.png");
+  background-image: -moz-linear-gradient(left, rgba(255, 255, 255, 0.5) 0px, #ffffff 30px);
+  background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.5) 0px, #ffffff 30px);
+  background-image: -o-linear-gradient(left, rgba(255, 255, 255, 0.5) 0px, #ffffff 30px);
+  background-image: linear-gradient(left, rgba(255, 255, 255, 0.5) 0px, #ffffff 30px);
+  -webkit-box-shadow: -1px 0 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: -1px 0 2px rgba(0, 0, 0, 0.05);
+  box-shadow: -1px 0 2px rgba(0, 0, 0, 0.05);
+}
+/** end left tab **/
+
+/*************** right tab ***************/
+
+.claro .dijitTabContainerRight-tabs .dijitTab {
+  /* unselected (and not hovered/pressed) tab */
+  left: -1px;
+  /* used for overlap */
+  margin-bottom: 1px;
+  padding: 3px 8px 4px 4px;
+  background-image: url("images/tabRightUnselected.png");
+  background-repeat: repeat-y;
+  background-position: right;
+  background-image: -moz-linear-gradient(right, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(right, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(right, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(right, #ffffff 0px, #ffffff 1px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.6) 7px, rgba(255, 255, 255, 0) 100%);
+}
+.claro .dijitTabContainerRight-tabs .dijitTabChecked {
+  /* selected tab */
+  padding-left: 5px;
+  border-left-width: 0;
+  background-image: url("images/tabRightSelected.png");
+  background-image: -moz-linear-gradient(right, rgba(255, 255, 255, 0.5) 0px, #ffffff 30px);
+  background-image: -webkit-linear-gradient(right, rgba(255, 255, 255, 0.5) 0px, #ffffff 30px);
+  background-image: -o-linear-gradient(right, rgba(255, 255, 255, 0.5) 0px, #ffffff 30px);
+  background-image: linear-gradient(right, rgba(255, 255, 255, 0.5) 0px, #ffffff 30px);
+  -webkit-box-shadow: 1px 0 2px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: 1px 0 2px rgba(0, 0, 0, 0.07);
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.07);
+}
+/** end right tab **/
+
+/** round corner **/
+
+.claro .dijitTabContainerTop-tabs .dijitTab {
+  -moz-border-radius: 2px 2px 0 0;
+  border-radius: 2px 2px 0 0;
+}
+.claro .dijitTabContainerBottom-tabs .dijitTab {
+  -moz-border-radius: 0 0 2px 2px;
+  border-radius: 0 0 2px 2px;
+}
+.claro .dijitTabContainerLeft-tabs .dijitTab {
+  -moz-border-radius: 2px 0 0 2px;
+  border-radius: 2px 0 0 2px;
+}
+.claro .dijitTabContainerRight-tabs .dijitTab {
+  -moz-border-radius: 0 2px 2px 0;
+  border-radius: 0 2px 2px 0;
+}
+/************ left/right scroll buttons + menu button ************/
+
+.claro .tabStripButton {
+  background-color: #e5f2fe;
+  border: 1px solid #b5bcc7;
+}
+.claro .dijitTabListContainer-top .tabStripButton {
+  padding: 4px 3px;
+  margin-top: 7px;
+  background-image: -moz-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(top, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
+}
+.claro .dijitTabListContainer-bottom .tabStripButton {
+  padding: 4px 3px;
+  margin-bottom: 7px;
+  background-image: -moz-linear-gradient(bottom, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(bottom, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(bottom, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(bottom, #ffffff 0px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.6) 6px, rgba(255, 255, 255, 0) 100%);
+}
+.claro .tabStripButtonHover {
+  background-color: #abd6ff;
+}
+.claro .tabStripButtonActive {
+  background-color: #7dbdfa;
+}
+.claro .dijitTabStripIcon {
+  height: 15px;
+  width: 15px;
+  margin: 0 auto;
+  background: url("../form/images/buttonArrows.png") no-repeat -75px 50%;
+  background-color: transparent;
+}
+.claro .dijitTabStripSlideRightIcon {
+  background-position: -24px 50%;
+}
+.claro .dijitTabStripMenuIcon {
+  background-position: -51px 50%;
+}
+/*disabled styles for tab strip buttons*/
+
+.claro .dijitTabListContainer-top .tabStripButtonDisabled,
+.claro .dijitTabListContainer-bottom .tabStripButtonDisabled {
+  background-color: #d3d3d3;
+  border: 1px solid #b5bcc7;
+  /* to match border of TabContainer itself */
+
+}
+.claro .tabStripButtonDisabled .dijitTabStripSlideLeftIcon {
+  background-position: -175px 50%;
+}
+.claro .tabStripButtonDisabled .dijitTabStripSlideRightIcon {
+  background-position: -124px 50%;
+}
+.claro .tabStripButtonDisabled .dijitTabStripMenuIcon {
+  background-position: -151px 50%;
+}
+/* Nested Tabs */
+
+.claro .dijitTabContainerNested .dijitTabListWrapper {
+  height: auto;
+}
+.claro .dijitTabContainerNested .dijitTabContainerTop-tabs {
+  border-bottom: solid 1px #b5bcc7;
+  padding: 2px 2px 4px;
+}
+.claro .dijitTabContainerTabListNested .dijitTab {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  padding: 4px;
+  border-color: rgba(118, 157, 192, 0);
+  -webkit-transition-property: background-color, border-color;
+  -moz-transition-property: background-color, border-color;
+  transition-property: background-color, border-color;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  top: 0;
+  /* to override top: 1px/-1px for normal tabs */
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-image: url("images/tabNested.png") repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.61) 0%, rgba(255, 255, 255, 0) 17%, rgba(255, 255, 255, 0) 83%, rgba(255, 255, 255, 0.61) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.61) 0%, rgba(255, 255, 255, 0) 17%, rgba(255, 255, 255, 0) 83%, rgba(255, 255, 255, 0.61) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.61) 0%, rgba(255, 255, 255, 0) 17%, rgba(255, 255, 255, 0) 83%, rgba(255, 255, 255, 0.61) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.61) 0%, rgba(255, 255, 255, 0) 17%, rgba(255, 255, 255, 0) 83%, rgba(255, 255, 255, 0.61) 100%);
+}
+.claro .dijitTabContainerTabListNested .dijitTabHover {
+  background-color: #e5f2fe;
+  border: solid 1px #cfe5fa;
+  padding: 3px;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.claro .dijitTabContainerTabListNested .dijitTabHover .tabLabel {
+  text-decoration: none;
+}
+.claro .dijitTabContainerTabListNested .dijitTabActive {
+  border: solid 1px #759dc0;
+  padding: 3px;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+.claro .dijitTabContainerTabListNested .dijitTabChecked {
+  padding: 3px;
+  border: solid 1px #759dc0;
+  background-color: #cfe5fa;
+}
+.claro .dijitTabContainerTabListNested .dijitTabChecked .tabLabel {
+  text-decoration: none;
+  background-image: none;
+}
+.claro .dijitTabPaneWrapperNested {
+  border: none;
+  /* prevent double border */
+
+}
+.claro .dijitTabContainer .dijitTab,
+.claro .dijitTabContainer .tabStripButton {
+  _background-image: none;
+}
+.claro .dijitTabContainerTop-tabs .dijitTabRtl,
+.claro .dijitTabContainerBottom-tabs .dijitTabRtl {
+  margin-right: 0;
+  margin-left: 1px;
+}
+/* Time Picker 
+ *
+ * Styling the Time Picker consists of the following: 
+ *
+ * 1. minor time values
+ * 		.dijitTimePickerTick - set text color, size, background color of minor values
+ * 		.dijitTimePickerTickHover - set hover style of minor time values
+ * 		dijitTimePickerTickSelected - set selected style of minor time values
+ *
+ * 2. major time values - 1:00, 2:00, times on the hour 
+ * 		set text color, size, background color, left/right margins for "zoom" affect
+ * 		.dijitTimePickerMarkerHover - to set hover style of major time values
+ * 		.dijitTimePickerMarkerSelected - set selected style of major time values
+ * 
+ * 3. up and down arrow buttons
+ * 		.dijitTimePicker .dijitButtonNode - background-color, border
+ * 		.dijitTimePicker .dijitUpArrowHover, .dijitTimePicker .dijitDownArrowHover - set background-color for hover state
+ *
+ *	Other classes provide the fundamental structure of the TimePicker and should not be modified. 
+ */
+
+/* override Button.css */
+
+.claro .dijitTimePicker .dijitButtonNode {
+  padding: 0 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.claro .dijitTimePicker {
+  border: 1px #b5bcc7 solid;
+  border-top: none;
+  border-bottom: none;
+  background-color: #fff;
+  /* TODO: useless?   Appears to be overridden by settings on individual elements */
+
+}
+.claro .dijitTimePickerItem {
+  /* dijitTimePickerItem refers to both Tick's (minor values like 2:15, 2:30, 2:45) and Marker's (major values like 2PM, 3PM) */
+
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  border-top: solid 1px #b5bcc7;
+  border-bottom: solid 1px #b5bcc7;
+  margin-top: -1px;
+}
+.claro .dijitTimePickerTick {
+  /* minor value */
+  color: #818181;
+  background-color: #efefef;
+  font-size: 0.818em;
+}
+.claro .dijitTimePickerMarker {
+  /* major value - 1:00, 2:00, times on the hour */
+  background-color: #e5f2fe;
+  font-size: 1em;
+  white-space: nowrap;
+}
+.claro .dijitTimePickerTickHover,
+.claro .dijitTimePickerMarkerHover,
+.claro .dijitTimePickerMarkerSelected,
+.claro .dijitTimePickerTickSelected {
+  background-color: #7dbdfa;
+  color: #000;
+}
+.claro .dijitTimePickerMarkerSelected,
+.claro .dijitTimePickerTickSelected {
+  font-size: 1em;
+}
+.claro .dijitTimePickerTick .dijitTimePickerItemInner {
+  padding: 1px;
+  margin: 0;
+}
+.claro .dijitTimePicker .dijitButtonNode {
+  border-left: none;
+  border-right: none;
+  border-color: #b5bcc7;
+  background-color: #efefef;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.claro .dijitTimePicker .dijitArrowButtonInner {
+  height: 100%;
+  /* hack claro.button.css */
+  background-image: url("form/images/commonFormArrows.png");
+  background-repeat: no-repeat;
+  background-position: -140px 45%;
+}
+.claro .dijitTimePicker .dijitDownArrowButton .dijitArrowButtonInner {
+  background-position: -35px 45%;
+}
+/* hover */
+
+.claro .dijitTimePicker .dijitUpArrowHover,
+.claro .dijitTimePicker .dijitDownArrowHover {
+  background-color: #abd6ff;
+}
+.claro .dijitTimePicker .dijitUpArrowHover .dijitArrowButtonInner {
+  background-position: -175px 45%;
+}
+.claro .dijitTimePicker .dijitDownArrowHover .dijitArrowButtonInner {
+  background-position: -70px 45%;
+}
+/* TitlePane and Fieldset
+ * 
+ * Styling TitlePane means styling the TitlePane title and its content container  (dijitTitlePane)
+ * 
+ * TitlePane title:
+ * 1. TitlePane title (default styling): 
+ * 		.dijitTitlePaneTitle - TitlePane's title div style: background-color, border
+ *
+ * 2. hovered TitlePane title (ie, mouse hover on a title bar)
+ * 		.dijitTitlePaneTitleHover - styles when mouse hover on the title div
+ * 
+ * 3. active TitlePane title (ie, mouse down on a title bar)
+ * 		.dijitTitlePaneTitleActive - styles when mouse down on the title div
+ * 
+ * 
+ * TitlePane Content Container:
+ * 1. outer/inner container: 
+ * 		.dijitTitlePaneContentOuter / dijitTitlePaneContentInner - styles for the content outer div
+ */
+
+.claro .dijitTitlePaneTitle {
+  background-color: #efefef;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  border: 1px solid #b5bcc7;
+  padding: 0 7px 3px 7px;
+  min-height: 17px;
+  color: #494949;
+}
+.claro .dijitFieldset {
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.claro .dijitTitlePaneTitleOpen,
+.claro .dijitTitlePaneTitleFixedOpen {
+  background-color: #cfe5fa;
+  color: #000;
+}
+.claro .dijitTitlePaneTitleHover {
+  background-color: #abd6ff;
+  border-color: #759dc0;
+}
+.claro .dijitTitlePaneTitleActive {
+  background-color: #7dbdfa;
+  border-color: #759dc0;
+  background-image: url("images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.claro .dijitTitlePaneTitleFocus {
+  margin-top: 3px;
+  padding-bottom: 2px;
+}
+.claro .dijitTitlePane .dijitArrowNode,
+.claro .dijitFieldset .dijitArrowNode {
+  background-image: url("images/spriteArrows.png");
+  background-repeat: no-repeat;
+  height: 8px;
+  width: 7px;
+}
+.claro .dijitTitlePaneTitleOpen .dijitArrowNode,
+.claro .dijitFieldsetTitleOpen .dijitArrowNode {
+  background-position: 0 0;
+}
+.claro .dijitTitlePaneTitleClosed .dijitArrowNode,
+.claro .dijitFieldsetTitleClosed .dijitArrowNode {
+  background-position: -14px 0;
+}
+.claro .dijitTitlePaneContentOuter {
+  background: #fff;
+  border: 1px solid #b5bcc7;
+  border-top: none;
+}
+.claro .dijitTitlePaneContentInner {
+  padding: 10px;
+}
+.claro .dijitFieldsetContentInner {
+  padding: 4px;
+}
+.claro .dijitTitlePaneTextNode,
+.claro .dijitFieldsetLegendNode {
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: text-top;
+}
+/* TitlePane */
+
+.claro .dijitTitlePaneRtl .dijitClosed .dijitArrowNode,
+.claro .dijitFieldsetRtl .dijitFieldsetTitleClosed .dijitArrowNode {
+  background-position: -7px 0;
+}
+/* Toolbar 
+ * 
+ * Styling Toolbar means styling the toolbar container and the widget inside toolbar  (dijitToolbar)
+ * 
+ * 1. toolbar (default styling): 
+ * 		.dijitToolbar - styles for outer container
+ *
+ * 2. widget inside toolbar
+ * 		.dijitToolbar .dijitButtonNode   - Button widget
+ * 					  .dijitComboButton  - ComboButton widget
+ * 					  .dijitDropDownButton  - DropDownButton widget
+ * 					  .dijitToggleButton  - ToggleButton widget
+ * 		
+ * 3. hovered widget inside toolbar (ie, mouse hover on the widget inside)
+ * 			.dijitToolbar .dijitButtonNodeHover  - styles for hovered Button widget
+ * 
+ * 4. actived widget inside toolbar (ie, mouse down on the widget inside)
+ * 			.dijitToolbar .dijitButtonNodeActive  - mouse down on Button widget
+ */
+
+.claro .dijitToolbar {
+  border-bottom: 1px solid #b5bcc7;
+  background-color: #efefef;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 2px 0 2px 4px;
+  zoom: 1;
+}
+.claro .dijitToolbar label {
+  padding: 0 3px 0 6px;
+}
+/** override claro/form/Button.css, and also ComboBox down arrow **/
+
+.claro .dijitToolbar .dijitButton .dijitButtonNode,
+.claro .dijitToolbar .dijitDropDownButton .dijitButtonNode,
+.claro .dijitToolbar .dijitComboButton .dijitButtonNode,
+.claro .dijitToolbar .dijitToggleButton .dijitButtonNode,
+.claro .dijitToolbar .dijitComboBox .dijitButtonNode {
+  border-width: 0;
+  /* on hover/active, border-->1px, padding-->1px */
+  padding: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  background-color: rgba(171, 214, 255, 0);
+  background-image: none;
+  /* cancel gradient for normal buttons, we don't want any gradient besides toolbar's on non-hovered buttons */
+
+}
+.dj_ie .claro .dijitToolbar .dijitButton .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitDropDownButton .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitComboButton .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitToggleButton .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitComboBox .dijitButtonNode {
+  background-color: transparent;
+  /* for IE, which doesn't understand rgba(...) */
+
+}
+/* hover status */
+
+.dj_ie .claro .dijitToolbar .dijitButtonHover .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitDropDownButtonHover .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitComboButton .dijitButtonNodeHover,
+.dj_ie .claro .dijitToolbar .dijitComboButton .dijitDownArrowButtonHover,
+.dj_ie .claro .dijitToolbar .dijitToggleButtonHover .dijitButtonNode {
+  /* button should still turn blue on hover, so need to override .dj_ie rules above */
+  background-color: #abd6ff;
+}
+/* active status */
+
+.dj_ie .claro .dijitToolbar .dijitButtonActive .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitDropDownButtonActive .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitComboButtonActive .dijitButtonNode,
+.dj_ie .claro .dijitToolbar .dijitToggleButtonActive .dijitButtonNode {
+  /* button should still turn blue on press, so need to override .dj_ie rules above */
+  background-color: #abd6ff;
+}
+.claro .dijitToolbar .dijitComboButton .dijitStretch {
+  /* no rounded border on side adjacent to arrow */
+
+  -moz-border-radius: 2px 0 0 2px;
+  border-radius: 2px 0 0 2px;
+}
+.claro .dijitToolbar .dijitComboButton .dijitArrowButton {
+  /* no rounded border on side adjacent to button */
+
+  -moz-border-radius: 0 2px 2px 0;
+  border-radius: 0 2px 2px 0;
+}
+.claro .dijitToolbar .dijitComboBox .dijitButtonNode {
+  padding: 0;
+}
+/* hover status */
+
+.claro .dijitToolbar .dijitButtonHover .dijitButtonNode,
+.claro .dijitToolbar .dijitDropDownButtonHover .dijitButtonNode,
+.claro .dijitToolbar .dijitToggleButtonHover .dijitButtonNode,
+.claro .dijitToolbar .dijitComboButtonHover .dijitButtonNode {
+  border-width: 1px;
+  background-color: #abd6ff;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 1px;
+}
+.claro .dijitToolbar .dijitComboButtonHover .dijitButtonNode,
+.claro .dijitToolbar .dijitComboButtonHover .dijitDownArrowButton {
+  background-color: #f3ffff;
+}
+.claro .dijitToolbar .dijitComboButtonHover .dijitButtonNodeHover,
+.claro .dijitToolbar .dijitComboButtonHover .dijitDownArrowButtonHover {
+  background-color: #abd6ff;
+}
+/* active status */
+
+.claro .dijitToolbar .dijitButtonActive .dijitButtonNode,
+.claro .dijitToolbar .dijitDropDownButtonActive .dijitButtonNode,
+.claro .dijitToolbar .dijitToggleButtonActive .dijitButtonNode {
+  border-width: 1px;
+  background-color: #7dbdfa;
+  background-image: url("images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 1px;
+}
+.claro .dijitToolbar .dijitComboButtonActive {
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  border-width: 1px;
+  padding: 0;
+}
+.claro .dijitToolbar .dijitComboButtonActive .dijitButtonNode,
+.claro .dijitToolbar .dijitComboButtonActive .dijitDownArrowButton {
+  background-color: #f3ffff;
+  padding: 2px;
+}
+.claro .dijitToolbar .dijitComboButtonActive .dijitButtonNodeActive {
+  background-color: #7dbdfa;
+  background-image: url("images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+.claro .dijitToolbar .dijitComboButtonActive .dijitDownArrowButtonActive {
+  background-color: #7dbdfa;
+  background-image: url("images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+}
+/* Avoid double border between button and arrow */
+
+.claro .dijitToolbar .dijitComboButtonHover .dijitDownArrowButton,
+.claro .dijitToolbar .dijitComboButtonActive .dijitDownArrowButton {
+  border-left-width: 0;
+}
+.claro .dijitToolbar .dijitComboButtonHover .dijitDownArrowButton {
+  padding-left: 2px;
+  /* since there's no left border, don't reduce from 2px --> 1px */
+
+}
+/* toggle button checked status */
+
+.claro .dijitToolbar .dijitToggleButtonChecked .dijitButtonNode {
+  margin: 0;
+  /* remove margin and add a border */
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  border-color: #759dc0;
+  background-color: #fff;
+  padding: 1px;
+}
+.claro .dijitToolbarSeparator {
+  /* separator icon in the editor sprite */
+  background: url("../../icons/images/editorIconsEnabled.png");
+}
+/* Toolbar inside of disabled Editor */
+
+.claro .dijitDisabled .dijitToolbar {
+  background: none;
+  background-color: #efefef;
+  border-bottom: 1px solid #d3d3d3;
+}
+.claro .dijitToolbar .dijitComboBoxDisabled .dijitArrowButtonInner {
+  background-position: 0 50%;
+}
+/* Toolbar RTL */
+
+/* Repeated rules from Toolbar.css to override rule from Button_rtl.css, which is loaded after Toolbar.css */
+
+.claro .dijitToolbar .dijitComboButtonRtl .dijitButtonNode {
+  border-width: 0;
+  padding: 2px;
+}
+.claro .dijitToolbar .dijitComboButtonRtlHover .dijitButtonNode,
+.claro .dijitToolbar .dijitComboButtonRtlActive .dijitButtonNode {
+  border-width: 1px;
+  padding: 1px;
+}
+.claro .dijitToolbar .dijitComboButtonRtl .dijitStretch {
+  /* no rounded border on side adjacent to arrow */
+
+  -moz-border-radius: 0 2px 2px 0;
+  border-radius: 0 2px 2px 0;
+}
+.claro .dijitToolbar .dijitComboButtonRtl .dijitArrowButton {
+  /* no rounded border on side adjacent to button */
+
+  -moz-border-radius: 2px 0 0 2px;
+  border-radius: 2px 0 0 2px;
+}
+.claro .dijitToolbar .dijitComboButtonRtlHover .dijitArrowButton,
+.claro .dijitToolbar .dijitComboButtonRtlActive .dijitArrowButton {
+  /* border between button and arrow */
+  border-left-width: 1px;
+  border-right-width: 0;
+  padding-left: 1px;
+  padding-right: 2px;
+}
+/* Tree 
+ * 
+ * Styling Tree mostly means styling the TreeRow (dijitTreeRow)
+ * There are 4 basic states to style:
+ * 
+ * Tree Row:
+ * 1. tree row (default styling): 
+ * 		.dijitTreeRow - styles for each row of the tree
+ *
+ * 2. hovered tree row (mouse hover on a tree row)
+ * 		.dijitTreeRowHover - styles when mouse over on one row
+ * 
+ * 3. active tree row (mouse down on a tree row)
+ * 		.dijitTreeRowActive - styles when mouse down on one row
+ * 
+ * 4. selected tree row
+ * 		dijitTreeRowSelected - style when the row has been selected
+ * 
+ * Tree Expando:
+ * 	    dijitTreeExpando - the expando at the left of the text of each tree row
+ * 
+ * Drag and Drop on TreeNodes: (insert line on dijitTreeContent node so it'll aligned w/ target element)
+ * 		.dijitTreeNode .dojoDndItemBefore/.dojoDndItemAfter - use border style simulate a separate line
+ */
+
+.claro .dijitTreeNode {
+  zoom: 1;
+  /* force layout on IE (TODO: may not be needed anymore) */
+
+}
+.claro .dijitTreeIsRoot {
+  background-image: none;
+}
+/* Styling for basic tree node (unhovered, unselected)
+ * Also use this styling when dropping between items on the tree (in other words, don't
+ * use hover effect)
+ */
+
+.claro .dijitTreeRow,
+.claro .dijitTreeNode .dojoDndItemBefore,
+.claro .dijitTreeNode .dojoDndItemAfter {
+  /* so insert line shows up on IE when dropping after a target element */
+  padding: 4px 0 2px 0;
+  background-color: none;
+  background-color: transparent;
+  background-color: rgba(171, 214, 255, 0);
+  background-position: 0 0;
+  background-repeat: repeat-x;
+  border: solid 0 transparent;
+  color: #000;
+  -webkit-transition-property: background-color, border-color;
+  -moz-transition-property: background-color, border-color;
+  transition-property: background-color, border-color;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.claro .dijitTreeRowSelected {
+  background-color: #cfe5fa;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 3px 0 1px;
+  border-color: #759dc0;
+  border-width: 1px 0;
+  color: #000;
+}
+.claro .dijitTreeRowHover {
+  background-color: #abd6ff;
+  background-image: url("images/standardGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 3px 0 1px;
+  border-color: #759dc0;
+  border-width: 1px 0;
+  color: #000;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+.claro .dijitTreeRowActive {
+  background-color: #7dbdfa;
+  background-image: url("images/activeGradient.png");
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(rgba(190, 190, 190, 0.98) 0px, rgba(255, 255, 255, 0.65) 3px, rgba(255, 255, 255, 0) 100%);
+  _background-image: none;
+  padding: 3px 0 1px;
+  border-color: #759dc0;
+  border-width: 1px 0;
+  color: #000;
+}
+.claro .dijitTreeRowFocused {
+  background-repeat: repeat;
+}
+/* expando (open/closed) icon */
+
+.claro .dijitTreeExpando {
+  background-image: url("images/treeExpandImages.png");
+  width: 16px;
+  height: 16px;
+  background-position: -35px 0;
+  /* for dijitTreeExpandoOpened */
+
+}
+.dj_ie6 .claro .dijitTreeExpando {
+  background-image: url("images/treeExpandImages8bit.png");
+}
+.claro .dijitTreeRowHover .dijitTreeExpandoOpened {
+  background-position: -53px 0;
+}
+.claro .dijitTreeExpandoClosed {
+  background-position: 1px 0;
+}
+.claro .dijitTreeRowHover .dijitTreeExpandoClosed {
+  background-position: -17px 0;
+}
+.claro .dijitTreeExpandoLeaf,
+.dj_ie6 .claro .dijitTreeExpandoLeaf {
+  background-image: none;
+}
+.claro .dijitTreeExpandoLoading {
+  background-image: url("../../icons/images/loadingAnimation.gif");
+  background-position: 0 0;
+}
+/* Drag and Drop on TreeNodes
+ * Put insert line on dijitTreeContent node so it's aligned w/
+ * (ie, indented equally with) target element, even
+ * though dijitTreeRowNode is the actual "drag object"
+ */
+
+.claro .dijitTreeNode .dojoDndItemBefore .dijitTreeContent {
+  border-top: 2px solid #759dc0;
+}
+.claro .dijitTreeNode .dojoDndItemAfter .dijitTreeContent {
+  border-bottom: 2px solid #759dc0;
+}
+/* Tree_rtl */
+
+.claro .dijitTreeRtl .dijitTreeExpandoLoading {
+  background-image: url("../../icons/images/loadingAnimation_rtl.gif");
+  background-position: 100% 0;
+}

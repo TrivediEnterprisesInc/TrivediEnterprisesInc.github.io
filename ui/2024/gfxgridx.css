@@ -1,0 +1,149 @@
+/*    *     *     Begin Gridx styling updates 4 gfx     *    *     *     /
+
+/*
+@mpt Aug 28:
+All the less compilers have issues with the (version?) of less oria used,
+so hacking this directly for now, changes marked @mpt
+Aug29:
+Extracted changes to a separate file (could've appended to common but that's not the latest in this fork.
+*/
+
+.gridxTreeExpandoCell {
+/* Below nded for our custom icon (larger) */
+    padding-left: 18px !important;
+}
+
+.gridxTreeExpandoCell .gridxCellContent {
+/* Needed to align w/new expando */
+    padding-top: 2px;
+}
+.gridxHeaderRow {
+    font-weight: bold;  /* @mpt */
+    background-color: #e5edf4;
+    border-bottom: 1px solid #ccc;
+    position: relative
+}
+
+.claro .gridxHeaderRow {
+    background: #e5edf4;
+}
+
+.gridxHeader, .gridxFooter {
+    overflow: hidden;
+    background-color: #e5edf4;
+}
+
+.gridxBodyRowHoverEffect .gridxRowOver>.gridxRowTable {
+    background-color: #d0dfea; /* @mpt #e2f1f7, #cee8f2*/
+}
+
+.gridxRowHeaderRow table .gridxCell,.gridxRow .gridxRowTable .gridxCell {
+    border-style: solid;
+/*@mpt    border-color: transparent #ccc #ccc transparent;*/
+    border-color: transparent transparent transparent transparent;
+    border-width: 1px;
+    padding: 3px;
+    text-align: left;
+    overflow: hidden
+}
+
+.gridxFilterBarBtnIcon {
+    background-image: url("https://trivedienterprisesinc.github.io/ui/2024/filter_list.png");
+    height: 20px;
+    width: 20px;
+    background-repeat: unset;
+    background-position: unset;
+}
+.gridxPagerGotoBtn {
+    background-image: url("https://trivedienterprisesinc.github.io/ui/2024/expand_circle_up.png");
+    background-repeat: unset;
+    background-position: unset;
+    height: 20px;
+    width: 20px;
+    cursor: pointer
+}
+
+.gridxEditOK:hover,.gridxEditCancel:hover {
+    background-color: #e7f4f9 /* @mpt #9bcaf7*/
+}
+
+.gridxFilterBar .dijitButton .dijitButtonNode {
+/* @mpt
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+*/
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 2px;
+/* @mpt added below */
+    background-image: none;
+    background-color: white;
+    border: none;
+}
+
+.gridxFilterBarStatus {
+    background: #e5edf4;
+/*  @mpt
+    background: #f2f9ff;
+    background: -moz-linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f9ff), color-stop(100%, #eaf5ff));
+    background: -webkit-linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    background: -o-linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    background: -ms-linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    background: linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    border-bottom: 1px solid #bfd6eb;
+    border-top: 1px solid #bfd6eb;
+*/
+    border-bottom: none;
+    border-top: none;
+    padding: 1px 0 0 45px
+}
+
+.claro .gridxCell {
+/*@mpt    border-color: transparent #e5dac8 #e5dac8 transparent*/
+    border-color: transparent transparent transparent transparent
+}
+
+.claro .gridxRowOdd>.gridxRowTable {
+    background-color: #f7f7f7; /* @mpt #f1f8ff*/
+}
+
+.claro .gridxBodyRowHoverEffect .gridxRowOver>.gridxRowTable .gridxCell {
+/*
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABkCAYAAABHLFpgAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QgfCgczp3jbXgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAARElEQVQY02P4////VYb////7MjEwMIjBCSEmBgYGBiYGBoY/cOInnPUXVeIPEwMDw28srF9wLrEEmgFoxF8EwTAKyAUAMSQmGGxBkFgAAAAASUVORK5CYII=") #abd6ff repeat-x
+*/
+    background: initial;
+}
+
+.claro .gridxRow:first-child>.gridxRowTable .gridxCell,.claro .gridxBodyFirstRow .gridxCell {
+/*@mpt    border-top-color: #e5dac8*/
+    border-top-color: white;
+}
+
+.claro .gridxRowOdd .gridxLockedCell {
+    background-color: #efefef; /* @mpt #f1f8ff*/
+}
+
+.claro .gridxBodyRowHoverEffect .gridxRowOver .gridxLockedCell {
+/* @mpt
+    background: url("../images/rowback.png") #abd6ff repeat-x
+*/
+    background: initial;
+}
+
+.claro .gridxRtl .gridxBody .gridxCell {
+/*@mpt    border-color: transparent transparent #e5dac8 #e5dac8*/
+    border-color: transparent transparent transparent transparent
+}
+
+.gridxFilterTooltip table th {
+    color: black;
+}
+
+.gridxFilterTooltipOddRow {
+    color: black;
+}
+
+/*    *     *     end Gridx styling updates 4 gfx     *    *     *     /

@@ -1,0 +1,263 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Gridx Tree Grid with Ttips</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+<script src="https://oria.github.io/gridx/build/gridx/tests/allInOne.js"></script>
+
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/gridx/tests/support/common.js"></script>
+
+	<link rel="stylesheet" href="gfxClaro.css">	<!--(for overrides)-->
+	<link rel="stylesheet" href="common.css">
+	<link rel="stylesheet" href="gfxGridx.css">	<!--(for customizations)-->
+
+
+<script>
+require([
+	'dojo/parser',
+	'dojo/on', 'dojo/dom', 'dojo/mouse',
+	'dojo/_base/Deferred', 'dijit/Tooltip',
+	'gridx/tests/support/data/TreeColumnarTestData',
+	'gridx/tests/support/data/TreeNestedTestData',
+	'gridx/tests/support/stores/ItemFileWriteStore',
+	'gridx/allModules',
+	'gridx/Grid',
+	'gridx/core/model/cache/Sync',
+	'gridx/core/model/cache/Async',
+	'dojo/domReady!'
+], function(parser, on, dom, mouse, Deferred, Tooltip, dataSource, nestedDataSource, storeFactory, modules, Grid){
+
+	window.addRow = function() {
+		var newItem = {id: "itemId", type: "itemType"},
+			parentId = dojo.byId('parentIdInput').value;
+
+		if (!parentId) return;
+
+		this.store.fetchItemByIdentity({identity: parentId, onItem: function(parentItem) {
+			if (!parentItem) return;
+			
+			this.store.newItem({id: new Date().getTime()}, {
+				parent: parentItem,
+				attribute: "children"
+			});
+		}});
+	};
+
+	window.deleteRow = function() {
+		var newItem = {id: "itemId", type: "itemType"},
+			deleteRowId = dojo.byId('deleteRowId').value;
+
+		if (!deleteRowId) return;
+
+		this.store.fetchItemByIdentity({identity: deleteRowId, onItem: function(item) {
+			if (!item) return;
+			
+			this.store.deleteItem(item);
+			// this.store.newItem({id: new Date().getTime()}, {
+			// 	parent: parentItem,
+			// 	attribute: "children"
+			// });
+		}});
+	};
+
+	store = storeFactory({
+		dataSource: dataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	store.hasChildren = function(id, item){
+		return item && store.getValues(item, 'children').length;
+	};
+	/* 
+	 * Dojo don't provide sort interface for tree store, so it's hard to do sorting for children. 
+	 * User should add their own sorting logic here to sort children manually.
+	 */
+	store.getChildren = function(item, req){
+		var children = store.getValues(item, 'children'),
+			attr,
+			t = this,		//store object
+			sorts = req.sort;
+
+		var sorting = function (a, b, index) {
+			if (!sorts[index]) return 0;
+
+			var attr = sorts[index].attribute;
+			var va = t.getValue(a, attr);
+			var vb = t.getValue(b, attr);
+
+			if (va == vb) {
+				return sorting(a, b, ++index);
+			}
+			return !sorts[index].descending ? (va > vb ? 1 : -1) : (va <= vb ? 1 : -1);
+		}
+
+		if (sorts && sorts.length) {
+			children.sort(function(a, b) {
+				return sorting(a, b, 0);
+			});
+		}
+
+		return children;
+	};
+
+	storeAsync = storeFactory({
+		isAsync: true,
+		dataSource: dataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	storeAsync.hasChildren = function(id, item){
+		return item && storeAsync.getValues(item, 'children').length;
+	};
+	storeAsync.getChildren = function(item){
+		var d = new Deferred();
+		console.log('getChildren: ', storeAsync.getIdentity(item));
+		setTimeout(function(){
+			var children = storeAsync.getValues(item, 'children');
+			d.callback(children);
+		}, 1000);
+		return d;
+	};
+
+	storeNested = storeFactory({
+		dataSource: nestedDataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	storeNested.hasChildren = function(id, item){
+		return item && storeNested.getValues(item, 'children').length;
+	};
+	storeNested.getChildren = function(item){
+		var d = new Deferred();
+		setTimeout(function(){
+			var children = storeNested.getValues(item, 'children');
+			d.callback(children);
+		}, 1000);
+		return d;
+	};
+
+	var progressDecorator = function(){
+		return [
+			"<div data-dojo-type='dijit.ProgressBar' data-dojo-props='maximum: 10000' ",
+			"class='gridxHasGridCellValue' style='width: 100%;'></div>"
+		].join('');
+	};
+
+	layout3 = [
+		{id: 'number', name: 'number', field: 'number'},
+		{id: 'string', name: 'string', field: 'string'},
+		{id: 'date', name: 'date', field: 'date'},
+		{id: 'time', name: 'time', field: 'time'},
+		{id: 'bool', name: 'bool', field: 'bool'},
+		{id: 'id', name: 'id', field: 'id'}
+	];
+	layout4 = [
+		{id: 'id', name: 'id', field: 'id'},
+		{id: 'number', name: 'number *', field: 'number', expandLevel: 1},
+		{id: 'string', name: 'string *', field: 'string', expandLevel: 2},
+		{id: 'date', name: 'date', field: 'date'},
+		{id: 'time', name: 'time *', field: 'time', expandLevel: 3},
+		{id: 'bool', name: 'bool', field: 'bool'}
+	];
+
+
+	mods = [
+		modules.Tree,
+		modules.Filter,
+		modules.FilterBar,
+		modules.QuickFilter,
+		modules.Pagination,
+		modules.PaginationBar,
+		modules.ColumnResizer,
+		modules.SelectRow,
+		// modules.ExtendedSelectRow,
+		modules.CellWidget,
+		modules.Edit,
+		modules.IndirectSelectColumn,
+		modules.SingleSort,
+		// modules.NestedSort,
+		modules.VirtualVScroller
+	];
+
+	mods1 = [
+		modules.Tree,
+		modules.Filter,
+		modules.FilterBar,
+		/*modules.QuickFilter,*/
+		modules.Pagination,
+		modules.PaginationBar,
+		modules.ColumnResizer,
+		// modules.SelectRow,
+		modules.ExtendedSelectRow,
+		modules.CellWidget,
+		modules.Edit,
+		modules.IndirectSelectColumn,
+		modules.SingleSort,
+		modules.VirtualVScroller
+	];
+
+		grid = new Grid({
+			cacheClass: "gridx/core/model/cache/Async",
+			store: storeNested,
+			structure: layout3,
+			autoWidth: true,
+			autoHeight: true,
+			treeNested: true,
+			paginationBarSizes: [1, 2, 0],
+			modules: mods1
+		});
+		grid.placeAt('grid');
+		grid.startup();
+		//see: https://github.com/oria/gridx/blob/a05e8b910bc88106792c2c68ebdbdbea45cb63f8/Grid.js#L263C3-L263C4
+		dojo.connect(grid, "onRowMouseOver", function(e){
+			console.log("rowId: " + e.rowId + JSON.stringify(e));
+			grid.store.fetchItemByIdentity({identity: e.rowId, onItem: function(item) {
+				if (!item) return;
+				console.log("fetchedItem: " + item['time']);
+                                let roNd = grid.body.getRowNode({visualIndex: e.visualIndex})
+				Tooltip.show(("row Time fld: " + item['time']), roNd);
+				on.once(roNd, mouse.leave, function(){
+				      Tooltip.hide(roNd);
+				});
+			}});
+		});
+
+
+/* See this for embedding a whole mod (good 4 testing) in shell ->
+//https://github.com/oria/gridx/issues/293
+//see https://github.com/oria/gridx/blob/master/tests/test_grid_events.js
+*/
+
+	parser.parse();
+});
+</script>
+
+</head>
+
+<body class='claro'>
+	<h1 class='title' tabindex='0' onfocus='this.style.color="blue"' onblur='this.style.color=""'>
+		Tree Grid
+	</h1>
+	
+	<h2>This file created Aug28 to test + work on Gridx.css style changes
+</h2>
+Style changes manually made to css coz less files won't compile (oria nds node, @mbi, the old story)<br>
+It uses all oria stuff except local (modified) gfxGridx.css + common.css.<br>
+<b>Note</b>: Strangely enough, diff parts of the wid continue to load oria's gridx.css (poss script refs)<br>
+<b>Needed</b>: Nd 2 port the gfx claro file (this distro doesn't contain it so no btn styling etc.)
+<p><p>
+	<div id='grid'></div>
+</body>
+</html>
