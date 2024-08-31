@@ -15,9 +15,7 @@
 	</style>
 	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
 
-<script src="https://oria.github.io/gridx/build/gridx/tests/allInOne.js"></script>
-
-	<script type="text/javascript" src="https://oria.github.io/gridx/build/gridx/tests/support/common.js"></script>
+<script src="	"></script>
 
 	<link rel="stylesheet" href="gfxClaro.css">	<!--(for overrides)-->
 	<link rel="stylesheet" href="common.css">
@@ -28,7 +26,8 @@
 require([
 	'dojo/parser',
 	'dojo/on', 'dojo/dom', 'dojo/mouse',
-	'dojo/_base/Deferred', 'dijit/Tooltip',
+	'dojo/_base/Deferred', 'dijit/Tooltip', 'dijit/Toolbar', 
+	'dijit/form/Button', 'dijit/form/Select',
 	'gridx/tests/support/data/TreeColumnarTestData',
 	'gridx/tests/support/data/TreeNestedTestData',
 	'gridx/tests/support/stores/ItemFileWriteStore',
@@ -37,7 +36,7 @@ require([
 	'gridx/core/model/cache/Sync',
 	'gridx/core/model/cache/Async',
 	'dojo/domReady!'
-], function(parser, on, dom, mouse, Deferred, Tooltip, dataSource, nestedDataSource, storeFactory, modules, Grid){
+], function(parser, on, dom, mouse, Deferred, Tooltip, Toolbar, Button, Select, dataSource, nestedDataSource, storeFactory, modules, Grid){
 
 	window.addRow = function() {
 		var newItem = {id: "itemId", type: "itemType"},
@@ -155,6 +154,82 @@ require([
 		].join('');
 	};
 
+
+        const gfxEditBtnHandler = () => {
+          alert('EditBtnHandler');
+        }
+        const gfxRtlBtnHandler = () => {
+	  //see: https://oria.github.io/gridx/build/gridx/tests/support/common.js
+	var w = window,
+		d = document,
+		l = w.location,
+		h = l.href,
+		i = h.indexOf('?'),
+		q = i > -1,
+		b = 'RTL',
+		p = q && h.substr(i + 1).split(/#/)[0].split(/&/)[0].split('='),	//LIMITATION: dir must be the first parameter...
+		v = d.getElementsByTagName('html')[0].dir = 
+			p && p[0] == 'dir' &&
+					(p[1] || '').replace(/[^\w]/g, '').toUpperCase() == b ?	//replace() to avoid XSS attack...
+						b : '';
+	v = v == b ? '' : b;
+	//p = d.createElement('a');
+	//p.innerHTML = "<input type='button' style='position:fixed;top:0;right:0;width:5em;' value='" + (v || 'LTR') + "' />";
+
+	l.href = (q ? h.substr(0, i) : h) + (v && '?dir=' + v);
+
+        }
+        var gfxTb = new Toolbar({}, 'toolbar');
+        var gfxCreateBtn = new Button({
+          label: 'Create',
+          iconClass:'dijitIconFunction',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxCreateBtn);
+
+        var gfxEditBtn = new Button({
+          label: 'Edit',
+          iconClass:'dijitIconFunction',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxEditBtn);
+
+        var gfxQEditBtn = new Button({
+          label: 'QEdit',
+          iconClass:'dijitIconFunction',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxQEditBtn);
+
+        var gfxDelBtn = new Button({
+          label: 'Delete',
+          iconClass:'dijitIconFunction',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxDelBtn);
+
+        var gfxExpAllBtn = new Button({
+          label: 'Expand All',
+          iconClass:'dijitIconFunction',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxExpAllBtn);
+
+        var gfxColAllBtn = new Button({
+          label: 'Collapse All',
+          iconClass:'dijitIconFunction',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxColAllBtn);
+
+        var gfxRtlBtn = new Button({
+          label: 'RTL',
+          iconClass:'dijitIconFunction',
+          onClick:gfxRtlBtnHandler
+        });
+        gfxTb.addChild(gfxRtlBtn);
+        gfxTb.startup();
+
 	layout3 = [
 		{id: 'number', name: 'number', field: 'number'},
 		{id: 'string', name: 'string', field: 'string'},
@@ -191,11 +266,11 @@ require([
 		modules.VirtualVScroller
 	];
 
-	mods1 = [
+	gfxMods = [
 		modules.Tree,
 		modules.Filter,
 		modules.FilterBar,
-		/*modules.QuickFilter,*/
+		/*modules.QuickFilter, used 4 FTSrch */
 		modules.Pagination,
 		modules.PaginationBar,
 		modules.ColumnResizer,
@@ -205,8 +280,26 @@ require([
 		modules.Edit,
 		modules.IndirectSelectColumn,
 		modules.SingleSort,
-		modules.VirtualVScroller
+		modules.VirtualVScroller,
+		modules.Bar
 	];
+
+		//This is the DV Selector
+		const dvSel = new Select({
+		        name: "gfxDvSelect",
+			style:"width: 100%;",
+			intermediateChanges: true,
+		        options: [
+		            { label: "By Project\\Module", value: "Tennessee" },
+		            { label: "By Module\\SubModule", value: "Virginia", selected: true },
+		            { label: "By Priority", value: "Washington" },
+		            { label: "By Very Long Title Indeed to test autoWid", value: "Floridaa" },
+		            { label: "By Quadrant", value: "Florida" }
+		        ]});
+
+		dojo.connect(dvSel, "onChange", function(nV){
+		      alert("my value: " +  nV);
+		});
 
 		grid = new Grid({
 			cacheClass: "gridx/core/model/cache/Async",
@@ -216,7 +309,11 @@ require([
 			autoHeight: true,
 			treeNested: true,
 			paginationBarSizes: [1, 2, 0],
-			modules: mods1
+			modules: gfxMods,
+			barTop: [
+			     [ dvSel ],
+			     [ gfxTb ]
+			]
 		});
 		grid.placeAt('grid');
 		grid.startup();
@@ -259,5 +356,132 @@ It uses all oria stuff except local (modified) gfxGridx.css + common.css.<br>
 <b>Needed</b>: Nd 2 port the gfx claro file (this distro doesn't contain it so no btn styling etc.)
 <p><p>
 	<div id='grid'></div>
+<p><p>
+
+<center><h2>Design Notes</h2></center>
+<br>
+<details>
+  <summary>Filtering</summary>
+         
+Filtering nds the 'dataType' attribute in the column definition (or it'll default to string), see <a href='https://xcellerant.wordpress.com/2014/12/16/gridx-17-column-data-types/'>this</a><br>
+Also see <a href='https://xcellerant.wordpress.com/2014/12/10/gridx-in-xpages-16-advanced-searching-with-the-filterbar-module/'>this</a>: If you are using a remote data store, you’ll need to filter the data server-side before sending it client-side.<br>
+The QuickFilter appears to provide <mark>FTSearch capab</mark> (again, manually pass args 2 svr)
+</details>
+<br>
+<details>
+  <summary>Add DropDown DVSelector</summary>
+<hr>                        <br>
+
+<mark>Aug31</mark>: Forget using the approach below, there's a better way to do this; by merely incl in sep tds (auto-setup, see <a href='https://github.com/oria/gridx/wiki/How-to-add-bars-to-gridx%3F-%5Bv1.1%5D#bar-item-definition'>this</a> gridx manPg<p>
+
+i) Updated templates/FilterBar.html -><br>
+
+&lt;table&gt;<br>
+  &lt;tr style=&quot;width:100%;&quot;&gt;<br>
+    &lt;td style=&quot;width:50%;&quot;&gt;<br>
+       &lt;div data-dojo-type=&quot;dijit.form.Select&quot; id=&quot;${id}<br>_DVSelect&quot; aria-label=&quot;${_dvAriaLabel}&quot; style=&quot;width:100%;&quot;&gt;&lt;/div&gt;<br>
+    &lt;/td&gt;<br>
+    &lt;td id=&quot;filterTD&quot; style=&quot;width:50%;&quot;&gt;<br>
+[[curr. FilterBar btn &amp; content]]<br>
+    &lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+&lt;/table&gt;<br>
+
+<hr>
+ii) Updated gridx/modules/filter/FilterTooltip.js<br>
+
+Currently gridx will show the FilterTtip (cls) on bar hover; nds 2 be updated to show on filterTD via updated the fn below:<br>
+<code><pre>
+		_showTooltip: function(evt, delayed){
+      if evt.target = 'filterTD' then {
+        [[existing content from gridx]]
+      } else {
+        bld & show a Regular ttip w/msg.i18n 'Switch DataView'
+      }
+		}
+</pre></code>
+</details>
+<br>
+<details>
+  <summary>Add ActionBar</summary>
+
+Note: The winFrms CP <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/3CP.png'>img</a> doesn't have the ToolBar reqd (test btns instd); so look for the btnSet in the Java version<br>
+
+The Spx DV <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/brijPitch/articles/images/spx_DataView.mp4'>video</a> does have a tk tb which contains:<br>
+&lt;Create&gt; &lt;Edit&gt; &lt;QuickEdit&gt; &lt;DV DropDn&gt; &lt;Delete&gt; &lt;MarkCompleted&gt; &lt;RTL&gt;
+&lt;expandAll&gt; &lt;collAll&gt;&lt;br&gt;<br>
+
+gridx already contains gridx/modules/Bar.js, a general-purpose bar
+ALSO has modules/ToolBar.js which adds a tb 2 the bar above<br>
+see: https://xcellerant.wordpress.com/2015/01/19/gridx-in-xpages-24-adding-toolbars-to-the-grid-header/
+(this post says the ToolBar is depr so use bar instd)
+
+i) add requires 4 "dijit/Toolbar", "dijit/form/Button",<br>
+ii) Create tb; attach handler<br>
+<code><pre>
+        function myButtonHandler() {
+          console.log('Clicked button');
+        }
+        var toolbar = new Toolbar({}, 'toolbar');
+        var myButton = new Button({
+          label: 'Do Something',
+          iconClass:'dijitIconFunction',
+          onClick:myButtonHandler
+        });
+        toolbar.addChild(myButton);
+        toolbar.startup();
+</pre></code>
+<br>
+iii) Add the Toolbar to the grid<br>
+<code><pre>
+          grid = new Grid({
+            id: 'my_gridX',
+            cacheClass: Cache,
+            store: store,
+            structure: columns,
+            vScrollerBuffSize:10,
+            **barTop: [
+              toolbar
+            ],
+            modules: [
+              Resizer,
+              NestedSort,
+              Filter,
+              FilterBar,
+              QuickFilter,
+              VirtualVScroller,
+              **Bar
+            ]});
+</pre></code>
+</details>
+<br>
+<details>
+  <summary>selectedRows</summary>
+To get selectedRows, use <a href='https://oria.github.io/gridx/build/gridx/tests/test_grid_extendedSelect.js'>this</a><br>
+and update<br>
+<code><pre>
+  connect.connect(grid.select.row, 'onSelectionChange', function(selected){
+    selected.length > 1 ? enableMultiSelectReqdBtns() (e.g. QuickUpd) : ();
+  });
+</pre></code><br>
+also see this: https://oria.github.io/gridx/demos/extendedSelect.html
+
+</details>
+<br>
+
+<a href='https://xcellerant.wordpress.com/2014/12/03/gridx-in-xpages-12-adding-event-handlers-and-opening-a-document/'>Event</a> handling in gridx<br>
+<mark>@ToDo</mark> <a href='https://xcellerant.wordpress.com/2015/01/22/gridx-in-xpages-27-exporting-to-excel/'>CSV_Export</a><br>
+<mark>@TBD</mark> <mark>@v2</mark> Col/Row <a href='https://xcellerant.wordpress.com/2015/01/21/gridx-in-xpages-26-column-and-row-locking/'>Locking</a><br>
+
+<mark>@ToDo</mark> Maintaining Grid <a href='https://xcellerant.wordpress.com/2015/01/13/gridx-in-xpages-21-maintaining-grid-state-between-sessions/'>State</a> Between Sessions<br> (gridx saves by id which we can push to userid.cfg)<br>
+  saves the foll:   Sorting (single and nested)<br>
+                    Column Widths<br>
+                    Filtering<br>
+                    Reordered Columns<br>
+                    Hidden Columns<br>
+  ONLY nd 2 add the 'Persist' mod to use this<br>
+<mark>@TBD</mark> <mark>@v2</mark> Persist expand/collapse state? (hook into the Persist mod)<br>
+
+
 </body>
 </html>
