@@ -8,6 +8,12 @@ Aug29:
 Extracted changes to a separate file (could've appended to common but that's not the latest in this fork.
 */
 
+.claro .dijitToolbar {
+    border-bottom: 1px solid white;
+    background-color: #e5edf4;
+    background-image: unset;
+}
+
 .gridxTreeExpandoCell {
 /* Below nded for our custom icon (larger) */
     padding-left: 18px !important;
