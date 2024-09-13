@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	
+	<title>dojox/form/Manager (test #4)</title>
+
+<link rel="stylesheet" href="gfxGridx.css">
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+	<link rel="stylesheet" href="gridx_Styling/common.css">	<!--(for customizations)-->
+	<link rel="stylesheet" href="gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+.dijitDialogPaneContent {
+    width: 800px !important;
+    height: 600px !important;
+}
+
+		.makeYellow		{ background-color: #ffa; }
+	</style>
+	<script src="../../../dojo/dojo.js" data-dojo-config="isDebug: 1, parseOnLoad: 0, async: 1"></script>
+
+<script>
+//YDN extensions (to be incorp into common.js)
+
+const has = function (obj, key) {
+  var keyParts = key.split('.');
+
+  return !!obj && (
+    keyParts.length > 1
+      ? has(obj[key.split('.')[0]], keyParts.slice(1).join('.'))
+      : hasOwnProperty.call(obj, key)
+  );
+};
+
+const get = (obj, path, defaultValue = undefined) => {
+  const travel = regexp =>
+    String.prototype.split
+      .call(path, regexp)
+      .filter(Boolean)
+      .reduce((res, key) => (res !== null && res !== undefined ? res[key] : res), obj);
+  const result = travel(/[,[\]]+?/) || travel(/[,[\].]+?/);
+  return result === undefined || result === obj ? defaultValue : result;
+};
+</script>
+
+<script>
+require(["dojo/_base/lang", "dijit/registry", "dojox/form/Manager"], function(lang, registry, Mngr){
+  lang.extend(Mngr, {
+    frmDeltas:{},
+    addDelta: function(f, v){
+	console.log("lang.extend.Mngr call 4 addDelta f=" + f + " v=" + v);
+	if (has(this.frmDeltas, f)) {
+		console.log("addDelta: fld exists");
+		if (get(this.frmDeltas, f) === v){
+			console.log("addDelta: same val exists");
+		} else {
+			console.log("addDelta: new edit");
+			this.frmDeltas[f] = v;
+		}
+	} else {
+			console.log("addDelta: fld doesn't exist");
+			this.frmDeltas[f] = v;
+	}
+    },
+    getDeltas: function(){
+	console.log("frmDeltas: ", this.frmDeltas);
+    }
+
+/*,
+    postCreate: function() {
+        //apparently not necc (not in widgt) this.inherited();
+        console.log("lang.extend.Mngr postCreate call...");
+    }
+*/
+  });
+});
+</script>
+
+<script>
+require(["dojo/_base/lang", "dijit/registry", "dojox/form/Manager"], function(lang, registry, Mngr){
+
+	/*	Main Frm Script 	*/
+
+	window.showFrm = function(){
+	    myFrmDialog.show();
+	    var frm = registry.byId("form");
+	    frm["disable"]();
+	}
+	window.editFrm = function(){
+	    var frm = registry.byId("form");
+	    frm["enable"]();
+	}
+	window.saveFrm = function(){
+	    var frm = registry.byId("form");
+	    frm.getDeltas();
+	}
+});
+</script>
+
+
+</head>
+<body class="claro">
+
+<div data-dojo-type="dijit/form/Button" id="2ColBtn"
+            data-dojo-props="onClick:'window.showFrm();'"><span style='color:DarkRed;' class="material-symbols-outlined">
+terminal</span>frm</div></div>
+&nbsp;&nbsp;&nbsp;
+<h3>Notes</h3>
+<ul>
+	<li>Submit does:<br>file:///C:/Users/inets/Desktop/mike/Frm_4.html?w02=w02-2&w03=w03adsf&w04=w04&w06=w06-2&w07=w07&w11=</li>
+	<li>gridx styling doesn't take w/dijit claro dlg radio...</li>
+	<li>From the frmMngr demo:<br>
+		<code><pre>
+					form.on("submit", function(evt){
+						evt.preventDefault();
+						evt.stopPropagation();
+						console.log("Submit");
+					});</pre></code>
+					</li>
+</ul>
+
+
+
+<div data-dojo-type="dijit/Dialog" data-dojo-id="myFrmDialog" title="brij"
+    execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+
+    <div class="dijitDialogPaneContentArea">
+
+    <div id="frmTB" data-dojo-type="dijit/Toolbar"
+        ><div data-dojo-type="dijit/form/Button" id="frmTBedit"
+            data-dojo-props="onClick:'window.editFrm();', showLabel:true"><span style='color:DarkRed;' class="material-symbols-outlined">
+edit_note</span>Edit</div
+        ><div data-dojo-type="dijit/form/Button" id="frmTBsave"
+            data-dojo-props="onClick:'window.saveFrm();',showLabel:true">Save</div
+        ><span data-dojo-type="dijit/ToolbarSeparator"></span
+        ><div data-dojo-type="dijit/form/Button" id="frmTBpv"
+            data-dojo-props="showLabel:true, onClick:'window.pvTrigger()'"><span style='color:DarkRed;' class="material-symbols-outlined">
+history</span>Prior Versions</div></div>
+
+			<form data-dojo-type="dojox/form/Manager" id="form">
+				<fieldset dojoAttachPoint="part2">
+					<legend>Form Title</legend>
+					<div>
+						<input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="w01" name="w01" value="w01" data-dojo-observer="showValues">
+						&nbsp;<label for="w01">w01 input/checkbox dijit/form/CheckBox</label>
+					</div>
+					<div>
+						<input type="radio" data-dojo-type="dijit/form/RadioButton" id="w021" name="w02" value="w02-1" data-dojo-observer="showValues">
+						&nbsp;<label for="w021">w02-1 input/radio dijit/form/RadioButton</label>
+						&nbsp;
+						<input type="radio" data-dojo-type="dijit/form/RadioButton" id="w022" name="w02" value="w02-2" checked="checked" data-dojo-bserver="logRadio">
+						&nbsp;<label for="w022">w02-2 input/radio dijit/form/RadioButton</label>
+					</div>
+					<div>
+						<input type="text" data-dojo-type="dijit/form/TextBox" id="w03" name="w03" value="w03" data-dojo-observer="showValues" intermediateChanges="false">
+						&nbsp;<label for="w03">w03 input/text dijit/form/TextBox with intermediateChanges="false"</label>
+					</div>
+					<div>
+						<input type="password" data-dojo-type="dijit/form/TextBox" id="w04" name="w04" value="w04" data-dojo-observer="showValues">
+						&nbsp;<label for="w04">w04 input/password dijit/form/TextBox</label>
+					</div>
+					<div>
+						<select data-dojo-type="dijit/form/Select" id="w06" name="w06" data-dojo-observer="showValues">
+							<option value="w06-1">w06-1 first</option>
+							<option value="w06-2" selected="selected">w06-2 second</option>
+						</select>
+						&nbsp;<label for="w06">w06 select dijit/form/Select</label>
+					</div>
+					<div>
+						<label for="w07">w07 textarea dijit/form/SimpleTextarea with intermediateChanges="false"</label><br>
+						<textarea data-dojo-type="dijit/form/SimpleTextarea" id="w07" name="w07" data-dojo-observer="showValues"
+							rows="3" cols="15" style="width: 15em;" intermediateChanges="false">w07</textarea>
+					</div>
+					<div>
+						<button data-dojo-type="dijit/form/Button" name="w08" data-dojo-observer="showValues">w08 button</button>&nbsp;
+						<button type="button" data-dojo-type="dijit/form/Button" name="w09" data-dojo-observer="showValues">w09 type=button</button>&nbsp;
+						<button type="reset" data-dojo-type="dijit/form/Button" name="w10" data-dojo-observer="showValues">w10 type=reset</button>&nbsp;
+						<button type="submit" data-dojo-type="dijit/form/Button" name="w11" data-dojo-observer="showValues">w11 type=submit</button>
+					</div>
+				</fieldset>
+				</script>
+				<script type="dojo/method" data-dojo-event="logRadio">
+					// sample observer: logs radio buttons by name
+					var values = this.gatherFormValues(["e02", "w02"]);
+					console.log("e02: " + values.e02 + ", w02: " + values.w02);
+				</script>
+				<script type="dojo/method" data-dojo-event="showValues" data-dojo-args="value,name">
+					this.addDelta(name, value.toString().trim());
+				</script>
+		</div>
+	</div>
+
+			</form>
+
+</div></div>
+	</body>
+</html>
