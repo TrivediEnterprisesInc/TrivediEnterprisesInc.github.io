@@ -1,0 +1,242 @@
+- download dotnet to 'mike'
+- unzip Phat_Apr_14.zip.001 to 'mike'
+- setPath with:
+PS C:\Users\inets> $env:Path += ';C:\users\inets\Desktop\mike;C:\users\inets\Desktop\mike\bin;C:\users\inets\Desktop\mike\lib'
+- dotnet workload install wasm-tools
+
+dotnet workload install wasm-experimental
+dotnet new wasmbrowser
+dotnet build -o wasm
+//dotnet build wasm.csproj -o wasm --verbosity detailed
+dotnet build gfx.fsproj -o gfxOut
+cp gfxOut\Trivedi.Gfx.dll bin\Trivedi.Gfx.dll
+dotnet build wasm.csproj -o wasmOut
+dotnet run --project wasm.csproj
+
+C:\Users\inets\Desktop\mike\bin\runShell.exe "fsc.exe" "..\gfx\gfx.fs --platform:x64 --target:library --out:.\Trivedi.Gfx.dll -r:..\lib\Trivedi.Core.dll"
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+June 27:
+
+If you want to use jekyll and blazor together, you can add 
+include:   - "_framework"   - "_bin" to the _config.yml file . 
+This will tell jekyll to include those files when publishing.
+
+https://github.com/blazor-demo/blazor-demo.github.io/blob/master/404.html
+Blazor demo (for settings, 404s etc.)
+
+https://stackoverflow.com/questions/36377865/locally-building-and-pushing-jekyll-site-to-github-pages
+https://www.aleksandrhovhannisyan.com/blog/getting-started-with-jekyll-and-github-pages/
+
+https://github.com/orgs/community/discussions/60961 (jekyll stuff @ github discussions)
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+
+- The *only* pg we need (includes MarshalAs info): 
+https://learn.microsoft.com/en-us/aspnet/core/client-side/dotnet-interop?view=aspnetcore-8.0
+- re: marshalling, jsOb (.netType) signif overhead; just bypass by using toStrArr since we know the ob structs; pipe into ty on svrSide
+
+
+All other links in wasi-divs @ bot of this doc
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+JSON objects in interop:
+As a workaround I go through strings:
+
+//js
+dotNetObjRef.invokeMethodAsync("DotNetMethod", JSON.stringify(jsObject));
+.
+//C#
+[JSInvokable]
+public void DotNetMethod(string jsObjectJSON)
+{
+    JsonObject jsObject = SimpleJson.DeserializeObject<JsonObject>(jsObjectJSON);
+}
+
+//public static System.Text.Json.JsonDocument Parse (string json, System.Text.Json.JsonDocumentOptions options = default);
+//@ https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsondocument.parse?view=net-8.0#system-text-json-jsondocument-parse(system-string-system-text-json-jsondocumentoptions)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+plnkr.co/AsbMQ1tQyZI31ckD ->
+-----------------------------------------------------------------
+For setup flags/options/multiThreading/issues, see (VERY comprehensive) <a href='https://github.com/dotnet/runtime/blob/main/src/mono/wasm/features.md'>Configuring</a> and hosting .NET WebAssembly applications
+
+
+The below setup works OK:
+-mike.csproj----------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+
+<ItemGroup>
+  <Reference Include="Trivedi.Core">
+    <HintPath>C:\Users\inets\Desktop\mike\bin\Trivedi.Core.dll</HintPath>
+  </Reference>
+  <Reference Include="FSharp.Core">
+    <HintPath>C:\Users\inets\Desktop\mike\bin\FSharp.Core.dll</HintPath>
+  </Reference>
+</ItemGroup>
+
+</Project>
+-Program.cs----------------------------------------------------------------
+using System;
+using System.Runtime.InteropServices.JavaScript;
+using Trivedi;
+
+Console.WriteLine("Hello, Browser!");
+
+public partial class MyClass
+{
+    [JSExport]
+    internal static string Greeting()
+    {
+        var text = $"Hello, World! Greetings from {GetHRef()}";
+        Console.WriteLine(text);
+        var strL = (Core.len(text)).ToString();
+
+//        var deS = (Core.deSerToList("")).ToString();
+
+        return (text + "\n(from fs) len: " + strL);
+    }
+
+    [JSImport("window.location.href", "main.js")]
+    internal static partial string GetHRef();
+}
+
+----------------------------------------------------------
+IF using minimal api can download files thus:
+  ref: https://stackoverflow.com/questions/70579541/asp-net-minimal-api-how-to-return-download-files-from-url
+  You can use Results.File to return file to download from your Minimal APIs handler:
+
+  app.MapGet("/download", () => {
+      var mimeType = "image/png";
+      var path = @"path_to_png.png";
+      return Results.File(path, contentType: mimeType);
+  });
+----------------------------------------------------------
+Wasi refs as of Jan 23 '24
+
+          <div class="mBox notes dev misc wasm" >
+	<mark>Wasm reading from HN</mark>
+              <div class="caption" style="display:anone;">
+<ul><li>
+<mark>Notion</mark> <a href='https://turbosheets.notion.site/How-we-built-a-spreadsheet-editor-5x-faster-than-Google-Sheets-b22d472537c34dbbb572924d43732543'>TurboSheets</a>: How we built a spreadsheet editor 5x faster than Google Sheets
+</li><li>
+Turned my dynamic website into a <mark>static</mark> WASM SPA using <a href='https://news.ycombinator.com/item?id=38489895'>Go</a>
+</li><li>
+Inside Azure innovations with Mark Russinovich (vdo w/<a href='https://build.microsoft.com/en-US/sessions/836e93ad-72b1-49d4-9430-d6277051aba7?source=sessions'>transcript</a>) ref: wasm for cloud fns.
+</li><li>
+Running Wasm Workers Server in Docker <a href='https://wasmlabs.dev/articles/docker-wasm-wws/'>Desktop</a>
+</li><li>
+Reaching the Unix Philosophy's Logical Extreme with <a href='https://xeiaso.net/talks/unix-philosophy-logical-extreme-wasm/'>Webassembly</a>
+</li><li>
+Cloud Native: the Wasm <a href='https://www.cncf.io/blog/2023/09/06/introducing-the-wasm-landscape/'>landscape</a>
+</li><li>
+Will WASM win the web <a href='https://www.theregister.com/2023/09/01/web_assembly_wasm_column/'>wars</a>?
+</li><li>
+Cross-compiling OCaml to JS and <a href='https://semgrep.dev/blog/2023/turbo-mode/'>Wasm</a>
+</li><li>
+Javy: JavaScript-to-WebAssembly toolchain [<a href='https://bytecodealliance.org/articles/javy-hosted-project'>1</a>] & [<a href='https://shopify.engineering/javascript-in-webassembly-for-shopify-functions'>2</a>]
+</li><li>
+<a href='https://hn.algolia.com/?dateRange=all&page=27&prefix=false&query=wasm&sort=byDate&type=story'>more</a> but dated...
+              </div>
+          </div>
+
+<div class="mBox notes product extension" >
+             <mark>Browser Extensions</mark>
+              <div class="caption" style="display:anone;">
+
+<br> &gt; 1.5m extensions available on the Chrome Web Store
+<br><hr>
+<br>Chrome Web Store <a href='https://developer.chrome.com/docs/webstore/'>info</a>
+<br><hr>
+<br>SO Qn about creating ext w/<a href='https://stackoverflow.com/questions/46482998/writing-chrome-extension-in-c'>c#</a>
+<br>You can create browser extension with C#; publish like normal standalone <a href='https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/blazor/webassembly?view=aspnetcore-3.1#standalone-deployment'>app</a> (wasm)
+<br>The SO thread above contains many examples (2017-2021) plus links 2 dotNet templates
+<br><hr>
+<br>2022 <a href='https://dev.to/dotnet/chrome-extension-with-blazor-wasm-the-integration-5gi2'>article</a>: Contains some wasm stuff but tgt is porting js to wasm
+<br><hr>
+<br>Hello world <a href='https://github.com/traxium/webassembly-chrome-extension'>wasm</a> dotNet chrome ext
+<br>Similar repo to above but poss <a href='https://github.com/mingyaulee/Blazor.BrowserExtension'>better</a>
+<br>dev of nuget pkgs above: "To make building Blazor WebAssembly to browser extension easier, I have created a package in the repository Blazor.BrowserExtension."
+
+<br><hr>
+Article Series: Blazor Wasm browser <a href='https://dev.to/justinyoo/series/18939'>ext.</a>s
+<br><hr>
+
+2022: Wasm proof-of-<a href='https://levelup.gitconnected.com/creating-a-psychedelic-webassembly-chrome-extension-9c3a5d806e4a'>concept</a> extension written in C (extensive)
+<br>
+</div></div>
+
+<div class="mBox notes product wasm" >
+             <mark>Wasm</mark>
+              <div class="caption" style="display:anone;">
+
+
+Use .NET from any JavaScript app in .NET 7 (wasm) .NET <a href='
+https://devblogs.microsoft.com/dotnet/use-net-7-from-any-javascript-app-in-net-7/'>Blog</a>
+<br><hr>
+Chrome Devs: Debugging <a href='https://developer.chrome.com/blog/wasm-debugging-2020/'>wasm</a>
+<br>
+<hr>
+<b>aspnetcore issue</b>:
+<br>Qn: Can I write basic C# code, compile it to WebAssembly (.wasm), and import and execute it in a JavaScript file?
+<br>
+<br>Ans:
+<br>The two approaches I can suggest are:
+<br>
+<h3>Using the wasm-tools workload</h3>
+<ul><li>
+See https://devblogs.microsoft.com/dotnet/use-net-7-from-any-javascript-app-in-net-7/
+</li><li>This lets you create a C# project that compiles to a set of assets that can be run inside a JavaScript environment, such as a Chrome extension. You do not get a single file. Instead you get a dotnet.wasm file that loads your .NET assemblies (.dll files) and executes them.
+</li><li>It supports AOT compilation for improved performance
+</li><li>It contains built-in JS interop APIs that will simplify interacting with the host browser
+</li></ul>
+<br>
+<h3>Using the experimental .NET WASI SDK</h3>
+<ul><li>See https://github.com/dotnet/dotnet-wasi-sdk<br>
+</li><li>This produces a single, standalone .wasm file that can run in any WebAssembly environment, without requiring any JavaScript support<br>
+</li><li>This experimental SDK does not yet support AOT compilation, so you will likely not get better performance than your JavaScript implementation until we do add AOT support<br>
+</li><li>Since this SDK doesn't assume any JavaScript environment exists, there are no built-in JS interop APIs, so you would have to wire up your own way of calling into the host browser to interact with the Chrome extension APIs<br>
+</li></ul>
+
+Option 1 is probably more practical for your scenario, since you will be running inside a browser. 
+<hr>
+JavaScript interop on WASM: How to run .NET from JavaScript (JS) using JS [JSImport] / [JSExport] <a href='https://learn.microsoft.com/en-us/aspnet/core/client-side/dotnet-interop?view=aspnetcore-8.0'>interop</a>.
+<br><hr>
+*** 22: Consuming .NET WebAssembly From JavaScript in the <a href='https://khalidabuhakmeh.com/consuming-dotnet-webassembly-from-javascript-in-the-browser'>Browser</a>
+<br><hr>
+Wasm apps are run in a Wasm runtime, like <b>wasmtime</b>. Much like Docker, you can configure that runtime with specific capabilities. For example, if you want Wasm code to have access to a key/value store, you can expose a key/value interface to it, which could be backed by a local database or a cloud service.
+<br>see: Dec 23 article <a href='https://devblogs.microsoft.com/dotnet/extending-web-assembly-to-the-cloud/'>here</a>
+<br><hr>
+<a href='https://developer.chrome.com/blog/sqlite-wasm-in-the-browser-backed-by-the-origin-private-file-system/'>SQLite</a> Wasm in the browser
+
+<br><hr>
+Haskell-to-WebAssembly compiler <a href='https://www.tweag.io/blog/2022-03-31-running-wasm-native-hybrid-code/'>project</a>
+
+<br><hr>
+<ul><li>
+devblogs ms <a href='https://devblogs.microsoft.com/dotnet/extending-web-assembly-to-the-cloud/'>wasi</a> latest
+</li><li>
+Updated: https://github.com/davidfowl/TodoApi
+Todo application with ASP.NET Core Blazor WASM, Minimal APIs and Authentication
+</li><li>
+https://github.com/pavelsavara/dotnet-wasm-todo-mvc
+</li><li>
+Create, read, modify, write and execute WebAssembly (WASM) files from .NET-based <a href='https://github.com/RyanLamansky/dotnet-webassembly'>applications</a>
+</li><li>
+.NET embedding of <a href='https://github.com/bytecodealliance/wasmtime-dotnet'>Wasmtime</a>
+</li><li>
+Tooling for creating WebAssembly <a href='https://github.com/SteveSandersonMS/wasm-component-sdk'>components</a> from C# 
+</li><li>
+Cross-platform <a href='https://github.com/jihadkhawaja/Egroo'>chat</a> app created with MAUI (Hybrid), Blazor WASM and ASP.NET (SignalR) 
+</li><li>
+WebAssembly & SignalR & Github-<a href='https://github.com/StardustDL/acblog'>Pages</a>
+</li><li>
+.NET + WebAssembly + WebGL (<a href='https://github.com/AshleighAdams/dotnet-webgl-sample'>slick</a> anim) 
+</li><li>C# <a href='https://github.com/roozbehid/WasmWinforms'>Winforms</a> for Webassembly
+</li><li>
+GitHub repo srch <a href='https://github.com/search?q=wasm+NOT+Blazor+language%3AC%23&type=Repositories&ref=advsearch&l=C%23&l=&s=stars&o=desc'>url</a> 4 `<i>DotNet C# wasm NOT Blazor</i>`
+
+</div></div>
