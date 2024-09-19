@@ -1,0 +1,329 @@
+= = OPEN = = = = OPEN = = = = = = OPEN = = = = = = = = = = = = = = = = = = = = 
+
+- https://upload.disroot.org/
+
+<details>
+  <summary>Interlude: Parsec</summary>
+Nd a quick 2-way parse from treeModel 2 jsOb to avoid dealing w/JSON etc.
+- HardCoded order (if model changes code will nd updates)
+- Ensure linewraps OK
+- Use widgetRefresh code from one of the gridx examples (basic; whch swaps dataSrc)
+- CliSide only sends (no updates from Svr)
+- So all changes on cliSide get sent as str 2 svr -> parsec -> replInDb
+- EACH update will have to go thru the whole ser seq (in case of disconnects etc.)
+- Next full Refresh or reInitSession gets new svrPayload
+</details>
+
+<details>
+  <summary>Wasm/Interop</summary>
+
+[0] Chk this NEW dotnet doc: https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/call-javascript-from-dotnet?view=aspnetcore-8.0
+
+[1] try this <a href='https://stackoverflow.com/questions/75166466/net-7-jsexport-a-task-in-experimental-webassembly-tool'>example</a> of a method returning Task being translated to a javascript promise (auto)
+
+  [JSExport]
+  public static Task<string> GetDummyStringAsync(){
+      return Task.FromResult("Hello world!");
+  }
+...
+exports.MyClass.GetDummyStringAsync().then(result => console.log(result));
+
+
+[2] ->-> this shd also work (easier poss to use [3])->
+
+Microsoft.JSInterop.DotNetObjectReference<TValue> Create<TValue> (TValue value) where TValue : class;
+
+type treeOb = | treeOb of string
+let myTreeOb = treeOb(dat |> toWobbly)
+  [JSExport]
+  public static DotNetObjectReference<treeOb> GetTree(){
+      return DotNetObjectReference.Create(myTreeOb);
+  }
+...
+
+[3] examples (mostly one-side, the other; but shd work w/exports too)
+SEE ALSO task/promise impl (imports)
+***c#: https://github.com/SerratedSharp/CSharpWasmRecipes/blob/main/WasmBrowser.Recipes.WasmClient/Examples/JSObjectProxy.cs
+js: https://github.com/SerratedSharp/CSharpWasmRecipes/blob/main/WasmBrowser.Recipes.WasmClient/wwwroot/JSObjectShim.js
+
+</details>
+
+<details>
+  <summary>Wasm Updates</summary>
+
+-----------(0) Wobbly (4 TreeModel etc.)-----------
+- NO json.  period.  Use webObs.  See if we can cast in Fs & populate an exposed/exported var cliSide
+- So the type method nds 2 be Depr & the prev one reinstated
+- Re the Dnd ops we nd 2 either determine specific ops svrSide or parse the whole thing and do a repl with regExp (cd use fparsec; ovkill? pls that wod force us back to json, which we're closing: coz the parser wd nd to be rewritten for ea diff ty of webOb)
+
+
+-----------(1) Resources-----------
+<a href='https://learn.microsoft.com/en-us/dotnet/api/system.resources.resourcemanager?view=net-8.0'>ResourceManager</a>
+For desktop apps, the ResourceManager class retrieves resources from binary resource (.resources) files.  You can also use a ResourceManager object to retrieve resources directly from a .resources file that is not embedded in an assembly, by calling the CreateFileBasedResourceManager method.
+
+- link to dox for .resources -> https://learn.microsoft.com/en-us/dotnet/fundamentals/runtime-libraries/system-resources-resourcereader
+
+  rdr.GetResourceData("gfxLogo") (byte[])
+
+  let listResources =
+    fun resNm -> 
+      // Instantiate a standalone .resources file from its filename.
+      var rdr = new ResourceReader(resNm) //"Resources1.resources";
+      //enum to scan all resources (gd to get type) : 
+      let dict = rdr.GetEnumerator()
+      while (dict.MoveNext()) do
+        printfn ("key:%A val:%A ty:%A (dict.Key) (dict.Value) (dict.Value.GetType())
+      rdr.Close()
+
+  let getResourceItm =
+    fun resNm itmNm -> 
+      let rdr = ~currAssembly
+      //Retrieve resources by name with ResourceRdr.GetResourceData
+      rdr.GetResourceData (itmNm)
+
+-----------(3) Byte[]-----------
+- Already works in getRes (18th.  Adding slice() also works, return same arrLen)
+- Below methods (incl slice) don't.
+
+  (b) MemoryVw (this has util otherwise too, for ex. security)
+
+        Try This ex; it uses ArraySeg instd of MemVw BUT offers two-way testing
+        ** Only thing missing in OUR CURR usage is the slice call [SO TRY THAT]->
+            'var jsIncomingData = new Uint8Array(inBytes.slice())'
+        https://stackoverflow.com/questions/75251127/memoryview-as-a-return-parameter-from-javascript-to-blazor 
+        ** but FIRST try adding slice: 'slice makes a new buffer'
+          src: https://stackoverflow.com/questions/75609665/what-is-a-memoryview-in-the-net-browser-wasm-runtime
+          [link also has ref 2 the implementation of MemoryView]
+
+        - - - - - - - - - - - - - - - 
+        DotNet: ArraySegment<Byte> ->	JS: MemoryView
+        MemoryView created for an ArraySegment survives after the interop call and is useful for sharing a buffer. Calling dispose() on a MemoryView created for an ArraySegment disposes the proxy and unpins the underlying .NET array. We recommend calling dispose() in a try-finally block for MemoryView.
+          - - - - - - - - - - - - - - - 
+          interface IMemoryView extends IDisposable {
+              /**
+              * https://github.com/dotnet/runtime/blob/main/src/mono/browser/runtime/dotnet.d.ts
+              * copies elements from provided source to the wasm memory.
+              * target has to have the elements of the same type as the underlying C# array.
+              * same as TypedArray.set()
+              */
+              set(source: TypedArray, targetOffset?: number): void;
+              /**
+              * copies elements from wasm memory to provided target.
+              * target has to have the elements of the same type as the underlying C# array.
+              */
+              copyTo(target: TypedArray, sourceOffset?: number): void;
+              /**
+              * same as TypedArray.slice()
+              */
+              slice(start?: number, end?: number): TypedArray;
+              get length(): number;
+              get byteLength(): number;
+          }
+</details>
+
+  L Wasm - Docker/VM - brijCsvTsv - brijImpExp - gfxImpExp
+      x [as of now, accts not necc.]
+      x chk functionality
+      x Focus on features: missing from gfx/goodToImpl
+      - (googKeep/Obsid) @rsch also the issues wikis 4 ea for featureRequests
+      "Users don't like change.  They'll only move to your app if is 10x better... (a founder)"
+    VMs-Dockr-Vendors
+    x Consider wCompnts for encapsulating webSide (React/Vue/Ang)
+    - Consider porting existing wid 2 comp 4 walkthru/testImpl
+    - Tree (&c) State:
+      Since the cli maintains state w/o writing to the store; 
+        Every state change -> transmit to svr -> persist
+        Cli refresh/reInit -> get frm svr (as normal)
+        That's it.  No script back/forth, just manually update the obj
+
+
+<details>
+  <summary>b.html updates</summary>
+
+tr tag above getafixTkli nds to be updated (to ins border) thus:
+`  <tr style="border-bottom: 1px solid black;">><td colspan="100%">
+  <div id="getafixTkli"`
+
+* New section for Hugh ->
+  <tr style="border-bottom: 1px solid black;">
+    <td><img src='https://trivedienterprisesinc.github.io/img/hugh.jpg' alt="Hugh" style="height:100px;"></td>
+    <td><ul>
+    <li><b>Note</b>: Bizzaro takes precedent, same approach bigger mkt</li>
+    <li>Drop-in ability 2 add pg</li>
+    <li>Nd to allow styling the pg (expose set params)</li>
+    <li>Free ver: 10(?) params, paid ver: unlimtd</li>
+    <li>all existng webpk usrs can use</li></ul></td>
+    <td>unkn/other</td>
+    <td>d</td>
+    <td>Saas</td>
+    <td>S</td>
+  </tr>
+</details>
+
+<details>
+  <summary>gfx Tree Dnd</summary>
+  - Check that onClick works for lbls, not only expandos (see <a href='https://dojotoolkit.org/reference-guide/1.10/dijit/Tree-examples.html#dijit-tree-examples'>this</a>)
+  - Consider allowing users to use richTxt lbls? (see link above >> mt be ugly)
+  - Link above also has expandAll/collapseAll snippet [btns alongside HomeBtn?]
+</details>
+
+Tests 4 resx + ReadWr 2 wasmFS -> dnld
+
+<details>
+  <summary>rtEd</summary>
+
+* Where is the definitive list of rtEd plugins we've decided to keep?
+    x LOCATE for porting
+    - Some of em have issues w/incompat
+    - We nd 2 also add at least one/two custom ones and/or adapt others (CODE, DocLinks, ??)
+    - Convert the header drpDn to txt (nonIllustrative) and add custom _Named_ styles w/span; CPnl opts to (1st only 10, l8r unlim) define these.
+    - There is also confusion in the icons with at least two btns: ViewCode/InsertCodeBlock
+    - rtEd inlining (lastPl/inSitu has tags et al to graft)
+        06_13 attempt to patch inlineWidget beauc issues; no debug errs though.
+        just create a new widget by reprod the whole thing w/custom
+        (probably internal calls failing)
+    - rtEd Plugins + 
+      <code> (see dojox.editor.plugins.Blockquote) + 
+      postRender stuff for docLinks, wids etc. (DEPENDS on: complete docL stuff)
+      PostFilterContent: https://github.com/dojo/dijit/blob/8ab4cdc2e4bb03d1bca6e76a2a9179dc8c5d846a/_editor/RichText.js#L1641C3-L1641C22
+
+x DnD icons nd 2 be updated; we're using 80x80px (*chk* against l8st)
+  The dojo Dnd <a hgref='https://github.com/dojo/dijit/blob/master/themes/claro/images/dnd.png'>sprite<> is 16x123px
+</details>
+
+<details>
+  <summary>FrmManager</summary>
+
+	_Given_
+        - We have access to all vars in blding svrSide
+        - We can call _specific_ hardCoded validation methds
+        - Add/Build to an obj which is the res
+        - Order unknown @ callTime, params known/expandable
+        - Note that this must be modular (all state incl., svr only has 2 methods: gen() & proc(); no links in-betw)
+        - Maximize 4 simplicity
+  - Form (cliSide) nds work to populate vals from dat on load 
+</details>
+
+<details>
+  <summary>gfxDlg</summary>
+
+  - Consider using faux Dlgs (no popup, w/in pg via TPanes)
+  - gfxDlg nds new versions for
+      - windowed Ps: P, Pr, (x)Pi, (x)Pri (nd ver for longTxt?)
+      - Crd (which nds more member funcs to restrict outpt to face/etc.)
+      - Tr?  (can we repurpose the rid stuff?)
+</details>
+<details>
+  <summary>ttips</summary>
+>>     let ttipsWobbly = fun (l:list<string*list<string>>) -> ...
+Nd cell-based ttip read/disp (tho we pro'lly nd work completed on 
+svrSide toJson/wobbly before continuing with this tk)  Currently 2 vers of toWebOb: manual & using JsonWriter (latter pref)
+</details>
+
+Jun12:
+  TagBldr test in wwwroot\index.html: the dev\Misc link loads a test page with tgCLoud; issues w/parsing -> chk <a href='https://github.com/dojo/dojox/issues'>this</a> repo issue
+
+Jun11:
+  x It appears that extending the inlineEd is a hassle bec of private constr 4
+  _inlineEdtr: Internal widget used by InlineEditBox (that has the template)
+  x For this one just hack on the dijit code & port to gfx.InlineEd; hardCode the props/plugins; instantiate via blank ctor w/props; add props & template settings for tags/title/et al.
+  x Cd always revert to lastplunk/rtEd + send tpProps (via this.x to custom fnc)
+    BUT NOT PREFERRED
+
+Jun10:
+  - UI updates (wFrm)
+  - Time picker (no dt, time only):
+    https://learn.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-display-time-with-the-datetimepicker-control?view=netframeworkdesktop-4.8
+
+Jun07:
+x Icns
+    Get em to work w/o code (just style els)
+
+Jun03:
+  x Icns 
+    Just use the standard dijit classes + add gfxIcon (see past work local)
+  - Cal
+    Parameterize calNames 4 dynamic population in dropDns
+    x Look for other/earlier versions of the demo b4 customization
+    See mbox 'Google Cal features' in Jun for ideas
+  - Timpa (New product)
+    - Combine + consolid8
+    - Debug, tree access
+    - Isolate styles reqd
+    - Lessify Tims + add new gfx.less files
+    - Ad-hoc dynamic gen
+  - Allow usrs to specify whether to show options like (for img url 'archive img locally')
+
+May16:
+x Tree: nd to update expandoIcns css as in grid
+- Tags:
+  Nd to offer ability to rename/manage tags
+  Node in tree labelled 'Tags' (or in CPnl)
+  - either with One Page w/Tps for options, or 
+  - separate nodeChildrn for ea option, e.g.
+    ViewAll: shows TgCloud w/#s [cd offer select + "Show selected"]
+    Manage: Rename/ReTag/Remove
+    ViewOrphans: Shows all orphans; usr can open/edit/assign
+  RELATED: 
+  - nd backend logic for rename nd to propagate to dataItms
+  - @TBD: Perhaps a gd idea to reduce tree hierarch to tags?
+    Might prove to cumbersome, e.g. Mongo wld fall under career/dev/NoSQL
+    Leave as-is @ present but keep option open
+
+May3:
+- SaveLogic
+  - NOTHING cliSide, all svrSide
+  - cliSide save flow is
+      gfxTp.autoSave.add(fun _-> this.Updated = true)
+      gfxTp.focusLost() -> if this.Updated, svrReq(save)
+  - svrSide use a Monad with this added to bind:
+    - new hiddenFld in gfxNote: string list docL
+    - (nded for D3 map)
+         goThru all content >> pick out docLs >> add2DocL fld
+
+Tags to mindtree: see https://ankiweb.net/shared/info/965278890
+
+Icons:
+  x Extnd treeWid 4 Settings: ea node gets icn from map(icnNm, lbl) [[[djCfg has the listing]]
+  - Modify rtEd icons to show blue on hover
+  x Color some (start w/dijit corresp) icons in markup
+
+Add xFrm 4 divs: trim title+cont (1st char imp)
+  let XFormDivs() =
+    trim(title) |> trim(cont) 
+    |> lim (fun x -> 
+              discomb
+              )
+
+(Related) Gen report: Add fns to regExProc w/ActivePatts to list details + subSections which're candidates 4 split.
+    Regexp fns from wwnn:
+        955 let getMatchesForGrpNums
+        956 let getMatchesForGrpNms
+        957 let rec replSingle
+        962 let reg
+        1074 let mvReg
+        1075 let giReg1
+        1076 let giReg2
+        1077 let giReg3
+    NOTE
+      that it's not necc to proc \n to <br> etc.; just opening it in the ed & resaving will fmt <<@ToDo: how to automate this?>>
+      To make things clearer, remove all the BAK files & reduce gfxAddenda.fs to only a new mod (autoopen, contents: the lets w/datLis).  This can be pasted into gfx be4 main.
+    x Some work on this completed, see '0610_regexp.fs' in plnk
+
+Diagnostic Logs:
+    <<Based on an idea from karmakaze in HN Thread: "It's not stupid if it works">>  
+    That dev (trading app) took an ascii scrnsht of the desktop by walking the tree of Swing els; now if users complain of fill price he asks 'em to do Menu|ViewLog; the price fld is logged...
+    Collect + Maintain beauc. State data every session (cliSide) incl 
+      - Open Tbls
+      - Actions (i.e., UIevents)
+      - incl timeStamps
+    Then, optional storage: onError sendToSvr else discard...
+
+
+
+
+
+
+
+
+
