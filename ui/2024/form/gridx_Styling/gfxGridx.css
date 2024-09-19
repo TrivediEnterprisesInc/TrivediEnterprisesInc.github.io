@@ -1,0 +1,357 @@
+/*    *     *     Begin Gridx styling updates 4 gfx     *    *     *     /
+
+/*
+@mpt Aug 28:
+All the less compilers have issues with the (version?) of less oria used,
+so hacking this directly for now, changes marked @mpt
+Aug29:
+Extracted these changes to a separate file (could've appended to common but that's not the latest in this fork.
+*/
+
+.claro .dijitToolbar {
+    border-bottom: 1px solid white;
+    background-color: #e5edf4;
+    background-image: unset;
+}
+
+.gridxTreeExpandoCell {
+/* Below nded for our custom icon (larger) */
+    padding-left: 18px !important;
+}
+
+.gridxTreeExpandoCell .gridxCellContent {
+/* Needed to align w/new expando */
+    padding-top: 2px;
+}
+.gridxHeaderRow {
+    font-weight: bold;  /* @mpt */
+    background-color: #e5edf4;
+    border-bottom: 1px solid #ccc;
+    position: relative
+}
+
+.claro .gridxHeaderRow {
+    background: #e5edf4;
+}
+
+.gridxHeader, .gridxFooter {
+    overflow: hidden;
+    background-color: #e5edf4;
+}
+
+.gridxBodyRowHoverEffect .gridxRowOver>.gridxRowTable {
+    background-color: #d0dfea; /* @mpt #e2f1f7, #cee8f2*/
+}
+
+.gridxRowHeaderRow table .gridxCell,.gridxRow .gridxRowTable .gridxCell {
+    border-style: solid;
+/*@mpt    border-color: transparent #ccc #ccc transparent;*/
+    border-color: transparent transparent transparent transparent;
+    border-width: 1px;
+    padding: 3px;
+    text-align: left;
+    overflow: hidden
+}
+
+.gridxFilterBarBtnIcon {
+    background-image: url("https://trivedienterprisesinc.github.io/ui/2024/filter_list.png");
+    height: 20px;
+    width: 20px;
+    background-repeat: unset;
+    background-position: unset;
+}
+.gridxPagerGotoBtn {
+    background-image: url("https://trivedienterprisesinc.github.io/ui/2024/expand_circle_up.png");
+    background-repeat: unset;
+    background-position: unset;
+    height: 20px;
+    width: 20px;
+    cursor: pointer
+}
+
+.gridxEditOK:hover,.gridxEditCancel:hover {
+    background-color: #e7f4f9 /* @mpt #9bcaf7*/
+}
+
+.gridxFilterBar .dijitButton .dijitButtonNode {
+/* @mpt
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+*/
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 2px;
+/* @mpt added below */
+    background-image: none;
+    background-color: white;
+    border: none;
+}
+
+.gridxFilterBarStatus {
+    background: #e5edf4;
+/*  @mpt
+    background: #f2f9ff;
+    background: -moz-linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f9ff), color-stop(100%, #eaf5ff));
+    background: -webkit-linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    background: -o-linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    background: -ms-linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    background: linear-gradient(top, #f2f9ff 0, #eaf5ff 100%);
+    border-bottom: 1px solid #bfd6eb;
+    border-top: 1px solid #bfd6eb;
+*/
+    border-bottom: none;
+    border-top: none;
+    padding: 1px 0 0 45px
+}
+
+.claro .gridxCell {
+/*@mpt    border-color: transparent #e5dac8 #e5dac8 transparent*/
+    border-color: transparent transparent transparent transparent
+}
+
+.claro .gridxRowOdd>.gridxRowTable {
+    background-color: unset; /* #f7f7f7; @mpt #f1f8ff*/
+}
+
+.claro .gridxBodyRowHoverEffect .gridxRowOver>.gridxRowTable .gridxCell {
+/*
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABkCAYAAABHLFpgAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QgfCgczp3jbXgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAARElEQVQY02P4////VYb////7MjEwMIjBCSEmBgYGBiYGBoY/cOInnPUXVeIPEwMDw28srF9wLrEEmgFoxF8EwTAKyAUAMSQmGGxBkFgAAAAASUVORK5CYII=") #abd6ff repeat-x
+*/
+    background: initial;
+}
+
+.claro .gridxRow:first-child>.gridxRowTable .gridxCell,.claro .gridxBodyFirstRow .gridxCell {
+/*@mpt    border-top-color: #e5dac8*/
+    border-top-color: white;
+}
+
+.claro .gridxRowOdd .gridxLockedCell {
+    background-color: #efefef; /* @mpt #f1f8ff*/
+}
+
+.claro .gridxBodyRowHoverEffect .gridxRowOver .gridxLockedCell {
+/* @mpt
+    background: url("../images/rowback.png") #abd6ff repeat-x
+*/
+    background: initial;
+}
+
+.claro .gridxRtl .gridxBody .gridxCell {
+/*@mpt    border-color: transparent transparent #e5dac8 #e5dac8*/
+    border-color: transparent transparent transparent transparent
+}
+
+.gridxFilterTooltip table th {
+    color: black;
+}
+
+.gridxFilterTooltipOddRow {
+    color: black;
+}
+
+/* gridx tb icons */
+
+.gridxCreateIcon, .gridxEditIcon, .gridxQEditIcon, .gridxExpandAllIcon,
+.gridxCollapseAllIcon, .gridxDeleteIcon, .gridxRTLIcon, .gridxLTRIcon {
+	background-repeat:repeat;
+	background-position:0% 0%;
+        background-size: 16px 16px;
+}
+.gridxCreateIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/grid_add.png");
+}
+.gridxEditIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/grid_edit.png");
+}
+.gridxQEditIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/done_all.png");
+}
+.gridxDeleteIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/delete.png");
+}
+.gridxExpandAllIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/unfold_more.png");
+}
+.gridxCollapseAllIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/unfold_less.png");
+}
+.gridxRTLIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/format_textdirection_r_to_l.png");
+}
+.gridxLTRIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/format_textdirection_l_to_r.png");
+}
+
+/*    *     *     end Gridx styling updates 4 gfx     *    *     *     /
+
+
+/* Begin earlier gridx updates (expandos/ttips) from gfx.wwwroot.gfx.gfxBase.css */
+
+/*      Gridx updates to repl expandoIcon       */
+.gridxTreeExpandoIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/ExpandoIcon.png");
+	background-repeat:repeat;
+	background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.gridxTreeExpandoIcon:hover{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/ExpandoIconHover.png");
+	background-repeat:repeat;
+	background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.gridxTreeExpandoCellOpen .gridxTreeExpandoIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/ExpandoCellOpen.png");
+	background-repeat:repeat;
+	background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.gridxTreeExpandoCellOpen .gridxTreeExpandoIcon:hover{
+	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/ExpandoCellOpenHover.png");
+	background-repeat:repeat;
+	background-position:0% 0%;
+    background-size: 16px 16px;
+}
+/*      claro updates to reverse ttips       */
+
+        .claro .dijitTooltipConnector {
+          background-image: url("https://trivedienterprisesinc.github.io/ui/2024/tooltipReverse.png");
+        }
+        .claro .dijitTooltipContainer {
+          background-image: none;
+          background-color: #000000;
+          color: #ffffff;
+        }
+
+/*Change to fix the icons' vertical-align; flex won't work on IE8
+  Note: Alignment was off even for the dojo icons... */
+.material-symbols-outlined {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+/* End earlier gridx updates (expandos/ttips) from gfx.wwwroot.gfx.gfxBase.css */
+
+/*BEGIN CheckBox+RadioButton updates Sep_05_24
+orig: 
+    https://github.com/dojo/dijit/blob/master/themes/claro/form/Checkbox.css
+    https://github.com/dojo/dijit/blob/master/themes/claro/form/RadioButton.css
+    test: https://dojotoolkit.org/reference-guide/1.10/dijit/form/RadioButton.html
+    @ToDo: claro adds a blue border on hover, we don't
+    @ToDo: These shd be ok (need further testing, @mbi are getting clever with css again (so bright, kids nowadays!) IF unsufficient clarity/quality, get higher materialDiz icons and rasterize/reduce in size.
+*/
+
+.claro .dijitCheckBox,
+.claro .dijitCheckBoxIcon {
+  background-image: unset;
+  /* unset checkbox sprite image */
+}
+
+.claro .dijitCheckBox,
+.claro .dijitToggleButton .dijitCheckBoxIcon {
+  /* unchecked */
+    background-image: url("https://trivedienterprisesinc.github.io/img/check_box_unchecked.png");
+    background-repeat:repeat;
+    background-position:0% 0%;
+    background-size: 16px 16px;
+
+}
+.claro .dijitCheckBoxChecked,
+.claro .dijitToggleButtonChecked .dijitCheckBoxIcon {
+  /* checked */
+  background-image: url("https://trivedienterprisesinc.github.io/img/check_box_checked.png");
+    background-repeat:repeat;
+    background-position:0% 0%;
+    background-size: 16px 16px;
+
+}
+.claro .dijitCheckBoxDisabled {
+  /* disabled */
+  background-image: url("https://trivedienterprisesinc.github.io/img/check_box_disabled.png");
+    background-repeat:repeat;
+    background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.claro .dijitCheckBoxCheckedDisabled {
+  /* disabled but checked */
+  background-image: url("https://trivedienterprisesinc.github.io/img/check_box_disabled_checked.png");
+    background-repeat:repeat;
+    background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.claro .dijitCheckBoxHover {
+  /* hovering over an unchecked enabled checkbox */
+  background-image: url("https://trivedienterprisesinc.github.io/img/check_box_checked_hover.png");
+    background-repeat:repeat;
+    background-position:0% 0%;
+    background-size: 16px 16px;
+}
+.claro .dijitCheckBoxCheckedHover {
+  /* hovering over an checked enabled checkbox */
+  background-image: url("https://trivedienterprisesinc.github.io/img/check_box_unchecked_hover.png");
+    background-repeat:repeat;
+    background-position:0% 0%;
+    background-size: 16px 16px;
+}
+
+.claro .dijitToggleButton .dijitRadio,
+.claro .dijitToggleButton .dijitRadioIcon {
+  background-image: unset;
+  /* unset checkbox sprite image */
+}
+
+.claro .dijitRadio,
+.claro .dijitRadioIcon {
+  /* inside a toggle button */
+  background-image: unset;
+  /* checkbox sprite image */
+  background-repeat: repeat;
+}
+
+.claro .dijitRadio {
+  /* unselected */
+  background-image: url("https://trivedienterprisesinc.github.io/img/radio_unselected.png");
+}
+.claro .dijitToggleButton .dijitRadioIcon {
+  /* unselected : note that in the sprite the pos was 2 px to the left of above (.dijitRadio) */
+  background-image: url("https://trivedienterprisesinc.github.io/img/radio_unselected.png");
+}
+
+.claro .dijitRadioChecked {
+  /* checked */
+  background-image: url("https://trivedienterprisesinc.github.io/img/radio_checked.png");
+}
+.claro .dijitToggleButtonChecked .dijitRadioIcon {
+  background-image: url("https://trivedienterprisesinc.github.io/img/radio_checked.png");
+}
+
+.claro .dijitRadioDisabled {
+  /* disabled */
+  background-image: url("https://trivedienterprisesinc.github.io/img/radio_disabled.png");
+}
+
+.claro .dijitRadioCheckedDisabled {
+  /* disabled but checked */
+  background-image: url("https://trivedienterprisesinc.github.io/img/radio_checked_disabled.png");
+}
+
+.claro .dijitRadioHover {
+  /* hovering over an unselected enabled radio button */
+  background-image: url("https://trivedienterprisesinc.github.io/img/radio_unchecked_enabled_hover.png");
+}
+
+.claro .dijitRadioCheckedHover {
+  /* hovering over an checked enabled checkbox */
+  background-image: url("https://trivedienterprisesinc.github.io/img/radio_checked_enabled_hover.png");
+}
+
+/*END CheckBox+Radio updates Sep_05_24*/
