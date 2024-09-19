@@ -1,0 +1,148 @@
+
+- setPath with:
+    $env:Path += ';C:\users\inets\Desktop\mike;C:\users\inets\Desktop\mike\bin;C:\users\inets\Desktop\mike\lib'
+
+- merge files (in order) with 
+    Get-Content *.less | Set-Content all.less
+
+-run exe
+    c:\users\inets\desktop\mike\arc.exe /run /exit /SilentMode
+
+cat is an alias for Get-Content
+
+Map/Filter or Where/Select: 
+    this covers all fnality nded to do grep/awk/sed stuff...
+    ? (where ob 2 filter)  %(forEa ob 2 map) e.g.  
+        gci | ? {$_Length -gt 1000kb} | % {mv -WhatIf $_..}
+        gci | Select LastWriteTime
+        gci | Select FullName, {((Get-Date) - $_.LastWriteTime.days}
+          or
+        $timeSince = {((Get-Date) - $_.LastWriteTime.days}
+        gci | Select FullName, $timeSince
+        
+        To see all methods you can call on File:
+        gci -File | Get-Member | Where MemberType -EQ Method
+        
+        grep-like:
+        select-string foo *md -Context 2 | ? {$_Context.DisplayPreContext - notmatch "^#"} | Select Filename
+
+Find modified files by dateMod:
+    gci -Recurse | Where-Object { $_.LastWriteTime -ge "07/24/2024" } | Select FullName
+    gci -Recurse | Where-Object {$_.Length -gt 1000kb} | Select FullName, Length
+
+Find w/wildcard: 
+    gci -Filter ind*.html -Recurse | Select FullName
+
+$ forEa ob takes -begin & -end so you can do:
+    % -begin {$x=0} -process {stuff} -end {echo $x}
+
+- - - - - - - - - - - - - - - - - -DELTAS - - - - - - - - - - - - - - - - - - 
+To grab deltas running forEa on filtered doesn't work; nd 2 use two steps:
+    1. $newFiles = Get-ChildItem -File -Recurse | Where-Object { $_.LastWriteTime -ge "03/31/2024" }
+    2. $NewFiles | ForEach-Object { Copy-Item -Path $_.FullName -Destination "c:\users\inets\desktop\arc\"}
+
+This (1st cmd) shows the full paths of the files needed
+$new2 = Get-ChildItem -File -Recurse | Where-Object { $_.LastWriteTime -ge "03/31/2024" } | % { $_.FullName }
+$new2 | ForEach-Object { Copy-Item -Path $_.FullName -Destination "c:\users\inets\desktop\arc\"}
+
+Get-ChildItem -File -Recurse | Where-Object { $_.LastWriteTime -ge "03/31/2024" } | % { Copy-Item -Path $_.FullName -Destination "c:\users\inets\desktop\arc\" }
+
+- - - - - - - - - - - - - - - - - -CURL - - - - - - - - - - - - - - - - - - - 
+ Invoke-WebRequest https://add.fil -Outfile "xx.exe"
+	Get-Content -Raw *.part? | Set-Content -NoNewline raw.exe
+	Get-Content -ReadCount 20mb -Encoding Byte *.0* | Set-Content -Encoding Byte both.exe
+	Get-Content *.001,*.002, *.003 | Set-Content joint.exe
+
+- - - - - - - - - - - - - -ASSEMBLIES - - - - - - - - - - - - - - - 
+[Reflection.Assembly]::LoadFrom('c:\users\inets\desktop\mike\bin\FSharp.Core.dll')
+[Reflection.Assembly]::LoadFrom('c:\users\inets\desktop\mike\lib\Trivedi.Core.dll')
+[Reflection.Assembly]::LoadFrom('c:\users\inets\desktop\mike\lib\Trivedi.Brij.dll')
+[Reflection.Assembly]::LoadFrom('c:\users\inets\desktop\mike\gfx\gfx.dll')
+[Trivedi.main]::main("")
+
+- You can Load Assemblies using…
+    [Reflection.Assembly]::LoadFile(“d:\sandbox\psdll\MathLib.dll”)
+        and invoke it like this:
+    [MathLib.Methods]::Sum(10, 2)
+        , or load it like this:
+    $mathInstance = new-object MathLib.Methods
+        and invoke it like this:
+    $mathInstance.Product(10, 2)
+    [Reflection.Assembly]::UnsafeLoadFrom(“c:\users\inets\desktop\mike\dotless.Core.dll”)
+
+    Compress-Archive -Path ..\mike -DestinationPath wasmPhat_deltaApr20a.zip
+	List files in an archive:
+[Reflection.Assembly]::LoadWithPartialName('System.IO.Compression.FileSystem')
+//loadWpartial is depr, use:
+[Reflection.Assembly]::LoadFrom('path')
+
+foreach($sourceFile in (Get-ChildItem -filter '*.zip'))
+{
+    [IO.Compression.ZipFile]::OpenRead($sourceFile.FullName).Entries.FullName |
+        %{ "$sourcefile`:$_" }
+}
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+- Invoke-WebRequest https://nrzr.li/d3/y/1724786257/10000/e/lgrsfic/2136000/11ca989568184fdddd0c700bc8ee509d.epub~/UVvCefeX92qPWJOLzEUSvQ/Red%20Square%20%28Arkady%20Renko%2C%20%2303%29%20--%20Smith%2C%20Martin%20Cruz%20--%20Arkady%20Renko%2C%201996%20--%20Pan%20Macmillan%20--%200330346555%20--%2011ca989568184fdddd0c700bc8ee509d%20--%20Anna%E2%80%99s%20Archive.epub -Outfile "RedSq.d"
+    & ".\dotnet.exe" --list-sdks
+    & ".\dotnet.exe" --info
+    Get-ChildItem -Recurse | Where-Object { $_.LastWriteTime -ge "06/22/2024" }  | Select FullName
+        (note the lastWriteTime)
+
+Notes:
+    Your profile is v imp (define aliases etc.)
+    You can add new func to the shell with just Install-Module
+    You can use .NET types/methods in ps scripts, e.g. 
+        [math]::floor($x)
+        start app.exe; Sleep; [System.Windows.Forms.SendKeys]::Send("A"*65)
+    
+    
+Ref:
+    reddit.com/r/powershell
+    learnxinyminutes.com/docs/powershell
+    invoking assemblies: 
+        leeholmes.com/blog/2009/01.19.powershell-pinvoke-walkthrough/
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+$inclLi = 'folderA', 'folderB'
+gci -Recurse -Filter "your_folder_name" -Directory -ErrorAction SilentlyContinue -Path "C:\"
+
+Can poss use filterscript so:
+Get-Service | Where-Object -FilterScript ($_.StartType -EQ 'Disabled')
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+dir excludeList ->
+The advantage of using the pipeline is that now you can insert other cmdlets in between. Specifically, we use Where-Object to filter the list of files. The filter will pass on a file only if it isn't contained in a given array.
+
+$excludelist = 'folderA', 'folderB'
+Get-Childitem $fileDirectory | 
+  where { $excludeList -notcontains $_ } |
+  foreach {
+    $file = $_
+    ...
+  }
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Use Group-Object to group all files having the same date prefix together and use that to create the output subdirectories, the final .zip file and also to remove the original files after zipping.
+
+$sourcePath  = '\\Main\Files'
+$destination = '\\Main\Files\archive'
+
+Get-ChildItem -Path $sourcePath -Include '*.txt', '*.csv', '*.xlsx' -Recurse |
+# select only files that start with 8 digits followed by an underscore
+Where-Object { $_.BaseName -match '^\d{8}_' } |
+# group the files on the date part and loop trhough these groups
+Group-Object { $_.BaseName.Substring(0,8) } | ForEach-Object {
+    # split the date part into variables. Automatic variable $_ represents one Group, 
+    # so we can take that group's Name to split into date parts 
+    $year, $month, $day = $_.Name -split '(\d{4})(\d{2})(\d{2})' -ne ''
+    # construct the target folder path for the zip file
+    $targetPath = Join-Path -Path $destination -ChildPath ('{0}\{1}' -f $year, $month)
+    # create the new sub directory if it does not yet exist
+    $null = New-Item -Path $targetPath -ItemType Directory -Force
+    # create the full path and filename for the zip file
+    $zip = Join-Path -Path $targetPath -ChildPath ('{0}.{1}.zip' -f $day, $month)
+    # compress the files in the group  
+    Compress-Archive -Path $_.Group.FullName -DestinationPath $zip -Update
+
+    # here is where you can delete the original files after zipping
+    $_.Group | Remove-Item -WhatIf
+}
