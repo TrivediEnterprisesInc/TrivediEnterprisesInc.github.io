@@ -1,0 +1,116 @@
+<div id="twoColContents" style="display:none;">
+
+    <div data-dojo-id="frmTB" data-dojo-type="dijit/Toolbar"
+        ><div data-dojo-type="dijit/form/Button" data-dojo-id="frmTBedit"
+            data-dojo-props="showLabel:true"><span style='color:DarkRed;' class="material-symbols-outlined">
+edit_note</span>Edit</div
+        ><div data-dojo-type="dijit/form/Button" data-dojo-id="frmTBsave"
+            data-dojo-props="showLabel:true">Save</div
+        ><span data-dojo-type="dijit/ToolbarSeparator"></span
+        ><div data-dojo-type="dijit/form/Button" data-dojo-id="frmTBpv"
+            data-dojo-props="showLabel:true, onClick:'window.pvTrigger()'"><span style='color:DarkRed;' class="material-symbols-outlined">
+history</span>Prior Versions</div></div>
+
+
+	<div data-dojo-id='frmBorder' dojoType="dijit/layout/BorderContainer" design="sidebar" gutters="false" liveSplitters="false" style="height: 50em;">
+		<div dojoType="dijit/layout/ContentPane" region="center" splitter="false" style="width: 100%;">
+		<br>
+		<div style='text-align:center;'><h3>Test TaskList Form</h3></div>
+		<br>
+			<form class="brijFrm" dojoType="dojox/form/Manager" data-dojo-id="form">
+			<table>
+          <tr>
+            <td><label for="StringFld">String:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="StringFld" name="StringFld" value="A sample item with sample text" observer="showValues"></td>
+
+	<td><input class="dojoFormValue" type="checkbox" dojoType="dijit/form/CheckBox" id="BoolFld" name="FlagFld" value=false data-dojo-observer="window.mShowVals();">
+	<label for="BoolFld">Boolean:</label></td>
+          </tr>
+
+          <tr>
+            <td><label for="DateFld">Date:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="DateFld" name="DateFld" value="" observer="showValues"></td>
+            <td><label for="TimeFld">Time:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="TimeFld" name="TimeFld" value="" observer="showValues"></td>
+          </tr>
+
+          <tr>
+            <td><label for="NumberFld">Number:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="NumberFld" name="NumberFld" value="Module Nm" observer="showValues" >
+						</td>
+            <td><label for="IdFld">Id:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="IdFld" name="IdFld" value="SubModule Nm" observer="showValues" >
+						</td>
+          </tr>
+
+</table>
+
+				<script type="dojo/method" data-dojo-event="onSubmit">
+					// do not submit this form
+					console.log("onSubmit!");
+					return false;
+				</script>
+				<script type="dojo/method" data-dojo-event="showValues" data-dojo-args="value,name">
+					window.mShowVals(value, name);
+/*
+					if(name){
+						// first time this method is called with no parameters
+						// show the name and the value otherwise
+						console.log("showValues observer >> name = ", name, " value = ", value);
+					}
+					var values = this.gatherFormValues(), 
+              table = dijit.byId("table"), 
+              names = [];
+					console.log("showValues observer >>values\n" + JSON.stringify(values));
+*/
+/*
+					//@FixMe: this throws an err in eval
+					// clear the table
+					//window.clrTbl(table);
+					table.innerHTML = "";
+					//while(table.lastChild){
+					//	dojo.destroy(table.lastChild);
+					//}
+					// show gathered values
+					for(var name in values){
+						if(values.hasOwnProperty(name)){
+							names.push(name);
+						}
+					}
+					names.sort();
+					dojo.forEach(names, function(name){
+						var tr  = dojo.doc.createElement("tr"),
+							tdn = dojo.doc.createElement("td"),
+							tdv = dojo.doc.createElement("td");
+						tdn.innerHTML = name;
+						tdv.innerHTML = "" + values[name];
+						if(this._oldValues && this._oldValues[name] != values[name]){
+							dojo.addClass(tr, "hilite");
+						}
+						tr.appendChild(tdn);
+						tr.appendChild(tdv);
+						table.appendChild(tr);
+					}, this);
+					this._oldValues = values;
+*/
+				</script>
+			</form>
+		</div>
+	</div>
+
+
+	<!--p>
+		<input type="checkbox" id="c01" name="c01" value="c01" checked="checked"
+			onclick="dijit.byId('form')[this.checked ? 'enable' : 'disable']()">
+		&nbsp;<label for="c01">enable the form elements and widgets</label>
+		<br>
+		<input type="checkbox" id="c02" name="c02" value="c02"
+			onclick="dijit.byId('form')[this.checked ? 'addClass' : 'removeClass']('makeYellow', ['part1', 'part2'])">
+		&nbsp;<label for="c02">add/remove yellow background</label>
+		<br>
+		<input type="checkbox" id="c04" name="c04" value="c04" checked="checked"
+			onclick="dijit.byId('form')[this.checked ? 'show' : 'hide'](['part2'])">
+		&nbsp;<label for="c04">show form widgets</label>
+	</p-->
+</div><!--twoColContents-->
+<p><p>
