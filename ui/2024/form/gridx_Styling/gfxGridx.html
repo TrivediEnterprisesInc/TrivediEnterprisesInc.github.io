@@ -55,12 +55,13 @@ require([
 	'./gridx_Styling/TreeNestedTestData.js',
 	'gridx/tests/support/stores/ItemFileWriteStore',
 	'gridx/modules/ColumnWidth',
+	'gridx/modules/Body',
 	'gridx/allModules',
 	'gridx/Grid',
 	'gridx/core/model/cache/Sync',
 	'gridx/core/model/cache/Async',
 	'dojo/domReady!'
-], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Button, Select, lang, registry, Mngr, Dialog, dataSource, nestedDataSource, storeFactory, ColumnWidth, modules, Grid){
+], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Button, Select, lang, registry, Mngr, Dialog, dataSource, nestedDataSource, storeFactory, ColumnWidth, Body, modules, Grid){
 
 	window.showFrm = function(){
 	    myFrmDialog.show();
@@ -339,6 +340,24 @@ require([
 	];
 
 	gfxMods = [
+		{
+				moduleClass: Body,
+				rowHoverEffect: false,
+				onAfterRow: function(row) {
+					let selId = row.id;
+					let isCateg = false;
+					grid.store.fetchItemByIdentity({identity: selId, onItem: function(item) {
+								isCateg = (item['isCateg']);
+					}});
+					if ( row._decorated ) return;
+						row._decorated = true;
+						var domNode = row.node();
+						if ( isCateg ) {
+								console.log("adding isCateg style for row id " + row.id + "isCateg: " + isCateg);
+								domClass.add(domNode, "gridxCategRow");
+						}
+				},
+		},
 		modules.Tree,
 		modules.Filter,
 		modules.FilterBar,
@@ -592,12 +611,16 @@ function newDat(){
 Gridx.css style changes + some func
 	</h1>
 	
-	<b>This file created Aug28 to test + work on Gridx.css style changes<br>
-	Last updated: Sept 18th '24</b>
+	<b>This file created Aug28 to test + work on 
+		<ul><li>Gridx.css style changes</li>
+		<li>Completing the Grid UI features (TB/switchDV/actBtn func.)</li>
+		<li>Merge frmDlg + pvDlg into the grid</li>
+		<li>Any other related outstanding cliSide stuff incl priorVerPromotion etc.</li></ul>
+	Last updated: Sept 20th '24</b>
 <p>
 <hr>
-<a href='https://github.com/oria/gridx'>Repo</a> | <a href='https://oria.github.io/gridx/gallery.html'>Gallery</a> | 
-Gridx <a href='https://web.archive.org/web/20160525164621/https://xcellerant.net/2014/12/02/gridx-in-xpages-11-grid-api-methods/'>API</a> methods<br>
+Gridx <a href='https://github.com/oria/gridx'>Repo</a> | <a href='https://oria.github.io/gridx/gallery.html'>Gallery</a> | 
+<a href='https://web.archive.org/web/20160525164621/https://xcellerant.net/2014/12/02/gridx-in-xpages-11-grid-api-methods/'>API</a> methods<br>
 <a href='https://oria.github.io/gridx/demos/columnResizer.html'>colResizer</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;	grid.columnResizer.setWidth('Album', a);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;	grid.column('Album').getWidth()<br>
@@ -644,7 +667,7 @@ For the dat reset mechanics, here's a fork of the Simplest Gridx ver to play wit
 <p>
 
 <details>
-  <summary>Stores</summary>
+  <summary><input type="checkbox" checked>&nbsp; Stores</summary>
 
 see also this <a href='https://stackoverflow.com/questions/5499453/how-to-refresh-datagrid'>SO</a> post on changing stores<br>
 nestedDataSource:	gridx/tests/support/data/<a href='https://github.com/oria/gridx/blob/master/tests/support/data/TreeNestedTestData.js'>TreeNestedTestData</a><br>
@@ -661,7 +684,7 @@ storeFactory: 		gridx/tests/support/stores/<a href='https://github.com/oria/grid
 <p>
 
 <details>
-  <summary><input type="checkbox" name="" value="" checked>: Add DropDown DVSelector</summary>
+  <summary><input type="checkbox" checked> Add DropDown DVSelector</summary>
 <hr>                        <br>
 
 <mark>Aug31</mark>: Forget using the approach below, there's a better way to do this; by merely incl in sep tds (auto-setup, see <a href='https://github.com/oria/gridx/wiki/How-to-add-bars-to-gridx%3F-%5Bv1.1%5D#bar-item-definition'>this</a> gridx manPg<p>
@@ -695,21 +718,21 @@ Currently gridx will show the FilterTtip (cls) on bar hover; nds 2 be updated to
 </details>
 <br>
 <details>
-  <summary><input type="checkbox" name="" value="" checked>: Add ActionBar</summary>
+  <summary><input type="checkbox" checked>: Add ActionBar</summary>
 
 Note: The winFrms CP <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/3CP.png'>img</a> doesn't have the ToolBar reqd (test btns instd); so look for the btnSet in the Java version<br>
 
 The Spx DV <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/brijPitch/articles/images/spx_DataView.mp4'>video</a> does have a tk tb which contains:<br>
 &lt;Create&gt; &lt;Edit&gt; &lt;QuickEdit&gt; &lt;DV DropDn&gt; &lt;Delete&gt; &lt;MarkCompleted&gt; &lt;RTL&gt;
-&lt;expandAll&gt; &lt;collAll&gt;&lt;br&gt;<br>
+&lt;expandAll&gt; &lt;collAll&gt;<br>
 
 gridx already contains gridx/modules/Bar.js, a general-purpose bar
 ALSO has modules/ToolBar.js which adds a tb 2 the bar above<br>
-see: https://xcellerant.wordpress.com/2015/01/19/gridx-in-xpages-24-adding-toolbars-to-the-grid-header/
-(this post says the ToolBar is depr so use bar instd)
+see: <a href='https://xcellerant.wordpress.com/2015/01/19/gridx-in-xpages-24-adding-toolbars-to-the-grid-header/'>Adding</a> toobars to gridx (this post says the ToolBar is depr so use bar instd)
 
-i) add requires 4 "dijit/Toolbar", "dijit/form/Button",<br>
-ii) Create tb; attach handler<br>
+<ol>
+	<li>add requires 4 "dijit/Toolbar", "dijit/form/Button",</li>
+<li>Create tb; attach handler
 <code><pre>
         function myButtonHandler() {
           console.log('Clicked button');
@@ -722,9 +745,8 @@ ii) Create tb; attach handler<br>
         });
         toolbar.addChild(myButton);
         toolbar.startup();
-</pre></code>
-<br>
-iii) Add the Toolbar to the grid<br>
+</pre></code></li>
+<li>Add the Toolbar to the grid<br>
 <code><pre>
           grid = new Grid({
             id: 'my_gridX',
@@ -744,11 +766,11 @@ iii) Add the Toolbar to the grid<br>
               VirtualVScroller,
               **Bar
             ]});
-</pre></code>
+</pre></code></li></ol>
 </details>
 <br>
 <details>
-  <summary>categRows</summary>
+  <summary><input type="checkbox">&nbsp;<mark>categRows</mark></summary>
 
 <ul>
 
@@ -757,7 +779,10 @@ iii) Add the Toolbar to the grid<br>
 </li>
 
 <li><input type="checkbox">&nbsp;categRows Styling<br>
-Ideally nd to hook into gridx.row.render() and addClass ".Categ" 4 styling (bold/med drkBlue: shd be less striking than colHdrs)
+Ideally nd to hook into gridx.row.render() and addClass ".Categ" 4 styling (bold/med drkBlue: shd be less striking than colHdrs)<br>
+<mark>Sep20</mark> row.render is in the bodyMod, see <a href='https://github.com/oria/gridx/issues/293'>this</a>.  <br>
+Impl this in the curr test grid<br>
+<mark>@Chk</mark> However, this may not be the correct way to do this, see <a href='https://github.com/oria/gridx/blob/a05e8b910bc88106792c2c68ebdbdbea45cb63f8/modules/Body.js#L178'>this</a>
 </li>
 
 <li><input type="checkbox">&nbsp;selectedRows / chkboxes for categRows<br>
@@ -766,7 +791,8 @@ We nd 2 hide chkboxes for categRows (this also impacts the <b>selectedCount/totR
 
 <ul><li>one approach: See gridx <a href='https://oria.github.io/gridx/demos/unselectableRow.html'>unSelectableRows</a> (shows disabled chkBox)<br>
 [However, this appears perhaps <b>confusing</b> from a usr perspective.  Consider hiding it entirely based on <i>isCateg</i>]</li><li>
-<mark>@v2?</mark> Poss util in allowing users to click a special (diff color?) chkbox to (de)select <b>only</b> items in that group/subgroup (nds to add functionality 2 existing gridx.select mod & work in tandem)
+<mark>@v2?</mark> Poss util in allowing users to click a special (diff color?) chkbox to (de)select <b>only</b> items in that group/subgroup (nds to add functionality 2 existing gridx.select mod & work in tandem)<br>
+<i>@TBD: This may be confusing too</i>
 </li></ul>
 </li>
 <li><input type="checkbox" checked> Update enabled state of tbActnBtns via connect.onSelectionChange</li>
@@ -777,24 +803,26 @@ We nd 2 hide chkboxes for categRows (this also impacts the <b>selectedCount/totR
 
 
 <details>
-  <summary><input type="checkbox" name="" value="">: grid.dat updates</summary>
+  <summary><input type="checkbox" name="" value=""> <mark>grid.dat updates</mark></summary>
 <ol>
 
 <li>Impl. Push Updates
 	<ul><li>For this, 1st apply cliSide updates to chk everything works as expected.<br>
-<input type="checkbox" name="" value="" checked>, <mark>Sep09</mark> see [update Row#1] btn above the grid.<br>Note: this snippet uses oria's setup (not our store, api changes)</li>
+<input type="checkbox" checked>, <mark>Sep09</mark> see [update Row#1] btn above the grid.<br>Note: this snippet uses oria's setup (not our store, api changes)</li>
 <li>Next, apply mock svr updates directly to local store<br>
-<input type="checkbox" name="" value="" checked>, <mark>Sep10</mark> see [setStore] btn above the grid.</li>
-<li><mark>@v2?</mark> <b>Related</b>: Flash 4 live upds</li>
+<input type="checkbox" checked>, <mark>Sep10</mark> see [setStore] btn above the grid.</li>
+<li><input type="checkbox"><mark>@v2?</mark> <b>Related</b>: Flash 4 live upds</li>
 </ul>
 </li>
 
 
-<li>AFAIK dat doesn't currently hold defFrm details; <mark>@TBD</mark>: Are we going to patch it into the dat or directly via req/response?</li>
-<li><mark>@Chk</mark> Does the dat currently have <b>defFrmId</b>? We nd a mechanism to populate this with either userChoice or default/only/genOnDemand.
-</li><li>[<input type="checkbox" name="" value="" checked> Yes, in %age] Does the dat currently have <b>colWids</b>? If not, we nd to add, in %age
+<li><input type="checkbox">&nbsp; AFAIK dat doesn't currently hold defFrm details; <mark>@TBD</mark>: Are we going to patch it into the dat or directly via req/response?<br>
+Sep20: decided; <b>but</b> for the SaaduP we nd to complete ev poss wid to hook into the bldr.  And since Completion reqs adequate testing, we nd to upd the generator as well (<mark>@TBD</ark>: use tkFldNms for eventual testing with that dataset?)
 </li>
-<li>We nd to persist <b>TopId</b>, here's why:
+<li><mark>@Chk</mark> Does the dat currently have <b>defFrmId</b>? We nd a mechanism to populate this with either userChoice or default/only/genOnDemand.
+</li><li>[<input type="checkbox" checked> Yes, in %age] Does the dat currently have <b>colWids</b>? If not, we nd to add, in %age
+</li>
+<li><input type="checkbox">&nbsp; <mark>@TBD</mark> (Sep20: poss unnecc; "beware of premature optimization")  We nd to persist <b>TopId</b>, here's why:
 <ul>
 <li>User is working with a record and does something to trigger svrRefresh</li>
 <li>Meanwhile other users update 5 recs <b>before</b> TopRec</li>
@@ -802,7 +830,7 @@ We nd 2 hide chkboxes for categRows (this also impacts the <b>selectedCount/totR
 <li>This update also poss nded for v1; just add a { TopRec:unid } 2 the dat</li>
 <li>Also nd to <b>test</b> for ea eventuality (topUnid no longer exists? fallback to renderedVw)</li>
 </ul>
-<li>Impl ExpAll Mechanics<br>
+<li><input type="checkbox" checked>&nbsp; Impl ExpAll Mechanics<br>
 <ul>
     <li>@TbD: isn't this just a svr call?</li>
     <li><b>Yes</b>, it is<br>
@@ -814,9 +842,9 @@ svr.req(params, 'expAll') &gt;&gt; model update &gt;&gt; done</li>
 <p>
 
 <details>
-  <summary><input type="checkbox" name="" value="">: Impl Form + Mechanics</summary>
+  <summary><input type="checkbox">&nbsp; Impl Form + Mechanics</summary>
 <ol>
-    <li><input type="checkbox" checked> <b>Add</b> barebones form.<br>[<input type="checkbox" name="" value="" checked> For this loc8 the frmMngr test file]
+    <li><input type="checkbox" checked> <b>Add</b> barebones form.<br>[<input type="checkbox" checked> For this loc8 the frmMngr test file]
 	<br>
 	see: <a href='https://trivedienterprisesinc.github.io/ui/2024/form/frm_3.html'>Frm_3.html</a> + Frm_2.html + Frm_1.html + Frm_0.html [nds assoc styles etc. BUT the 1st one probably has the mngr stuff we nd to tinker with]<br>
 	<mark>Sep11</mark>&nbsp;<input type="checkbox" checked>: Created Frm_4 w/barebones working Dlg (3/earlier set dlg.content via innerhtml which threw dupl widgetID errs)<br>
@@ -831,7 +859,7 @@ svr.req(params, 'expAll') &gt;&gt; model update &gt;&gt; done</li>
 	<li><input type="checkbox" checked>  <mark>Sep19</mark> Add custom observers for date/time flds to handle formatting deltaVals</li>
 	</ul></li>
 
-    <li><input type="checkbox" checked>&nbsp;<b>Create</b>: <mark>Sep12</mark>&nbsp;Open blank/disabled on createBtnClick<br>
+    <li><input type="checkbox">&nbsp;<b>Create</b>: <mark>Sep12</mark>&nbsp;Open blank/disabled on createBtnClick<br>
 	<input type="checkbox" checked> <mark>Sep18</mark> add fnInitFrm(): forEa colNm fetch from item &gt;&gt; bld obj &gt;&gt; setFrmVals()
     </li>
 
@@ -845,7 +873,7 @@ svr.req(params, 'expAll') &gt;&gt; model update &gt;&gt; done</li>
 		<li><input type="checkbox" checked> <mark>Sep19</mark> Chk that extra dat items don't crash the grid (esp.ly fm.setFormVals())</li>
 </ul>
 </li>
-		<li><b>EditHistory</b>: Repurpose/<b>add</b> Core mod fld for this<br>
+		<li><input type="checkbox">&nbsp; <b>EditHistory (svrSide)</b>: Repurpose/<b>add</b> Core mod fld for this<br>
 		   The idea is to give usrs a cursory look @ the changes; they can dive into the dox for a deeper lk<br>
 		  <ul><li>
 			svrSide: Create/Upd/Del (ea of these cmds sends deltaArray(tpl) >> Prepend the foll to this fld:<br>
@@ -857,10 +885,12 @@ svr.req(params, 'expAll') &gt;&gt; model update &gt;&gt; done</li>
 			Edit History: | Date | User | Flds Modified |<br>
 			Like mentioned above, prepend (on the svrSide).
 		</li>
+			<li><mark>@TBD</mark>: for currVer we cld still easily highlight specific fld widgets (say w/red box borders)</li>
 			</ul>
 
-		<li><b>PriorVers</b>: 	<mark>Sep13</mark>&nbsp;<input type="checkbox" checked>: Port from <a href='https://trivedienterprisesinc.github.io/ui/2024/form/ver/verDlg_gridx.html'>standalone</a> ver, add actBar btns, get the basic ui working	
-		<ul>		
+		<li><input type="checkbox">&nbsp;<b>PriorVers</b>: 	
+		<ul>				
+		<li><mark>Sep13</mark>&nbsp;<input type="checkbox" checked>: Port from <a href='https://trivedienterprisesinc.github.io/ui/2024/form/ver/verDlg_gridx.html'>standalone</a> ver, add actBar btns, get the basic ui working	</li>
 		<li>[<mark>Sep14</mark>&nbsp;<input type="checkbox" checked> Merge/adapt the pvDlg into the <b>Frm5</b> file & shows on Form|PV actionBtnClick</li>
 		<li>[<mark>Mar28(!)</mark>&nbsp;<input type="checkbox" checked>, see <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/tree/main/ui/2024/form/ver'>here</a>] The existing pvDlg uses dj.enhGrid >> port to gridx</li>
 		<li>Impl. all pvDlg funct w/existing data
@@ -895,14 +925,13 @@ dblClick on pV >> pvDlg.hide() >> popul8 underlying dlg w/pV (disabled els)<br>
 <li><input type="checkbox"> Add promote logic (on cliSide this is only svr.cmd('promote', params) >> await fetch</li>
 </ul>
 		<li><input type="checkbox"> impl Promote logic svrSide</li></ul>
-		<li>Related: Create dlg 4 qkEdit; lookup frm valid8n/apply (This is a separate tk below)</li>
-    <li>Update assoc styles</li>
+    <li><input type="checkbox"> Update assoc styles</li>
 </ul>
 
 </details>
 <p>
 <details>
-  <summary><input type="checkbox" name="" value="">: Impl RTL Mechanics</summary>
+  <summary><input type="checkbox">: Impl RTL Mechanics</summary>
 <ul>
     <li>Currently the gridx demo calls via href (url + ?dir='rtl')</li>
 <li>However, the gridx api has a call for this, impl.</li>
@@ -922,7 +951,7 @@ dblClick on pV >> pvDlg.hide() >> popul8 underlying dlg w/pV (disabled els)<br>
                     <li>Reordered Columns</li>
                     <li>Hidden Columns</li></ul>
 	</li>
-	<li><input type="checkbox" name="" value="" checked> Persist tested with oria's test setup; works as exp; <br>
+	<li><input type="checkbox" checked> Persist tested with oria's test setup; works as exp; <br>
 <b>BUT</b> won't work with local file (poss coz the cookie url refers 2 oria, hence doesn't find our settings.</li>
 	<li><mark>@TBD</mark> <mark>@v2</mark> Persist expand/collapse state? (hook into the Persist mod)</li>
 	<li><input type="checkbox" name="" value="">: Poss above nded for <b>v1</b>: we only nd 2 persist openCats.</li>
@@ -955,19 +984,26 @@ dblClick on pV >> pvDlg.hide() >> popul8 underlying dlg w/pV (disabled els)<br>
 </details>
 <br><br>
 <details>
-  <summary>Filtering</summary>
-         
+  <summary><input type="checkbox">&nbsp; Filtering</summary>
+
 <b>Gotchas:</b>&nbsp; Filtering nds the 'dataType' attribute in the column definition (or it'll default to string), see <a href='https://xcellerant.wordpress.com/2014/12/16/gridx-17-column-data-types/'>this</a><br>
 Also see <a href='https://xcellerant.wordpress.com/2014/12/10/gridx-in-xpages-16-advanced-searching-with-the-filterbar-module/'>this</a>: If you are using a remote data store, you’ll need to filter the data server-side before sending it client-side.<br>
 The QuickFilter appears to provide <mark>FTSearch capab</mark> (again, manually pass args 2 svr)
 </details>
 
 <p>
-<input type="checkbox">: <b>btnTtips</b>: gridx css rules show abbrv ttip; nd to change or remove to show real one<br>
+
+<details>
+  <summary><input type="checkbox">&nbsp; btnTtips</summary>
+gridx css rules show abbrv ttip; nd to change or remove to show real one<br>
 @TBD: Poss utility in extending widBase and attaching ttip based on class OR using a universal handler thus: qry(.hasTtip) &gt; forEa (attachTtipRnner(nd))<br>
-<input type="checkbox" name="" value="" checked>: This version of styles doesn't have the expando img updates
-<br><input type="checkbox" name="" value="" checked>: This version of icons NOT the latest 
-<br><input type="checkbox">: <mark>v1</mark> Nd to pass all our customizations/changes through a gd linter to catch freq. occuring language bugs like: [if (ob='a')] instd of [if (ob==='a')]
+<mark>Sep20</mark> gridx uses <a href='https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label'>'aria-label'</a> (see for ex. the filterBar <a href='https://github.com/oria/gridx/blob/master/templates/FilterBar.html'>templ</a>) This's meant to be used w/btns with no visible descr.  Our ttips do provide info, so poss utility in relabelling all template occurances to <b>aria-describedby</b> or aria-description (see mdn doc above), which shd prevent the abbrev tag from working in gridx.
+</details>
+<br>
+
+<input type="checkbox" checked>: This version of styles doesn't have the expando img updates
+<br><input type="checkbox" checked>: This version of icons NOT the latest 
+<br><input type="checkbox">: <mark>vBeta</mark> Nd to pass all our customizations/changes through a gd linter to catch freq. occuring language bugs like: [if (ob='a')] instd of [if (ob==='a')]
 
 <p>
 
