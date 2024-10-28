@@ -165,10 +165,23 @@ Extracted these changes to a separate file (could've appended to common but that
 /* gridx tb icons */
 
 .gridxCreateIcon, .gridxEditIcon, .gridxQEditIcon, .gridxExpandAllIcon,
-.gridxCollapseAllIcon, .gridxDeleteIcon, .gridxRTLIcon, .gridxLTRIcon {
+.gridxCollapseAllIcon, .gridxDeleteIcon, .gridxRTLIcon, .gridxLTRIcon, .gridxTagIcon, .gridxTagAddIcon, .gridxTagFilterByIcon, .gridxTagRemoveIcon {
 	background-repeat:repeat;
 	background-position:0% 0%;
         background-size: 16px 16px;
+}
+
+.gridxTagIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/img/label.png");
+}
+.gridxTagAddIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/img/label_add.png");
+}
+.gridxTagFilterByIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/img/label_filterBy.png");
+}
+.gridxTagRemoveIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/img/label_remove.png");
 }
 .gridxCreateIcon{
 	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/grid_add.png");
