@@ -1,8 +1,8 @@
 <!DOCTYPE html> 
 <html>
 <head>
-	<title>Gridx.css style changes + some func</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+	<title>Gridx style changes + some func</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
 	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
@@ -16,28 +16,67 @@
 	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
 
 	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
-	<!--link rel="stylesheet" href="common.css"-->
+	<link rel="stylesheet" href="gridx_Styling/common.css">
 	<link rel="stylesheet" href="gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
 
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+.dijitDialogPaneContent {
+    width: 800px !important;
+    height: 600px !important;
+}
+
+		.makeYellow		{ background-color: #ffa; }
+	</style>
+
+<script type="text/javascript" src="./gridx_Styling/commonAux.js"></script>
+<script type="text/javascript" src="./gridx_Styling/FrmMngrExt.js"></script>
+<script type="text/javascript" src="./gridx_Styling/pvDlg.js"></script>
+<!--END Frm related assets-->
 
 <script>
 require([
 	'dojo/parser',
 	'dojo/on', 'dojo/dom', 'dojo/mouse', /*@mbi'dojo/dom-Class',*/
 	'dojo/_base/Deferred', 'dijit/Tooltip', 'dijit/Toolbar', 
-	'dijit/form/Button', 'dijit/form/Select',
+	'dijit/form/Button', 'dijit/form/Select', 
 	/* frm related */
+    "dojo/_base/lang", "dijit/registry", "dojox/form/Manager",
 	'dijit/Dialog',
 	'gridx/tests/support/data/TreeColumnarTestData',
-	'gridx/tests/support/data/TreeNestedTestData',
+/*	'gridx/tests/support/data/TreeNestedTestData', dereferenced in favor of local 4 deltas*/
+	'./gridx_Styling/TreeNestedTestData.js',
 	'gridx/tests/support/stores/ItemFileWriteStore',
+	'gridx/modules/ColumnWidth',
+	'gridx/modules/Body',
 	'gridx/allModules',
 	'gridx/Grid',
 	'gridx/core/model/cache/Sync',
 	'gridx/core/model/cache/Async',
 	'dojo/domReady!'
-], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Button, Select, Dialog, dataSource, nestedDataSource, storeFactory, modules, Grid){
+], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Button, Select, lang, registry, Mngr, Dialog, dataSource, nestedDataSource, storeFactory, ColumnWidth, Body, modules, Grid){
 
+	window.showFrm = function(){
+	    myFrmDialog.show();
+	    var frm = registry.byId("form");
+	    frm["disable"]();
+	}
+	window.editFrm = function(){
+	    var frm = registry.byId("form");
+	    frm["enable"]();
+	}
+	window.saveFrm = function(){
+	    var frm = registry.byId("form");
+	    frm.getDeltas();
+	}
+    
 	window.addRow = function() {
 		var newItem = {id: "itemId", type: "itemType"},
 			parentId = dojo.byId('parentIdInput').value;
@@ -160,93 +199,136 @@ require([
 		}*/
 	}
 
+	const gfxCreateBtnHandler = (e) => {
+	    myFrmDialog.show();
+			(registry.byId('frmTBpv')).set('disabled', true);
+	    frm["enable"]();
+			alert('createBtnTibbie');
+	}
 
-        const gfxEditBtnHandler = () => {
-			undoMBI();
-          alert('EditBtnHandler');
-        }
-        const gfxRtlBtnHandler = () => {
-	  //see: https://oria.github.io/gridx/build/gridx/tests/support/common.js
-	var w = window,
-		d = document,
-		l = w.location,
-		h = l.href,
-		i = h.indexOf('?'),
-		q = i > -1,
-		b = 'RTL',
-		p = q && h.substr(i + 1).split(/#/)[0].split(/&/)[0].split('='),	//LIMITATION: dir must be the first parameter...
-		v = d.getElementsByTagName('html')[0].dir = 
-			p && p[0] == 'dir' &&
-					(p[1] || '').replace(/[^\w]/g, '').toUpperCase() == b ?	//replace() to avoid XSS attack...
-						b : '';
-	v = v == b ? '' : b;
-	//p = d.createElement('a');
-	//p.innerHTML = "<input type='button' style='position:fixed;top:0;right:0;width:5em;' value='" + (v || 'LTR') + "' />";
+	const gfxSaveBtnHandler = (r) => {
+		//if no id snd createCmd else updCmd
+	}
 
-	l.href = (q ? h.substr(0, i) : h) + (v && '?dir=' + v);
+	const gfxEditHandler = (r) => {
+		console.log("in gfxEditHandler for r: ", r);
+		if (r.rawData.hasPriorVersions) {
+				(registry.byId('frmTBpv')).set('disabled', false);
+		} else {
+				(registry.byId('frmTBpv')).set('disabled', true);
+		}
+	    myFrmDialog.show();
+	    frm["disable"]();
+			frm.insp(r.rawData);
+	}
 
-        }
-        var gfxTb = new Toolbar({}, 'toolbar');
-        var gfxCreateBtn = new Button({
-          label: 'Create',
-          iconClass:'gridxCreateIcon',
-          onClick:gfxEditBtnHandler
-        });
-        gfxTb.addChild(gfxCreateBtn);
+	const gfxEditBtnHandler = (e) => {
+		//note that the 2nd param is if we arrived here via a dblClick
+		undoMBI();
+		let numSel = grid.select.row.getSelected().length;
+		if (numSel === 1){
+				let selId = (grid.select.row.getSelected())[0];
+				console.log("gfxEditBtnHandler: selId: " + selId);
+				grid.store.fetchItemByIdentity({identity: selId, onItem: function(item) {
+					console.log("gfxEditBtnHandler: selId: " + selId + " pv? " + item['hasPriorVersions']);
+					gfxEditHandler(item);
+				}});
+		}else{
+				alert("Pls select a single record before clicking the Edit Button; or double-click the record you wish to edit");
+				}
+	}
 
-        var gfxEditBtn = new Button({
-          label: 'Edit',
-          iconClass:'gridxEditIcon',
-          onClick:gfxEditBtnHandler
-        });
-        gfxTb.addChild(gfxEditBtn);
+	const gfxQEditBtnHandler = (e) => {
+		//note that the 2nd param is if we arrived here via a dblClick
+		undoMBI();
+		//let numSel = grid.select.row.getSelected().length;
+		alert("QE tibbie");
+		}
 
-        var gfxQEditBtn = new Button({
-          label: 'QEdit',
-          iconClass:'gridxQEditIcon',
-          disabled: true,
-          onClick:gfxEditBtnHandler
-        });
-        gfxTb.addChild(gfxQEditBtn);
+	const gfxRtlBtnHandler = () => {
+		//see: https://oria.github.io/gridx/build/gridx/tests/support/common.js
+		var w = window,
+			d = document,
+			l = w.location,
+			h = l.href,
+			i = h.indexOf('?'),
+			q = i > -1,
+			b = 'RTL',
+			p = q && h.substr(i + 1).split(/#/)[0].split(/&/)[0].split('='),	//LIMITATION: dir must be the first parameter...
+			v = d.getElementsByTagName('html')[0].dir = 
+				p && p[0] == 'dir' &&
+						(p[1] || '').replace(/[^\w]/g, '').toUpperCase() == b ?	//replace() to avoid XSS attack...
+							b : '';
+		v = v == b ? '' : b;
+		//p = d.createElement('a');
+		//p.innerHTML = "<input type='button' style='position:fixed;top:0;right:0;width:5em;' value='" + (v || 'LTR') + "' />";
 
-        var gfxDelBtn = new Button({
-          label: 'Delete',
-          iconClass:'gridxDeleteIcon',
-          onClick:gfxEditBtnHandler
-        });
-        gfxTb.addChild(gfxDelBtn);
+		l.href = (q ? h.substr(0, i) : h) + (v && '?dir=' + v);
+	}
 
-        var gfxExpAllBtn = new Button({
-          label: 'Expand All',
-          iconClass:'gridxExpandAllIcon',
-          onClick:gfxEditBtnHandler
-        });
-        gfxTb.addChild(gfxExpAllBtn);
+	var gfxTb = new Toolbar({}, 'toolbar');
+	var gfxCreateBtn = new Button({
+		label: 'Create',
+		iconClass:'gridxCreateIcon',
+		onClick:gfxCreateBtnHandler
+	});
+	gfxTb.addChild(gfxCreateBtn);
 
-        var gfxColAllBtn = new Button({
-          label: 'Collapse All',
-          iconClass:'dijitIconFunction',
-          onClick:gfxEditBtnHandler
-        });
+	var gfxEditBtn = new Button({
+		label: 'Edit',
+		iconClass:'gridxEditIcon',
+		onClick:gfxQEditBtnHandler
+	});
+	gfxTb.addChild(gfxEditBtn);
+
+	var gfxQEditBtn = new Button({
+		label: 'QEdit',
+		iconClass:'gridxQEditIcon',
+		disabled: true,
+		onClick:gfxEditBtnHandler
+	});
+	gfxTb.addChild(gfxQEditBtn);
+
+	var gfxDelBtn = new Button({
+		label: 'Delete',
+		iconClass:'gridxDeleteIcon',
+		onClick:gfxEditBtnHandler
+	});
+	gfxTb.addChild(gfxDelBtn);
+
+	var gfxExpAllBtn = new Button({
+		label: 'Expand All',
+		iconClass:'gridxExpandAllIcon',
+		onClick:gfxEditBtnHandler
+	});
+	gfxTb.addChild(gfxExpAllBtn);
+
+	var gfxColAllBtn = new Button({
+		label: 'Collapse All',
+		iconClass:'dijitIconFunction',
+		onClick:gfxEditBtnHandler
+	});
 //gridxCollapseAllIcon
-        gfxTb.addChild(gfxColAllBtn);
+	gfxTb.addChild(gfxColAllBtn);
 
-        var gfxRtlBtn = new Button({
-          label: 'RTL',
-          iconClass:'gridxCollapseAllIcon',
-          onClick:gfxRtlBtnHandler
-        });
+	var gfxRtlBtn = new Button({
+		label: 'RTL',
+		iconClass:'gridxCollapseAllIcon',
+		onClick:gfxRtlBtnHandler
+	});
 //.gridxLTRIcon
-        gfxTb.addChild(gfxRtlBtn);
-        gfxTb.startup();
+	gfxTb.addChild(gfxRtlBtn);
+	gfxTb.startup();
 
 	layout3 = [
-		{id: 'number', name: 'number', field: 'number'},
-		{id: 'string', name: 'string', field: 'string'},
-		{id: 'date', name: 'date', field: 'date'},
-		{id: 'time', name: 'time', field: 'time'},
-		{id: 'bool', name: 'bool', field: 'bool'},
-		{id: 'id', name: 'id', field: 'id'}
+		{id: 'number', name: 'number', field: 'number', width: '10%'},
+		{id: 'string', name: 'string', field: 'string', width: '45%'},
+		{id: 'date', name: 'date', field: 'date', width: '22%'},
+		{id: 'time', name: 'time', field: 'time', width: '15%'},
+		{id: 'bool', name: 'bool', field: 'bool', width: '8%'}
+        /*, just don't include 'em...
+		{id: 'id', name: 'id', field: 'id', width: '0%'},
+		{id: 'hasPriorVersions', name: 'hasPriorVersions', field: 'hasPriorVersions', width: '0%'}*/
 	];
 	layout4 = [
 		{id: 'id', name: 'id', field: 'id'},
@@ -277,6 +359,24 @@ require([
 	];
 
 	gfxMods = [
+		{
+				moduleClass: Body,
+				rowHoverEffect: false,
+				onAfterRow: function(row) {
+					let selId = row.id;
+					let isCateg = false;
+					grid.store.fetchItemByIdentity({identity: selId, onItem: function(item) {
+								isCateg = (item['isCateg']);
+					}});
+					if ( row._decorated ) return;
+						row._decorated = true;
+						var domNode = row.node();
+						if ( isCateg ) {
+								console.log("adding isCateg style for row id " + row.id + "isCateg: " + isCateg);
+								domClass.add(domNode, "gridxCategRow");
+						}
+				},
+		},
 		modules.Tree,
 		modules.Filter,
 		modules.FilterBar,
@@ -319,7 +419,8 @@ require([
 			cacheClass: "gridx/core/model/cache/Async",
 			store: storeNested,
 			structure: layout3,
-			autoWidth: true,
+			columnWidthAutoResize: true,
+			autoWidth: false,
 			autoHeight: true,
 			treeNested: true,
 			paginationBarSizes: [1, 2, 0],
@@ -378,28 +479,6 @@ require([
             }
         });
  * */
-    
-
-JSON.mStringify = (obj, indent = 2) => {
-   // safely handles circular references
-   // see: https://stackoverflow.com/questions/11616630/how-can-i-print-a-circular-structure-in-a-json-like-format
-
-  let cache = ["children", "_S"];
-  const retVal = JSON.stringify(
-    obj,
-    (key, value) =>
-      cache.includes(key) ? undefined //skip children & circs
-	      : typeof value === "object" && value !== null
-	        ? cache.includes(value)
-        	  ? undefined // Duplicate reference found, discard key
-	          : cache.push(value) && value // Store value in our collection
-	        : value,
-    indent
-  );
-  cache = null;
-  return retVal;
-};
-
 
 	window.updRow1 = () => {
 
@@ -493,13 +572,13 @@ function newDat(){
 		//see: https://github.com/oria/gridx/blob/a05e8b910bc88106792c2c68ebdbdbea45cb63f8/Grid.js#L263C3-L263C4
 		dojo.connect(grid, "onRowMouseOver", function(e){
 			undoMBI();
-			console.log(">>rowId: " + e.rowId);
+			//console.log(">>rowId: " + e.rowId);
 			let r = grid.model.byId(e.rowId);
-			console.log(">>cells: " + JSON.mStringify(r));
+			//console.log(">>cells: " + JSON.mStringify(r));
 			grid.store.fetchItemByIdentity({identity: e.rowId, onItem: function(item) {
 				if (!item) return;
-				console.log("fetchedItemById (store) : " + item['id']);
-                let roNd = grid.body.getRowNode({visualIndex: e.visualIndex})
+				//console.log("onRowMouseOver: fetchedItemById (store) : " + item['id']);
+		                let roNd = grid.body.getRowNode({visualIndex: e.visualIndex});
 				Tooltip.show(("row Time fld: " + item['time']), roNd);
 				
 				on.once(roNd, mouse.leave, function(){
@@ -507,25 +586,19 @@ function newDat(){
 				});
 			}});
 		});
-
+	    dojo.connect(grid, "onRowDblClick", (e) => {
+		let r = grid.model.byId(e.rowId);
+		gfxEditHandler(r);
+	   });
 
 /* See this for embedding a whole mod (good 4 testing) in shell ->
 //https://github.com/oria/gridx/issues/293
 //see https://github.com/oria/gridx/blob/master/tests/test_grid_events.js
 */
 
-/* BEGIN frm/Mngr related */
-    let twoC = dom.byId('twoColContents').innerHTML;
-    var frmDlg = new Dialog({
-                title: "Frm...",
-                id: "frmDlg",
-                content: twoC,
-                style: "height:90%;width:90%;"
-    });
-		window.twoCol = () => {
-			frmDlg.show();
-		}
-/* END frm/Mngr related */
+	testFetch = function(){
+						window.runFetch('fetchPVs');
+	};
 
 	parser.parse();
 	undoMBI();
@@ -539,12 +612,23 @@ function newDat(){
 Gridx.css style changes + some func
 	</h1>
 	
-	<b>This file created Aug28 to test + work on Gridx.css style changes<br>
-	Last updated: Sept 13th '24</b>
-<p>
+	<b>This file (<a href='https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.html'>repo ver</a>) created Aug28 to test + work on Gridx UI/UX updates
+	<i>Last updated</i> Sept 24<sup>th</sup> '24</b><br><hr>
+	Upcoming tks:
+	<ol>
+<li><a href="#widCoverage">widCoverage</a>
+</li><li><a href="#ModifyFrm5">ModifyFrm5</a>
+</li><li><a href="#PromoteBtn">PromoteBtn</a>
+</li><li><a href="#mockDeltas">mockDeltas</a>
+</li><li><a href="#populatePR">populatePR</a>
+</li><li><a href="#csvExport">csvExport</a>
+</li><li><a href="#persistMod">persistMod</a>
+</li><li><a href="#btnTtips">btnTtips</a>
+</li><li><a href="#qEd">qEd</a>
+</li></ol>
 <hr>
-<a href='https://github.com/oria/gridx'>Repo</a> | <a href='https://oria.github.io/gridx/gallery.html'>Gallery</a> | 
-Gridx <a href='https://web.archive.org/web/20160525164621/https://xcellerant.net/2014/12/02/gridx-in-xpages-11-grid-api-methods/'>API</a> methods<br>
+Gridx <a href='https://github.com/oria/gridx'>Repo</a> | <a href='https://oria.github.io/gridx/gallery.html'>Gallery</a> | 
+<a href='https://web.archive.org/web/20160525164621/https://xcellerant.net/2014/12/02/gridx-in-xpages-11-grid-api-methods/'>API</a> methods<br>
 <a href='https://oria.github.io/gridx/demos/columnResizer.html'>colResizer</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;	grid.columnResizer.setWidth('Album', a);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;	grid.column('Album').getWidth()<br>
@@ -559,8 +643,11 @@ Gridx <a href='https://web.archive.org/web/20160525164621/https://xcellerant.net
 <a href='https://trivedienterprisesinc.github.io/ui/2024/themes/theming.html'>gfxTheming</a>&nbsp;
 Style changes manually made to css coz less files won't compile (oria nds node, @mbi, the old story)<br>
 It uses all oria stuff except local (modified) gfxGridx.css + common.css.<br>
-<b>Note</b>: Strangely enough, diff parts of the wid continue to load oria's gridx.css (poss script refs)<br>
-<b>Needed</b>: Nd 2 port the gfx claro file (this distro doesn't contain it so no btn styling etc.)
+<mark>Note</mark>: Strangely enough, diff parts of the wid continue to load oria's gridx.css (poss script refs)<br>
+<mark>Needed</mark>: Nd 2 port the gfx claro file (this distro doesn't contain it so no btn styling etc.)<br>
+@pane-background-color: @container-background-color -&gt; chg 2 OldLace (https://www.colorhexa.com/fdf5e6; it's complem v similar to our skyBl)<br>
+See also: <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/ui/gfxStylingPhat.64'>gfxStylingPhat</a> from Aug28th<br>
+<a href='https://www.transparenttextures.com/'>textures</a>
 <p><p>
 
 <div data-dojo-type="dijit.form.Button" data-dojo-props="onClick: createGrid">Create Grid</div>
@@ -570,131 +657,17 @@ It uses all oria stuff except local (modified) gfxGridx.css + common.css.<br>
 <hr>
 <div data-dojo-type="dijit.form.Button" data-dojo-props="onClick: updRow1">update Row #1</div>
 <div data-dojo-type="dijit.form.Button" data-dojo-props="onClick: setStore">setStore</div>
+<div data-dojo-type="dijit.form.Button" data-dojo-props="onClick: testFetch">testFetchCall</div>
 
-<div data-dojo-type="dijit/form/Button" id="2ColBtn"
-            onClick:'window.twoCol();'><span style='color:DarkRed;' class="material-symbols-outlined">
-terminal</span>Frm</div></div>
 
+<div data-dojo-type="dijit/form/Button" id="frmBtn"
+            data-dojo-props="onClick:'window.showFrm();'"><span style='color:DarkRed;' class="material-symbols-outlined">
+terminal</span>frm</div>
 
 <p><p>
 	<div id='grid'></div>
 <p><p>
-<div id="twoColContents" style="display:none;">
 
-    <div data-dojo-id="frmTB" data-dojo-type="dijit/Toolbar"
-        ><div data-dojo-type="dijit/form/Button" data-dojo-id="frmTBedit"
-            data-dojo-props="showLabel:true"><span style='color:DarkRed;' class="material-symbols-outlined">
-edit_note</span>Edit</div
-        ><div data-dojo-type="dijit/form/Button" data-dojo-id="frmTBsave"
-            data-dojo-props="showLabel:true">Save</div
-        ><span data-dojo-type="dijit/ToolbarSeparator"></span
-        ><div data-dojo-type="dijit/form/Button" data-dojo-id="frmTBpv"
-            data-dojo-props="showLabel:true, onClick:'window.pvTrigger()'"><span style='color:DarkRed;' class="material-symbols-outlined">
-history</span>Prior Versions</div></div>
-
-
-	<div data-dojo-id='frmBorder' dojoType="dijit/layout/BorderContainer" design="sidebar" gutters="false" liveSplitters="false" style="height: 50em;">
-		<div dojoType="dijit/layout/ContentPane" region="center" splitter="false" style="width: 100%;">
-		<br>
-		<div style='text-align:center;'><h3>Test TaskList Form</h3></div>
-		<br>
-			<form class="brijFrm" dojoType="dojox/form/Manager" data-dojo-id="form">
-			<table>
-          <tr>
-            <td><label for="StringFld">String:</label>
-              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="StringFld" name="StringFld" value="A sample item with sample text" observer="showValues"></td>
-
-	<td><input class="dojoFormValue" type="checkbox" dojoType="dijit/form/CheckBox" id="BoolFld" name="FlagFld" value=false data-dojo-observer="window.mShowVals();">
-	<label for="BoolFld">Boolean:</label></td>
-          </tr>
-
-          <tr>
-            <td><label for="DateFld">Date:</label>
-              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="DateFld" name="DateFld" value="" observer="showValues"></td>
-            <td><label for="TimeFld">Time:</label>
-              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="TimeFld" name="TimeFld" value="" observer="showValues"></td>
-          </tr>
-
-          <tr>
-            <td><label for="NumberFld">Number:</label>
-              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="NumberFld" name="NumberFld" value="Module Nm" observer="showValues" >
-						</td>
-            <td><label for="IdFld">Id:</label>
-              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="IdFld" name="IdFld" value="SubModule Nm" observer="showValues" >
-						</td>
-          </tr>
-
-</table>
-
-				<script type="dojo/method" data-dojo-event="onSubmit">
-					// do not submit this form
-					console.log("onSubmit!");
-					return false;
-				</script>
-				<script type="dojo/method" data-dojo-event="showValues" data-dojo-args="value,name">
-					window.mShowVals(value, name);
-/*
-					if(name){
-						// first time this method is called with no parameters
-						// show the name and the value otherwise
-						console.log("showValues observer >> name = ", name, " value = ", value);
-					}
-					var values = this.gatherFormValues(), 
-              table = dijit.byId("table"), 
-              names = [];
-					console.log("showValues observer >>values\n" + JSON.stringify(values));
-*/
-/*
-					//@FixMe: this throws an err in eval
-					// clear the table
-					//window.clrTbl(table);
-					table.innerHTML = "";
-					//while(table.lastChild){
-					//	dojo.destroy(table.lastChild);
-					//}
-					// show gathered values
-					for(var name in values){
-						if(values.hasOwnProperty(name)){
-							names.push(name);
-						}
-					}
-					names.sort();
-					dojo.forEach(names, function(name){
-						var tr  = dojo.doc.createElement("tr"),
-							tdn = dojo.doc.createElement("td"),
-							tdv = dojo.doc.createElement("td");
-						tdn.innerHTML = name;
-						tdv.innerHTML = "" + values[name];
-						if(this._oldValues && this._oldValues[name] != values[name]){
-							dojo.addClass(tr, "hilite");
-						}
-						tr.appendChild(tdn);
-						tr.appendChild(tdv);
-						table.appendChild(tr);
-					}, this);
-					this._oldValues = values;
-*/
-				</script>
-			</form>
-		</div>
-	</div>
-
-
-	<!--p>
-		<input type="checkbox" id="c01" name="c01" value="c01" checked="checked"
-			onclick="dijit.byId('form')[this.checked ? 'enable' : 'disable']()">
-		&nbsp;<label for="c01">enable the form elements and widgets</label>
-		<br>
-		<input type="checkbox" id="c02" name="c02" value="c02"
-			onclick="dijit.byId('form')[this.checked ? 'addClass' : 'removeClass']('makeYellow', ['part1', 'part2'])">
-		&nbsp;<label for="c02">add/remove yellow background</label>
-		<br>
-		<input type="checkbox" id="c04" name="c04" value="c04" checked="checked"
-			onclick="dijit.byId('form')[this.checked ? 'show' : 'hide'](['part2'])">
-		&nbsp;<label for="c04">show form widgets</label>
-	</p-->
-</div><!--twoColContents-->
-<p><p>
 <center><h2>Design Notes</h2></center>
 
 <p>
@@ -705,30 +678,30 @@ For the dat reset mechanics, here's a fork of the Simplest Gridx ver to play wit
 <p>
 
 <details>
-  <summary>Stores</summary>
+  <summary><input type="checkbox" checked>&nbsp; Stores</summary>
 
 see also this <a href='https://stackoverflow.com/questions/5499453/how-to-refresh-datagrid'>SO</a> post on changing stores<br>
 nestedDataSource:	gridx/tests/support/data/<a href='https://github.com/oria/gridx/blob/master/tests/support/data/TreeNestedTestData.js'>TreeNestedTestData</a><br>
 storeFactory: 		gridx/tests/support/stores/<a href='https://github.com/oria/gridx/blob/master/tests/support/stores/ItemFileWriteStore.js'>ItemFileWriteStore</a>, which xtends the dojo <a href='https://github.com/dojo/dojo/blob/master/data/ItemFileWriteStore.js'>version</a><br>
-
+<details><summary>snippet</summary>
 <code><pre>
 	storeNested = storeFactory({
 		dataSource: nestedDataSource, 
 		maxLevel: 4,
 		maxChildrenCount: 10
 	});
-</pre></code><br>
+</pre></code></details>
 </details>
 <p>
 
 <details>
-  <summary><input type="checkbox" name="" value="" checked>: Add DropDown DVSelector</summary>
+  <summary><input type="checkbox" checked> Add DropDown DVSelector</summary>
 <hr>                        <br>
 
 <mark>Aug31</mark>: Forget using the approach below, there's a better way to do this; by merely incl in sep tds (auto-setup, see <a href='https://github.com/oria/gridx/wiki/How-to-add-bars-to-gridx%3F-%5Bv1.1%5D#bar-item-definition'>this</a> gridx manPg<p>
 
 i) Updated templates/FilterBar.html -><br>
-
+<details><summary>snippet</summary>
 &lt;table&gt;<br>
   &lt;tr style=&quot;width:100%;&quot;&gt;<br>
     &lt;td style=&quot;width:50%;&quot;&gt;<br>
@@ -738,12 +711,13 @@ i) Updated templates/FilterBar.html -><br>
 [[curr. FilterBar btn &amp; content]]<br>
     &lt;/td&gt;<br>
   &lt;/tr&gt;<br>
-&lt;/table&gt;<br>
+&lt;/table&gt;</details>
 
 <hr>
 ii) Updated gridx/modules/filter/FilterTooltip.js<br>
 
 Currently gridx will show the FilterTtip (cls) on bar hover; nds 2 be updated to show on filterTD via updated the fn below:<br>
+<details><summary>snippet</summary>
 <code><pre>
 		_showTooltip: function(evt, delayed){
       if evt.target = 'filterTD' then {
@@ -752,25 +726,26 @@ Currently gridx will show the FilterTtip (cls) on bar hover; nds 2 be updated to
         bld & show a Regular ttip w/msg.i18n 'Switch DataView'
       }
 		}
-</pre></code>
+</pre></code></details>
 </details>
 <br>
 <details>
-  <summary><input type="checkbox" name="" value="" checked>: Add ActionBar</summary>
+  <summary><input type="checkbox" checked>: Add ActionBar</summary>
 
 Note: The winFrms CP <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/3CP.png'>img</a> doesn't have the ToolBar reqd (test btns instd); so look for the btnSet in the Java version<br>
 
 The Spx DV <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/brijPitch/articles/images/spx_DataView.mp4'>video</a> does have a tk tb which contains:<br>
 &lt;Create&gt; &lt;Edit&gt; &lt;QuickEdit&gt; &lt;DV DropDn&gt; &lt;Delete&gt; &lt;MarkCompleted&gt; &lt;RTL&gt;
-&lt;expandAll&gt; &lt;collAll&gt;&lt;br&gt;<br>
+&lt;expandAll&gt; &lt;collAll&gt;<br>
 
 gridx already contains gridx/modules/Bar.js, a general-purpose bar
 ALSO has modules/ToolBar.js which adds a tb 2 the bar above<br>
-see: https://xcellerant.wordpress.com/2015/01/19/gridx-in-xpages-24-adding-toolbars-to-the-grid-header/
-(this post says the ToolBar is depr so use bar instd)
+see: <a href='https://xcellerant.wordpress.com/2015/01/19/gridx-in-xpages-24-adding-toolbars-to-the-grid-header/'>Adding</a> toobars to gridx (this post says the ToolBar is depr so use bar instd)
 
-i) add requires 4 "dijit/Toolbar", "dijit/form/Button",<br>
-ii) Create tb; attach handler<br>
+<ol>
+	<li>add requires 4 "dijit/Toolbar", "dijit/form/Button",</li>
+<li>Create tb; attach handler
+<details><summary>snippet</summary>
 <code><pre>
         function myButtonHandler() {
           console.log('Clicked button');
@@ -783,10 +758,9 @@ ii) Create tb; attach handler<br>
         });
         toolbar.addChild(myButton);
         toolbar.startup();
-</pre></code>
-<br>
-iii) Add the Toolbar to the grid<br>
-<code><pre>
+</pre></code></details></li>
+<li>Add the Toolbar to the grid<br>
+<details><summary>snippet</summary><code><pre>
           grid = new Grid({
             id: 'my_gridX',
             cacheClass: Cache,
@@ -805,43 +779,76 @@ iii) Add the Toolbar to the grid<br>
               VirtualVScroller,
               **Bar
             ]});
-</pre></code>
+</pre></code></details></li></ol>
 </details>
 <br>
 <details>
-  <summary>selectedRows / chkboxes for categRows</summary>
+  <summary><input type="checkbox">&nbsp;<mark>categRows</mark></summary>
 
-<input type="checkbox" name="" value="">: We nd 2 hide chkboxes for categRows (this also impacts the <b>selectedCount</b> in the footer<br>
-one approach: See gridx <a href='https://oria.github.io/gridx/demos/unselectableRow.html'>unSelectableRows</a><br>
-[However, this appears perhaps <b>confusing</b> from a usr perspective.  Consider hiding it entirely based on <i>isCateg</i>]<br>
-<mark>@v2?</mark> Poss util in allowing users to click a special (diff color?) chkbox to (de)select <b>only</b> items in that group/subgroup (nds to add functionality 2 existing gridx.select mod & work in tandem)
-<p>
+<ul>
 
-<input type="checkbox" name="" value="" checked>: Updating enabled state of buttons via connect.onSelectionChange<br>
+<li><input type="checkbox">&nbsp;Port, chk categRows logic<br>
+[This is completed in the earlier ver (repl)].
+</li>
+
+<li><input type="checkbox">&nbsp;categRows Styling<br>
+Ideally nd to hook into gridx.row.render() and addClass ".Categ" 4 styling (bold/med drkBlue: shd be less striking than colHdrs)<br>
+<mark>Sep20</mark> row.render is in the bodyMod, see <a href='https://github.com/oria/gridx/issues/293'>this</a>.  <br>
+Impl this in the curr test grid<br>
+<mark>@Chk</mark> However, this may not be the correct way to do this, see <a href='https://github.com/oria/gridx/blob/a05e8b910bc88106792c2c68ebdbdbea45cb63f8/modules/Body.js#L178'>this</a><br>
+
+<mark>Sep21</mark> Basically this has to work in sync w/the expandoPoz + colSpan logic, which has alr been impl for enh; poss even for dex.  <mark>Postponed</mark> pending delta merges...
+</li>
+
+<li><input type="checkbox">&nbsp;selectedRows / chkboxes for categRows<br>
+
+We nd 2 hide chkboxes for categRows (this also impacts the <b>selectedCount/totRecs</b> in the footer.  Don't clobber the existing number, see if we can hook into/change the number by subtracting categs)<br>
+The main <mark>issue</mark> gridx treats CategR as a row (with data + children), we don't.  <b>Consider</b>: What's the easiest way to make the existing code disregard categRows?
+
+<ul><li>one approach: See gridx <a href='https://oria.github.io/gridx/demos/unselectableRow.html'>unSelectableRows</a> (shows disabled chkBox)<br>
+[However, this appears perhaps <b>confusing</b> from a usr perspective.  Consider hiding it entirely based on <i>isCateg</i>]</li><li>
+<mark>@v2?</mark> Poss util in allowing users to click a special (diff color?) chkbox to (de)select <b>only</b> items in that group/subgroup (nds to add functionality 2 existing gridx.select mod & work in tandem)<br>
+<i>@TBD: This may be confusing too</i>  A rt-click-ctxt-Menu probably b8r.
+</li></ul>
+</li>
+<li><input type="checkbox" checked> Update enabled state of tbActnBtns via connect.onSelectionChange</li>
+</ul>
 
 </details>
 <p>
 
 
 <details>
-  <summary><input type="checkbox" name="" value="">: grid.dat updates</summary>
+  <summary><input type="checkbox" name="" value=""> <mark>grid.dat updates</mark></summary>
 <ol>
 
 <li>Impl. Push Updates
 	<ul><li>For this, 1st apply cliSide updates to chk everything works as expected.<br>
-<input type="checkbox" name="" value="" checked>, <mark>Sep09</mark> see [update Row#1] btn above the grid.<br>Note: this snippet uses oria's setup (not our store, api changes)</li>
+<input type="checkbox" checked>, <mark>Sep09</mark> see [update Row#1] btn above the grid.<br>Note: this snippet uses oria's setup (not our store, api changes)</li>
 <li>Next, apply mock svr updates directly to local store<br>
-<input type="checkbox" name="" value="" checked>, <mark>Sep10</mark> see [setStore] btn above the grid.</li>
-<li><mark>@v2?</mark> <b>Related</b>: Flash 4 live upds</li>
+<input type="checkbox" checked>, <mark>Sep10</mark> see [setStore] btn above the grid.</li>
+<li><input type="checkbox"><mark>@v2?</mark> <b>Related</b>: Flash 4 live upds</li>
 </ul>
 </li>
 
 
-<li>AFAIK dat doesn't currently hold defFrm details; <mark>@TBD</mark>: Are we going to patch it into the dat or directly via req/response?</li>
-<li><mark>@Chk</mark> Does the dat currently have <b>defFrmId</b>? We nd a mechanism to populate this with either userChoice or default/only/genOnDemand.
-</li><li>[<input type="checkbox" name="" value="" checked> Yes, in %age] Does the dat currently have <b>colWids</b>? If not, we nd to add, in %age
+<li><input type="checkbox">&nbsp; AFAIK dat doesn't currently hold defFrm details; <mark>@TBD</mark>: Are we going to patch it into the dat or directly via req/response?<br>
+Sep20: decided; <b>but</b> for the SaaduP we nd to: 
+<p id='widCoverage' style="margin-left: 40px"><input type="checkbox">&nbsp;complete ev poss wid to hook into the bldr.  And since Completion reqs adequate testing, we nd to upd the generator as well<br> (<mark>@TBD</ark>: use tkFldNms for eventual testing with that dataset?)
+	<ol style="margin-left: 40px">
+		<li><input type="checkbox">&nbsp; Incl all tkFld wids</li>
+		<li><input type="checkbox">&nbsp; Make em confirm 2 existing FM params</li>
+		<li><input type="checkbox">&nbsp; Add earlier tbl fmting (2cols)</li>
+		<li><input type="checkbox">&nbsp; Add missing wids from FM example</li>
+		<li><input type="checkbox">&nbsp; Create tbl (here?) to document all variations</li>
+		<li><input type="checkbox">&nbsp; Gen test data, update testDatSet; ensure each works</li>
+		<li><input type="checkbox">&nbsp; Impl extra customObsvrs as needed</li>
+	</ol><hr>
 </li>
-<li>We nd to persist <b>TopId</b>, here's why:
+<li><mark>@Chk</mark> Does the dat currently have <b>defFrmId</b>? We nd a mechanism to populate this with either userChoice or default/only/genOnDemand.
+</li><li>[<input type="checkbox" checked> Yes, in %age] Does the dat currently have <b>colWids</b>? If not, we nd to add, in %age
+</li>
+<li><input type="checkbox">&nbsp; <mark>@TBD</mark> (Sep20: poss unnecc; "beware of premature optimization")  We nd to persist <b>TopId</b>, here's why:
 <ul>
 <li>User is working with a record and does something to trigger svrRefresh</li>
 <li>Meanwhile other users update 5 recs <b>before</b> TopRec</li>
@@ -849,11 +856,11 @@ one approach: See gridx <a href='https://oria.github.io/gridx/demos/unselectable
 <li>This update also poss nded for v1; just add a { TopRec:unid } 2 the dat</li>
 <li>Also nd to <b>test</b> for ea eventuality (topUnid no longer exists? fallback to renderedVw)</li>
 </ul>
-<li>Impl ExpAll Mechanics<br>
+<li><input type="checkbox" checked>&nbsp; Impl ExpAll Mechanics<br>
 <ul>
     <li>@TbD: isn't this just a svr call?</li>
     <li><b>Yes</b>, it is<br>
-svr.req(params, 'expAll') >> model update >> done</li>
+svr.req(params, 'expAll') &gt;&gt; model update &gt;&gt; done</li>
 </ul></li>
 </ol>
 </details>
@@ -861,42 +868,72 @@ svr.req(params, 'expAll') >> model update >> done</li>
 <p>
 
 <details>
-  <summary><input type="checkbox" name="" value="">: Impl Form + Mechanics</summary>
+  <summary><input type="checkbox">&nbsp; Impl Form + Mechanics</summary>
 <ol>
-    <li><input type="checkbox" checked> <b>Add</b> barebones form.<br>[<input type="checkbox" name="" value="" checked> For this loc8 the frmMngr test file]
+    <li><input type="checkbox" checked> <b>Add</b> barebones form.<br>[<input type="checkbox" checked> For this loc8 the frmMngr test file]
 	<br>
 	see: <a href='https://trivedienterprisesinc.github.io/ui/2024/form/frm_3.html'>Frm_3.html</a> + Frm_2.html + Frm_1.html + Frm_0.html [nds assoc styles etc. BUT the 1st one probably has the mngr stuff we nd to tinker with]<br>
 	<mark>Sep11</mark>&nbsp;<input type="checkbox" checked>: Created Frm_4 w/barebones working Dlg (3/earlier set dlg.content via innerhtml which threw dupl widgetID errs)<br>
 	<mark>Sep12</mark>&nbsp;<input type="checkbox" checked>: Further work on above (btns, bar, some styling, some handlers, extend mngr)<br>
 	</li>
-    <li><b>Merge</b> the frm into the styling test file
-	<ul><li>Modify flds to reflect curr (oria) testFlds</li></ul>
-    <li><b>Create</b>: <mark>Sep12</mark>&nbsp;<input type="checkbox" checked>&nbsp;Open blank/disabled on createBtnClick
-	<ul><li>add fnInitFrm(): forEa colNm fetch from item >> bld obj >> setFrmVals()</li></ul>
+    <li><input type="checkbox" checked> <mark>Sep17</mark> <b>Merge</b> Frm5 into the grid styling test file
+	<ul>
+		<li><input type="checkbox" checked> <mark>Sep18</mark> Modify frm to confirm 2 test data</li>
+		<li><input type="checkbox" checked> <mark>Sep18</mark> Update frmMngr + frm observers to confirm 2 test data</li>
+		<li><input type="checkbox" checked> <mark>Sep19</mark> Modify nestedDataSrc to use ISO stamps 4 date fmt (nded)</li>
+		<li><input type="checkbox" checked>  <mark>Sep19</mark> Modify flds to reflect curr (oria) testFlds</li>
+	<li><input type="checkbox" checked>  <mark>Sep19</mark> Add custom observers for date/time flds to handle formatting deltaVals</li>
+	</ul></li>
+
+    <li><input type="checkbox" checked>&nbsp;<b>Create</b>: <mark>Sep23</mark>&nbsp;Open blank/disabled on createBtnClick<br>
+	<input type="checkbox" checked> <mark>Sep18</mark> add fnInitFrm(): forEa colNm fetch from item &gt;&gt; bld obj &gt;&gt; setFrmVals()
     </li>
 
-    <li><b>Edit</b>: Open/enable/popul8 on rowDblClick or <mark>Sep12</mark>&nbsp;<input type="checkbox" checked>: editBtn.click</li>
-    <li><b>Upd</b>: svrCmd('Save', params) on Save/submit <i>only Deltas</i></li>
+    <li><input type="checkbox" checked>&nbsp;<b>Edit</b>: Open/enable/popul8 on <mark>Sep18</mark>&nbsp;rowDblClick or <mark>Sep12</mark>&nbsp;editBtn.click</li>
+    <li><input type="checkbox" checked>&nbsp;<b>Upd</b>: svrCmd('Save', params) on Save/submit <i>only Deltas</i></li>
 		<ul><li>
-			Update dojo/method "showValues"
+			<input type="checkbox" checked> <mark>Sep18</mark> Update dojo/method "showValues"
 			<ol>
 				<li>chk if trim(val) = origVal</li>
 				<li>if so, add/repl to deltaArray (map mechanics 4 repl?)</li></ol>
-		<li>Chk that extra dat items don't crash the grid</li>
+		<li><input type="checkbox" checked> <mark>Sep19</mark> Chk that extra dat items don't crash the grid (esp.ly fm.setFormVals()) [Extra cols ignored, <mark>@ToDo</mark>: ensure they're not incl @ all in the colDefs.]</li>
 </ul>
 </li>
-		<li><b>EditHistory</b>: Repurpose/<b>add</b> Core mod fld for this<br>
+		<li><input type="checkbox">&nbsp; <b>EditHistory (svrSide)</b>: Repurpose/<b>add</b> Core mod fld for this<br>
 		   The idea is to give usrs a cursory look @ the changes; they can dive into the dox for a deeper lk<br>
 		  <ul><li>
 			svrSide: Create/Upd/Del (ea of these cmds sends deltaArray(tpl) >> Prepend the foll to this fld:<br>
 			userName + " on " + timeStamp + " : " + (deltaArray |> fmt("fld": "val")) + "\n" + doc.existingFldContents</li>
 		  <li>Update the frmBldr 2 add a &lt;detail&gt; section @ bottom containing this fld.contents<br>
 			for longStrings snip @ ~50chars w/ellip.</li>
-		  <li><mark>v2+?</mark> some util in offering a full-on diff view of changes/ability to select any 2 docs from the pvDlg & click diffBtn.</li></ul>
+		  <li><mark>v2+?</mark> some util in offering a full-on diff view of changes + ability to select any 2 docs from the pvDlg & click diffBtn.</li>
+		<li><mark>Sep19</mark> On reconsideration we pro'lly don't want vals 4 now; BUT nd to bld the foll from Deltas:<br>
+			Edit History: | Date | User | Flds Modified |<br>
+			Like mentioned above, prepend (on the svrSide).
+		</li>
+			<li><mark>@TBD v1</mark>: we cld still easily highlight specific fld widgets (say w/<s>red</s> darkBlue box borders)</li>
+			</ul>
 
-		<li><b>PriorVers</b>: 	<mark>Sep13</mark>&nbsp;<input type="checkbox" checked>: Port from <a href='https://trivedienterprisesinc.github.io/ui/2024/form/ver/verDlg_gridx.html'>standalone</a> ver, add actBar btns, get the basic ui working<br>
-		<i>Related SubTasks:</i>
-		<ul><li>Change initBrijFrm() to incorp foll.:
+		<li><input type="checkbox">&nbsp;<b>PriorVers</b>: 	
+		<ul>				
+			<li><input type="checkbox">&nbsp;<mark>@TBD</mark>: Currently the pvDlg is gen via code.  To confirm to the frm shd we use decl.?</li>
+		<li><mark>Sep13</mark>&nbsp;<input type="checkbox" checked>: Port from <a href='https://trivedienterprisesinc.github.io/ui/2024/form/ver/verDlg_gridx.html'>standalone</a> ver, add actBar btns, get the basic ui working	</li>
+		<li>[<mark>Sep14</mark>&nbsp;<input type="checkbox" checked> Merge/adapt the pvDlg into the <b>Frm5</b> file & shows on Form|PV actionBtnClick</li>
+		<li>[<mark>Mar28(!)</mark>&nbsp;<input type="checkbox" checked>, see <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/tree/main/ui/2024/form/ver'>here</a>] The existing pvDlg uses dj.enhGrid >> port to gridx</li>
+		<li>Impl. all pvDlg funct w/existing data
+
+<ul><li><input type="checkbox" checked> <mark>Sep16</mark> Modify treeNestedDatSrc 2 add col "hasPriorVersion"</li>
+<li><input type="checkbox" checked> <mark>Sep16</mark> Add editHandler dual-launch capab. (dblClick / editBtn 4 selDoc)</li>
+<li><input type="checkbox"> <mark>@Chk</mark> <mark>Bug</mark> [went away after above, using new style/script setup...] pvDlg grid doesn't fill dlgContentPane + there are transp areas showing underlay <i>(might go away once styles for dlg are standardized coz frmDlg doesn't have this issue)</i></li>
+
+<li id="ModifyFrm5"><input type="checkbox" > Modify Frm5 to subst testFlds + populate</li>
+
+<li><input type="checkbox" checked> <mark>Sep21</mark> Add logic to show/hide appropriate PV btns in frm5
+
+<p id='PromoteBtn'>
+<input type="checkbox"> Add logic to show/hide Promote btn (see below)</p>
+Change initBrijFrm() to incorp foll.:
+<details><summary>snippet</summary>
 			<code><pre>
 			//@ToDo: nd to decide on policy for tBar actionBtns: add/remove or show/hide
 			//	 (IIRC there are issues with show/hide & tBar alignmt)
@@ -907,21 +944,54 @@ svr.req(params, 'expAll') >> model update >> done</li>
 			}else{
 				remove/disable 'Promote' btn
 				doc.hasPriors ? add/enable PriorVers btn : remove/disable same
-			}</li>
-			</pre></code>
-		<li>The existing pvDlg uses standalone dat >> port to use gridx.dat</li>
-		<li>The existing pvDlg uses dj.enhGrid >> port to gridx</li>
-		<li>Nd logic: dblClick on pV >> pvDlg.hide() >> popul8 underlying dlg w/pV (disabled els)<br>
-			@TBD: Do we nd to pass dlgHandle 4 this?  Any poss conflict w/multipleDocs?</li>
-		<li>@ToDo: impl Promote logic svrSide</li></ul>
-		<li>Related: Create dlg 4 qkEdit; lookup frm valid8n/apply (This is a separate tk below)</li>
-    <li>Update assoc styles</li>
+			}</pre></code></details></li>
+<li><input type="checkbox"> <b>pvDat</b> <br>
+<input type="checkbox" checked> <mark>Sep21</mark> Modify datGen + pvDatGen to fix ids & confirm to existing data.
+
+<p id='mockDeltas'>
+<input type="checkbox"> Expand (mapFn?) existing pvDat to add Add mock deltas to pvDataSet.  We probably want <b> reverse</b> order: ie, newest on top</li>
+<li><input type="checkbox" checked> <mark>Sep21</mark> Add mock fetch fn 2 provide pv dataSet for one rec<br>
+<b>Note Sept21</b>: However, not likely to use it (too cumbersome w/fetch chaining...) </li>
+
+<li><input type="checkbox" checked> <mark>Sep16</mark> <b>add</b> %age widths to grid + hideCols via auto</li>
+<li><input type="checkbox" checked> <mark>Sep16</mark> Fix pvDlg layout (cols aren't resizeable <i> shd be so coz they don't change + systemDlg</i>; <b>add</b> %age widths</li>
+
+<li><input type="checkbox" checked> <mark>Sep23</mark> Add mock fetch priorVersions data for testing (generate from existing test recs)<br>
+
+<li id='populatePR'><input type="checkbox"> Add logic to populate frm w/pv<br>
+dblClick on pV >> pvDlg.hide() >> popul8 underlying dlg w/pV (disabled els)<br>
+			<mark>@TBD</mark>: Do we nd to pass dlgHandle 4 this?  Any poss conflict w/multipleDocs?</li>
+<li><input type="checkbox"> Add promote logic (on cliSide this is only svr.cmd('promote', params) >> await fetch</li>
+</ul>
+		<li id='PromoteSvrSide'><input type="checkbox" checked>  <mark>Sep24</mark>impl Promote logic svrSide<br>
+		<details><summary>snippet</summary>
+		<code><pre>
+let promote =
+    fun i -> 
+        //run in tryOf to catch missing rec exceptions etc.
+        let promoteCandidate = getPVDoc i
+        //Step1: Must be run in order for consistency + concurr. upds.
+        let numPriors = getCurrDoc i |> makeNewVer
+        //Step2
+        makeCurr promoteCandidate numPriors
+		</pre></code></details>
+		</li>
+        
+		<li id='PromoteSvrSide'><input type="checkbox">  Add 'Copy' button 2 pvDlg<br>
+        <i>Since the frm is Disabled, what if the usr nds 2 access a fld val (say longText) <b>within</b> a specific priorVer?</i><br>
+        Click on "Copy" &gt;&gt; toaster "Copied 2 clipboard"<br>
+        Copies whole obj in format: [fld1DisplayNm:]\n fld1Contents\n ...fld2...<br>
+        Add FM func <i>getDisplayFieldNm(internalFldNm:str)</i> &gt;&gt; returns userLblValue from colDef 
+		</li>
+        
+        </ul>
+    <li><input type="checkbox"> Update assoc styles</li>
 </ul>
 
 </details>
 <p>
 <details>
-  <summary><input type="checkbox" name="" value="">: Impl RTL Mechanics</summary>
+  <summary><input type="checkbox">: Impl RTL Mechanics</summary>
 <ul>
     <li>Currently the gridx demo calls via href (url + ?dir='rtl')</li>
 <li>However, the gridx api has a call for this, impl.</li>
@@ -931,7 +1001,7 @@ svr.req(params, 'expAll') >> model update >> done</li>
 </details>
 <p>
 <details>
-  <summary><input type="checkbox" name="" value="">: Persist mod</summary>
+  <summary id='persistMod'><input type="checkbox" name="" value="">: Persist mod</summary>
 <ul>
     <li>Maintaining Grid <a href='https://xcellerant.wordpress.com/2015/01/13/gridx-in-xpages-21-maintaining-grid-state-between-sessions/'>State</a> Between Sessions<br> (gridx saves by id which we can push to userid.cfg)</li>
 	<li>  saves the foll:   
@@ -941,7 +1011,7 @@ svr.req(params, 'expAll') >> model update >> done</li>
                     <li>Reordered Columns</li>
                     <li>Hidden Columns</li></ul>
 	</li>
-	<li><input type="checkbox" name="" value="" checked> Persist tested with oria's test setup; works as exp; <br>
+	<li><input type="checkbox" checked> Persist tested with oria's test setup; works as exp; <br>
 <b>BUT</b> won't work with local file (poss coz the cookie url refers 2 oria, hence doesn't find our settings.</li>
 	<li><mark>@TBD</mark> <mark>@v2</mark> Persist expand/collapse state? (hook into the Persist mod)</li>
 	<li><input type="checkbox" name="" value="">: Poss above nded for <b>v1</b>: we only nd 2 persist openCats.</li>
@@ -951,7 +1021,7 @@ svr.req(params, 'expAll') >> model update >> done</li>
 <p>
 
 <details>
-  <summary><input type="checkbox" name="" value="">: QkEdit</summary>
+  <summary id='qEd'><input type="checkbox" name="" value="">: QkEdit</summary>
 <ul>
 	<li>Begin by Impl.ing a placeholder dlg</li>
     <li>Note that the dat already has the cols</li>
@@ -972,23 +1042,98 @@ svr.req(params, 'expAll') >> model update >> done</li>
 	</li>
 </ul>
 </details>
-<p>
+<br><br>
 <details>
-  <summary>Filtering</summary>
-         
+  <summary><input type="checkbox">&nbsp; Filtering</summary>
+
 <b>Gotchas:</b>&nbsp; Filtering nds the 'dataType' attribute in the column definition (or it'll default to string), see <a href='https://xcellerant.wordpress.com/2014/12/16/gridx-17-column-data-types/'>this</a><br>
 Also see <a href='https://xcellerant.wordpress.com/2014/12/10/gridx-in-xpages-16-advanced-searching-with-the-filterbar-module/'>this</a>: If you are using a remote data store, you’ll need to filter the data server-side before sending it client-side.<br>
 The QuickFilter appears to provide <mark>FTSearch capab</mark> (again, manually pass args 2 svr)
 </details>
 
 <p>
-<input type="checkbox">: <b>btnTtips</b>: gridx css rules show abbrv ttip; nd to change or remove to show real one<br>
-@TBD: Poss utility in extending widBase and attaching ttip based on class OR using a universal handler thus: qry(.hasTtip) > forEa (attachTtipRnner(nd))<br>
-<input type="checkbox" name="" value="" checked>: This version of styles doesn't have the expando img updates
-<br><input type="checkbox" name="" value="" checked>: This version of icons NOT the latest 
-<br><input type="checkbox">: <mark>v1</mark> Nd to pass all our customizations/changes through a gd linter to catch freq. occuring language bugs like: [if (ob='a')] instd of [if (ob==='a')]
+
+<details>
+  <summary><input type="checkbox">&nbsp; btnTtips</summary>
+gridx css rules show abbrv ttip; nd to change or remove to show real one<br>
+@TBD: Poss utility in extending widBase and attaching ttip based on class OR using a universal handler thus: qry(.hasTtip) &gt; forEa (attachTtipRnner(nd))<br>
+<mark>Sep20</mark> gridx uses <a href='https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label'>'aria-label'</a> (see for ex. the filterBar <a href='https://github.com/oria/gridx/blob/master/templates/FilterBar.html'>templ</a>) This's meant to be used w/btns with no visible descr.  Our ttips do provide info, so poss utility in relabelling all template occurances to <b>aria-describedby</b> or aria-description (see mdn doc above), which shd prevent the abbrev tag from working in gridx.<br>
+<mark>Sep23</mark> Actually, pro'lly don't nd to worry abt this till v2; ttip is visually much bolder; both can coexist...
+</details>
+<br>
+
+<input type="checkbox" checked>: This version of styles doesn't have the expando img updates
+<br><input type="checkbox" checked>: This version of icons NOT the latest 
+<br><input type="checkbox">: <mark>vBeta</mark> Nd to pass all our customizations/changes through a gd linter to catch freq. occuring language bugs like: [if (ob='a')] instd of [if (ob==='a')]
 
 <p>
 
-</body>
+<div data-dojo-type="dijit/Dialog" data-dojo-id="myFrmDialog" title="brij"
+    execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));" style="display: none">
+
+    <div class="dijitDialogPaneContentArea">
+
+    <div id="frmTB" data-dojo-type="dijit/Toolbar"
+        ><div data-dojo-type="dijit/form/Button" id="frmTBedit"
+            data-dojo-props="onClick:'window.editFrm();', showLabel:true"><span style='color:DarkRed;' class="material-symbols-outlined">
+edit_note</span>Edit</div
+        ><div data-dojo-type="dijit/form/Button" id="frmTBsave"
+            data-dojo-props="onClick:'window.saveFrm();',showLabel:true">Save</div
+        ><span data-dojo-type="dijit/ToolbarSeparator"></span
+        ><div data-dojo-type="dijit/form/Button" id="frmTBpv"
+            data-dojo-props="showLabel:true, onClick:'window.showPvDlg();'"><span style='color:DarkRed;' class="material-symbols-outlined">
+history</span>Prior Versions</div></div>
+
+			<form data-dojo-type="dojox/form/Manager" data-dojo-id='frm' id="form">
+				<fieldset dojoAttachPoint="part2">
+					<legend>Form Title</legend>
+					<div>
+						<input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="bool" name="bool" value=false data-dojo-observer="showValues">
+						&nbsp;<label for="bool">bool dijit/form/CheckBox</label>
+					</div>
+					<div>
+						<input type="text" data-dojo-type="dijit/form/TextBox" id="number" name="number" value="" data-dojo-observer="showValues" intermediateChanges="false">
+						&nbsp;<label for="number">number dijit/form/TextBox</label>
+					</div>
+					<div>
+						<input type="text" data-dojo-type="dijit/form/TextBox" id="string" name="string" value="" data-dojo-observer="showValues" intermediateChanges="false">
+						&nbsp;<label for="string">string dijit/form/TextBox</label>
+					</div>
+
+					<div>
+						<label for="date">CompletedOn:</label>
+						<input class="cellWid dojoFormValue" type="text" name="date" id="date" value=""
+							data-dojo-type="dijit/form/DateTextBox"
+							observer="logD" />
+					</div>
+
+					<div>
+						<label for="time">Drop down Time box:</label>
+						<input type="text" name="time" id="time" value=""
+								data-dojo-type="dijit/form/TimeTextBox"
+								onChange="require(['dojo/dom'], function(dom){dom.byId('timeVal').value=dom.byId('time').value.toString().replace(/.*1970\s(\S+).*/,'T$1')})"
+								observer="logT"/>
+						<br>string value: <input id="timeVal" value="value not changed" readonly="readonly"
+							/>
+					</div>
+				</fieldset>
+				<script type="dojo/method" data-dojo-event="logD" data-dojo-args="value,name">
+				require(['dojo/date/stamp'], function(stmp){
+					var fmted = stmp.toISOString(value, {selector: 'date'});
+					frm.addDelta(name,fmted);
+				})
+				</script>
+				<script type="dojo/method" data-dojo-event="logT" data-dojo-args="value,name">
+				require(['dojo/date/stamp'], function(stmp){
+					var fmted = stmp.toISOString(value, {selector: 'time'});
+					frm.addDelta(name,fmted);
+				})
+				</script>
+				<script type="dojo/method" data-dojo-event="showValues" data-dojo-args="value,name">
+   				//console.log("showValues for " + name);
+					this.addDelta(name, value.toString().trim());
+				</script>
+        </form>    
+</div></div>
+    </body>
 </html>
