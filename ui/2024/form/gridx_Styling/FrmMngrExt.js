@@ -21,6 +21,7 @@ require(["dojo/_base/lang", "dijit/registry", "dojox/form/Manager"], function(la
     },
     insp: function(r){
         console.log("insp.formWidgets", Object.keys(this.formWidgets));
+        //extra els ignored by FM...
         //this.setFormValues({bool: true, number:1011, bogus: "not exist", string:"Set in frmMngf.insp"});
         this.setFormValues(r);
         // collect all current values of attached nodes
