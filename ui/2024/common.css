@@ -1,14 +1,12 @@
 /*
 Note: This may not be the latest (src: repo; not gfxThin...)
+Some changes made here; will nd 2 be merged
 */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@375&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0');
-
-/* remmed for gridx (common.css in oria's distro imports these already)
 @import url("https://ajax.googleapis.com/ajax/libs/dojo/1.17.3/dijit/themes/claro/claro.css");
 @import url("https://ajax.googleapis.com/ajax/libs/dojo/1.17.3/dojo/resources/dojo.css");
-*/
 
 
 h1, h2, h3, h4, h5, h6, label {
@@ -16,10 +14,10 @@ h1, h2, h3, h4, h5, h6, label {
 }
 
 html, body {
-    font-size: 12px;
+    font: 12px;
     font-family: 'Roboto', sans-serif;
     height: 100%;
-    width: 100%;
+    width: 95%;
     padding: 5px;
     border: 0px;
     overflow:scroll;
@@ -66,14 +64,23 @@ html, body {
     text-align:center;
     border: thin solid;
 }
-.claro .brijFrm .infoBox {
-    background-color: #efefef;
-    color:Brown;
-}
 .claroDark .brijFrm .infoBox {
     background-color: gray;
     color:Brown;
 }
+.claro .brijFrm .infoBox {
+    background-color: #efefef;
+    color:Brown;
+}
+
+.claro .dijitDialogPaneContentArea {
+    /* This is the same val as ActionBtnBar*/
+    background-color: #e5edf4;
+}
+.claro fieldset {
+    background-color: white;
+}
+
 .brijFrm .cellWid {
     flex-grow: 4;
 }
