@@ -8,6 +8,16 @@ Aug29:
 Extracted these changes to a separate file (could've appended to common but that's not the latest in this fork.
 */
 
+/* button.css:41, old common has this */
+.claro .dijitButton .dijitButtonNode, .claro .dijitDropDownButton .dijitButtonNode, .claro .dijitComboButton .dijitButtonNode, .claro .dijitToggleButton .dijitButtonNode {
+    background-color: white;
+}
+
+.gridxRow .gridxCategRow {
+  font-weight: bold;  /* @mpt */
+  background-color: oldlace;
+}
+
 .claro .dijitToolbar {
     border-bottom: 1px solid white;
     background-color: #e5edf4;
@@ -155,10 +165,23 @@ Extracted these changes to a separate file (could've appended to common but that
 /* gridx tb icons */
 
 .gridxCreateIcon, .gridxEditIcon, .gridxQEditIcon, .gridxExpandAllIcon,
-.gridxCollapseAllIcon, .gridxDeleteIcon, .gridxRTLIcon, .gridxLTRIcon {
+.gridxCollapseAllIcon, .gridxDeleteIcon, .gridxRTLIcon, .gridxLTRIcon, .gridxTagIcon, .gridxTagAddIcon, .gridxTagFilterByIcon, .gridxTagRemoveIcon {
 	background-repeat:repeat;
 	background-position:0% 0%;
         background-size: 16px 16px;
+}
+
+.gridxTagIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/img/label.png");
+}
+.gridxTagAddIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/img/label_add.png");
+}
+.gridxTagFilterByIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/img/label_filterBy.png");
+}
+.gridxTagRemoveIcon{
+	background-image:url("https://trivedienterprisesinc.github.io/img/label_remove.png");
 }
 .gridxCreateIcon{
 	background-image:url("https://trivedienterprisesinc.github.io/ui/2024/grid_add.png");
