@@ -4,6 +4,8 @@ define(["dojo/date/stamp"], function(stamp){
 
 	var seed = 9973;
 
+	var categIds = {};
+
 	var randomNumber = function(range){
 		var a = 8887;
 		var c = 9643;
@@ -27,6 +29,11 @@ define(["dojo/date/stamp"], function(stamp){
 	};
 
 	var generateItem = function(parentId, index, level){
+		//push 2 categIds...
+		if (level <= 1){
+			thisId = parentId + (index + 1);
+			categIds[thisId] = true;
+		};
 		return {
 			id: parentId + (index + 1),
 			number: level <= 1 ? randomNumber(10000) : null,
@@ -122,8 +129,9 @@ define(["dojo/date/stamp"], function(stamp){
 				label: 'id', 
 				items: generateLevel('DocID_632294224800000000^usr2@brij.com^Table01^BrijCorp^', 1, args.maxLevel || 1, args.maxChildrenCount || 0, args.minChildrenCount || 0)
 			};
-			console.log("data:", data);
-			console.log("stringified 2:", mJSONStringify(data.items[2]));
+			//console.log("data:", data);
+			//console.log("stringified 2:", mJSONStringify(data.items[2]));
+			//console.log("categIds:", categIds);
 			return data;
 		},
 		
