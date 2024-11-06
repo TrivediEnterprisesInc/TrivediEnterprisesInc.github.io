@@ -4,9 +4,9 @@
 <head>
 <!-- html begins line #1846 -->
 <meta charset="UTF-8">
-<meta name="description" content="2023.12.29 bookmarks update pm">
+<meta name="description" content="2024.11.06 bookmarks update am">
 <title>Bookmarks</title>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
 <link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
 
@@ -1046,15 +1046,18 @@ runUpdates = (storeID) => {
                 let ovTp = new TitlePane({title:"Overview", open:false, content: overvw});
        	        mainDiv.appendChild(ovTp.domNode);
                	ovTp.startup();
-		let titles = arrFromRange(5,2019).reverse();
+		let titles = arrFromRange(6,2019).reverse();
 	        titles.map(function (tVal, idx) {
 	                var tp = null;
 			//2019cL - 21 are divs; rest are urls ###
                          switch(idx) {
                            case 0:
-                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog23.html")});
+                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog24.html")});
                              break;
                            case 1:
+                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog23.html")});
+                             break;
+                           case 2:
                              tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog22.html")});
                              break;
                            default:
@@ -1853,7 +1856,7 @@ for (var i=0; i < instances.length ; i++){
           mbuildTagArrays();
           mbuildFilmForm();
           console.log("2...");
-          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Dec 29th, 2023"; // + mDescriptiveTimeStamp;
+          hdrDiv.innerHTML = "Mike's <span style='color:red'><b>Personal</b></span> NoteBook | last updated Nov 6th, 2024"; // + mDescriptiveTimeStamp;
           mainDiv.innerHTML = notesDiv.innerHTML;
           curDivId = notesDiv;
           baseFx.fadeOut({
@@ -13675,7 +13678,8 @@ http://www.storypick.com/mirza-ghalib-shayaris/<br>
     <td style="width: 20%;">
       <ul>
 	<li><a href="https://forecast.weather.gov/MapClick.php?w0=t&w2=hi&w3=sfcwind&w3u=1&w4=sky&w7=rain&w10u=0&w12u=1&w13u=1&AheadHour=48&FcstType=graphical&textField1=27.9093&textField2=-82.2966&site=all&unit=0&dd=&bw=&BackDay.x=76&BackDay.y=5">weather.gov</a><br>
-	<li><a href="https://www.accuweather.com/en/us/bloomingdale/33596/minute-weather-forecast/2230854">accuWthr</a>
+	<li><a href="https://www.accuweather.com/en/us/bloomingdale/33596/minute-weather-forecast/2230854">accuWthr</a>&nbsp;&nbsp; <a href="https://www.msn.com/en-us/weather/forecast/in-Brandon,FL">msn</a>
+	<li><a href="https://news.ycombinator.com">HN</a>
 	<li><a href="https://ap.org">ap</a>&nbsp;&nbsp;<a href="https://reuters.com">reuters</a>
 	<li><a href="https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml">nyt</a>&nbsp;<a href="https://www.theguardian.com/uk">Guardian</a><br>
 	<li><a href="http://www.mid-day.com/">mid-day</a>
@@ -13716,7 +13720,8 @@ http://www.storypick.com/mirza-ghalib-shayaris/<br>
 </table>
 </div>
 <hr>
-| <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#templating', '_blank').focus();"">FlowCharts</mark> | <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#table-of-contents', '_blank').focus();"">Notes</mark> | <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#outstanding-tks', '_blank').focus();"">TaskList</mark> | <mark onclick="mAlert('Tibbie: Incorp. into mBoxes...');">Snippets</mark> |
+| <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#templating', '_blank').focus();"">FlowCharts</mark> | <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#table-of-contents', '_blank').focus();"">Notes</mark> | <mark onclick="window.open('https://gist.github.com/TrivediEnterprisesInc/51c145a2b1de80cdac0c0e11024064c4#outstanding-tks', '_blank').focus();"">TaskList</mark> | <mark onclick="window.open('https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.html
+', '_blank').focus();"">Gridx Styling</mark> |
 <p>
 <hr>
 <p>
@@ -27733,7 +27738,7 @@ List<rows>.filter(isOdd) |> processForLayout()
     <td>SaaS hosted</td>
     <td>S</td>
   </tr>
-  <tr><td colspan="100%">
+  <tr style="border-bottom: 1px solid black;"><td colspan="100%">
   <div id="getafixTkli" data-dojo-type="dijit/TitlePane" data-dojo-props="title: 'Getafix Notes', open:false">
 <ul><li>Extn pros: intuitive useCase; offline capab.; alwOn
 </li><li>cons: Managed curr.; debg hassle; decide l8r
@@ -27754,6 +27759,19 @@ List<rows>.filter(isOdd) |> processForLayout()
     <td>unkn/other</td>
     <td>d</td>
     <td>Dsktp Addin</td>
+    <td>S</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td><img src='https://trivedienterprisesinc.github.io/img/hugh.jpg' alt="Hugh" style="height:100px;"></td>
+    <td><ul>
+    <li><b>Note</b>: Bizzaro takes precedent, same approach bigger mkt</li>
+    <li>Drop-in ability 2 add pg</li>
+    <li>Nd to allow styling the pg (expose set params)</li>
+    <li>Free ver: 10(?) params, paid ver: unlimtd</li>
+    <li>all existng webpk usrs can use</li></ul></td>
+    <td>unkn/other</td>
+    <td>d</td>
+    <td>Saas</td>
     <td>S</td>
   </tr>
   <tr style="border-bottom: 1px solid black;">
