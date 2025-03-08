@@ -3,7 +3,7 @@
 <head>
 <!-- html begins line #1846 -->
 <meta charset="UTF-8">
-<meta name="description" content="2024.12.02 bookmarks update am">
+<meta name="description" content="2025.03.08 bookmarks update pm">
 <title>Bookmarks</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
 
@@ -1045,19 +1045,22 @@ runUpdates = (storeID) => {
                 let ovTp = new TitlePane({title:"Overview", open:false, content: overvw});
        	        mainDiv.appendChild(ovTp.domNode);
                	ovTp.startup();
-		let titles = arrFromRange(6,2019).reverse();
+		let titles = arrFromRange(7,2019).reverse();
 	        titles.map(function (tVal, idx) {
 	                var tp = null;
 			//2019cL - 21 are divs; rest are urls ###
                          switch(idx) {
-                           case 0:
-                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog24.html")});
+			   case 0:
+                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("https://trivedienterprisesinc.github.io/brijLog25.html")});
                              break;
-                           case 1:
-                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog23.html")});
+			   case 1:
+                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("https://trivedienterprisesinc.github.io/brijLog24.html")});
                              break;
                            case 2:
-                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("brijLog22.html")});
+                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("https://trivedienterprisesinc.github.io/brijLog23.html")});
+                             break;
+                           case 3:
+                             tp = new TitlePane({title:tVal, open:false, content: fetchHtmlAsText("https://trivedienterprisesinc.github.io/brijLog22.html")});
                              break;
                            default:
                               tp = new TitlePane({title:tVal, open:false, content: dom.byId(tVal + "cL")});
