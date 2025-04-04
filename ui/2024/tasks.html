@@ -1,0 +1,437 @@
+﻿<!DOCTYPE html> 
+<html>
+<head>
+	<title>pbt / Design Notes</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	
+	<link rel="stylesheet" href="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2024/form/gridx_Styling/common.css">
+	<link rel="stylesheet" href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/raw/refs/heads/main/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+    .dijitDialogPaneContent {
+        width: 800px !important;
+        height: 600px !important;
+    }
+
+    .makeYellow		{ background-color: #ffa;
+    }
+
+    /*override oria's bkgrnd*/
+    body {
+        background-color: rgb(253, 245, 230);
+        background-image: url("https://www.transparenttextures.com/patterns/fake-luxury.png");
+        background-repeat: repeat;
+        width: 100%;
+        margin: 0em;
+    }
+</style>
+
+</head>
+
+<body class='claro'>
+<h1>pbt / Design Notes</h1>
+
+	<b>This file (<a href='https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.html'>repo ver</a>) created Mar 6 '25 to test + work on pbt-related updates<br>
+	<i>Last updated Apr 04<sup>th</sup> '25</b></i>
+	<br><hr>
+
+
+<nav><ol><ol><li><a href="#heading-1">Top Items</a></li><li><a href="#heading-2">Mar 13th Control, we have redundancy</a></li><li><a href="#heading-3">NEW approach to state</a></li><li><a href="#heading-4">Bld API coverage tables 4 All Modules</a><ol><li><a href="#heading-5">dskCli: Desktop</a><ol><li><a href="#heading-6">Win SubMenu</a></li><li><a href="#heading-7">Login/Init()</a></li><li><a href="#heading-8">Logout()</a></li></ol></li><li><a href="#heading-9">dskCli: TableDef</a><ol><li><a href="#heading-10">CSV</a></li></ol></li><li><a href="#heading-11">dskCli: DvDef</a></li><li><a href="#heading-12">dskCli: DzDv</a></li><li><a href="#heading-13">dskCli: FormDef</a></li><li><a href="#heading-14">dskCli: AgentDef</a></li><li><a href="#heading-15">dskCli: Auth/State/Other</a><ol><li><a href="#heading-16">Lookup Masalo</a></li><li><a href="#heading-17">State</a></li><li><a href="#heading-18">dskCli: Embedded Tbl/Embedded DV (in Frm)</a></li><li><a href="#heading-19">dskCli: PropBox</a></li></ol></li><li><a href="#heading-20">webCli: DvDef</a></li><li><a href="#heading-21">webCli: Form</a><ol><li><a href="#redundancy">JS validity</a></li></ol></nav>
+
+
+<h2>Top Items</h2>
+<ul>
+<li>pbt 4 wins</li>
+<li>Expr parser: excl Fields we can compl rest of the exprs (curr tested w/ 'x > y')</li>
+<li>meethoo updates [Appearance(icon pic+btn + IconLbl editable) | FldSetup | ImportData (CSV) | WebClient (see under Table|CSV|Settings ]</li>
+<li><input type="checkbox" checked>&nbsp; <s>Convert tasks to ToC (<a href='https://scrollingtextgenerator.com/table-of-contents-generator'>generator</a>)</s></li>
+<li>Update pbt article add vdos</li>
+<li><input type="checkbox" checked>&nbsp;<s>We also nd to get snap of DzDv</s></li>
+<li>4 internalFlds; instd of '_' use ("brj_" + fNm)</li>
+<li>4 internalCounters (tbl006, fld003) store in Def (intnl, init 0) & increment on member .getNxt()  Also in the same place store stateVars like dskChanged (triggers send2svr + snapshot)</li>
+<li><mark>Mar24</mark>@TBD: No dzDoc copy/paste in v1? (cpy indiv els within docx)</li>
+<li><mark>Mar26</mark>@TBD: Is edHist mandatory w/core?  Sep mod?</li>
+<li>related: isDel: is this a sep mode w/editHist?  Any pluses?</li>
+<li>@rsch: SubForm notes/tks</li>
+</ul>
+
+<br>
+<hr>
+<h2><mark>Mar 13th</mark> Control, we have <b><u>redundancy</u></b></h2>
+(about 20%, inspired by <a href='#redundancy'>this</a>)
+<br>
+<ul>
+<li>Basically all webCli mods don't need dsk equiv.s (Form, Dv)
+</li><li>
+By now all devs have a browser win open 
+</li><li>
+If Ozzie was blding now, wld he have included these?  Poss not <br>(they were legacy pre late 90s before the move to web; when all users used dsktopClis)
+</li><li>
+So unless <b>we</b> launch user desktop clients there is no nd for the dzCli having these mods:
+<br> the webCli has full Functionality
+</li><li>
+Poss. eventual utility in releasing <b>user</b> dskClis (say for security purp.s);<br> we can evaluate then.
+</li><li>
+  This reduces considerable effort incl windows valid8n.
+  </li>
+</ul>
+<br>
+<hr>
+    
+<h2>NEW approach to state</h2>
+Desktop + Others:
+<br>  Instd of CE(wld), ea el's win getsFromBackend + keeps its own state
+<br>  Therefore ea indiv state is auto-disposed on winClose
+<br>  openWin fetches state as part of handler
+<br>
+<hr>
+<h2>Bld API coverage tables 4 All Modules</h2>
+<br>
+
+
+<center>
+<img src='https://brijuser2.github.io/blog/assets/spec.png?raw=true' width='60%' border='1px solid black'>
+</center>
+
+
+<br>
+  <h3>dskCli: Desktop</h3>
+
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/0SP.png?raw=true' width='60%' border='1px solid black'>
+</center>
+
+<mark>Mar 6:</mark>
+<br><input type="checkbox" checked>&nbsp;Move all pbt stuff to sep plk
+<br><input type="checkbox" checked>&nbsp;Merge code diffs 4 openWins 
+<br>- OpenDb/Dz checks (4 now) ONLY Menu Model updates
+<br>- For actual stubs (members) the model becomes:
+<br>    let (_, str li) = m 
+<br><input type="checkbox" checked>&nbsp; <s>Lookup api for mdi.getTopWin().Title()</s>
+<br>
+<mark>Mar 7:</mark>
+<br><input type="checkbox" checked>&nbsp; <s> Dsk Ty: Add refcell 4 StatusMsgs + member showStatus(t) which shows txt on bar + appends to ref; barDblClick >> txtDlg()  [for relev loc srch "Ready..."]</s>
+<br>
+<mark>Mar 10:</mark>
+<br>  Also, devState needs nextTableID; this belongs 2 OrgDoc/AdminTbl
+<br>  Something like (5 demo dbs) CustID_Table006 ...
+<br>
+  Add stubs 2 AddIcon() to show selDlg with tbls 4 curr org + editBox below lbl: "Create New" titleText: "Please select an existing tbl or enter the title for the new Table (spaces allowed)"<br>
+Plus checkBox 4 "Create new Copy"<br>
+<mark>@TBD</mark> In Prod, shd we relabel AddIcon() to AddTable()?
+<br>
+  <h4>Win SubMenu</h4>
+
+<br>- MDI: Find dox/links; impl barebones funct.
+<br>- Determine if we give em min/max options
+<br>- Curr MDI child gets tick mark on MenuItm 
+<br>- 1st choice is alw Desktop 
+<br>- Impl/chk switch mechanics 
+<br><input type="checkbox" checked>&nbsp; (Already exists) <s>OpenDb gets DbTitle (lbl); OpenDz gets ("Design Mode: " + DbTitle)</s>
+<br>
+<mark>?? @TBD: </mark>
+<br>    For OpenDb + OpenDzVw tests, create a form w/a snapshot for the tests 
+<br>
+- Add stubs 4 OpenDb | OpenDz | switchWin
+<br>
+
+<br>  <h4>Login/Init()</h4>
+
+<br> @rsch: Loookup l8st  ProgBar snippets
+<br>- State provides prior Dsk snapshot (or default initial)
+<br>- DlgBox "Login successful, now loading settings..."
+<code><pre>
+ async {
+          do! Dsk snapshot FadeIn @ 50% -> 100%
+          do! Show progBar
+          do! Cycle thru loading msgs }
+</pre></code>
+<br><input type="checkbox" checked>&nbsp;Cre8 loading msgs (last: "Restoring Open Windows...")
+<br>    ["Downloading Desktop settings..."; "Downloading Desktop icons..."; "Downloading Table settings..."; "Setting up Developer Environment..."; "Configuring Developer access to backend..."; "Downloading Table marked records..."; "Restoring Desktop state..."; "Restoring Desktop windows..."]
+<br>
+
+<br>  <h4>Logout()</h4>
+
+<br>- Trigger: File|Exit
+<br>- Takes a snapshot of curr dsk (if necc)
+<br>- Saves State (openWins) + snapshot locally 4 nxt login
+<br> snapShot initially set 2 default; <s>we'll nd: ref cell DskChanged = false;</s> (Mar20: nix, user may keep cli open forever.  So trigger on ea change, poss BOTH local/2svr.
+<br>
+
+<br>  <h3>dskCli: TableDef</h3>
+
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/1MeethoM.png?raw=true' width='60%' border='1px solid black'>
+</center>
+
+
+
+<br><input type="checkbox" checked>&nbsp;Loc8 l8st Meethoo comb thru logs/notes 4 "DFldString" et al. 
+<br>- The model will be a tblDef w/valid fldTys (gen |> from ty)
+<br>- Incomplete fn.ality in tblSetup: choose Mods; Default dv/frm...
+<br>- Incomplete fn.ality in fldSetup: schema rollbacks/fldTy change propag8n
+<br>   ex. Change int 2 currency (or str2int) >> Dlg "XX recs fail.  Gen qry + update before we can continue..."  BOTH broadening & narrowing
+<br>- Move all Tbl-level Settings here incl 
+<br>      CSV Import btn
+<br>      Btn 2 import custom css <mark>@TBD</mark> Scope for err: instd allow colorOpts etc. via btns?
+<br> +ve for customCss is it allows devs more control; -ve is support calls if they don't know/try to mess with things they're not supposed to.
+<br>      Btn 2 gen webCli code
+<br>- Tabbed Vw (as is) 1st tab Appearance (w/Icon pic + btn / IconLbl editable + DarkScheme + General Settings (locationCode/Lang/etc since it cld be diff for diff tbls.)
+<br>SO: .NET 9 (preview) has introduced dark mode for the entire application see <a href='https://learn.microsoft.com/en-us/dotnet/desktop/winforms/whats-new/net90?view=netdesktop-9.0#toolstrip'>this</a><br>
+This req.s cli restart, see this:
+<code><pre>
+  // Get the current executable path
+  string exePath = Assembly.GetExecutingAssembly().Location;
+  // Start a new instance of the application
+  Process.Start(exePath);
+  // Optionally, you can perform some clean-up operations here before exiting
+  Environment.Exit(0); // Exit the current instance of the app
+</pre></code>
+<br>
+<br>    then tabs for   <mark>| Appearance | FldSetup | Import Data | WebCli |</mark>
+<br>
+  <h4>CSV</h4>
+
+<br>- Expand MusicTbl 2 incl all fldTys (incl dateOnly/currency) <mark>Loc8</mark>, use gpt 2 gen ~500 recs
+<br>- Test is [Float -> Currency -> Float] == same model 
+<br>- Impl csv func. (modify existing tkImp)
+<br> Chk csv spec (link exists) 4 usr provided params (fld/row delims, fld/row seps)
+<br> In test embed incorr rows, shd behave as exp.
+<br>- v1 gets NO custom delims; just standard + Dlg 4 errLog (selectable)
+<br>- 4 test bld li<rows> w erroneous data; feed 2 fn; Model is &lt;model, errLi&gt;
+
+<br>
+<mark>Mar 8th:</mark>
+<br>v2: Parsec @rsch if exists curr.
+<br>
+wobblyGen/Dat already converts the other way (fldTy -> fmt) We nd to repurpose that; split to ro |> lim (fun r -> split "," |> tryParse |> ToResult)
+<br> @ToDo: For this we nd to pullout BrijTyCommon
+<br>
+<mark>Mar 24th:</mark><br>
+mod csv_Test<br>
+<ul>
+<li>cr8 csvErrLi = [(roTxt, errTxt); ...]
+</li><li>varying # of errs (1,2,3); pick 0-8 items >> insert into spl <br>
+    ie, split2Li >> insert@rnd >> join2str
+</li><li>InitialVal is the regular spl (no errs)
+</li><li>Model is errOutput; Abstract blt from errLi; Act from fn
+</li><li>Test members incl csvParse(); wHeaders(); woHeaders()
+</li><li>Rebuild Mock tbl with actual names/images (Claud?) + patch rdm cols
+</li></ul>
+
+<mark>Mar 26</mark><br>
+<ul><li>
+Curr regex won't work for non-strings, nd 2 tinker
+</li><li>Does DateTime use a comma?
+</li><li>Does xl escape both commas + qts?
+</li><li>Create sample MusicDoc + export via xl.
+</li></ul>
+
+<br>  <h3>dskCli: DvDef</h3>
+
+
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/5CategTester.png?raw=true' width='60%' border='1px solid black'>
+</center>
+
+
+
+<br>  <h3>dskCli: DzDv</h3>
+
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/3CPDz.png?raw=true' width='60%' border='1px solid black'>
+</center>
+
+
+<br>- The (apparently l8st) snapshot lists TblDefDoc + FldDefDoc; which we've combined; so nd 2 remove
+<br>- We nd to add a categ/doc 4 CardVwDef below DataVwDef
+
+<br>
+<br>  <h3>dskCli: FormDef</h3>
+
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/2BanarasiMNew.png?raw=true' width='60%' border='1px solid black'>
+</center>
+<br>
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/2BPDz.png?raw=true' width='60%' border='1px solid black'>
+</center>
+
+<mark>Notes:</mark>
+<ul>
+<li>the two above have been merged ('23-34 mainRepo lockd)
+</li><li>Some work also compl. on selectedPnl (red bkgd instd o' handles)
+</li></ul>
+
+<br>
+For FormDnD Model chk <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3433'>this</a><br>
+There's also a DnD Monad; tested; <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3675'>here</a>
+<br>
+
+
+
+<br>  <h3>dskCli: AgentDef</h3>
+
+<br>  <h3>dskCli: Auth/State/Other</h3>
+
+<br>  <h4>Lookup Masalo</h4>
+<mark>Mar24</mark>
+<ul><li>From (dz) will have LookupFldNm [  ]; Values (Pls enter ea on a newLine) + btns 2 sort asc/dec + Chkbox "Allow itms not in list"  
+</li><li>OnSave creates Masalo
+</li><li>@TBD: Didn't ln offer bar-seperated Disp/Save vals? (CA|California) Any util?
+</li></ul>
+<br>
+
+<br>  <h4>State</h4>
+
+<br>- CustID
+<br>  To facilitate multiple devs/oneCorpID, CustID contains OrgID^CustID
+<br>  So to fetch all tblNms 4 2nd dev in one org we qry based on OrgID...
+<br>
+- User.db: The webClient has only DV_state
+<br>           for ea dv: TopRec|PgSize|ColWidths|MarkedRecs (Color)
+<br>- Dev.db:  Contains more
+<br>           DesktopIconDefs|AppearanceColorScheme|AppearanceFontSz|...
+<br>
+- All State stored in tbls as: 
+<br>  &lt;CustID_TableID_ElID, SettingName, Value&gt;
+
+<br>- All State downloaded on login but ONLY for openWins; subseq newOpens get only for that win.  <br><s>(new Handler for userStateDnload: type 'Other')
+<br>
+- Each State change saved/applied _locally_
+<br>
+- @TBD: </s>
+<br> <mark>Mar12</mark> auto added 2 payload
+<br>  OnSave (e.g. DvColWidth) >> StateChanged = true; run:
+<br>  stateHandler dzEl tblTy user winH
+<br> this updates Dev/UsrTbl; pushes new state 2 winH
+<br> new members: dsk.getWinState/put~
+
+<br><br>
+
+<h4>dskCli: Embedded Tbl/Embedded DV (in Frm)</h4>
+<ul>
+<li><mark>Mar25</mark>Loc8 dz notes for subforms, impl embedded dv
+</li><li>Def will have to be separate; therefore new dzDocTy
+</li><li>Allow summary rows (see oria)
+</li><li><mark>Mar26</mark>Just like PVs but no Qry (EdHist), SubDoc.  DzVw allows ColResize/Choice
+</li><li>Won't appear except on Frm (ins adds 100% wid cell; dev sets ht in px)
+</li><li>Tbar allows adding mult ros; edit in-place, no switching
+</li><li>Only <b>one</b> embTbl (like tbl) <b>but</b> allowed: multi-frm embeds (some cols here/there)
+</li><li>In FrmDz allow embedding
+</li></ul>
+<br><br>
+
+<h4>dskCli: PropBox</h4>
+
+Much work on PropBox complete, chk <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3340'>this</a>
+
+<br><br>
+
+  <h3>webCli: DvDef</h3>
+  
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/webDV.png?raw=true' width='60%' border='1px solid black'>
+</center>
+  
+<br>
+Note: We still nd the CardVw (Some work completed in Film TagCloud, <mark>Loc8</mark>)
+<br>
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/TgDV.png?raw=true' width='60%' border='1px solid black'>
+</center>
+<br>
+Also needed: Condensed Vw (+ logic)
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/viewCondensed2.png?raw=true' width='10%' border='1px solid black'>
+</center>
+<br>
+<br>
+
+<br>
+
+<br>  <h3>webCli: Form</h3>
+
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/2BM_FldsTab_ValidationBldr.png?raw=true' width='60%' border='1px solid black'>
+</center>
+<br>
+<center>
+<img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/5PredTester.png?raw=true' width='60%' border='1px solid black'>
+</center>
+<br>
+
+<br>- Expr bldr/valid8n:
+<br>    We don't nd (expr, js) but (_, str) which can be manually inserted into the JS code.
+<br>    So we can just straight-up move the Filter code branches which we use to bld strings and return a tpl 
+<br>    @rsch: AND/OR
+<br>    @rsch: How to test 4 valid js exprs from within FsChk?
+<br>
+      <h4 id="redundancy">JS validity</h4>
+<details><summary>PS + Node</summary>
+
+      JSHint, JSLint, ESLint all either req node or a custom setup; instd you can invoke node from PS directly as shown below:
+<br>      Instd of PS call frm fs via process; grab console outpt ...
+<br><br>
+Certainly! You can use Node.js to evaluate JavaScript expressions from PowerShell by following these steps:
+<br>
+Install Node.js: from nodejs.org.
+<br>
+Create a JavaScript File: Create a JavaScript file (e.g., evaluate.js) that will evaluate the expressions.
+<br>
+
+<code><pre>
+// evaluate.js
+const vm = require('vm');
+const expression = process.argv[2];
+try {
+    const result = vm.runInNewContext(expression);
+    console.log(result);
+} catch (error) {
+    console.error('Error evaluating expression:', error.message);
+}
+</pre></code>
+<br>Run the JavaScript File from PowerShell: Use PowerShell to run the Node.js script with the expression you want to evaluate.
+<code><pre>
+# Example expression
+ $expression = "2 + 2"
+</pre></code>
+# Run the Node.js script with the expression
+<br>  node evaluate.js $expression
+<br>Example Usage
+<br>Save the above JavaScript code in a file named evaluate.js.
+<br>Open PowerShell and navigate to the directory containing evaluate.js.
+<br>Run the following command in PowerShell:
+<code><pre>
+node evaluate.js "5 * (3 + 2)"
+</pre></code>
+<br>This will output:
+<br>25
+<br>
+Feel free to adapt this approach to suit your specific needs! If you have any more questions or need further assistance, I'm here to help.
+<br>
+</details>
+<br>
+</body>
+</html>
