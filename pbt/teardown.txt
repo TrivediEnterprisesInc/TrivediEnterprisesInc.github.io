@@ -1,0 +1,29 @@
+
+Per man pg <a href='https://fscheck.github.io/FsCheck/reference/fscheck-experimental-machine-2.html'>here</a>; 
+
+Machine<'Actual, 'Model>
+instance member this.TearDown returns TearDown<'Actual>
+
+Also, DisposeCall<'Actual> inherits from TearDown<'Actual>
+**WHICH MEANS TearDown also has an __.Actual actual member
+
+//Some tearDown refs from StateMachine.fs
+type DisposeCall<'Actual>() =
+    inherit TearDown<'Actual>()
+    override __.Actual actual = match box actual with :? IDisposable as d -> d.Dispose() | _ -> ()
+    override __.ToString() = if typeof<IDisposable>.GetTypeInfo().IsAssignableFrom (typeof<'Actual>.GetTypeInfo()) then sprintf "Dispose" else "Nothing"
+
+    [<CompiledName("TearDown")>]
+    let tearDown run =
+        { new TearDown<_>() with
+            override __.Actual actual = run actual }
+
+type Machine<'Actual,'Model>(maxNumberOfCommands:int) =
+    new() = Machine(-1)
+    member __.MaxNumberOfCommands = maxNumberOfCommands
+    abstract Setup : Arbitrary<Setup<'Actual,'Model>>
+    abstract TearDown : TearDown<'Actual>
+    default __.TearDown = TearDown<_>()
+
+//from type ObjectMachine
+    override __.TearDown = upcast DisposeCall<'Actual>()

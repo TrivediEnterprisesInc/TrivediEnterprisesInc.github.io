@@ -1,0 +1,567 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>PBT: Developers must NOT write tests</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/enhanced/resources/claro/EnhancedGrid.css" />
+
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.11.2/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/common.css">
+	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+<!--BEGIN Frm related + local assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+	.dijitDialogPaneContent {
+	    width: 800px !important;
+	    height: 600px !important;
+	}
+
+	.makeYellow		{ background-color: #ffa; }
+
+	.claro html, body{
+	    background-color: rgb(253, 245, 230);
+	    background-image: url("https://brijuser2.github.io/blog/assets/fake-luxury.png");
+	    background-repeat: repeat;
+	    width: 100%;
+	    padding: 0px;
+	}
+	html, body{
+	    width: 100%;
+	    padding: 0px;
+	}
+
+  .quote {
+    margin: 0;
+    background: #eee;
+    padding: 1em;
+    border-radius: 1em;
+  }
+  .quote figcaption,
+  .quote blockquote {
+    margin: 1em;
+  }
+
+  figure {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+  }
+  figcaption {
+	font-style: italic;
+	color: #555;
+    	text-align: center;
+  }
+
+	</style>
+
+<!--script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/commonAux.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/FrmMngrExt.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/pvDlg.js"></script-->
+<!--END Frm related assets-->
+
+<script>
+require([
+	'dojo/parser',
+	'dojo/on', 'dojo/dom', 'dojo/mouse', /*@mbi'dojo/dom-Class',*/
+	'dojo/_base/Deferred', 'dijit/Tooltip', 'dijit/Toolbar', "dijit/Menu", "dijit/MenuItem",
+	'dijit/form/Button', "dijit/form/ComboButton", 'dijit/form/Select', 
+	/* frm related */
+    "dojo/_base/lang", "dijit/registry", "dojox/form/Manager",
+	'dijit/Dialog',
+	'dojo/domReady!'
+], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Menu, MenuItem, Button, 
+	    ComboButton, Select, lang, registry, Mngr, Dialog){
+
+	window.showFrm = function(){
+	    myFrmDialog.show();
+	    var frm = registry.byId("form");
+	    frm["disable"]();
+	}
+	window.editFrm = function(){
+	    var frm = registry.byId("form");
+	    frm["enable"]();
+	}
+
+	const gfxCreateBtnHandler = (e) => {
+	    myFrmDialog.show();
+			(registry.byId('frmTBpv')).set('disabled', true);
+	    frm["enable"]();
+			alert('createBtnTibbie');
+	}
+
+	var gfxCreateBtn = new Button({
+		label: 'Create',
+		iconClass:'gridxCreateIcon',
+		onClick:gfxCreateBtnHandler
+	});
+
+
+	testFetch = function(){
+						window.runFetch('fetchPVs');
+	};
+
+	parser.parse();
+});
+</script>
+
+</head>
+
+<body class='claro'>
+<div data-dojo-type="dijit.form.Button">Articles</div>
+<div data-dojo-type="dijit.form.Button" >About</div>
+	
+	<center>
+	<h1 class='title'>PBT: Developers must NOT write tests</h1>
+	<i>or,</i><br>
+	<h2 class='title'>Hands On: Using FsCheck to test a Desktop Client UI</h2>
+	</center>
+<p>
+Every once in a while, something new comes out of the world of Functional Programming (FP) which 
+	takes even seasoned developers absolutely by surprise.
+<p>
+Here's the typical reaction from (even a Senior) developer, one with some FP exposure:<br>
+<ul><li>
+The developer will read something and say "Wait, <i>what</i>?"  Then he'll go silent and glassy-eyed.
+</li><li>After a few more minutes of reading, the developer will emit a low whistle.<br>
+</li><li>Finally he'll say: "How is that even <i>possible</i>?"
+</li></ul>
+
+I felt that way when I first read about FSharp Type Providers (see <a href='https://fsprojects.github.io/FSharp.Data/library/CsvProvider.html#Introducing-the-provider'>this</a>, <a href='https://fsprojects.github.io/FSharp.Data/library/JsonProvider.html#Introducing-the-provider'>this</a> and <a href='https://learn.microsoft.com/en-us/dotnet/fsharp/tutorials/type-providers/'>this</a>).  
+	More recently I felt the same emotions when I encountered Haskell <a href='https://en.wikipedia.org/wiki/QuickCheck'>QuickCheck</a> and its FSharp port, <a href='https://fscheck.github.io/FsCheck/'>FsCheck</a>.
+
+	<p>
+
+<h3>Avoid the heavy Lifting</h3>
+In this article I am assuming zero FP knowledge.  You might be working in 
+C# and using the FsCheck dotNet library, or any other flavor of QuickCheck.  <br>
+You need no knowledge of <s>Monads</s> <s>Burritos</s> Syntactical Sugar: you'll merely be <i>using</i> those mighty abstractions.<br>
+I will show you how to create a State Machine Model mapping your API to  use FsCheck to autoGenerate and run tests.
+<p>
+
+<h3>What it is</h3>
+	<a href='https://hackage.haskell.org/package/QuickCheck'>QuickCheck</a> is a Haskell library which allows you to generate hundreds, even thousands of random 
+tests.  You just set it up, give it a property to test and it's almost as if  ten mini developers in the compiler begin to write and execute tests immediately.<p>
+    <figure>
+        <img src="https://brijuser2.github.io/blog/assets/associativity.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.1: Merely provide a property and generate 000s of tests.</figcaption>
+    </figure>
+	<center></center>
+<p>
+
+Here is how the stellar <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>John Hughes</a> - one of QuickCheck's original developers - describes the library:<p>
+
+<figure class="quote">
+  <blockquote>
+Here’s an interesting little experiment. Try asking a room full of software developers, "who really, really loves testing?" Very, very few will raise their hands. For
+whatever reason, most developers see testing as more of a chore than a pleasure;
+few go to work in the morning raring to write some test cases. And yet, testing
+is a vital part of software development! Why should it be so unpopular?<p>
+To understand why, imagine writing a suite of unit tests for software with,
+say, n different features. Probably you will write 3–4 test cases per feature. This
+is perfectly manageable—it’s a linear amount of work. But, we all know you will
+not find all of your bugs that way, because some bugs can only be triggered by a
+pair of features interacting. <p>Now, you could go on to write test cases for every pair
+of features—but this is a quadratic amount of work, which is much less appealing.<p>
+And even if you do so, you will still not find all of your bugs—some bugs only
+appear when three features interact! Testing for all of these would involve O(n<sup>3</sup>)
+work, which is starting to sound very unappealing indeed—and this is before we
+even start to consider race conditions, which by definition involve at least two
+features interacting, and even worse, only manifest themselves occasionally even
+in test cases that can provoke them in principle!
+<p>
+This is the fundamental problem with testing—you can never be “done”. No
+wonder it’s not so popular. What is the answer to this conundrum? Simply this:<br>
+<center><b>DON’T WRITE TESTS!</b></center><br>
+But of course, we can’t just deliver untested code to users. So the message is
+actually more nuanced: don’t write tests—generate them!
+<p>
+This is how I have spent much of my time in recent years, working with a test
+case generator called QuickCheck. QuickCheck was first developed in Haskell
+by Koen Claessen and myself (Claessen and Hughes, 2000), and has become
+the testing tool of choice among Haskell developers. The idea has been widely
+emulated—Wikipedia now lists no fewer than 35 reimplementations of the basic
+idea, for languages ranging from C to Swift. 
+  </blockquote>
+  <figcaption>
+    &mdash; John Hughes, <cite>Experiences with QuickCheck:
+Testing the Hard Stuff and <a href='https://publications.lib.chalmers.se/records/fulltext/232550/local_232550.pdf'>Staying Sane</a></cite>  </figcaption>
+</figure>
+<p>
+QuickCheck and its ports have been used in Real-World situations at many companies including Volvo and AWS.  Even though this library has been around for a few years, like most cutting-edge research, 'Main Street' has been slow in adopting PBT.  This is good news: you can be one of the devs on the <i>avant garde</i>!
+
+<p>  If you're like me you'll be quite happy to front-load the effort of learning a new testing framework if the long
+	term benefits include not writing tests at all!
+<p>
+
+<h3>Required Reading</h3>
+Reading these two short articles will help you in your first attempt at PBT:
+<ol>
+  <li>John Hughes' (short, very readable) paper: Experiences with <a href='https://publications.lib.chalmers.se/records/fulltext/232550/local_232550.pdf'>QuickCheck</a>:
+Testing the Hard Stuff and Staying Sane</li>
+  <li>FsCheck Docs: <a href='https://fscheck.github.io/FsCheck//StatefulTestingNew.html'>Model</a>-based Testing</li>
+</ol>
+I found both of these to be an easy read.
+<p>
+<h3>State-Model Based Testing</h3>
+
+After reading all the docs thoroughly I came to the conclusion that the Model-Based approach was the easiest to implement as a newbie.
+<p>
+  Here is a short description of how to create and use a State Machine Model:
+<p>
+    <figure>
+        <img src="https://brijuser2.github.io/blog/assets/hughesStateMachine.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.2: Adjudging a test based on a state machine model</figcaption>
+    </figure>
+<p>
+<figure class="quote">
+  <blockquote>
+We test stateful systems by generating sequences of calls to the API under test, just like the test cases that developers write by hand. But we also model the state of the system abstractly, and define model state transitions for each operation in the API. 
+<p>Using these state transition functions, we compute the model state at every point in a test. We define postconditions for each API call, relating the actual result of the call to the model state (see the Figure above). A test passes if all postconditions hold.
+  </blockquote>
+  <figcaption>
+    &mdash; John Hughes, <cite>Experiences with QuickCheck:
+Testing the Hard Stuff and Staying Sane</cite>  </figcaption>
+</figure>
+<p>
+  In short, a State Model is easier to reason about and also to connect to your app's functionality.  
+<p>
+The figure below shows John Hughes' model adapted to the FsCheck example (of a counter) 
+    <figure>
+        <img src="https://brijuser2.github.io/blog/assets/StateModelFsChk.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.3: A sample test case for the FsCheck example</figcaption>
+    </figure>
+<p>
+You should by now have a clear understanding of the mechanics of building a State Machine Model.  If you still need clarification I suggest reading Grant Slatton's <a href='https://grantslatton.com/rowzero-property-testing'>excellent</a> PBT article (Grant used PBT to formally test the S3 filesystem at AWS).  His examples 
+	use Rust but he provides awesome tips on creating Models for a full-featured app (a Spreadsheet).
+<p>
+
+<h3>A closer look at the FsCheck State Model Test example</h3>
+  Like all good FSharp code, the Model-Based example shown in the <a href='https://fscheck.github.io/FsCheck/StatefulTestingNew.html'>man page</a> is terse but complete.<p>
+    The entire test is just about 25 lines of code, but there is a lot happening.<br>
+    For those new to FSharp syntax, you can still figure out what's going on, but you might need to read the man page slowly (especially the documentation part)
+<p>
+      There are only three important types used in the example:<br>
+      <ul>
+        <li>Machine&lt;'TypeUnderTest, 'ModelType&gt;</li>
+        <li>Setup&lt;'TypeUnderTest, 'ModelType&gt;</li>
+        <li>Operation&lt;'TypeUnderTest, 'ModelType&gt;</li>
+      </ul>
+      <p>
+        The code flow is dead simple:<p>
+        <i>Create the Machine <br>
+        |> Setup the Machine <br>
+        |> Create Operations for Test and Actual Models.</i>
+        <p>FsCheck will do the rest (run the tests first on the Test Model, then on the Actual Model, and then run the Checks)
+  <p>
+
+    <figure>
+        <img src="https://brijuser2.github.io/blog/assets/CounterTy.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.4: The Counter type (Actual Model) from the FsCheck example</figcaption>
+    </figure>
+
+<p>
+
+    In the FsCheck State Model Example, the <b>Counter</b> type represents the Actual Model and is just a wrapper around a stored mutable state  <b>int</b>.  It has methods <b>Inc</b> and <b>Dec</b> which return the state after changing it.
+    <p>
+
+    <figure>
+        <img src="https://brijuser2.github.io/blog/assets/spec.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.5: The Abstract Model from the FsCheck example</figcaption>
+    </figure>
+
+
+<p>
+    The main action in the FsCheck State Model example takes place in the Operations <b>inc</b> and <b>dec</b> shown above.<br>
+    Operations have a <b>Run</b> function which runs the Action on the Abstract Model, and a method <b>Check</b> which runs it on the Actual Model; and then compares the result with the results of the Abstract Model.
+  <p>
+    <b>Please note:</b><br> If you find Fsharp code syntax hard to decipher (and are familiar with C), John Hughes has provided a simple example of testing a queue implemented as a circular buffer in C in <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>this</a> paper.
+
+<p>
+<h3>The Production System under test</h3>
+
+    <figure>
+        <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/img/0SP.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.6: The Desktop Model we are going to test</figcaption>
+    </figure>
+<p>
+The system we are currently testing is the Desktop Client UI of a Database System.  It is built in dotNet, which allows targeting the app to run on various desktops (Windows, Mac, Linux...)<p>
+    The screenshot above shows the Desktop window.  It is a Windows Form with a multiple document interface (MDI) <a href='https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.mdilayout?view=netframework-4.8.1'>layout</a>.  This allows a user to open multiple child windows, just like the Windows desktop opens a new window for each icon clicked.<p>
+The internal API for the Desktop UI element is as follows:<p>
+
+<table style="border-collapse: collapse;width:100%;border: 2px solid black;">
+    <caption><center><h4>Fig.7: The Desktop API</h4></center></caption>
+  <tr style="border-bottom: 2px solid black;border-top: 2px solid black;">
+    <th style="width:20%;">API Call</th>
+    <th style="width:40%;">Trigger</th>
+    <th>Desc</th>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>InitDesktop()</td>
+    <td>Launch app &gt;&gt; Successfully login</td>
+    <td>Restores the state of the Desktop to that of the prior session</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>AddIcon()</td>
+    <td>RightClick on Dsktop &gt;&gt; PopupMenu &gt;&gt; "Add Icon"</td>
+    <td>Allows the user to add a new Icon to the Desktop</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>RemoveIcon()</td>
+    <td>RightClick on Icon &gt;&gt; PopupMenu &gt;&gt; "Remove Icon"</td>
+    <td>Allows the user to remove a specific Icon from the Desktop</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>ChangeLbl()</td>
+    <td>IconRightClick &gt;&gt; PopupMenu &gt;&gt; "Change Label"</td>
+    <td>Allows the user to change a specific Icon's label text</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>OpenDb()</td>
+    <td>IconDblClick</td>
+    <td>Opens the Database associated with the icon</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>OpenDevView()</td>
+    <td>IconRightClick &gt;&gt; PopupMenu &gt;&gt; "Open in DeveloperView"</td>
+    <td>Opens the Database associated with the icon in DesignMode</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>WindowSwitchTo()</td>
+    <td>Menu|Window &gt;&gt; selectWindowItem</td>
+    <td>Allows the user to switch to an open Child Window</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>Logout()</td>
+    <td>File|Exit</td>
+    <td>Saves Desktop State (openWindows etc.) on server</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>...()</td>
+    <td>...</td>
+    <td>(many other UI API calls excluded)</td>
+  </tr>
+</table>
+<p>
+  For this article, we shall only be working with and testing the <b>AddIcon()</b> and <b>RemoveIcon()</b> API calls.<p>
+
+The <b>AddIcon()</b> and <b>RemIcon()</b> functions are an ideal mapping of the model(s) in the FsCheck example to the Database System: instead of incrementing or decrementing a Counter, we will be adding/removing icons to the Desktop shown in fig. 6.  The final state in each test will be a representation of the Desktop after running operations.
+<p>
+  The approach being taken here is a baby step; once we get it working and have "tested the test setup" we can proceed to build more complicated Models and test other API calls, interleave calls, run them in batches, sequentially or in parallel, etc.
+  <p>
+
+<h3>A Note about the Production System</h3>
+<p>
+
+    <figure>
+        <img src="https://brijuser2.github.io/blog/assets/tuple.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.8: The int becomes a tuple list</figcaption>
+    </figure>
+
+  <p>
+For the test we are going to pass a 3-parameter tuple list to the <b>DskStateMachine</b> ctor shown in the image above.
+<p>
+  The real system uses many more parameters, including: 
+  <ul>
+    <li><b>OpenWindows</b> (TableName, TableState, ...)</li>
+    <li><b>TableState</b> (DateTimeTableLastAccessed, DatabaseQueryString, UserMarkedRecords, ...)</li>
+    <li><b>UserState</b> (UserName, LicenseType, ClientID, ...)</li>
+    <li><b>SessionState</b> (ClientType, LoginDateTime, AuthData, ...)</li>
+  </ul>
+  <p>
+    The production system persists this state in a <b>Desktop.brj</b> file (sort of like Desktop.ini in Windows but binary) which is synched to the Backend Server.
+    <p>
+    Most of these extra parameters are irrelevant to our test (which only tests the icons) so instead of calling 
+the production ctor I'll be calling a curried function which will fill in the missing parameters with 
+default (or mock) values, and return an actual Desktop object.
+    <p>
+      Please also note that because the production system is commercial/copyrighted I can't share 
+any proprietory code behind the UI.  However, the gist <a href='https://google.com'>here</a> contains working 
+code you can compile and run; plus I shall share the <b>results</b> of running the test on production; 
+	    so you shall have enough to customize the models and types to your own application.
+      <p>
+
+
+<h3>Hacking the FsCheck Example</h3>
+  We are now ready to hack the FsCheck State Machine example to incorporate our desired changes.  We will design a Model using the example, only instead of incrementing/decrementing an int we'll be adding/removing icons, as shown in the model below:
+<p>
+
+    <figure>
+        <img src="https://brijuser2.github.io/blog/assets/StateModelBrij.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.3: A sample test case for our Desktop System</figcaption>
+    </figure>
+
+<p>
+<h4>Customizing the Machine</h4>
+fig. 9: Customizing the Machine
+<p>
+In the figure above, Line 00 chooses a random int between 0-3 and passes it to the <b>create</b> function.
+<p>
+The create function simply initializes and returns the <b>Abstract</b> and <b>Actual</b> models: a <b>Counter</b> and an <b>int</b>.
+<p>
+It is fairly straightforward for us to map that to our custom Models shown on the right in fig. 9.  As mentioned earlier (fig. 8) we shall be using the 3-tuple instead of an int, so we pass that instead to the <b>create</b> function (line 00).
+<p>
+Some notes:
+<ul>
+<li>Instead of <b>initialValue</b> being an <b>int</b> we are using <b>baseIconLi</b> (a list of standard Desktop icons) as the initial state.
+</li><li>
+In the example, <b>Machine.Next()</b> (Line 00 on the left) just alternates randomly 
+	between <b>inc</b> and <b>dec</b> as the next function call.  (See the man page for <b>Gen.<a href=''>elements</a></b>)
+	<br>
+Our customization (line 00 on the right) uses <b>Gen.frequency</b> instead; which will return two <b>addIcn</b>s for each <b>remIcn</b><br>
+Why did we do that?  Because we need to test what happens when we add lots of icons to the Desktop (Is the layout correct?  Does a scrollbar appear when necessary?)
+</li><li>
+The only other customization in the <b>Next()</b> function is that we're actually passing an icon (randomly chosen) to the <b>addIcn</b> and <b>remIcn</b> functions.<br>
+Please note that in the example on the left, <b>inc</b> and <b>dec</b> don't need a parameter.
+<br>
+The reason we're supplying the icons here (verses picking them in the <b>Operation</b>s) is to ensure that different values don't get sent to the <b>Actual</b> and <b>Abstract</b> models, since that would cause the <b>Check</b>s and the test to fail.
+</li></ul>
+<p>
+
+<h4>Customizing the Actual Model</h4>
+fig. 10: Customizing the Actual Model
+<br>
+
+As you can see, the customizations here are very simple as well.  Instead of an <b>int</b>, the state is a list of IconDefinition tuples.  It is initialized to <b>baseIconLi</b>, and the <b>AddIcn()</b> and <b>RemIcn()</b> functions simply change the state.
+<br>
+We added a <b>toModel()</b> method (Line 00) to retrieve the State from the <b>DskWrapper</b> type
+<br>
+The reason we needed to add this: the customized <b>AddIcn()</b> and <b>RemIcn()</b> are returning the <b>DskWrapper</b> object, not the internal state.
+<br>
+And the reason we're returning the object instead of the state?  So that at the end of our customizations we can call a method on the DskWrapper object to take a screenshot of it.
+<br>
+<b><u>A note on F# Syntax</u></b><br>
+This article is intended for use by all possible readers - some of whom will be using C# or some other language port of QuickCheck - so I don't want to dwell on FSharp syntax, but I should probably note that:
+<ul>
+<li>
+Line 00 in fig. 9 returns a new <b>Machine</b>, and the curly braces around the ctor simply indicate an <a href='https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/object-expressions'>Object Expression</a>.
+</li><li>
+And in Lines 00 and 00, the <b>gen</b> statements with curly braces indicate that <b>gen</b> is a <s>Monad</s> <s>Burrito</s> <a href='https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions'>Computation Expression</a>.
+</li>
+</ul>
+<p>
+
+<h4>Customizing the Abstract Model</h4>
+fig. 11: Customizing the Abstract Model
+<br>
+Again, the changes are very minor.<br>
+Since the Operations are now returning a Desktop (not a model); in line 00 to the right (the <b>Check</b> method) we feed the object to the <b>toModel()</b> call to retrieve the state.
+
+<h4>A Trial Run</h4>
+At this point all required changes are in place and we are ready to take our customizations for a spin.
+<br>
+To setup the test environment:
+<ul>
+<li>I downloaded dotNet 10 from <a href='https://github.com/dotnet/sdk/blob/main/documentation/package-table.md'>here</a> and decompressed the file to the directory shown in the video above.
+</li><li>
+This <a href=''>gist</a> contains the full code I am running above and should work for you too.
+</li><li>
+You will need to install FsCheck with this cmd:
+<br>
+<b><i>dotnet add package FsCheck --version 3.1.0</i></b>
+</li></ul>
+<br>
+
+Please click on the video below to see the results of the trial run.
+
+<br>
+    <video width="320" controls muted poster="https://trivedienterprisesinc.github.io/brijPitch/articles/images/VideoPlay.gif">
+    <source src="https://brijuser2.github.io/blog/assets/testRun.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+<br>
+
+fig. 12: A Trial Run
+<br>
+<b>Ok, passed 100 tests.</b>
+<br>
+Huh?  Sounds good, but before we plug in the Production System it would feel better to check that the tests are actually running.
+<br>
+So we should add some debug statements to the <b>Operation</b>s, each with a different color, as shown in the figure below.
+
+fig. 13: An operation with debug statements
+<br>
+Let's run the test again.
+<br>
+
+<br>
+    <video width="320" controls muted poster="https://trivedienterprisesinc.github.io/brijPitch/articles/images/VideoPlay.gif">
+    <source src="https://brijuser2.github.io/blog/assets/fullRun.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+<br>
+
+
+Much better.  Yes, the system is actually building lists of icons.
+<br>
+Let's pause and look closer at the before and after state of a single operation, and visually check that the system actually carried out the change....
+<br>
+This call to the Actual Model before the operation has these three icons at the end of the list...
+<br>
+and we see that a new one has been added at the end...
+<br>
+...one more check...
+<br>
+
+
+<p>
+<h4>Connecting to the Production System</h4>
+
+So, at this point you are probably thinking "How do we get to actually see hundreds of Desktop windows being created?"
+<br>
+We do need to examine at least a few Desktops to visually check the test outcome (plus verify 
+the scrollbar behavior etc.)
+<br>
+We can add a call to the Desktop ctor in the <b>Check</b> method of an operation.
+<br>
+Fortunately, dotNet is a mature framework, and WinForms (which the Production System uses) is even older.  I 
+know of an <a href=''>obscure API call</a> which lets us take a snapshot of <i>any</i> Control - <i>even if it isn't showing</i> - and save it as a graphic file.
+<br>
+fig. 14.  Form derives from Control
+<br>
+Most of the Windows Forms UI elements derive from Control.  The Desktop is a <b>Form</b> object, which derives from Control.  So we can call the <b>XXXX</b> method on the Desktop and save the image to a file.
+
+<br>
+<h4>Add Cmds 4 openWins</h4>
+  Also renaming, poss; then chain em all.
+<br>
+
+
+<hr>
+<h3>Additional Reading</h3>
+
+These pages link to <b>many</b> good resources on PBT using <a href='https://hackage.haskell.org/package/QuickCheck'>Haskell</a> and <a href='https://fscheck.github.io/FsCheck//LearningResources.html'>FsCheck</a>.
+<p>
+Some additional reading I found useful:
+<ul>
+  <li>Schott Wlaschin's <a href='https://fsharpforfunandprofit.com/posts/property-based-testing-2/'>Choosing properties</a> for PBT</li>
+  <li>PBT <a href='https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html'>patterns</a></li>
+  <li>Haskell SUT state-machine testing <a href="https://github.com/stevana/property-based-testing-stateful-systems-tutorial/tree/main">tutorial</a></li>
+  <li>Property-Based Testing Against a Model of a <a href='https://concerningquality.com/model-based-testing/'>Web</a> Application</li>
+  <li>Proving <a href='https://www.compositional-it.com/news-blog/proving-function-correctness-with-property-based-tests/'>function correctness</a> with property-based tests</li>
+  <li>Using FsCheck to test functions that arise in development of a <a href='http://opcoast.com/demos/fsharp/part3.html'>branch and bound</a> algorithm</li>
+  <li>Medium <a href='https://medium.com/tag/property-based-testing'>topic</a> on PBT (about 70 articles)</li>
+  </ul>
+
+
+  Assets:<br>
+  <ul>
+    <li>Curr ver (Feb 11) uncommented w/core fns embedded 2 gist</li>
+    <li>Curr ver (Feb 11) reduced (no console debgs) for inclusion</li>
+    <li>Gif of debug stmts, freeze 4 details or go 2 end & scroll up 2 see outpt</li>
+  </ul>
+<hr>
+  <br>
+<br>	
+</body>
+</html>

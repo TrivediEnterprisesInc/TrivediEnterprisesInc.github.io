@@ -1,0 +1,307 @@
+
+Trivedi.pbt.dll (w/src file) stripped of UI/Brij refs; compiled as standalone
+here: xZ31ZM5r04rPzIkc
+-I:C:\Windows\Microsoft.NET\Framework\v4.0.30319
+
+https://flixier.com/
+https://www.videoconverterfactory.com/tips/free-video-capture-software.html#3
+
+https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/brijPitch/articles/images/VideoPlay.gif?raw=true
+(nd 2 remove brijLogo)
+
+tag 4 embedded vdo ->
+    <video width="320" controls muted poster="images/VideoPlay.gif">
+    <source src="images/spx_DataView.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+
+PrePub chklist:
+    - Ensure all links correct
+    - Ensure all scrnshots reflect Final State
+
+
+VLC: Media|OpenCaptureDevice|Choose "Desktop" 70fps|From Play dropDnBtn choose convert: point to outptFile
+Notes (Feb 10th)
+
+x) Run curr sys >> too many errs?
+x) Create test fn let mTst = chooseFromLi [0..10] 
+    does the monadic 'return' return unwrapped val?
+x) The model runs *b4* Act; so modify AddIcn 2 fetch based on mutable AddIcnInt which inits @ 0; incr by 1; reset on (= lilen addLi)
+x) Similarly 4 RemIcnLi (currently this removes the last & returns tail); add mutable RemIcnInt & run chooseFrom [0..lilen m]; store 4 Act to pick up.  This changes the fn to rem randomly
+5) newTy DskIcnDef(lbl: init set 2 tblNm * TblNm: curr * opt<FilePath>: 4 local, l8r pointer to bytes * IcnNm * ty)
+Add shell fn 4 IcnChoose >> upload bytes to local dsk & propagate 2 svr 
+   ty DskFile is a tuple of (list<DskIcnDef> * list<StrIcnFileNm, bytes>)
+   Then the icn becomes a pointer to the above in the file 
+   The init one shd incl Brij-provided standard set of goog icns 
+   Note: We'll have to amend pbt.AddIcn/Rem~ to upd8 the Dsk file + send2svr 
+   (@tbd: v2? Let em add/modify color)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+async related:
+https://stackoverflow.com/questions/54270260/how-do-you-run-async-tests-in-fscheck/54278446#54278446
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+SO Qn:
+
+I'm having trouble figuring out how to make fscheck generators WITHOUT using the gen workflow syntax and assume there must be a good way to do it. I end up with a nested Gen<Gen<... and want a flattened version. With option I'd use Option.bind to eliminate the nesting. With seq I'd use SelectMany. But I don't see that kind of method appear in the Gen module.
+
+// return a Gen<char list> as expected
+// first makes a random number from 5 to 8
+// and then creates a random list of characters that long
+let randomListLengths =
+    gen {
+        let! len = Gen.choose(5,8)
+        let! item = Gen.elements ['a';'b';'c'] |> Gen.listOfLength len
+        return item
+    }
+
+// return a Gen<Gen<char list>>
+let anotherWayThatDoesNotWork =
+    Gen.choose(5, 8)
+    |> Gen.map (fun len -> Gen.elements['a';'b';'c'] |> Gen.listOfLength len)
+
+
+Kurt Schelfthout: 
+You can use the >>= operator:
+
+let randomListLengths =
+    Gen.choose(5,8)
+    >>= (fun len -> Gen.elements ['a';'b';'c'] |> Gen.listOfLength len)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Testing Plan (Jan 28th)
+
+- Model based for functionality
+- Model based for Invariance
+    Ops: FrmDzCellColrChng|FontChng|Valid8nRuleChng _in any order_ results in the same State 
+- No nd 2 cover inputs; covered by ty + take extra care w/Gen in All tests 
+- Create Test Mods based on "Area of func" not lib/assembly 
+- The Final testMod shd consist of 3 comprehensive flows encompassing all areas of func (@ToDo: see if we cn compose earliers)
+    1) Dz Changes (All dzEls) -> DzCli
+    2) Db Func (All areas) -> wwwCli 
+    3) Auth/UserMngt incl var subSites + MktgPlans
+- DzCli test will nd 2 be run on ALL clis incl Mac/Linux (@ToDo: bld all; @rsch emulators)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Link to StateMachine test ->
+https://github.com/fscheck/FsCheck/blob/master/tests/FsCheck.Test/StateMachine.fs
+
+raw Dsk img: https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/img/0SP.png
+
+UI.fs ln 1537
+        type ટેબલ_પાન<'a> (સુપારી,લવલી,ગુલકંદ, ક્વિમામ, પીચાક,બનાવો, ty:'a) as dsk =
+        
+UIAux.fs ln 1316
+    type ટેબલ_પાન_Jan<'a when 'a :> ITblMarker> (સુપારી,લવલી,ગુલકંદ, ક્વિમામ, પીચાક,બનાવો, ty:'a) as dsk =
+        ...
+    #endif //movedToLoggedUIRnr
+    
+UI_Jan18.fs ln 2076 has openWins handling incl members
+    type સાદુ_પાન<'a> (સુપારી,લવલી,ગુલકંદ, ક્વિમામ, પીચાક,બનાવો, procId, winTy:'a) as dsk =
+        inherit Form(Visible = false, TopMost = true, WindowState = FormWindowState.Maximized, Font = defFont, AutoScroll = true, BackColor = Color.AliceBlue, Text = "Brij (TM) Desktop.  Copyright (c) M. P. Trivedi 2016-2023.  All rights reserved.", IsMdiContainer = true)
+        do printfn "db: સાદુ_પાન cTor"
+->     let mutable openWins:brijWin list = []
+        ... let icnLi = [("articles.png", box (ArticleTbl()) ,"Article Tbl");
+                         ("database.png", box (ArticleTbl()) ,"Db Tbl");
+                         ("ide.png", box (ArticleTbl()) ,"Ide");
+                         ("settings.png", box (AdminTbl()) ,"Settings");
+                         ("tasklist.png", box (TaskTbl()) ,"TaskList Tbl");
+                         ("new.png", box (ArticleTbl()) ,"Add New Icon...")]        
+                         
+loggedUIRunnerDec15.fs ln 514 has last updated (also Dec20 etc., identical)
+    type ટેબલ_પાન_Nov<'a> (સુપારી,લવલી,ગુલકંદ, ક્વિમામ, પીચાક,બનાવો, ty:'a) as dsk =
+        inherit Form(Visible = false, TopMost = true, WindowState = FormWindowState.Maximized, Font = defFont, AutoScroll = true, BackColor = currentScheme.Back())
+        do printfn "db: ટેબલ_પાન cTor"
+            ...
+            //let (Dsk(userNm, icnLi)) = //(getDesktopFile uNm)
+            let icnLi = [("articles.png", box (ArticleTbl()) ,"Article Tbl");
+                         ("database.png", box (ArticleTbl()) ,"Db Tbl");
+                         ("ide.png", box (ArticleTbl()) ,"Ide");
+                         ("settings.png", box (AdminTbl()) ,"Settings");
+                         ("tasklist.png", box (TaskTbl()) ,"TaskList Tbl");
+                         ("new.png", box (ArticleTbl()) ,"Add New Icon...");
+                         ("settings.png", box (ArticleTbl()) ,"MusicDV");
+                         ("settings.png", box (ArticleTbl()) ,"DesignDV");
+                         ("settings.png", box (ArticleTbl()) ,"FrmDesigner");
+                         ("settings.png", box (AdminTbl()) ,"FrmSetup");
+                         ("settings.png", box (TaskTbl()) ,"BlueForm");
+                         ("settings.png", box (ArticleTbl()) ,"tkPicks");
+                         ("settings.png", box (ArticleTbl()) ,"getImg");
+                         ("settings.png", box (ArticleTbl()) ,"State")]
+(*
+Feb7:
+    1) port openWins logic
+    2) add members to incr/decr openW
+*)
+    type ટેબલ_પાન_Nov<'a> (સુપારી,લવલી,ગુલકંદ, ક્વિમામ, પીચાક,બનાવો, icnLi, ty:'a) as dsk =
+        inherit Form(Visible = false, TopMost = true, WindowState = FormWindowState.Maximized, Font = defFont, AutoScroll = true, BackColor = currentScheme.Back())
+        do printfn "db: ટેબલ_પાન cTor"
+        let katho = 
+            printfn "db: ટેબલ_પાન કાથો"
+            let pnl = new FlowLayoutPanel(BorderStyle = BorderStyle.Fixed3D, FlowDirection = FlowDirection.BottomUp, WrapContents = true, Dock = doc "F", BackColor = currentScheme.Back())
+            pnl.SuspendLayout()
+            dsk.SuspendLayout()
+            let stat = new StatusStrip(SizingGrip = false, Stretch = true, Dock = doc "B", Font = defFont, LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow)
+            let statLbl = new ToolStripStatusLabel(Text = "Desktop Ready...", BackColor = Color.Transparent) :> ToolStripItem
+            let dskCtxtMS = new ContextMenuStrip()
+            let AddIconMenuItem = new ToolStripMenuItem("Add Item")
+            let RemoveIconMenuItem = new ToolStripMenuItem("Remove Item(s)")
+            let tmpMenuItm = new ToolStripMenuItem("tmp")
+            !!^ ["Frm", box dsk ] dskCtxtMS
+
+            tmpMenuItm.Click.AddHandler(new EventHandler(fun (sender:obj) (e:EventArgs) ->
+                         let ch:int = pnl.Controls |> Seq.cast |> List.ofSeq |> lilen
+                         tibbie ("# of icns -> " + ch.ToString())))
+            dskCtxtMS.Items.AddRange([|toTSItm tmpMenuItm;toTSItm AddIconMenuItem;toTSItm RemoveIconMenuItem|])
+
+            let cLbl = new ToolStripStatusLabel(Text = "s", Dock = doc "R", Alignment = ToolStripItemAlignment.Right) :> ToolStripItem
+            cLbl.Click.AddHandler(new EventHandler (fun sender e -> 
+                                                        let thisCtrl = sender :?> ToolStripItem
+                                                        let frm = (getTopForm thisCtrl).Value :?> Form
+                                                        let stVal:Mtpl = (!!~ "wld" dsk).Value
+                                                        (ગપ્પા_પાન (SizeM,Some("Current State Value"),None , Some(box (stVal.ToString())), None,frm, txtDlg()))
+                                                        let statL:list<string> = (Mtpl.GetOne "statLog" stVal).Value
+                                                        (ગપ્પા_પાન (SizeM,Some("Stat log li:"),None , Some(box (statL)), None, frm, listDlg()))
+                                                        let stVal2:Mtpl = (!!~ "wld" dsk).Value
+                                                        tibbie (((Mtpl.GetOne "dlgRes" stVal2).Value).ToString())
+                                                        ))
+            stat.Items.AddRange([|statLbl|]) |> ignore
+            dsk.Controls.Add(pnl)
+            dsk.Controls.Add(stat)
+            dsk.ContextMenuStrip <- dskCtxtMS
+            !!^ ["Status", box stat; "dskCtxtMS", box dskCtxtMS; "flowPnl", box pnl] dsk
+        let chuno =
+            printfn "db: ટેબલ_પાન 2"
+            //stopgap manual pop
+            let userNm = "Env.getUser()"
+            let pnl:FlowLayoutPanel = (!!~ "flowPnl" dsk).Value
+            //let (Dsk(userNm, icnLi)) = //(getDesktopFile uNm)
+            //let icnLi = []
+            lim (fun icnItm -> 
+                    let (icnNm, ty, slug) = icnItm
+                    let tblT = unbox ty
+                    let icnP = Panel(Margin = new Padding(25), BorderStyle = BorderStyle.None)
+                    let img:Image = Image.FromFile(Path.Combine("C:\\Users\\inets\\Documents\\mike\\src\\Data\images\\desktop", (icnNm:string).ToLower().Trim()))
+                    //let img:Image = getImgInNewColor imgBase Color.Black (currentScheme.Icn())
+                    let icnLbl = new Label(Dock = doc "T", Image = img, ImageAlign= ContentAlignment.TopCenter, BackColor = currentScheme.Back())
+                    let txtLbl = new Label(Dock = doc "B", Text = slug, TextAlign = ContentAlignment.BottomCenter, ForeColor = currentScheme.CategFore(), BackColor = currentScheme.Back())
+                    icnLbl.Paint.Add(fun (e:PaintEventArgs)  ->
+                        //base.OnPaint(e)
+                        let imageAttributes = new ImageAttributes()
+                        let width = img.Width
+                        let height = img.Height
+                        let colorMap = new ColorMap()
+                        colorMap.OldColor <- Color.Black
+                        colorMap.NewColor <- currentScheme.Icn()
+                        let remapTable = [| colorMap |]
+                        imageAttributes.SetRemapTable(remapTable, ColorAdjustType.Bitmap)
+                        let icnR_First = new Rectangle (new Point(icnLbl.Location.X + (icnP.Padding.Horizontal), (icnLbl.Location.Y + (icnP.Padding.Top))), new Size(width, height))
+                        //@ToDo fix this, tmpFix using hard-coded val
+                        let icnR = new Rectangle (icnR_First.X + 76, icnR_First.Y + 2, icnR_First.Width, icnR_First.Height)
+                        e.Graphics.DrawImage(
+                           img,
+                           icnR,  // destination rectangle
+                           0, 0,        // upper-left corner of source rectangle
+                           width,       // width of source rectangle
+                           height,      // height of source rectangle
+                           GraphicsUnit.Pixel,
+                           imageAttributes)
+                    )
+                    let g = (icnLbl).CreateGraphics()
+                    let ht = ((g.MeasureString("test", defFont)).ToSize()).Height
+                    let wd = ((g.MeasureString(slug, defFont)).ToSize()).Width
+                    icnLbl.Height <- ht
+                    txtLbl.Height <- ht
+                    icnP.Height <- (ht * 2)
+                    icnLbl.Width <- wd
+                    let icnCtxt = new ContextMenuStrip()
+                    icnLbl.ContextMenuStrip <- icnCtxt
+                    txtLbl.ContextMenuStrip <- icnCtxt
+                    icnP.ContextMenuStrip <- icnCtxt
+                    let tblID = (tblT.GetType().ToString()).Substring((tblT.GetType().ToString()).IndexOf(".")+1)
+                    !!^ ["tblID", box tblID] icnP
+                    
+                    let dskOpenHnd = new EventHandler(fun (sender:obj) (e:EventArgs) ->
+                                match slug with
+                                | "MusicDV" -> 
+                                    let mFrm = new Form(Text = "MusicDV")
+                                    let musicF = કલકતી_પાન_Nov(Reg, mFrm, musicDV, musicDat)
+                                    mFrm.Show()
+                                | "DesignDV" -> 
+                                    tibbie "#remmed_mbi_Dec09"
+#if remmed_mbi_Dec09
+                                    let dFrm = new Form(Text = "DzDV")
+                                    let dzDv = કલકતી_પાન_Nov(Dz, dFrm, WDV, HelloDz)
+                                    dzDv.AutoSizeColumnsMode <- DataGridViewAutoSizeColumnsMode.Fill
+                                    (dzDv.Columns.[(dzDv.getColNamed("Document Title"))]).FillWeight  <- 200.0f
+                                    (dFrm.Show())
+#endif //remmed_mbi_Dec09
+                                | "FrmDesigner" -> 
+                                    let flds = Task.getFldDefs()
+                                    //let frmDef = FrmDef((getUNID "^FrmDef"), "AliceBlue Definition Document for: " + (tblNm (Task.getFldDefs())), 2, flds, DesDocInfDeflt(), defFont, defFont, Color.Black, Color.White, TaskTbl())
+                                    //let frm = (બનારસી_પાન(frmDef, dsk)) :> Form
+                                    //frm.Show()
+                                    tibbie "mbi"
+                                | "FrmSetup" -> 
+                                    ગપ્પા_પાન (SizeM,Some("Form Configuration Settings"),None , Some(box (Task.getFldDefs())), None, dsk, frmSetupDlg())  |> ignore
+                                | "PredTester" -> 
+                                    ગપ્પા_પાન (SizeM,Some("Pred Tester"),None , (Some(box (Task.getFldDefs()))), None, dsk, critDlg()) |> ignore
+                                | "BlueForm" -> 
+                                    let frmDef = deSerBA (File.ReadAllBytes("AliceBlue.frm")) //:?> DesDoc<_> //FrmDef<Trivedi.TaskTbl> //DesDoc<_>
+                                    //...mbi splat...
+                                    //Unable to cast object of type 'FrmDef[Trivedi.TaskTbl]' to type 'DesDoc`1[Trivedi.ITblMarker]'.
+                                    tibbie ("type found: " + frmDef.GetType().ToString())
+                                    //let frm = (બનારસી_પાન(frmDef, d)) :> Form
+                                    //frm.Show()
+                                | "tkPicks" -> 
+                                    let w:Mtpl = (!!~ "wld" dsk).Value
+                                    let tkP:Mtpl = (Mtpl.GetOne "tkPicks" w).Value
+                                    tibbie ("tkP ty: " + (tkP.GetType().ToString()))
+                                    tibbie (tkP.ToString())
+                                    let tit:string = (Mtpl.GetOne "title" tkP).Value
+                                    tibbie tit
+                                | "getImg" -> 
+                                    let s:Mtpl = (!!~ "wld" dsk).Value
+                                    let dat = (Mtpl.GetOne "DatLi" s).Value
+                                    tibbie ("got dat ty: " + (dat.GetType().ToString()))
+                                    let itm = dat |> List.pick (fun itm -> 
+                                                        tibbie "pick1"
+                                                        let (BaseBrijType_NoTpl(dt, s, tblTy)) = itm
+                                                        let (CoreMod(CoreM(DocUNID(unid), crDt, modDt, tit, cont, tags, flag))) = dt.[0]
+                                                        tibbie "pick2"
+                                                        if tit = "sort.png" then Some s else None)
+                                    tibbie ("res was " + itm.GetType().ToString())
+                                | "State" -> 
+                                    let stVal:Mtpl = (!!~ "wld" dsk).Value
+                                    (ગપ્પા_પાન (SizeM,Some("Current State Value"),None , Some(box (stVal.ToString())), None, dsk, txtDlg()))
+                                    let statL:list<string> = (Mtpl.GetOne "statLog" stVal).Value
+                                    (ગપ્પા_પાન (SizeM,Some("Stat log li:"),None , Some(box (statL)), None, dsk, listDlg()))
+                                    let stVal2:Mtpl = (!!~ "wld" dsk).Value
+                                    tibbie (((Mtpl.GetOne "dlgRes" stVal2).Value).ToString())
+                                | _ -> tibbie ("icn openDV for dvID -> " + tblID))
+                    
+                    icnLbl.DoubleClick.AddHandler(dskOpenHnd)
+                    txtLbl.DoubleClick.AddHandler(dskOpenHnd)
+                    icnP.DoubleClick.AddHandler(dskOpenHnd)
+                    let DesignDVMenuItem = new ToolStripMenuItem("Open in Design Mode")
+                    icnCtxt.Items.Add(DesignDVMenuItem) |> ignore
+                    DesignDVMenuItem.Click.AddHandler(new EventHandler(fun (sender:obj) (e:EventArgs) ->
+                                openDes (tblT.GetType()) ))
+                    icnP.Controls.Add(icnLbl)
+                    icnP.Controls.Add(txtLbl)
+                    pnl.Controls.Add(icnP)
+                ) icnLi |> ignore 
+            pnl.ResumeLayout(false)
+            dsk.ResumeLayout(false)
+            dsk
+
+ls src\Data\images\desktop
+articles.png
+dataBase.png
+design.png
+ide.png
+image.png
+music.png
+new.png
+settings.png
+taskList.png

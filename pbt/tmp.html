@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html> 
+<html>
+<head>
+	<title>pbt / Design Notes</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	
+	<link rel="stylesheet" href="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2024/form/gridx_Styling/common.css">
+	<link rel="stylesheet" href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/raw/refs/heads/main/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+    .dijitDialogPaneContent {
+        width: 800px !important;
+        height: 600px !important;
+    }
+
+    .makeYellow		{ background-color: #ffa;
+    }
+
+    /*override oria's bkgrnd*/
+    body {
+        background-color: rgb(253, 245, 230);
+        background-image: url("https://www.transparenttextures.com/patterns/fake-luxury.png");
+        background-repeat: repeat;
+        width: 100%;
+        margin: 0em;
+    }
+</style>
+
+</head>
+
+<body class='claro'>
+
+<nav><ol><ol><li><a href="#heading-4">Bld API coverage tables 4 All Modules</a><ol><li><a href="#heading-5">dskCli: Desktop</a><ol><li><a href="#heading-6">Win SubMenu</a></li><li><a href="#heading-7">Login/Init()</a></li><li><a href="#heading-8">Logout()</a></li></ol></li><li><a href="#heading-9">dskCli: TableDef</a><ol><li><a href="#heading-10">CSV</a></li></ol></li><li><a href="#heading-11">dskCli: DvDef</a></li><li><a href="#heading-12">dskCli: DzDv</a></li><li><a href="#heading-13">dskCli: FormDef</a></li><li><a href="#heading-14">dskCli: AgentDef</a></li><li><a href="#heading-15">dskCli: Auth/State/Other</a><ol><li><a href="#heading-16">Lookup Masalo</a></li><li><a href="#heading-17">State</a></li><li><a href="#heading-18">dskCli: Embedded Tbl/Embedded DV (in Frm)</a></li><li><a href="#heading-19">dskCli: PropBox</a></li></ol></li><li><a href="#heading-20">webCli: DvDef</a></li><li><a href="#heading-21">webCli: Form</a><ol><li><a href="#redundancy">JS validity</a></li></ol></nav>
+
+<br>
+<br>  <h3 id="heading-13">dskCli: FormDef</h3>
+
+<center>
+<img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/2BanarasiMNew.png?raw=true" width="60%" border="1px solid black">
+</center>
+<br>
+<center>
+<img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/2BPDz.png?raw=true" width="60%" border="1px solid black">
+</center>
+
+<mark>Notes:</mark>
+<ul>
+<li>the two above have been merged ('23-34 mainRepo lockd) Srch 4 "Set Selected" (not in curr arcs)
+</li><li>Some work also compl. on selectedPnl (red bkgd instd o' handles)
+</li></ul>
+
+Notes:        
+<ul><li>
+Prior vers of this mod exist, chk past commits (bld_v1 interleaves BlankRows)
+</li><li><input type="checkbox" checked="">&nbsp;DnDTgt spans Row (see PostPitch Notes)
+</li><li><input type="checkbox" checked="">&nbsp;this curr impl autoCasts to BMdzCell_v2Struc
+</li><li><input type="checkbox" checked="">&nbsp;as decided, changes via UI updates def &amp; autoUpdates UI
+</li><li><input type="checkbox" checked="">&nbsp;@Add: bld_v1 interleaves dropCells(see output); nd to manually do that
+</li></ul>
+<mark>Mar '25:</mark>
+<ul><li><input type="checkbox" checked="">&nbsp;The curr sys on drop will relayout subseq rows/sections; this is _not_ desired:
+                      it may spoil completed layouts.  Instd: if drop causes overflo/wrap, do an li.inserAt
+                      &amp; leave rest of struct unchanged (this means the tbl ros subseq have 2 be incr.d)
+</li><li><input type="checkbox" checked="">&nbsp;Also beauc. deltas for FsChk modelling purps.</li></ul>
+<br>
+
+<mark>Apr03_25:</mark>
+<ul><li><input type="checkbox" checked="">&nbsp;The curr BMAux uses fldDefs.  We nd a fn (fldDefs -&gt; BMFldDef) to gen the default cellStruct. <br>
+          Ren above BMfld to this + modify BMAux to use this _not_ the fldDefs (usrFlds above)
+</li><li><input type="checkbox" checked="">&nbsp;Modify tbl struct to allow BlankRows + InfoBoxes (this exists somewhere) (poss ty changes nd.ed?)<br>
+          cld use existing BMdzCell w/txt as "" / info
+</li><li><input type="checkbox" checked="">&nbsp;BM already contains _colN_; roN shd be autoCalc (add member) via lilen
+</li><li>For _Undo_ we nd refCell 'StateChanged' + member 2 chk/set if necc.<br>
+          Add this call to the 1st line of every handler 4 changes <br>
+          + last line of handler saves state 2 BM list last (unless cancelld)<br>
+          <input type="checkbox" checked="">&nbsp;Note; the BM ref'll now store li<bm> not single, + pointer.
+</bm></li></ul>
+
+<br>
+<input type="checkbox" checked="">&nbsp;For FormDnD Model chk <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3433">this</a><br>
+<input type="checkbox" checked="">&nbsp;There's also a DnD Monad; tested; <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3675">here</a>
+<br>
+<br>
+<mark>Apr08_25:</mark>
+<ul><li><input type="checkbox">&nbsp;On 1st open BMDz prompts 4 default settings (Appearance:colN/Fonts/Col) and THEN autoLayout frm.
+</li><li><input type="checkbox" checked="">&nbsp;Remove BMAux.getDefault(): call order issues (avoid rec) move 2 fn; call from BmDz
+</li><li><input type="checkbox" checked="">&nbsp;Run these cmds from cellRightClickMenu: <br>
+vFn / Thingy / ForeCol / BkCol / LblFont / DatFont / col-roSpan / removeFld / TtipTxt
+</li><li><input type="checkbox" checked="">&nbsp;These from TBarBtns: <br>
+Defaults / AddBlankRo / AddInfoBox / AddFld
+</li><li><input type="checkbox" checked="">&nbsp;Adding blankRos/InfBoxes <b>alw</b> adds below; usr may Dnd (if necc tell em)
+</li><li><input type="checkbox" checked="">&nbsp;<mark>@TBD</mark> Another option: Instd of all the rt-click cmds; unify em in a DlgBox and menu simply says "Modify Fld"<br>
+(similar to Appearance stuff in earlier scrnshot) buttons for Validation etc.<br>
+When anything changed; run bkgrndCmd &gt;&gt; updSt &gt;&gt; BM [only ok/cancel btns 4 dlg.]
+</li></ul>  
+
+<br>
+<mark>Apr09_25:</mark>
+<ul><li><input type="checkbox">&nbsp;TBar btns (above) will be DropDns: AddBlankRo (Above-BelowSelectn), AddInfoBox (same), AddFld (bef/aftSelection)<br>
+Field options (AddFld) will disp <b>excluding</b> flds alr on Frm; incl intlFlds (Add '*' to title + make ReadOnly)
+</li><li><input type="checkbox" checked="">&nbsp;To defaultSettings (onFrmOpen above) add "DefValue"
+</li><li><input type="checkbox" checked="">&nbsp;We nd 2 decide on/impl defaultThingies
+</li><li><input type="checkbox" checked="">&nbsp;Test/impl this: add handler 2 frm (+ lim all ctrls?) If (click + notShift) &gt;&gt; clearSelections + DisableTBarBtns except undo/redo
+</li><li><input type="checkbox" checked="">&nbsp;For multipleSelCells + Cmd (say AddRoBelow) Filter on List.max(row); 4 popupMnu it's auto 4 cell (single) chosen.
+</li><li><input type="checkbox" checked="">&nbsp;In bldState curr we go [BmFld -&gt; asCtrl (getCell:btn)]  We want to return a cellPnl (as in actual).  <b>Ext</b> this + add prop BmFld + members to retrieve flds FOR use in handlers to send cellPos etc to BmDzCmd
+</li></ul>
+
+<br>
+<mark>Apr12_25:</mark>
+<ul><li><input type="checkbox">&nbsp;<mark>Uncovered: DnD</mark><br>
+For Rows + non-contiguous cellSelections; allow only cells + row(s)br>
+We'll have to reassign dropability (ie isTgt) after ea cellSelection<br>
+add member _.resetDndTgts()<br>
+Shift-Click 2 cellSel; Ctrl-Click 2 sel Row(s)<br>
+Rows cannot be dropped on b4Tgts.  Will nd to test these cases thoroughly for unexp failure.
+</li><li><input type="checkbox">&nbsp;Move 2 TBarBtns:<br>
+-Ins-Del Cell|Ro  -roSpan-colSpan 4 cell|Ro  -InfBox<br>
+This is in order to enable/disable upon sel (visual cues)
+</li><li><input type="checkbox">&nbsp;Add LN-ty btn "Make Default" 4 fonts etc. (particular scope: lbl/data)
+</li><li><input type="checkbox">&nbsp;Nd default thingys in DocFld ty + member _.getDefThingy()
+</li><li><input type="checkbox">&nbsp;Ren all refs 2 BmDz to BD, add comment
+</li><li><input type="checkbox">&nbsp;vFns will nd a separate PBT suite
+</li><li><input type="checkbox">&nbsp;PBT 4 BD: Model is BDTbl.toFsChkModel() -> Html<br>
+use string interp<br>
+<td backColor = "{}" colSp={} roSp={}>
+<div id="cellLbl{cellPos}" Fore="{}" Back="{}" Font="{}">{title}</div>
+<div id="dataLbl{cellPos}" Fore="{}" Back="{}" Font="{}">Data</div>
+</td>
+</li><li><input type="checkbox">&nbsp;The actual will chg BMDef & gen above + convt 2 cellModel<br>
+The test will do the same BUT not via act. (how 2 pass params effectively?)
+</li></ul>
+
+<br>
+
+
+</rows>
+</body>
+</html>

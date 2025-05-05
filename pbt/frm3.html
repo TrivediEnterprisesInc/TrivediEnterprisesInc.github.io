@@ -1,0 +1,488 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>brijFrm w/flex tds</title>
+<link rel="stylesheet" href="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2024/form/gridx_Styling/common.css">
+<!--link rel="stylesheet" href="claro.css"-->
+<link href="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" media="screen" rel="stylesheet" type="text/css">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" data-dojo-config="isDebug: 0, async: 1, parseOnLoad: 1"></script>
+
+
+<script src="common.js"></script>
+<script src="form/ver/ver.js"></script>
+<script src="form/ver/verDlg.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+	<style >
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+		.makeYellow		{ background-color: #ffa; }
+	</style>
+
+<!-- below scriptlet contains the btnExt for rtEd -->
+<script>
+require(["dojo/_base/lang", "dijit/form/Button", "dojo/dom", 
+        "dojo/dom-class", "dojo/domReady!"], function(lang, Btn, dom, domClass){
+
+      lang.extend(Btn, {
+         templateString: 
+            "<span class='dijit dijitReset dijitInline' role='presentation'" +
+            "	><span class='dijitReset dijitInline dijitButtonNode'" +
+            "		data-dojo-attach-event='ondijitclick:__onClick' role='presentation'" +
+            "		><span class='dijitReset dijitStretch dijitButtonContents'" +
+            "			data-dojo-attach-point='titleNode,focusNode'" +
+            "			role='button' aria-labelledby='${id}_label'" +
+            "			><span class='dijitReset dijitInline dijitIcon material-symbols-outlined' data-dojo-attach-point='iconNode'></span" +
+            "			><span class='dijitReset dijitToggleButtonIconChar'>&#x25CF;</span" +
+            "			><span class='dijitReset dijitInline dijitButtonText'" +
+            "				id='${id}_label'" +
+            "				data-dojo-attach-point='containerNode'" +
+            "			></span" +
+            "		></span" +
+            "	></span" +
+            "	><input ${!nameAttrSetting} type='${type}' value='${value}' class='dijitOffScreen'" +
+            "		data-dojo-attach-event='onclick:_onClick'" +
+            "		tabIndex='-1' aria-hidden='true' data-dojo-attach-point='valueNode'" +
+            "/></span>",
+         postCreate: function(){
+            if ((this.iconClass === "dijitNoIcon") || (!this.iconClass)) {
+              //this.iconNode.innerHTML = "new_releases";  //4DebuggingPurps
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUndo") {
+              this.iconNode.innerHTML = "undo";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconRedo") {
+              this.iconNode.innerHTML = "redo";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCut") {
+              this.iconNode.innerHTML = "content_cut";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCopy") {
+              this.iconNode.innerHTML = "content_copy";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconPaste") {
+              this.iconNode.innerHTML = "content_paste";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconBold") {
+              this.iconNode.innerHTML = "format_bold";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconItalic") {
+              this.iconNode.innerHTML = "format_italic";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUnderline") {
+              this.iconNode.innerHTML = "format_underlined";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconStrikethrough") {
+              this.iconNode.innerHTML = "format_strikethrough";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertOrderedList") {
+              this.iconNode.innerHTML = "format_list_numbered";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertUnorderedList") {
+              this.iconNode.innerHTML = "format_list_bulleted";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconIndent") {
+              this.iconNode.innerHTML = "format_indent_increase";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconOutdent") {
+              this.iconNode.innerHTML = "format_indent_decrease";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyLeft") {
+              this.iconNode.innerHTML = "format_align_left";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyRight") {
+              this.iconNode.innerHTML = "format_align_right";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyCenter") {
+              this.iconNode.innerHTML = "format_align_center";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconJustifyFull") {
+              this.iconNode.innerHTML = "format_align_justify";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconSubscript") {
+              this.iconNode.innerHTML = "subscript";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconSuperscript") {
+              this.iconNode.innerHTML = "supercript";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconViewSource") {
+              this.iconNode.innerHTML = "code";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconCreateLink") {
+              this.iconNode.innerHTML = "add_link";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconUnlink") {
+              this.iconNode.innerHTML = "link_off";
+            } else if (this.iconClass === "dijitEditorIcon dijitEditorIconInsertImage") {
+              this.iconNode.innerHTML = "image";
+            } else {
+              console.log("unlisted icon found - " + this.iconClass);
+              this.iconNode.innerHTML = "indeterminate_question_box";
+            };
+            /*
+tmp.html:40 - dijitEditorIcon dijitEditorIconFullScreen
+            */
+            //fall-through for toggleBtns
+            let toggleNd = this.iconNode;
+            if (domClass.contains(toggleNd, "dijitCheckBoxIcon")){
+                if(this.checked){
+                    this.iconNode.innerHTML = "toggle_on";
+                } else {
+		    //this doesn't fire here (coz this is postCreate) chk where it does & update that snippet
+                    //will poss need to extend toggleBtn
+                    this.iconNode.innerHTML = "toggle_off";
+                }
+            }
+         }
+      });
+	  })
+
+</script>
+
+<!--script>
+define(["dojo/_base/lang", "dojox/form/Manager", "dojo/dom", 
+        "dojo/dom-class", "dojo/domReady!"], function(lang, frmManager, dom, domClass){
+
+     var mFrm = 
+      lang.extend(frmManager, {
+         isPriorVer: false,
+	 initVals: [],
+	 deltaVals: [],
+	 mShowVals: function(value,name){
+		 console.log('>>>>>>>in window.mShowVals...')
+		if(name){
+			// first time this method is called with no parameters
+			// show the name and the value otherwise
+			console.log("window.mShowVals observer >> name = ", name, " value = ", value);
+		//@ToDo: if val.HasChanged & !deltaVals.contains(name); deltaVals.push(name, newVal)
+		//@Chk: this shd now be unnecc.
+		//var values = this.gatherFormValues();
+		//console.log("showValues observer >>values\n" + JSON.stringify(values));
+                };
+	 },
+         postMixInProperties: function(evt){
+                        alert("'in mFrmManager postMixInProperties...'");
+                        //evt.stopPropagation();
+			if (this.isPriorVer) {
+			    this.disable();
+			} else {
+			    alert('alt');
+			};
+         }
+      });
+      return mFrm;
+})
+</script-->
+
+
+<script>
+require(["dojox/form/Manager", "dijit/Toolbar", "dijit/form/Button", "dijit/form/RadioButton", 
+	"dijit/form/TextBox", "dijit/form/ComboBox", "dijit/Dialog", 
+	"dijit/form/SimpleTextarea", "dijit/form/Select", 
+	"dijit/layout/BorderContainer", "dijit/layout/ContentPane", 
+	"dojo/dom", "dojo/on", "dojo/dom-attr", "dojo/dom-construct", "dojo/parser", "dojo/domReady!"], 
+	function(Manager, Toolbar, Button, RadioButton, TextBox, ComboBox, Dialog, SimpleTextarea, Select,
+		BorderContainer, ContentPane, dom, on, domAttr, domConstr, parser){
+
+		//'coz dojo-method throws on domConstr nded 4 clear()
+		window.clrTbl = (n) => {
+		   domConstr.empty(n);
+		};
+
+		window.mShowVals = (value,name) => {
+			 console.log('>>>>>>>in window.mShowVals...')
+ 			if(name){
+				// first time this method is called with no parameters
+				// show the name and the value otherwise
+				console.log("window.mShowVals observer >> name = ", name, " value = ", value);
+			};
+		};
+
+    let twoC = dom.byId('twoColContents').innerHTML;
+    var frmDlg = new Dialog({
+                title: "Frm...",
+                id: "frmDlg",
+                content: twoC,
+                style: "height:90%;width:90%;"
+    });
+		window.twoCol = () => {
+			frmDlg.show();
+		}
+		window.threeCol = () => {
+			alert('tibbie');
+			/*
+			frmDlg.set("content", twoC);
+			parser.parse();
+			frmDlg.show();
+			*/
+		}
+		window.pvTrigger = () => {
+			let ty = typeof (window.getPvDlg);
+			alert("typeof win.pvdlg: " + ty);
+			let res = JSON.stringify(window.get_PVs_forID("mockID"));
+			alert("pvTrigger: getPVs returned:\n" + res);
+			(window.getPvDlg(res)).show();
+		};
+
+	});
+</script>
+
+</head>
+<body class="claro">
+
+<div data-dojo-type="dijit/form/Button" id="2ColBtn"
+            data-dojo-props="onClick:'window.twoCol();'"><span style='color:DarkRed;' class="material-symbols-outlined">
+terminal</span>2 Col layout</div></div>
+&nbsp;&nbsp;&nbsp;
+<div data-dojo-type="dijit/form/Button" id="3ColBtn"
+            data-dojo-props="onClick:'window.threeCol();'"><span style='color:DarkRed;' class="material-symbols-outlined">
+terminal</span>3 Col layout</div></div>
+
+<div id="twoColContents" style="display:anone;">
+
+    <div id="frmTB" data-dojo-type="dijit/Toolbar"
+        ><div data-dojo-type="dijit/form/Button" id="frmTBedit"
+            data-dojo-props="showLabel:true"><span style='color:DarkRed;' class="material-symbols-outlined">
+edit_note</span>Edit</div
+        ><div data-dojo-type="dijit/form/Button" id="frmTBsave"
+            data-dojo-props="showLabel:true">Save</div
+        ><span data-dojo-type="dijit/ToolbarSeparator"></span
+        ><div data-dojo-type="dijit/form/Button" id="frmTBpv"
+            data-dojo-props="showLabel:true, onClick:'window.pvTrigger()'"><span style='color:DarkRed;' class="material-symbols-outlined">
+history</span>Prior Versions</div></div>
+
+
+	<div dojoType="dijit/layout/BorderContainer" design="sidebar" gutters="false" liveSplitters="false" style="height: 50em;">
+		<div dojoType="dijit/layout/ContentPane" region="center" splitter="false" style="width: 100%;">
+		<br>
+		<div style='text-align:center;'><h3>Test TaskList Form</h3></div>
+		<br>
+			<form class="brijFrm" dojoType="dojox/form/Manager" id="form">
+			<table>
+          <tr>
+            <td><label for="titleFld">Title:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="titleFld" name="titleFld" value="A sample item with sample text" observer="showValues" >
+						</td>
+						<td><input class="dojoFormValue" type="checkbox" dojoType="dijit/form/CheckBox" id="FlagFld" name="FlagFld" value=false data-dojo-observer="window.mShowVals();">
+						<label for="FlagFld">Flag</label>
+						</td>
+          </tr>
+          <tr>
+            <td><label for="projectFld">Project:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="projectFld" name="projectFld" value="Project Nm" observer="showValues" >
+						</td>
+            <td><label for="parentFld">Parent:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="parentFld" name="parentFld" value="Parent Project Nm" observer="showValues" >
+						</td>
+          </tr>
+          <tr>
+            <td><label for="moduleFld">Module:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="moduleFld" name="moduleFld" value="Module Nm" observer="showValues" >
+						</td>
+            <td><label for="submoduleFld">SubModule:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="submoduleFld" name="submoduleFld" value="SubModule Nm" observer="showValues" >
+						</td>
+          </tr>
+          <tr>
+						<td class='infoBox cellWid' colspan='2'><span>Note: For Importance/Urgency values, 0 to 5 is Low, 5 to 9 is High</span></td>
+					</tr>
+					<tr>
+            <td>
+						<label for="impSlider">Importance:</label>
+					<input class="cellWid dojoFormValue" type="text" id="impValue" data-dojo-props="disabled:true, style:'width:50px;'" value="0" data-dojo-type="dijit/form/TextBox" />
+						<div id="impSlider"
+						  class="cellWid dojoFormValue" 
+							style="width:300px;"
+							name="impSlider"
+							data-dojo-type="dijit/form/HorizontalSlider"
+							data-dojo-props="value:0,
+							minimum: 0,
+							maximum:9,
+							discreteValues:10,
+							intermediateChanges:true,
+							showButtons:true,
+							onChange: function(value){
+            		dom.byId('impValue').value = value;
+        			}">
+							<div data-dojo-type="dijit/form/HorizontalRule" container="bottomDecoration"
+									count=11 style="height:5px;"></div>
+							<ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="bottomDecoration"
+									style="height:1em;font-size:75%;color:gray;">
+									<li>0</li>
+									<li>5</li>
+									<li>9</li>
+							</ol>
+					</div>
+					</td>
+            <td>
+						<label for="urgSlider">Urgency:</label>
+					<input class="cellWid dojoFormValue" type="text" id="urgValue" data-dojo-props="disabled:true, style:'width:50px;'" value='5' data-dojo-type="dijit/form/TextBox" />
+						<div id="urgSlider"
+						  class="cellWid dojoFormValue" 
+							style="width:300px;"
+							name="urgSlider"
+							data-dojo-type="dijit/form/HorizontalSlider"
+							data-dojo-props="value:0,
+							minimum: 0,
+							maximum:9,
+							discreteValues:10,
+							intermediateChanges:true,
+							showButtons:true,
+							onChange: function(value){
+            		(dom.byId('urgValue')).value = value;
+        			}">
+							<div data-dojo-type="dijit/form/HorizontalRule" container="bottomDecoration"
+									count=11 style="height:5px;"></div>
+							<ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="bottomDecoration"
+									style="height:1em;font-size:75%;color:gray;">
+									<li>0</li>
+									<li>5</li>
+									<li>9</li>
+							</ol>
+					</div>
+
+					</td>
+          </tr>
+          <tr>
+            <td><label for="completedOn">CompletedOn:</label>
+						<input class="cellWid dojoFormValue" type="text" name="completedOn" id="completedOn" value=""
+							data-dojo-type="dijit/form/DateTextBox"
+							required="true" observer="showValues" />
+            </td>
+            <td><label for="docLinksFld">DocLinks:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="docLinksFld" name="docLinksFld" value="docLinks docLinks" observer="showValues" >
+						</td>
+          </tr>
+					<tr>
+            <td><label for="objFld">Objective:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="objFld" name="objFld" value="Objectif" observer="showValues" >
+						</td>
+            <td><label for="objFld">Tags:</label>
+              <input class="cellWid dojoFormValue" type="text" dojoType="dijit/form/TextBox" id="tagsFld" name="tagsFld" value="tag1 tag2" observer="showValues" >
+						</td>
+          </tr>
+          <tr>
+						<td colspan='2'>
+					<label for="ContentFld">Content:</label><br>
+					<textarea class="cellWid dojoFormValue" dojoType="dijit/form/SimpleTextarea" id="ContentFld" name="ContentFld" observer="showValues"
+						rows="3" cols="15" style="width: 100%;" >Content</textarea>
+							</td>
+          </tr>
+					<tr>
+						<td>
+					<hr>
+					<br>Non-incl widgets ->	<br>
+					<hr>
+					</td>
+					</tr>
+					<tr><td>
+							<input class="cellWid dojoFormValue" type="radio" data-dojo-type="dijit/form/RadioButton" name="drink" id="radioOne" checked value="tea"/>
+							<label for="radioOne">Tea</label> <br />
+							<input class="cellWid dojoFormValue" type="radio" data-dojo-type="dijit/form/RadioButton" name="drink" id="radioTwo" value="coffee"/>
+							<label for="radioTwo">Coffee</label>
+					</td>
+					<td>
+							<label for="income1">U.S. Dollars:</label>
+							<input class="cellWid dojoFormValue" type="text" name="income1" id="income1" value="54775.53" required="true"
+									data-dojo-type="dijit/form/CurrencyTextBox"
+									data-dojo-props="constraints:{fractional:true},
+									currency:'USD',
+									invalidMessage:'Invalid amount. Cents are required.'" />
+					</td></tr>
+					<tr><td>
+						<label for="time1">Time of Arrival:</label>
+						<input class="cellWid dojoFormValue" type="text" name="time1" id="time1" value="T15:00:00"
+								data-dojo-type="dijit/form/TimeTextBox"
+								onChange="require(['dojo/dom'], function(dom){dom.byId('val').value=dom.byId('time1').value.toString().replace(/.*1970\s(\S+).*/,'T$1')})"
+								required="true" />
+						</td><td>(DoWeNdThis???)Time strVal: <input id="val" value="value not changed" readonly="readonly" disabled="disabled" />
+					</td></tr>
+			  	<tr><td>
+						<label for="state">State:</label>
+						<div data-dojo-type="dojo/store/Memory"
+								data-dojo-id="stateStore"
+								data-dojo-props="data: [
+										{name:'Alabama', id:'AL'},
+										{name:'Alaska', id:'AK'},
+										{name:'American Samoa', id:'AS'},
+										{name:'Arizona', id:'AZ'},
+										{name:'Arkansas', id:'AR'},
+										{name:'Armed Forces Europe', id:'AE'},
+										{name:'Armed Forces Pacific', id:'AP'},
+										{name:'Armed Forces the Americas', id:'AA'},
+										{name:'California', id:'CA'},
+										{name:'Colorado', id:'CO'},
+										{name:'Connecticut', id:'CT'},
+										{name:'Delaware', id:'DE'}
+								]"></div>
+						<input class="cellWid dojoFormValue" 
+						    data-dojo-type="dijit/form/ComboBox"
+								value="Arizona"
+								data-dojo-props="store:stateStore, searchAttr:'name'"
+								name="state"
+								id="stateInput" />
+					</td></tr>
+					<tr><td>
+						<label for="rtEd">Rich Contents:</label>
+<div class="dojoFormValue" data-dojo-type="dijit/Editor" name="rtEd" id="editor1" data-dojo-props="onChange:function(){console.log('editor1 onChange handler: ' + arguments[0])}, 
+		plugins: ['subscript', 'superscript', 'viewsource', {name:'fullscreen', zIndex:900}, 'createLink', 'unlink', 'insertImage', /*'fontName',*/ 'fontSize', 'formatBlock']">
+    <p>This instance is created from a div directly with default toolbar and plugins</p>
+</div>
+					</td></tr>
+<tr>
+
+				</table>
+
+				<script type="dojo/method" data-dojo-event="onSubmit">
+					// do not submit this form
+					console.log("onSubmit!");
+					return false;
+				</script>
+				<script type="dojo/method" data-dojo-event="showValues" data-dojo-args="value,name">
+					window.mShowVals(value, name);
+/*
+					if(name){
+						// first time this method is called with no parameters
+						// show the name and the value otherwise
+						console.log("showValues observer >> name = ", name, " value = ", value);
+					}
+					var values = this.gatherFormValues(), 
+              table = dijit.byId("table"), 
+              names = [];
+					console.log("showValues observer >>values\n" + JSON.stringify(values));
+*/
+/*
+					//@FixMe: this throws an err in eval
+					// clear the table
+					//window.clrTbl(table);
+					table.innerHTML = "";
+					//while(table.lastChild){
+					//	dojo.destroy(table.lastChild);
+					//}
+					// show gathered values
+					for(var name in values){
+						if(values.hasOwnProperty(name)){
+							names.push(name);
+						}
+					}
+					names.sort();
+					dojo.forEach(names, function(name){
+						var tr  = dojo.doc.createElement("tr"),
+							tdn = dojo.doc.createElement("td"),
+							tdv = dojo.doc.createElement("td");
+						tdn.innerHTML = name;
+						tdv.innerHTML = "" + values[name];
+						if(this._oldValues && this._oldValues[name] != values[name]){
+							dojo.addClass(tr, "hilite");
+						}
+						tr.appendChild(tdn);
+						tr.appendChild(tdv);
+						table.appendChild(tr);
+					}, this);
+					this._oldValues = values;
+*/
+				</script>
+			</form>
+		</div>
+	</div>
+
+
+	<!--p>
+		<input type="checkbox" id="c01" name="c01" value="c01" checked="checked"
+			onclick="dijit.byId('form')[this.checked ? 'enable' : 'disable']()">
+		&nbsp;<label for="c01">enable the form elements and widgets</label>
+		<br>
+		<input type="checkbox" id="c02" name="c02" value="c02"
+			onclick="dijit.byId('form')[this.checked ? 'addClass' : 'removeClass']('makeYellow', ['part1', 'part2'])">
+		&nbsp;<label for="c02">add/remove yellow background</label>
+		<br>
+		<input type="checkbox" id="c04" name="c04" value="c04" checked="checked"
+			onclick="dijit.byId('form')[this.checked ? 'show' : 'hide'](['part2'])">
+		&nbsp;<label for="c04">show form widgets</label>
+	</p-->
+</div><!--twoColContents-->
+</body>
+</html>
