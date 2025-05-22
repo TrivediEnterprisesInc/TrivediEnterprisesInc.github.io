@@ -1,0 +1,551 @@
+﻿unid,crDt,modDt,title,cont,tags,flag,track,sales,price,cover,subgenre,rating,datePurch,length
+30579771^SongTbl,07/26/2008,03/22/2024,Bohemian Rhapsody,Imagine there's no heaven,john paul metal classic rock,False,4,54.7873893138727,4.0392028730741,,Folk,2,12/24/1981 02:15:00 AM,13:09:47
+57277543^SongTbl,02/17/1981,05/08/1999,Hotel California,Imagine there's no heaven,john paul classic rock,True,6,55.4998870974836,1.11054434936783,,Metal,2,04/16/2004 04:14:00 AM,14:45:22
+65821886^SongTbl,05/13/1985,09/08/1994,Let It Be,Hey Jude, don't make it bad,john paul classic rock,True,2,115.013616422537,3.16171936374325,,Classic Rock,2,10/20/2011 07:50:00 PM,05:59:42
+73455857^SongTbl,09/17/1995,04/17/1971,Let It Be,I want to hold your hand,pop metal,False,14,346.421574040479,2.33940493760018,,Other,5,07/09/1977 01:23:00 PM,02:06:18
+63726041^SongTbl,06/19/2018,06/03/2002,Let It Be,Hey Jude, don't make it bad,classic rock,False,11,422.690116873139,1.97729206726273,,Other,1,04/30/2014 02:43:00 PM,21:34:33
+89563487^SongTbl,09/02/2003,04/26/2006,Bohemian Rhapsody,Imagine there's no heaven,rock beatles,True,11,255.977440023941,3.06565460217187,,Metal,3,12/09/1997 07:44:00 PM,06:48:50
+67081056^SongTbl,03/18/2005,07/25/1996,Hotel California,Hey Jude, don't make it bad,rock,True,8,476.943485877796,1.47084861444195,,Metal,2,04/13/1996 05:15:00 AM,04:09:08
+40564816^SongTbl,10/04/1984,11/17/1994,Stairway to Heaven,Imagine there's no heaven,pop,False,11,472.592352633848,1.4052225161841,,Classic Rock,3,09/28/2017 04:00:00 AM,09:39:26
+26977704^SongTbl,04/07/2005,03/10/1999,Bohemian Rhapsody,Imagine there's no heaven,rock,True,5,236.316116253512,2.60449583726577,,Pop,1,11/02/1993 02:30:00 PM,18:06:48
+66652859^SongTbl,09/29/1994,07/10/1990,Hotel California,Imagine there's no heaven,pop,False,1,212.485533149079,2.00874278043418,,Folk,5,07/10/1986 01:37:00 AM,08:09:42
+87376417^SongTbl,09/06/1978,02/17/1988,Imagine,Imagine there's no heaven,classic rock pop,False,7,125.960327159471,2.63928168394118,,Other,1,04/16/2002 12:50:00 AM,20:58:30
+60310102^SongTbl,10/21/1986,09/18/1997,Imagine,We will, we will rock you,beatles pop,True,12,244.641850532478,4.27208855977771,,Other,4,05/19/2021 03:44:00 PM,06:57:53
+32505121^SongTbl,12/11/1972,02/11/1993,Bohemian Rhapsody,Hey Jude, don't make it bad,beatles pop,False,15,87.9170080062318,1.23342832781816,,Pop,4,06/23/2009 02:00:00 PM,14:02:59
+45162038^SongTbl,12/31/2024,03/31/2019,Let It Be,I want to hold your hand,pop hard rock,True,11,225.217209507908,3.07173102769294,,Classic Rock,1,04/03/2011 04:19:00 AM,22:07:42
+24061651^SongTbl,07/24/1995,09/10/1985,Hotel California,Hey Jude, don't make it bad,john paul,True,13,57.0956956965952,1.34561826152905,,Other,2,07/27/2024 07:57:00 AM,09:46:03
+81739296^SongTbl,03/27/1998,07/19/1980,Bohemian Rhapsody,Imagine there's no heaven,rock beatles john paul,False,15,484.01543618381,1.38098678766512,,Metal,5,10/24/1982 06:34:00 AM,14:14:18
+31936398^SongTbl,05/14/2002,12/15/1971,Hotel California,Imagine there's no heaven,beatles rock john paul,False,10,393.717185344259,1.91187833574995,,Classic Rock,1,06/17/1982 04:36:00 AM,23:06:43
+36275101^SongTbl,10/31/2019,01/04/2010,Imagine,I want to hold your hand,classic rock beatles,False,5,387.47585504158,0.99634288941218,,Pop,5,09/24/2024 01:16:00 AM,11:37:32
+20677852^SongTbl,04/29/1988,11/19/2018,Hey Jude,Hey Jude, don't make it bad,john paul,False,13,205.632981908547,1.98948627966471,,Hard Rock,3,11/29/2000 08:14:00 AM,03:07:37
+12167112^SongTbl,12/02/2014,09/18/1988,Hey Jude,Imagine there's no heaven,rock classic rock pop,True,1,355.566171285666,1.23401609725293,,Other,4,04/16/2012 04:52:00 PM,07:46:10
+80913592^SongTbl,04/15/2023,01/24/1982,Smells Like Teen Spirit,We will, we will rock you,beatles,False,10,408.381002267895,4.15265759285605,,Metal,3,12/16/2013 04:55:00 AM,04:48:53
+96955249^SongTbl,12/14/2019,06/22/2024,Imagine,We will, we will rock you,john paul metal pop,True,10,92.5234022960878,3.01179709269352,,Pop,2,01/28/1973 12:40:00 AM,06:45:15
+37537344^SongTbl,09/18/1974,05/25/1970,Smells Like Teen Spirit,We will, we will rock you,rock,False,8,410.812880972664,2.10169426077971,,Hard Rock,1,06/26/2015 02:18:00 AM,07:22:38
+21700041^SongTbl,05/04/2008,04/06/2016,Bohemian Rhapsody,Imagine there's no heaven,rock john paul metal,True,8,293.529503816847,3.60680894906979,,Pop,5,08/03/1976 06:53:00 PM,01:08:30
+22135464^SongTbl,10/18/2003,10/10/1994,Hey Jude,We will, we will rock you,classic rock beatles metal,False,11,248.940601332154,2.1099488979884,,Other,4,12/28/2007 11:00:00 AM,13:48:15
+73228479^SongTbl,01/11/2005,09/17/2000,Let It Be,We will, we will rock you,beatles john paul pop,True,1,7.81179122527267,2.32500745138998,,Classic Rock,5,06/09/2000 02:04:00 AM,07:17:35
+16624125^SongTbl,07/29/1993,10/17/2012,Bohemian Rhapsody,Hey Jude, don't make it bad,metal beatles classic rock,True,14,464.82241442988,3.46210773509589,,Hard Rock,2,12/24/1981 08:28:00 PM,22:36:23
+95648875^SongTbl,04/10/1995,03/24/2011,Let It Be,Imagine there's no heaven,beatles pop metal,True,6,482.068150486474,2.99199269558722,,Metal,4,12/09/1992 08:05:00 AM,01:49:42
+47525481^SongTbl,02/24/1997,09/09/1979,Let It Be,I want to hold your hand,rock,True,5,145.642537539101,2.57902133242754,,Other,3,01/19/1976 02:46:00 AM,16:13:04
+97411897^SongTbl,06/22/2023,03/30/1993,Let It Be,We will, we will rock you,rock,False,13,345.792804872469,4.03934285044981,,Pop,2,09/21/1994 02:12:00 PM,02:36:20
+40144539^SongTbl,08/31/1971,12/27/1982,Bohemian Rhapsody,We will, we will rock you,pop hard rock,False,1,213.634406378079,4.33380533853322,,Metal,4,10/16/1980 07:16:00 AM,18:39:18
+17160586^SongTbl,01/02/2013,03/04/2004,Smells Like Teen Spirit,Imagine there's no heaven,pop beatles,True,3,51.3368756629767,2.37445023169677,,Classic Rock,1,06/29/2021 07:40:00 AM,21:40:08
+68649569^SongTbl,12/26/2008,08/31/1996,Hey Jude,Hey Jude, don't make it bad,john paul rock,True,12,309.100635258538,2.40998390119797,,Classic Rock,4,10/15/2024 06:33:00 AM,09:08:18
+11905940^SongTbl,12/24/2018,10/30/2022,Hotel California,Imagine there's no heaven,john paul,False,15,361.594710434729,2.21372495841327,,Hard Rock,4,10/18/2013 04:42:00 PM,02:33:39
+65304362^SongTbl,08/10/1998,01/22/2013,Stairway to Heaven,Hey Jude, don't make it bad,metal rock,True,14,285.093925546608,4.13874739236974,,Hard Rock,2,05/28/1995 09:12:00 PM,13:11:27
+45458267^SongTbl,04/18/1988,11/06/1997,Imagine,I want to hold your hand,hard rock,False,3,480.363780309151,2.89260039939756,,Pop,3,04/11/1984 02:28:00 PM,20:46:45
+67468957^SongTbl,08/25/1989,06/13/1989,Hey Jude,I want to hold your hand,john paul beatles rock,True,7,444.282177425166,1.062352198709,,Pop,1,11/02/2010 06:23:00 PM,05:31:48
+92491618^SongTbl,01/26/1980,03/10/2025,Hotel California,I want to hold your hand,classic rock beatles rock,False,1,450.645193379766,1.14818271460004,,Other,1,02/05/1981 11:05:00 AM,01:20:54
+84713003^SongTbl,07/05/2003,06/11/1978,Bohemian Rhapsody,Hey Jude, don't make it bad,metal beatles classic rock,True,5,199.420909439985,3.51299391069036,,Classic Rock,3,07/24/2015 02:37:00 PM,08:05:12
+55365564^SongTbl,12/26/1994,01/19/2006,Stairway to Heaven,Imagine there's no heaven,pop classic rock,False,10,227.196701654477,1.78537734233269,,Pop,4,12/04/1995 03:09:00 PM,11:10:41
+44203764^SongTbl,03/10/1984,06/09/2024,Stairway to Heaven,I want to hold your hand,beatles,True,5,54.7036002892738,4.14249279734051,,Pop,4,02/06/2002 03:09:00 PM,02:52:34
+59022539^SongTbl,06/26/2002,11/02/2007,Hotel California,We will, we will rock you,beatles hard rock metal,True,5,118.154996860752,3.73161854393367,,Pop,3,01/10/2000 02:55:00 AM,13:56:14
+40603094^SongTbl,04/26/1996,09/07/1989,Hotel California,Hey Jude, don't make it bad,hard rock metal john paul,False,11,443.809008367156,1.90602750642224,,Classic Rock,2,01/27/1994 07:18:00 PM,05:02:54
+37949269^SongTbl,09/07/2007,05/19/1982,Hotel California,Imagine there's no heaven,beatles,True,12,219.213513431479,3.16114974437215,,Other,5,01/25/1973 10:01:00 AM,22:17:43
+28899111^SongTbl,09/15/2014,12/12/2016,Let It Be,We will, we will rock you,hard rock rock,True,8,440.2610697803,4.70712564962778,,Classic Rock,2,08/23/1974 10:19:00 AM,03:36:00
+77223957^SongTbl,03/15/1975,12/29/1977,Smells Like Teen Spirit,Imagine there's no heaven,beatles classic rock,False,7,238.076874257752,3.75047235356051,,Metal,1,05/10/2025 04:11:00 PM,13:17:44
+52549764^SongTbl,11/29/1990,03/12/2006,Smells Like Teen Spirit,Imagine there's no heaven,pop hard rock classic rock,True,14,145.057049956361,2.32726977033824,,Folk,5,12/10/2008 05:21:00 PM,17:43:21
+19318785^SongTbl,02/03/1990,05/03/2020,Hotel California,I want to hold your hand,beatles classic rock,False,11,466.832790772399,4.98742632845948,,Pop,5,04/24/1994 07:54:00 PM,17:56:44
+81117453^SongTbl,04/16/2003,10/21/1975,Hotel California,I want to hold your hand,beatles hard rock,False,11,264.691189011925,1.80161600268944,,Hard Rock,3,11/06/1991 06:57:00 PM,09:30:00
+20922813^SongTbl,04/07/2008,02/07/2024,Imagine,Imagine there's no heaven,john paul beatles,True,2,180.219307652465,3.97868748692567,,Hard Rock,5,03/15/2019 12:04:00 PM,00:13:16
+66779595^SongTbl,03/02/2006,09/25/1999,Bohemian Rhapsody,I want to hold your hand,beatles pop,True,15,313.60950412506,4.4476335360911,,Hard Rock,5,03/05/1970 11:48:00 PM,14:00:48
+17234906^SongTbl,04/19/1976,02/13/1994,Let It Be,Imagine there's no heaven,beatles john paul,True,5,100.300336113864,3.49832472752247,,Other,4,11/09/2006 09:08:00 AM,00:51:54
+90621514^SongTbl,09/02/1975,04/02/1984,Hotel California,I want to hold your hand,metal beatles rock,True,11,66.8202143428304,4.68000742322539,,Metal,3,07/05/1992 10:31:00 PM,22:38:22
+60771566^SongTbl,05/28/1982,05/14/2006,Bohemian Rhapsody,Hey Jude, don't make it bad,rock classic rock john paul,False,2,406.186484460375,4.85617509252249,,Folk,2,02/18/1983 01:50:00 PM,17:07:30
+66889609^SongTbl,03/14/1974,09/26/1971,Hotel California,Hey Jude, don't make it bad,pop hard rock,False,6,125.645286281767,2.13911342172356,,Pop,4,05/30/1986 04:03:00 AM,22:06:48
+30616616^SongTbl,08/15/2010,12/16/1984,Hotel California,We will, we will rock you,metal john paul beatles,True,2,480.254545311055,4.0232401323545,,Pop,3,10/28/2016 04:24:00 AM,19:25:46
+69129281^SongTbl,02/13/2018,05/31/2020,Hotel California,We will, we will rock you,beatles metal,True,5,171.789643723223,4.23433120212691,,Metal,1,11/11/1988 04:16:00 AM,12:33:13
+47830645^SongTbl,08/29/2008,06/17/1982,Bohemian Rhapsody,We will, we will rock you,hard rock,False,10,432.877982659463,3.16039571320309,,Classic Rock,3,08/18/2007 12:52:00 AM,16:56:05
+84186651^SongTbl,03/26/2020,06/05/2012,Smells Like Teen Spirit,I want to hold your hand,john paul,False,11,12.830560909273,4.92119872621687,,Hard Rock,3,10/31/1990 10:38:00 AM,15:53:47
+11960235^SongTbl,09/10/2002,10/18/2020,Smells Like Teen Spirit,Imagine there's no heaven,hard rock metal beatles,False,14,15.2181559829496,1.77237267847283,,Classic Rock,2,05/01/1982 04:56:00 AM,14:26:19
+82701857^SongTbl,02/07/2015,07/25/2015,Stairway to Heaven,We will, we will rock you,hard rock pop rock,True,11,343.875398651048,3.92549386621793,,Classic Rock,1,12/01/1982 08:42:00 PM,21:54:13
+28953845^SongTbl,06/02/2005,04/23/2017,Stairway to Heaven,Hey Jude, don't make it bad,classic rock,False,9,165.615430596692,4.9613805686215,,Classic Rock,3,06/02/2018 09:52:00 PM,22:39:34
+14133161^SongTbl,08/10/2014,08/07/2013,Bohemian Rhapsody,I want to hold your hand,rock,True,13,355.226904623294,4.39196782608518,,Classic Rock,5,03/20/1972 02:42:00 AM,20:15:18
+10804299^SongTbl,01/11/1997,04/02/2015,Stairway to Heaven,I want to hold your hand,rock john paul,False,8,315.960526596044,2.23196953624708,,Hard Rock,5,01/28/2006 08:42:00 AM,07:43:47
+95455788^SongTbl,10/21/2014,07/17/1989,Let It Be,Hey Jude, don't make it bad,rock metal pop,False,2,190.542858796446,1.70545912714166,,Metal,1,06/29/1975 11:22:00 PM,12:48:02
+73944705^SongTbl,09/22/2013,05/03/2009,Bohemian Rhapsody,I want to hold your hand,beatles hard rock classic rock,True,4,217.212465538178,1.69989679094187,,Metal,5,08/23/1998 12:12:00 PM,09:04:15
+40497428^SongTbl,05/15/1981,08/27/2003,Hey Jude,I want to hold your hand,beatles,True,11,381.353622524982,3.61228331265359,,Folk,2,03/29/1991 10:10:00 PM,19:15:05
+82387808^SongTbl,12/08/1982,06/16/2023,Hotel California,We will, we will rock you,pop,True,5,325.982052782613,2.52429338787983,,Classic Rock,2,05/30/1970 11:25:00 PM,04:34:01
+43798562^SongTbl,01/02/1983,05/21/2006,Smells Like Teen Spirit,Hey Jude, don't make it bad,beatles metal,False,8,437.120760579816,3.1504488234119,,Classic Rock,3,07/10/2018 11:06:00 AM,11:23:56
+82661486^SongTbl,05/12/1994,06/07/2017,Bohemian Rhapsody,We will, we will rock you,john paul beatles,False,13,27.153302744373,2.81018374438074,,Hard Rock,5,05/22/2015 12:32:00 PM,14:24:04
+26120994^SongTbl,03/19/2022,12/26/2015,Hey Jude,I want to hold your hand,metal classic rock,False,6,157.41358891366,1.98115747118037,,Pop,1,01/17/1979 03:48:00 PM,10:59:56
+65424970^SongTbl,02/06/1977,12/27/1990,Smells Like Teen Spirit,Hey Jude, don't make it bad,classic rock rock john paul,False,3,447.308028546883,4.48108727536025,,Pop,3,09/30/2015 03:10:00 PM,03:23:44
+83479697^SongTbl,03/19/1981,09/01/1971,Imagine,Imagine there's no heaven,hard rock pop,False,2,114.915733342107,3.25363078008525,,Other,4,05/01/2001 01:07:00 PM,04:45:58
+21229075^SongTbl,07/25/2024,09/19/1971,Imagine,I want to hold your hand,hard rock beatles,True,4,343.117841722327,2.06134502249361,,Hard Rock,1,03/03/2025 08:55:00 AM,17:36:55
+62211991^SongTbl,12/12/2007,02/02/2001,Stairway to Heaven,We will, we will rock you,rock metal pop,False,3,8.6959226832281,3.75691636359079,,Classic Rock,5,09/03/1993 12:47:00 AM,04:07:42
+93001972^SongTbl,04/30/1988,06/26/2016,Bohemian Rhapsody,Imagine there's no heaven,beatles metal,True,8,355.16591386312,1.15440159668874,,Other,5,06/08/1995 04:44:00 PM,02:47:17
+44632792^SongTbl,06/17/1984,08/28/1999,Bohemian Rhapsody,Imagine there's no heaven,hard rock,False,8,402.072014304534,3.00641711682126,,Hard Rock,4,07/15/1997 03:35:00 AM,23:21:25
+62403442^SongTbl,11/07/1976,10/11/1978,Bohemian Rhapsody,Imagine there's no heaven,beatles pop rock,True,11,226.955103553406,2.94024945528983,,Metal,4,09/10/2024 02:58:00 PM,05:31:38
+94729567^SongTbl,02/27/2021,02/25/1972,Stairway to Heaven,Hey Jude, don't make it bad,classic rock pop,True,9,475.294230428877,4.60060563243143,,Metal,4,06/10/1999 06:45:00 AM,15:55:15
+29866298^SongTbl,09/04/2007,11/20/1980,Imagine,We will, we will rock you,hard rock,False,12,181.302197376859,2.35307008782576,,Hard Rock,5,09/03/1970 04:22:00 PM,19:53:03
+46496716^SongTbl,05/05/1992,07/08/1991,Stairway to Heaven,I want to hold your hand,john paul classic rock,True,6,57.8006880947578,1.74648478330022,,Pop,3,10/30/1999 06:45:00 PM,18:13:49
+40718788^SongTbl,05/05/2019,05/14/2002,Bohemian Rhapsody,Hey Jude, don't make it bad,john paul,False,11,180.53548205234,4.53173568031425,,Other,1,11/04/1993 08:00:00 AM,09:41:59
+78799789^SongTbl,09/20/2019,10/02/2014,Smells Like Teen Spirit,Imagine there's no heaven,rock john paul metal,True,9,85.1720010306092,2.81422674717212,,Metal,4,12/20/2015 03:53:00 PM,00:15:21
+48021515^SongTbl,05/11/2025,08/29/1989,Smells Like Teen Spirit,We will, we will rock you,hard rock pop classic rock,True,15,211.845449526189,2.39008599556485,,Pop,3,01/07/2015 04:17:00 PM,06:40:17
+90456438^SongTbl,04/22/2019,04/22/2006,Bohemian Rhapsody,Hey Jude, don't make it bad,hard rock metal rock,True,5,41.4715423165318,1.66264816049098,,Folk,4,01/08/2002 04:40:00 PM,23:33:03
+90168565^SongTbl,11/10/2015,01/04/2007,Bohemian Rhapsody,Hey Jude, don't make it bad,classic rock john paul rock,True,15,63.0134745240036,1.24051110928493,,Classic Rock,3,06/20/2024 12:13:00 PM,06:24:46
+47693055^SongTbl,02/01/1985,07/05/1983,Hotel California,Imagine there's no heaven,rock classic rock hard rock,False,10,100.793483025244,3.21673941040105,,Pop,3,10/11/1991 09:53:00 AM,06:47:36
+91450949^SongTbl,08/14/2007,04/25/2000,Hey Jude,We will, we will rock you,rock classic rock,True,6,349.521068607982,3.68114085436253,,Classic Rock,1,12/22/1979 05:16:00 AM,09:10:27
+32169697^SongTbl,07/22/2011,07/07/2017,Smells Like Teen Spirit,Imagine there's no heaven,classic rock,True,13,267.623832736114,2.45784530271745,,Pop,4,04/08/2006 02:04:00 PM,05:36:33
+61051957^SongTbl,07/04/1988,03/29/1983,Imagine,Hey Jude, don't make it bad,classic rock rock metal,False,4,129.694651037459,2.66644398093724,,Folk,5,07/20/1985 02:53:00 PM,01:15:51
+73677786^SongTbl,02/25/2014,04/22/2002,Smells Like Teen Spirit,Hey Jude, don't make it bad,hard rock pop metal,False,3,330.532224678167,4.58742117831116,,Metal,5,12/02/1998 11:26:00 PM,14:22:21
+95265064^SongTbl,05/16/2005,03/04/1978,Bohemian Rhapsody,I want to hold your hand,rock pop john paul,False,5,403.127579906841,4.03057810471311,,Hard Rock,3,12/21/2022 06:22:00 AM,09:39:34
+45366015^SongTbl,10/28/2016,02/07/1984,Stairway to Heaven,Hey Jude, don't make it bad,beatles,False,4,236.215521849093,4.81668070382538,,Classic Rock,2,12/21/1993 01:54:00 PM,21:27:39
+94130695^SongTbl,04/18/1998,10/11/2002,Hey Jude,Hey Jude, don't make it bad,john paul metal rock,False,10,131.301992980488,4.39295520315671,,Other,2,04/10/1982 12:15:00 PM,09:10:55
+30053777^SongTbl,07/24/1982,12/24/1995,Hotel California,I want to hold your hand,metal,True,14,149.751271082507,2.59983061629487,,Other,2,09/11/1982 12:39:00 PM,13:14:15
+37881434^SongTbl,07/16/2024,09/26/1991,Let It Be,Imagine there's no heaven,metal hard rock classic rock,True,15,27.1983308619004,4.78659079809777,,Hard Rock,3,12/24/2010 04:33:00 AM,02:28:02
+48869379^SongTbl,06/15/2019,11/28/2019,Imagine,Imagine there's no heaven,pop classic rock rock,False,14,422.338939056545,3.53849249674836,,Classic Rock,2,10/13/2020 03:40:00 PM,13:23:12
+82891311^SongTbl,01/12/1989,01/10/2000,Smells Like Teen Spirit,I want to hold your hand,pop,False,1,269.50722103468,3.63685622697555,,Folk,4,09/10/1984 04:09:00 PM,20:02:12
+43316311^SongTbl,10/04/1985,04/26/2010,Smells Like Teen Spirit,Imagine there's no heaven,classic rock,True,1,124.465914458495,1.12076986233123,,Metal,3,06/04/1997 09:44:00 PM,12:00:55
+12495729^SongTbl,02/16/1982,10/01/1997,Smells Like Teen Spirit,Hey Jude, don't make it bad,pop hard rock rock,False,3,9.59422669510059,4.87549218055663,,Metal,1,07/25/1979 10:12:00 PM,02:01:32
+63923900^SongTbl,10/30/1999,07/16/2021,Bohemian Rhapsody,Hey Jude, don't make it bad,metal beatles,True,7,260.184165724136,1.34547458889506,,Hard Rock,5,12/03/1982 10:39:00 PM,02:20:19
+75542774^SongTbl,08/23/1971,05/30/2000,Let It Be,Hey Jude, don't make it bad,metal,False,13,28.773232773353,3.17271340744226,,Other,4,05/13/1998 09:24:00 AM,08:50:05
+44887911^SongTbl,03/12/1987,04/06/2022,Smells Like Teen Spirit,I want to hold your hand,john paul,True,12,289.611047607151,2.95683100111869,,Folk,4,04/12/2009 05:14:00 AM,17:28:19
+52287690^SongTbl,10/26/1985,10/27/1992,Let It Be,We will, we will rock you,pop hard rock classic rock,True,5,302.190363328346,1.78532246036038,,Hard Rock,2,06/21/1993 02:35:00 AM,02:26:54
+73374147^SongTbl,04/20/1995,12/09/1985,Hotel California,Imagine there's no heaven,rock classic rock,False,1,364.361184338443,2.34171428434217,,Folk,5,08/30/1974 11:51:00 PM,10:10:33
+73547962^SongTbl,10/13/2020,05/20/1983,Smells Like Teen Spirit,Imagine there's no heaven,hard rock,False,5,71.2955233169704,2.0194383335461,,Other,3,09/21/1995 07:07:00 AM,19:21:34
+95839451^SongTbl,10/27/1983,11/18/1991,Hotel California,We will, we will rock you,metal rock classic rock,False,13,485.516004682618,1.84584512634383,,Pop,3,01/17/1979 08:16:00 AM,11:53:30
+33641382^SongTbl,12/30/1978,11/26/1985,Imagine,I want to hold your hand,metal,True,7,104.2483958342,1.83684363978406,,Metal,1,12/17/1996 05:24:00 AM,14:37:36
+71492003^SongTbl,05/19/1985,10/19/2011,Stairway to Heaven,Imagine there's no heaven,rock classic rock beatles,True,10,311.59298697077,1.21886255612603,,Metal,5,04/04/2022 12:51:00 PM,01:12:45
+33929651^SongTbl,12/27/2020,05/25/2023,Stairway to Heaven,We will, we will rock you,john paul pop hard rock,True,5,296.79535484138,4.75857526179046,,Folk,1,07/02/1987 09:59:00 AM,15:12:41
+84184315^SongTbl,10/08/2020,07/16/2018,Smells Like Teen Spirit,Hey Jude, don't make it bad,beatles hard rock metal,False,1,180.16415165329,2.89277792537653,,Metal,2,06/25/2019 07:05:00 PM,02:08:04
+99900619^SongTbl,08/31/1975,05/18/1975,Stairway to Heaven,Imagine there's no heaven,rock metal john paul,False,8,343.517971306962,3.68056568840774,,Folk,4,08/26/1987 05:54:00 PM,18:06:24
+96052105^SongTbl,05/16/1995,04/16/1982,Smells Like Teen Spirit,Hey Jude, don't make it bad,metal beatles,True,3,207.50941600523,1.32534464096913,,Classic Rock,1,08/03/2018 08:47:00 AM,18:09:47
+88715992^SongTbl,02/20/1987,09/21/2007,Hey Jude,We will, we will rock you,hard rock john paul metal,False,14,299.001761274161,4.91610527058174,,Folk,2,01/11/2001 08:20:00 AM,16:52:11
+96744558^SongTbl,11/29/2018,08/28/2017,Imagine,Imagine there's no heaven,john paul hard rock pop,True,12,32.67385677815,1.81455214427967,,Classic Rock,3,10/29/1975 02:07:00 PM,23:06:27
+98850671^SongTbl,03/03/2004,07/03/1980,Hey Jude,Imagine there's no heaven,metal,True,8,345.543432239781,1.31374781740494,,Pop,4,10/20/2003 10:04:00 AM,21:27:30
+93226268^SongTbl,10/21/2013,06/20/2023,Stairway to Heaven,We will, we will rock you,pop,False,8,405.496565652894,2.13604533100303,,Other,1,07/17/2017 05:56:00 PM,11:02:37
+46564633^SongTbl,06/02/2021,08/15/2009,Smells Like Teen Spirit,We will, we will rock you,hard rock,True,15,245.611002050986,2.89068805896026,,Classic Rock,5,08/24/1971 05:42:00 PM,06:25:44
+74943176^SongTbl,08/07/2019,08/18/1979,Smells Like Teen Spirit,We will, we will rock you,pop beatles,True,7,335.323798724771,1.77934273246382,,Other,1,12/19/2023 08:58:00 AM,23:40:03
+53795946^SongTbl,10/12/2006,07/06/2002,Let It Be,I want to hold your hand,rock beatles metal,False,4,126.07123304567,1.88955115542147,,Pop,4,07/26/2018 03:19:00 AM,18:36:11
+20266702^SongTbl,01/24/2019,10/03/2021,Stairway to Heaven,I want to hold your hand,john paul,True,11,415.641448368833,3.30841886248688,,Pop,3,10/07/2000 09:14:00 PM,15:35:00
+15560293^SongTbl,08/25/1984,10/14/2022,Let It Be,We will, we will rock you,classic rock,False,9,28.5056623107005,3.79482841532876,,Classic Rock,5,12/27/2019 11:26:00 AM,04:53:09
+82846251^SongTbl,01/23/2019,08/08/1979,Bohemian Rhapsody,We will, we will rock you,metal john paul,False,9,357.511200596818,3.67191342784163,,Metal,2,06/19/2024 07:16:00 PM,10:39:51
+71272060^SongTbl,04/25/1990,07/28/1997,Stairway to Heaven,Hey Jude, don't make it bad,john paul,False,11,234.175737691678,4.71516535720664,,Pop,1,04/23/1994 07:45:00 AM,03:12:55
+50430889^SongTbl,08/28/1996,06/01/1985,Bohemian Rhapsody,Hey Jude, don't make it bad,hard rock pop rock,False,7,50.050253687393,2.00777405316868,,Hard Rock,2,03/11/1971 06:27:00 AM,17:12:11
+30647389^SongTbl,08/19/1971,02/14/2000,Stairway to Heaven,Hey Jude, don't make it bad,beatles,False,5,486.630324599192,1.48680235395464,,Pop,5,05/19/1989 12:37:00 AM,00:38:14
+65758358^SongTbl,08/16/2024,11/11/2023,Stairway to Heaven,Imagine there's no heaven,metal,False,15,262.533159280705,3.57938680794676,,Other,2,01/05/2006 03:51:00 PM,10:14:28
+48295828^SongTbl,05/10/2001,07/23/1989,Let It Be,We will, we will rock you,pop metal,True,7,465.270553354478,4.10838122134824,,Folk,5,04/15/1983 11:43:00 PM,13:25:45
+45839654^SongTbl,06/08/2024,10/14/2008,Smells Like Teen Spirit,Imagine there's no heaven,pop beatles,True,5,257.598398517467,2.90521306282095,,Metal,5,06/13/1996 10:01:00 PM,04:06:14
+39441334^SongTbl,09/14/1990,02/25/1989,Stairway to Heaven,I want to hold your hand,classic rock,True,9,121.691390273077,3.2011765242391,,Other,3,04/17/2017 07:11:00 PM,08:31:15
+80412511^SongTbl,03/28/2013,05/04/1993,Hotel California,We will, we will rock you,metal john paul hard rock,False,5,291.141667555084,1.09495167406481,,Other,1,10/24/1994 07:39:00 AM,14:11:22
+67855931^SongTbl,06/16/1980,09/29/1996,Hotel California,Imagine there's no heaven,pop rock,False,1,191.255210720952,1.68278208998512,,Other,1,06/29/1980 04:31:00 AM,12:35:18
+94390408^SongTbl,07/26/2005,05/02/1984,Imagine,We will, we will rock you,hard rock classic rock rock,False,1,170.555161933179,4.39608165728409,,Pop,2,08/01/2010 03:38:00 PM,20:05:46
+95021590^SongTbl,03/16/2024,02/21/2013,Hotel California,Imagine there's no heaven,metal pop,False,6,58.9880753880197,4.20081033982402,,Metal,3,07/31/1988 08:16:00 PM,15:19:16
+78973344^SongTbl,11/02/2000,10/25/2023,Stairway to Heaven,I want to hold your hand,pop beatles,True,8,196.025920556339,1.11473496416221,,Other,3,05/24/1979 12:38:00 AM,10:39:46
+36009117^SongTbl,05/25/1991,05/04/1984,Hey Jude,We will, we will rock you,classic rock,True,14,387.228289258838,1.01010957127273,,Folk,4,03/29/1978 01:37:00 AM,05:25:53
+37165670^SongTbl,06/09/2004,01/14/1999,Bohemian Rhapsody,Imagine there's no heaven,metal pop classic rock,False,13,494.489995448054,2.97137106048978,,Other,5,01/08/2022 04:20:00 AM,09:17:50
+98733083^SongTbl,10/02/2012,04/26/1993,Imagine,I want to hold your hand,classic rock,False,6,402.283789355108,3.43870069091205,,Other,1,11/24/1998 09:21:00 AM,12:32:48
+78182157^SongTbl,06/30/2012,12/22/2009,Hey Jude,We will, we will rock you,beatles classic rock,False,9,17.1649741932409,1.6356317075658,,Folk,4,03/13/1974 10:08:00 AM,07:22:33
+49140272^SongTbl,02/28/2023,06/16/1975,Let It Be,I want to hold your hand,beatles hard rock,True,13,111.046626760565,2.89459156430999,,Folk,1,09/22/2008 08:42:00 PM,21:01:45
+44558599^SongTbl,12/10/2021,08/20/1984,Hotel California,I want to hold your hand,pop beatles,True,15,236.798975394901,3.26564922673509,,Classic Rock,5,03/19/1996 03:38:00 PM,15:47:41
+82686488^SongTbl,01/15/2003,10/17/1989,Imagine,I want to hold your hand,beatles,False,12,414.784251653355,2.1654978598896,,Pop,5,11/24/2024 09:38:00 PM,10:04:54
+17095603^SongTbl,07/19/2024,08/16/1970,Bohemian Rhapsody,I want to hold your hand,hard rock beatles classic rock,True,3,430.97705522384,2.81251922948995,,Classic Rock,1,10/10/1990 06:04:00 PM,05:41:11
+40144104^SongTbl,08/26/2001,05/08/1970,Stairway to Heaven,Hey Jude, don't make it bad,pop hard rock metal,False,3,348.606640692669,2.44560005239139,,Other,1,03/19/1970 12:43:00 AM,12:16:46
+11853601^SongTbl,12/18/2000,12/01/2010,Smells Like Teen Spirit,Imagine there's no heaven,metal,False,14,475.470888778418,4.78036338288529,,Classic Rock,2,04/10/2007 04:45:00 PM,05:15:35
+27151317^SongTbl,01/24/2022,04/06/2021,Bohemian Rhapsody,Hey Jude, don't make it bad,metal,False,5,492.075343159102,1.94811219627532,,Other,3,05/02/2015 05:05:00 AM,01:46:38
+74049111^SongTbl,03/03/2011,08/15/1975,Imagine,Hey Jude, don't make it bad,hard rock,True,1,425.773591356131,1.06764358738565,,Classic Rock,3,07/27/1979 06:10:00 PM,01:31:05
+59583221^SongTbl,02/03/1994,02/03/1995,Imagine,We will, we will rock you,hard rock pop metal,False,7,80.1394962971287,3.63061129955418,,Hard Rock,5,04/06/1994 12:27:00 AM,03:46:52
+27957693^SongTbl,04/24/2018,10/15/1987,Hotel California,Imagine there's no heaven,metal,True,14,152.597848597706,2.63829366621203,,Classic Rock,5,07/13/1985 01:04:00 PM,15:48:20
+48027305^SongTbl,05/14/1994,04/11/2010,Smells Like Teen Spirit,Hey Jude, don't make it bad,john paul rock,False,8,242.153541690897,3.57702554066732,,Other,4,12/25/1988 12:10:00 PM,02:32:04
+81865527^SongTbl,04/18/2003,09/28/1982,Bohemian Rhapsody,Imagine there's no heaven,metal pop beatles,False,11,31.9477574015441,1.54957223206884,,Folk,5,09/25/1982 05:16:00 PM,09:23:15
+74178588^SongTbl,10/27/1975,03/02/2014,Bohemian Rhapsody,We will, we will rock you,metal,False,12,314.018326637859,1.00596458409824,,Hard Rock,1,02/02/1989 05:24:00 PM,19:27:05
+78257583^SongTbl,10/13/2015,05/28/2009,Bohemian Rhapsody,I want to hold your hand,classic rock hard rock,False,2,441.487133044776,2.05657110306193,,Folk,5,03/20/1975 09:58:00 PM,04:53:54
+12150177^SongTbl,01/07/1978,04/11/2022,Imagine,We will, we will rock you,beatles rock john paul,False,11,394.833662724446,3.85170351142084,,Folk,3,03/12/2023 10:44:00 AM,13:25:31
+95424690^SongTbl,09/06/2011,06/08/2001,Hey Jude,I want to hold your hand,beatles,True,10,217.139999534756,4.20340783313374,,Metal,4,02/25/1999 04:43:00 PM,11:12:14
+84989989^SongTbl,12/03/2008,12/22/2004,Smells Like Teen Spirit,Hey Jude, don't make it bad,rock metal hard rock,True,10,364.871813958882,3.111805433755,,Classic Rock,5,02/27/1973 03:57:00 PM,08:02:07
+14397328^SongTbl,11/21/2015,11/23/2000,Imagine,Imagine there's no heaven,classic rock,True,11,355.908506768372,2.16175978269969,,Pop,4,05/10/1970 02:05:00 AM,07:03:19
+64286246^SongTbl,12/15/2020,03/28/2021,Imagine,We will, we will rock you,pop hard rock,False,6,283.83955391196,4.32407366748684,,Folk,5,11/23/2006 04:34:00 AM,12:45:18
+94412043^SongTbl,11/04/1989,11/17/2003,Hey Jude,Imagine there's no heaven,classic rock,True,15,454.107900420486,3.49936425490181,,Folk,4,03/29/2017 09:51:00 AM,13:09:47
+10239830^SongTbl,01/14/1991,09/08/1971,Hey Jude,We will, we will rock you,pop john paul,True,4,273.677998873917,4.13104413348282,,Classic Rock,5,10/20/1998 10:56:00 PM,18:12:33
+55758193^SongTbl,12/12/1981,01/13/2018,Hey Jude,I want to hold your hand,classic rock hard rock pop,True,14,296.497966388405,4.78443296930248,,Metal,1,06/16/1977 05:17:00 AM,22:11:58
+33247133^SongTbl,06/21/1981,10/13/1994,Hotel California,We will, we will rock you,metal,False,5,91.8756823472111,2.98725451564181,,Hard Rock,2,07/13/2019 01:18:00 PM,20:28:04
+39359196^SongTbl,07/20/2022,07/05/2008,Let It Be,Hey Jude, don't make it bad,hard rock john paul beatles,True,4,321.114255464207,4.63955576432579,,Other,4,10/05/2023 04:38:00 PM,03:30:33
+18574757^SongTbl,08/08/1991,07/13/2016,Hotel California,Hey Jude, don't make it bad,beatles,False,7,455.262040515124,4.32450179897698,,Classic Rock,2,11/17/1992 02:18:00 PM,00:38:02
+77434516^SongTbl,04/22/1973,01/25/1997,Hey Jude,I want to hold your hand,john paul metal classic rock,False,7,246.82224447929,1.56079167202042,,Classic Rock,4,03/25/2018 02:11:00 AM,02:38:50
+97600744^SongTbl,09/21/2013,10/20/1987,Hotel California,I want to hold your hand,beatles metal,False,12,314.365233271869,1.78741742254688,,Folk,5,01/18/1972 12:06:00 AM,05:19:11
+72330859^SongTbl,06/05/2019,10/17/2023,Hotel California,We will, we will rock you,classic rock metal hard rock,True,8,458.175201068134,1.34403345877077,,Other,2,06/08/1987 11:27:00 AM,13:01:52
+90575526^SongTbl,06/03/1984,10/02/2021,Smells Like Teen Spirit,We will, we will rock you,beatles rock hard rock,True,2,330.256183752326,1.68841532553694,,Metal,2,06/06/1998 11:01:00 AM,03:50:18
+14046070^SongTbl,10/06/2003,08/10/2013,Imagine,Hey Jude, don't make it bad,classic rock metal,True,2,425.472898502481,3.80953089733494,,Pop,5,04/14/1990 01:23:00 AM,01:35:33
+62863207^SongTbl,08/25/2011,12/29/1997,Smells Like Teen Spirit,Imagine there's no heaven,beatles metal,True,7,323.624545787947,3.11968327558378,,Pop,2,09/25/2018 01:00:00 PM,13:46:30
+31048892^SongTbl,03/31/2009,11/21/1993,Bohemian Rhapsody,Imagine there's no heaven,metal rock john paul,True,8,116.318461784826,3.65431927452205,,Pop,3,10/05/2012 01:26:00 AM,00:15:52
+53893797^SongTbl,06/24/2006,11/12/1986,Bohemian Rhapsody,Imagine there's no heaven,classic rock pop metal,False,12,6.2518073455478,3.88514612175113,,Folk,4,05/16/2006 03:51:00 AM,09:44:12
+61745796^SongTbl,07/04/2005,07/08/1972,Imagine,Imagine there's no heaven,classic rock,False,8,49.7168177706016,3.80703725579769,,Hard Rock,3,04/17/2001 10:03:00 AM,05:14:40
+46957864^SongTbl,06/16/1973,02/05/1997,Imagine,I want to hold your hand,john paul metal rock,True,13,357.963773219661,4.05232828854086,,Classic Rock,3,07/13/1983 02:17:00 AM,14:16:23
+25588188^SongTbl,11/08/1983,09/01/2022,Imagine,Imagine there's no heaven,john paul hard rock classic rock,True,5,13.5139279443351,1.35872735186126,,Classic Rock,1,02/14/2024 04:11:00 AM,09:48:31
+73751169^SongTbl,07/11/2018,03/12/1971,Imagine,I want to hold your hand,john paul rock hard rock,False,2,354.764292613465,2.39108830556366,,Other,3,02/01/1991 11:17:00 PM,06:01:07
+24615094^SongTbl,06/09/2012,12/29/2019,Stairway to Heaven,I want to hold your hand,classic rock john paul hard rock,True,4,81.2540570493334,4.03808575697175,,Classic Rock,5,03/08/2004 01:09:00 AM,12:30:56
+94841311^SongTbl,05/10/1988,12/16/2007,Imagine,I want to hold your hand,hard rock classic rock,False,10,351.905497111855,3.17389424635493,,Hard Rock,2,12/14/2004 10:14:00 PM,12:21:43
+55491771^SongTbl,02/20/2009,10/31/1997,Smells Like Teen Spirit,Hey Jude, don't make it bad,beatles john paul,False,4,333.881482488655,2.35416084014328,,Folk,3,07/03/2005 06:44:00 AM,19:31:58
+44037744^SongTbl,01/22/2002,07/07/1983,Stairway to Heaven,Imagine there's no heaven,classic rock,True,5,258.879106192167,1.15671043669719,,Metal,1,11/07/1985 12:53:00 AM,02:52:23
+51115508^SongTbl,10/07/1978,09/05/1970,Let It Be,I want to hold your hand,rock metal,True,5,65.6880077851377,3.41875784074182,,Folk,5,02/26/1992 06:25:00 AM,00:57:32
+40989388^SongTbl,11/14/2023,12/26/2006,Stairway to Heaven,Imagine there's no heaven,rock,True,5,231.942596112278,2.75059401434521,,Pop,2,08/30/2008 08:39:00 PM,14:17:59
+38196139^SongTbl,10/20/2002,07/02/1983,Imagine,Imagine there's no heaven,john paul,False,6,229.854864133041,2.85623820534247,,Pop,5,09/02/1970 04:15:00 AM,00:09:43
+93496837^SongTbl,02/15/1996,09/20/1984,Bohemian Rhapsody,We will, we will rock you,john paul,True,4,343.390303059485,1.04637637825401,,Folk,3,08/15/1998 02:19:00 PM,16:32:40
+19520962^SongTbl,03/29/1985,09/16/2006,Smells Like Teen Spirit,I want to hold your hand,pop,False,1,493.927676491951,2.3943529486222,,Classic Rock,1,02/14/2013 09:04:00 PM,21:50:46
+38858418^SongTbl,02/28/2020,05/29/1987,Smells Like Teen Spirit,I want to hold your hand,beatles john paul pop,False,11,74.7374229158766,1.66293718420777,,Hard Rock,4,06/24/2010 09:22:00 PM,04:34:29
+79857279^SongTbl,08/22/2020,08/23/1989,Smells Like Teen Spirit,We will, we will rock you,hard rock,False,13,461.329737432713,2.33100894256231,,Hard Rock,3,11/26/1976 03:13:00 AM,01:42:02
+24375162^SongTbl,11/01/1972,05/28/2009,Let It Be,Imagine there's no heaven,beatles pop,False,6,202.832621959902,2.13474192754047,,Pop,5,03/23/1988 01:00:00 PM,02:51:01
+85637727^SongTbl,10/07/1992,12/05/1970,Hey Jude,Hey Jude, don't make it bad,rock classic rock,False,4,61.3094904316586,3.24216140650965,,Hard Rock,4,11/10/2010 09:04:00 PM,13:19:25
+15837901^SongTbl,02/05/2006,03/01/1993,Bohemian Rhapsody,Imagine there's no heaven,hard rock classic rock,False,1,117.575276233438,1.63278416769323,,Other,5,09/06/2024 07:12:00 AM,03:08:50
+62151641^SongTbl,04/03/2009,04/22/2005,Imagine,I want to hold your hand,pop hard rock,True,4,126.987362225214,4.19962907136373,,Hard Rock,2,08/28/1981 12:51:00 PM,03:16:26
+44394913^SongTbl,08/20/2017,09/19/2016,Imagine,I want to hold your hand,beatles pop,False,1,173.845397838561,3.07088794250146,,Metal,2,07/09/2019 09:29:00 AM,22:34:00
+62564486^SongTbl,03/29/1984,01/16/1979,Imagine,We will, we will rock you,rock john paul metal,False,12,145.837263971942,4.42894264333043,,Folk,1,10/14/2013 11:20:00 AM,04:57:25
+57631672^SongTbl,06/02/1973,06/29/1983,Imagine,I want to hold your hand,john paul,False,5,470.953094325128,2.35328108609256,,Other,2,10/23/1994 03:20:00 AM,15:14:57
+50604237^SongTbl,10/29/2007,10/13/1976,Bohemian Rhapsody,Imagine there's no heaven,metal,True,7,158.296708209478,2.93743584310512,,Folk,4,05/20/2012 07:26:00 AM,15:32:53
+78085510^SongTbl,03/05/2009,05/11/2013,Let It Be,Hey Jude, don't make it bad,rock hard rock,False,5,436.193992047504,1.49370088455649,,Metal,4,03/02/2020 05:30:00 PM,02:20:10
+65887175^SongTbl,11/15/2006,08/19/1984,Bohemian Rhapsody,Hey Jude, don't make it bad,john paul,False,2,312.962975449712,4.93921759009897,,Folk,4,06/19/1993 06:23:00 AM,06:45:29
+80203852^SongTbl,01/31/1985,03/15/2008,Hotel California,Hey Jude, don't make it bad,rock pop classic rock,False,11,4.79255301726349,1.0230478788269,,Classic Rock,5,12/31/2011 02:57:00 AM,21:43:54
+92532751^SongTbl,11/23/1978,07/02/2019,Hey Jude,Imagine there's no heaven,metal classic rock,False,13,109.269856066247,4.27626563692838,,Other,2,07/10/1979 05:12:00 PM,12:27:46
+46966534^SongTbl,12/09/1995,09/02/1995,Smells Like Teen Spirit,We will, we will rock you,beatles hard rock,True,14,128.603257596368,3.55104066562837,,Classic Rock,1,12/08/2011 02:05:00 PM,07:44:15
+57808135^SongTbl,04/03/1999,09/16/2021,Hotel California,Imagine there's no heaven,pop metal,True,15,266.8304419296,4.93845395247725,,Other,3,08/25/1986 04:57:00 AM,07:32:44
+71517713^SongTbl,02/28/2007,11/30/2014,Stairway to Heaven,I want to hold your hand,pop beatles john paul,True,2,428.657205308454,2.4782363571112,,Other,2,07/11/1980 11:34:00 PM,16:20:36
+77049917^SongTbl,05/22/1996,08/19/2011,Stairway to Heaven,Hey Jude, don't make it bad,john paul classic rock rock,False,13,318.304835306724,3.22558458642689,,Hard Rock,5,12/16/2005 05:30:00 AM,21:16:10
+78243613^SongTbl,12/16/2002,08/10/2011,Hey Jude,Imagine there's no heaven,beatles pop hard rock,False,4,369.368732850086,2.87468081396694,,Hard Rock,3,10/23/2007 08:56:00 PM,20:28:39
+35353619^SongTbl,03/23/2025,02/11/1978,Hotel California,I want to hold your hand,metal,True,3,6.72607258867114,4.04516519963416,,Pop,1,11/28/1983 05:06:00 PM,13:56:56
+16151003^SongTbl,10/05/2020,08/07/2001,Bohemian Rhapsody,I want to hold your hand,pop classic rock metal,False,2,9.18304135856686,3.62842334859384,,Folk,2,12/02/2015 07:14:00 AM,09:13:58
+56290479^SongTbl,07/31/1989,03/06/2007,Stairway to Heaven,Hey Jude, don't make it bad,metal pop john paul,False,7,98.1440674438722,1.74319673091298,,Hard Rock,5,03/19/1995 01:50:00 PM,04:46:56
+43839743^SongTbl,02/28/2010,08/22/2016,Smells Like Teen Spirit,Imagine there's no heaven,hard rock rock,False,15,164.45363364472,4.75540632355738,,Classic Rock,1,08/02/2001 03:33:00 PM,02:52:22
+94160223^SongTbl,03/18/1979,09/28/1999,Hey Jude,Imagine there's no heaven,john paul hard rock rock,False,12,134.138370893332,2.98810587357465,,Pop,1,04/15/1987 07:23:00 PM,06:30:59
+84687962^SongTbl,09/22/1979,11/05/2005,Let It Be,I want to hold your hand,john paul,True,4,98.3370802811012,3.24743514742506,,Classic Rock,2,02/28/2003 07:51:00 PM,14:08:12
+86307016^SongTbl,10/09/1991,01/02/1974,Imagine,We will, we will rock you,rock,True,11,378.185242116426,2.85723458791268,,Classic Rock,4,03/09/2007 01:04:00 PM,20:58:11
+24856409^SongTbl,03/20/1981,12/09/2009,Stairway to Heaven,We will, we will rock you,pop hard rock,False,1,208.523954501081,3.89297698693984,,Classic Rock,5,12/18/1995 07:17:00 PM,06:28:26
+76483439^SongTbl,03/06/1981,09/01/1971,Hey Jude,Imagine there's no heaven,metal pop hard rock,True,9,216.659565522862,1.96025100466919,,Folk,2,04/19/2002 04:50:00 PM,17:36:08
+10582115^SongTbl,05/29/1992,08/26/2015,Bohemian Rhapsody,I want to hold your hand,classic rock metal,False,11,139.440094378058,3.86399142566182,,Classic Rock,3,04/15/2004 06:50:00 PM,04:21:42
+34936499^SongTbl,01/11/2004,05/06/2008,Imagine,I want to hold your hand,john paul pop classic rock,True,11,410.06218390318,2.63563880829794,,Other,5,12/08/1977 07:31:00 PM,02:16:01
+34248085^SongTbl,02/18/2005,03/23/1982,Hey Jude,We will, we will rock you,pop john paul,True,5,181.344007403881,3.46999367763255,,Metal,4,09/05/1990 12:20:00 AM,01:18:45
+76192852^SongTbl,09/19/2021,04/11/1989,Bohemian Rhapsody,We will, we will rock you,john paul pop,False,2,206.164856549424,3.78836468823597,,Classic Rock,5,06/05/2018 05:57:00 PM,19:08:40
+96447681^SongTbl,11/05/2003,02/04/1990,Imagine,Imagine there's no heaven,john paul,False,9,6.2170818380851,1.09653142492811,,Metal,4,10/12/1979 12:48:00 PM,22:02:59
+55291936^SongTbl,08/16/2015,10/06/1986,Stairway to Heaven,We will, we will rock you,pop,False,10,141.957254751501,1.44838804032863,,Other,5,01/03/1989 08:35:00 AM,01:02:29
+84520638^SongTbl,03/12/2017,08/30/2011,Stairway to Heaven,Imagine there's no heaven,classic rock rock,True,5,247.802392606002,2.97436965876331,,Pop,1,05/23/2012 07:03:00 AM,17:36:11
+17389372^SongTbl,11/30/2022,11/16/2021,Stairway to Heaven,We will, we will rock you,pop beatles rock,True,1,88.8137361096551,4.07660530535626,,Folk,3,03/07/1994 09:23:00 PM,12:32:55
+37090059^SongTbl,08/29/1994,08/14/1990,Hotel California,I want to hold your hand,pop metal,False,8,172.981317551404,1.42189950775672,,Classic Rock,3,01/20/1983 04:30:00 PM,11:42:42
+99336315^SongTbl,08/10/1996,06/24/2001,Stairway to Heaven,I want to hold your hand,rock metal beatles,True,6,119.870815083936,1.94943753909178,,Metal,3,08/08/2002 08:49:00 AM,09:15:20
+68016296^SongTbl,04/03/1987,01/27/1983,Stairway to Heaven,Hey Jude, don't make it bad,metal,True,5,479.09700814304,3.38949156664732,,Classic Rock,2,03/12/2012 02:40:00 AM,20:51:52
+67179366^SongTbl,03/02/2001,02/04/1997,Stairway to Heaven,Hey Jude, don't make it bad,hard rock rock john paul,True,9,434.535830020034,2.17676832312328,,Other,5,02/28/2008 08:29:00 PM,00:22:39
+73719302^SongTbl,07/27/1973,07/22/2001,Hey Jude,I want to hold your hand,rock john paul,False,6,329.843198354845,2.51709513275725,,Hard Rock,2,07/01/1983 06:09:00 PM,16:05:45
+90427568^SongTbl,05/28/2005,02/11/1996,Stairway to Heaven,I want to hold your hand,hard rock beatles,False,8,55.6782125271867,4.11122429871942,,Classic Rock,1,11/27/1988 07:55:00 PM,12:29:19
+56228691^SongTbl,12/08/1974,04/21/2010,Hotel California,I want to hold your hand,hard rock,False,1,53.6532964457212,1.91451702646416,,Pop,3,07/19/2021 10:15:00 AM,23:47:36
+77009984^SongTbl,11/07/1976,08/02/2009,Bohemian Rhapsody,Hey Jude, don't make it bad,beatles,True,9,139.492275915207,4.25675489840331,,Other,5,07/18/2006 02:15:00 PM,21:39:48
+82706358^SongTbl,10/27/1991,12/23/2009,Let It Be,Hey Jude, don't make it bad,pop,False,2,128.076679223586,3.26141046327058,,Other,1,10/23/2013 07:56:00 AM,21:45:19
+28136373^SongTbl,04/12/1979,08/28/1991,Hey Jude,We will, we will rock you,rock classic rock,False,14,218.119276296987,2.80021221019798,,Pop,5,02/14/2017 09:09:00 PM,12:41:24
+86970977^SongTbl,10/25/2001,04/22/1998,Smells Like Teen Spirit,I want to hold your hand,pop john paul,False,10,6.91583443972597,2.33573508862674,,Classic Rock,2,12/06/1980 01:57:00 AM,22:46:35
+54976631^SongTbl,08/20/2010,03/31/1973,Stairway to Heaven,Imagine there's no heaven,classic rock rock,False,11,394.800684509558,2.44966389917125,,Hard Rock,3,08/19/2001 09:28:00 PM,13:26:15
+54367308^SongTbl,01/17/1987,11/30/2007,Hotel California,Imagine there's no heaven,beatles pop,True,14,482.198411986184,3.27328978015603,,Folk,4,05/16/1994 07:52:00 PM,10:38:29
+40175110^SongTbl,05/12/2006,07/25/2000,Imagine,Imagine there's no heaven,hard rock classic rock,False,13,264.8912395537,3.48575078578767,,Classic Rock,5,08/16/1985 12:30:00 AM,21:17:32
+61041570^SongTbl,11/20/1995,08/14/2009,Stairway to Heaven,Hey Jude, don't make it bad,hard rock,True,10,69.6057535582839,3.97423427709697,,Folk,5,08/13/2002 03:46:00 AM,03:57:38
+40529406^SongTbl,05/14/1988,11/01/1979,Imagine,I want to hold your hand,rock hard rock,False,14,374.535958426156,3.39903459998017,,Other,3,02/07/2007 06:16:00 PM,13:10:40
+23051972^SongTbl,02/03/2005,01/31/1996,Imagine,We will, we will rock you,beatles metal classic rock,False,8,489.09371542817,2.70990237327194,,Pop,1,09/03/1993 05:38:00 PM,04:49:45
+77238581^SongTbl,06/24/1990,06/21/1984,Bohemian Rhapsody,Hey Jude, don't make it bad,pop,True,10,254.343372899361,2.45550137479352,,Pop,4,12/16/1988 05:48:00 PM,00:28:06
+78159486^SongTbl,02/08/1990,01/15/1972,Hotel California,Imagine there's no heaven,hard rock pop rock,True,8,381.114979438478,1.8825013921753,,Hard Rock,1,03/16/1985 12:12:00 PM,12:04:45
+42251652^SongTbl,05/20/1978,05/14/2003,Smells Like Teen Spirit,I want to hold your hand,pop classic rock,False,12,194.402860928182,1.26612124983447,,Hard Rock,3,11/13/1970 07:57:00 AM,01:49:23
+49316775^SongTbl,01/06/1974,02/20/2024,Let It Be,Imagine there's no heaven,classic rock,True,3,277.642016644077,3.60860204412668,,Hard Rock,4,10/24/2023 12:36:00 AM,12:47:53
+44602212^SongTbl,03/21/1978,10/28/2016,Hotel California,We will, we will rock you,hard rock,True,14,356.787630894133,4.39570453240558,,Classic Rock,3,05/26/1990 12:12:00 PM,12:34:47
+97420684^SongTbl,08/17/1982,06/20/1986,Hey Jude,Imagine there's no heaven,hard rock,False,12,453.450805149824,1.14611359068766,,Classic Rock,4,07/14/1992 08:56:00 PM,13:32:19
+67748505^SongTbl,05/23/2016,07/25/2014,Let It Be,We will, we will rock you,beatles classic rock,True,12,254.845333531131,2.64334593651075,,Hard Rock,5,06/08/2011 09:48:00 AM,03:52:39
+27642626^SongTbl,03/21/1976,02/05/1988,Hotel California,I want to hold your hand,metal hard rock,False,9,88.921629105274,1.06884933388615,,Pop,5,11/13/1992 03:04:00 PM,05:53:00
+86613407^SongTbl,02/13/2000,01/10/2017,Hey Jude,We will, we will rock you,john paul,False,9,495.195787077345,2.29550408182578,,Metal,1,08/09/1997 01:23:00 AM,18:36:19
+18063832^SongTbl,06/25/1989,04/16/2020,Imagine,Hey Jude, don't make it bad,classic rock beatles,True,15,448.827731679923,3.64238880215599,,Pop,2,01/08/2014 05:25:00 PM,16:29:25
+59147891^SongTbl,06/25/1980,02/25/1979,Bohemian Rhapsody,Hey Jude, don't make it bad,beatles pop rock,True,13,37.6709123586661,3.64620040413237,,Metal,2,07/16/2018 02:06:00 PM,16:47:15
+48426303^SongTbl,07/09/2008,04/10/1992,Smells Like Teen Spirit,Imagine there's no heaven,classic rock,True,1,154.296137960492,1.75646334778117,,Metal,5,01/12/2014 05:19:00 AM,12:04:31
+13147031^SongTbl,05/18/1995,10/21/1999,Bohemian Rhapsody,We will, we will rock you,john paul beatles,False,8,453.489739070354,3.10850538357977,,Metal,4,10/08/2005 04:44:00 AM,23:10:50
+76933938^SongTbl,07/12/2017,09/23/1995,Smells Like Teen Spirit,Imagine there's no heaven,metal classic rock pop,True,7,444.185598790709,1.47357591023692,,Hard Rock,2,06/29/1998 01:16:00 PM,10:03:13
+15452824^SongTbl,04/29/1994,07/02/2018,Let It Be,We will, we will rock you,beatles hard rock metal,False,7,494.81146245636,1.56352830243169,,Classic Rock,1,01/23/1983 04:27:00 PM,05:34:51
+70900970^SongTbl,04/10/1988,06/20/2000,Bohemian Rhapsody,We will, we will rock you,classic rock metal pop,False,6,238.384427976679,1.99076616054936,,Other,5,05/26/2012 11:42:00 PM,09:12:44
+22941389^SongTbl,01/11/1983,09/05/2009,Hey Jude,Hey Jude, don't make it bad,john paul,False,12,188.898836015903,2.8248424965692,,Hard Rock,4,02/23/1994 06:29:00 PM,14:14:58
+65596352^SongTbl,01/22/1987,10/01/1993,Stairway to Heaven,Imagine there's no heaven,pop classic rock,False,8,9.2127777926219,4.05923498789512,,Other,4,01/26/1983 05:09:00 PM,09:47:28
+78742768^SongTbl,05/18/1972,06/27/1986,Let It Be,Hey Jude, don't make it bad,beatles rock john paul,True,6,129.380187948702,4.67811610497041,,Hard Rock,1,10/06/2004 01:58:00 PM,07:32:28
+63949699^SongTbl,06/29/2005,07/23/2007,Hotel California,Hey Jude, don't make it bad,metal rock,True,14,220.062895539084,3.61362411372866,,Other,4,01/30/1980 04:26:00 PM,00:49:30
+64748531^SongTbl,11/09/2021,04/15/2023,Smells Like Teen Spirit,Hey Jude, don't make it bad,john paul beatles,True,9,323.086415181142,1.6737745669659,,Hard Rock,1,06/17/1992 12:47:00 AM,00:46:05
+70917160^SongTbl,05/15/1981,02/28/1974,Smells Like Teen Spirit,Hey Jude, don't make it bad,beatles classic rock,True,10,439.470718842644,4.08434090241124,,Metal,2,06/11/1981 08:53:00 AM,06:21:16
+98367573^SongTbl,05/16/1977,12/02/1983,Hotel California,I want to hold your hand,john paul hard rock,False,7,123.792749898174,3.08171308999377,,Pop,2,06/19/2011 10:17:00 PM,13:29:28
+76617273^SongTbl,02/01/1993,05/18/2010,Let It Be,We will, we will rock you,john paul,True,9,282.873609365258,3.39724270814223,,Other,4,07/18/2000 09:01:00 AM,00:38:25
+88004925^SongTbl,05/04/1975,12/08/1970,Bohemian Rhapsody,I want to hold your hand,metal pop rock,True,15,349.92935735365,4.23185087403944,,Other,2,10/23/2014 05:54:00 AM,11:20:58
+97083960^SongTbl,01/03/1997,04/21/1998,Bohemian Rhapsody,I want to hold your hand,rock metal,True,5,371.949595592032,1.74553634195252,,Folk,5,11/02/2010 08:04:00 AM,23:00:51
+36294912^SongTbl,01/03/2023,09/01/1971,Smells Like Teen Spirit,Imagine there's no heaven,rock,True,15,10.1542403933209,1.34476693343717,,Pop,1,05/24/1995 10:37:00 PM,11:42:21
+44989627^SongTbl,12/12/1979,09/02/2014,Imagine,Imagine there's no heaven,classic rock,True,4,245.705817962417,3.41307859453019,,Hard Rock,2,08/03/1987 04:54:00 PM,09:01:21
+70646635^SongTbl,03/08/1982,08/16/2024,Bohemian Rhapsody,Hey Jude, don't make it bad,beatles pop metal,True,13,188.354063909728,1.30119564722056,,Hard Rock,3,06/14/1985 01:32:00 AM,10:26:57
+23780065^SongTbl,05/28/2023,01/01/1972,Stairway to Heaven,Hey Jude, don't make it bad,pop hard rock classic rock,False,4,260.898102192055,4.0988094741946,,Other,2,08/27/1982 12:58:00 AM,16:14:16
+19434064^SongTbl,05/11/1973,05/13/1987,Imagine,We will, we will rock you,john paul metal pop,False,14,279.210397161499,3.44564295394893,,Folk,4,12/15/1997 07:09:00 AM,09:09:20
+49480987^SongTbl,07/02/1970,05/30/1999,Let It Be,I want to hold your hand,rock,False,1,248.39810647176,1.30157738197465,,Other,2,12/11/1976 09:23:00 PM,03:48:25
+92031802^SongTbl,01/31/1979,07/26/1971,Smells Like Teen Spirit,I want to hold your hand,hard rock classic rock metal,False,10,426.926093397882,4.33409918355786,,Other,4,02/01/2016 11:12:00 PM,23:10:34
+65126015^SongTbl,03/27/1992,11/10/1979,Hotel California,We will, we will rock you,metal beatles,False,10,381.292827514236,3.95390445213917,,Hard Rock,2,08/27/2007 08:22:00 AM,01:22:38
+59292601^SongTbl,10/18/1980,12/06/1994,Bohemian Rhapsody,I want to hold your hand,metal,True,6,362.595789116597,1.92518826883304,,Metal,4,04/30/2024 09:16:00 PM,05:27:36
+60841208^SongTbl,08/30/2023,05/12/1970,Let It Be,Hey Jude, don't make it bad,pop classic rock john paul,False,10,139.093857398366,1.33298204792301,,Metal,2,02/12/1986 07:29:00 PM,23:38:31
+13296135^SongTbl,05/07/2019,02/20/2018,Stairway to Heaven,We will, we will rock you,classic rock,True,2,376.335736059281,3.05930372018471,,Other,4,05/27/1973 07:50:00 PM,19:28:18
+48709746^SongTbl,06/02/1992,02/07/2019,Bohemian Rhapsody,Hey Jude, don't make it bad,john paul,True,2,410.737270546311,4.33809275813087,,Other,4,08/03/2023 11:34:00 AM,06:54:31
+80481553^SongTbl,12/06/1984,02/12/2017,Bohemian Rhapsody,Hey Jude, don't make it bad,pop metal hard rock,True,8,351.918207563661,3.79584828871476,,Pop,5,11/25/1980 02:05:00 PM,07:42:47
+10729789^SongTbl,12/16/1996,03/18/2023,Hotel California,We will, we will rock you,john paul classic rock hard rock,False,3,315.45790321961,1.1369221193207,,Hard Rock,2,07/13/1992 03:21:00 AM,05:33:58
+37116483^SongTbl,10/06/1997,06/06/2008,Hey Jude,I want to hold your hand,pop beatles,True,8,407.071114595711,3.25682713389148,,Pop,1,06/25/2000 01:00:00 PM,00:44:25
+29602530^SongTbl,11/27/2020,08/05/1982,Hotel California,We will, we will rock you,rock metal beatles,True,9,311.467927286345,3.01255742937322,,Other,5,10/29/1979 10:07:00 PM,01:39:29
+80483382^SongTbl,10/01/1970,04/05/2016,Smells Like Teen Spirit,Imagine there's no heaven,pop,False,13,343.637531384735,1.53729885198807,,Hard Rock,4,01/27/2002 06:45:00 AM,12:14:21
+41502189^SongTbl,02/02/2024,09/08/1995,Let It Be,I want to hold your hand,pop,False,9,29.5272378426659,1.34457432174582,,Hard Rock,2,02/04/2004 07:38:00 PM,10:59:42
+89969337^SongTbl,01/24/2004,12/23/2021,Let It Be,I want to hold your hand,beatles,True,13,236.718812191849,3.34617527007169,,Other,4,10/22/2014 09:39:00 PM,21:13:54
+22836788^SongTbl,01/04/1997,10/09/2007,Stairway to Heaven,Imagine there's no heaven,pop rock john paul,True,4,263.296063708266,3.69704651395026,,Other,3,02/05/2004 04:39:00 PM,09:44:36
+28239166^SongTbl,05/04/1973,12/25/1971,Bohemian Rhapsody,Hey Jude, don't make it bad,beatles,True,11,481.13934329723,4.64884596211698,,Folk,5,08/15/2003 06:43:00 AM,18:26:02
+49611011^SongTbl,11/02/1994,08/13/2004,Smells Like Teen Spirit,I want to hold your hand,metal pop,False,11,310.861598205014,3.48551289084468,,Hard Rock,4,09/08/1975 01:43:00 PM,00:29:34
+66063656^SongTbl,01/11/2017,08/13/1996,Hotel California,Imagine there's no heaven,pop classic rock hard rock,True,9,81.8803060326801,4.04300592570455,,Folk,4,04/11/2012 04:50:00 AM,08:37:30
+19413889^SongTbl,04/30/2025,11/21/1976,Imagine,Hey Jude, don't make it bad,metal classic rock rock,True,5,61.5262379949668,3.90999309975108,,Metal,4,11/04/1987 09:13:00 AM,09:06:27
+51143889^SongTbl,12/21/1982,08/10/2020,Imagine,I want to hold your hand,pop rock,True,1,297.304834683843,1.69372395439611,,Classic Rock,4,05/27/1986 11:37:00 AM,06:15:51
+36692618^SongTbl,02/21/1973,12/15/2006,Bohemian Rhapsody,We will, we will rock you,beatles,True,4,186.415681525318,3.38786807276814,,Pop,5,12/23/1999 07:06:00 PM,14:49:37
+11632915^SongTbl,11/23/2000,04/28/1999,Imagine,I want to hold your hand,rock hard rock beatles,False,15,469.045703421455,2.13905944805812,,Metal,2,05/23/2008 06:37:00 AM,06:28:15
+58972967^SongTbl,04/20/1992,04/29/1984,Bohemian Rhapsody,I want to hold your hand,classic rock beatles,True,5,59.0151183149271,3.9304735322196,,Metal,5,07/14/2024 01:25:00 PM,00:44:01
+55714343^SongTbl,07/29/2006,08/12/1971,Bohemian Rhapsody,Imagine there's no heaven,pop hard rock,True,12,86.7423580539306,3.35409239435804,,Classic Rock,2,05/04/1978 10:08:00 PM,21:28:16
+65145972^SongTbl,12/31/2012,10/18/2013,Imagine,Hey Jude, don't make it bad,pop,True,7,333.232291790735,1.71631924686142,,Classic Rock,5,02/17/2007 12:17:00 AM,07:25:03
+40412068^SongTbl,01/03/1973,12/26/2017,Smells Like Teen Spirit,I want to hold your hand,classic rock,False,9,215.819020576242,3.68742280190543,,Other,1,12/15/1980 04:16:00 AM,23:28:48
+85746652^SongTbl,03/07/1996,09/10/1998,Imagine,Imagine there's no heaven,metal,False,12,321.67372835772,3.76590665604667,,Pop,5,01/30/1977 07:46:00 AM,20:30:07
+16291747^SongTbl,08/12/1978,02/06/1999,Stairway to Heaven,We will, we will rock you,hard rock,False,1,479.873150214071,2.6279783728969,,Folk,4,07/01/1999 12:39:00 AM,16:15:39
+36777562^SongTbl,06/05/1996,09/01/2011,Imagine,Imagine there's no heaven,pop beatles john paul,True,7,363.295610481362,3.70398253140257,,Other,4,02/12/1984 04:05:00 PM,15:33:40
+25725726^SongTbl,09/27/1976,11/21/1987,Smells Like Teen Spirit,Imagine there's no heaven,classic rock metal,False,7,162.276148730965,1.75596248907417,,Classic Rock,5,12/25/1970 03:47:00 AM,21:34:43
+64929044^SongTbl,01/26/1984,01/07/1988,Imagine,I want to hold your hand,metal pop,False,7,220.75422812491,1.50947414070186,,Hard Rock,5,07/24/1974 04:57:00 AM,23:18:59
+26794765^SongTbl,07/07/1973,05/27/1990,Hey Jude,We will, we will rock you,rock hard rock,True,11,444.533403082396,3.63846018120624,,Hard Rock,1,12/18/1975 06:39:00 PM,14:20:32
+29196912^SongTbl,05/10/2017,10/25/2001,Hey Jude,Hey Jude, don't make it bad,hard rock,False,3,420.401178288572,2.6229855286977,,Other,1,06/27/2013 06:52:00 PM,16:03:14
+86218307^SongTbl,12/18/1988,02/22/2014,Smells Like Teen Spirit,Imagine there's no heaven,pop rock metal,False,6,206.838181205472,4.79621518470317,,Hard Rock,3,04/16/2014 02:48:00 PM,16:03:43
+94501735^SongTbl,12/18/2021,06/09/2014,Bohemian Rhapsody,I want to hold your hand,beatles hard rock,False,5,100.822575803876,4.31979171022283,,Classic Rock,3,01/21/2025 01:51:00 PM,13:05:45
+81876491^SongTbl,04/15/1978,12/09/1971,Hotel California,Imagine there's no heaven,metal rock,False,1,99.1606810451049,4.58760843071955,,Metal,1,07/21/2003 09:20:00 PM,06:05:28
+13733648^SongTbl,07/02/1971,04/19/2013,Hey Jude,I want to hold your hand,hard rock classic rock john paul,True,15,214.012368047253,4.68860200281984,,Metal,2,12/28/1981 03:39:00 PM,21:36:04
+52960159^SongTbl,05/24/2008,09/23/1977,Smells Like Teen Spirit,Hey Jude, don't make it bad,classic rock metal,True,13,39.0610216920703,4.2232947817014,,Folk,5,04/07/2008 12:25:00 AM,21:31:00
+65592698^SongTbl,05/19/2012,01/29/1972,Smells Like Teen Spirit,Hey Jude, don't make it bad,metal,False,9,431.258046402704,2.85245886688265,,Hard Rock,2,06/18/2017 11:25:00 PM,15:09:31
+11207889^SongTbl,10/10/1992,08/31/1970,Let It Be,Hey Jude, don't make it bad,rock hard rock john paul,False,1,379.830064723267,2.26099534218853,,Metal,4,10/30/1975 05:23:00 PM,05:20:34
+62502481^SongTbl,01/08/2022,05/05/1997,Imagine,Hey Jude, don't make it bad,pop classic rock rock,True,10,163.741665112432,3.5265111399299,,Pop,3,08/23/2004 11:46:00 AM,06:34:58
+40858889^SongTbl,01/09/1984,07/17/1991,Stairway to Heaven,Imagine there's no heaven,beatles,True,10,224.443758071627,1.13195105982504,,Metal,2,01/16/1983 03:54:00 PM,17:34:38
+35495582^SongTbl,09/22/1976,03/29/1979,Let It Be,I want to hold your hand,rock beatles classic rock,True,13,24.489016452576,4.41377964297216,,Hard Rock,4,11/01/2005 03:12:00 PM,09:56:02
+74413225^SongTbl,06/11/1996,12/31/2000,Bohemian Rhapsody,We will, we will rock you,metal hard rock rock,False,13,406.397543829656,2.93427332172395,,Hard Rock,5,04/04/2002 01:20:00 AM,02:01:22
+91207071^SongTbl,08/06/2024,07/15/1996,Smells Like Teen Spirit,Hey Jude, don't make it bad,classic rock hard rock rock,False,15,221.499454292291,2.43681658170843,,Classic Rock,2,12/29/2006 04:31:00 AM,12:08:44
+72139605^SongTbl,05/09/2004,11/29/1971,Imagine,I want to hold your hand,pop john paul,True,13,38.2929185330353,4.6541385765105,,Other,4,06/04/1975 08:24:00 AM,06:24:06
+64994557^SongTbl,05/31/1971,04/27/1977,Bohemian Rhapsody,We will, we will rock you,rock classic rock,False,8,226.980379011499,1.27779295586496,,Other,5,05/22/2018 06:18:00 PM,06:19:09
+77594397^SongTbl,12/28/1976,08/29/1997,Imagine,Imagine there's no heaven,metal rock,True,6,177.285753789491,4.1297022264882,,Pop,2,05/02/2011 05:05:00 PM,15:17:29
+57347196^SongTbl,04/04/1986,12/21/1994,Stairway to Heaven,Hey Jude, don't make it bad,metal classic rock hard rock,True,3,100.182719309854,4.98107023675504,,Classic Rock,1,11/13/2004 10:05:00 AM,03:36:45
+34473968^SongTbl,11/25/2022,10/17/2010,Bohemian Rhapsody,We will, we will rock you,beatles,False,2,18.7839723353671,4.51988191635116,,Classic Rock,5,05/19/1998 01:10:00 PM,15:22:12
+22959307^SongTbl,01/12/2013,03/30/1991,Hey Jude,Hey Jude, don't make it bad,beatles john paul,False,5,441.608952897998,2.78007461732767,,Folk,3,06/18/1999 03:07:00 PM,19:27:58
+85840608^SongTbl,09/06/2021,10/03/2024,Let It Be,Imagine there's no heaven,beatles,False,5,422.199219227099,4.34732399704221,,Metal,5,08/24/2003 04:17:00 AM,02:20:12
+27660258^SongTbl,10/09/1985,12/19/1977,Bohemian Rhapsody,We will, we will rock you,hard rock classic rock,False,8,494.348165076558,2.6703910407126,,Metal,1,07/18/1989 04:59:00 AM,02:16:28
+62503000^SongTbl,02/07/1986,10/25/2002,Hey Jude,Imagine there's no heaven,classic rock rock beatles,True,8,134.200097417711,3.88577958670802,,Pop,5,10/24/1997 02:27:00 AM,11:33:48
+24410058^SongTbl,02/22/1996,03/31/2011,Let It Be,Hey Jude, don't make it bad,beatles classic rock,True,13,141.437434597704,2.31104549144236,,Metal,3,04/11/1975 07:03:00 AM,06:33:04
+80994420^SongTbl,10/15/1970,11/21/1973,Imagine,Hey Jude, don't make it bad,pop rock john paul,False,4,233.206478800292,3.10896478238365,,Other,1,04/12/2009 02:23:00 AM,14:50:23
+15924324^SongTbl,01/17/1987,05/23/2007,Smells Like Teen Spirit,Imagine there's no heaven,john paul classic rock metal,True,12,229.079961755749,4.8154641959078,,Metal,3,05/29/1989 09:35:00 PM,05:07:58
+72142026^SongTbl,03/01/2004,05/01/2003,Hotel California,Hey Jude, don't make it bad,pop,True,6,479.7477206325,4.39454367300282,,Folk,2,10/03/1990 11:24:00 AM,15:28:23
+83556247^SongTbl,01/30/2003,06/15/2009,Hotel California,Imagine there's no heaven,pop classic rock,False,8,101.832942261916,1.28593182822986,,Classic Rock,2,07/07/2012 12:47:00 PM,00:37:28
+31513811^SongTbl,03/11/1970,01/19/2019,Smells Like Teen Spirit,I want to hold your hand,rock pop,False,7,305.257792658033,4.25277920242479,,Pop,2,12/04/2017 05:34:00 PM,15:32:48
+71526764^SongTbl,11/16/1986,02/15/1979,Hey Jude,Imagine there's no heaven,hard rock rock pop,False,1,361.309109113791,3.06218195542843,,Hard Rock,5,09/03/2008 04:42:00 AM,01:02:08
+77605017^SongTbl,12/02/2018,02/26/2019,Stairway to Heaven,We will, we will rock you,john paul pop metal,False,5,332.018067115052,4.00520422361022,,Folk,5,08/13/1970 08:58:00 PM,21:37:10
+24442419^SongTbl,12/23/2013,04/24/2001,Stairway to Heaven,Hey Jude, don't make it bad,john paul hard rock beatles,True,4,73.6708258923291,2.19578723408041,,Metal,4,05/26/2001 03:06:00 PM,01:06:20
+59909409^SongTbl,12/08/1975,10/05/1992,Smells Like Teen Spirit,Imagine there's no heaven,hard rock,True,14,474.06072118917,4.38642489884725,,Hard Rock,5,07/01/2018 01:10:00 PM,06:38:03
+70823118^SongTbl,05/17/2003,03/16/2002,Hotel California,We will, we will rock you,rock pop,False,14,354.845766604566,1.79702326956911,,Other,4,12/19/2013 06:21:00 PM,08:16:19
+90515801^SongTbl,04/09/1984,05/08/1988,Hotel California,Imagine there's no heaven,metal beatles john paul,False,10,78.4628514275178,2.87571225458317,,Other,5,04/16/1970 05:14:00 PM,08:19:38
+72303532^SongTbl,02/02/1976,01/27/2016,Let It Be,We will, we will rock you,rock john paul classic rock,False,6,385.506864199291,4.4159294227111,,Hard Rock,4,04/30/2022 05:43:00 PM,14:54:34
+89171287^SongTbl,06/13/2002,04/30/1998,Imagine,I want to hold your hand,pop hard rock,False,10,387.471590878848,3.21690061920799,,Metal,2,03/17/2022 10:39:00 AM,13:27:11
+25560502^SongTbl,03/23/2018,05/17/1976,Let It Be,We will, we will rock you,classic rock rock metal,True,14,313.715690649099,3.075999709381,,Classic Rock,5,04/01/1978 12:27:00 AM,17:45:43
+52229903^SongTbl,07/07/2002,04/15/2008,Stairway to Heaven,We will, we will rock you,pop,True,3,214.707461446767,1.08838083673874,,Other,2,12/02/2002 07:30:00 PM,13:04:12
+23469114^SongTbl,07/09/2015,01/02/1999,Hotel California,Hey Jude, don't make it bad,metal pop,True,10,195.429704248069,1.71808542962943,,Folk,4,04/24/2002 05:49:00 PM,14:32:41
+55388583^SongTbl,05/23/1970,09/08/1973,Bohemian Rhapsody,We will, we will rock you,hard rock rock,True,2,399.696474993745,2.40104260062673,,Folk,2,04/06/2024 07:07:00 PM,01:28:34
+23793544^SongTbl,08/19/1981,11/29/2022,Hey Jude,Hey Jude, don't make it bad,beatles metal rock,False,9,99.5510365760574,2.63104927144685,,Folk,5,02/09/2009 05:44:00 AM,05:15:08
+57852124^SongTbl,07/08/1982,06/03/2001,Let It Be,We will, we will rock you,classic rock metal,False,3,65.9620655278588,2.57553296357608,,Metal,2,11/28/2021 01:41:00 AM,00:33:00
+85506530^SongTbl,03/08/2013,07/07/2016,Stairway to Heaven,Imagine there's no heaven,metal rock,True,7,63.9217471537962,4.60397583357633,,Folk,4,12/31/1974 07:13:00 PM,00:29:43
+90869180^SongTbl,03/05/1996,12/12/2012,Let It Be,Hey Jude, don't make it bad,pop metal classic rock,True,10,297.806566802482,2.37220353756138,,Folk,5,09/05/1997 09:51:00 AM,17:23:14
+62964299^SongTbl,04/17/1997,06/23/1993,Hey Jude,Hey Jude, don't make it bad,metal pop classic rock,False,2,165.250245011616,1.22029845024214,,Metal,2,01/14/1971 12:50:00 AM,10:29:13
+79018992^SongTbl,12/25/1972,11/13/2019,Hey Jude,Hey Jude, don't make it bad,hard rock classic rock pop,True,1,39.7715775323565,4.9935470214328,,Metal,5,07/22/1982 04:25:00 PM,11:20:11
+71294881^SongTbl,10/04/2021,02/03/2009,Stairway to Heaven,Hey Jude, don't make it bad,metal beatles,True,15,455.82558808971,1.6530905632732,,Pop,5,03/18/1992 10:51:00 AM,12:53:46
+85079940^SongTbl,05/16/2001,06/13/2019,Imagine,We will, we will rock you,metal john paul,False,12,63.1170707051204,1.56994838078938,,Hard Rock,5,10/09/1995 11:35:00 PM,08:37:56
+63768412^SongTbl,06/20/2019,08/01/1974,Bohemian Rhapsody,I want to hold your hand,pop beatles rock,True,13,207.792035426287,1.71850039299405,,Hard Rock,5,07/20/2024 08:17:00 PM,00:14:15
+48977583^SongTbl,02/29/2016,03/02/1985,Stairway to Heaven,We will, we will rock you,classic rock hard rock pop,True,13,469.820972754718,4.86732729718113,,Pop,3,12/30/1985 09:20:00 AM,01:50:43
+48885827^SongTbl,01/24/2008,08/08/1997,Hotel California,Hey Jude, don't make it bad,john paul,True,6,350.784980357967,4.58719246901346,,Classic Rock,3,02/28/1986 07:17:00 AM,11:15:49
+28206600^SongTbl,01/05/1977,05/29/1997,Let It Be,We will, we will rock you,john paul metal hard rock,False,5,162.348789211225,1.528915151026,,Classic Rock,3,01/29/2018 03:21:00 PM,03:14:07
+49598045^SongTbl,01/14/1997,08/17/1985,Stairway to Heaven,I want to hold your hand,pop john paul,False,1,52.164192967974,4.30117665610383,,Classic Rock,2,06/13/1976 01:27:00 PM,09:19:55
+66862734^SongTbl,01/06/1999,04/22/2007,Let It Be,I want to hold your hand,hard rock classic rock,True,5,130.488609002887,3.13436665721877,,Other,2,05/09/1985 08:19:00 AM,00:13:40
+95613178^SongTbl,03/08/1989,08/12/2010,Smells Like Teen Spirit,Hey Jude, don't make it bad,beatles pop rock,True,6,460.762186745124,3.51389964522019,,Other,4,12/17/2013 04:18:00 AM,01:56:44
+49551840^SongTbl,06/03/1992,09/14/2002,Hotel California,Hey Jude, don't make it bad,beatles,False,10,250.742335046659,4.28059338312151,,Metal,1,01/01/1976 10:27:00 PM,07:14:35
+43521527^SongTbl,02/11/1984,04/15/1995,Bohemian Rhapsody,I want to hold your hand,hard rock metal pop,True,1,474.756627580746,4.01262013730547,,Other,1,07/03/2023 06:27:00 PM,04:14:21
+11709535^SongTbl,02/18/1973,07/05/1988,Stairway to Heaven,We will, we will rock you,john paul classic rock pop,True,4,320.601295253326,4.09781531990936,,Folk,1,11/21/1993 03:46:00 PM,16:10:10
+78785659^SongTbl,03/20/1975,09/26/1998,Imagine,Imagine there's no heaven,john paul,False,1,228.346329126094,1.40467866415552,,Hard Rock,2,05/11/1973 01:09:00 PM,11:27:15
+66765631^SongTbl,08/18/2023,12/06/1988,Let It Be,Hey Jude, don't make it bad,metal hard rock,False,1,259.311994728868,1.91050690575025,,Classic Rock,1,10/09/1983 12:04:00 AM,22:36:39
+20646422^SongTbl,11/07/1977,06/22/2005,Bohemian Rhapsody,Imagine there's no heaven,beatles metal pop,False,10,445.883990827782,1.92084228805176,,Other,2,11/24/1974 09:40:00 PM,19:28:26
+84646237^SongTbl,09/13/1995,03/07/2014,Hey Jude,We will, we will rock you,hard rock john paul,False,15,418.041834850166,3.50669551023326,,Hard Rock,1,07/21/1985 10:06:00 AM,16:15:14
+34512038^SongTbl,06/11/2013,11/02/2007,Let It Be,Imagine there's no heaven,beatles,True,3,368.044206252062,2.62514931942594,,Classic Rock,4,11/08/2019 08:33:00 AM,23:19:55
+62891576^SongTbl,11/17/2024,03/06/1991,Imagine,Hey Jude, don't make it bad,john paul,False,7,126.913653877324,3.16890040613679,,Metal,3,09/07/1998 07:00:00 PM,16:12:17
+31246370^SongTbl,05/30/2001,09/18/2014,Hotel California,I want to hold your hand,pop john paul metal,True,3,115.989869943362,4.28291984442498,,Pop,4,05/25/2008 07:02:00 AM,04:08:33
+62459136^SongTbl,10/21/2015,03/04/2021,Imagine,Imagine there's no heaven,metal,True,7,392.733982973201,2.6494849076809,,Pop,2,02/21/2024 01:28:00 PM,06:52:40
+36187857^SongTbl,12/29/1994,06/09/1984,Stairway to Heaven,I want to hold your hand,metal john paul,True,15,202.325919999164,3.92746979279799,,Folk,3,12/15/1983 01:57:00 PM,17:31:04
+97437228^SongTbl,12/04/1998,02/08/1972,Stairway to Heaven,Hey Jude, don't make it bad,pop john paul classic rock,True,9,121.48531106733,1.87878810634933,,Metal,1,03/04/2004 04:39:00 PM,07:32:15
+62489183^SongTbl,11/24/2013,06/25/1971,Hey Jude,We will, we will rock you,rock metal,True,15,130.146964677744,4.59335504925261,,Other,4,09/24/1975 05:58:00 AM,18:12:38
+76745350^SongTbl,10/11/2022,03/03/2023,Smells Like Teen Spirit,We will, we will rock you,john paul rock,True,7,495.738094888025,4.78019670338407,,Metal,4,12/19/1990 08:22:00 PM,19:47:16
+76114172^SongTbl,01/29/1982,08/23/1979,Let It Be,I want to hold your hand,rock classic rock hard rock,True,6,291.315801693578,3.72734140215537,,Metal,3,05/31/2009 10:51:00 PM,11:26:41
+40764173^SongTbl,08/12/2008,02/11/2015,Smells Like Teen Spirit,I want to hold your hand,rock,False,5,133.240246091133,2.75715840750722,,Folk,2,07/30/2021 03:15:00 AM,03:35:36
+55228339^SongTbl,07/06/1970,06/23/2014,Stairway to Heaven,We will, we will rock you,classic rock,True,13,200.990660855819,2.80949304871779,,Classic Rock,3,04/07/1986 04:02:00 PM,13:45:12
+12690830^SongTbl,08/01/2006,08/25/1994,Stairway to Heaven,Imagine there's no heaven,john paul,False,3,249.174792316339,4.12505466157372,,Folk,5,05/08/1970 06:46:00 PM,04:29:40
+66060746^SongTbl,04/15/1980,02/29/1976,Hey Jude,Hey Jude, don't make it bad,rock hard rock,True,6,39.7547506916586,4.26413207436894,,Folk,1,02/24/2017 11:31:00 AM,16:22:40
+57920405^SongTbl,02/25/2019,12/27/1981,Imagine,We will, we will rock you,john paul classic rock rock,False,8,364.594389546864,1.4225607900877,,Folk,4,04/29/1970 02:24:00 AM,01:44:08
+47096632^SongTbl,12/17/1980,11/28/1996,Imagine,Hey Jude, don't make it bad,pop hard rock,True,15,282.402752125154,1.16009619611531,,Hard Rock,1,01/05/2014 11:01:00 PM,15:02:12
+47770264^SongTbl,02/24/1993,01/16/1999,Smells Like Teen Spirit,We will, we will rock you,pop,False,5,430.436027202708,1.70700945852833,,Other,3,08/06/2003 08:03:00 AM,23:31:17
+49155109^SongTbl,12/28/1978,01/03/1972,Bohemian Rhapsody,We will, we will rock you,metal,False,9,460.727881883063,2.0527535882593,,Folk,1,09/14/2003 08:46:00 AM,14:08:34
+64963464^SongTbl,12/03/1970,02/04/1991,Hotel California,I want to hold your hand,pop rock,False,12,63.2890953855339,3.81047774364753,,Other,2,03/29/1982 07:03:00 PM,22:37:18
+94186933^SongTbl,02/01/2009,10/13/2023,Bohemian Rhapsody,Hey Jude, don't make it bad,metal,True,2,252.134857355308,1.87886342971713,,Hard Rock,3,05/19/2008 01:42:00 PM,17:17:59
+97043144^SongTbl,03/17/1981,08/25/1989,Let It Be,I want to hold your hand,pop,False,9,203.627672283763,3.71415269936155,,Hard Rock,5,01/14/2000 12:14:00 AM,03:40:12
+83950706^SongTbl,10/23/2000,11/11/2003,Imagine,We will, we will rock you,metal hard rock,True,4,332.650489833921,1.58064097485435,,Other,2,12/20/2011 10:29:00 PM,23:09:12
+47073090^SongTbl,11/13/1997,08/31/2007,Bohemian Rhapsody,I want to hold your hand,hard rock,False,12,416.332531185894,3.9149174637862,,Classic Rock,1,11/05/1977 08:23:00 PM,15:39:18
+17332737^SongTbl,02/28/2007,12/26/1978,Smells Like Teen Spirit,I want to hold your hand,john paul classic rock,False,9,409.640041872998,1.64423188119765,,Classic Rock,2,05/17/1984 03:03:00 PM,13:36:33
+46956486^SongTbl,11/12/1999,04/09/2014,Bohemian Rhapsody,Imagine there's no heaven,hard rock beatles,True,4,132.539794205511,1.12937996690239,,Classic Rock,3,11/10/1978 12:01:00 AM,00:17:09
+61628570^SongTbl,09/13/2024,03/04/2007,Let It Be,Imagine there's no heaven,rock,True,9,13.534100283876,2.55070264530155,,Pop,2,07/31/1997 01:26:00 AM,09:49:16
+77767331^SongTbl,05/23/2001,05/05/2001,Smells Like Teen Spirit,Hey Jude, don't make it bad,john paul,False,5,415.962809944715,4.25580856787248,,Hard Rock,5,04/10/1974 11:05:00 PM,22:27:52
+26386497^SongTbl,05/11/1992,12/20/1991,Hotel California,Imagine there's no heaven,metal rock,False,7,303.264764302578,2.76446584731574,,Folk,2,03/12/2004 04:34:00 PM,01:06:46
+52825497^SongTbl,09/03/2024,11/27/1988,Hotel California,We will, we will rock you,hard rock,True,7,318.272661915611,3.42811661463951,,Metal,4,04/20/1983 10:38:00 AM,16:56:30
+91473473^SongTbl,04/15/1979,06/25/1981,Hey Jude,Imagine there's no heaven,rock hard rock beatles,True,2,71.8503603669841,1.0196414167969,,Metal,3,07/03/1987 02:54:00 AM,22:25:10
+92082962^SongTbl,01/30/2006,12/06/1986,Imagine,Imagine there's no heaven,rock pop classic rock,True,8,168.274784782455,1.96167585250442,,Classic Rock,3,08/22/2015 02:19:00 PM,17:18:16
+20620130^SongTbl,07/12/2005,03/28/2002,Stairway to Heaven,Hey Jude, don't make it bad,pop rock classic rock,True,3,303.510733793443,3.0233331702003,,Folk,4,07/22/1980 02:15:00 AM,15:00:01
+81484133^SongTbl,11/01/2018,01/07/2006,Stairway to Heaven,Imagine there's no heaven,beatles classic rock pop,False,11,114.902958799806,3.98843895721814,,Pop,2,09/06/1971 08:14:00 AM,10:30:20
+40212405^SongTbl,11/09/2019,06/26/1994,Stairway to Heaven,We will, we will rock you,beatles hard rock,False,10,125.235379449625,4.63053271556586,,Pop,4,07/18/1971 04:44:00 AM,15:38:21
+40307570^SongTbl,06/02/2004,04/01/1975,Imagine,I want to hold your hand,classic rock john paul,True,7,7.24596379202474,4.53619638875959,,Pop,4,06/28/1992 05:21:00 AM,06:45:23
+72183449^SongTbl,06/05/2021,04/17/1990,Imagine,Imagine there's no heaven,hard rock rock,True,9,466.627381361005,3.41166236665701,,Pop,5,04/19/2006 06:23:00 AM,03:36:59
+31730501^SongTbl,02/14/2020,09/07/2024,Hey Jude,We will, we will rock you,pop beatles,False,13,83.2295994763602,4.24304486489356,,Hard Rock,5,10/19/1994 09:22:00 AM,05:20:40
+33373246^SongTbl,11/30/2010,12/31/1978,Smells Like Teen Spirit,We will, we will rock you,john paul rock,False,4,242.687221226815,1.96017716476107,,Folk,2,03/08/2004 09:19:00 PM,08:20:50
+61845721^SongTbl,10/02/1995,09/20/1988,Hotel California,I want to hold your hand,metal pop beatles,True,8,209.853923488296,2.96138397477903,,Classic Rock,2,01/01/1995 08:08:00 PM,22:24:34
+52469850^SongTbl,07/16/2016,10/17/1992,Hotel California,Imagine there's no heaven,pop classic rock,True,13,3.78668031406799,4.57595754693053,,Other,2,02/11/1980 05:06:00 AM,04:24:26
+81212655^SongTbl,01/19/2014,02/01/2004,Stairway to Heaven,Imagine there's no heaven,metal,True,5,448.282661875334,1.14709780492246,,Classic Rock,2,04/15/1985 12:47:00 AM,09:46:36
+24137491^SongTbl,09/17/2012,03/09/1991,Let It Be,Imagine there's no heaven,rock,True,7,355.009241130699,2.93603861837145,,Pop,1,12/15/1981 03:00:00 PM,02:37:22
+87210458^SongTbl,08/05/2016,10/16/2019,Bohemian Rhapsody,We will, we will rock you,classic rock rock pop,False,8,174.22372915871,4.67783755439396,,Hard Rock,3,12/13/1981 08:52:00 AM,17:03:42
+65427855^SongTbl,08/22/1989,06/25/2018,Imagine,Imagine there's no heaven,classic rock,True,8,248.276719478847,1.00898260081278,,Pop,4,04/19/1999 04:58:00 PM,01:39:50
+15713408^SongTbl,07/05/2001,02/16/2007,Hey Jude,We will, we will rock you,pop,True,8,195.328807206323,4.58818437512932,,Pop,5,10/19/1981 06:44:00 AM,04:59:00
+13381303^SongTbl,01/24/2024,10/03/1973,Hey Jude,We will, we will rock you,rock classic rock,True,2,52.393292750602,2.15637205778569,,Other,4,04/06/2025 09:42:00 PM,15:32:50
+70379355^SongTbl,01/23/1982,01/23/2008,Smells Like Teen Spirit,Imagine there's no heaven,metal beatles,False,14,33.8387712746208,1.76426807672622,,Pop,2,10/30/2016 02:31:00 PM,18:27:25
+79485833^SongTbl,01/02/2024,09/06/1976,Hotel California,I want to hold your hand,john paul hard rock metal,False,2,382.622389148084,2.57438111601525,,Pop,1,01/20/1973 05:39:00 AM,19:08:56
+49359982^SongTbl,08/06/2021,07/14/1999,Stairway to Heaven,Hey Jude, don't make it bad,rock,True,5,475.41443991205,1.8748019448657,,Hard Rock,2,05/23/1986 06:49:00 PM,19:26:37
+64810123^SongTbl,11/10/1994,07/07/1984,Bohemian Rhapsody,We will, we will rock you,pop rock beatles,True,3,51.4430799706128,1.31083403337232,,Other,3,08/09/1999 04:43:00 AM,03:45:58
+88295231^SongTbl,08/29/2000,10/23/2013,Let It Be,We will, we will rock you,classic rock,True,2,15.6716225911739,1.46870367674769,,Hard Rock,1,10/25/1988 01:08:00 PM,14:35:05
+76450400^SongTbl,09/19/1997,09/08/2021,Bohemian Rhapsody,Hey Jude, don't make it bad,rock,False,13,354.557111793423,2.63527519370832,,Folk,4,07/17/1990 07:04:00 PM,02:48:27
+14975542^SongTbl,05/02/1998,04/06/2011,Hey Jude,We will, we will rock you,pop beatles metal,False,7,61.1482299963453,3.19429227227437,,Other,4,02/07/2009 12:56:00 PM,21:06:47
+25223439^SongTbl,01/24/1980,07/23/2009,Bohemian Rhapsody,Hey Jude, don't make it bad,rock hard rock classic rock,True,5,174.125361990288,1.58348244845469,,Metal,3,10/16/1988 12:26:00 PM,23:45:26
+91754338^SongTbl,07/24/1995,05/16/1995,Hey Jude,I want to hold your hand,metal,False,11,5.61119283604753,3.50348790281877,,Hard Rock,5,04/29/2016 11:49:00 AM,21:06:18
+82317858^SongTbl,11/12/2007,12/31/2024,Hotel California,Hey Jude, don't make it bad,classic rock,False,7,469.845915388394,2.92867369813376,,Hard Rock,5,05/14/1984 07:33:00 PM,11:11:51
+96682579^SongTbl,09/11/2020,09/30/1978,Bohemian Rhapsody,Hey Jude, don't make it bad,metal john paul,True,2,87.800803165041,4.06218962136884,,Metal,4,08/31/1980 01:11:00 AM,03:56:54
+67803661^SongTbl,04/23/1994,03/18/2009,Smells Like Teen Spirit,Imagine there's no heaven,pop beatles,False,10,214.245319990971,4.18003994116269,,Other,5,05/30/1973 01:23:00 PM,18:32:03
+40906201^SongTbl,04/11/1970,01/29/1979,Bohemian Rhapsody,Hey Jude, don't make it bad,rock beatles john paul,True,5,106.207364531262,3.96525805816722,,Metal,1,02/28/1988 09:12:00 AM,11:33:24
+99615845^SongTbl,06/18/1972,06/17/2013,Let It Be,I want to hold your hand,hard rock john paul rock,False,15,279.622172437646,1.74663237905529,,Pop,1,11/06/1985 12:43:00 PM,22:09:46
+64526124^SongTbl,07/07/2024,07/23/2023,Imagine,I want to hold your hand,classic rock rock hard rock,False,6,231.905066389775,3.28549747364635,,Hard Rock,4,12/17/2015 01:28:00 AM,22:23:07
+46800389^SongTbl,09/12/1993,01/31/2013,Hey Jude,Imagine there's no heaven,beatles hard rock,False,1,224.393330566192,2.81575485723424,,Hard Rock,3,06/05/1987 10:58:00 AM,04:35:20
+47057128^SongTbl,09/21/2010,05/23/1990,Bohemian Rhapsody,Hey Jude, don't make it bad,john paul classic rock beatles,False,1,12.1703090416236,1.79208641811856,,Hard Rock,3,08/02/1972 03:33:00 PM,13:17:47
+45498132^SongTbl,10/23/1998,02/26/1976,Hotel California,Hey Jude, don't make it bad,pop classic rock,True,4,445.154852568708,1.22835722119011,,Metal,5,03/18/1984 09:50:00 AM,08:16:25
+39863214^SongTbl,03/05/2011,06/03/1995,Bohemian Rhapsody,I want to hold your hand,john paul,False,4,361.021487354016,4.2237463351128,,Other,1,02/09/1976 10:06:00 PM,18:13:14
+21615306^SongTbl,08/25/1996,12/12/1977,Bohemian Rhapsody,I want to hold your hand,beatles rock,True,12,366.948978982536,1.49466395806733,,Metal,2,07/10/2011 01:23:00 AM,22:53:35
+61355951^SongTbl,04/06/2016,07/17/2014,Smells Like Teen Spirit,We will, we will rock you,beatles metal classic rock,False,8,327.22451401702,4.82795738903375,,Folk,1,11/16/1988 10:10:00 AM,12:24:07
+78916655^SongTbl,11/18/2021,02/01/1989,Hotel California,Imagine there's no heaven,rock pop,True,2,243.839690408238,4.15022864590731,,Folk,3,09/14/1985 07:16:00 AM,21:05:13
+40052497^SongTbl,11/16/2012,03/27/1975,Bohemian Rhapsody,We will, we will rock you,metal rock,True,13,457.663117594345,4.27005068664263,,Hard Rock,4,06/10/1982 10:38:00 AM,04:14:27
+32370675^SongTbl,12/06/1990,05/22/2015,Bohemian Rhapsody,Imagine there's no heaven,hard rock,True,6,336.453764926921,4.14447136303656,,Classic Rock,2,01/20/1994 08:19:00 AM,03:55:51
+41952082^SongTbl,06/02/1996,05/13/2019,Hotel California,Imagine there's no heaven,beatles hard rock metal,False,12,468.461525680909,2.71699009360339,,Other,4,04/30/2013 12:39:00 PM,03:28:16
+47203324^SongTbl,03/23/1992,07/28/1997,Hotel California,Hey Jude, don't make it bad,pop,True,6,259.182417057316,1.36432968634529,,Folk,5,07/23/2007 04:19:00 PM,21:08:11
+30016268^SongTbl,04/15/1989,06/02/1990,Smells Like Teen Spirit,Hey Jude, don't make it bad,beatles rock john paul,False,13,469.001362227228,2.36747334052716,,Metal,3,06/22/2016 01:11:00 PM,07:33:01
+71139683^SongTbl,06/11/1970,03/22/1984,Hotel California,We will, we will rock you,metal classic rock,True,2,150.999658058436,3.83396004336992,,Hard Rock,2,11/17/1979 11:08:00 AM,00:43:51
+66897821^SongTbl,01/26/1986,07/05/2018,Smells Like Teen Spirit,Hey Jude, don't make it bad,beatles pop,False,11,12.3044624259091,2.0596120544057,,Folk,2,02/05/1975 04:33:00 AM,00:54:10
+62663849^SongTbl,08/04/2004,11/21/1995,Smells Like Teen Spirit,I want to hold your hand,classic rock,True,4,412.080334542399,1.29885879929667,,Classic Rock,5,04/24/2003 08:05:00 AM,01:15:21
+26652869^SongTbl,06/22/1977,07/03/1988,Bohemian Rhapsody,We will, we will rock you,beatles pop classic rock,False,2,82.4205130942235,3.95765249551336,,Pop,4,12/16/2000 09:54:00 AM,06:44:49
+51961829^SongTbl,08/20/1984,07/09/2017,Let It Be,Hey Jude, don't make it bad,classic rock john paul beatles,False,13,424.337370716031,1.3794637437814,,Other,2,04/11/1974 07:19:00 PM,15:30:31
+82819103^SongTbl,04/15/1994,06/21/1972,Imagine,I want to hold your hand,classic rock hard rock beatles,True,2,303.454123711398,4.59000004101284,,Hard Rock,2,09/16/2015 06:28:00 AM,13:06:06
+62045376^SongTbl,06/19/1998,12/13/2002,Hey Jude,I want to hold your hand,classic rock metal,False,2,314.689230454497,2.14788216747471,,Classic Rock,1,09/28/1979 02:02:00 PM,02:50:50
+98220601^SongTbl,09/16/2008,06/08/1995,Hotel California,I want to hold your hand,hard rock,True,10,16.0280490335898,4.23587653777741,,Pop,2,04/14/2012 10:45:00 PM,10:20:07
+74348425^SongTbl,12/06/1981,03/13/1981,Smells Like Teen Spirit,We will, we will rock you,metal pop,True,3,477.370385400016,3.36964642282907,,Other,5,12/26/2013 03:17:00 PM,09:42:54
+41595496^SongTbl,01/13/1993,07/08/1980,Stairway to Heaven,Hey Jude, don't make it bad,classic rock rock metal,True,10,406.610982404732,2.67617795564443,,Other,3,10/04/1985 10:13:00 PM,08:26:16
+33999772^SongTbl,01/04/2008,10/20/2014,Bohemian Rhapsody,Hey Jude, don't make it bad,beatles rock pop,False,12,193.941476832578,4.04591516239849,,Pop,5,08/11/1970 06:56:00 AM,16:11:32
+72363241^SongTbl,03/07/2008,08/05/2020,Stairway to Heaven,I want to hold your hand,hard rock beatles pop,True,5,95.1950604074996,4.62702442291657,,Classic Rock,1,11/21/1986 05:39:00 AM,10:33:56
+28271290^SongTbl,03/01/1979,03/10/2014,Hotel California,Hey Jude, don't make it bad,metal john paul,False,14,39.4170972901154,4.50522176239894,,Hard Rock,4,11/17/1999 08:21:00 PM,10:33:57
+21313164^SongTbl,05/07/1979,04/01/1972,Hey Jude,Hey Jude, don't make it bad,rock classic rock,False,5,130.320111262655,3.8270959146715,,Metal,2,07/14/1970 01:54:00 AM,03:10:36
+48635634^SongTbl,05/22/2015,07/28/2005,Smells Like Teen Spirit,I want to hold your hand,metal beatles classic rock,True,6,340.663275407483,1.1838804776673,,Pop,4,12/21/2017 03:01:00 AM,07:02:57
+38264468^SongTbl,08/11/1972,05/28/2017,Hotel California,I want to hold your hand,john paul pop beatles,False,3,370.660690155143,1.91355562680712,,Folk,2,08/24/2020 10:38:00 PM,18:05:33
+12882455^SongTbl,03/24/1989,10/01/1974,Hey Jude,We will, we will rock you,classic rock john paul,False,10,15.1380720275553,2.51583081168312,,Metal,5,07/18/1998 12:44:00 PM,19:12:05
+90188392^SongTbl,03/22/2000,09/08/1994,Imagine,Imagine there's no heaven,metal classic rock john paul,False,4,448.71725151356,4.52381629272303,,Other,3,08/24/1977 07:12:00 AM,20:44:51
+49446877^SongTbl,03/06/2011,08/28/2002,Bohemian Rhapsody,Hey Jude, don't make it bad,beatles hard rock,True,14,200.227377062368,3.43859518886417,,Metal,2,11/15/2005 12:25:00 PM,03:54:17
+25869244^SongTbl,09/29/1981,02/05/1999,Hey Jude,We will, we will rock you,classic rock pop rock,False,12,395.088593854857,1.55335311106132,,Classic Rock,3,12/26/1989 12:16:00 AM,10:59:00
+82182876^SongTbl,11/10/2006,05/04/2013,Smells Like Teen Spirit,I want to hold your hand,hard rock classic rock,True,13,336.419770190976,2.00972823820069,,Other,1,12/16/2004 03:53:00 AM,14:08:58
+47475928^SongTbl,09/09/1989,02/18/2006,Imagine,I want to hold your hand,rock metal classic rock,True,1,248.940939813768,4.32399070439821,,Folk,1,11/21/1975 09:30:00 PM,12:10:03
+18529245^SongTbl,02/24/2021,07/13/1970,Hey Jude,Hey Jude, don't make it bad,classic rock hard rock,True,3,384.201797984374,3.4383856654363,,Pop,2,11/19/2010 05:34:00 AM,16:34:40
+22049147^SongTbl,02/03/1998,05/01/2009,Stairway to Heaven,We will, we will rock you,metal,True,2,98.7141650197839,1.36125350078737,,Other,4,09/02/1979 12:42:00 PM,07:40:53
+84511444^SongTbl,04/04/2025,06/23/2018,Let It Be,Imagine there's no heaven,pop metal hard rock,False,14,119.12276982124,3.00629214449019,,Metal,1,01/24/1989 07:01:00 AM,20:15:07
+21138295^SongTbl,11/19/2021,04/18/2016,Imagine,We will, we will rock you,pop rock,True,5,458.076509971237,1.68044426191014,,Pop,5,03/27/1982 08:57:00 PM,03:24:54
+73672752^SongTbl,09/20/2017,10/12/1978,Bohemian Rhapsody,Hey Jude, don't make it bad,classic rock pop,True,10,186.469786001475,2.84721919285474,,Other,5,05/11/1999 11:40:00 PM,09:34:31
+87965099^SongTbl,03/06/2014,04/09/1976,Hey Jude,I want to hold your hand,rock beatles pop,True,12,164.093465821517,3.81618153256781,,Folk,2,04/28/1991 06:29:00 PM,19:36:20
+33921226^SongTbl,07/10/2022,02/16/2012,Smells Like Teen Spirit,Imagine there's no heaven,classic rock rock,False,12,47.3131790019837,3.75981865379837,,Hard Rock,3,08/06/1973 12:01:00 AM,13:55:04
+48376209^SongTbl,10/30/2001,12/20/2008,Let It Be,Hey Jude, don't make it bad,pop metal,False,3,132.818715396357,4.43915906984015,,Pop,5,05/24/1975 09:27:00 AM,08:49:56
+77979346^SongTbl,07/16/1977,05/29/2018,Bohemian Rhapsody,Hey Jude, don't make it bad,metal john paul pop,True,14,453.899420702049,4.54122231408528,,Folk,5,11/19/1992 02:07:00 AM,19:06:49
+54605628^SongTbl,12/30/2005,06/04/1973,Hotel California,Hey Jude, don't make it bad,metal classic rock,True,11,374.758546608669,4.16377596424116,,Folk,2,09/09/1971 10:01:00 PM,21:04:14
+32861169^SongTbl,03/10/1984,04/14/2018,Smells Like Teen Spirit,Hey Jude, don't make it bad,pop beatles,False,4,230.852058252472,3.16789368631163,,Hard Rock,3,07/28/1997 07:42:00 AM,11:25:42
+45509786^SongTbl,05/27/2023,09/10/2021,Smells Like Teen Spirit,I want to hold your hand,metal beatles rock,True,12,166.824046717577,4.92744455592481,,Pop,1,02/05/1982 05:52:00 AM,01:22:58
+65738752^SongTbl,03/27/1993,06/20/2018,Hey Jude,Hey Jude, don't make it bad,metal hard rock pop,True,12,56.4219331969932,4.57579023130131,,Other,1,12/07/2013 10:12:00 PM,02:10:30
+33404476^SongTbl,07/19/1976,07/24/1975,Let It Be,We will, we will rock you,metal,False,14,231.883165944549,2.21105350341632,,Pop,5,10/17/1973 12:46:00 PM,15:45:26
+91850010^SongTbl,08/10/1991,07/19/2016,Smells Like Teen Spirit,Imagine there's no heaven,john paul pop,True,14,134.836614849559,3.4252625110592,,Classic Rock,3,12/07/1997 04:17:00 AM,03:33:03
+76713620^SongTbl,07/27/2011,12/01/1974,Stairway to Heaven,We will, we will rock you,rock,True,11,56.0312963862194,4.61387631478809,,Folk,1,11/15/2024 09:19:00 PM,23:54:27
+91573791^SongTbl,07/28/1972,08/08/1980,Imagine,Imagine there's no heaven,hard rock pop john paul,True,5,374.219002676497,1.1240063147303,,Classic Rock,3,12/14/2002 06:55:00 PM,15:32:44
+99218451^SongTbl,06/30/2010,04/09/2010,Hey Jude,I want to hold your hand,pop,True,11,293.231483599861,3.89030729863146,,Other,5,02/03/1987 05:15:00 AM,19:13:55
+94826339^SongTbl,11/13/2001,02/17/1997,Imagine,Imagine there's no heaven,hard rock,False,4,331.968746923067,4.78846531130857,,Hard Rock,3,05/18/1984 04:33:00 AM,10:04:27
+61738351^SongTbl,08/21/1985,06/07/1971,Hey Jude,Imagine there's no heaven,pop,True,12,276.488135161135,2.40327836012966,,Folk,3,04/03/2017 07:10:00 AM,10:02:28
+63301916^SongTbl,10/19/2011,11/11/1972,Hotel California,We will, we will rock you,rock metal,False,7,224.918564359878,4.98958110708265,,Hard Rock,2,02/02/2016 07:50:00 AM,11:33:22
+33990182^SongTbl,12/11/2010,11/10/1982,Stairway to Heaven,I want to hold your hand,metal pop,False,4,11.3968770291065,3.84337872466106,,Pop,3,08/09/2024 05:52:00 PM,15:33:31
+47363527^SongTbl,03/31/1988,05/27/1980,Let It Be,I want to hold your hand,beatles rock pop,False,8,80.5151669283705,2.50109504749547,,Classic Rock,2,02/14/2000 03:47:00 AM,09:39:24
+27386464^SongTbl,05/18/2016,08/11/1989,Hotel California,We will, we will rock you,pop,True,4,149.91532897683,1.67269192444542,,Pop,5,05/31/2019 08:15:00 AM,07:10:44
+92410124^SongTbl,02/07/1996,02/12/1975,Hey Jude,Imagine there's no heaven,rock classic rock,False,1,473.752921466768,2.30831938067753,,Other,3,09/23/1976 04:50:00 PM,03:38:12
+94669155^SongTbl,11/30/1981,01/20/2009,Let It Be,Imagine there's no heaven,beatles rock classic rock,True,4,425.463817739595,1.10103725386766,,Classic Rock,1,05/11/1998 03:55:00 PM,22:32:36
+28633313^SongTbl,03/12/2019,06/12/2006,Imagine,I want to hold your hand,pop metal,False,1,473.890782611763,4.46601555777024,,Metal,3,06/20/1970 11:05:00 PM,09:43:17
+61395880^SongTbl,11/27/1971,08/13/2008,Hotel California,Imagine there's no heaven,pop,True,15,493.98107919259,4.29763816812731,,Other,2,05/07/1977 03:09:00 PM,20:55:15
+70754784^SongTbl,11/13/1986,01/01/2018,Imagine,I want to hold your hand,john paul hard rock,False,9,242.675604124148,4.82913270636926,,Classic Rock,5,08/13/1976 07:52:00 PM,19:17:04
+31738447^SongTbl,08/02/2024,01/01/1979,Stairway to Heaven,Imagine there's no heaven,rock hard rock metal,True,3,113.58784392053,4.20962138388725,,Hard Rock,3,11/07/1970 11:07:00 PM,08:41:03
+67982574^SongTbl,12/05/1971,07/27/2023,Let It Be,Hey Jude, don't make it bad,rock classic rock,True,2,166.504313927847,2.04404651953849,,Pop,1,11/05/2009 05:53:00 PM,01:47:07
+50193449^SongTbl,07/07/2004,04/06/1986,Smells Like Teen Spirit,I want to hold your hand,rock,True,9,280.755334961516,3.2919576618832,,Hard Rock,2,11/29/1975 08:09:00 AM,12:38:38
+52789974^SongTbl,10/09/2000,08/01/2014,Stairway to Heaven,We will, we will rock you,beatles metal john paul,True,6,379.296685738568,3.11358350451477,,Other,1,09/21/1998 06:29:00 PM,20:07:57
+22752030^SongTbl,04/21/2019,02/12/1980,Smells Like Teen Spirit,We will, we will rock you,rock,True,8,5.78623976618879,2.61096730940778,,Metal,2,06/14/2014 12:42:00 AM,08:18:24
+27421765^SongTbl,06/12/1971,06/25/2002,Let It Be,We will, we will rock you,metal,True,8,429.351943842548,4.27883633093544,,Metal,2,06/04/1979 06:32:00 PM,07:46:34
+91307094^SongTbl,12/03/1979,12/05/1997,Stairway to Heaven,We will, we will rock you,hard rock,True,15,461.829288526539,1.94561653180504,,Metal,2,09/28/1993 06:16:00 AM,14:52:57
+76083261^SongTbl,12/12/1976,10/04/1992,Bohemian Rhapsody,I want to hold your hand,john paul,True,13,345.706161535049,1.69979389050978,,Metal,5,07/25/1975 05:57:00 AM,12:30:53
+48488119^SongTbl,08/17/2012,12/10/2020,Hey Jude,We will, we will rock you,john paul pop,False,10,230.075430473114,1.64254975758756,,Classic Rock,2,05/28/2017 07:52:00 AM,07:33:20
+13234523^SongTbl,11/04/1989,08/30/1990,Hotel California,I want to hold your hand,beatles,False,7,398.184970518862,4.01803439004514,,Classic Rock,1,08/30/1986 05:18:00 AM,22:08:50
+19190969^SongTbl,11/27/1972,05/30/1974,Stairway to Heaven,Imagine there's no heaven,pop classic rock,False,10,75.1190502877994,4.52769805155754,,Classic Rock,2,11/05/1977 12:20:00 PM,14:22:34
+15980926^SongTbl,03/11/1981,07/28/1971,Hotel California,We will, we will rock you,metal hard rock rock,False,13,317.815255250141,2.99184169099409,,Hard Rock,2,12/08/2023 02:07:00 PM,15:54:36
+47116753^SongTbl,12/22/1998,07/10/1980,Let It Be,I want to hold your hand,john paul beatles,True,10,427.979600821155,3.14717128386096,,Folk,1,05/04/2012 12:34:00 AM,01:59:43
+83332450^SongTbl,07/21/2023,02/22/2021,Bohemian Rhapsody,Hey Jude, don't make it bad,metal,True,10,157.064888978405,4.36453248279636,,Classic Rock,3,12/21/2013 03:12:00 PM,17:26:39
+58416245^SongTbl,12/10/2014,03/08/1982,Hey Jude,Imagine there's no heaven,hard rock pop,True,6,88.167139837195,2.67534658270076,,Metal,1,04/06/1989 07:44:00 PM,17:21:45
+83308127^SongTbl,10/22/2018,06/22/2011,Imagine,Imagine there's no heaven,metal pop beatles,True,2,218.745254028365,2.51758813996613,,Pop,4,07/21/2021 10:52:00 PM,17:44:52
+75537744^SongTbl,07/22/1981,02/21/2018,Imagine,I want to hold your hand,classic rock beatles metal,True,10,50.9296102036807,3.47064362009578,,Pop,4,08/15/1982 10:30:00 PM,15:30:45
+17241375^SongTbl,07/03/1977,04/22/1984,Bohemian Rhapsody,Hey Jude, don't make it bad,pop classic rock john paul,False,2,296.782214769486,2.86719666339221,,Folk,4,11/13/1970 07:53:00 PM,05:51:35
+88434854^SongTbl,12/20/1993,05/17/1990,Imagine,Hey Jude, don't make it bad,hard rock,True,14,327.852604390847,4.47154940700639,,Hard Rock,1,08/13/1977 06:39:00 AM,22:25:19
+27649460^SongTbl,07/17/2021,10/03/2006,Hey Jude,We will, we will rock you,hard rock metal,True,13,238.477670299701,4.95807940779524,,Classic Rock,2,10/19/2021 09:25:00 AM,18:30:52
+47172781^SongTbl,05/20/1975,08/09/1977,Smells Like Teen Spirit,Hey Jude, don't make it bad,john paul metal hard rock,True,4,131.821867324718,3.65214270229187,,Folk,3,10/25/2021 12:30:00 AM,15:45:27
+55253543^SongTbl,07/18/2013,05/13/2007,Smells Like Teen Spirit,We will, we will rock you,rock pop john paul,True,2,138.79225604895,3.69289079507702,,Hard Rock,4,10/05/2024 06:25:00 PM,15:57:03
+58733034^SongTbl,03/31/2018,11/28/1975,Hey Jude,I want to hold your hand,metal,False,1,49.590000022247,4.16984762839312,,Other,4,07/20/1972 07:12:00 PM,21:02:05
+95454513^SongTbl,12/28/1972,02/26/1993,Bohemian Rhapsody,We will, we will rock you,hard rock john paul classic rock,False,12,439.638816096243,2.5424459292429,,Other,4,07/07/1971 07:07:00 AM,17:33:53
+43316670^SongTbl,03/16/2019,03/27/2008,Let It Be,Imagine there's no heaven,john paul pop rock,True,11,378.386072422836,2.6782129200016,,Other,1,05/20/2016 01:05:00 PM,22:06:43
+12046635^SongTbl,05/14/2022,10/17/1995,Imagine,We will, we will rock you,rock john paul,True,8,327.055528091666,2.75592332365614,,Folk,5,09/12/1991 04:16:00 PM,11:00:25
+44334641^SongTbl,09/10/1975,01/21/1993,Stairway to Heaven,I want to hold your hand,pop john paul,False,12,61.8494264065853,3.33154883268191,,Hard Rock,2,12/28/2005 05:42:00 PM,04:57:34
+17698940^SongTbl,12/18/1981,05/09/1982,Bohemian Rhapsody,We will, we will rock you,classic rock,True,4,489.374106492102,1.99938331054533,,Other,3,12/05/2015 07:28:00 AM,06:48:37
+80859850^SongTbl,05/22/1992,12/27/2020,Smells Like Teen Spirit,Hey Jude, don't make it bad,pop,False,12,21.0106783236384,3.68318922351696,,Pop,2,04/03/1980 11:25:00 AM,07:42:40
+21563944^SongTbl,10/16/1988,01/17/2010,Bohemian Rhapsody,I want to hold your hand,pop,True,11,288.90047723089,3.78888470537045,,Hard Rock,3,11/26/1982 08:54:00 PM,05:29:48
+90406219^SongTbl,01/15/2011,08/04/2005,Smells Like Teen Spirit,Hey Jude, don't make it bad,beatles rock hard rock,True,3,35.3764414449611,1.28913530432793,,Other,3,04/04/1993 12:34:00 PM,07:43:16
+66453811^SongTbl,09/08/2024,11/21/1998,Hey Jude,We will, we will rock you,rock classic rock,False,5,42.0171390439152,3.23715399336636,,Other,5,05/19/2002 12:37:00 PM,09:36:49
+85635519^SongTbl,06/17/1993,02/12/1998,Let It Be,Imagine there's no heaven,rock,False,11,45.5563471485641,4.58636947470839,,Folk,3,11/29/1999 07:17:00 AM,05:55:02
+56932742^SongTbl,01/28/2021,02/27/2008,Hotel California,I want to hold your hand,metal,False,3,303.197178125415,2.45716483965551,,Hard Rock,1,03/20/1988 01:57:00 PM,12:13:37
+30962483^SongTbl,06/15/1979,10/22/1970,Hey Jude,I want to hold your hand,classic rock rock,False,11,241.600151620194,4.06032484096799,,Pop,3,02/23/2022 05:56:00 AM,00:38:27
+78874331^SongTbl,02/02/2015,03/20/1972,Hey Jude,Imagine there's no heaven,john paul,True,11,438.244633124677,4.95586477135419,,Classic Rock,1,04/25/1976 05:14:00 AM,12:45:06
+68666504^SongTbl,07/18/2021,12/09/1986,Hotel California,We will, we will rock you,metal,False,5,186.454381223359,4.73271428900924,,Hard Rock,3,07/28/2013 07:49:00 AM,16:43:41
+63256156^SongTbl,02/17/2012,04/14/1978,Bohemian Rhapsody,Imagine there's no heaven,hard rock pop,False,9,434.967688295893,3.28665771766485,,Hard Rock,5,02/08/1984 09:33:00 AM,16:51:14
+42245975^SongTbl,11/03/1986,01/29/1997,Let It Be,We will, we will rock you,hard rock,False,10,92.4204490828269,1.02529706099929,,Folk,1,01/01/1977 04:44:00 PM,12:47:39
+11900492^SongTbl,10/09/2002,11/08/1998,Hotel California,Hey Jude, don't make it bad,metal john paul hard rock,True,3,67.9125227385844,4.37690364504743,,Other,4,09/09/1994 06:27:00 AM,16:54:56
+15457761^SongTbl,05/18/2004,09/12/1990,Hotel California,We will, we will rock you,pop,False,1,368.398556190548,3.54656224346603,,Pop,3,12/06/1985 05:14:00 AM,00:50:37
+11423943^SongTbl,07/06/1971,05/09/1971,Hotel California,Imagine there's no heaven,beatles,False,11,364.240982468329,4.05451728889152,,Hard Rock,1,04/18/2002 07:34:00 AM,12:10:00
+92870547^SongTbl,04/15/2021,05/17/2014,Hotel California,Imagine there's no heaven,beatles classic rock hard rock,False,11,130.098744907434,3.75923317317981,,Other,4,06/05/1997 02:26:00 PM,09:47:17
+58447585^SongTbl,05/12/2001,09/30/2021,Smells Like Teen Spirit,We will, we will rock you,hard rock,False,7,277.654718068845,3.9261802006462,,Hard Rock,3,05/18/1973 04:00:00 PM,19:07:16
+61024268^SongTbl,09/16/2007,10/23/1997,Stairway to Heaven,We will, we will rock you,metal,False,4,452.479513833699,2.1984712795027,,Folk,3,06/18/2019 09:12:00 AM,13:48:28
+59427019^SongTbl,10/07/2003,01/05/1973,Smells Like Teen Spirit,I want to hold your hand,metal beatles,True,5,72.614048436087,1.68365013798814,,Classic Rock,4,01/08/1973 10:36:00 AM,01:38:15
+80099627^SongTbl,02/21/1984,04/05/1997,Let It Be,Imagine there's no heaven,pop john paul,True,6,185.837189992048,3.7728141886837,,Other,5,11/08/1999 05:37:00 PM,14:15:53
+70473559^SongTbl,01/23/2014,05/08/2021,Stairway to Heaven,I want to hold your hand,pop john paul,False,14,415.265882921158,4.73552844756216,,Pop,4,06/03/2006 07:14:00 AM,22:25:53
+81676838^SongTbl,10/06/1974,09/27/2000,Hotel California,Imagine there's no heaven,pop rock,True,2,369.687156627342,2.33531053140733,,Folk,3,04/24/1987 12:14:00 PM,10:39:49
+20196934^SongTbl,09/24/1992,12/14/1984,Hey Jude,I want to hold your hand,classic rock pop,False,12,93.7401653373482,4.19408400377735,,Classic Rock,2,10/30/1987 10:27:00 PM,21:33:15
+68864277^SongTbl,12/21/1994,07/31/1974,Bohemian Rhapsody,We will, we will rock you,rock hard rock classic rock,True,15,299.752393908175,2.69135173722696,,Metal,4,12/05/1985 03:49:00 PM,23:36:13
+47931430^SongTbl,05/28/2018,05/05/1995,Hey Jude,We will, we will rock you,rock hard rock classic rock,False,5,85.09089537062,2.67204806521456,,Classic Rock,2,05/06/2021 11:38:00 AM,13:20:18
+35534405^SongTbl,07/12/1987,12/24/2020,Stairway to Heaven,Imagine there's no heaven,pop,False,7,227.26845125197,2.72728085462934,,Folk,5,01/21/1990 06:05:00 AM,03:28:58
+73987807^SongTbl,12/28/1977,04/25/2018,Hey Jude,Imagine there's no heaven,metal hard rock,False,1,239.369086307941,2.44435010781944,,Metal,1,07/21/1973 09:47:00 AM,00:38:23
+13008105^SongTbl,12/17/1976,06/22/1990,Bohemian Rhapsody,I want to hold your hand,john paul,False,5,161.96694356898,2.08570169252892,,Other,3,05/09/2015 08:00:00 AM,22:16:05
+60891432^SongTbl,06/19/1985,02/19/2011,Bohemian Rhapsody,Imagine there's no heaven,john paul,True,4,328.120051091699,3.39868381784449,,Folk,1,11/16/1983 03:10:00 AM,19:12:12
+32864726^SongTbl,12/17/1997,07/10/1995,Stairway to Heaven,Imagine there's no heaven,hard rock metal classic rock,True,9,202.56547515232,3.63921150915088,,Folk,5,09/03/2006 12:22:00 PM,03:53:45
+35175557^SongTbl,07/17/2013,01/26/1975,Stairway to Heaven,Hey Jude, don't make it bad,john paul,False,12,157.572465379111,4.38453961423712,,Metal,2,11/15/1976 08:37:00 PM,01:38:43
+62603555^SongTbl,07/16/2024,08/20/2019,Hotel California,I want to hold your hand,rock classic rock,False,6,393.586888498976,2.93047975697466,,Pop,1,10/28/2001 10:16:00 PM,10:09:59
+33317735^SongTbl,01/25/2011,02/13/2011,Hotel California,I want to hold your hand,metal beatles,False,3,427.113523617046,4.27168742217801,,Folk,3,12/06/1982 01:12:00 PM,12:08:21
+96340210^SongTbl,10/27/1981,05/19/1989,Hotel California,We will, we will rock you,hard rock,True,9,162.557168620901,2.71782028397978,,Hard Rock,5,12/14/2012 11:06:00 AM,09:53:51
+19163169^SongTbl,08/12/2017,03/17/2010,Stairway to Heaven,Imagine there's no heaven,classic rock beatles rock,False,1,250.866380182205,3.88006811913549,,Folk,3,12/29/1993 03:15:00 PM,09:38:22
+77669744^SongTbl,03/04/1975,04/18/2018,Let It Be,Hey Jude, don't make it bad,pop,False,8,455.572434657099,3.56036209474441,,Folk,4,11/17/1980 05:19:00 PM,18:09:21
+77043698^SongTbl,11/06/1978,11/12/1980,Smells Like Teen Spirit,We will, we will rock you,classic rock rock hard rock,True,1,206.760864848796,4.92530211306816,,Folk,2,12/10/2001 08:15:00 AM,11:05:53

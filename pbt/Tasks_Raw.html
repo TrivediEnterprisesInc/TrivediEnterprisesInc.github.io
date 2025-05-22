@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+﻿<!DOCTYPE html> 
 <html>
 <head>
 	<title>pbt / Design Notes</title>
@@ -54,34 +54,50 @@
 <h1>pbt / Design Notes</h1>
 
 	<b>This file (<a href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/tasks.html">repo ver</a>) created Mar 6 '25 to test + work on pbt-related updates<br>
-	<i>Last updated Apr 23<sup>th</sup> '25</i></b>
+	<i>Last updated May 16<sup>th</sup> '25</i></b>
 	<br><hr>
 
-<nav><ol><ol><li><a href="#heading-1">Top Items</a></li><li><a href="#heading-2">Mar 13th Control, we have redundancy</a></li><li><a href="#heading-3">NEW approach to state</a></li><li><a href="#heading-4">Bld API coverage tables 4 All Modules</a><ol><li><a href="#heading-5">dskCli: Desktop</a><ol><li><a href="#heading-6">Win SubMenu</a></li><li><a href="#heading-7">Login/Init()</a></li><li><a href="#heading-8">Logout()</a></li></ol></li><li><a href="#heading-9">dskCli: TableDef</a><ol><li><a href="#heading-10">CSV</a></li></ol></li><li><a href="#heading-11">dskCli: DvDef</a></li><li><a href="#heading-12">dskCli: DzDv</a></li><li><a href="#heading-13">dskCli: FormDef</a></li><li><a href="#heading-14">dskCli: AgentDef</a></li><li><a href="#heading-15">dskCli: Auth/State/Other</a><ol><li><a href="#heading-16">Lookup Masalo</a></li><li><a href="#heading-17">State</a></li><li><a href="#heading-18">dskCli: Embedded Tbl/Embedded DV (in Frm)</a></li><li><a href="#heading-19">dskCli: PropBox</a></li></ol></li><li><a href="#heading-20">webCli: DvDef</a></li><li><a href="#heading-21">webCli: Form</a><ol><li><a href="#redundancy">JS validity</a></li></ol></nav>
+<nav><ol></li><li><a href="#heading-1">pbt / Design Notes</a><ol><li><a href="#heading-1">Top Items</a></li><li><a href="#heading-2">Mar 13th Control, we have redundancy</a></li><li><a href="#heading-3">NEW approach to state</a></li><li><a href="#heading-4">Bld API coverage tables 4 All Modules</a><ol><li><a href="#heading-5">dskCli: Desktop</a><ol><li><a href="#heading-6">Win SubMenu</a></li><li><a href="#heading-7">Login/Init()</a></li><li><a href="#heading-8">Logout()</a></li></ol></li><li><a href="#heading-9">dskCli: TableDef</a><ol><li><a href="#heading-10">CSV</a></li></ol></li><li><a href="#heading-11">dskCli: DvDef</a></li><li><a href="#heading-12">dskCli: DzDv</a></li><li><a href="#heading-13">dskCli: FormDef</a><ol><li><a href="#heading-15">SelItems</a></li></ol></li><li><a href="#heading-14">dskCli: AgentDef</a></li><li><a href="#heading-15">dskCli: Auth/State/Other</a><ol><li><a href="#heading-18">Expr Bldr</a><ol><li><a href="#heading-19">Calculated Fields</a></li><li><a href="#heading-20">ConditionBldr</a></li><li><a href="#redundancy">JS validity</a></li><li><a href="#heading-22">IfThenElseBldr</a></li></ol></li><li><a href="#heading-16">Lookup Masalo</a></li><li><a href="#heading-17">State</a></li><li><a href="#heading-25">UndoMachine/IUndoable</a></li><li><a href="#heading-26">IDeployable</a></li><li><a href="#heading-18">dskCli: Embedded Tbl/Embedded DV (in Frm)</a></li><li><a href="#heading-19">dskCli: PropBox</a></li></ol></li><li><a href="#heading-20">webCli: DvDef</a></li><li><a href="#heading-21">webCli: Form</a></li></ol></nav>
 
-<p>
+
 
 <h2 id="heading-1">Top Items</h2>
+
+<br>
+<mark>Mon May 12</mark><br>
+
 <ul>
-<li>N.B.: winFrms has much stuff ahead of its time; keep checking + list alongside tkL avec notes on ea mod.</li>
-<li>pbt 4 wins (i.e., openWins)</li>
-<li>Expr parser: excl Fields we can compl rest of the exprs (curr tested w/ 'x &gt; y')<br>
-Ren ops 2 MathOps; add strOps et al.</li>
-<li>meethoo updates [Appearance(icon pic+btn + IconLbl editable) | FldSetup | ImportData (CSV) | WebClient (see under Table|CSV|Settings ]</li>
-<li><input type="checkbox" checked="">&nbsp; <s>Convert tasks to ToC (<a href="https://scrollingtextgenerator.com/table-of-contents-generator">generator</a>)</s></li>
-<li>Update pbt article add vdos</li>
-<li><input type="checkbox" checked="">&nbsp;<s>We also nd to get snap of DzDv</s></li>
-<li>4 internalFlds; instd of '_' use ("brj_" + fNm)</li>
-<li>4 internalCounters (tbl006, fld003) store in Def (intnl, init 0) &amp; increment on member .getNxt()  Also in the same place store stateVars like dskChanged (triggers send2svr + snapshot)</li>
-<li><mark>Mar24</mark>@TBD: No dzDoc copy/paste in v1? (cpy indiv els within docx)</li>
-<li><mark>Mar26</mark>@TBD: Is edHist mandatory w/core?  Sep mod?</li>
-<li>related: isDel: is this a sep mode w/editHist?  Any pluses?</li>
-<li>@rsch: SubForm notes/tks</li>
-</ul>
+<li>Ty FldTys might nd 2 be eluded; use cases (TblDz/wids).  Make the compiler throw
+</li><li>
+FrmDz: instead o'wids dskSide; use a txtFld w/3 states enabled/not/bordered(?) to indicate widChosen/otherProps
+<br>We nd to use visual clues here; p'haps an in-frm system TB showing FrmDeployStatus 
+<br>onClick shows the foll steps nd to be taken (these flds nd wids assigned etc.) 
+<br>If ready ask em to still run chks on Validations etc.; 
+<br>THEN either enable or add the tab to gen/retriev web code 
+<br>
+Another option is to use floating icons (validn/ttip/wid) oer ea tblPnl 
+</li><li>
+Since the ReadyToDeployTB cld be used elsewhere (AgntBldr etc.) we nd to create IDeployable and extend frm; encase all logic necc.
+</li></ul>
 <br>
 
-<hr>
-<img src='https://i.postimg.cc/jjP6m1YB/Expr.png'>
+<ul>
+<li>N.B.: winFrms has much stuff ahead of its time; keep checking + list alongside tkL avec notes on ea mod.</li>
+<li><input type="checkbox">&nbsp; pbt 4 wins (i.e., openWins)</li>
+<li><input type="checkbox" checked>&nbsp; meethoo updates [Appearance(icon pic+btn + IconLbl editable) | FldSetup | ImportData (CSV) | WebClient (see under Table|CSV|Settings ]</li>
+<li><input type="checkbox" checked>&nbsp; <s>Convert tasks to ToC (<a href="https://scrollingtextgenerator.com/table-of-contents-generator">generator</a>)</s></li>
+<li><input type="checkbox"checked>&nbsp; <s>Update pbt article add vdos</s> Remains: Dsk snapshots</li>
+<li><input type="checkbox" checked>&nbsp;<s>We also nd to get snap of DzDv</s></li>
+<li><input type="checkbox">&nbsp; 4 internalFlds; instd of '_' use ("brj_" + fNm)</li>
+<li><input type="checkbox">&nbsp; 4 internalCounters (tbl006, fld003) store in Def (intnl, init 0) &amp; increment on member .getNxt()  Also in the same place store stateVars like dskChanged (triggers send2svr + snapshot)</li>
+<li><input type="checkbox">&nbsp; <mark>Mar24</mark>@TBD: No dzDoc copy/paste in v1? (cpy indiv els within docx)</li>
+<li><input type="checkbox">&nbsp; <mark>Mar26</mark>@TBD: Is edHist mandatory w/core?  Sep mod?</li>
+<li><input type="checkbox">&nbsp; related: isDel: is this a sep mode w/editHist?  Any pluses?</li>
+<li><input type="checkbox">&nbsp; @rsch @pull: SubForm notes/tks</li>
+<li><input type="checkbox">&nbsp; N.B.: winFrms has much stuff 'ahd of its time'; keep checking + list alongside tkLi avec notes on ea mod.</li>
+
+</ul>
+<br>
 <hr>
 
 <h2 id="heading-2"><mark>Mar 13th</mark> Control, we have <b><u>redundancy</u></b></h2>
@@ -108,7 +124,7 @@ Poss. eventual utility in releasing <b>user</b> dskClis (say for security purp.s
 <h2 id="heading-3">NEW approach to state</h2>
 Desktop + Others:
 <br>  Instd of CE(wld), ea el's win getsFromBackend + keeps its own state
-<br>  Therefore ea indiv state is auto-disposed on winClose
+<br>  Therefore ea indiv state is <b>auto-disposed</b> on winLoseFocus() (&gt;&gt; state2Svr)
 <br>  openWin fetches state as part of handler
 <br>
 <hr>
@@ -129,15 +145,15 @@ Desktop + Others:
 </center>
 
 <mark>Mar 6:</mark>
-<br><input type="checkbox" checked="">&nbsp;Move all pbt stuff to sep plk
-<br><input type="checkbox" checked="">&nbsp;Merge code diffs 4 openWins 
+<br><input type="checkbox" checked>&nbsp;Move all pbt stuff to sep plk
+<br><input type="checkbox" checked>&nbsp;Merge code diffs 4 openWins 
 <br>- OpenDb/Dz checks (4 now) ONLY Menu Model updates
 <br>- For actual stubs (members) the model becomes:
 <br>    let (_, str li) = m 
-<br><input type="checkbox" checked="">&nbsp; <s>Lookup api for mdi.getTopWin().Title()</s>
+<br><input type="checkbox" checked>&nbsp; <s>Lookup api for mdi.getTopWin().Title()</s>
 <br>
 <mark>Mar 7:</mark>
-<br><input type="checkbox" checked="">&nbsp; <s> Dsk Ty: Add refcell 4 StatusMsgs + member showStatus(t) which shows txt on bar + appends to ref; barDblClick &gt;&gt; txtDlg()  [for relev loc srch "Ready..."]</s>
+<br><input type="checkbox" checked>&nbsp; <s> Dsk Ty: Add refcell 4 StatusMsgs + member showStatus(t) which shows txt on bar + appends to ref; barDblClick &gt;&gt; txtDlg()  [for relev loc srch "Ready..."]</s>
 <br>
 <mark>Mar 10:</mark>
 <br>  Also, devState needs nextTableID; this belongs 2 OrgDoc/AdminTbl
@@ -149,17 +165,15 @@ Plus checkBox 4 "Create new Copy"<br>
 <br>
   <h4 id="heading-6">Win SubMenu</h4>
 
-<br>- MDI: Find dox/links; impl barebones funct.
-<br>- Determine if we give em min/max options
-<br>- Curr MDI child gets tick mark on MenuItm 
-<br>- 1st choice is alw Desktop 
-<br>- Impl/chk switch mechanics 
-<br><input type="checkbox" checked="">&nbsp; (Already exists) <s>OpenDb gets DbTitle (lbl); OpenDz gets ("Design Mode: " + DbTitle)</s>
+<br><input type="checkbox">&nbsp; MDI: Find dox/links; impl barebones funct.
+<br><input type="checkbox">&nbsp; Determine if we give em min/max options
+<br><input type="checkbox">&nbsp; Curr MDI child gets tick mark on MenuItm 
+<br><input type="checkbox">&nbsp; 1st choice is alw Desktop 
+<br><input type="checkbox">&nbsp; Impl/chk switch mechanics 
+<br><input type="checkbox" checked>&nbsp; (Already exists) <s>OpenDb gets DbTitle (lbl); OpenDz gets ("Design Mode: " + DbTitle)</s>
 <br>
-<mark>?? @TBD: </mark>
-<br>    For OpenDb + OpenDzVw tests, create a form w/a snapshot for the tests 
-<br>
-- Add stubs 4 OpenDb | OpenDz | switchWin
+<input type="checkbox">&nbsp; <mark>?? @TBD: </mark>For OpenDb + OpenDzVw tests, create a form w/a snapshot for the tests 
+<br><input type="checkbox">&nbsp; Add stubs 4 OpenDb | OpenDz | switchWin
 <br>
 
 <br>  <h4 id="heading-7">Login/Init()</h4>
@@ -172,7 +186,7 @@ Plus checkBox 4 "Create new Copy"<br>
           do! Show progBar
           do! Cycle thru loading msgs }
 </pre></code>
-<br><input type="checkbox" checked="">&nbsp;Cre8 loading msgs (last: "Restoring Open Windows...")
+<br><input type="checkbox" checked>&nbsp;Cre8 loading msgs (last: "Restoring Open Windows...")
 <br>    ["Downloading Desktop settings..."; "Downloading Desktop icons..."; "Downloading Table settings..."; "Setting up Developer Environment..."; "Configuring Developer access to backend..."; "Downloading Table marked records..."; "Restoring Desktop state..."; "Restoring Desktop windows..."]
 <br>
 
@@ -181,7 +195,7 @@ Plus checkBox 4 "Create new Copy"<br>
 <br>- Trigger: File|Exit
 <br>- Takes a snapshot of curr dsk (if necc)
 <br>- Saves State (openWins) + snapshot locally 4 nxt login
-<br> snapShot initially set 2 default; <s>we'll nd: ref cell DskChanged = false;</s> (Mar20: nix, user may keep cli open forever.  So trigger on ea change, poss BOTH local/2svr.
+<br> snapShot initially set 2 default; <s>we'll nd: ref cell DskChanged = false;</s> (Mar20: nix, user may keep cli open forever.  So trigger on ea change, poss BOTH local/2svr. @TBD
 <br>
 
 <br>  <h3 id="heading-9">dskCli: TableDef</h3>
@@ -192,18 +206,18 @@ Plus checkBox 4 "Create new Copy"<br>
 
 
 
-<br><input type="checkbox" checked="">&nbsp;Loc8 l8st Meethoo comb thru logs/notes 4 "DFldString" et al. 
-<br>- The model will be a tblDef w/valid fldTys (gen |&gt; from ty)
-<br>- Incomplete fn.ality in tblSetup: choose Mods; Default dv/frm...
-<br>- Incomplete fn.ality in fldSetup: schema rollbacks/fldTy change propag8n
+<br><input type="checkbox" checked>&nbsp;Loc8 l8st Meethoo comb thru logs/notes 4 "DFldString" et al. 
+<br><input type="checkbox">&nbsp;The model will be a tblDef w/valid fldTys (gen |&gt; from ty)
+<br><input type="checkbox">&nbsp;Incomplete fn.ality in tblSetup: choose Mods; Default dv/frm...
+<br><input type="checkbox">&nbsp;Incomplete fn.ality in fldSetup: schema rollbacks/fldTy change propag8n
 <br>   ex. Change int 2 currency (or str2int) &gt;&gt; Dlg "XX recs fail.  Gen qry + update before we can continue..."  BOTH broadening &amp; narrowing
-<br>- Move all Tbl-level Settings here incl 
-<br>      CSV Import btn
-<br>      Btn 2 import custom css <mark>@TBD</mark> Scope for err: instd allow colorOpts etc. via btns?
+<br><input type="checkbox">&nbsp;Move all Tbl-level Settings here incl 
+<br><input type="checkbox">&nbsp;CSV Import btn
+<br><input type="checkbox">&nbsp;Btn 2 import custom css <mark>@TBD</mark> Scope for err: instd allow colorOpts etc. via btns?
 <br> +ve for customCss is it allows devs more control; -ve is support calls if they don't know/try to mess with things they're not supposed to.
-<br>      Btn 2 gen webCli code
-<br>- Tabbed Vw (as is) 1st tab Appearance (w/Icon pic + btn / IconLbl editable + DarkScheme + General Settings (locationCode/Lang/etc since it cld be diff for diff tbls.)
-<br>SO: .NET 9 (preview) has introduced dark mode for the entire application see <a href="https://learn.microsoft.com/en-us/dotnet/desktop/winforms/whats-new/net90?view=netdesktop-9.0#toolstrip">this</a><br>
+<br><input type="checkbox">&nbsp;Btn 2 gen webCli code
+<br><input type="checkbox">&nbsp;Tabbed Vw (as is) 1st tab Appearance (w/Icon pic + btn / IconLbl editable + DarkScheme + General Settings (locationCode/Lang/etc since it cld be diff for diff tbls.)
+<br><input type="checkbox">&nbsp;SO: .NET 9 (preview) has introduced dark mode for the entire application see <a href="https://learn.microsoft.com/en-us/dotnet/desktop/winforms/whats-new/net90?view=netdesktop-9.0#toolstrip">this</a><br>
 This req.s cli restart, see this:
 <code><pre>  // Get the current executable path
   string exePath = Assembly.GetExecutingAssembly().Location;
@@ -217,21 +231,25 @@ This req.s cli restart, see this:
 <br>
   <h4 id="heading-10">CSV</h4>
 
-<br>- Expand MusicTbl 2 incl all fldTys (incl dateOnly/currency) <mark>Loc8</mark>, use gpt 2 gen ~500 recs
-<br>- Test is [Float -&gt; Currency -&gt; Float] == same model 
-<br>- Impl csv func. (modify existing tkImp)
-<br> Chk csv spec (link exists) 4 usr provided params (fld/row delims, fld/row seps)
-<br> In test embed incorr rows, shd behave as exp.
-<br>- v1 gets NO custom delims; just standard + Dlg 4 errLog (selectable)
-<br>- 4 test bld li<rows> w erroneous data; feed 2 fn; Model is &lt;model, errLi&gt;
+<br><input type="checkbox">&nbsp;Expand MusicTbl 2 incl all fldTys (incl dateOnly/currency) <mark>Loc8</mark>, use gpt 2 gen ~500 recs
+<br><input type="checkbox">&nbsp;Test is [Float -&gt; Currency -&gt; Float] == same model 
+<br><input type="checkbox">&nbsp;Impl csv func. (modify existing tkImp)
+<br><input type="checkbox">&nbsp;Chk csv spec (link exists) 4 usr provided params (fld/row delims, fld/row seps)
+<br><input type="checkbox">&nbsp;In test embed incorr rows, shd behave as exp.
+<br><input type="checkbox">&nbsp;v1 gets NO custom delims; just standard + Dlg 4 errLog (selectable)
+<br><input type="checkbox">&nbsp;4 test bld li<rows> w erroneous data; feed 2 fn; Model is &lt;model, errLi&gt;
 
 <br>
 <mark>Mar 8th:</mark>
 <br>v2: Parsec @rsch if exists curr.
 <br>
-wobblyGen/Dat already converts the other way (fldTy -&gt; fmt) We nd to repurpose that; split to ro |&gt; lim (fun r -&gt; split "," |&gt; tryParse |&gt; ToResult)
+wobblyGen/Dat already converts the other way (fldTy -&gt; fmt) We nd to repurpose that;
+<br> split to ro |&gt; lim (fun r -&gt; <b>split ","</b> |&gt; tryParse |&gt; ToResult)
+<br><b>Note: Issues w/non-escaped non-delim seps...</b>
+
 <br> @ToDo: For this we nd to pullout BrijTyCommon
-<br>
+<p>
+
 <mark>Mar 24th:</mark><br>
 mod csv_Test<br>
 <ul>
@@ -245,12 +263,12 @@ mod csv_Test<br>
 </li></ul>
 
 <mark>Mar 26</mark><br>
-<ul><li>
-Curr regex won't work for non-strings, nd 2 tinker
-</li><li>Does DateTime use a comma?
-</li><li>Does xl escape both commas + qts?
-</li><li>Create sample MusicDoc + export via xl.
-</li></ul>
+
+<br><input type="checkbox">&nbsp;Curr regex won't work for non-strings, nd 2 tinker
+<br><input type="checkbox">&nbsp;Does DateTime use a comma?
+<br><input type="checkbox">&nbsp;Does xl escape both commas + qts?
+<br><input type="checkbox">&nbsp;Create sample MusicDoc + export via xl.
+
 
 <br>  <h3 id="heading-11">dskCli: DvDef</h3>
 
@@ -267,14 +285,19 @@ Curr regex won't work for non-strings, nd 2 tinker
 <img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/3CPDz.png?raw=true" width="60%" border="1px solid black">
 </center>
 
-<ul><li>
-The (apparently l8st) snapshot lists TblDefDoc + FldDefDoc; which we've combined; so nd 2 remove
-</li><li>We nd to add categs 4:
-<ul><li>CardVwDef below DataVwDef
-</li><li>SubForms
-</li><li>AgentDef
-</li><li>SavedExps</li></ul>
-</li></ul>
+<br><input type="checkbox">&nbsp;The (apparently l8st) snapshot lists TblDefDoc + FldDefDoc; which we've combined; so nd 2 remove
+<br>We nd to add categs 4:
+<br><input type="checkbox">&nbsp;CardVwDef below DataVwDef
+<br><input type="checkbox">&nbsp;SubForms
+<br><input type="checkbox">&nbsp;AgentDef
+<br><input type="checkbox">&nbsp;SavedExps
+<br><input type="checkbox">&nbsp;@TBD: Combine SavedExp/LookupFlds etc. as 'Other'?
+<br><input type="checkbox">&nbsp;@TBD: New Categ 4 'Logs' incl:<br>
+- UserActivity (logins/registration)
+- TblUpdates (by dt etc)
+- AgentLogs
+- ErrorLogs etc.<br>
+This is a gd loc for this coz only devAccess; we can/shd use this instd of even statusMsgs on dsk.
 
 <br>
 <br>  <h3 id="heading-13">dskCli: FormDef</h3>
@@ -294,46 +317,45 @@ The (apparently l8st) snapshot lists TblDefDoc + FldDefDoc; which we've combined
 </li></ul>
 
 Notes:        
-<ul><li>
-Prior vers of this mod exist, chk past commits (bld_v1 interleaves BlankRows)
-</li><li><input type="checkbox" checked="">&nbsp;DnDTgt spans Row (see PostPitch Notes)
-</li><li><input type="checkbox" checked="">&nbsp;this curr impl autoCasts to BMdzCell_v2Struc
-</li><li><input type="checkbox" checked="">&nbsp;as decided, changes via UI updates def &amp; autoUpdates UI
-</li><li><input type="checkbox" checked="">&nbsp;@Add: bld_v1 interleaves dropCells(see output); nd to manually do that
+<ul><li><input type="checkbox" checked>&nbsp;Prior vers of this mod exist, chk past commits (bld_v1 interleaves BlankRows)
+</li><li><input type="checkbox" checked>&nbsp;DnDTgt spans Row (see PostPitch Notes)
+</li><li><input type="checkbox" checked>&nbsp;this curr impl autoCasts to BMdzCell_v2Struc
+</li><li><input type="checkbox" checked>&nbsp;as decided, changes via UI updates def &amp; autoUpdates UI
+</li><li><input type="checkbox" checked>&nbsp;@Add: bld_v1 interleaves dropCells(see output); nd to manually do that
 </li></ul>
 <mark>Mar '25:</mark>
-<ul><li><input type="checkbox" checked="">&nbsp;The curr sys on drop will relayout subseq rows/sections; this is _not_ desired:
+<ul><li><input type="checkbox" checked>&nbsp;The curr sys on drop will relayout subseq rows/sections; this is _not_ desired:
                       it may spoil completed layouts.  Instd: if drop causes overflo/wrap, do an li.inserAt
                       &amp; leave rest of struct unchanged (this means the tbl ros subseq have 2 be incr.d)
-</li><li><input type="checkbox" checked="">&nbsp;Also beauc. deltas for FsChk modelling purps.</li></ul>
+</li><li><input type="checkbox" checked>&nbsp;Also beauc. deltas for FsChk modelling purps.</li></ul>
 <br>
 
 <mark>Apr03_25:</mark>
-<ul><li><input type="checkbox" checked="">&nbsp;The curr BMAux uses fldDefs.  We nd a fn (fldDefs -&gt; BMFldDef) to gen the default cellStruct. <br>
+<ul><li><input type="checkbox" checked>&nbsp;The curr BMAux uses fldDefs.  We nd a fn (fldDefs -&gt; BMFldDef) to gen the default cellStruct. <br>
           Ren above BMfld to this + modify BMAux to use this _not_ the fldDefs (usrFlds above)
-</li><li><input type="checkbox" checked="">&nbsp;Modify tbl struct to allow BlankRows + InfoBoxes (this exists somewhere) (poss ty changes nd.ed?)<br>
+</li><li><input type="checkbox" checked>&nbsp;Modify tbl struct to allow BlankRows + InfoBoxes (this exists somewhere) (poss ty changes nd.ed?)<br>
           cld use existing BMdzCell w/txt as "" / info
-</li><li><input type="checkbox" checked="">&nbsp;BM already contains _colN_; roN shd be autoCalc (add member) via lilen
-</li><li>For _Undo_ we nd refCell 'StateChanged' + member 2 chk/set if necc.<br>
+</li><li><input type="checkbox" checked>&nbsp;BM already contains _colN_; roN shd be autoCalc (add member) via lilen
+</li><li><br><input type="checkbox" checked>&nbsp;For _Undo_ we nd refCell 'StateChanged' + member 2 chk/set if necc.<br>
           Add this call to the 1st line of every handler 4 changes <br>
           + last line of handler saves state 2 BM list last (unless cancelld)<br>
-          <input type="checkbox" checked="">&nbsp;Note; the BM ref'll now store li<bm> not single, + pointer.
+          <input type="checkbox" checked>&nbsp;Note; the BM ref'll now store li<bm> not single, + pointer.
 </bm></li></ul>
 
 <br>
-<input type="checkbox" checked="">&nbsp;For FormDnD Model chk <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3433">this</a><br>
-<input type="checkbox" checked="">&nbsp;There's also a DnD Monad; tested; <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3675">here</a>
+<input type="checkbox" checked>&nbsp;For FormDnD Model chk <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3433">this</a><br>
+<input type="checkbox" checked>&nbsp;There's also a DnD Monad; tested; <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3675">here</a>
 <br>
 <br>
 <mark>Apr08_25:</mark>
 <ul><li><input type="checkbox">&nbsp;On 1st open BMDz prompts 4 default settings (Appearance:colN/Fonts/Col) and THEN autoLayout frm.
-</li><li><input type="checkbox" checked="">&nbsp;Remove BMAux.getDefault(): call order issues (avoid rec) move 2 fn; call from BmDz
-</li><li><input type="checkbox" checked="">&nbsp;Run these cmds from cellRightClickMenu: <br>
+</li><li><input type="checkbox" checked>&nbsp;Remove BMAux.getDefault(): call order issues (avoid rec) move 2 fn; call from BmDz
+</li><li><input type="checkbox" checked>&nbsp;Run these cmds from cellRightClickMenu: <br>
 vFn / Thingy / ForeCol / BkCol / LblFont / DatFont / col-roSpan / removeFld / TtipTxt
-</li><li><input type="checkbox" checked="">&nbsp;These from TBarBtns: <br>
+</li><li><input type="checkbox" checked>&nbsp;These from TBarBtns: <br>
 Defaults / AddBlankRo / AddInfoBox / AddFld
-</li><li><input type="checkbox" checked="">&nbsp;Adding blankRos/InfBoxes <b>alw</b> adds below; usr may Dnd (if necc tell em)
-</li><li><input type="checkbox" checked="">&nbsp;<mark>@TBD</mark> Another option: Instd of all the rt-click cmds; unify em in a DlgBox and menu simply says "Modify Fld"<br>
+</li><li><input type="checkbox" checked>&nbsp;Adding blankRos/InfBoxes <b>alw</b> adds below; usr may Dnd (if necc tell em)
+</li><li><input type="checkbox" checked>&nbsp;<mark>@TBD</mark> Another option: Instd of all the rt-click cmds; unify em in a DlgBox and menu simply says "Modify Fld"<br>
 (similar to Appearance stuff in earlier scrnshot) buttons for Validation etc.<br>
 When anything changed; run bkgrndCmd &gt;&gt; updSt &gt;&gt; BM [only ok/cancel btns 4 dlg.]
 </li></ul>  
@@ -342,11 +364,11 @@ When anything changed; run bkgrndCmd &gt;&gt; updSt &gt;&gt; BM [only ok/cancel 
 <mark>Apr09_25:</mark>
 <ul><li><input type="checkbox">&nbsp;TBar btns (above) will be DropDns: AddBlankRo (Above-BelowSelectn), AddInfoBox (same), AddFld (bef/aftSelection)<br>
 Field options (AddFld) will disp <b>excluding</b> flds alr on Frm; incl intlFlds (Add '*' to title + make ReadOnly)
-</li><li><input type="checkbox" checked="">&nbsp;To defaultSettings (onFrmOpen above) add "DefValue"
-</li><li><input type="checkbox" checked="">&nbsp;We nd 2 decide on/impl defaultThingies
-</li><li><input type="checkbox" checked="">&nbsp;Test/impl this: add handler 2 frm (+ lim all ctrls?) If (click + notShift) &gt;&gt; clearSelections + DisableTBarBtns except undo/redo
-</li><li><input type="checkbox" checked="">&nbsp;For multipleSelCells + Cmd (say AddRoBelow) Filter on List.max(row); 4 popupMnu it's auto 4 cell (single) chosen.
-</li><li><input type="checkbox" checked="">&nbsp;In bldState curr we go [BmFld -&gt; asCtrl (getCell:btn)]  We want to return a cellPnl (as in actual).  <b>Ext</b> this + add prop BmFld + members to retrieve flds FOR use in handlers to send cellPos etc to BmDzCmd
+</li><li><input type="checkbox" checked>&nbsp;To defaultSettings (onFrmOpen above) add "DefValue"
+</li><li><input type="checkbox" checked>&nbsp;We nd 2 decide on/impl defaultThingies
+</li><li><input type="checkbox" checked>&nbsp;Test/impl this: add handler 2 frm (+ lim all ctrls?) If (click + notShift) &gt;&gt; clearSelections + DisableTBarBtns except undo/redo
+</li><li><input type="checkbox" checked>&nbsp;For multipleSelCells + Cmd (say AddRoBelow) Filter on List.max(row); 4 popupMnu it's auto 4 cell (single) chosen.
+</li><li><input type="checkbox" checked>&nbsp;In bldState curr we go [BmFld -&gt; asCtrl (getCell:btn)]  We want to return a cellPnl (as in actual).  <b>Ext</b> this + add prop BmFld + members to retrieve flds FOR use in handlers to send cellPos etc to BmDzCmd
 </li></ul>
 
 <br>
@@ -364,13 +386,13 @@ This is in order to enable/disable upon sel (visual cues)
 </li><li><input type="checkbox">&nbsp;Nd default thingys in DocFld ty + member _.getDefThingy()
 </li><li><input type="checkbox">&nbsp;Ren all refs 2 BmDz to BD, add comment
 </li><li><input type="checkbox">&nbsp;vFns will nd a separate PBT suite
-</li><li><input type="checkbox">&nbsp;PBT 4 BD: Model is BDTbl.toFsChkModel() -> Html<br>
+</li><li><input type="checkbox" checked>&nbsp;PBT 4 BD: Model is BDTbl.toFsChkModel() -> Html<br>
 use string interp<br>
 &lt;td backColor = &quot;{}&quot; colSp={} roSp={}&gt;<br>
 &lt;div id=&quot;cellLbl{cellPos}&quot; Fore=&quot;{}&quot; Back=&quot;{}&quot; Font=&quot;{}&quot;&gt;{title}&lt;/div&gt;<br>
 &lt;div id=&quot;dataLbl{cellPos}&quot; Fore=&quot;{}&quot; Back=&quot;{}&quot; Font=&quot;{}&quot;&gt;Data&lt;/div&gt;<br>
 &lt;/td&gt;
-</li><li><input type="checkbox">&nbsp;The actual will chg BMDef & gen above + convt 2 cellModel<br>
+</li><li><input type="checkbox" checked>&nbsp;The actual will chg BMDef & gen above + convt 2 cellModel<br>
 The test will do the same BUT not via act. (how 2 pass params effectively?)
 </li></ul>
 
@@ -428,7 +450,6 @@ example tr:<br>
 - Add ty DraggableItm of str "BlankCell"|"BlankRo"|"CellItm"|"RoItm" (for selHandlers)<br>
 - Add above as param 2 addCellSelHandler; match on ty
 </li><li><input type="checkbox" checked>&nbsp;Move the DndHandlers from curr members into the getCell fns (18th)
-</li><li><input type="checkbox">&nbsp;<b>UndoMachine</b>: Genericize + convt 2 intf + Test IUndoable; abstract mems for refs
 </li></ul>
 <br>
 
@@ -448,6 +469,40 @@ and then a wrap; are there unoccupied cells w/o blankCells in the last 2 rows B4
 </li><li><input type="checkbox">&nbsp;For ComboBox wid proceed in tandem w/LookupDef
 </li><li><input type="checkbox">&nbsp;The getTgt fns have many repeats; shd be able to combine em <br>w/param cellTy:str; matchOn; in cases, set cand + typeof<ty>.  Might nd 2 sep DndHandler coz they're different.
 </li></ul>
+<br>
+
+<mark>May05_25:</mark>
+<ul><li><input type="checkbox">&nbsp; We nd a Chkbox 'Hidden' to incl a calc fld not visible but needed elsewhere in frm
+</li></ul>
+<br>
+
+<mark>May15_25:</mark>
+<ul><li><b>Related</b>: getFldTblPnl curr has two use cases: intl + frmDz<br>
+</li><li><input type="checkbox">&nbsp; For frmDz (now) all matches'll return txtBox displaying widTy (+ hoverIcons); so we nd a new version for this
+</li><li><input type="checkbox">&nbsp; Keep/mod curr ver to be used only for intl purps
+</li><li><input type="checkbox">&nbsp; @<a href='https://plnkr.co/edit/OWlq6vprEgry6bkd'>rsch</a> + impl display hover icons updated via IDeployable
+</li></ul>
+<br>
+
+
+<hr>
+<h4>SelItems</h4>
+<br>
+	The tks below (mult dates) + non-incl stuff from Apr23/more related 2 cell/roSel + DnD.  <br>
+For this we nd 2 test WinDnd behavr 1st;<br>
+<b>then</b> determine how or IF 2 impl ro/non-contig cell Dnd.  Poss v2+<br>
+For instance, DragDropEffects.Move, if <i>we</i> remember corr., actually moves the tgt in the tbl.
+<br>
+<input type="checkbox">&nbsp;For multipleSelCells + Cmd (say AddRoBelow) Filter on List.max(row); 4 popupMnu it's auto 4 cell (single) chosen.
+<br>
+<input type="checkbox">&nbsp;Uncovered:
+For Rows + non-contiguous cellSelections; allow only cells + row(s)<br>
+We'll have to reassign dropability (ie isTgt) after ea cellSelection<br>
+<br>
+
+
+<hr>
+
 
 <br>
 
@@ -464,8 +519,17 @@ and then a wrap; are there unoccupied cells w/o blankCells in the last 2 rows B4
 <br><b>Report:</b> (chkBox)
 <br><b>Action:</b> SendMail | ModifyDocs
 <br>&nbsp;&nbsp;&nbsp;&nbsp;(If report, will combine all selDocs to one msg/report)
-<br>
 
+<mark>May10</mark>&nbsp; Initial work complete on AgentBldr form but we nd 2:
+<ul><li><input type="checkbox">&nbsp;Instd of radioGrps use a single ComboBox init. blank
+</li><li><input type="checkbox">&nbsp;Nd btns 4 both CondBldr + IfThenBldr
+</li><li><input type="checkbox">&nbsp;Add Action: ModifyFld (Single, can make multAgents to mod mult)  Easy 2 offer multFldCapab but poss better to leave out 4 now & see how the flow works
+</li><li><input type="checkbox">&nbsp;Add Action: Report2Log (esp.ly gd to test new Agents; create a AgentLog & print to that; poss only nd on dskCli (newDVcat?)
+</li><li><input type="checkbox">&nbsp;Add Action: Generate Email/SMS (only avail 4 payingCusts)
+</li></ul>
+
+<br>
+<br><hr><br>
 <details>
 <summary>Apr 23 ChatGPT conv: triggers/events</summary>
 Q: <br>
@@ -473,7 +537,7 @@ I am building a custom database System.  My client wants a custom (on-site) vers
 <p>
 A:
 <p>Your custom database system and webhooks feature sound like a solid and useful tool! To help you build your trigger and condition options, here’s a list of common <strong>events</strong> and <strong>triggers</strong> that are widely used in various web applications for similar use cases.</p>
-<h3 id="common-events-for-webhooks">Common <strong>EVENTS</strong> for Webhooks</h3>
+<b id="common-events-for-webhooks">Common <strong>EVENTS</strong> for Webhooks</b>
 <p>These events typically relate to actions within the system, such as changes to data, user actions, or system-generated events:</p>
 <ol>
 <li><p><strong>Data Creation/Insertion</strong>:</p>
@@ -533,7 +597,7 @@ A:
 </li>
 </ol>
 <hr>
-<h3 id="common-triggers-for-webhooks">Common <strong>TRIGGERS</strong> for Webhooks</h3>
+<b id="common-triggers-for-webhooks">Common <strong>TRIGGERS</strong> for Webhooks</b>
 <p>These are the actions that determine <strong>when</strong> the webhook should fire, usually based on certain conditions or system events:</p>
 <ol>
 <li><p><strong>Data Changes</strong>:</p>
@@ -595,14 +659,14 @@ A:
 </li>
 </ol>
 <hr>
-<h3 id="example-scenarios-for-triggering-webhooks">Example Scenarios for Triggering Webhooks</h3>
+<b id="example-scenarios-for-triggering-webhooks">Example Scenarios for Triggering Webhooks</b>
 <ol>
 <li><strong>Order Discounts</strong>: When an order amount exceeds a specific threshold (e.g., $100), update the discount field with a percentage.</li>
 <li><strong>User Activity</strong>: Every time a user logs in, track the timestamp and update the last_login field.</li>
 <li><strong>Inventory</strong>: Trigger when inventory quantity falls below a certain level, notifying the user to restock or reorder.</li>
 <li><strong>Marketing Campaigns</strong>: When a customer makes their first purchase, trigger an email with a special promotion or discount.</li>
 </ol>
-<h3 id="custom-conditions-filters-">Custom Conditions/Filters:</h3>
+<b id="custom-conditions-filters-">Custom Conditions/Filters:</b>
 <ul>
 <li><strong>Date Comparison</strong>: Trigger when a record’s date field is within a specific range (e.g., sales that occurred this week, or past due invoices).</li>
 <li><strong>Field Range</strong>: Trigger when a field’s value is between two specific values (e.g., quantity between 50 and 100, order amount between $500 and $1000).</li>
@@ -613,88 +677,47 @@ A:
 
 </details>
 
-
 <p>
 
 <br>  <h3 id="heading-15">dskCli: Auth/State/Other</h3>
 
-<br>  <h4 id="heading-16">Lookup Masalo</h4>
-<mark>Mar24</mark>
-<ul><li>From (dz) will have LookupFldNm [  ]; Values (Pls enter ea on a newLine) + btns 2 sort asc/dec + Chkbox "Allow itms not in list"  
-</li><li>OnSave creates Masalo
-</li><li>@TBD: Didn't ln offer bar-seperated Disp/Save vals? (CA|California) Any util?
-</li></ul>
+<br>  
+<h4>Expr Bldr</h4>
+<img src='https://i.postimg.cc/SRcQmdbx/Expr.png'>
 <br>
-
-<br>  <h4 id="heading-17">State</h4>
-
-<br>- CustID
-<br>  To facilitate multiple devs/oneCorpID, CustID contains OrgID^CustID
-<br>  So to fetch all tblNms 4 2nd dev in one org we qry based on OrgID...
+<b>JS</b>: Only for FrmValidation; so clone ExprBldr & translate to <i>text</i> exps 4 that (other poss: emit via parsec <b>or</b> Compile a <a href='https://fssnip.net/rP/title/WebSharper-compile-a-quotation-to-JavaScript'>quotation2Js</a>
 <br>
-- User.db: The webClient has only DV_state
-<br>           for ea dv: TopRec|PgSize|ColWidths|MarkedRecs (Color)
-<br>- Dev.db:  Contains more
-<br>           DesktopIconDefs|AppearanceColorScheme|AppearanceFontSz|...
-<br>
-- All State stored in tbls as: 
-<br>  &lt;CustID_TableID_ElID, SettingName, Value&gt;
-
-<br>- All State downloaded on login but ONLY for openWins; subseq newOpens get only for that win.  <br><s>(new Handler for userStateDnload: type 'Other')
-<br>
-- Each State change saved/applied _locally_
-<br>
-- @TBD: </s>
-<br> <mark>Mar12</mark> auto added 2 payload
-<br>  OnSave (e.g. DvColWidth) &gt;&gt; StateChanged = true; run:
-<br>  stateHandler dzEl tblTy user winH
-<br> this updates Dev/UsrTbl; pushes new state 2 winH
-<br> new members: dsk.getWinState/put~
-
+<b>Rest</b>: Parsec |> &lt;@ ~ &gt;
 <br><br>
-
-<h4 id="heading-18">dskCli: Embedded Tbl/Embedded DV (in Frm)</h4>
+<mark>Expr parser</mark>
 <ul>
-<li><mark>Mar25</mark>Loc8 dz notes for subforms, impl embedded dv
-</li><li>Def will have to be separate; therefore new dzDocTy
-</li><li>Allow summary rows (see oria)
-</li><li><mark>Mar26</mark>Just like PVs but no Qry (EdHist), SubDoc.  DzVw allows ColResize/Choice
-</li><li>Won't appear except on Frm (ins adds 100% wid cell; dev sets ht in px)
-</li><li>Tbar allows adding mult ros; edit in-place, no switching
-</li><li>Only <b>one</b> embTbl (like tbl) <b>but</b> allowed: multi-frm embeds (some cols here/there)
-</li><li>In FrmDz allow embedding
+<li><input type="checkbox">&nbsp; excl Fields we can compl rest of the exprs (curr tested w/ 'x &gt; y')
+</li><li><input type="checkbox">&nbsp; Ren ops 2 CondMathOps
+</li><li><input type="checkbox">&nbsp; new MathOps will be Expr| Expr MathOp Expr (this is rec)
+</li><li>MathOps: + - * / %(rem: works w/int) **(exponent: only works w/Floats)<br>
+BooleanOps: not || &&
+</li><li><input type="checkbox">&nbsp; Add strOps et al. Top50 <a href='https://plnkr.co/edit/NFY7dXP4sQS1Lb4J'>popular</a> .net strOps
+</li><li><input type="checkbox">&nbsp; We nd 2 add addl 'intnl' choices 4 flds (+ opTys) incl: UserNmContains/isMemberOf/Today'sDate/Month/Yr.  Hard-coded 4 now; see <a href='#sysValues'>this</a>
+</li><li><input type="checkbox">&nbsp; We also nd 2 flesh out the ops (BOTH bld + lookup)
 </li></ul>
-<br><br>
 
-<h4 id="heading-19">dskCli: PropBox</h4>
 
-Much work on PropBox complete, chk <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3340">this</a>
 
-<br><br>
-
-  <h3 id="heading-20">webCli: DvDef</h3>
-  
-<center>
-<img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/webDV.png?raw=true" width="60%" border="1px solid black">
-</center>
-  
-<br>
-Note: We still nd the CardVw (Some work completed in Film TagCloud, <mark>Loc8</mark>)
-<br>
-<center>
-<img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/TgDV.png?raw=true" width="60%" border="1px solid black">
-</center>
-<br>
-Also needed: Condensed Vw (+ logic)
-<center>
-<img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/viewCondensed2.png?raw=true" width="10%" border="1px solid black">
-</center>
-<br>
+<br>  
+<h5>Calculated Fields</h5>
+<ul><li>Best 2 <b>not</b> offer manual/complex entry; instd encourage using multiple if necc.
+</li><li>Read-Only
+</li><li>One-Shot Formula OR option for IfThenElse
+</li><li><b>Type 1</b>: Computed for Display<br>
+Evaluated @ compose; based on currUser/currDateTime/etc. (usu not fldVals since they cd be blank)
+</li><li><b>Type 2</b>: Computed on Save<br>
+Computed/filled by svr on save.  Can depend on fldVals.  We will valid8 if still raises (e.g. divide by zero): fld will get "err" and ttip with dev details 2 contact
+</li></ul>
 <br>
 
-<br>
 
-<br>  <h3 id="heading-21">webCli: Form</h3>
+<br>  
+<h5>ConditionBldr</h5>
 
 <center>
 <img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/2BM_FldsTab_ValidationBldr.png?raw=true" width="60%" border="1px solid black">
@@ -716,8 +739,26 @@ Also needed: Condensed Vw (+ logic)
 <br>Besides, Parsec's necc. if only coz of (Exp isLessThan Exp): either Exp cld contain mult Exps...
 <br>Plus existingFld test (coded) etc.
 
+<br><br>
+<mark>May5_25:</mark> 
+<ul>
+<li>@v2+: Add Fuzzy matches (@TBD: v1?)
+</li><li id='sysValues'>After flds in comboBox list 'SystemValues', ie:<br>
+DocCreatedBy (treat as txt)<br>
+DocLastModBy (treat as txt)<br>
+DocCreated (treat as dt)<br>
+DocModified (treat as dt)<br>
+@TBD: any other docProps apply here?
+</li></ul>
 <br>
-      <h4 id="redundancy">JS validity</h4>
+<mark>May10_25:</mark> 
+<ul><li>The predB becomes a ConditionBldr
+</li></ul>
+<br>
+
+
+<br>
+      <h5 id="redundancy">JS validity</h5>
 <details><summary>PS + Node</summary>
 Related: Qn: What about OCaml + node.js?  see <a href='http://is.gd/brijsol2'>this</a><br>
 
@@ -761,6 +802,172 @@ Feel free to adapt this approach to suit your specific needs! If you have any mo
 </details>
 <br>
 
-</rows>
+
+<br>  
+<h5>IfThenElseBldr</h5>
+
+<ul><li><input type="checkbox">&nbsp; We nd to repurpose the CondExpBldr 2 create a new IfThenExpBldr.
+</li><li><input type="checkbox">&nbsp; Create two rows: one with the 1st If (cond) then (expr)<br>
+    and finalRow (else Expr) with a AddButton @ <br>end of 1st row so that multiple ifThens can be created.
+</li><li><input type="checkbox">&nbsp; Button for the 1st opt brings up CondBldr <b>OR</b> load saved cond?
+</li><li>Some work compl <mark>May9</mark> with Parsec 2 CQ script but we nd the foll mods:
+</li><li><input type="checkbox">&nbsp; <mark>May10</mark> (affects FrmDef) New ty strLi 4 Tags, DocLinks etc. w/assoc ops (add2Li/remFrm/clear/repl)  There is a mongoFldTy 4 this.
+</li><li><input type="checkbox">&nbsp; TBD: Adding this is necc otherwise modifying the tagsFld will repl.  One option (for tags) is to disallow dskCli edits (only via browser) ie hide the fld from the list.  User cld probably still do this manually if we allow manual formula creation (which we'll have to if we're supporting ops like ((x + 50 * y )/3).  Another optn is to interrupt a fldMod on tags and warn.
+</li></ul>
+<br>
+
+<br>  <h4 id="heading-16">Lookup Masalo</h4>
+<mark>Mar24</mark>
+<ul><li>From (dz) will have LookupFldNm [  ]; Values (Pls enter ea on a newLine) + btns 2 sort asc/dec + Chkbox "Allow itms not in list"  
+</li><li>OnSave creates Masalo
+</li><li>@TBD: Didn't ln offer bar-seperated Disp/Save vals? (CA|California) Any util?
+</li></ul>
+<br>
+
+<br>  <h4 id="heading-17">State</h4>
+
+<br>- CustID
+<br>  To facilitate multiple devs/oneCorpID, CustID contains OrgID^CustID
+<br>  So to fetch all tblNms 4 2nd dev in one org we qry based on OrgID...
+<br>
+- User.db: The webClient has only DV_state
+<br>           for ea dv: TopRec|PgSize|ColWidths|MarkedRecs (Color)
+<br>- Dev.db:  Contains more
+<br>           DesktopIconDefs|AppearanceColorScheme|AppearanceFontSz|...
+<br>
+- All State stored in tbls as: 
+<br>  &lt;CustID_TableID_ElID, SettingName, Value&gt;
+
+<br>- All State downloaded on login but ONLY for openWins; subseq newOpens get only for that win.  <br><s>(new Handler for userStateDnload: type 'Other')
+<br>
+- Each State change saved/applied _locally_
+<br>
+- @TBD: </s>
+<br> <mark>Mar12</mark> auto added 2 payload
+<br>  OnSave (e.g. DvColWidth) &gt;&gt; StateChanged = true; run:
+<br>  stateHandler dzEl tblTy user winH
+<br> this updates Dev/UsrTbl; pushes new state 2 winH
+<br> new members: dsk.getWinState/put~
+
+<br><br>
+
+<h4>UndoMachine/IUndoable</h4>
+<ul>
+<li><input type="checkbox" checked>&nbsp;Design/Genericize 
+</li><li><input type="checkbox" checked>&nbsp;convt 2 intf 
+</li><li><input type="checkbox" checked>&nbsp;abstract mems for refs
+</li><li><input type="checkbox">&nbsp;Create pbt Test suite
+</li><li><input type="checkbox">&nbsp;Run tests
+</li></ul>
+
+<br><br>
+
+<h4>IDeployable</h4>
+<ul>
+<li><input type="checkbox" checked>&nbsp;<mark>May15</mark> Design/Genericize 
+</li><li><input type="checkbox" checked>&nbsp;<mark>May15</mark> convt 2 intf 
+</li><li><input type="checkbox" checked>&nbsp;<mark>May15</mark> abstract mems for refs; use hof
+</li><li><input type="checkbox">&nbsp;Create pbt Test suite
+</li><li><input type="checkbox">&nbsp;Run tests
+</li></ul>
+
+<br><br>
+
+
+<h4 id="heading-18">dskCli: Embedded Tbl/Embedded DV (in Frm)</h4>
+<ul>
+<li><mark>Mar25</mark>Loc8 dz notes for subforms, impl embedded dv
+</li><li>Def will have to be separate; therefore new dzDocTy
+</li><li>Allow summary rows (see oria)
+</li><li><mark>Mar26</mark>Just like PVs but no Qry (EdHist), SubDoc.  DzVw allows ColResize/Choice
+</li><li>Won't appear except on Frm (ins adds 100% wid cell; dev sets ht in px)
+</li><li>Tbar allows adding mult ros; edit in-place, no switching
+</li><li>Only <b>one</b> embTbl (like tbl) <b>but</b> allowed: multi-frm embeds (some cols here/there)
+</li><li>In FrmDz allow embedding
+</li></ul>
+<br><br>
+
+<h4 id="heading-19">dskCli: PropBox</h4>
+
+Much work on PropBox complete, chk <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3340">this</a>
+
+<br><br>
+
+  <h3 id="heading-20">webCli: DvDef</h3>
+  
+<center>
+<img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/3CalcuttiDzP.png?raw=true" width="60%" border="1px solid black">
+</center>
+  
+<br>
+Note: We still nd the CardVw (Some work completed in Film TagCloud, <mark>Loc8</mark>)
+<br>
+<center>
+<img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/TgDV.png?raw=true" width="60%" border="1px solid black">
+</center>
+<br>
+Also needed: Condensed Vw (+ logic)
+<center>
+<img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/viewCondensed2.png?raw=true" width="10%" border="1px solid black">
+</center>
+<br>
+<br>
+
+<br>
+
+<br>  <h3 id="heading-21">webCli: Form</h3>
+
+
+<br>  <h4>goog UI Snapshots</h4>
+
+<table style="border-collapse: collapse;width:100%;border: 2px solid black;">
+    <caption>goog UI snapshots</caption>
+<tr style="border-bottom: 1px solid black;">
+    <td><img src='https://ibb.co/B5QpGdRP' alt="EventBots" style="height:100px;"></td>
+    <td>External eventing w/Sheets</td>
+    <td>To set up a bot that triggers a process <br>when a user changes data in a Sheet</td>
+</tr>
+<tr style="border-bottom: 1px solid black;">
+    <td><img src='https://ibb.co/4g0mycTB' alt="EventCfg" style="height:100px;"></td>
+    <td>Configure an Event</td>
+    <td>An event defines the activity or schedule<br>
+	that triggers a process.<br>
+	The img shows an App change evnt triggered<br>
+	 by (add, delete, or update) to the InventoryTbl</td>
+</tr>
+
+<tr style="border-bottom: 1px solid black;">
+    <td><img src='https://ibb.co/1YFrwVw1' alt="ProcessSteps" style="height:100px;"></td>
+    <td>Process Steps</td>
+    <td>A step is a basic element in a process<br>
+	that defines a task to be carried out.<br>
+	The img shows adding a Branch Step<br>
+Other opts: RunTk(sendEmail...)/RunDataAct(add/del/setFld)<br>
+Wait(onCond/time)/CallProc(w/params)/returnVal</td>
+</tr>
+
+<tr style="border-bottom: 1px solid black;">
+    <td><img src='https://ibb.co/gZnV8RfV' alt="Tasks" style="height:100px;"></td>
+    <td>Tasks</td>
+    <td>A task is a simple activity that runs quickly<br>
+You add a task as a step in a process<br>
+<a href='https://support.google.com/appsheet/answer/11447614?sjid=2161642325119917126-NC'>SendEmail</a>/sms/webhook/createFile/callScript/chatMsg/useAI</td>
+</tr>
+
+
+<tr style="border-bottom: 1px solid black;">
+    <td><img src='https://ibb.co/rRX3Z0Bv' alt="ExpAsst" style="height:100px;"><br>
+<img src='https://ibb.co/p6LdBLC2' alt="ExpAsst" style="height:100px;">
+</td>
+    <td>Expression Assistant</td>
+    <td>This seems to be for devs (not no-co)<br>
+<a href='https://support.google.com/appsheet/answer/10104484?hl=en'>docx</a></td>
+</tr>
+
+</table>
+
+
+<br>
+<br>
 </body>
 </html>

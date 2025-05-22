@@ -104,7 +104,7 @@ type UndoMachine (li:string list, ptr:int) as m =
         printfn " - - - - - - - - - - - - - - - - - - - - - - - - - - - - " 
 
 [<AutoOpen>]
-module FrmDef_Actual =
+module UndoMachine_Actual =
     open System
     
     let runTest() = 

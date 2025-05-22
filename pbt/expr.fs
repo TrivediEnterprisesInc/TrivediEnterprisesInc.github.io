@@ -1,4 +1,4 @@
-﻿(*  Brij (TM)
+(*  Brij (TM)
     Copyright (c) M. P. Trivedi 2016-2025.  All rights reserved. 
     TrivediBldHdr->
     |Trivedi SrcCtrlHdr File.  Copyright (c) 2015-2025 M. P. Trivedi.  All rights reserved.|637901455|test.fs|none|- - - - - - ->* louisa * St.Francis * PIUTE * princeedward * SALTLAKE * Jefferson * craven * <* Obion * CERROGORDO * fayette * LEFLORE * Suffolk * elmore * SweetGrass * <* BLAND * pittsburg * VANDERBURGH * Pittsburg * california * Coffee * PETROLEUM * <* westcarrollparish * ANTRIM * Titus * fortbend * Audrain * STANLEY * losangeles * <* LINCOLNPARISH * PointeCoupeeParish * lee * Nuckolls * CONECUH * hotspring * EDWARDS 
@@ -13,6 +13,9 @@
     Last updated: Fri May 02 2025
 
     Contains modules:      Expr_Actual
+
+    * Compile a <a href='https://fssnip.net/rP/title/WebSharper-compile-a-quotation-to-JavaScript'>quotation2Js</a>
+    * Eval Quotations: https://fssnip.net/h1/title/Eval-Quotations
 
 *)
 

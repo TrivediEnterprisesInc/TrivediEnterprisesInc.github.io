@@ -6,26 +6,23 @@
     //minus UIAux
     fsc src\pbt\Dnd_ops.fs  --platform:x64 --standalone --target:exe --out:src\pbt\dnd.exe -r:lib\Trivedi.Core.dll -r:lib\Trivedi.UI.dll -I:C:\Windows\Microsoft.NET\Framework\v4.0.30319
 
-    Last updated: Tue Apr 24 2025
+    Last updated: Thu May 1 2025
 
-    Contains modules:      FrmDef_Actual
-                                    FrmDef_Ext
-                                    //tibbie FrmDef_Test
+    Contains modules:      FrmDef_Actual | FrmDef_Test
 
     Outstanding: 
-        move ops mod type members (member this.toFsChkModel() ...) to Dnd_Ext via extensions (just 'with')
-        modify: we no longer nd to ins dropTgts in the html.
-        BMfld.getDefault(docF:DocFld list, ty:'t)
         Instd of matching/chking targets 4 eligibility (canAddRow/Col/etc) it'd be b8r 2 show/hide TbarBtns for ea state
             e.g., if SingleCellSel/AllSelSameRo -> enable AddRoAbove/Belo
             NO selection reqd 4 popupMnu chg cellDetails (props)
-
-    Logic update needed: on AddField OR DndAdd: if overflow addBlankRowNext >> move overflowCell
     
-    https://www.meziantou.net/detecting-dark-and-light-themes-in-a-wpf-application.htm
-
-    dojo textBoxes (other w's too?) allow using placeHolder: "type in your name" as part of the wid html
-
+        dojo textBoxes (other w's too?) allow using placeHolder: "type in your name" as part of the wid html
+        Apr28:
+            How 2 ensure dev sets/enters widSettings?
+            - Cld force input (ty) b4 autoLayout
+            - Use opts in recCtors (w); insert in frm/make em reqd flds
+            - Poss add btn to 'Chk Frm' highlites red w's nding params?
+            - A form deployment status (red/grn)?
+            - bldState: Create a new fn w/o b4/roTgts (Freudian slip) 
 *)
 
 namespace Trivedi
@@ -61,6 +58,15 @@ module FrmDef_Actual =
                 colSpan = 1 ; rowSpan = 1 ; Pos = (0, 0); lblFont = defIt ; dataFont = defFont; 
                 foreCol = Some(Color.Black); backCol = Some(Color.Black); 
                 soopari = box 1; vFn = None ; CanUhear = Thingy("") ; fldTtip = None; tblTy = TaskTbl() } )
+        static member getShorty(f, cc, cr, col, ro) = 
+                let (DocFld(ft, intNm, isInt, tit)) = f
+                { unid = (getUNID "BmFldTest"); title = tit ; docF = f; 
+                colSpan = 1 ; rowSpan = 1 ; Pos = (0, 0); lblFont = defIt ; dataFont = defFont; 
+                foreCol = Some(Color.Black); backCol = Some(Color.Black); 
+                soopari = box 1; vFn = None ; CanUhear = Thingy("") ; fldTtip = None; tblTy = TaskTbl() }
+                |> (fun c -> { c with colSpan = cc; rowSpan = cr; Pos = (col,ro) } )
+
+
 
     type BMdzCell = | BMdzCellItm of BMFld
                             | BlankCell of (int * int)
@@ -88,48 +94,54 @@ module FrmDef_Actual =
 
 
 // type DocFld = | DocFld of FldType*string*bool*string with...
-    type FldType = | FldString
-                           | FldNumber
-                           | FldCurrency
-                           | FldLongString
-                           | FldAttachment
-                           | FldBoolean
-                           | FldChoiceList
-                           | FldRadioBtn
-                           | FldRange
-                           | FldNumUpDn  //nixed (range covers this) Apr23: NOT
-                           | FldDate 
-                           | FldDateTime //nixed (use sep)
-                           | FldColor
-                           | FldFont
-                           | FldInfoBox
-                           | FldBlankRow
-                           | UserInput  //nixed (??)
-                           | FldBtn     //nixed (??)
-                           | FldValidBtn //nixed (??)   with
+    type FldType =  | FldString
+                    | FldNumber
+                    | FldRange
+                    | FldCurrency
+                    | FldHtml
+                    | FldAttachment
+                    | FldBoolean
+                    | FldChoiceList
+                    | FldDate 
+                    | FldTime
+                    | FldColor
+                    | FldRating
+                    | FldFont with
         member this.getDefThingy() = 
             match this with
-               | FldString -> wTextBox       //+ SimpleTextarea
-               | FldNumber  -> wNumberTxtBox     //NumberTxtBox restricts to #s
+               | FldString -> wTextBox
+               | FldNumber  -> wNumberTxtBox
+               | FldRange -> wRangeSlider
                | FldCurrency -> wCurrencyTextBox
-               | FldLongString -> wEditor
+               | FldHtml -> wRTEditor
                | FldAttachment -> 
                | FldBoolean -> wCheckBox
-               | FldChoiceList -> wChoiceList  //also has separate wid for multiSelect
-               | FldRadioBtn -> wRadioButton
-               | FldRange -> wNumberSpinner //+ HorizontalSlider Apr23: NOT; is a sep wid
+               | FldChoiceList -> wChoiceList
                | FldDate  -> wDateTextBox
+               | FldTime -> wTimeTxtBox
                | FldColor -> existing but modify btn; add fld   //@TBD: we poss don't nd this in webCli; only intl use
                | FldFont -> existing but modify btn; add fld  //@TBD: we poss don't nd this in webCli; only intl use
-               | FldInfoBox -> wInfoBox
-               | FldBlankRow -> wBlankRow
-            printfn "tbfo; ret settable"
-    
+               | FldRating -> wRating
+        member this.getDefThingies() = 
+            match this with
+               | FldString -> [wTextBox;wSimpleTextarea]
+               | FldNumber  -> [wNumberTxtBox; wNumberSpinner; wHorizontalSlider]
+               | FldRange -> [wRangeSlider]
+               | FldCurrency -> [wCurrencyTextBox]
+               | FldHtml -> [wRTEditor]
+               | FldAttachment -> []
+               | FldBoolean -> [wCheckBox]  //nd 2 split to noChoices/wChoices
+               | FldChoiceList -> [wRadioButton; wChoiceList; wCheckedMultiSel]
+               | FldDate  -> [wDateTextBox]
+               | FldTime -> [wTimeTxtBox]
+               | FldColor -> [] //existing but modify btn; add fld   //@TBD: we poss don't nd this in webCli; only intl use
+               | FldFont -> [] //existing but modify btn; add fld  //@TBD: we poss don't nd this in webCli; only intl use
+               | FldRating -> [wRating]
     type Wid = | wTextBox
                     | wSimpleTextarea
                     | wNumberTxtBox
                     | wCurrencyTextBox
-                    | wEditor
+                    | wRTEditor
                     | wCheckBox
                     | wRadioButton
                     | wNumberSpinner
@@ -144,7 +156,6 @@ module FrmDef_Actual =
                     | wRating 
                     | wRangeSlider with
         member this.getHtml(supari) = 
-            //move 2 BmFld + add this.defThingy = ...
             match this with
                 | wTextBox(lblTxt, fldId, fldNm, fldVal) -> """
 <td>
@@ -188,7 +199,6 @@ module FrmDef_Actual =
                 currency:'{currTy}',
                 invalidMessage:'{invMsg}'" />
 </td>"""
-                | wEditor -> """
                 | wCheckBox(lblTxt, fldId, fldNm, fldVal) -> 
                     //@TBD: Does this cover multiple opts?
 """<td>
@@ -242,13 +252,6 @@ module FrmDef_Actual =
     <input class="cellWid dojoFormValue" type="text" name="{fldNm}" id="{fldId}" value="{fldVal}"
         data-dojo-type="dijit/form/DateTextBox"
         required="{valReqd}" observer="showValues" />
-</td>"""
-                | wInfoBox(colSp, txtVal) -> """
-<td class='infoBox cellWid' colspan='{colSp}'>
-<span>{txtVal}</span>
-</td>"""
-                | wBlankRow() -> """
-<td class='BlankRow cellWid' colspan='{colN}'>
 </td>"""
                 | wTimeTxtBox(lblTxt, fldId, fldNm, fldVal, boolReqd) -> """
 <td>
@@ -317,7 +320,13 @@ module FrmDef_Actual =
     </div>
     <p><input type="text" id="{fldId}_Val" /></p>
 </td>"""
-
+                | wInfoBox(colSp, txtVal) -> """
+<td class='infoBox cellWid' colspan='{colSp}'>
+<span>{txtVal}</span>
+</td>"""
+                | wBlankRow() -> """
+<td class='BlankRow cellWid' colspan='{colN}'>
+</td>"""
 
     let frmHdr = """
 <form class="brijFrm" dojoType="dojox/form/Manager" id="form">
@@ -503,26 +512,39 @@ module FrmDef_Actual =
 
 //The Orig loc8d on Apr 22; 2 be modif.d for initSt...
     let bld = 
-        fun li -> 
-            li 
+        fun inLi -> 
+            let toRowLi = 
+                fun li -> 
+                    li
+                    |> List.groupBy (fun n -> 
+                                        let (slg, rs, cs, (c, r)) = n
+                                        r)
+                    |> List.map (fun tpl -> tpl |> snd)
+            inLi 
             |> List.fold (fun s v -> 
                     let (c:int, r:int, li:list<'t>) = s
-                    match isEven r with
+                    match (c+1 = colN) with
                     | true -> 
-                        //printfn "isEven: For c:%A r:%A liLen:%A, returning:%A" c r (li.Length) (DzDnDTgt(v))
-                        0, r+1, DzDnDTgt(v,colN,1) :: li
+                        //printfn "nxtRo: For c:%A r:%A liLen:%A, returning:%A" c r (li.Length) (DzCell(v))
+                        c+1, r+1, BMfld.getShorty(v, 1, 1, c+1, r+1) :: li
                     | _ -> 
-                        match (c+1 = colN) with
-                        | true -> 
-                            //printfn "nxtRo: For c:%A r:%A liLen:%A, returning:%A" c r (li.Length) (DzCell(v))
-                            c+1, r+1, DzCell(v,1,1) :: li
-                        | _ -> 
-                            //printfn "_: For c:%A r:%A liLen:%A, returning:%A" c r (li.Length) (DzCell(v))
-                            c+1, r, DzCell(v,1,1) :: li
-                    ) (0,0,[]) 
+                        //printfn "_: For c:%A r:%A liLen:%A, returning:%A" c r (li.Length) (DzCell(v))
+                        c+1, r, BMfld.getShorty(v, 1, 1, c+1, r) :: li
+                    ) (0,0,[])
+            |> toRowLi
 
-
+    tkFldList() |> bld |> printfn "res:%A"
+(*
     //loaded cellGetters: with Dnd hndlrs + sel hndlrs...
+
+    Mon Apr 28
+        see: <a href='https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/walkthrough-performing-a-drag-and-drop-operation-in-windows-forms?view=netframeworkdesktop-4.8#see-also'>Walkthrough: </a>Performing a Drag-and-Drop Operation in Windows Forms
+        1) @ DragSrc: Set the data to be dragged + effect
+        2) @ DragTgt: AllowDrop <- true; 
+        DragEnter: chks if data is acceptable type + sets effect
+        DragDrop: retrieve data (e.data.getdata(~)) + custom logic
+*)
+
     let getRowTgt =
         fun f:float cliP:Panel thisRef:Form ->
             let cand = RoTgt(f)
@@ -617,6 +639,27 @@ module FrmDef_Actual =
             f.rebldUIlayout()
         member f.bldState() = 
             //(BMdzTbl -> UIModel)
+            let cTot, rTot, uiM = 
+                li  |> List.fold (fun s v -> 
+                        let (c:int, r:int, roLi:list<'t>) = s
+                        let ([BMdzCellItm(slg, cc, cr, ccI, crI)]) = v
+                            match roLi with
+                            | [] -> 0, 0, []
+                            | _ ->
+                                let thisRoSt = 
+                                    roLi 
+                                    |> lim (fun thisCl -> [BMdzCellItm(slg,cc,cr,c,r)])
+                                    |> lico
+                                match (not(c+1 < colN)) with
+                                | true -> 0, r+1, (thisRoSt @ roLi)
+                                | _ -> c+cc, r, (thisRoSt @ roLi))
+                        ) (0,0,[]) 
+                    |> List.rev
+            (li, uiM)
+
+        member f.bldState_v1() = 
+            //(BMdzTbl -> UIModel)
+	    //This ver subseq depr in favor of removing b4/roTgts (Apr28)
             //@ToDo: use incoming BM tyDef; remove colN
             //@ToDo: after calling, reset tbl ref in UI + reset (cliP.RowCount <- lilen tbl)
             let cTot, rTot, uiM = 
@@ -630,6 +673,7 @@ module FrmDef_Actual =
                                     roLi 
                                     |> lim (fun thisCl -> [getB4Tgt(((float) 0-0.5), ((float) r+0.5), cliP, f); BMdzCellItm(slg,cc,cr,c,r)])
                                     |> lico
+                                //@ToDo: Apr26: Add afterTgt @ end of ro 4 completeness
                                 let withRoTgt = [getRowTgt(((float) r + 0.5), cliP, f)] @ thisRoSt
                                 match (not(c+1 < colN)) with
                                 | true -> 0, r+1, (withRoTgt @ roLi)
@@ -709,7 +753,13 @@ module FrmDef_Actual =
             lilen struct
         member f.BMdzCmdHandler = 
             fun cmd params =
-(*        Apr7:
+(*      Apr25:
+            DoDrop covers Pos _but_ we nd coverage for the foll:
+            chgCsp/Rsp
+            Thingy
+            Ttip
+            RemFld
+        Apr7:
             BM contains ONLY currState (for persist) BUT refCells 4 list<BMTbl, intPtr> for undo/redo
 
                 { unid = (getUNID "BmFldTest"); title = tit ; docF = f; 
@@ -729,6 +779,10 @@ module FrmDef_Actual =
                         match ctrl with
                         | "label" -> f.updCellAt pos tbl (fun c -> { c with lblFont = newFont } )
                         | "data" -> f.updCellAt pos tbl (fun c -> { c with dataFont = newFont } )
+                    | "chgColSpan" (pos, newSp) ->
+                        f.updCellAt pos tbl (fun c -> { c with colSpan = newSp } )
+                    | "chgRowSpan" (pos, newSp) ->
+                        f.updCellAt pos tbl (fun c -> { c with rowSpan = newSp } )
                     | "DoDrop" ->
                         let (srcTpl, Dest) = params
                         match Dest with
@@ -802,7 +856,31 @@ module FrmDef_Actual =
                                     soopari = box 1; vFn = None ; CanUhear = Thingy("") ; fldTtip = None; tblTy = TaskTbl() } )
                                 [front, newCell, back]                        
                                 state.insertAt pos >> ``⍾`` { ...}
-                    //menuCmds
+                    | "RemField" (pos) ->
+                        let ro = tbl.[r]
+                        let newRo = ro.RemoveAt(c)
+                        List.InsertAt r newRo tbl
+                    | "ChgThingy" (newT) ->
+                        f.updCellAt pos tbl (fun c -> { c with CanUhear = newT } )
+                    | "ChgThingy" (newTxt) ->
+                        f.updCellAt pos tbl (fun c -> { c with CanUhear = Some(newTxt) } )
+(*
+Run these cmds from cellRightClickMenu:
+vFn / Thingy / ForeCol / BkCol / LblFont / DatFont / col-roSpan / removeFld / TtipTxt
+
+These from TBarBtns:
+Defaults / AddBlankRo / AddInfoBox / AddFld
+
+Another option: Instd of all the rt-click cmds; unify em in a DlgBox and menu simply says "Modify Fld"
+[Repurpose propBox?]
+
+@chk Move 2 TBarBtns:
+-Ins-Del Cell|Ro  -roSpan-colSpan 4 cell|Ro  -InfBox<br>
+This is in order to enable/disable upon sel (visual cues)
+
+[Add LN-ty btn "Make Default" 4 fonts etc. (particular scope: lbl/data)]
+
+*)
                     | "vFn " (pos) -> 
                         //@ToDo: tbfo
                        gappa (vFn)
@@ -845,5 +923,137 @@ module FrmDef_Actual =
 
     printfn "eom Dnd_ops..."
 
-    printfn "...eom..."
+    printfn "...eom FrmDef_Actual..."
+
+module FrmDef_Test = 
+    open System
+    open System.Drawing
+    open System.Windows.Forms
+    open Trivedi
+    open Trivedi.Core
+
+    type BMfld<'t when 't :> ITblMarker> with
+        member this.toAbstractModel() =
+"""| {this.title} | {this.docF}| {this.colSpan} | {this.rowSpan} | {(this.Pos |> fst)} | {(this.Pos |> snd)} | {this.lblFont} | {this.dataFont} | {this.foreCol} | {this.backCol} | {this.CanUhear} | {this.fldTtip} |"""
+
+    type FrmAbstractM(m:list<list<string>>) with
+        member this.toModel() = 
+            let liJoin li = ("", li) |> lifo (fun s v -> s + "\n" + v)
+            m |> lim (fun r -> r |> lim (fun c -> c.toAbstractModel()) |> liJoin) //poss nd to put in []
+        member updItm(pos, fldIdx, newV) = 
+            //let text = "| title | docF | colSpan | rowSpan | Posfst | Possnd | lblFont | dataFont | foreCol | backCol | CanUhear | fldTtip |"
+            let (c, r) = pos
+            let ro = m.[c]
+            let cl = ro.[r]
+            let text = cl.toAbstractModel()
+            let rx = new Regex(@"\|\s(?<fld>\w+)", RegexOptions.IgnoreCase)
+            let mat = rx.Matches(text) |> List.ofSeq
+            let newCl= 
+                List.fold (fun s (v:Match) -> 
+                        let (i, st) = s
+                        let groups = v.Groups
+                        match (i=idx) with 
+                        | true -> 
+                            printfn "%A" (groups.[0].Value)
+                            printfn "%A) '%A' fnd at position %A" (i.ToString()) (groups.["fld"].Value) (groups.[1].Index)
+                            i + 1, st
+                        | _ -> i + 1, st) (0,"") mat
+            let newRo = List.updateAt r (newCl) ro
+            List.updateAt c newRo m
+
+    let chgColSp pos newS = 
+        { new Operation<FrmWrapper,FrmAbstractM>() with
+            member __.Run m = m.updItm(pos, 2, newS).toModel()
+            member __.Check (f,m) = f.chgColSp(pos, newS)).toModel()
+                |> Prop.label (sprintf "chgColSp: model = %A, actual = %A" m res)
+            override __.ToString() = "chgColSp"}
+            
+    let chgRoSp pos newS = 
+        { new Operation<FrmWrapper,FrmAbstractM>() with
+            member __.Run m = m.updItm(pos, 6, newS).toModel()
+            member __.Check (f,m) = f.chgRoSp(pos, newS)).toModel()
+                |> Prop.label (sprintf "chgRoSp: model = %A, actual = %A" m res)
+            override __.ToString() = "chgRoSp"}
+
+    let chgDataLbl pos newF = 
+        { new Operation<FrmWrapper,FrmAbstractM>() with
+            member __.Run m = m.updItm(pos, 7, newF).toModel()
+            member __.Check (f,m) = f.chgDataLbl(pos, newF)).toModel()
+                |> Prop.label (sprintf "chgDataLbl: model = %A, actual = %A" m res)
+            override __.ToString() = "chgDataLbl"}
+
+    let chgForeCol pos newC = 
+        { new Operation<FrmWrapper,FrmAbstractM>() with
+            member __.Run m = m.updItm(pos, 8, newC).toModel()
+            member __.Check (f,m) = f.chgForeCol(pos, newC)).toModel()
+                |> Prop.label (sprintf "chgForeCol: model = %A, actual = %A" m res)
+            override __.ToString() = "chgForeCol"}
+
+    let chgBackCol pos newC = 
+        { new Operation<FrmWrapper,FrmAbstractM>() with
+            member __.Run m = m.updItm(pos, 9, newC).toModel()
+            member __.Check (f,m) = f.chgBackCol(pos, newC)).toModel()
+                |> Prop.label (sprintf "chgBackCol: model = %A, actual = %A" m res)
+            override __.ToString() = "chgBackCol"}
+
+    let chgThingy pos newT = 
+        { new Operation<FrmWrapper,FrmAbstractM>() with
+            member __.Run m = m.updItm(pos, 10, newT).toModel()
+            member __.Check (f,m) = f.chgThingy(pos, newT)).toModel()
+                |> Prop.label (sprintf "chgThingy: model = %A, actual = %A" m res)
+            override __.ToString() = "chgThingy"}
+
+    let chgTtip pos newT = 
+        { new Operation<FrmWrapper,FrmAbstractM>() with
+            member __.Run m = m.updItm(pos, 11, newT).toModel()
+            member __.Check (f,m) = f.chgTtip(pos, newT)).toModel()
+                |> Prop.label (sprintf "chgTtip: model = %A, actual = %A" m res)
+            override __.ToString() = "chgTtip"}
+
+    let doDrop pos newP = 
+        { new Operation<FrmWrapper,FrmAbstractM>() with
+            member __.Run m = 
+                let withNewC = m.updItm(pos, 4, newP |> fst)
+                withNewC.updItm(pos, 5, newP |> snd)
+            member __.Check (f,m) = f.doDrop(pos, newP)).toModel()
+                |> Prop.label (sprintf "doDrop: model = %A, actual = %A" m res)
+            override __.ToString() = "doDrop"}
+            
+    let create initialValue = 
+        { new Setup<FrmWrapper,FrmAbstractM>() with
+            member __.Actual() = ((FrmWrapper(initialValue)))
+            member __.Model() = initialValue }
+    
+    type TearDownDsk<'Actual>() =
+        inherit TearDown<'Actual>()
+        override __.Actual actual = 
+            pbt.Dsk(( (FrmWrapper) actual).toModel())
+    
+    //consider switching betw Music+tkTbl?
+    let initModel = MusicFldList() |> bld |> tblAbstractMod
+    
+    let FrmStateMachine =
+      { new Machine<FrmWrapper,FrmAbstractM>() with
+          member __.Setup = Gen.constant(initModel) |> Gen.map create |> Arb.fromGen
+          member __.Next thisM = 
+            Gen.frequency [ (2, gen{  
+                                                let! a = chooseFrmLi addl
+                                                return (addIcn a) } ); 
+                                    (1, gen{    
+                                                let! r = chooseFrmLi thisM
+                                                return (remIcn r) } );
+                                    (1, gen{    
+                                                let! n = Gen.choose(0, lilen thisM)
+                                                let! p = chooseFrmLi philos
+                                                return (ChangeLbl n p) } )                                
+    
+                                    ] 
+          override __.TearDown = TearDownDsk<'Actual>()
+            }
+    
+    printfn "now runing check..."
+    
+    Check.Quick (StateMachine.toProperty FrmStateMachine)
+
+    printfn "...eom FrmDef_Test..."
 
