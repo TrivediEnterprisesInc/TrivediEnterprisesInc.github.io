@@ -1,8 +1,7 @@
 (*  Brij (TM)
     Copyright (c) M. P. Trivedi 2016-2025.  All rights reserved. 
 
-    Last updated: Wed May 21 2025
-    The idea is to port the existing lexYacc stuff here & expand
+    Last updated: Fri May 23 2025
     
     fsc src\pbt\dskCli_ExprParser.fs --platform:x64 --standalone --target:exe --out:src\pbt\expParsec.exe -r:src\pbt\FParsecCS.dll -r:src\pbt\FParsec.dll -r:lib\Trivedi.Core.dll -r:lib\Trivedi.CoreAux.dll -I:C:\Windows\Microsoft.NET\Framework\v4.0.30319
     
@@ -212,7 +211,7 @@ module Parsec_CQ =
 
     printfn "...eom mod Parsec_CQ..."
     
-module CondBldr_Test = 
+module ExprBldr_Test = 
     open System
     open System.Drawing
     open System.Windows.Forms
@@ -221,7 +220,7 @@ module CondBldr_Test =
 
 (*
   - Begin w/CondBldr: Actual runs on (mTpl -> bool)
-  - Use sample dataSet 4 both (MusicTbl? nds work)
+  - Use sample dataSet 4 both (MusicTbl? nds work...May22: csv2tpl done; roundtrip remains))
   - 4 Abstract use CQs; create bldrs 2 gen 4 ea CondFlavor
 CondBldr: consider adding 
     (1) strNear (x,y) for within fixed (200) char
@@ -229,11 +228,12 @@ CondBldr: consider adding
     Note that in certain circs this'll lead to 5tpls...
 - CondBldr mod:
   Abstract: Test DataSet getRndRec + getRndFld + getRndCrit (basedOnFld) + getRndOp + getRndParam
-  Actual: getRndRec (same DataSet; pump recId/skipNum from Abstract2Act + pump param) -> run 
-    on the raw vals (not fldVars)
+                -> run on the raw vals (not fldVars)
+  Actual: getRndRec (same DataSet; pump recId/skipNum from Abstract2Act + pump param) 
+                -> run on tpl
 *)
 
-    printfn "...init module CondBldr_Test"
+    printfn "...init module ExprBldr_Test"
 
     let chooseFrmLi_Idx xs = 
         gen{ 
@@ -250,16 +250,42 @@ CondBldr: consider adding
     let getFloat = ArbMap.defaults |> ArbMap.generate<float>
             
     let runCond cRec cFld cFldIdx cOp cParam = 
-        { new Operation<CondWrapper, CondAbstractM>() with
+        { new Operation<ExprWrapper, ExprAbstractM>() with
             member __.Run m =  runCond (fldVal opF param)
-            member __.Check (f,m) = f.runCond(cRec, cFld, cFldIdx, cOp, cParam)).toModel()
-                |> Prop.label (sprintf "runCond: model = %A, actual = %A" m res)
+            member __.Check (f,m) = 
+                    let res =(f.runCond(cRec, cFld, cFldIdx, cOp, cParam)).toModel()
+                    m = res 
+                    |> Prop.label (sprintf "runCond: model = %A, actual = %A" m res)
             override __.ToString() = "runCond"}
 
+    let runIfThen condTpl thenElseTpls = 
+        { new Operation<ExprWrapper, ExprAbstractM>() with
+            member __.Run m =  
+                //bld/splice cq (see above)
+                //if (runCond (fldVal opF param)) then fld = fldVal
+            member __.Check (f,m) = 
+                    let res =(f.runIfThen(condTpl thenElseTpls)).toModel()
+                    m = res 
+                    |> Prop.label (sprintf "runIfThen: model = %A, actual = %A" m res)
+            override __.ToString() = "runIfThen"}
+
+    let runValidn cRec cFld cFldIdx cOp cParam = 
+        { new Operation<ExprWrapper, ExprAbstractM>() with
+            member __.Run m =  
+                //Abstract model uses canned validns from a list; 
+                //Actual generates js formulaa
+                runValidn (fldVal opF param)
+            member __.Check (f,m) = 
+                    let res =(f.runValidn(cRec, cFld, cFldIdx, cOp, cParam)).toModel()
+                    m = res 
+                    |> Prop.label (sprintf "runValidn: model = %A, actual = %A" m res)
+            override __.ToString() = "runValidn"}
+
 (*
+
     let create initTpl = 
-        { new Setup<CondWrapper, CondAbstractM>() with
-            member __.Actual() = ((CondWrapper(initTpl)))
+        { new Setup<ExprWrapper, ExprAbstractM>() with
+            member __.Actual() = ((ExprWrapper(initTpl)))
             member __.Model() = initTpl }
 
     type TearDownDsk<'Actual>() =
@@ -271,24 +297,43 @@ CondBldr: consider adding
     //consider switching betw Music+tkTbl?
     let initModel = MusicFldList() |> bld |> tblAbstractMod
     
-    let CondStateMachine =
-      { new Machine<CondWrapper, CondAbstractM>() with
+    let getThenElseTpls = 
+        fun thenFld -> 
+            gen{    
+                    return getRndValBasedOnFTy fTy //stub tbfo
+                    }
+
+    let ExprStateMachine =
+      { new Machine<ExprWrapper, ExprAbstractM>() with
           member __.Setup = Gen.constant(initModel)  |> Arb.fromGen
           member __.Next thisM = 
-            Gen.Constant <| gen{  
-                                            let! recd = chooseFrmLi thisM
-                                            let! fld, fIdx = chooseFrmLi_Idx MusicFldList()
-                                            let! opF = chooseFrmLi (opsLi fld)
-                                            let! param = getFloat
-                                            return (runCond recd fld fIdx opF param) 
-                                            }
+                Gen.frequency [ (1, gen{    
+                                                    let! recd = chooseFrmLi thisM
+                                                    let! fld, fIdx = chooseFrmLi_Idx MusicFldList()
+                                                    let! opF = chooseFrmLi (opsLi fld)
+                                                    let! param = getFloat
+                                                    let! condTpl = (recd,fld,fIdx,opF,param)
+                                                    return (runCond condTpl) } );
+                                        (1, gen{    
+                                                    let! recd = chooseFrmLi thisM
+                                                    let! fld, fIdx = chooseFrmLi_Idx MusicFldList()
+                                                    let! opF = chooseFrmLi (opsLi fld)
+                                                    let! param = getFloat
+                                                    let! condTpl = (recd,fld,fIdx,opF,param)
+                                                    //random # of thenElse stmts
+                                                    let! fldLiExc = List.Except fIdx fldLi
+                                                    let! thenFld = chooseFrmLi fldLiExc
+                                                    //tbdb: is this going to be a list list?
+                                                    let! thenElseTpls = Gen.choose (0,4) |> Gen.map (getThenElseTpls thenFld)
+                                                    return (runIfThen condTpl thenElseTpls ) } )
+                                        ]
           //override __.TearDown = TearDownDsk<'Actual>()
             }
             
     
     printfn "now runing check..."
     
-    Check.Quick (StateMachine.toProperty CondStateMachine)
+    Check.Quick (StateMachine.toProperty ExprStateMachine)
 
-    printfn "...eom mod CondBldr_Test..."
+    printfn "...eom mod ExprBldr_Test..."
 
