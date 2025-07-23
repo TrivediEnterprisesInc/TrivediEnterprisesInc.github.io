@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Security UI Design Guide</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; padding: 2rem; max-width: 900px; margin: auto; }
+    h2 { border-bottom: 1px solid #ccc; padding-bottom: 0.3em; }
+    code, pre { background: #f4f4f4; padding: 0.2em 0.4em; border-radius: 3px; }
+    ul { margin-left: 1.5em; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    table, th, td { border: 1px solid #ccc; padding: 0.5em; text-align: left; }
+    .quote { font-style: italic; color: #555; margin: 1em 0; }
+  </style>
+</head>
+<body>
+
+  <h1>Security UI Design Guide for Database Apps</h1>
+
+<img src="https://www.metabase.com/learn/images/guide-to-data-permissions/grant-table-access.png" width=200>
+
+<img src="https://i0.wp.com/commadot.com/wp-content/uploads/2021/05/image-32.png?ssl=1" width=200>
+<img src="https://mode.com/help/images/permissions/permission2.png" width=200>
+<img src="https://images.ctfassets.net/7fn0srsqjxkr/1cYXUR2Rut0bOsNDZvNoSs/0f8450d86e6b1423f9fa144a66b645eb/Screenshot_2024-01-23_at_1.04.32_AM.png" width=200>
+
+  <p>When designing a security UI for developers (to assign permissions like Create/Read/Update/Delete), here are some common professional approaches:</p>
+
+  <h2>1. Permission Matrix by Resource</h2>
+  <ul>
+    <li>Matrix layout with rows = resources (e.g. tables), columns = actions (CRUD).</li>
+    <li>Each cell has a dropdown or toggle to assign: <code>Anyone</code>, a specific <code>Group</code>, or <code>User</code>.</li>
+  </ul>
+  <p><strong>Pros:</strong> Clear, scalable.</p>
+  <p><strong>Cons:</strong> Can become cluttered with many resources.</p>
+
+  <h2>2. Role-&-Group Focused Settings</h2>
+  <ul>
+    <li>Select a <strong>Role</strong> or <strong>Group</strong>, then assign permissions across scopes.</li>
+    <li>Uses checkboxes or nested toggles per permission domain.</li>
+  </ul>
+  <p><strong>Pros:</strong> Matches RBAC model well.</p>
+  <p><strong>Cons:</strong> Group vs. user overrides can confuse.</p>
+
+  <h2>3. Policy-Based / Entity-Tag Model</h2>
+  <ul>
+    <li>Advanced approach using policies that combine user/group, resource tag, and access levels.</li>
+    <li>Used in systems like Treasure Data or AWS IAM.</li>
+  </ul>
+  <p><strong>Pros:</strong> Highly flexible, supports tagging and inheritance.</p>
+  <p><strong>Cons:</strong> Complex UI, steep learning curve.</p>
+
+  <h2>Recommended Hybrid UI</h2>
+  <ol>
+    <li>Use <strong>Roles or Groups</strong> as primary view context.</li>
+    <li>Inside each, show a <strong>Permission Matrix</strong> with:
+      <ul>
+        <li>Columns: <code>Create</code>, <code>Read</code>, <code>Update</code>, <code>Delete</code></li>
+        <li>Cells: dropdown to select access (Anyone / Group / User)</li>
+      </ul>
+    </li>
+  </ol>
+
+  <h2>Example UI Snippets</h2>
+  <ul>
+    <li><a href="https://www.metabase.com/learn/metabase-fundamentals/permissions.html" target="_blank">Metabase Permissions</a></li>
+    <li><a href="https://mode.com/help/articles/permissions-overview/" target="_blank">Mode Analytics Permissions</a></li>
+    <li><a href="https://help.withpersona.com/article/f2apv7on0h-setting-roles-permissions" target="_blank">Persona Role Permissions</a></li>
+    <li><a href="https://commadot.com/portfolio/treasure-data-admin-ui/" target="_blank">Treasure Data Admin UI</a></li>
+  </ul>
+
+  <h2>Basic Wireframe Concept (Textual)</h2>
+  <pre>
+[Select Role/Group/User dropdown]
++---------------------------------------------+
+| Resource      | Create        | Read     ...|
+|--------------|---------------|--------------|
+| Table A      | [Anyone ▼]     | [Group ▼] ...|
+| Table B      | [Group Admin] | [Anyone] ...|
+| Schema X     | [Expand ▼]     | [Expand] ...|
++---------------------------------------------+
+[Apply to multiple roles/users?  +Bulk Invite]
+  </pre>
+
+  <h2>Data Model & Backend Notes</h2>
+  <ul>
+    <li>Use RBAC: tables like <code>roles</code>, <code>permissions</code>, <code>user_roles</code>, <code>role_permissions</code></li>
+    <li>For overrides: support per-user permissions or use a ReBAC-style model</li>
+  </ul>
+
+</body>
+</html>
