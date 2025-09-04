@@ -8,7 +8,7 @@
     Provenance: Modified from loggedUIRnrDec20_FrmDz
     to incorp modified  UI els 4 pbt    
 
-    Last updated: June 11 2025
+    Last updated: Aug 18 2025 (added dsk.TS support)
 
     Heads up: There is a bogus match somewhere between Categ/DocTitle which will pro'lly fail
 
@@ -433,7 +433,12 @@ module pbt_main =
                     pgBar.Items.AddRange([|toTSItm gotoFst; toTSItm gotoRR; toTSItm gotoPrev; toTSItm pagLbl; toTSItm gotoNxt; toTSItm gotoFF; toTSItm gotoLst; toTSItm (getPgSzDropDn g)|])
                     !!^ ["gotoFst", box gotoFst; "gotoRR", box gotoRR; "gotoPrev", box gotoPrev; "gotoNxt", box gotoNxt; "gotoFF", box gotoFF; "gotoLst", box gotoLst; "pagLbl", box pagLbl] g
                     own.Controls.Add(pgBar)
-                    let regTBar = new ToolStrip(Dock = doc "T")
+
+                    //let regTBar = new ToolStrip(Dock = doc "T")
+                    //Above updated Aug18_25 for dskTS support
+                    let regTBar = own.getDskTS()
+                    regTBar.Controls.Clear()
+
                     //@tbfo deferred for bldCtrl since we may not nd this drpDn anymore
                     //let swDV = new ToolStripDropDownButton(Text = "Switch DataView...", DropDown = (bldCtrl (getDropDnItms (getDVsForTbl "tbl")) None (new ToolStripDropDown())), DropDownDirection = ToolStripDropDownDirection.Left, ShowDropDownArrow = true)
                     regTBar.Items.Add (getTSButton "Add Row" "addImg.jpg" None (Some(new EventHandler (fun sender e -> 
@@ -501,7 +506,7 @@ module pbt_main =
                         ))))
                     regTBar.Items.Add (new ToolStripSeparator())
                     regTBar.Items.Add (getToolStripDVList)
-                    own.Controls.Add(regTBar)
+                    //Aug18: no longer necc. own.Controls.Add(regTBar)
                 | _ -> ()
 #endif //pbtRem
                 let stat = new StatusStrip(SizingGrip = false, Stretch = true, Dock = doc "B", Font = new Font("Tahoma", 18.0f), LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow)

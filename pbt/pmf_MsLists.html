@@ -1,0 +1,282 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>MS Lists</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	
+	<link rel="stylesheet" href="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2024/form/gridx_Styling/common.css">
+	<link rel="stylesheet" href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/raw/refs/heads/main/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+    .dijitDialogPaneContent {
+        width: 800px !important;
+        height: 600px !important;
+    }
+
+    .makeYellow		{ background-color: #ffa;
+    }
+  .alice {
+      background-color: aliceblue;
+  }
+    .pbt {
+       background-color: powderblue;
+    }
+  .ext {
+      background-color: honeydew;
+  }
+  .upds {
+      background-color: linen;
+  }
+
+.st1 {
+      background-color: #A0522D;
+}
+.st2 {
+      background-color: #ffa;
+}
+.st3 {
+      background-color: #99cfff;
+}
+    /*override oria's bkgrnd*/
+    body {
+        background-color: #eff5ec;
+        background-image: url("https://www.transparenttextures.com/patterns/fake-luxury.png");
+        background-repeat: repeat;
+        width: 100%;
+        margin: 0em;
+    }
+
+</style>
+
+</head>
+
+<body class='claro'>
+
+<h1>MS Lists</h1>
+
+	<b>This file (<a href="https://trivedienterprisesinc.github.io/pmf/pmf_MsLists">repo ver</a>) created Mar 6 '25<br>
+	<i>Last updated Aug 8<sup>th</sup> '25</i></b>
+	<br><hr>
+
+
+<ul>
+<li>A "way to create, track and share lists"
+</li><li>Positioned against AirTable, Trello, googSheets (sprdsheet lists)
+</li><li><b>Horizontal</b>, no-Code
+</li><li>Fast. scalable <b>offline mode</b>
+</li><li>Auto <b>sync</b> incl if app is dropped into Teams; works even if collaboratively edited
+</li><li>Powered by <b>Sharepoint</b> MySite
+</ul>
+
+sources:<br>
+One Big Step for Both Lists the App and SharePoint the Platform. (Jan <a href='https://www.linkedin.com/pulse/one-big-step-both-lists-app-sharepoint-platform-jeff-teper/'>2022</a>)<br>
+Announcing Microsoft Lists - Your smart information tracking app in Microsoft 365 (Seth Patton, May <a href='https://techcommunity.microsoft.com/blog/microsoft_365blog/announcing-microsoft-lists---your-smart-information-tracking-app-in-microsoft-36/1372233'>2020</a>)<br>
+
+<hr>
+
+<nav><ul><li><a href="#heading-2">Desktop (Home and mobile app)</a></li><li><a href="#heading-3">Views</a></li><li><a href="#heading-7">Forms</a></li><li><a href="#heading-8">Inside Teams</a></li><li><a href="#heading-4">Rules</a></li><li><a href="#heading-5">Sharing</a></li><li><a href="#heading-6">Templates</a></li><li><a href="#heading-9">Automation</a>
+</li><li><a href="#hn">HN Thread: MS announces Lists ('20)</a></li></ul></nav>
+<br>
+
+<br>
+  <h3 id="heading-2">Desktop (Home and mobile app)</h3>
+<ul>
+<li>Integrated into the 365 apps launcher
+</li><li>All yr lists in one place (web/mobile)
+</li><li>Can <b>Favorite</b> a list to access it frm Favorites section
+</ul>
+
+<center>
+<img src="https://i.ibb.co/PzcZX577/MSLists-Lists-home-mobile.jpg" width="60%" border="1px solid black">
+</center>
+
+<br>
+  <h3 id="heading-3">Views</h3>
+<ul>
+<li>Options incl <b>List</b>, <b>Grid</b> (list w/point-n-click editing), <b>Gallery</b> (CardVw) and <b>Calendar</b>.
+</li><li>Can <b>Favorite</b> a list to access it frm Favorites section
+</li><li>Views allow <b>conditional formatting</b> (eg. backcolor of item when status changes; font color + icons)
+</li><li>Security options: Personal views, Public vws (dumbed down)
+</ul>
+<b>ListView (DV)</b><br>
+<center>
+<img src="https://i.ibb.co/HDzHkcqq/MSLists-Lists-plus-Teams.jpg" width="60%" border="1px solid black">
+</center>
+<br>
+<b>GalleryView (CardDV)</b><br>
+<ul>
+<li>Highlite lists containing images
+</li><li>Cards are <b>configurable</b>, disp a row of info
+  </li></ul>
+
+<center>
+<img src="https://i.ibb.co/WNd4C8Xb/MSLists-M365-008-Views-Gallery.jpg" width="60%" border="1px solid black">
+</center>
+
+<br>
+<b>CalendarView</b><br>
+<ul>
+<li>Pretty much the same as ours <b>but</b> notice the simplified UX, no skipping week/month/etc. Very few items on scrn.
+  </li></ul>
+
+<center>
+<img src="https://i.ibb.co/pv221Twq/MSLists-M365-009-Views-Calendar.jpg" width="60%" border="1px solid black">
+</center>
+
+<br>
+  <h3 id="heading-7">Forms</h3>
+Viewing an indiv list item in a <b>form</b>
+<br>
+<center>
+<img src="https://i.ibb.co/gZrTpJxS/MSLists-form.jpg" width="60%" border="1px solid black">
+</center>
+
+<br>
+  <h3 id="heading-8">Inside Teams</h3>
+Can create Lists frm inside <b>Teams</b>
+<br>
+<center>
+<img src="https://i.ibb.co/S4XfnmGn/MSLists-create-in-Teams.jpg" width="60%" border="1px solid black">
+</center>
+
+
+<br>
+  <h3 id="heading-4">Rules</h3>
+<ul>
+<li>Bldg rules "as easy as writing a sentence".
+</li><li>Decide on outcome, click-fill if/then steps
+</li><li>Choose ppl, status, value changes to <b>send</b> notifications or <b>update</b> data.
+</li><li>Use rules to set <b>reminders</b> to keep ev.one informed.
+</ul>
+<center>
+<img src="https://i.ibb.co/7NbHDcW8/MSLists-Rules.jpg" width="60%" border="1px solid black">
+</center>
+
+<br>
+  <h3 id="heading-5">Sharing</h3>
+<ul>
+<li>Can share a list w/Read-Only or Edit permissions
+</li><li>Can also share indiv items (<b>DocLinks?</b>) and allow/dis~ <b>Edit</b>, set an expiration <b>date</b> or <b>require</b> a pwd.
+</ul>
+<center>
+<img src="https://i.ibb.co/PzJCp2fw/MSLists-Sharing.jpg" width="60%" border="1px solid black">
+</center>
+
+<br>
+  <h3 id="heading-6">Templates</h3>
+<ul>
+<li>Provide templates for use cases incl.:
+  <ul>
+    <li>track issues
+    </li><li>onboard new hires
+    </li><li>event iternary
+    </li><li>manage assets
+    </li></ul>
+</li><li>Contain base struct, formatting, frms, conditional formatting
+</li><li>Find inspiration in them or modify em
+</li></ul>
+<center>
+<img src="https://i.ibb.co/QvZXWScW/MSLists-M365-007-Templates.jpg" width="60%" border="1px solid black">
+</center>
+
+<br>
+  <h3 id="heading-9">Automation</h3>
+<ul>
+<li>Integrated w/Power Platform, so you can customize frms w/<b>Power Apps</b> or diz workflows w/<b>Power Automate</b>
+</li><li>The Lists <b>API</b> can be used as a data src via MS Graph
+</li></ul>
+
+
+<br>
+  <h4 style='color:#A0522D;' id="hn">HN Thread: MS announces Lists ('20)</h4>
+<br><a href='https://news.ycombinator.com/item?id=23236364'>link</a>
+
+<ul>
+<li>Many comments thought this was an exact copy of AirTable, eg: <br>
+"They went full carbon-copy on AirTable, so they seem 2 say that UX is key in this space" (many others agree that AT's UX is exceptional)<br>
+Instd of updating Access they decide to cp AT + cannbibalize Access.  Skype nd.ed an overhaul but they made a Slack clone (Teams) + Azure (AWS) + Azure Devops (Altassian)<br>
+Access got col hdr filters from Excel (earlier from Paradox)
+</li><li>"What ppl wanted was a quick way from Access 2 HTML forms/tables"  This wd've been a killer 4 enterprise.
+</li><li>Trello is a list of lists.  AT/Lists are for data you'd put in a sprdsht.
+</li><li>Sharepoint Lists was as prevalent in Ent. as Access
+</li><li>MS can beat AT on price + integration; they rarely win on performance/features.  Many ppl already have Office365, price includes lists.
+</li><li>"Teams is way b8r than Slack just coz of the integration"
+</li><li>"It integrates seamlessly with excel online, ppt online, word online.
+Which makes the concept of "file sharing" moot because one just has to paste the new file and the entire team can start working on it without ever leaving the teams app.
+<br>
+The same story holds for integrating with the other 365 apps that MS has.
+<br>
+Additionally, the PowerBI integration is absolutely game changing for sharing performance reports seamlessly to everyone on the team."
+</li><li>
+  
+</li><li>
+</li><li>
+</li><li>
+
+<mark>Others:</mark>
+Airtable:
+<ul>
+<li>Many comments complain about the data limits + some kinda enterp. pricing by base (instd of user) which makes the collective limits really low; + api capped @ 100 recs...
+</li><li>Queries in AT require same stuff as Excel: support cols; "seemed like just a browser based spreadsheet toy"
+</li><li>LN Thread:<br>AirTable is incredibly reminiscent of Lotus Notes.<br>
+I say that in a good way.
+<br>
+Lotus Notes was the first no-code system for developing networked/people/workgroup oriented systems.
+<br>
+Notes lost its way, but Airtable has extracted the essential essence of the Notes client and done an amazing job of making it work.
+<br>
+Airtable is worth checking out in detail because it's implemented extremely well with great attention to detail and beautiful solutions to thorny UI problems.
+<br>howsta on May 19, 2020 | root | parent | next [–]
+<br>
+Founder of Airtable here--we did look at Lotus Notes as an interesting historical precedent, though of course we've also invented from scratch in many cases, and being web-based and collaborative by default is a huge wedge for us in terms of adoption virality. I admit I'm too young to have used Lotus Notes but we did buy an old Lotus Notes guidebook, as well as looked up old Infoworld and other magazine articles (Google Books indexes those magazines!) about Notes, dBase, and other products in the genre : ).
+
+<br>
+andrewstuart on May 19, 2020 | root | parent | next [–]
+<br>
+Cool to see the founder here.<br>
+People loved or hated Notes.
+<br>
+It was way, way ahead of its time. It was really the very first system that integrated the concept or networking, users, groups, a replicated database, nosql unstructured data, form building and in built security with a sophisticated GUI.
+<br>
+	
+russellbeattie on May 19, 2020 | prev | next [–]
+<br>
+30+ years and counting, Microsoft (and others) are still trying to capture the functionality of Lotus Notes. Sort of admirable in a way, but also very sad for the rest of us.
+</li><li>
+  It is shiny from outside but has many issues that are embarrassing and can only be discovered once you have used it. (I guess looking at the open list of issues will also give you a hint).<br>
+Their UI and interface isn't that bad but their APIs are VERY BASIC. For example, there is no way to retrieve metadata about an Airtable base (sheetnames, columns etc). Or, there is no way to tell whether a link between sheets is a singular link or list of links. No way to connect different bases together.<br>
+
+Many of feature requests that were opened 3-4 years back still have no closure despite popular demand.<br>
+
+In my opinion Airtable is alright for basic usage (like yours). But nothing advance.<br>
+
+I know all this because I created an open-source library to dynamically create postgres database from multiple Airtable bases. (In case anyone is interested)
+</li><li>We run a fairly large business on it, and it's great from a UI standpoint, but for anything complex (such as reporting) we do dumps to Google Sheets where we run formulas to extract what we need. If I was starting all over, most likely I'd go directly for Google Sheets next time.
+</li></ul>
+
+<br><input type="checkbox" checked="">&nbsp;Move all pbt stuff to sep plk
+
+
+</body>
+</html>

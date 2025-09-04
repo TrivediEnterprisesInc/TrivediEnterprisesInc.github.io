@@ -6,7 +6,14 @@
     //minus UIAux
     fsc src\pbt\Dnd_ops.fs  --platform:x64 --standalone --target:exe --out:src\pbt\dnd.exe -r:lib\Trivedi.Core.dll -r:lib\Trivedi.UI.dll -I:C:\Windows\Microsoft.NET\Framework\v4.0.30319
 
-    Last updated: Thu May 1 2025
+    Last updated:   
+
+                    Wed Aug 20_25: let EmbdTblBtn; 
+                                   EmbdTblDlg_પીચાક TO BE COMPLETED
+                    Tue Aug 19_25: DocFldty Upd8d to support EmbddDVs
+                    Thu Jul 17 2025: refactored BM to rec; 
+                    other deltas planned 4 toDef/fromD: we currently have bldDefault 4 autoBld; we nd (an alt 4 loadDef) OR DO WE?  Doesn't the logic reload the def?  @Chk
+                    Thu May 1 2025
 
     Contains modules:      FrmDef_Actual | FrmDef_Test
 
@@ -16,7 +23,7 @@
             NO selection reqd 4 popupMnu chg cellDetails (props)
     
         dojo textBoxes (other w's too?) allow using placeHolder: "type in your name" as part of the wid html
-        Apr28:
+        Apr28:  (Jun_25: strike stuff below; covered by IDeployable)
             How 2 ensure dev sets/enters widSettings?
             - Cld force input (ty) b4 autoLayout
             - Use opts in recCtors (w); insert in frm/make em reqd flds
@@ -79,7 +86,7 @@ module FrmDef_Actual =
     type BMdzTbl = | BMdzTbl of list<BMdzRow>
     
     //updated Apr'23, src:UIAux
-    type BanarasiMasaloAux<'t when 't :> ITblMarker> = | BanarasiMasaloAux of unid:DocUNID * dispNm:string *
+    type old_BanarasiMasaloAux<'t when 't :> ITblMarker> = | BanarasiMasaloAux of unid:DocUNID * dispNm:string *
                                                         સુપારી:int * usrFlds:BMdzTbl * 
                                                         usrDefLblFont:Font * usrDefDataFont:Font * 
                                                         usrDefForeColor:Color * usrDefBackColor:Color * 
@@ -92,8 +99,28 @@ module FrmDef_Actual =
             //@ToDo: bf here nds 2 be an auto-layout BMdzTbl
             //@ToDo: i.e., the loop to gen the default cellStruct
 
+    //updated Jul_17_25, refactored to rec comme nanoo
+    type BanarasiMasaloAux<'t when 't :> ITblMarker> = 
+    { unid:DocUNID; mutable dispNm:string; mutable સુપારી:int;
+     mutable usrFlds:BMdzTbl; mutable usrDefLblFont:Font; 
+     mutable usrDefDataFont:Font; mutable usrDefForeColor:Color; 
+     mutable usrDefBackColor:Color; mutable docInf:DesDocInf } with
+        static member getDefault(docF:DocFld list, nm, ty:'t) = 
+            let bf = BMfld.getDefault(docF, ty)
+            let defIt = Font(defFont.FontFamily, defFont.Size, FontStyle.Italic, defFont.Unit)
+            BanarasiMasaloAux((getUNID (ty.ToString()), nm, 2, bf, defIt, defFont, currentScheme.Fore(), currentScheme.Back(), DesDocInfDeflt()))
+            { unid = ((getUNID (ty.ToString()); dispNm = nm; 
+              સુપારી=2; usrFlds = bf; usrDefLblFont = defIt; 
+              usrDefDataFont = defFont; usrDefForeColor = (currentScheme.Fore()); 
+              usrDefBackColor = (currentScheme.Back()); docInf:(DesDocInfDeflt()) }
+        member getDefaultCellModel = 
+            //@ToDo: bf here nds 2 be an auto-layout BMdzTbl
+            //@ToDo: i.e., the loop to gen the default cellStruct
 
-// type DocFld = | DocFld of FldType*string*bool*string with...
+    //Aug19_25: Upd8d to support EmbddDVs (becomes a listFld)
+    //The new fld is isEmbdd: DocFld(ft, intNm, isInt, tit, isEmbdd)
+    type DocFld = | DocFld of FldType*string*bool*string*bool with...
+
     type FldType =  | FldString
                     | FldNumber
                     | FldRange
@@ -137,24 +164,119 @@ module FrmDef_Actual =
                | FldColor -> [] //existing but modify btn; add fld   //@TBD: we poss don't nd this in webCli; only intl use
                | FldFont -> [] //existing but modify btn; add fld  //@TBD: we poss don't nd this in webCli; only intl use
                | FldRating -> [wRating]
-    type Wid = | wTextBox
-                    | wSimpleTextarea
-                    | wNumberTxtBox
-                    | wCurrencyTextBox
-                    | wRTEditor
-                    | wCheckBox
-                    | wRadioButton
-                    | wNumberSpinner
-                    | wHorizontalSlider
-                    | wDateTextBox
-                    | wTimeTxtBox 
-                    | wInfoBox
-                    | wBlankRow 
-                    | wChoiceList 
-                    | wRTEditor 
-                    | wCheckedMultiSel 
-                    | wRating 
-                    | wRangeSlider with
+
+    //added Sep4
+    type widParamPnl(widTy) = 
+        let p = new FlowLayoutPanel(Dock = doc "F", FlowDirection = FlowDirection.LeftToRight, AutoSize = true)
+        match widTy with 
+        | wTextBox()
+        | wSimpleTextarea(numRows, numCols, widPercent)
+            //all params optional; widPercent shd default to "width: auto;"
+            let p0 = (ફીલ્ડ_પેનલ  ("Number of Cols", UserInput, "no Slug", 2)) :> Pane
+            let coLbl = !!~ "inpt" p0
+            coLbl.Text <- "50"
+            let p1 = (ફીલ્ડ_પેનલ  ("Number of Rows", UserInput, "no Slug", 2)) :> Pane
+            let roLbl = !!~ "inpt" p1
+            roLbl.Text <- "4"
+            let p2 = (ફીલ્ડ_પેનલ  ("Width in %", UserInput, "no Slug", 2)) :> Pane
+            let widLbl = !!~ "inpt" p2
+            widLbl.Text <- "auto;"
+            p.Controls.AddItems([|p0;p1;p2|])
+            p
+        | wNumberTxtBox(boolReqd, smallDelta, min, max, places, invalidMsg, rangeMsg)
+        | wCurrencyTextBox(boolConstraints, currTy, invMsg, )
+        | wRTEditor(boolReqd)
+        | wCheckBox()
+        | wRadioButton(list<()>)
+        | wNumberSpinner(smallDelta, min, max, places)
+        | wHorizontalSlider(lblTxt, fldId, fldNm, fldMin, fldMax, fldDiscreteVals, fldVal, decCount, dec1, dec2, dec3)
+        | wDateTextBox(valReqd, )
+        | wTimeTxtBox(boolReqd)
+        | wInfoBox(colSp, txtVal)
+        | wBlankRow(colSp)
+        | wChoiceList(, StoreLookupFldId, StoreNm, StoreSrchAttr) //poss not last, defaults to 'name' hardcoded
+        | wCheckedMultiSel(StoreLookupFldId, StoreNm, StoreSrchAttr) //poss not last, defaults to 'name' hardcoded
+        | wRating(max)
+        | wRangeSlider(max)
+        ... with
+        member getParams() = 
+            match widTy with 
+            | wTextBox()
+            | wSimpleTextarea(numRows, numCols, widPercent)
+                let coLbl = !!~ "inpt" p0
+                let roLbl = !!~ "inpt" p1
+                let widLbl = !!~ "inpt" p2
+                (roLbl.Text, coLbl.Text, widLbl.Text)
+            | wNumberTxtBox(boolReqd, smallDelta, min, max, places, invalidMsg, rangeMsg)
+            | wCurrencyTextBox(boolConstraints, currTy, invMsg, )
+            | wRTEditor(boolReqd)
+            | wCheckBox()
+            | wRadioButton(list<()>)
+            | wNumberSpinner(smallDelta, min, max, places)
+            | wHorizontalSlider(lblTxt, fldId, fldNm, fldMin, fldMax, fldDiscreteVals, fldVal, decCount, dec1, dec2, dec3)
+            | wDateTextBox(valReqd, )
+            | wTimeTxtBox(boolReqd)
+            | wInfoBox(colSp, txtVal)
+            | wBlankRow(colSp)
+            | wChoiceList(, StoreLookupFldId, StoreNm, StoreSrchAttr) //poss not last, defaults to 'name' hardcoded
+            | wCheckedMultiSel(StoreLookupFldId, StoreNm, StoreSrchAttr) //poss not last, defaults to 'name' hardcoded
+            | wRating(max)
+            | wRangeSlider(max)
+        member setParams(params) = 
+            match widTy with 
+            | wTextBox()
+            | wSimpleTextarea(numRows, numCols, widPercent)
+                let (ro, co, w) = unbox params
+                let coLbl = !!~ "inpt" p0
+                coLbl.Text <- ro
+                let roLbl = !!~ "inpt" p1
+                roLbl.Text <- ro
+                let widLbl = !!~ "inpt" p2
+                match w.Trim().strIncludes("auto") with
+                | _ -> 
+                    match isInt(widPercent) with
+                    | true -> widLbl.Text <- widPercent + "%;"
+                    | _ -> widLbl.Text <- "auto;"
+                | _ -> widLbl.Text <- "auto;"
+            | wNumberTxtBox(boolReqd, smallDelta, min, max, places, invalidMsg, rangeMsg)
+            | wCurrencyTextBox(boolConstraints, currTy, invMsg, )
+            | wRTEditor(boolReqd)
+            | wCheckBox()
+            | wRadioButton(list<()>)
+            | wNumberSpinner(smallDelta, min, max, places)
+            | wHorizontalSlider(lblTxt, fldId, fldNm, fldMin, fldMax, fldDiscreteVals, fldVal, decCount, dec1, dec2, dec3)
+            | wDateTextBox(valReqd, )
+            | wTimeTxtBox(boolReqd)
+            | wInfoBox(colSp, txtVal)
+            | wBlankRow(colSp)
+            | wChoiceList(, StoreLookupFldId, StoreNm, StoreSrchAttr) //poss not last, defaults to 'name' hardcoded
+            | wCheckedMultiSel(StoreLookupFldId, StoreNm, StoreSrchAttr) //poss not last, defaults to 'name' hardcoded
+            | wRating(max)
+            | wRangeSlider(max)
+
+
+    //Aug02: added params _except_ 'lblTxt, fldId, fldNm, fldVal' (these are in the fldDef)
+    //widTabPg: table: 1st ro: helpMsg
+    //                 2nd ro: 1st col image, 2nd descr, 3rd reqdParams
+    //Sep4: added member getParamPnl()
+    type Wid =  | wTextBox()
+                | wSimpleTextarea(numRows, numCols, widPercent, )
+                | wNumberTxtBox(boolReqd, smallDelta, min, max, places, invalidMsg, rangeMsg)
+                | wCurrencyTextBox(boolConstraints, currTy, invMsg, )
+                | wRTEditor(boolReqd)
+                | wCheckBox()
+                | wRadioButton(list<()>)
+                | wNumberSpinner(smallDelta, min, max, places)
+                | wHorizontalSlider(lblTxt, fldId, fldNm, fldMin, fldMax, fldDiscreteVals, fldVal, decCount, dec1, dec2, dec3)
+                | wDateTextBox(valReqd, )
+                | wTimeTxtBox(boolReqd)
+                | wInfoBox(colSp, txtVal)
+                | wBlankRow(colSp)
+                | wChoiceList(, StoreLookupFldId, StoreNm, StoreSrchAttr) //poss not last, defaults to 'name' hardcoded
+                | wCheckedMultiSel(StoreLookupFldId, StoreNm, StoreSrchAttr) //poss not last, defaults to 'name' hardcoded
+                | wRating(max)
+                | wRangeSlider(max) with
+        member getParamPnl() = widParamPnl(this)
         member this.getHtml(supari) = 
             match this with
                 | wTextBox(lblTxt, fldId, fldNm, fldVal) -> """
@@ -206,7 +328,7 @@ module FrmDef_Actual =
     <input class="dojoFormValue" type="checkbox" dojoType="dijit/form/CheckBox" 
     id="{fldId}" name="{fldNm}" value={fldVal} data-dojo-observer="window.mShowVals();">
 </td>"""
-                | wRadioButton -> 
+                | wRadioButton(list<(lblTxt, fldId, fldNm, fldVal)>) -> 
                     //@ToDo: nd to do a lim on choices here
 """<td>
 <input class="cellWid dojoFormValue" type="radio" data-dojo-type="dijit/form/RadioButton" 
@@ -324,10 +446,9 @@ module FrmDef_Actual =
 <td class='infoBox cellWid' colspan='{colSp}'>
 <span>{txtVal}</span>
 </td>"""
-                | wBlankRow() -> """
-<td class='BlankRow cellWid' colspan='{colN}'>
+                | wBlankRow(colSp) -> """
+<td class='BlankRow cellWid' colspan='{colSp}'>
 </td>"""
-
     let frmHdr = """
 <form class="brijFrm" dojoType="dojox/form/Manager" id="form">
     <table>"""
@@ -593,6 +714,60 @@ module FrmDef_Actual =
                     | _ -> ()  )) |> ignore
 
 
+       //new pichaak for EmbdTblDlg
+       //added Aug20_25
+        let EmbdTblDlg_પીચાક =
+            fun (ક્વિમામ:option<_>) (dlg:Form) ->
+                if ક્વિમામ.IsSome then 
+                    //tibbie "EmbdTblDlg_પીચાક isSome"
+                    (* Launched via EmbdTblBtn.ButtonClick from type DndWid
+                    basically this brings up the dlgBox & ONLY on all validated (correct) choices, e.g. min 1 col added etc., it'll create the tbl AS a new docFld of fldTy FldEmbTbl?? @TBD
+                    Note: autofmt; wid=100%, ht=similar 2 rtEd
+                    * Add-Rem Cols(flds): cli shd be able 2 chg order 2 / NOTE also that in this case they're editable cells (a la gridxDeflt)  Sort? WidTys? @Chk.
+
+                Aug 21
+                EmbDv:
+                - Poss winFlds 4 ColHdrs (dispNms) OR use winWid?
+                - Add tblPln fldTy for EmbDv
+
+                We'll nd a Masalo 4 this too (say EmbDvM)
+
+                TblPnl to tys (ref Cpy in dskCli_AgentDef.fs)
+                    *)
+                    let midP:TableLayoutPanel = (!!~ "midP" dlg).Value 
+                    midP.Controls.Clear()
+                    midP.ColumnStyles.Clear()
+                    midP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100.0f))
+
+                    do midP.SuspendLayout()
+                    let tc = new TabControl(Dock = doc "F", Width = f.Width - defPadding.Horizontal, Height = f.Height - (defPadding.Horizontal * 8))
+                    let AppearPg = new TabPage (Text = "Appearance")
+                    let FldsPg = new TabPage (Text = "Columns")
+                    tc.Controls.AddItems([|AppearPg; FldsPg|])
+                    midP.Controls.Add(tc)
+                    do midP.ResumeLayout()
+
+                    //Appearance(ForeCol / BkCol / HdrBkCol / GridLines / etc.)
+
+                    let GridLines = new CheckBox(AutoSize = true, Text = "Show Gridlines", Dock = doc "F", AutoCheck=true)
+
+                    let htP = new FlowLayoutPanel(Dock = doc "F", FlowDirection = FlowDirection.LeftToRight, AutoSize = true)
+                    let lbl = new Label(Text = ("Height of the Grid (in px):"), Dock = doc "F")
+                    let ht = new TextBox(Dock = doc "F")
+                    htP.Controls.AddItems([|lbl,ht|])
+                    AppearPg.Controls.AddItems([|GridLines,htP|])
+
+
+                    //let SummaryRowConfig = @TBD: move this to the cols to be able to config ea col individually ?
+                    //Aug23:Oria doesn't support a SummaryRow; so we nd 2 allow users to use calcFlds for EmbdDv Totals ie, !Total(fldNm) <- must only allow EmbFlds
+
+                    //FldsPg will use dskCli_FrmDef_EmbPnl.fs (2ndary plnk)
+                    //for the EmbPnl tblPnls with addition/etc.; nd 2 link 2 def
+                //- ColWids allowed (%, insist on tot)
+
+
+
+
     type DndWid(tbl) as f = 
         let bmRef = ref bm
         let selCells = ref []
@@ -630,7 +805,16 @@ module FrmDef_Actual =
         let FieldMenu = new ContextMenu()
         let FieldAbove = new MenuItem ("&Before", (new EventHandler(fun o e -> )), Shortcut = Shortcut.B)
         let FieldBelow = new MenuItem ("&After", (new EventHandler(fun o e -> )), Shortcut = Shortcut.A)
+
+        //Added 8/20: AddEmbdTbl
+        let EmbdTblBtn = new ToolBarButton(Text = "Add Embedded Table", Style = ToolBarButtonStyle.PushButton)
+        EmbdTblBtn.ButtonClick.AddHandler(new ToolBarButtonClickEventHandler(fun o e -> 
+                new EmbdTblDlg(thisTblDef)
+                if result.OK.... update currDef...
+            ))
+
         dndTBar.Controls.AddItems([DefaultsBtn; BlankRowBtn; InfoBoxBtn; FieldBtn])
+
         frm.Controls.Add(cliP)
         frm.Controls.Add(lbl)
         frm.ResumeLayout(false)
@@ -693,6 +877,7 @@ module FrmDef_Actual =
             cliP.RowStyles.Clear()
             //@ToDo: 2 incorp B4Tgts (1/colN) becomes (1/(colN*2))
             [1.. colN] |> lim (fun c -> cliP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, ((float32) ((1/colN) * 100))))) |> ignore
+            //@ToDo: clear existing handler?
             cliP.Layout.AddHandler(new LayoutEventHandler( fun (sender:obj) (e:System.Windows.Forms.LayoutEventArgs) -> 
                 //necc? let thisF = sender :?> Form
                 let rec procTbl currRo remainder =
@@ -867,9 +1052,13 @@ module FrmDef_Actual =
 (*
 Run these cmds from cellRightClickMenu:
 vFn / Thingy / ForeCol / BkCol / LblFont / DatFont / col-roSpan / removeFld / TtipTxt
+//8_20:
+FOR EmddTbl: rt-click (CLICK 2?) will allow 'Props' brings up dlgBox w/foll tabs:
+* Appearance(ForeCol / BkCol)
+* Add-Rem Cols(flds): cli shd be able 2 chg order 2 / NOTE also that in this case they're editable cells (a la gridxDeflt)  Sort? WidTys? @Chk.
 
 These from TBarBtns:
-Defaults / AddBlankRo / AddInfoBox / AddFld
+Defaults / AddBlankRo / AddInfoBox / AddFld / AddEmbdTbl
 
 Another option: Instd of all the rt-click cmds; unify em in a DlgBox and menu simply says "Modify Fld"
 [Repurpose propBox?]

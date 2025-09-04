@@ -1,0 +1,28 @@
+How would you test your buttons/state with Selenium + Headless Chrome from .NET?
+Setup Selenium WebDriver with ChromeDriver in headless mode
+	var options = new ChromeOptions();
+	options.AddArgument("--headless");  // Run Chrome in headless mode
+	using var driver = new ChromeDriver(options);
+
+Navigate to your app page
+	driver.Navigate().GoToUrl("http://yourappurl");
+
+Interact with buttons
+Find the button that changes the state, click it:
+	var changeStateButton = driver.FindElement(By.Id("changeStateBtn"));
+	changeStateButton.Click();
+
+Find the button that retrieves state, click it (or get the state directly):
+	var getStateButton = driver.FindElement(By.Id("getStateBtn"));
+	getStateButton.Click();
+
+Retrieve the state
+If the state is displayed somewhere on the page (e.g., in a div/span), grab its text:
+	var stateElement = driver.FindElement(By.Id("stateDisplay"));
+	string currentState = stateElement.Text;
+	Console.WriteLine($"Current state: {currentState}");
+
+Alternatively, you can execute JavaScript directly to read the state if it’s stored in a JS variable or localStorage:
+	var jsExecutor = (IJavaScriptExecutor)driver;
+	var stateFromJs = jsExecutor.ExecuteScript("return window.yourStateVariable;");
+	Console.WriteLine($"State from JS: {stateFromJs}");

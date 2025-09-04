@@ -5,7 +5,8 @@
 
     fsc src\pbt\pbt_AI_Dsk.fs src\pbt\pbt_Dsk.fs  --platform:x64 --standalone --out:src\pbt\Trivedi.PbtDsk.dll -r:lib\Trivedi.Core.dll -r:lib\Trivedi.CoreAux.dll -r:lib\Trivedi.UI.dll -r:lib\Trivedi.UIAux.dll -I:C:\Windows\Microsoft.NET\Framework\v4.0.30319
    
-    Last updated: Fri Mar 28 2025
+    Last updated: Tue Aug 26 '25: ColorPicker for def
+                  Fri Mar 28 2025
                   Tue Jun 24th: tc/GeneralPg + FldType.FldIcon etc.
                   Wed Jun 25th: SecurityPg + FldType.FldSec 
                   (pro'lly 26-28): secDlg_પીચાક
@@ -48,8 +49,13 @@ namespace Trivedi
                    | FldBlankRow
                    | UserInput
                    | FldBtn
-                   | FldValidBtn
-                   
+                   | FldValidBtn with
+        member this.getDocFldTypes() = 
+            //Added Aug16_25 to combine the two types
+            //@ToDo: We'll nd other helper fns for the formTys; and modify
+            //the calling sites to ensure only correct DuCases are provided.
+            [FldString;FldDate;FldLongString;FldBoolean]
+
 //src: Brij.fs
 type BrijTy<'t when 't :> ITblMarker> = | BrijTy of mods:Mod list * m:Mtpl * string * tblTy:'t with
     override this.ToString() = 
@@ -153,6 +159,31 @@ type DocFld = | DocFld of FldType*string*bool*string with
     [<AutoOpen>]
     module Meethoo_Actual = 
 
+        //added 8/26; tbfo  This snippet creates a dropdn w/colBoxes+lbls
+(*
+Here's a colorPicker for the TblSettings                     
+Note: Color Pickli adapted from <a href='https://stackoverflow.com/questions/59007745/show-list-of-colors-in-combobox-color-picker'>this</a>
+
+let colorDataSrc = []
+let colorSwatchDrawItem = new DrawItemEventHandler(fun o e ->
+    let cB = (ComboBox) o
+    e.DrawBackground()
+    if (e.Index >= 0) then
+        var txt = cB.GetItemText(cB.Items[e.Index])
+        var color = (Color) cB.Items[e.Index]
+        var r1 = new Rectangle(e.Bounds.Left + 1, e.Bounds.Top + 1,
+            2 * (e.Bounds.Height - 2), e.Bounds.Height - 2)
+        var r2 = Rectangle.FromLTRB(r1.Right + 2, e.Bounds.Top,
+            e.Bounds.Right, e.Bounds.Bottom)
+        using (var b = new SolidBrush(color))
+            e.Graphics.FillRectangle(b, r1)
+        e.Graphics.DrawRectangle(Pens.Black, r1)
+        TextRenderer.DrawText(e.Graphics, txt, cB.Font, r2,
+            cB.ForeColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter))
+let colorSwatchCombo = new ComboBox(DataSource=colorDataSrc, MaxDropDownItems = 10, IntegralHeight = false, DrawMode = DrawMode.OwnerDrawFixed, DropDownStyle = ComboBoxStyle.DropDownList, DrawItem = colorSwatchDrawItem)
+*)
+
+
         //Support 4 two new મીઠૂ_પાન_eoy tblDlg types (in ty ફીલ્ડ_પેનલ)
         | FldType.FldIcon ->
             let defIcn = brijLogo //@ToDo: load tblIcn from wrld
@@ -187,23 +218,23 @@ type DocFld = | DocFld of FldType*string*bool*string with
 
                     let lB = new ListBox(Dock = doc "F", MultiColumn = false, SelectionMode = SelectionMode.MultiExtended, BackColor = Color.Transparent, ForeColor = currentScheme.Fore())
                     lB.BeginUpdate()
-                    lim (fun y -> lB.Items.Add(y)) ["Everybody";"All Registered Users";"Nobody"]
+                    lim (fun y -> lB.Items.Add(y)) ["Everybody";"All Registered Users"]
                     lB.EndUpdate() //Allows repaint
                     midP.Controls.Add(lB)
                     !!^ ["listBox", box lB] dlg
 
                     let secCombo = new ListBox(Dock = doc "F", MultiColumn = false, SelectionMode = SelectionMode.MultiExtended, BackColor = Color.Transparent, ForeColor = currentScheme.Fore())
-                    schdCombo.BeginUpdate()
-                    schdCombo.Items.AddRange(getOrgDirEntriesForSecDlg |> Array.ofList)
-                    schdCombo.EndUpdate()
-                    midP.Controls.Add(schdCombo)
+                    secCombo.BeginUpdate()
+                    secCombo.Items.AddRange(getOrgDirEntriesForSecDlg |> Array.ofList)
+                    secCombo.EndUpdate()
+                    midP.Controls.Add(secCombo)
                     !!^ ["secCombo", box secCombo] dlg
 
                     dlg.ResumeLayout(true)
                     let okBtn:Button = (!!~ "okBtn" dlg).Value 
-                    let mutable schdComboRes = []
+                    let mutable secComboRes = []
                     let topSel = lB.SelectedIndices.Count > 0
-                    let botSel = schdCombo.SelectedIndices.Count > 0
+                    let botSel = secCombo.SelectedIndices.Count > 0
 
                     if (dlg.ShowDialog() = DialogResult.OK then
                         match topSel with
@@ -212,17 +243,17 @@ type DocFld = | DocFld of FldType*string*bool*string with
                                 match (lB.GetSelected(x)) with
                                     | true -> (lB.Items.[x]).ToString() :: s
                                     | _ -> s) [] [0..lB.Items.Count-1]
-                            schdComboRes <- schdComboRes @ res
+                            secComboRes <- secComboRes @ res
                         | _ ->
-                            match topSel with
+                            match botSel with
                             | true -> 
                                 let ret = lifo (fun s x -> 
-                                match (schdCombo.GetSelected(x)) with
-                                    | true -> (schdCombo.Items.[x]).ToString()  :: s
-                                    | _ -> s) [] [0..schdCombo.Items.Count-1]
-                            schdComboRes <- schdComboRes @ res
+                                match (secCombo.GetSelected(x)) with
+                                    | true -> (secCombo.Items.[x]).ToString()  :: s
+                                    | _ -> s) [] [0..secCombo.Items.Count-1]
+                            secComboRes <- secComboRes @ res
                         dlg.Dispose()
-                        Some(box schdComboRes)
+                        Some(box secComboRes)
                     else 
                         dlg.Dispose()
                         None
@@ -230,6 +261,7 @@ type DocFld = | DocFld of FldType*string*bool*string with
 
 
         //from UIAux
+        //@ToDo: Add Modules
         type મીઠૂ_પાન_eoy<'t when 't :> ITblMarker> (ctorDef:SaadoMasaloAux<'t>, dsk, સ્તિતિ) as f =
             inherit Form(Text = "Brij (TM) TableDef: Copyright (c) M. P. Trivedi 2016-2025.  All rights reserved.", Visible = false, TopMost = true, WindowState = FormWindowState.Maximized, Font=defFont, ForeColor = (currentScheme ((!!~ "wld" dsk).Value)).Fore(), BackColor = (currentScheme ((!!~ "wld" dsk).Value)).Back())
             let (SaadoMasaloAux(tNm, def, icn, tblTy)) = ctorDef
@@ -287,7 +319,7 @@ type DocFld = | DocFld of FldType*string*bool*string with
                 let GenMidP:TableLayoutPanel = new TableLayoutPanel(Margin = new Padding(25), RowCount = 1, ColumnCount = 2, Dock = doc "F", Name="GenMidP", BackColor = Color.White)
                 GenMidP.ColumnCount <- 1
                 GenMidP.Controls.Clear()
-                let hdrLbl = new Label(Text = ("Agent Definition Document:"), Dock = doc "F", TextAlign = ContentAlignment.MiddleCenter)
+                let hdrLbl = new Label(Text = ("Table Definition Document:"), Dock = doc "F", TextAlign = ContentAlignment.MiddleCenter)
                 let p0 = (ફીલ્ડ_પેનલ  ("Table Display Name", UserInput, "no Slug", 2)) :> Pane
                 let nmLbl = !!~ "inpt" p0
                 nmLbl.Text <- nm
@@ -322,7 +354,7 @@ type DocFld = | DocFld of FldType*string*bool*string with
                 let vwSecLbl = !!~ "secLbl" p1
                 vwSecLbl.Click.Add(new EventHandler(fun o e ->
                     //bring up dlgBx 2 assign 2 def
-                    match (gappa secDlg_પીચાક) with
+                    match (gappa secDlg_પીચાક ક્વિમામ) with
                     | Some res -> defSecTpl <- res
                     | _ -> ()))
 
@@ -463,7 +495,7 @@ type DocFld = | DocFld of FldType*string*bool*string with
     [<AutoOpen>]
     module Csv_Actual = 
 
-        //for total coverage of all poss fkdTys 4 the CSV tests...
+        //for total coverage of all poss fldTys 4 the CSV tests...
         //Includes 1st the internalFlds from Core, some repurposed
 
         let SongFldLi() =

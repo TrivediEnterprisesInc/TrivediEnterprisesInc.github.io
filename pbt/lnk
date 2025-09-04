@@ -1,0 +1,52 @@
+This plunk has musicData:EjxoFDoG3UtiELfw
+Grok dsl samples (string verbs + regex) /rj1OYwJNv42US604
+
+MS Lists images/snapshots:
+https://ibb.co/gLM4TWhT
+https://ibb.co/GQd2LRqW
+https://ibb.co/GQd2LRqW
+https://ibb.co/4g8Zvj66
+https://ibb.co/DDCRSBQQ
+https://ibb.co/RT17XrSX
+https://ibb.co/xKctZ9bp
+https://ibb.co/VWVVLG96
+https://ibb.co/S7J2gTnW
+https://ibb.co/tPnCf0W8
+
+(PbtPhat) Thu May 23: (50ishmb w/FParsec)
+https://upload.disroot.org/r/uVNxakqH#nkWXG7PtTpUOlT8hk4dvrsFtVCsd6s1esnT42WfHtjg=
+
+Mar 26:
+Tbl paan updates <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3178C5-L3178C31'>here</a> [type ટેબલ_પાન_Aug_2_23<'a>] rel8d 2 openWins
+
+Mar 25:
+- Update this and all refs (ctor param isInt removed + new member isInt())
+  type DocFld = | DocFld of FldType*string*string with
+      override this.ToString() = 
+          let (DocFld(fldTy, intNm, dispNm)) = this
+          "DocFld: |intNm: " + intNm + "|isInt: " + this.isInt.ToString() + "|dispNm: " + dispNm + "|" + fldTy.ToString() + "|"
+      member this.getBoxedGenericVal() =
+          let (DocFld(fldTy, _, _, _)) = this
+          match fldTy with
+          | FldString -> box ""
+          | FldNumber | FldRange -> box 0     //@ToDo Range params?
+          | FldCurrency -> box (0.00)
+          | FldLongString | FldAttachment -> box []
+          | FldBoolean -> box false
+          | FldDate -> box (now())        //these 2 nd to be diff
+          | FldDateTime -> box (now())    //these 2 nd to be diff
+          | FldColor -> box Color.White
+          | FldFont -> box defFont
+          | _ -> 
+              tibbie ("DocFld.getBlankGenericVal() got an invalid fldType: " + fldTy.ToString())
+              box ""
+      member this.isInt() =
+          let (DocFld(fldTy, intNm, dispNm)) = this
+          intNm.SubString(0,3) = "brj_"
+
+
+
+
+
+
+

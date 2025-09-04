@@ -108,6 +108,7 @@ let kathoHandlerSvr =
 *)
 
     //tbfo; belongs 2 RegMod, complete l8r, needed below
+    //Aug03_25: These types updated (type TblAclTpl/FldAclTpl; see dskCli_SecurityPg_Rediz.fs)
     type NabMember = | NabGrp
                      | NabRole
                      | NabUser
@@ -145,3 +146,16 @@ let kathoHandlerSvr =
 
     //we nd a similar fn for the fldLvlGg proc; OR b8r, repurpose above to run in a rec (for 2 passes) and spit out the dat.  FldLvl tpl shd take the same form, yeah?
 
+(*  Jul 31st:
+    @TBFO: Upcoming: For RecycleVw 
+        AutoCreate Immed. AFTER 1st DV
+            dvDefSaveHandler.add
+            match isThisFirstDV with
+            | true -> autoCreateRecycleBinDV(d)
+            | _ -> ()
+   - @TBD: Allow dev 2 specify which DV to use here (ie override)
+     OR they can just edit it like the others
+*)
+    let autoCreateRecycleBinDV = 
+        fun def:dvDef -> 
+            //basically copy all defItems and modify a canned RecycleDV, saveToDz

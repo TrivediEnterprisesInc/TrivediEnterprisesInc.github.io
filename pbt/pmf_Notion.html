@@ -1,0 +1,158 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Notion</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	
+	<link rel="stylesheet" href="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2024/form/gridx_Styling/common.css">
+	<link rel="stylesheet" href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/raw/refs/heads/main/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+    .dijitDialogPaneContent {
+        width: 800px !important;
+        height: 600px !important;
+    }
+
+    .makeYellow		{ background-color: #ffa;
+    }
+  .alice {
+      background-color: aliceblue;
+  }
+    .pbt {
+       background-color: powderblue;
+    }
+  .ext {
+      background-color: honeydew;
+  }
+  .upds {
+      background-color: linen;
+  }
+
+.st1 {
+      background-color: #A0522D;
+}
+.st2 {
+      background-color: #ffa;
+}
+.st3 {
+      background-color: #99cfff;
+}
+    /*override oria's bkgrnd*/
+    body {
+        background-color: #eff5ec;
+        background-image: url("https://www.transparenttextures.com/patterns/fake-luxury.png");
+        background-repeat: repeat;
+        width: 100%;
+        margin: 0em;
+    }
+
+</style>
+
+</head>
+
+<body class='claro'>
+
+<h1>Notion</h1>
+
+	<b>This file (<a href="https://trivedienterprisesinc.github.io/pmf/pmf_Notion.html">repo ver</a>) created Aug 29 '25<br>
+	<i>Last updated Aug 29<sup>th</sup> '25</i></b>
+	<br><hr>
+
+
+<ul>
+  <li>Based on Electron; so all its pluses/minuses (no Android support, slow, too many resources used...).  Surprisingly NO Linux ver avail.  Mobile ver sluggish.
+</li><li>It is a <b>hierarchical</b> note-taker (@rsch)    
+</li><li>V. flexible: designed to combine various progs a biz might use for diff funcs in diff depts.
+</li><li>Usrs can collaborate on notes, databases, calendars, project boards
+</li><li>You can share a readOnly public link of any pg you want
+</li><li>Collaborative, structured text; workplaces for sharing/editing docs; rich set of <mark>embeddable obs</mark> (gists, codePens, figma, gsuite, youtube, others); AirTable-like db support (pages are recs); sort/filter em in diff views (gallery/board/etc.)
+  </li>
+</ul>
+
+sources:<br>
+MIT Tech Rev Apr 23: Meet the ppl who use Notion to plan their whole lives<br>
+HN Jan 2019: Notion-All-in-one workplace for notes, tasks, wikis & dbs<br>
+HN May 2020: Notion for Everyone
+<hr>
+<br>
+  <h3 id="heading-2">Pros</h3>
+<ul><li>
+Some ppl use it as a CMS
+</li><li>Good <b>rtf</b> support (@rsch).  "Much b8r than AirTable"
+</li><li>What Slack did 4 chat & GitHub 4 srcCntrl, Notion does 2 keep info org
+</li><li>"Just enuff complexity 2 config it 2 yr prefs but still simple on the surface" same guy wrote 4 power users <a href='https://medium.com/@ow/the-writers-ultimate-guide-to-notion-6bf90d1cf45b'>here</a>
+</li><li>Love their docLinks (<b>@rsch</b>) keeps ID regardless of changes + shows title in url.
+</ul>
+
+<br>
+  <h3 id="heading-2">Cons</h3>
+<ul>
+Some ppl left coz 
+<li>Very <b>slow</b> on iPhone: 7 secs to begin typing a note 
+</li><li> No <b>offline</b> support @ all 
+</li><li> No <b>offline srch</b> support; <mark>attachments stored in S3</mark> unavail offline.
+</li><li>Bad <b>exporting</b> support
+</li><li>Paying cust.s begging "pls fix the <b>search</b>"
+</li><li>Many complaints about their Login sys: every login you get a random code sent to your email; they claim it's more secure than nm/pwd
+</li><li><b>Bad</b> migration path from EverNote.  "Many unhappy EverN usrs wd kill for a smooth migration path" You lose folders/imgs
+  </li><li>User said major complaint was Drawing Support (draw.io integ.) + inline math support.  However, same user solved & posted on Notion's site under hacks</li><li>'Pro' mind-map usr unsatisfied; says nothing else either, uses pen/paper for his "extensive tag vocab"
+</li><li>"Cld really use something like this on desktop if they had Groove-like peer2peer sync" (Others also compare Notion 2 <b>Notes</b>) "Notes not dead, got reinvented as Notion"
+  </li><li>"Can't use anything today that's not <b>end-2-end</b> encrypted"</li>
+  </li><li>The whole UI splattered w/emojis</li>
+  </li><li>"Not forgettable" ie right 2 be forgotten after removing data: gdpr See <a href='https://zenkit.com/en/gdpr/'>this</a> for more info/rsch on providing this for whoever needs it.</li>
+  </li><li>The more features added more time I was spending "perfecting" my wrkspace than doing actual work.  Nice UX but 2 <b>complicated</b></li>
+</ul>
+
+
+<br>
+  <h3 id="heading-2">Marketing</h3>
+<ul>
+<li>Began to take traction around 2018 in YouTube's thriving productivity subculture (where Videos of fans swapping time mngt tips & org guides rack up millions of views)</li><li>
+  After that, following snowballed.  More than 275k ppl joined a dedicated subreddit, 10ks share free templates in private FB grps; many TikTok vdos advising usrs how to make their Notion pgs prettier (watched 100m+ times)</li>
+  <li>Poster was using free student cp; when working @ co suggested Notion: <mark>"That's exactly how freemium in b2b Saas works"</mark></li>
+</ul>
+
+<br>
+  <h3 id="heading-2">Pricing</h3>
+<ul>
+<li>Postered asked whether they were "going after Jira" with pricing @ 10/usr; someone replied that w/Jira, for 25 users it becomes $2500 ie $1/usr becomes $100/usr (B2B pricing)</li>
+<li>Another user (huh?): '@least Notion is a legit enterprise SaaS prod with a trial tier, not a free consumer prod attempting to go enterprise.'</li>
+<li>2020: new plan unlimited pgs, upto 5 guests free.</li>
+</ul>
+
+Other mentions:<br>
+A deep comparison of Notion, Coda, Airtable and Zenkit
+The Next <a href='https://hackernoon.com/the-next-wave-of-work-management-software-81f392c728e3'>Wave</a> of Work Management Software
+
+
+
+
+
+<center>
+<img src="https://i.ibb.co/PzcZX577/MSLists-Lists-home-mobile.jpg" width="60%" border="1px solid black">
+</center>
+
+
+</body>
+</html>

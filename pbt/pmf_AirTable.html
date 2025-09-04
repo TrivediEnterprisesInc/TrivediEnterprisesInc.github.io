@@ -1,0 +1,286 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>AirTable</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	
+	<link rel="stylesheet" href="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2024/form/gridx_Styling/common.css">
+	<link rel="stylesheet" href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/raw/refs/heads/main/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+    .dijitDialogPaneContent {
+        width: 800px !important;
+        height: 600px !important;
+    }
+
+    .makeYellow		{ background-color: #ffa;
+    }
+  .alice {
+      background-color: aliceblue;
+  }
+    .pbt {
+       background-color: powderblue;
+    }
+  .ext {
+      background-color: honeydew;
+  }
+  .upds {
+      background-color: linen;
+  }
+
+.st1 {
+      background-color: #A0522D;
+}
+.st2 {
+      background-color: #ffa;
+}
+.st3 {
+      background-color: #99cfff;
+}
+    /*override oria's bkgrnd*/
+    body {
+        background-color: #eff5ec;
+        background-image: url("https://www.transparenttextures.com/patterns/fake-luxury.png");
+        background-repeat: repeat;
+        width: 100%;
+        margin: 0em;
+    }
+
+</style>
+
+</head>
+
+<body class='claro'>
+
+<h1>AirTable</h1>
+
+	<b>This file (<a href="https://trivedienterprisesinc.github.io/pmf/pmf_AirTable.html">repo ver</a>) created Mar 8<br>
+	<i>Last updated Aug 8<sup>th</sup> '25</i></b>
+	<br><hr>
+
+<ul>
+<li><b>Horizontal</b>, no-Code
+</li><li>80% of the Fortune 100 use AirTbl 
+</li><li>Raised $1.3B in funding @ valuation of <mark>11B</mark>
+</li><li>Templates are for var useCases incl bugTracking/MktngCampaigns/CattleRanching/FindingBabyFormula
+</li><li>Fndrs: Andrew Ofstad, Howie Liu (frm SalesForce), Emmett Nicholas
+</li><li>As of '22:
+<ul><li>1-5 hrs/mo of downtime; seemingly no big complaints.
+</li><li>Unfixed Bugs in api (js promises)
+</li><li>can't modify tbl config in api 
+</li><li>bools in api are true/undefined
+</li></ul>
+</li><li>"Main selling feature is hard-coded <mark>views</mark> (calenders/kanban) which are slightly more structured plus you can define flds for kanban which Trello etc. <b>charge for</b>"
+</li><li>
+"Notion is slower and substandard in what it does; doesn't compete with AT.  AT is spreadsheets on steroids; notion is tables"
+</li><li>"It's critical infrastructure for a lot of E-commerce co.s"
+</li><li>AT <b>blocks</b> are pre-blt func like maps & gantt charts
+</li><li>'goog sheets has no alternative to AT's <b>recordLinks</b>, which is how one represents relationships betw tables.' 
+</li><li>Some clients:
+    layoffs.fyi uses AirTable
+</li><li>"Just a db w/role permissions"
+</li><li>Skim the <a href='https://community.airtable.com'>forums</a> 4 pain pts etc. (+ archive.org)
+</li><li>Custs incl Tesla, weWork
+  </li></ul>
+
+Feat requests/complaints:
+
+* exc api dox 
+* great UI but for calcs dump 2 sheets & use that 
+* Notion has offline support + is faster (but no api); AT doesn't
+* some nasty dark patterns: on a free act; inviting someone 2 your wkrspc gives you a credit; but l8r as a prem usr you're silently billed (poster billed $2k)  Mult wrkspcs can get v costly "cruddy growth hacking"
+* Really nailed the UX, nobody else even close; lotsa effort
+* @CHK: They have revision history (huh?)
+* Their acl is "Owner/Creator/Editor/Commenter/ReadOnly"
+* Blocks a gr8 idea but not useable.
+* Trello doesn't have the field cust. AT offers 
+* Sorts in kanbanVw dont' resort when you add cards so you have to manually resort.  No richTxtFmting on cards; copying tbls don't copy fldTys
+* "Very slow, everything requires multiple steps.  This is the Turing Tarpit..."
+
+* "Someone nds 2 come in and start over w/ a more configurable foundation and maintain sw engg discipline so the base layer doesn't get infected w/biz reqmts."  A reply: we did just this (superwork.io) helped cos dump their existing SaaS thru AT/Zapier...
+
+<br>MoveTo:<br>
+Goog: AT has a good <b>API</b>; Sheets is a nightmare in comparision: <mark>Sheetsu/Sheety</mark> are ext svcs working with sheetsAPI 
+<br>
+
+
+<hr>
+
+<br>
+
+<br>
+  <h3 id="heading-2">Desktop (Home and mobile app)</h3>
+<ul>
+<li>Integrated into the 365 apps launcher
+</li><li>All yr lists in one place (web/mobile)
+</li><li>Can <b>Favorite</b> a list to access it frm Favorites section
+</ul>
+
+<center>
+<img src="https://i.ibb.co/PzcZX577/MSLists-Lists-home-mobile.jpg" width="60%" border="1px solid black">
+</center>
+
+<br><hr>
+  <h4 style='color:#A0522D;' id="custBuilt">Customer-Built B2Bs</h4>
+   
+<a href='https://www.davidlpeterson.com/the-rise-of-customer-built-growth-or-how-the-no-code-design-paradigm-is-revolutionizing-enterprise-software/'>Article: </a>The rise of "customer built growth" (ie Prod-led B2B)
+<br>
+<b>Auth worked @ AirTable for 4 yrs in growth+partnerships (ie templates?)</b>
+<br>
+
+Nice article from the point of view that there's a 'new' categ after CloudB2B: ProductLedB2B (self-Serve a la Notion/Figma/Zapier/Monday)  Worth re-reading
+<br>
+
+<center>
+<img src="https://miro.medium.com/max/1400/0*s0b_cfKBEAyWD8pG" width="60%" border="1px solid black">
+</center>
+<br>
+
+<center>
+<img src="https://miro.medium.com/max/1400/0*TkRtNU_EKpbS-thU" width="60%" border="1px solid black">
+</center>
+<br>
+
+Auth sez Figma/AirTbl/Notion/Zapier are doing something other than vanilla prod-led growth: 
+<ul><li>all are no/lo-code
+</li><li>easier 2 use / cheaper to maintain faster == you've won 
+</li><li>self-serve onboarding (a la Altassian)
+</li><li>viral growth mktg (referral hacks, viral loops, freemium pricing)
+</li><li>small tech teams get millions of usrs; figure out how 2 get em 2 upgrade l8r 
+</li><li>The power's shifted from sales/product 2 prod/growth.  KPis changed from rev/sales eficiency (close rate..) TO user growth/engagemt (DAU, MAU)
+</li></ul>
+
+<ul>
+<li>The new prod-led B2Bs didn't only have <b>self-serve</b> prod; but also were 
+<b>dev-first</b> (Twilio, Snowflake, Altassian) or
+had an <b>ent sales motion</b> (DocuSign, ServiceNow) or
+created a <b>platform</b> (Spotify) or
+had a tech <b>moat</b> (Zoom) 
+</li><li>
+Low barrier (no-code) BUT also high-<b>ceiling</b> (can bld 4 months w/o hitting walls )
+</li><li>
+Empower custs 2 bld novel solutions 4 <b>themselves</b>.
+</li><li>
+Must be the templates guy (AirTable Universe) coz he speaks of Figma's <b>Community + Notionery</b>, a 3rd party Notion template store.
+</li><li>
+Says ea org has power users; we <b>identified em + supported em </b>
+</li><li>
+"Customer-Built" B2Bs (Notion et al); article mentions auth is going 2 follow up w/articles on prod strategy + go-to-mkt strategy (@chk)
+</li></ul>
+<br><hr>
+  <h4 style='color:#A0522D;' id="layoffs">Airtable lays of 250 (Dec 22)</h4>
+<ul><li>1250 emps pre-layoff
+    </li><li>median emp was making 370k (half in pre-ipo RSUs)
+</li></ul>
+
+<br><hr>
+  <h4 style='color:#A0522D;' id="hnThrd">HN Thread: Airplane acquired Jan '24 id=38861271</h4>
+<ul>
+<li>Basically an acquihire, founders got a big payday
+</li><li>Airplane custs have 3 months to rebuild (AirTable's gonna end support)
+</li><li> Airplane supposedly had &lt; 1m ARR but 61 emps, seen as high (Retool founder sez 60 heads @ 300/yr = 17m/yr; Retool @ 1m arr had 4 emps)
+</li><li> THe 2nd co for 'internal tools' seg. to shut dn (1st was internal.io)
+</li><li> Airplane is a loco dev-friendly way to make internal dashboards, tools, apis, workflows, cron.  Alternatives: Windmill(oss), Pipedream, Superblocks (Dnd views), ToolJet, AppSmith (Mohan medhu OSS), zipper, BudiBase, PulseUI, UIBakery, tons of others.
+</li><li> AirTable laid of 240 (half dev, half sales) emps 4 mos b4; so these are probably to work on AT's 'triggers/actions' stuff.
+</li><li> One poster said in a sim sit. they signed a 'code escrow agreemt' w/a co which got acquired/shutdown; were able to edit src & maintain the sys. + hired some of the orig devs; otherwise they'd've been screwed.  (Also why many ppl prefer OSS so the co won't disappear.)
+</li><li> Shutdown on short notice, no migration path, no ability to self-host
+</li></ul>
+
+<br>
+  <h4 style='color:#A0522D;' id="pricing">Pricing + B2B Enterprise Sales</h4>
+<ul><li>
+Getting B2B 'happens organically' @ AT: "They get started by some powerUser coz easy to use then reach a pt where they nd more expertise & we do <mark>custom</mark> impl.s"
+</li><li>
+Per user 28/mo (many usrs esp.ly small complain that some users only add comments, ~300/yr too much for that)
+Enterprise: 15k/yr + 
+</li><li>
+Many ppl say this is coz of support cost; "sell me a SMB ver that has per-incident support"
+</li></ul>
+<hr>
+
+<br>
+  <h4 style='color:#A0522D;' id="pmf">AirTable's <a href='https://review.firstround.com/airtables-path-to-product-market-fit-lessons-for-building-horizontal-products/'>path</a> to Product-Market Fit</h4>
+
+Nice article, well written (by <b>GMail PM</b>)
+<br>
+The company path (see img on site):
+<ul><li>06-2012  Founders began exploring in 
+</li><li>03-2013  seed rnd + private beta (100 usrs)
+</li><li>09-2014  ShowHN
+</li><li>02-2015  Public launch, TechCrunch
+</li><li>06-2015  A round 
+</li><li>03-2018  B round 
+</li><li>11-2018 C round
+</li><li>03-2021  D round 
+</li><li>12-2021 F round; 300k+ ent custs 
+</li></ul>
+
+<b>Alpha</b> keep the feedback loop 'very tight' and loosen expectations of what PMF shd look like <br>
+<b>Beta</b> Test repeatedly but push 2 go faster 
+<br>
+"We got more narrow w/focus on landing custs over time; began <b>blding 100s of templates for diff use cases</b>"
+<br>
+<mark>Pricing as Positioning</mark> "We priced more against SalesForce/ServiceNow instd of DropBox/Evernote coz we thot ppl wod bld apps 4 important company procs" (chk wayBack 4 info)
+
+<br><hr>
+  <h4 style='color:#A0522D;' id="hn">AirTable mentions from HN Lists Thread ('20)</h4>
+<br><a href='https://news.ycombinator.com/item?id=23236364'>link</a>
+
+<ul>
+<li>Many comments thought this was an exact copy of AirTable, eg: <br>
+"They went full carbon-copy on AirTable, so they seem 2 say that UX is key in this space" (many others agree that AT's UX is exceptional)<br>
+(see the MsLists file for further details/comments)
+</li>
+<li>Many comments complain about the data limits + some kinda enterp. pricing by base (instd of user) which makes the collective limits really low; + api capped @ 100 recs...
+</li><li>Queries in AT require same stuff as Excel: support cols; "seemed like just a browser based spreadsheet toy"
+</li><li>LN Thread:<br>AirTable is incredibly reminiscent of <mark>Lotus Notes</mark>.<br>
+I say that in a good way.
+<br>
+Lotus Notes was the first no-code system for developing networked/people/workgroup oriented systems.
+<br>
+Notes lost its way, but Airtable has extracted the essential essence of the Notes client and done an amazing job of making it work.
+<br>
+Airtable is worth checking out in detail because it's implemented extremely well with great attention to detail and beautiful solutions to thorny UI problems.
+<br><hr>howsta on May 19, 2020<br>
+<mark>Founder of Airtable</mark> here--we did look at Lotus Notes as an interesting historical precedent, though of course we've also invented from scratch in many cases, and being web-based and collaborative by default is a huge wedge for us in terms of adoption virality. I admit I'm too young to have used Lotus Notes but we did buy an old Lotus Notes guidebook, as well as looked up old Infoworld and other magazine articles (Google Books <mark>indexes</mark> those magazines!) about Notes, dBase, and other products in the genre : ).
+<br><hr>
+andrewstuart on May 19, 2020<br>
+...(Notes) was way, way ahead of its time. It was really the very first system that integrated the concept or networking, users, groups, a replicated database, nosql unstructured data, form building and in built security with a sophisticated GUI.
+</li><li>
+  It is shiny from outside but has many issues that are embarrassing and can only be discovered once you have used it. (I guess looking at the <mark>open list of issues</mark> will also give you a hint).<br>
+Their UI and interface isn't that bad but their APIs are VERY BASIC. For example, there is no way to retrieve metadata about an Airtable base (<mark>sheetnames, columns</mark> etc). Or, there is no way to tell whether a link between sheets is a <mark>singular link or list of links</mark>. No way to connect different bases together.<br>
+
+Many of feature requests that were opened 3-4 years back still have no closure despite popular demand.<br>
+
+In my opinion Airtable is alright for basic usage (like yours). But nothing advanced.<br>
+
+I know all this because I created an open-source library to dynamically create postgres database from multiple Airtable bases. (In case anyone is interested)
+</li><li>We run a fairly large business on it, and it's great from a UI standpoint, but for anything complex (such as reporting) we do <mark>dumps to Google Sheets</mark> where we run formulas to extract what we need. If I was starting all over, most likely I'd go directly for Google Sheets next time.
+</li></ul>
+
+<br><input type="checkbox" checked="">&nbsp;Move all pbt stuff to sep plk
+
+
+</body>
+</html>
