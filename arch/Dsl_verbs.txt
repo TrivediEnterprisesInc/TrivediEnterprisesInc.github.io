@@ -1,0 +1,117 @@
+(grok) DSL Verb strings + Regexp constructs for Parsec
+
+DSL String Verbs Mapping to .NET String API
+
+Contains "value" [field.Contains("value")]
+BeginsWith "value" [field.StartsWith("value")]
+EndsWith "value" [field.EndsWith("value")]
+IsEmpty "" [string.IsNullOrEmpty(field)]
+IsWhitespace "" [string.IsNullOrWhiteSpace(field)]
+IndexOf "value" [field.IndexOf("value")]
+LastIndexOf "value" [field.LastIndexOf("value")]
+Substring "start,length" [field.Substring(start, length)]
+ToUpper "" [field.ToUpper()]
+ToLower "" [field.ToLower()]
+Trim "" [field.Trim()]
+TrimStart "" [field.TrimStart()]
+TrimEnd "" [field.TrimEnd()]
+Replace "old,new" [field.Replace("old", "new")]
+Remove "start,length" [field.Remove(start, length)]
+Length "" [field.Length]
+StartsWithAny "value1,value2" [field.StartsWith(value1) || field.StartsWith(value2)]
+EndsWithAny "value1,value2" [field.EndsWith(value1) || field.EndsWith(value2)]
+ContainsAny "value1,value2" [field.Contains(value1) || field.Contains(value2)]
+Split "delimiter" [field.Split("delimiter")]
+
+Below is a numbered list of DSL verbs mapped to relevant .NET string API methods in C#, focusing on string manipulation and querying methods from the `System.String` class, excluding string comparison methods as requested. Each entry includes the DSL verb, the string value parameter, and the corresponding C# code call in brackets.
+
+
+# DSL String Verbs Mapping to .NET String API
+
+1) Contains "value" [field.Contains("value")]
+2) BeginsWith "value" [field.StartsWith("value")]
+3) EndsWith "value" [field.EndsWith("value")]
+4) IsEmpty "" [string.IsNullOrEmpty(field)]
+5) IsWhitespace "" [string.IsNullOrWhiteSpace(field)]
+6) IndexOf "value" [field.IndexOf("value")]
+7) LastIndexOf "value" [field.LastIndexOf("value")]
+8) Substring "start,length" [field.Substring(start, length)]
+9) ToUpper "" [field.ToUpper()]
+10) ToLower "" [field.ToLower()]
+11) Trim "" [field.Trim()]
+12) TrimStart "" [field.TrimStart()]
+13) TrimEnd "" [field.TrimEnd()]
+14) Replace "old,new" [field.Replace("old", "new")]
+15) Remove "start,length" [field.Remove(start, length)]
+16) Length "" [field.Length]
+17) StartsWithAny "value1,value2" [field.StartsWith(value1) || field.StartsWith(value2)]
+18) EndsWithAny "value1,value2" [field.EndsWith(value1) || field.EndsWith(value2)]
+19) ContainsAny "value1,value2" [field.Contains(value1) || field.Contains(value2)]
+20) Split "delimiter" [field.Split("delimiter")]
+
+
+
+### Notes:
+- The list includes common string methods from `System.String` in .NET, formatted as DSL verbs.
+- Methods like `Contains`, `StartsWith`, and `EndsWith` are case-sensitive by default in .NET. 
+If you need case-insensitive options, you can extend the DSL with modifiers 
+(e.g., `ContainsIgnoreCase "value" [field.Contains("value", StringComparison.OrdinalIgnoreCase)]`), 
+but these are excluded as they involve comparison options.
+- For `StartsWithAny`, `EndsWithAny`, and `ContainsAny`, the C# code assumes a logical OR for multiple values; your backend may need to parse the comma-separated values.
+- `Split` returns an array; your DSL implementation should handle the array output appropriately.
+- Parameters like `start` and `length` in `Substring` or `Remove` expect integers, while `delimiter` in `Split` expects a string or character.
+- If you need additional methods or specific handling (e.g., regex-based verbs), let me know!
+
+DSL Regex Verbs Mapping to .NET Regex API
+
+StringFollowedByNumberDigits "string" "count" [Regex.IsMatch(field, $"{Regex.Escape(string)}\d{{{count}}}")]
+MatchesPattern "pattern" [Regex.IsMatch(field, pattern)]
+StartsWithPattern "pattern" [Regex.IsMatch(field, $"^{pattern}")]
+EndsWithPattern "pattern" [Regex.IsMatch(field, $"{pattern}$")]
+ContainsPattern "pattern" [Regex.IsMatch(field, pattern)]
+ReplacePattern "pattern" "replacement" [Regex.Replace(field, pattern, replacement)]
+SplitPattern "pattern" [Regex.Split(field, pattern)]
+MatchCount "pattern" [Regex.Matches(field, pattern).Count]
+IsExactMatch "pattern" [Regex.IsMatch(field, $"^{pattern}$")]
+HasDigits "count" [Regex.IsMatch(field, $"\d{{{count}}}")]
+HasLetters "count" [Regex.IsMatch(field, $"[a-zA-Z]{{{count}}}")]
+HasAlphanumeric "count" [Regex.IsMatch(field, $"[a-zA-Z0-9]{{{count}}}")]
+StartsWithLetter "" [Regex.IsMatch(field, $"^[a-zA-Z]")]
+EndsWithDigit "" [Regex.IsMatch(field, $"\d$")]
+ContainsWord "word" [Regex.IsMatch(field, $"\b{Regex.Escape(word)}\b")]
+HasAnySpecialChar "" [Regex.IsMatch(field, $"[!@#$%^&*(),.?":{{}}|<>]")]
+
+Below is a numbered list of DSL verbs mapped to .NET regular expression (Regex) operations for string values, using the `System.Text.RegularExpressions.Regex` class in C#. Each entry includes the DSL verb, the parameter(s) for the string value and any additional inputs (like number of digits or patterns), and the corresponding C# code call in brackets, following the format of your example.
+
+
+# DSL Regex Verbs Mapping to .NET Regex API
+
+1) StringFollowedByNumberDigits "string" "count" [Regex.IsMatch(field, $"{Regex.Escape(string)}\\d{{{count}}}")]
+2) MatchesPattern "pattern" [Regex.IsMatch(field, pattern)]
+3) StartsWithPattern "pattern" [Regex.IsMatch(field, $"^{pattern}")]
+4) EndsWithPattern "pattern" [Regex.IsMatch(field, $"{pattern}$")]
+5) ContainsPattern "pattern" [Regex.IsMatch(field, pattern)]
+6) ReplacePattern "pattern" "replacement" [Regex.Replace(field, pattern, replacement)]
+7) SplitPattern "pattern" [Regex.Split(field, pattern)]
+8) MatchCount "pattern" [Regex.Matches(field, pattern).Count]
+9) IsExactMatch "pattern" [Regex.IsMatch(field, $"^{pattern}$")]
+10) HasDigits "count" [Regex.IsMatch(field, $"\\d{{{count}}}")]
+11) HasLetters "count" [Regex.IsMatch(field, $"[a-zA-Z]{{{count}}}")]
+12) HasAlphanumeric "count" [Regex.IsMatch(field, $"[a-zA-Z0-9]{{{count}}}")]
+13) StartsWithLetter "" [Regex.IsMatch(field, $"^[a-zA-Z]")]
+14) EndsWithDigit "" [Regex.IsMatch(field, $"\\d$")]
+15) ContainsWord "word" [Regex.IsMatch(field, $"\\b{Regex.Escape(word)}\\b")]
+16) HasAnySpecialChar "" [Regex.IsMatch(field, $"[!@#$%^&*(),.?\":{{}}|<>]")]
+
+
+
+### Notes:
+- The `Regex` class is from `System.Text.RegularExpressions`.
+- `Regex.Escape` is used for inputs like `string` or `word` to handle special characters safely (e.g., escaping dots or asterisks).
+- Parameters like `count` in `HasDigits`, `HasLetters`, or `HasAlphanumeric` expect an integer for the exact number of occurrences.
+- `pattern` in verbs like `MatchesPattern` or `ReplacePattern` expects a valid regex pattern string provided by the user.
+- `StartsWithPattern` and `EndsWithPattern` anchor the pattern with `^` and `$` respectively for precise matching.
+- `ContainsWord` uses word boundaries (`\b`) to match whole words.
+- `SplitPattern` returns an array; your DSL implementation should handle the array output.
+- All matches are case-sensitive by default. For case-insensitive matching, you can extend the DSL with a modifier (e.g., `MatchesPatternIgnoreCase "pattern" [Regex.IsMatch(field, pattern, RegexOptions.IgnoreCase)]`), but these are omitted as per your request to skip comparison-related options.
+- If you need more specific regex verbs or additional functionality, let me know!
