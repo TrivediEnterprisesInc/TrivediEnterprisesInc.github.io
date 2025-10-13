@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Dive: Formulas/Agents</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; background: #f4f4f4; color: #333; }
+    h1, h2, h3 { color: #003366; }
+    code { background: #eee; padding: 2px 5px; border-radius: 3px; }
+    pre { background: #eee; padding: 10px; overflow: auto; border-radius: 3px; }
+    .note { background: #fff3cd; padding: 10px; border-left: 5px solid #ffeeba; }
+    .info { background: #cce5ff; padding: 10px; border-left: 5px solid #b8daff; }
+    .promptLittle { font-size: 2px;}
+  </style>
+</head>
+<body>
+
+<div class='promptLittle'>
+<details>
+  <summary>Prompt</summary>
+<pre>
+
+Please output your answer(s) in HTML format (not markdown).
+(1) I am currently evaluating the prospect of building a No-Code Database building app to compete against MS Lists.  Here are the major competitors in the space: 
+AirTable
+Ms Lists (and PowerApps)
+Google Sheets (and Google Apps/Forms)
+BaseRow (OSS)
+NoCoDb (OSS)
+Coda
+ReTool
+Many of these apps contain features named Formulas; which mean different things for different apps.  I need a comprehensive evaluation of this feature in each of the above.
+(2)  Most of the apps use formulas for automations.  Pls use consistent language throughtout your reply; referring to automations as "Agents" if used within the app or "WebHooks" if used to call outside apps (e.g. MailGrid)
+(3)  Please give me a rundown on each (with perhaps a table showing commonalities in features?) app and how it allows users to use formulas to add functionality to their app.  In case of Google, Sheet formulas are simply spreadsheet formulas BUT google allows GoogleApp users to set up triggers etc., so pls consider that (simlarly for others)
+(4)  Please rank the companies on best formula (feature) offering.  Consider capabilities as well; go as deep as you can (e.g., I read on reddit of an AirTable user who couldn't use Today's date in a formula: it did not update.  I'm sure other vendors have solutions which work in this situation)
+(5) At the end of the article pls provide links to websites from the vendors with documentation and/or help articles describing the usage of this feature.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - >
+Here’s a deep-dive comparison of the **Formula / Computed‑Field** capabilities in each of your listed platforms, plus how they handle “Agents” (internal automations) vs “WebHooks” (calling out), and a ranking. I'll conclude with links/documentation.
+</pre>
+</details></div>
+
+<p>
+
+<h2>1. Summary table: Formula / Computed‑Field capabilities</h2>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Vendor</th>
+    <th>What “Formula” Means / Where It Works</th>
+    <th>Scope: what can formulas reference? (Same row, other rows, other tables, external data, etc.)</th>
+    <th>Dynamic / “live” recalculation (e.g. “today’s date”, triggers etc.)</th>
+    <th>Support for Agents (internal automations) / WebHooks (external integrations)</th>
+    <th>Major Limitations, Gotchas</th>
+  </tr>
+
+  <tr>
+    <td><b>Airtable</b></td>
+    <td>
+      Computed fields (“Formula field”) that compute per record (per row) inside a table; plus lookup, rollup, count, last‑modified, autonumber etc. :contentReference[oaicite:0]{index=0}
+    </td>
+    <td>
+      Formulas can reference other fields in **the same record** (same row). For referencing other records / other tables you need linked record fields + lookup / rollup or count fields. Cannot directly reference arbitrary cells (like in a grid spreadsheet) outside its record. Cannot pull from another base unless via sync + link/lookup. :contentReference[oaicite:1]{index=1}
+    </td>
+    <td>
+      Yes, formulas recalc when inputs change. But “Today()”‑type formulas generally use the stored date/datetime field or “NOW()” etc. They may not always update automatically every day unless there is activity. (Some users report that “TODAY” doesn't always refresh passively). :contentReference[oaicite:2]{index=2}
+    </td>
+    <td>
+      Agents: Airtable has internal Automations (Airtable Automations) that can trigger when a record is created/updated, based on conditions (including computed/ formula fields). These automate internal actions (e.g. send email, update record). WebHooks: also possible via “run an integration” or via scripting (or marketplace). Formula fields don’t directly call external WebHooks, but can be used as condition triggers for Agents.  
+    </td>
+    <td>
+      - Cannot reference other records without establishing links.  
+      - “Today()” and “Now()” behave with limitations; might not update without record change or view refresh.  
+      - Performance degrades if many complex rollups / lookup chains.  
+      - Formatting/types can be subtle (e.g. Boolean vs checkbox, etc.). :contentReference[oaicite:3]{index=3}
+    </td>
+  </tr>
+
+  <tr>
+    <td><b>Microsoft Lists / Power Apps (Power Fx)</b></td>
+    <td>
+      Power Fx is the formula language underlying canvas apps in Power Apps; formula fields (columns) in Dataverse ("formula columns") and formulas used for property values of controls (visibility, color, filtering etc). Microsoft Lists itself is more limited, but if embedded via Power Apps / Dataverse, formula columns etc. :contentReference[oaicite:4]{index=4}
+    </td>
+    <td>
+      Can reference fields in same record, related records when using Dataverse / lookup relationships. Also control properties for UI controls, filtering, sorting, etc. External data via connectors. :contentReference[oaicite:5]{index=5}
+    </td>
+    <td>
+      Very strong dynamic recalculation. Many properties automatically recalc when underlying data or input controls change. For “today’s date” etc, there are functions (DateAdd, Now, Today) though behavior depends on context (e.g. canvas apps). :contentReference[oaicite:6]{index=6}
+    </td>
+    <td>
+      Agents: Power Apps + Power Automate (Flows) allow internal automations. Formula fields or property formulas can be inputs / triggers. WebHooks: via Power Automate and connectors or custom connectors.  
+    </td>
+    <td>
+      - Some functions not supported in certain contexts (formula columns have preview status in some features). :contentReference[oaicite:7]{index=7}  
+      - Delegation issues: some operations on large data sets do not scale, filters/sorts may not be delegated.  
+      - UI formula editor issues reported (bar, error highlighting etc.).  
+      - Sometimes relationship / rollup combinations are limited.  
+    </td>
+  </tr>
+
+  <tr>
+    <td><b>Google Sheets / Google Workspace / Apps Script / Forms</b></td>
+    <td>
+      Spreadsheet formulas working in cells; plus triggers/scripts via Google Apps Script; Forms feeding data; Named Ranges etc. “Formula” in the Sheets sense; also expressions in AppSheet (if used).  
+    </td>
+    <td>
+      Formulas can reference arbitrary cells, sheets, ranges, external sheets (IMPORTRANGE), external functions (GOOGLEFINANCE etc). Scripts can fetch external HTTP / APIs. Wide referencing.  
+    </td>
+    <td>
+      Yes for cell formulas. “Today()” and other volatile functions recalc under certain conditions (open, edit). But sometimes they don’t update unless sheet is reopened or there is change. Scripts can trigger on time triggers. Forms trigger on submission.  
+    </td>
+    <td>
+      Agents: Apps Script + built‑in triggers (onEdit, onChange, time‑based), Form submissions etc allow internal automation. WebHooks: Google’s APIs can be called from Apps Script; Sheets can receive WebHooks via Apps Script / Web Apps; Forms etc.  
+    </td>
+    <td>
+      - Volatile functions / “today” etc have well‐known refresh limitations.  
+      - Performance when sheets get large.  
+      - Collaboration / cell locking / concurrency.  
+      - Script quotas, timeouts.  
+    </td>
+  </tr>
+
+  <tr>
+    <td><b>Baserow</b></td>
+    <td>
+      Formula fields: you can add a field of type “Formula” in a table whose value is computed per row. :contentReference[oaicite:8]{index=8}
+    </td>
+    <td>
+      References fields in same table; also fields in linked tables through lookup (for example functions like sum(lookup(...)) etc). Supports text, date/time, numeric functions. :contentReference[oaicite:9]{index=9}
+    </td>
+    <td>
+      Yes, recalculation when inputs change. But formula fields are structural, not manual cell formula insertion like Sheets; they recalc per row. “Today()”‑style volatile, might have similar limitations. Also date functions & formatting are supported. :contentReference[oaicite:10]{index=10}
+    </td>
+    <td>
+      Agents / Automations: Baserow has its own Automations (triggers on record create / update, actions) and supports external integrations / WebHooks. Formula fields themselves are used in conditions or to compute values used in automations. WebHooks via integration features.  
+    </td>
+    <td>
+      - Some field types not yet usable in formulas (e.g. collaborators, password, created‑by etc in some versions). :contentReference[oaicite:11]{index=11}  
+      - Performance over many rows / heavy lookups can lag.  
+      - Volatility / date functions might have limitations.  
+    </td>
+  </tr>
+
+  <tr>
+    <td><b>NoCoDB</b></td>
+    <td>
+      Formula field type; computed per row. Supports numeric, logical, string, date functions. :contentReference[oaicite:12]{index=12}
+    </td>
+    <td>
+      Same‑row references, nested formula fields supported; referencing other fields. Probably not full cross‑row even across arbitrary tables unless via lookups, depending on schema. :contentReference[oaicite:13]{index=13}
+    </td>
+    <td>
+      Yes, when inputs change. Whether volatile date/time or “today” updates depend on implementation.  
+    </td>
+    <td>
+      Agents / Automations: NoCoDB supports hooks / triggers etc (internal workflows). WebHooks external possible through its API. Formula fields probably used to drive triggers.  
+    </td>
+    <td>
+      - Possibly fewer functions than larger mature tools.  
+      - UX of formula editor less polished.  
+      - Some limitations in referencing complex relationships.  
+    </td>
+  </tr>
+
+  <tr>
+    <td><b>Coda</b></td>
+    <td>
+      Coda has a full formula language used widely: in table columns, in controls (buttons, filters, canvas), in “canvas” docs. Formulas can be embedded anywhere. :contentReference[oaicite:14]{index=14}
+    </td>
+    <td>
+      Can reference table columns, rows, lists, can filter across tables; functions like FormulaMap / ForEach allow operations over list data; complex composition. :contentReference[oaicite:15]{index=15}
+    </td>
+    <td>
+      Very dynamic. As data or inputs change, dependent formulas update. “Today” or “Now” style functions probably similar behavior. Canvas changes & button triggers etc are reactive.  
+    </td>
+    <td>
+      Agents: Coda has internal automations (Coda Automations) that can be triggered based on conditions. WebHooks: Coda supports sending WebHooks / connecting to external services. Formulas can be used in conditions or properties of automations.  
+    </td>
+    <td>
+      - Some complexity in very large docs/tables.  
+      - The formula language is powerful but steep learning curve.  
+      - Some performance trade‑offs.  
+    </td>
+  </tr>
+
+  <tr>
+    <td><b>Retool</b></td>
+    <td>
+      Retool is somewhat different: it is more of a pro‑low code platform; formulas per se aren’t always native in the same way as computed fields in a table, but in UI components, JS/SQL / transformations etc. It tends to expect more technical knowledge. It’s not formula‑fields in a grid by default.  
+    </td>
+    <td>
+      Can use JS transformations, bindings, component properties; for data sources you can write queries; can use SQL or JS, so referencing cross‑table or external data is easier. Computed columns sometimes via queries.  
+    </td>
+    <td>
+      Yes, reactive in UI; but depends on the data sources staying in sync. Some parts require manual refresh.  
+    </td>
+    <td>
+      Agents: Retool has internal event handlers (button click, etc) and scheduled tasks or triggers; WebHooks: possibility of calling external APIs, etc.  
+    </td>
+    <td>
+      - Less “formula field” as a first‑class table field in simple UI; more technical.  
+      - Steeper learning curve.  
+      - Might require you to write JS/SQL (or parts) rather than “no code” formula only.  
+    </td>
+  </tr>
+
+</table>
+
+---
+
+<h2>2. More detailed walk‑throughs</h2>
+
+Here are more details for each vendor, with emphasis on the formula feature, plus how they support Agents vs WebHooks:
+
+---
+
+<h3>Airtable</h3>
+
+* Formula fields: per record. Types: text, number, date, Boolean etc. Functions: many mathematical functions, string functions, date/time (DATEADD, DATETIME\_DIFF etc). ([Airtable][1])
+* Lookup / Rollup / Count / Summary fields let cross‑record / cross‑table information be brought in. ([For The Record][2])
+* “Today()” and “Now()” supported but with caveats: may not auto update daily unless something triggers (view refresh, record update) etc. Users often mention that “Today” is static unless record is edited or view reloaded.
+* Agents: Airtable has Automations where formulas (fields) can be used as conditions or triggers (e.g. when record enters a view or when a field meets a formula condition). WebHooks: via external integrations / scripting or via automation sending HTTP requests.
+* UX: good formula editor with syntax highlighting, error checking.
+* Limitations: performance with deeply nested lookups / rollups; formula fields cannot directly mutate data (only compute); no “persistent scheduled recalculation every midnight” unless external trigger; limited ability to reference other bases except via sync.
+
+---
+
+<h3>Microsoft Lists / Power Apps / Power Fx</h3>
+
+* Power Fx is the declarative formula language, similar in flavor to Excel functions + more. Used for control properties, filter/sort logic, visibility etc. Also formula columns in Dataverse let you define columns whose values are computed by formulas. ([Microsoft Learn][3])
+* Supports referencing related tables via lookup relations; supports many functions (text, date, logical, math). The formula language is strong.
+* Named Formulas: feature that allows reusing logic; define formulas once and reuse across app; helps maintainability. ([Microsoft][4])
+* Agents: Power Apps + Power Automate (Flows) allow internal automation; formula fields or properties can feed into triggers. WebHooks: via connectors, custom connectors.
+* Dynamic recalculation: very reactive; when input changes, control property / formula updates. Date/time functions available.
+* Limitations: Delegation restrictions; sometimes functions are slower or limited when using large data sets; some preview features like formula columns may still be developing; UI formula bar has had issues. Users report certain limitations around rollups involving formula columns (e.g. a formula column + another column in parent referencing children etc). ([Reddit][5])
+
+---
+
+<h3>Google Sheets / Apps Script / Forms / AppSheet</h3>
+
+* The classic spreadsheet model: cell formulas in Sheets, formulas referencing cells, ranges, sheets, import functions, etc. Very flexible.
+* On top of that, Apps Script gives you programmatic control; triggers like onEdit, onChange, time‑based triggers, installable triggers etc. So internal Agents via Scripts/triggers; WebHooks via APIs.
+* Forms feed data; named ranges; apps like AppSheet allow use of expressions / formulas in app logic.
+* Volatile functions (TODAY, NOW) update under certain conditions but sometimes have refresh limitations.
+* Limitations: when sheets grow large performance lags; Apps Script quotas/timeouts; user formula complexity can become unwieldy; collaboration latency; complex cross‑sheet references (IMPORTRANGE etc) have latency/refresh/permission quirks.
+
+---
+
+<h3>Baserow</h3>
+
+* Formula field available for all plan types. Functions: numeric, text, date/datetime, lookup, conditional. ([Baserow][6])
+* References to fields in same row; can do lookups from linked tables. Formatting options. ([Baserow][7])
+* Dynamic recalculation when inputs change.
+* Agents: Baserow has its Automations (record create / update triggers) and supports external WebHooks. Formula fields can feed into conditions.
+* Limitations: some field types aren’t usable in formulas; volatility / date/time functions may have limitations; performance for large datasets maybe less optimized compared to mature proprietary tools; fewer “extras” (UI formula across canvas etc) compared to Coda or Power Apps.
+
+---
+
+<h3>NoCoDB</h3>
+
+* Has formula field type: supports numeric, string, logical, date; nested formulas; you must declare field type. ([docs.nocodb.com][8])
+* References same‑row fields; nested formulas allowed. Probably lookups / relations if relationships are set up; but documentation seems less expansive.
+* Dynamic recalculation when inputs change.
+* Agents / WebHooks: NoCoDB has triggers / API, so formulas can participate in trigger conditions. External integrations via WebHooks/APIs.
+* Limitations: fewer built‑in functions than (say) Airtable/Power Fx; less polished UI for formula building; possible limitations in cross‑table referencing; less mature ecosystem.
+
+---
+
+<h3>Coda</h3>
+
+* Very powerful formula language: can embed formulas anywhere (tables, canvas, buttons, controls). ✔️ ([help.coda.io][9])
+* Has functions like FormulaMap / ForEach (mapping over list), Filter, CountIf etc; supports referencing rows/tables; able to produce dynamic lists; treat tables as first‑class objects. ([help.coda.io][10])
+* Dynamic updates: yes, very reactive. Input changes, formula dependencies update.
+* Agents: Coda provides automations; formulas can be used in conditions; WebHooks/integrations supported.
+* Limitations: large docs/tables may slow; formula complexity steep; some things require learning of list/row abstraction etc; UI for debugging long formulas can be effort.
+
+---
+
+<h3>Retool</h3>
+
+* More oriented toward apps than just data tables. Many computed values are expressed via JS, SQL transformations, component binding. There is not always a “field = formula type GUI” in the simple sense for every dataset.
+* References cross‑table / external data via queries; you can compute values in queries, in UI components, etc.
+* Dynamic updates: yes, especially in UI; however some backend sources may need refresh; some components need manual triggers or reload.
+* Agents / WebHooks: strong support. Because Retool is often used to build dashboards / internal tools, you often explicitly call external APIs, handle events, etc.
+* Limitations: more developer input needed; less “friendly” formula editor for non‑technical users; formula consistency across UI/table may be less unified; error handling, debugging may be more hands‑on.
+
+---
+
+<h2>3. Ranking: Best formula feature offering</h2>
+
+Here’s a ranking of the vendors by “strength of formula / computed‑field / reactive logic capability”, taking into account:
+
+* richness of functions (math, text, date, relational, etc.)
+* ability to reference related / other table data
+* dynamic / “volatile” formula support (today, now, triggers)
+* usability: editor, error feedback, formula reuse
+* integration with automations (Agents) and external (WebHooks)
+
+I rank them (1 = best) as follows:
+
+<ol>
+  <li><b>Power Apps / Microsoft with Power Fx / Dataverse</b> — very strong, enterprise‑grade, very rich, named formulas, good reuse, strong integrations. Perhaps the steepest learning curve but high capability.</li>
+  <li><b>Coda</b> — almost as flexible, with formulas everywhere, friendly UX, list operations, etc.</li>
+  <li><b>Airtable</b> — good balance of formula features, lookup / rollup etc, mature; some limitations especially around volatile functions etc.</li>
+  <li><b>Baserow</b> — quite strong among open source / lighter tools; decent formula language, relational referencing, etc.</li>
+  <li><b>Google Sheets + Apps Script / AppSheet</b> — very flexible and foundational; but because it’s more general‑purpose, the formula field feature (in “Sheets” sense) sometimes comes with volatility, performance, and edit/trigger limitations; script / trigger parts are powerful but separate.</li>
+  <li><b>NoCoDB</b> — solid, decent open source option; less mature, fewer functions, slightly less polish.</li>
+  <li><b>Retool</b> — very powerful for internal tools / dashboards, especially if you have technical skill; formula fields per se are less of its core, more so component binding / scripting; so formula features are good but somewhat less “unified field formula across rows” focus.</li>
+</ol>
+
+If forced to put them in a numeric score from 1‑10 for formula power:
+
+* Power Apps / Microsoft: **9.5**
+* Coda: **9.0**
+* Airtable: **8.5**
+* Baserow: **7.5**
+* Google Sheets / Apps: **7.0**
+* NoCoDB: **6.5**
+* Retool: **6.0**
+
+---
+
+<h2>4. Specific “Today / volatile date” behavior & other tricky features</h2>
+
+You mentioned one case: an Airtable user who couldn’t use Today’s date in a formula in a way it updates. That’s correct: many tools treat “today” or “now” as volatile functions that update only on refresh / record modification / view open etc. Let me compare similar behavior in other tools:
+
+* **Power Fx**: “Today()”, “Now()” etc will recalc when inputs change or the screen redraws etc. Usually quite reliable in canvas apps.
+* **Google Sheets**: “TODAY()” and “NOW()” are volatile; they often update on file open, on edit. They may not update exactly at midnight unless there is some trigger — users often have to force recalculation or have a script.
+* **Coda**: has functions for “Today” etc; behavior is reactive; dependency graph ensures updates under certain conditions.
+* **Baserow / NoCoDB**: support date functions; but volatile updates may have limitations (e.g. might not auto update unless record is edited or table is loaded/refreshed).
+
+Other tricky features:
+
+* Rollups / lookups across relations in formula columns: some tools allow it, some limit (esp. in Microsoft / Dataverse: formula columns may not yet support all types of referenced fields; rollups combined with formula columns sometimes constrained).
+* Reusability of formulas / “named formulas” etc is a good differentiator: MS Power Fx has it; Coda somewhat via named formulas / Packs; Airtable less so (can’t define reusable custom formula components beyond using same formula multiple times).
+* Debugging / editor support (error highlighting, intellisense, signature hints etc.) varies and becomes important as formulas grow. Power Fx editor has been improving; Baserow and NoCoDB less polished; Coda and Airtable decent.
+
+---
+
+<h2>5. Opportunities / gaps if building a competitive “No‑Code Database building app”</h2>
+
+From this survey, here are features / behaviors that stand out as ways to differentiate or improve:
+
+<ul>
+  <li><b>Truly volatile “today / now” / scheduled refresh without needing manual edits</b> — tools that ensure date functions recalc automatically (daily or at configurable intervals) even if no record changed.</li>
+  <li><b>Named / reusable formulas or formula components</b> — ability for users to define logic once and reuse in fields, buttons, filters etc.</li>
+  <li><b>Better editor UX</b> — rich autocomplete, inline error hints; possibly natural‑language assist for formula writing; better performance for large formula sets.</li>
+  <li><b>Deep relational referencing</b> — combining cross‑table references, rollups, lookups; formula columns that can operate across relations with strong performance.</li>
+  <li><b>Clear integration with Agents / WebHooks</b> — ability for formulas to feed directly into automations / triggers / external calls in a low code way (for users who are not devs). Perhaps event (?) triggers that listen to formula field conditions etc.</li>
+  <li><b>Open / extensible function set</b> — allow users (or plugins) to extend formulas; maybe allow custom functions or script functions but within sandbox; being OSS or close to open helps attract power users.</li>
+  <li><b>Performance / scalability</b> — for many records (>10k / 100k), for many complex formulas / rollups, must remain responsive; UX of loading views with many computed fields needs care.</li>
+</ul>
+
+---
+
+<h2>6. Final Thoughts & Ranking Justification</h2>
+
+* I put **Microsoft Power Fx** first because it's the most mature in terms of combining expressive declarative formula logic, relation handling, integrations, and reuse.
+* **Coda** is close behind because of its flexibility and the fact formulas can live in many places, not only in table fields.
+* **Airtable** is strong for many use cases; older constraints (today volatility, cross‑base reference) are drawbacks.
+* **Baserow** and **NoCoDB** are appealing for open source / cost / control; formula features are good, though less polished.
+* **Google Sheets / Apps Script** is powerful, especially for general computational tasks, though sometimes the division between “formula field” (in a database table app) vs “spreadsheet” means different UX expectations.
+* **Retool** is more about building applications / dashboards; formula features tend to be more technical and less “formula field for every table” out of the box in a simple way.
+
+If your goal is to compete with MS Lists / Microsoft Power Fx, you’ll want to match or exceed in the features of reusability (named formulas), dynamic recalculation, relational references, and integration with agents + WebHooks, with excellent editor support.
+
+---
+
+<h2>7. Documentation / Help Resources</h2>
+
+Here are relevant links for the formula / computed‑field / formula language documentation for each vendor:
+
+<ul>
+  <li><a href="https://support.airtable.com/docs/formula-field-overview">Airtable: Formula Field Overview</a> :contentReference[oaicite:26]{index=26}</li>
+  <li><a href="https://docs.microsoft.com/en-us/power-platform/power-fx/overview">Microsoft Power Fx overview / formula reference</a> :contentReference[oaicite:27]{index=27}</li>
+  <li><a href="https://developers.google.com/apps-script/guides/triggers">Google Apps Script triggers & formula usages</a> :contentReference[oaicite:28]{index=28}</li>
+  <li><a href="https://baserow.io/user-docs/formula-field-overview">Baserow: Formula Field Overview</a> :contentReference[oaicite:29]{index=29}</li>
+  <li><a href="https://docs.nocodb.com/0.109.7/setup-and-usages/formulas">NoCoDB: Formula documentation</a> :contentReference[oaicite:30]{index=30}</li>
+  <li><a href="https://help.coda.io/en/articles/basics-of-coda-formulas">Coda: Basics of Coda formulas</a> :contentReference[oaicite:31]{index=31}</li>
+  <li><a href="https://learn.microsoft.com/en-us/power-platform/power-fx/formula-columns-and-functions">Power Apps / Dataverse: Formula Columns & Functions</a> :contentReference[oaicite:32]{index=32}</li>
+</ul>
+
+---
+
+[1]: https://www.airtable.com/guides/customize/explore-whats-possible-with-formulas?utm_source=chatgpt.com "Level Up your Workflow with Advanced Airtable Formulas - Airtable"
+[2]: https://blog.airtable.com/advanced-computed-fields/?utm_source=chatgpt.com "Complete calculations and create buttons with computed fields | Airtable Blog"
+[3]: https://learn.microsoft.com/en-us/power-platform/power-fx/overview?utm_source=chatgpt.com "Microsoft Power Fx overview - Power Platform | Microsoft Learn"
+[4]: https://www.microsoft.com/en-us/power-platform/blog/2022/09/16/power-fx-introducing-named-formulas/?utm_source=chatgpt.com "Power Fx: Introducing Named Formulas - Microsoft Power Platform Blog"
+[5]: https://www.reddit.com/r/PowerApps/comments/1e3my9s?utm_source=chatgpt.com "Overcome Rollup column limitation"
+[6]: https://baserow.io/user-docs/formula-field-overview?utm_source=chatgpt.com "Formula field overview"
+[7]: https://baserow.io/user-docs/understanding-formulas?utm_source=chatgpt.com "Formula field reference"
+[8]: https://docs.nocodb.com/0.109.7/setup-and-usages/formulas?utm_source=chatgpt.com "Formulas | NocoDB"
+[9]: https://help.coda.io/en/articles/2695142-basics-of-coda-formulas?utm_source=chatgpt.com "Basics of Coda formulas | Coda Help Center"
+[10]: https://help.coda.io/en/articles/3601389-use-formulamap-to-repeat-actions-across-a-list?utm_source=chatgpt.com "Use FormulaMap to repeat actions across a list | Coda Help Center"
+
+If you like, I can produce a feature‑matrix (spreadsheet) that summarizes capabilities side by side (including function counts, relational referencing, volatility behaviors) to help you design your system. Do you want me to build that?
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
