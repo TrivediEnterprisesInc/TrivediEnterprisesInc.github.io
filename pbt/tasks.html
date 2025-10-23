@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-	<title>pbt / Design Notes</title>
+	<title>Design Notes</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
@@ -67,46 +67,114 @@
         margin: 0em;
     }
 
+/*Replacing detail sections w/collapsibles
+see: https://www.digitalocean.com/community/tutorials/css-collapsible*/
+
+.wrap-collabsible {
+  margin-bottom: 1.2rem 0;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+.lbl-toggle {
+  display: block;
+
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-align: center;
+
+  padding: 1rem;
+
+  color: #A77B0E;
+  background: #FAE042;
+
+  cursor: pointer;
+
+  border-radius: 7px;
+  transition: all 0.25s ease-out;
+}
+
+.lbl-toggle:hover {
+  color: #7C5A0B;
+}
+
+.lbl-toggle::before {
+  content: ' ';
+  display: inline-block;
+
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid currentColor;
+  vertical-align: middle;
+  margin-right: .7rem;
+  transform: translateY(-2px);
+
+  transition: transform .2s ease-out;
+}
+
+.toggle:checked + .lbl-toggle::before {
+  transform: rotate(90deg) translateX(-3px);
+}
+
+.collapsible-content {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height .25s ease-in-out;
+}
+
+.toggle:checked + .lbl-toggle + .collapsible-content {
+  max-height: 100vh;
+}
+
+.toggle:checked + .lbl-toggle {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.collapsible-content .content-inner {
+  background: rgba(250, 224, 66, .2);
+  border-bottom: 1px solid rgba(250, 224, 66, .45);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  padding: .5rem 1rem;
+}
+
 </style>
 
 </head>
 
 <body class='claro'>
 
-<h1>pbt / Design Notes</h1>
+<h1>Design Notes</h1>
 
-	<b>This file (<a href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/tasks.html">repo ver</a>) created Mar 6 '25 to test + work on pbt-related updates<br>
-	<i>Last updated June 30<sup>th</sup> '25</i></b>
+	<b>This file (<a href="https://trivedienterprisesinc.github.io/pbt/tasks.html">repo ver</a>) created Mar 6 '25 to test + work on pbt-related updates<br>
+	<i>Last updated Oct 23<sup>rd</sup> '25</i></b>
 	<br><hr>
 
-<nav><ul><li><a href="#heading-1">Top Items</a></li><li><a href="#heading-2">Mar 13th Control, we have redundancy</a></li><li><a href="#heading-3">NEW approach to state</a></li><li><a href="#heading-4">Bld API coverage tables 4 All Modules</a>
+<nav><ul><li><a href="#heading-1">Top Items</a></li><li><a href="#heading-2">Mar 13th Control, we have redundancy</a></li>
+<li><a href="#heading-32">Styling Notes</a></li>
+<li><a href="#heading-4">Bld API coverage tables 4 All Modules</a>
 <ul>
 <li><span class="pbt"></span>&nbsp;<a href="#heading-5">dskCli: Desktop</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
-&nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
-&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st3">&thorn;&thorn;&thorn;</span>
 <ul>
-<li><a href="#heading-6">DskSettings</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
-&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
-&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li>
-<li><a href="#heading-6">Tc Port</a>
+<li><a href="#heading-6">Tc Port/dskTB</a>
 &nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
-&nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
-&nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st3">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
 </li>
 <li><a href="#heading-7">Login/Init()</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
 </li>
 <li><a href="#heading-8">Logout()</a>
@@ -114,165 +182,407 @@
 &nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</li>
+<li><a href="#heading-8Dz">Design_Sync</a>
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st3">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</li></ul>
+</li>
+<li><a href="#heading-6">dskCli: UserSettings</a>
+&nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+<ul><li>
+<span style="background-color: #A9A9A9;"><a href="#heading-6">i18n</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</span>
 </li></ul>
 </li>
 <li><a href="#heading-9">dskCli: TableDef</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st2">&epsilon;&epsilon;&epsilon;</span>
 <ul><li><a href="#heading-10">CSV</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
 </li></ul></li><li><a href="#heading-11">dskCli: DvDef</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
 </li><li><a href="#heading-12">dskCli: CardDvDef</a>
 &nbsp;
-&nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
 </li><li><a href="#heading-12">dskCli: DzDv</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&epsilon;&epsilon;&epsilon;</span>
 &nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
 </li><li><a href="#heading-13">dskCli: FormDef</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
-<ul><li><a href="#heading-15">SelItems</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st3">&thorn;&thorn;&thorn;</span>
+<ul>
+<li><a href="#heading-15">Dnd</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st3">&thorn;&thorn;&thorn;</span>
+</li><li><a href="#heading-161">&#64;TblLookup</a>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st3">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</li><li><a href="#heading-Emb">EmbeddedDv</a>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+
 </li></ul></li><li><a href="#heading-14">dskCli: AgentDef</a>
 &nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st2">&epsilon;&epsilon;&epsilon;</span>
 </li><li><a href="#heading-17">dskCli: ExprBldr</a>
 
 <ul><li><a href="#heading-18">Computed Fields</a>
 &nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st2">&epsilon;&epsilon;&epsilon;</span>
 </li><li><a href="#heading-19">ConditionBldr</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st2">&epsilon;&epsilon;&epsilon;</span>
 <ul><li><a href="#redundancy">JS validity</a>
 </li></ul></li><li><a href="#heading-21">IfThenElseBldr</a>
 &nbsp;&nbsp;
 &nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st2">&epsilon;&epsilon;&epsilon;</span>
 </li></ul></li><li><a href="#heading-15">dskCli: Auth/State/Other</a>
-<ul><li><a href="#heading-16">Lookup Masalo</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
-&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
-&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li><li><a href="#heading-17">State</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
-&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
-&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li><li><a href="#heading-25">IUndoable</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<ul>
+<li><a href="#heading-8_1">Preview</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&epsilon;&epsilon;&epsilon;</span>
+</li>
+<li><a href="#heading-8_11">Versioning</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st3">&thorn;&thorn;&thorn;</span>
+</li>
+<li><a href="#heading-16">ChoiceListM</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</li><li><a href="#heading-3">State</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</li><li><span style="background-color: #A9A9A9;"><a href="#heading-25">IUndoable</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st2">&thorn;&thorn;&thorn;</span>
-</li><li><a href="#heading-26">IDeployable</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
-&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
-&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</span></li><li><a href="#heading-26">IDeployable</a>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st3">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st3">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st3">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st3">&thorn;&thorn;&thorn;</span>
 </li><li><a href="#heading-264">IDef</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st3">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</li><li><span style="background-color: #A9A9A9;"><a href="#heading-19">PropBox</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li><li><a href="#heading-18">dskCli: Embedded DV</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
-&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
-&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li><li><a href="#heading-19">dskCli: PropBox</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
-&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
-&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li></ul></li><li><a href="#heading-20">webCli: DataVw</a>
+</span></li></ul></li><li><a href="#heading-20">webCli: DataVw</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
 </li><li><a href="#heading-20">webCli: CardVw</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
 </li><li><a href="#heading-21">webCli: Form</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;<span class="st3">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st2">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li><li><a href="#heading-21">svr: gg</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+</li><li><a href="#heading-212">svr: gg</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st2">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st3">&thorn;&thorn;&thorn;</span>
+<ul><li><a href="#heading-211">Nab</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
-&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li><li><a href="#heading-21">svr: Nab</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st3">&thorn;&thorn;&thorn;</span>
+</li>
+<li><a href="#heading-211Iden">IdentityDlg</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st2">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st3">&thorn;&thorn;&thorn;</span>
+</li></ul>
+</li><li><a href="#heading-224">svr: Choono et al.</a>
+&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st3">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li><li><a href="#heading-22">svr: Choono et al.</a>
+</li>
+<li><a href="#heading-233">svr: IntlVws/Recycle</a>
+&nbsp;<span class="st3">&omega;</span>&omega;
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&epsilon;&epsilon;&epsilon;</span>
+&nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
+</li>
+<li><span style="background-color: #A9A9A9;"><a href="#heading-244">svr: Templates</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;<span class="st1">&omega;&omega;&omega;</span>
+&nbsp;&nbsp;<span class="st2">&omega;&omega;&omega;</span>
 &nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
 &nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
 &nbsp;&nbsp;<span class="st1">&thorn;&thorn;&thorn;</span>
-</li></ul></nav>
+</span></li><li><a href="#heading-99">Demos</a>
+<ul>
+<li><a href="#heading-99_1">tkLi</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&epsilon;&epsilon;&epsilon;</span>
+</li>
+<li><a href="#heading-99_2">Music</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&epsilon;&epsilon;&epsilon;</span>
+</li>
+<li><a href="#heading-99_3">Calendar</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&epsilon;&epsilon;&epsilon;</span>
+</li>
+<li><a href="#heading-99_4">PriVers</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&epsilon;&epsilon;&epsilon;</span>
+</li>
+<li><a href="#heading-99_5">Movies</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span class="st3">&omega;&omega;</span>&omega;
+&nbsp;&nbsp;<span class="st1">&delta;&delta;&delta;</span>
+&nbsp;&nbsp;<span class="st1">&Sigma;&Sigma;&Sigma;</span>
+&nbsp;&nbsp;<span class="st1">&zeta;&zeta;&zeta;</span>
+&nbsp;&nbsp;<span class="st1">&epsilon;&epsilon;&epsilon;</span>
+</li></ul>
+</ul></nav>
 
 
 <h2 id="heading-1">Top Items</h2>
 
+<b>CFE Overview Docs</b>:
 <ul>
+  <li><a href='https://trivedienterprisesinc.github.io/cfe/NoCo_1_Table.html'>Table</a></li>
+  <li>Competitive <a href='https://trivedienterprisesinc.github.io/cfe/NoCo_2_Landscp_gpt.html'>Landscape</a></li>
+  <li>Case <a href='https://trivedienterprisesinc.github.io/cfe/NoCo_3_CaseStudies.html'>Studies</a> and reports/articles</li>
+  <li>Top Feature <a href='https://trivedienterprisesinc.github.io/cfe/Top_Feature_Reqs.html'>Requests</a></li>
+</ul>
+
+<mark>Aug29</mark><br>
+Instd of the Ctrl-X, here's an article which discusses the commonly used "<a href='https://emvi.com/blog/a-new-experimental-user-interface-QMZgmZG1L5'>Ellipses</a>" to hide featuers from novice users.  Note also that the founder of this prod says he "likes to throw everything in & use srch 2 navigate"
+
+<br>
+<b>Note</b> that the file dskCli_AgentDef.fs contains forRef:
+<ul><li>type ફીલ્ડ_પેનલ (nm, fTy, slg, સુપારી)
+        </li><li>let ટેબલ_ડેફ_સેટપ_પીચાક</li>
+</ul>
+
+<details><summary>HN Comment on NoCo for devs</summary>
+<br>(Stacker thread id=24037118)<br>
+maxwin on Aug 4, 2020<br>
+I feel like these no-code companies are a bit ahead of their time and focusing on the wrong audience. Instead of focusing on end user/business user, they should focus on developers. Please create tools (code or not) that make it really easy and fast to create CRUD apps for developers. There hasn't been good ones available. Empower developers first. Last time I check, no business user would want to create an app no matter how easy it is.
+<br>
+BTW on Stacker:<br>
+Stacker looks nice, but why is it better than the other options that have been around for a long time? At $349/app/mo (or $3480/app/yr) it seems more expensive than the others but perhaps the value is there.<br>
+
+(Stacker founder) skellystudios on Aug 3, 2020<br>
+
+Where we try to differentiate ourselves is that while Bubble etc. can theoretically let you create any app/product, in reality that means you're building all the small parts from scratch, and you end up having to basically think like a programmer.<br>
+We want to solve a much smaller set of problems really well – turning spreadsheets into Internal Apps and Customer Portals.
+<br>
+That means we've spent a bunch of time focussing on getting the things that everyone needs (User login, data security, lists, forms) really excellent so that you can build something really easily.
+<br>
+In fact, there's <mark>not really any "building", just "configuring"</mark> – you start with a working app as soon as you connect your data, and then customize it to look how you want.
+<br>
+Contrast that with tools like Bubble where you have to build out each screen, each form, the login page etc. manually.
+<br>
+	
+las3r on Aug 3, 2020<br>
+
+Hard to complete with the likes of Microsoft who offer PowerApps for 'free' in their 365 product catalog. I've seen previous selfproclaimed excel ninjas build whole (internal) business apps with PowerApps to get rid of the excel sheets. Upside for me is that since it's all in the 365 ecosystem it's all covered with our security policies.
+
+<br>
+
+Add 2 noco table:<br>
+<mark>Quickbase</mark>, for example, was recently sold for $1bn, and is one of the category leaders, with revenue over $100m. Their whole model is no-code business process development. For some reason, Valley types never mention Quickbase in the market, and only think Airtable et al created it, even though QB is the behemoth.
+<br>(resp:)<br>
+Their lowest price is $500/month billed annually. So it's <mark>$6000</mark> day one. And that's the cheap plan - the other two are "contact us for a custom quote". https://www.quickbase.com/plans-and-pricing<br>
+Airtable (and Stacker) at least let you build for free, then upgrade to monthly accounts at launch.<br>
+
+This is repeated by <b>many</b>:<br>
+tehwebguy on Jan 15, 2020<br>
+Row limits may be an extreme dealbreaker for many.<br>
+</details>
+
+
+
+<ul>
+  <mark>Aug19</mark>
+<li><input type="checkbox" checked>FldDef mods 4 EmbDv: add intnlFld isEmbdd:bool
+</li><li>ActivePatt Refactor all MonsterTys:
+  <ul><li>FldPnl
+  </li><li><input type="checkbox" checked>Unnecc, already refactored into a sep ty w/member this.getHtml(supari)&nbsp;<s>Wids</s>
+  </li><li>...
+    </li></ul>
+</li><li><input type="checkbox" checked>Nah, unnecc., can be a list&lt;fldAclTpl&gt;&nbsp;<s>Move fldAcl into the AclTplTy as Map&lt;FNm, Acl&gt; so it's in one place</s>
+</li><li>Wrap up some minor @todos
+</li><li>Tgt: Labor Day &gt;&gt; Test Modelling
+</li></ul>
+
+<ul>
+  <mark>Aug11</mark>
+<li>ConditionalFmting: Where does this go?  Logically it shd dovetail into DvDef
+<br>OR cld be within the webCli as another btn (hook into filter? Prov 10 colors?) @TBD: shd this be tblwide or only DV-specific?  If usr wants all overdrawn accts with light-red bkgrnd shdn't it be tbl-wide across dvs?
+</li><li> fff: JotForms/Formly; Zapier/make/n8n</li></ul>
+
+
+<ul>
+  <mark>Jul14</mark>
+<li>TblDef: Nd 2 design/incorp Modules Tab
+</li>
+</ul>
+
+<ul>
+  <mark>Jul12</mark>
+<li>For fff itms
+  <br>rsch -- eval -- incorp <mark>@TBD: outside file?</mark>
+  <br>list linkx/desc/snaps in details where appropr
+  <br>Non-useful 2 mbox
+  </li>
+  <br>
+
+  <mark>Jul07</mark>
+<li>For MicroServ itms (eg smtp)
+  <br>Note that there're diff reqts 4 diff segmts:
+  <br>B2B req.s hook 2 existing pkg
+  <br>B2D req.s Provide or hook into Provider
+  </li>
+  <br>
+
+  <mark>Jul03</mark>
+<li>sync
+  <br>Create timer (10m?) on dsk to chk & sync/log
+  <br>Add handlers to trigger from/toDef; poss tBar?
+  </li>
+  <br>
   <mark>Jun27</mark>
 <li>Last Pg: WebCli
-  <br>Use regExp on gfxStyling 2 xtract
+  <br><input type="checkbox" checked>Use regExp on gfxStyling 2 xtract
   <br>styLi = [strIdent, strDesc, Colr]
   <br>Don't narrow down 4 now, add Note: Only frm/grid nd.ed 
   <br>[], styLi |&gt; lifo (winF x -> Lbl, Lbl, colBtn)
@@ -289,13 +599,14 @@
 </ul>
 
 <ol>
-<li>Complete TblDef ui after dsk</li>
-<li>port 2 CorePBT: wrld et al.</li>
+<li><input type="checkbox" checked="">&nbsp;<mark>Complete TblDef ui after dsk</li>
+<li><mark>port 2 CorePBT: wrld et al.</li>
 
-<li>&lt;&lt; UI + abstrModels + Add'l Features (non-core: i18 etc.) &gt;&gt;</li>
-<li>Interfaces + Core + Svr</li>
-<li>Complete/execute</li>
+<li><mark>&lt;&lt; UI + abstrModels + Add'l Features (non-core: i18 etc.) &gt;&gt;</li>
+<li><mark>Interfaces + Core + Svr</li>
+<li><mark>Complete/execute</li>
 </ol>
+
 
 <ul>
 <li><b>Preview</b><br>
@@ -311,7 +622,6 @@ Also nd openDocLinkHandler to send assoc frm. Related: How to allow dev to speci
 <mark>Mon May 12</mark><br>
 <li>Ty FldTys might nd 2 be eluded; use cases (TblDz/wids).  Make the compiler throw
 </li><br>
-
 
 <li>N.B.: winFrms has much stuff ahead of its time; keep checking + list alongside tkL avec notes on ea mod.</li>
 <li><input type="checkbox">&nbsp; pbt 4 wins (i.e., openWins)</li>
@@ -361,8 +671,12 @@ Poss. eventual utility in releasing <b>user</b> dskClis (say for security purp.s
 <img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/0SP.png?raw=true" width="60%" border="1px solid black">
 </center>
 
+<mark>Oct 3:</mark>
+<br><input type="checkbox" checked="">&nbsp;ClientID/UserID/PrivateKey won't reside in the UserSettingsTbl but in an _id file_ (much b8r 4 portabil. + regen)
+
+
 <mark>Mar 6:</mark>
-<br><input type="checkbox" checked="">&nbsp;Move all pbt stuff to sep plk
+<br><input type="checkbox" checked="">&nbsp;<s>Move all pbt stuff to sep plk</s>
 <br><input type="checkbox" checked="">&nbsp;Merge code diffs 4 openWins 
 <br>- OpenDb/Dz checks (4 now) ONLY Menu Model updates
 <br>- For actual stubs (members) the model becomes:
@@ -381,7 +695,7 @@ Plus checkBox 4 "Create new Copy"<br>
 <mark>@TBD</mark> In Prod, shd we relabel AddIcon() to AddTable()?<br>
 dskMenu|NewTbl but AddIcn 4 existingTbls?
 <br>
-  <h4 style='color:#A0522D;' id="heading-6">DskSettings</h4>
+  <h4 style='color:#A0522D;' id="heading-6">UserSettings</h4>
 <br>(accessed via desktop icon "Settings")
 
 <br><input type="checkbox">&nbsp; incl i18n/localization manual switch 2 override
@@ -411,13 +725,27 @@ Add an Op 2 ea pbtMod which runs cannedOps using/returning strs (e.g. valid8nFai
 </ul>
 
 <br>
-  <h4 style='color:#A0522D;' id="heading-6">TC Port</h4>
+  <h4 style='color:#A0522D;' id="heading-6">TC Port/dskTB</h4>
 
+<br><mark>Jul05</mark>
+  <br>Bring back <mark>dskTB</mark> (chk earlier vers)
+  <br>Changes forEa tab; 1st calls tb.Ctrls.Clear(); blds; standardize on goog/msft, add Ttips.
+  <br>
+
+
+<br><mark>Jul24</mark>&nbsp; dskTB
+<br><input type="checkbox">&nbsp;     Don't use new tys xtnding Tb 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Instd add 'let <b>switchTB</b> = 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;fun winTy dsk -> 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;match on winTy to call bldFn'
+<br>&nbsp;&nbsp;&nbsp;&nbsp;'let <b>bldFn</b> -> Tb.Clear(); add as appropr8
+<br><input type="checkbox">&nbsp; So we'll also nd 2 pull origTB to confirm 2 new flo
+<br>
 <br><mark>Jun18</mark>&nbsp; initial work complete on port to tc.
 <br><input type="checkbox">&nbsp; Decide on namingConv.s 4 tabs(OpenDb gets DbTitle (lbl); OpenDz gets ("Design Mode: " + DbTitle)
 <br><input type="checkbox">&nbsp; add TabPg.Closing handler: is dskPg? Ask "Quit(Y/N)" If Y, logout etc.
 <br><input type="checkbox">&nbsp; impl dsk members getOpenTabs/getOpenTbls/assoc.
-<br><input type="checkbox">&nbsp; rejig current mdi stuff (switchLogic etc) to follow new stuff.
+<br><input type="checkbox">&nbsp; rejig current mdi stuff (switchLogic etc) to follow new stuff
 
 <br>
   <h4 style='color:#A0522D;' id="heading-Edge">Edge</h4>
@@ -427,8 +755,13 @@ Add an Op 2 ea pbtMod which runs cannedOps using/returning strs (e.g. valid8nFai
 
 
 <br><br>
-<details>
-<summary>Legacy notes (MDI Win SubMenu)</summary>
+
+<div class="wrap-collabsible">
+  <input id="collapsible" class="toggle" type="checkbox">
+  <label for="collapsible" class="lbl-toggle">Legacy notes (MDI Win SubMenu)</label>
+  <div class="collapsible-content">
+    <div class="content-inner">
+      <p>
 <br><input type="checkbox">&nbsp; MDI: Find dox/links; impl barebones funct.
 <br><input type="checkbox">&nbsp; Determine if we give em min/max options
 <br><input type="checkbox">&nbsp; Curr MDI child gets tick mark on MenuItm 
@@ -439,7 +772,11 @@ Add an Op 2 ea pbtMod which runs cannedOps using/returning strs (e.g. valid8nFai
 <input type="checkbox">&nbsp; <mark>?? @TBD: </mark>For OpenDb + OpenDzVw tests, create a form w/a snapshot for the tests 
 <br><input type="checkbox">&nbsp; Add stubs 4 OpenDb | OpenDz | switchWin
 <br>
-</summary></details>
+      </p>
+    </div>
+  </div>
+</div>
+
 
 
 <br>  <h4 style='color:#A0522D;' id="heading-7">Login/Init()</h4>
@@ -464,12 +801,60 @@ Add an Op 2 ea pbtMod which runs cannedOps using/returning strs (e.g. valid8nFai
 <br> snapShot initially set 2 default; <s>we'll nd: ref cell DskChanged = false;</s> (Mar20: nix, user may keep cli open forever.  So trigger on ea change, poss BOTH local/2svr. @TBD
 <br>
 
+<br>  <h4 style='color:#A0522D;' id="heading-8Dz">Design_Sync</h4>
+<mark>Sep 24 '25</mark>
+<ul>
+  <li><b><a href='https://trivedienterprisesinc.github.io/cfe/Dz_Sync_grok.html'>Design Sync CFE</b></a> </li>
+  <li>Note that this falls under Dsk coz all the code and execution lie there</li>
+  <li><input type="checkbox"> @Chk: Ensure all DzEls derive from <b>Tab</b> 'coz we'll nd 2 get the handle/call members for DzEls via the Tab ref <i>This poss.ly exists</i></li>
+  <li>Here's the flow:<br>
+  DzDoc dblClick calls 'addDskTabPg dskTc sender'<br>
+  addDskTabPg adds type dskPg(elTy, tblTy, dskTc, dzDocId)<br>
+  So, under <b>ty dskPg</b> (curr lies in <i>dskCli_dskTc.fs</i>) to support DzSync we nd <br>
+
+  member RefreshDz(DzDef) = currState (from undoAble) &lt;- DzDef; DoLayout()<br>
+  member lastDzRefresh = (LastSave timeStamp) On init set 2 now()?</li>
+  <li>Desktop member LastDzSyncTime = timeStamp</li>
+  <li>@TBD: Periodic or whatever (consider alwaysOpen clis) <b>cli initiates</b> sync thus:<br>
+  if ((mins) lastDzRefresh - Now) > 10; chkSvrUpdates(orgId, dsk.LastDzSyncTime)<br>
+  This may or may not result in a Pyld</li>
+  <li>On payload &gt;&gt; lim (fun d -> if openTabs.contains (d) prompt else silent overwrite)</li>
+  <li>Prompt &gt;&gt; (shd occur whether or not currUser made changes) Dz Changes recvd, overwrite? Y/N (No allows SaveAs to preserve yr changes) </li>
+  <li><input type="checkbox"> Pbt testing 4 this feature nds sep userLogins; 1st do manually but l8r collect similar multi-user scenarios into a separate PBT Test</li>
+  <li></li>
+</ul>
+
+
+
+
 <br>  <h3 id="heading-9">dskCli: TableDef</h3>
 
 <center>
 <img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/1MeethoM.png?raw=true" width="60%" border="1px solid black">
 </center>
 
+<br>
+<details><summary>NoCoDb</summary>
+<ul><li>
+  UK-based (fndr Naveen Rudrappa) 7m Docker dnlds as of 22; top 350 OSS
+  </li><li>
+    Can start a fresh db a la AirTable <b>or</b> leverage 'prod' data from Postgres/MySQL/MariaDb, turn it into a 'smart spreadsheet'.
+    </li><li>
+    Raised 10m incl many SV angels from s/w cos 
+    </li><li>
+    Working on adding: SSO, ACLs, Auditing, Connectors (incl Oracle/SnowFlake)
+    </li></ul>
+</details>
+
+<br>
+<details><summary>Make</summary>
+<ul><li>
+    </li></ul>
+<br>
+<center>
+<img src="https://i.ibb.co/jkTC2z73/Make-webhook.webp" width="60%" border="1px solid black">
+</center>
+</details>
 
 <br><b>Add fldImg? mod?</b>
 <br><input type="checkbox" checked="">&nbsp;Loc8 l8st Meethoo comb thru logs/notes 4 "DFldString" et al. 
@@ -556,6 +941,38 @@ wobblyGen/Dat already converts the other way (fldTy -&gt; fmt) We nd to repurpos
 <br><input type="checkbox">&nbsp;Need to code the roundTrip
 <br><input type="checkbox">&nbsp;Need to run the new TestDat file + new FldLists etc.
 <br>The mBoxes.bdf is a list (int, 4 strs, bool) so we nd 2 pipe in the tailored rndGen
+
+<p>
+
+<div class="wrap-collabsible">
+  <input id="collapsible" class="toggle" type="checkbox">
+  <label for="collapsible" class="lbl-toggle">Providing import capab. 4 Sheets/XL</label>
+  <div class="collapsible-content">
+    <div class="content-inner">
+      <p>
+Other disc.s on var threads say the same thing; there is a CA-like opp. here<br>
+See this disc. from HN:<br>
+seanhunter on April 13, 2024 <br>
+
+Just beware of the modern version of the "Excel noob trap" which lots of investment banks fell into in the 80s and 90s. Spreadsheets are amazing generic calculating frameworks and you can do a ton in them, so a lot of banks ended up building a huge ediface of excel spreadsheets that ran a wide variety of risk, pricing and operational functions.<br>
+With a few plugins and extensions you can really do amazing things with this type of setup. The problem is that your spreadsheets basically become an unmaintainable and impenetrable nightmare and all your business logic is held hostage in various people's personal sheets. Making wide changes becomes hard/impossible and doing something that in a traditional software framework would be easy ("Let's change the frobnicator to twizzle first and then twozzle afterwards, instead of the other way round as it does it now") become very difficult requiring many many changes in many many sheets with a lot of risk, and a lot of dilligence to be sure you have actually made a particular critical fix everywhere.<br>
+	
+m12k on April 13, 2024 <br>
+
+This is remarkably similar to the situation you get with visual scripting in game development - it's intended as a way for designers and artists to do small coding tasks on their own without needing to bother a programmer (e.g. set up a pressure plate that opens a door when you step on it), but their creations also tend to spiral out of control. There's a whole website dedicated to examples of this from Unreal Engine<br>
+Personally, I think good refactoring support would be the way to go - make it easier for a programmer to go in and "extract method" or similar to clean things up if they have gotten out of hand, without necessarily having to rewrite the whole thing from scratch.<br>
+smodo on April 13, 2024 <br>
+Totally agree. I’m working for a company right now that put off ‘refactoring’ their tangle of spreadsheets and database query export ‘pipelines’ for over a decade. We are hemorrhaging money right now because it does not scale. And you won’t notice that until it all breaks down.<br>
+Now you have effectively created bottlenecks for all critical processes because simultaneously working on spreadsheets is about the most dangerous thing you can do. Data integration becomes a perilous and time consuming affair; there’s no easy way to guarantee conformity between spreadsheets.<br>
+You paper over these problems with more code than you ever would have had if you switched to the proper tools earlier.<br>
+
+<br>
+      </p>
+    </div>
+  </div>
+</div>
+
+
 
 <p>
   <h3 id="heading-11">dskCli: DvDef</h3>
@@ -668,14 +1085,52 @@ some usrNms: harish, mohandas, chloe, debra, ray, uma
 <img src="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/2BPDz.png?raw=true" width="60%" border="1px solid black">
 </center>
 
+<br>
+<b>Form Design <a href='https://trivedienterprisesinc.github.io/cfe/Form_Dz_grok.html'>CFE</b></a> 
+<br>
+<b>Form Validation Listing <a href='https://trivedienterprisesinc.github.io/cfe/Frm_Valid8n_listing.html'>here</b></a> 
+<br>
+
+<b>Form Design Summary/Deep <a href='https://trivedienterprisesinc.github.io/cfe/Forms_Summry.html'>Dive</b></a> 
+<br>
+
+<b>DSL Verb strings + Regexp constructs for Parsec (Validation) is <a href='https://trivedienterprisesinc.github.io/arch/Dsl_verbs.txt'>here</b></a> 
+
+
+<br>
+<mark>Sept05</mark><br>
+Form Status: (we nd to begin work w/wids)
+<ul>
+  <li>
+<a href='https://trivedienterprisesinc.github.io/ui/2024/form/Frm_5.html'>Form5</a> pro'lly has updates internal + pvDlg (missing in 4)</li><li>
+<a href='https://trivedienterprisesinc.github.io/ui/2024/form/Frm_4.html'>Form4</a> pops up frm <b>(w/frmMngr wids)</b> in dlg</li><li>
+<a href='https://trivedienterprisesinc.github.io/ui/2024/form/frm_3.html'>Form3</a> has the tkLi frm + wids <b>Plus this has a tbl</b> (clk 2Col for dlg)</li>
+</ul>
+
+
 <br><b>Reminder June17: on WinSide We nd uniform stand-in wids</b><br><br>
+
+<mark>Aug02</mark>
+<br><b>Huh?</b>  <mark>Aug27</mark>They already are<s>FldPnls need to be tys</s>; also wids (union) w/ctor params; so we can guarantee all info present<br>
 
 <mark>Notes:</mark>
 <ul>
 <li>the two above have been merged ('23-34 mainRepo lockd) Srch 4 "Set Selected" (not in curr arcs)
 </li><li>Some work also compl. on selectedPnl (red bkgd instd o' handles)
-</li>
+</li><li>
+  <mark>Jul14</mark> We pss nd a PicBox fldType (googForms/Wufoo/others standard hdr includes a logo)  Users shd be able 2 ins multiple imgs anywhere in the form - add a tblPnl matchCase 2 - plus in FrmDz+Masalo (say for Frm backgrnd 2; in settings)
+</li><li>
+  Colors: goog/nocoDb/others offer 'standard colors; which makes sense for UX purps biz users + offer CtrlX all options, standard are fewer; track for sticky behavior in dsk: FrmDzXMode = true.  Here's a scrnshot frm nocoDb form allowing bkColorSet; no fore; no font:<br>
+  src: Accelerating Recruitment with <a href='https://www.mindpixels.io/accelerating-recruitment-with-nocodb-and-make-com/'>NocoDB</a> and Make.com
+  <br>
+
+<center>
+<img src="https://i.ibb.co/KjmGz6Ry/noco-Db-Form.png" width="60%" border="1px solid black">
+</center>
+<br>
 </ul>
+
+<br>
 
 <mark>DnD</mark><br> 
 With the new approach, many legacy itms below will go away; they have been collapsed into the details section below for ref.
@@ -849,14 +1304,48 @@ and then a wrap; are there unoccupied cells w/o blankCells in the last 2 rows B4
 <ul><li><b>Related</b>: getFldTblPnl curr has two use cases: intl + frmDz<br>
 </li><li><input type="checkbox">&nbsp; For frmDz (now) all matches'll return txtBox displaying widTy (+ hoverIcons); so we nd a new version for this
 </li><li><input type="checkbox">&nbsp; Keep/mod curr ver to be used only for intl purps
-</li><li><input type="checkbox">&nbsp; @<a href="https://plnkr.co/edit/OWlq6vprEgry6bkd">rsch</a> + impl display hover icons updated via IDeployable
-</li></ul>
+</li><li><s><input type="checkbox">&nbsp; @<a href="https://plnkr.co/edit/OWlq6vprEgry6bkd">rsch</a> + impl display hover icons updated via IDeployable
+</s></li></ul>
 <br>
 <input type="checkbox">&nbsp; <mark>Mar26</mark>@TBD: Is edHist mandatory w/core?  Sep mod?
 <br>
+<br>
+
+<details>
+  <summary>Forms</summary>
+  <a href='https://www.typeform.com/try/typeform-ai'>Typeform</a>: a design-forward survey tool.  They looked v diff from other survey s/w; making ppl curious; they branded the forms to spread the msg.
+<br>
+
+<details>
+  <summary>WuFoo</summary>
+<ul>
+  <li>
+Part of SurveyMonkey; more directed to 'web hackers' than biz/ent (req Css etc)
+  </li><li>
+Partners w/Zapier + Integrations w/ MailChimp/DocuSign/Asana; pymts (Stripe/Square/BrainTree/PayPal...)
+  </li><li>
+    Has a ThemeDesigner (ready2go or customize colors/type/logo)
+  </li><li>
+    400+ Form Templates; 
+    </li><li>
+Features vs. <a href='https://www.wufoo.com/wufoo-google-forms/'>goog forms</a>
+<br>Note: They only compare themselves to goog (as if other frmDzs didn't exist) which mt be a gd Idea 
+</li></ul>
+
+<center>
+<img src="https://i.ibb.co/tTyJCkqs/Wu-Foo-Plans.png" width="60%" border="1px solid black">
+</center>
+<br>
+
+
+</details>
+
+<br>MailChimp<br>Goog Sheets
+</details>
+
 
 <hr>
-<h4 style='color:#A0522D;' id="heading-15">SelItems</h4>
+<h4 style='color:#A0522D;' id="heading-15">DnD</h4>
 <br>
 	The tks below (mult dates) + non-incl stuff from Apr23/more related 2 cell/roSel + DnD.  <br>
 For this we nd 2 test WinDnd behavr 1st;<br>
@@ -869,7 +1358,39 @@ For instance, DragDropEffects.Move, if <i>we</i> remember corr., actually moves 
 For Rows + non-contiguous cellSelections; allow only cells + row(s)<br>
 We'll have to reassign dropability (ie isTgt) after ea cellSelection<br>
 <br>
+<hr>
 
+<h4 style='color:#A0522D;' id="heading-161">&#64;TblLookup</h4>
+
+<mark>Aug14</mark>
+<ul><li><input type="checkbox" checked>Add lV w/all foreignCols; allow multisel</li><li>"Please choose add'l cols you wish 2 load when a lookup val is chosen"  AutoCreate CalcFld (curr 2 tys: onCompose/onSave) forEa chosen fld w/name ("AutoFill_" + fNm)
+  </li><li>e.g.: For ProdNm pull "Desc" + "UnitPrice"</li></ul>
+
+<mark>Aug13</mark>
+<ul><li><s>Basically, TblCol/AutoFill are added as FldChoices for tblDef; <b>all</b> of which are avail in embDv</s><br>
+<input type="checkbox" checked> TblCol is PickLi, AutoFills are calcFlds</li><li>
+  MongoSide, ea rec can have arbit schema (we enforce on receivingSide) so you just send a <br>
+  <pre><code>
+db.collectionName.insertOne({
+  name: "Jane Smith",
+  hobbies: ["reading", "traveling", "painting"]
+});
+    </code></pre>
+</li></ul>
+
+<mark>Aug12</mark>
+<ul><li>TblColumn(4 pickLi) + TblLookup (now called <b>AutoFill</b>) are <b>not</b> only for EmbDv, e.g.:<br>
+CustomerInfo from CustTbl autofills address etc.
+</li></ul>
+
+<mark>Aug11</mark>
+<ul><li>TblLookup falls under PickList &gt;&gt; Choose Tbl &gt;&gt; Choose Col<br>
+The <b>same</b> dlg allows choosing <b>AutoFillFlds</b> (same Lookup)  These need to be defined (usr can do l8r)
+</li><li><b>AutoFillFlds</b> are RO by deflt.
+</li><li><s>@TBD (poss not necc) In calcFlds also allow TblLookup(TblNm, TblCol4ProvidedVal, ProvidedVal (cld b fldnm), colNm4ReturnVal)</s><br>
+This is 4 a non-picklist; nds 2 be auto-RO by deflt.<br>
+@CHK poss not necc. coz we cld use a hideable pickLi
+</li></ul>
 
 <hr>
 
@@ -878,11 +1399,59 @@ We'll have to reassign dropability (ie isTgt) after ea cellSelection<br>
 
 <mark>WinFrms</mark>&nbsp;chk module <a href="https://gist.github.com/TrivediEnterprisesInc/987b23e0a256182a0ac29bb36820d6d9#file-winfrms-fs-L2915">frmDelta</a>  has a fn mapping wids to events 4 thisFrm.deltaTracker.setDelta(newVal)
 
+<hr>
 
-<p></p><p>
-  
-</p><h3 id="heading-14">dskCli: AgentDef</h3>
-<br><b>RunOn:</b> (radioBtn, reqd) Schedule | Condition [F1]<br>
+<h4 style='color:#A0522D;' id="heading-Emb">EmbeddedDV</h4>
+<mark>Aug12</mark>
+<ul><li>EmbDv, being a Wid, behaves like one (nix xtnding Dv, only offer min fmtg support a la tblPnl)
+</li></ul></ul>
+
+<ul>
+<li><mark>Aug11</mark>
+<br> 
+<ul>
+<li>Chk/carryOver the setup for PriVers, <b>but</b> that's hardCoded;<br>
+EDvs will allow DzCtrl over colors etc.</li><li>
+  Naah, see Aug12 above&nbsp;<s>Xtnd dvDef 2 EmbDvDef; same opts</s></li>
+</ul>
+<li><mark>June11</mark>
+<br> 
+<ul>
+<li><input type="checkbox">&nbsp; Creating shd autoAdd 2 tblDef</li>
+<li><input type="checkbox">&nbsp; dev manually drops into frm <br>(so we nd it to be an option 4 tblPnl similar 2 rtBox.)</li>
+
+<li><input type="checkbox">&nbsp; Ensure fldNms are unique.</li>
+<li><input type="checkbox">&nbsp; Edit in-place.</li>
+<li><input type="checkbox">&nbsp; @TBD: Poss limit fldTys?</li>
+</ul>
+<mark>Mar26</mark>
+<ul><li>Just like PVs but no Qry (EdHist), SubDoc.  DzVw allows ColResize/Choice
+</li><li>Won't appear except on Frm (ins adds 100% wid cell; dev sets ht in px)
+</li><li>Tbar allows adding mult ros; edit in-place, no switching
+</li><li>Only <b>one</b> embTbl (like tbl) <b>but</b> allowed: multi-frm embeds (some cols here/there)
+</li><li>In FrmDz allow embedding
+</li>
+<li><input type="checkbox">&nbsp; @rsch @pull: SubForm notes/tks</li></ul>
+
+<mark>Mar25</mark>
+<ul><li>Loc8 dz notes for subforms, impl embedded dv
+</li><li>Def will have to be separate; therefore new dzDocTy
+</li><li>Allow summary rows (see oria)
+</li></ul>
+</ul>
+<br>
+
+<h3 id="heading-14">dskCli: AgentDef</h3>
+
+<b>See: Formulas/Agents Deep Dive <a href='https://trivedienterprisesinc.github.io/cfe/Formulas_Agents.html'>here</a></b>
+<br>
+
+<mark>Aug15</mark>
+<ul><li>Add !cmd !Dlg (plainTxt/Html)
+</li><li> !FldNm! embeds in content/mail/etc.
+</li></ul>
+
+<b>RunOn:</b> (radioBtn, reqd) Schedule | Condition [F1]<br>
 Choosing either radioBtn brings up dlg; on cancelOut reset 2 unSel;<br>
 ro-fld F1 shows textualRepr of choice
 <br><b>Tgt:</b> (radioBtn, reqd) AllDocs | NewDocs (SinceLastRun)
@@ -897,7 +1466,11 @@ SendMail/SMS | ModifyDocs | Dump2Log | RunWebhook | SavedAction(s)
 <br>Above striked out (Jun16) coz Core fn.ality...if one, specify here, if multiple load similar 2 savedActions.
 </li><li><input type="checkbox">&nbsp;<b>Dump2Log</b> (esp.ly gd to test new Agents; create a AgentLog &amp; print to that; poss only nd on dskCli (newDVcat?)
 </li><li><input type="checkbox">&nbsp;<b>Generate Email/SMS</b> (only avail 2 payingCusts)
-</li><li><input type="checkbox">&nbsp;<b>RunWebhook(s)</b>: brings up multiselect w/ savedHooks <i>(only avail 2 payingCusts?)</i>
+</li><li><input type="checkbox">&nbsp;<b>RunWebhook(s)</b>: brings up multiselect w/ savedHooks <i>(only avail 2 payingCusts?)</i><br>
+Here's NoCoDb's webHook UI intf; notice how they're using a tab 4 the log + the way they're adding selectedFlds
+<center>
+<img src="https://i.ibb.co/PzJvFYF1/No-Co-Db-Tabs-Logs-Fld-Sel.png" width="60%" border="1px solid black">
+</center>
 </li><li><input type="checkbox">&nbsp;<b>SavedAction(s)</b>: brings up multiselect w/ savedActions
 <br>feed test actions/DzDocSet; populate multiSel lV
 </li>
@@ -905,6 +1478,94 @@ Each option 4 Action brings up a new dlg w/opts.<br>
 Dump2Log allows selecting (how many, 8?) flds; filter out binary etc.<br>
 Dumps 2 AgentLog; only say 5 recs (via take) to avoid dumps of 1m+ >32mb<br>
 Use gappa 4 all these, add new variants.
+
+<div class="wrap-collabsible">
+  <input id="collapsible" class="toggle" type="checkbox">
+  <label for="collapsible" class="lbl-toggle">&zeta;&nbsp; Zapier</label>
+  <div class="collapsible-content">
+    <div class="content-inner">
+      <p>
+  Zapier
+  <a href='https://buildsolo.io/zapier-growth-playbook/'src</a> and <a href=''>https://www.howtheygrow.co/p/how-zapier-grows</a><br>
+  <ul>
+    <li>Apr 24: 1m pre-blt zaps created by co/user comm; these've been used 10m times</li>
+    <li>Users who use a zap during onboarding 3x more likely 2 convert to paid</li>
+    <li>Avg user creates 5 zaps/mo; 10/yr</li>
+    <li>Got only $1.3m funding (single seed rnd); 230M ARR; 3m users, 5b valudation ('23)  Founders own 80%</li>
+    <li>600k users in 3 yrs</li>
+    <li>"The api of all apis"</li>
+    <li>Got users to pay 100, then 5, then 1 for a buggy beta demo (say keeps only serious users)</li>
+    <li>Says moved blog from descr what they were doing to write only abt the cust & what THEY were accomplishing (case studies)</li>
+    <li>They get 8.5m unique visitors/mo</li>
+    <li>Templatized pgs for ea workflow that's poss iwthin ea app2app integration; e.g. How 2 create Notion pages from new Excel <a href='https://zapier.com/apps/excel/integrations/notion/1370056/create-notion-pages-from-new-microsoft-excel-rows'>Rows</a></li>
+
+<br>
+<center>
+<img src="https://buildsolo.io/wp-content/uploads/2024/04/zapier_pricing-1024x499.png" width="60%" border="1px solid black">
+</center>
+
+<br>
+<center>
+<img src="https://substackcdn.com/image/fetch/$s_!Z-J8!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F42bd72f4-7850-44e7-90b1-bac437ea542e_1080x720.png" width="60%" border="1px solid black">
+</center>
+
+<br>
+<center>
+<img src="https://substackcdn.com/image/fetch/$s_!9-a4!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F61492efe-a454-4a03-9d58-89ae2c3b8c0f_2000x1230.jpeg" width="60%" border="1px solid black">
+</center>
+
+<br>
+<center>
+<img src="https://substackcdn.com/image/fetch/$s_!vPqT!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e088666-667e-4220-b677-0a4b46516370_1508x970.png" width="60%" border="1px solid black">
+</center>
+<br>
+
+
+  <li>Template Galleries: <br>
+    <a href='https://coda.io/gallery'>Coda</a>’s Gallery<br>
+    <a href='https://miro.com/templates/'>Miro</a>’s Templates Library<br>
+<a href='https://www.notion.so/templates'>Notion</a>’s Template Gallery<br>
+<a href='https://www.airtable.com/templates'>Airtable</a>’s Templates<br>
+<a href='https://www.cascade.app/templates/'>Cascade</a>’s Strategy Template Library<br>
+  </li>
+  <li>The 2nd article above says:<br>
+  Dropbox’s core feature, file-in-the-cloud, was distributed. Dropbox was disintermediated (ie other SaaSes took on file storage), and they are now a $9.6B company that probably could have been worth 5X that.
+<br>
+
+For Zapier to truly break away, they need to overcome three big hurdles:<br>
+
+The disintermediation threat posed by native integration API products like Tray.io and Paragon<br>
+
+The ability of verticalized, drag-and-drop automation products like Parabola and Alloy Automation to peel off Zapier’s market share in specific markets<br>
+
+Other horizontal tools like Airtable building out their own integration tools to keep users on their own platforms<br>
+
+And speaking of Airtable, Wade references three flag-bearing companies within that low-code/no-code ecosystem that create the “AWZ stack”<br>
+Airtable to store the data ($11B)<br>
+Webflow to visualize it ($4B)<br>
+Zapier to power the logic and the interactions ($5B)<br>
+
+Zapier's Tables look like the future for this feature; and the Interfaces too...
+<br>
+<center>
+<img src="https://substackcdn.com/image/fetch/$s_!9Nlm!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd575f71d-7cfb-417c-98e5-423967d6de2b_1500x768.png" width="60%" border="1px solid black">
+</center>
+<br>
+<center>
+<img src="https://substackcdn.com/image/fetch/$s_!rR6J!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9be5a2c3-8c76-4c9c-bd83-d77d661f3125_1500x768.png" width="60%" border="1px solid black">
+</center>
+<br>
+  </li>
+
+  </ul>
+
+      </p>
+    </div>
+  </div>
+</div>
+
+  </span>
+
 </ul></ul>
 
 <br>
@@ -1056,6 +1717,48 @@ A:
 
 </details>
 
+
+Goog Sheets:<br>
+<a href='https://developers.google.com/workspace/sheets/api/limits'>Limits</a> + Pricing: 300 reads/writes per min<br>
+<a href="https://github.com/nprapps/dailygraphics-next">NPR</a>'s Daily Graphics (internal toolkit) uses goog Sheets-as-a-CMS<br>
+Goog sheets <a href='https://developers.google.com/workspace/sheets/api/guides/concepts'>api</a><br>
+Most devs on HN warn against Goog shifting API or killing prods <b>but</b> it's free and useful...<br>
+<a href='https://sheety.co/'>Sheety</a> turns your spreadsheet into a Restful JSON API, meaning you can get data in and out of your spreadsheet using simple HTTP requests and URLs.<br>
+So does <a href='https://sheetdb.io/'>Sheetsu</a><br>
+<a href='steinhq.com'>Stein</a> allows you to use googSheets as a no-setup db<br>
+HN: (others mention same issues) <br>
+	
+fulldecent2 on July 16, 2019<br>
+At our company, we use an ETL script to suck all our Google sheets into MySQL then we run queries for reporting. It's pretty nice, we'll probably open source it.<br>
+The worst part is that as a database, Sheets is not one-tenth as good as MS Access was. You can't <mark>enforce constraints</mark> or even disable certain people from <mark>editing the format</mark> of a cell. There's lots of things you can try but you are just one inadvertent copy-paste away from losing formatting/validation rules you had set.<br>
+
+<br>
+	cprecioso on Jan 15, 2020<br>
+
+I am not claiming that this would be a perfect solution, but Google Sheets (and Docs, Slides, Forms...) allow for [Apps Scripts](https://developers.google.com/apps-script/).<br>
+Once you get the hang of it, and use tools like [clasp](https://github.com/google/clasp), you can create semi-complicated automated workflows; which I still find delightful.<br>
+
+For one of my jobs, I created a form, that either on submit or on demand, creates a PDF with the data based off a template made with Slides, and emails it to me and to the person who filled it.<br>
+
+The code is as concise as the API allows, that is, not much. But it's saved us the need to have a manual workflow, or setup a server just for this service.
+<br>
+
+Goog Sheets allows 5M cells per sheet.
+
+<br>
+
+	
+ak217 on Jan 16, 2020<br>
+
+Last time I checked, Microsoft had nothing like the Sheets API. However, since then, as the sister comment points out, they have published the Graph API (https://docs.microsoft.com/en-us/graph/api/overview?toc=./re...), which seems to have a pretty decent set of spreadsheet API methods.<br>
+Google's spreadsheet API is very powerful, and contrary to the spirit of the OP, I think the update largely preserves existing functionality (the developer may need to adjust their thinking and be aware of other aspects/patterns of Google APIs). I'm actually very glad they came out with v4, as during the lifetime of v3 it was not entirely clear whether they would be updating it further.<br>
+
+Offline spreadsheets are completely unusable for most of the use cases that these APIs enable. The biggest value add of the online spreadsheet APIs is to be able to <mark>integrate</mark> with relevant online data sources to dynamically update the spreadsheet contents, provide <mark>typeahead suggestions/autocompletions</mark>, or <mark>sync data</mark> with another system. This can be very powerful because it immediately brings the full power of spreadsheets to the user interface of your data system, without having to build something equivalent to a spreadsheet interface yourself (which, contrary to some loud opinions out there, can be a huge win in business applications by enabling non-technical or partially technical users to be more flexible, more productive, and less dependent on other members of the organization to do their work).<br>
+
+Until the graph API, the closest thing to a spreadsheet API provided by a Google competitor was... <b>VBA</b>. Visual Basic for Applications. That is still the main API for desktop Office applications. Good luck using that. I just about gouged my eyes out the last time I tried to use it.
+<br>
+
+Goog sheets has "built-in auth permissions" (sorta)<br>
 <p>
 
 <br>  
@@ -1102,6 +1805,7 @@ Evaluated @ compose; based on currUser/currDateTime/etc. (usu not fldVals since 
 </li><li><input type="checkbox">&nbsp; <b>Type 2</b>: Computed on Save<br>
 Computed/filled by svr on save.  Can depend on fldVals.  We will valid8 if still raises (e.g. divide by zero): fld will get "err" and ttip with dev details 2 contact
 </li>
+<li><mark>Aug14</mark> 3rd option: pickList field (ie tblColumn)
 <li><input type="checkbox">&nbsp; Manually add 2 frm/dv?  What about tblDef autoAdds a la embddDv?
 </li></ul>
 <br>
@@ -1254,7 +1958,24 @@ Feel free to adapt this approach to suit your specific needs! If you have any mo
 
 <br>  </p><h3 id="heading-15">dskCli: Auth/State/Other</h3>
 
-<br>  <h4 style='color:#A0522D;' id="heading-16">Lookup Masalo</h4>
+<br>  <h4 style='color:#A0522D;' id="heading-8_1">Preview</a></h4>
+<mark>Jul07</mark>
+Port existing infra; add tabStuff; add api endPt + handlers<br>
+We nd to send intermed. state from cliSide (won't exist on the svr yet)
+Add to the foll:
+<ul>
+<input type="checkbox">&nbsp;dskCli: DvDef
+<br><input type="checkbox">&nbsp;dskCli: CardDvDef
+<br><input type="checkbox">&nbsp;dskCli: FormDef
+</ul>
+
+
+<br>  <h4 style='color:#A0522D;' id="heading-8_11">Versioning</h4>
+<b>The CFE is <a href='https://trivedienterprisesinc.github.io/cfe/Versioning_grok.html'>here</a></b><br>
+<b>Also See: Versioning/Transactions Notes/ArchDocs <a href='https://trivedienterprisesinc.github.io/arch/PriVer_Transactions_grok.html'>here</a></b>
+<br>
+
+<br>  <h4 style='color:#A0522D;' id="heading-16">ChoiceList Masalo</h4>
 <mark>Mar24</mark>
 <ul><li>From (dz) will have LookupFldNm [  ]; Values (Pls enter ea on a newLine) + btns 2 sort asc/dec + Chkbox "Allow itms not in list"  
 </li><li>OnSave creates Masalo
@@ -1287,6 +2008,10 @@ Feel free to adapt this approach to suit your specific needs! If you have any mo
 <br> this updates Dev/UsrTbl; pushes new state 2 winH
 <br> new members: dsk.getWinState/put~
 <hr>
+
+<h4 style='color:#A0522D;' id="heading-32">Styling Notes</h4>
+For webCli ttips (poss dskCli 2, tbd) ensure they're solid yellow with blk txt which shd look ok on both clis; recent ver of msEdge aso adopted this.
+<br>
 <h4 style='color:#A0522D;' id="heading-3">NEW approach to state</h4>
 Desktop + Others:
 <br>  Instd of CE(wld), ea el's win getsFromBackend + keeps its own state
@@ -1298,6 +2023,12 @@ Desktop + Others:
 
 <h4 style='color:#A0522D;' id="heading-25">UndoMachine/IUndoable</h4>
 <ul>
+<li><mark>Jul07</mark><br>
+Marked W (MoSCoW) for now: way 2 much grunt work
+<br>Consider adding row #3 in a 3-line expr.; the undo fnTpl  4 state will nd 2 rem the row<br>
+And for ea DropDn we'd nd 2 reset 2 priorVal; etc.<br>
+Note: The webCli side already supports Undo via rtEd et al; so v1 isn't insuff xcept on devSide (is this even a thing?) So v2+ perhaps...
+</li>  
 <li><mark>Jun12</mark>@TBD: For ExprBldr etc. we nd 2 store intermediate state e.g. incompleteExpr<br>
 However, we're not allowing devs 2 save that, so what representation to use (add/remove expr sections)?<br>
 If this is too granular, skip.
@@ -1352,6 +2083,10 @@ If this is too granular, skip.
 <li><mark>Jun30</mark> v3: (MemMax) Fpr, 2 li? clone?.  Also see <a href='https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/how-to-write-user-settings-at-run-time-with-csharp?view=netframeworkdesktop-4.8'>this</a> persisting userSettings @ runTime.  OTOH, we are not recreating from scratch so single changes'll pro'lly work b8r.</li></ul>
 
 <h4 style='color:#A0522D;' id="heading-26">IDeployable</h4>
+<mark>Aug02</mark>
+<br>Mark completed: Instd of validating to achieve Deployable; make <b>un</b>Deployable an impossible state i.e., illegal 2 represent.  Types, ctor params.
+<br>
+
 <ul>
 <li><input type="checkbox" checked="">&nbsp;<mark>May15</mark> Design/Genericize 
 </li><li><input type="checkbox" checked="">&nbsp;<mark>May15</mark> convt 2 intf 
@@ -1366,16 +2101,16 @@ If this is too granular, skip.
 </ul>
 </li>
 <li>
-FrmDz: instead o'wids dskSide; use a txtFld w/3 states enabled/not/bordered(?) to indicate widChosen/otherProps
+<s>FrmDz: instead o'wids dskSide; use a txtFld w/3 states enabled/not/bordered(?) to indicate widChosen/otherProps
 <br>We nd to use visual clues here; p'haps an in-frm system TB showing FrmDeployStatus 
 <br>onClick shows the foll steps nd to be taken (these flds nd wids assigned etc.) 
 <br>If ready ask em to still run chks on Validations etc.; 
 <br>THEN either enable or add the tab to gen/retriev web code 
 <br>
 Another option is to use floating icons (validn/ttip/wid) oer ea tblPnl 
-</li><li>
-Since the ReadyToDeployTB cld be used elsewhere (AgntBldr etc.) we nd to create IDeployable and extend frm; encase all logic necc.
-</li>
+</s></li><li>
+<s>Since the ReadyToDeployTB cld be used elsewhere (AgntBldr etc.) we nd to create IDeployable and extend frm; encase all logic necc.
+</s></li>
 </ul>
 
 
@@ -1402,32 +2137,6 @@ Since the ReadyToDeployTB cld be used elsewhere (AgntBldr etc.) we nd to create 
 </ul>
 </li></ul>
 
-
-<h4 style='color:#A0522D;' id="heading-18">dskCli: Embedded Tbl/Embedded DV (in Frm)</h4>
-<ul>
-<li><mark>Mar25</mark>Loc8 dz notes for subforms, impl embedded dv
-</li><li>Def will have to be separate; therefore new dzDocTy
-</li><li>Allow summary rows (see oria)
-</li><li><mark>Mar26</mark>Just like PVs but no Qry (EdHist), SubDoc.  DzVw allows ColResize/Choice
-</li><li>Won't appear except on Frm (ins adds 100% wid cell; dev sets ht in px)
-</li><li>Tbar allows adding mult ros; edit in-place, no switching
-</li><li>Only <b>one</b> embTbl (like tbl) <b>but</b> allowed: multi-frm embeds (some cols here/there)
-</li><li>In FrmDz allow embedding
-</li>
-<li><input type="checkbox">&nbsp; @rsch @pull: SubForm notes/tks</li>
-<li><mark>June11</mark>
-
-<br> 
-<ul>
-<li><input type="checkbox">&nbsp; Creating shd autoAdd 2 tblDef</li>
-<li><input type="checkbox">&nbsp; dev manually drops into frm <br>(so we nd it to be an option 4 tblPnl similar 2 rtBox.)</li>
-
-<li><input type="checkbox">&nbsp; Ensure fldNms are unique.</li>
-<li><input type="checkbox">&nbsp; Edit in-place.</li>
-<li><input type="checkbox">&nbsp; @TBD: Poss limit fldTys?</li>
-</ul>
-</ul>
-
 <h4 style='color:#A0522D;' id="heading-19">dskCli: PropBox</h4>
 
 Much work on PropBox complete, chk <a href="https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/837151d3c68f6b452917f5e9895de62ba799d885/winFrms.fs#L3340">this</a>
@@ -1441,7 +2150,12 @@ Much work on PropBox complete, chk <a href="https://github.com/TrivediEnterprise
 </center>
 <br>
 <b>Tags|View</b>: If singleSel -&gt; DlgBox; if multiSel -&gt; List w/counts
-  
+
+Here's NoCoDb's defaultVw; if we decide _not_ to autoGen use something like this?
+<center>
+<img src="https://i.ibb.co/4ZgrfskD/No-Co-Db-Default-Vw.png" width="60%" border="1px solid black">
+</center>
+
 <br><br>
 
   <h3 id="heading-20">webCli: CardVw</h3>
@@ -1489,19 +2203,106 @@ Note: Requires validation from currFrm (This belongs in DvDef)
 
 <br>
 
-<br>  <h3 id="heading-21">webCli: Form</h3>
+<br>  <h3 id="heading-213">webCli: Form</h3>
 (tbfo)
 <br>
-<br>  <h3 id="heading-21">svr: gg</h3>
+<br>  <h3 id="heading-212">svr: gg</h3>
+
+<b>See: Identity Notes/ArchDocs from <a href='https://trivedienterprisesinc.github.io/arch/Identity_gpt.html'>gpt</a> and <a href='https://trivedienterprisesinc.github.io/arch/Identity_groc.html'>groc</a></b>
+
+<p>
+
+<mark>Aug06_25</mark>
+<ul><li>
+  @TBD: For webCliFrms the dat gets an extra col:HiddenFldsArray<br>
+  @Chk what's involved in exchanging/repl wid w/lockBox + Ttip: "If you think this is an err pls contact dev@orgname.com"
+</li></ul>
+
+<mark>Jul31_25</mark>
+<ul><li>
+To support Templates we _do_ nd hideWhen formulas in ea dzEl acl;
+devs may wish to lock all els (offer a 'hideDiz' 2?) or specific ones and sell apiKeys etc.
+</li><li>For acls instd of tys we cld use DocInf as host
+</li></ul>
+
+<mark>Jul30_25</mark>
+<ul><li>
+Add ggDlg wherever (dzEl) necc + Upd8 Masalos 
+</li><li>    Q: Inst of acls 4 dzEls (say dv) why not allow Hide a la flds? (not Edit) 
+</li></ul>
+
+<br>
+<b>Architecture FlowCharts</b> for S-A-G-H-O (Other) <a hgref='https://gist.github.com/brijUser2/f7a3acb981d3d2db58cf8d0fce873dfb#process-flows-s'>here</a>
+<br>
+See: Consolid8d updates (incl WinFrs) in the plunkFile notes_Tasks_Top.html under "Edge Fns"
+<br>
+<br>  <h3 id="heading-211">Nab</h3>
+<ul><li>(tbfo) svr: Reg on nab (+sample)
+  </li><li>(v2+) No messing w/Acls nd.ed 4 devCli 4 now:<br>
+    Has all rights.  BUT eventually if necc (esp.ly ent) add Admin
+    as a grp ABOVE devs to add/rem from Acls (salary etc.)
+    </li></ul>
+<br>
+<br>  <h3 id="heading-211Iden">IdentityDlg</h3><br>
 (tbfo)
-<br>
-<br>  <h3 id="heading-21">svr: Nab</h3>
-(tbfo) svr: Reg on nab (+sample)
-<br>
-<br>  <h3 id="heading-21">svr: Choono et al</h3>
+<br>  <h3 id="heading-214">svr: Choono et al</h3>
 (tbfo) need tys 2.
+
+<b>See: ErrHandling Notes/ArchDocs from <a href='https://trivedienterprisesinc.github.io/arch/ErrHandling_gpt.html'>gpt</a> and <a href='https://trivedienterprisesinc.github.io/arch/ErrHandling_groc.html'>groc</a></b>
+
+<p>
+
+<br><mark>Aug18</mark>
+<br>Might be cleaner to use Cont w/CC to break flow & ret 
+<ul><li>ParseReq</li>
+  </li><li>Decrypt pyld using privK
+  </li><li>Does usr have Acl 4 cmd? (Basic TblLvl Read etc.)
+  </li><li>Query (w/poss filter by Acl)
+  </li><li>Postproc Dat
+</li><li>Encrypt pyld
+    </li></ul>
 <br>
 
+<br>  <h3 id="heading-233">svr: IntlVws/Recycle</h3>
+<br><mark>Aug11</mark>
+<br>We nd an intlFlag (in ViewID?) 2 be set/chk if RecVw exists
+<br><b>Then</b> on 1st vw create &gt;&gt; if is1st &gt;&gt; AutoBldRecVw
+<br><b>Note</b> that curr the only Intvw we nd is for MergeConflicts (devs only, see dskCli_MergeConflicts.fs)
+<br>
+<br><mark>Aug1</mark>
+<br>We nd colDefs to exist for the RecycleVw.
+<br>Best approach 2 take: When 1st dv designed; autoCreate the RecycleVw based on those cols; 
+<br>if the dev wishes to they can edit it (not hidden/internal)
+<br>
+<br>  <h3 id="heading-244">svr: Templates</h3>
+Look under ACLs for some info.<br>
+<br><mark>Aug1</mark>
+<br>@TBD: Do we allow 'hide dz'?
+<br><b>ALL</b> dzEls nd ACLs; that way devs can monitize templates.
+<br>
+
+<h3 id="heading-99">Demos</h3>
+<mark>Aug06</mark>
+<ul><li>
+  These nd 2 be Templateable
+  </li><li>They can <b>precede</b> launch + provide a testground (rebld via dogfooding)
+</li><li>
+  </li></ul>
+<br>  
+
+<h4 style='color:#A0522D;' id="heading-99_1">tkLi</a></h4>
+
+<h4 style='color:#A0522D;' id="heading-99_2">Music</a></h4>
+
+<h4 style='color:#A0522D;' id="heading-99_3">Calendar</a></h4>
+
+<h4 style='color:#A0522D;' id="heading-99_4">PriVers</a></h4>
+
+<h4 style='color:#A0522D;' id="heading-99_5">Movies</a></h4>
+(for CDv demo)
+<br>
+HR (for ACL demo?)
+<br>
 
 <br>
 <!--Begin Commented section including expanded goog snaps>
