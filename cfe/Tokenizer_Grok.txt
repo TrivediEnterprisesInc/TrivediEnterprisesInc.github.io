@@ -1,0 +1,5 @@
+List all typical DBMS actions 4 a dsl in-db (brijScript)
+e.g. FieldGet/Set; RecGet/Set
+Poss !include prelude which gets repl before pumping 2 <@ w/discomb ?!
+
+to be investigated...
