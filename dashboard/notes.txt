@@ -1,0 +1,111 @@
+* The latest mongo driver requires .net 6.0 (F# interop @tbd)  Load via
+dotnet add package MongoDB.Driver --version 3.5.2
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+12/6: Mods to mockData scripts:
+ty SessionLog has fld actions: string array
+unnecc coz we're already tracking this in ActivityLog
+ty SessionLog has sessionDuration: int; nix
+
+
+ty ErrorLog flds errorType: string; message: string
+//1xx informational response · 2xx success · 3xx redirection · 4xx client error · 5xx server error
+400 Bad Request
+401 Unauthorized
+408 Request Timeout
+429 Too Many Requests
+500 Internal Server Error
+501 Not Implemented
+504 Gateway Timeout
+
+fn generateSessions()    
+    let userIds = [|"user_acme1"; "user_acme2"; "user_acme3"|]
+    let actionsPool = [["Login"; "Query"; "Update"; "Logout"]]
+upd8 for top delta + 
+"bill@msft.com"; "larry@oracle.com"; "peter@palantir.com"; "paul@hn.com"; "elon@x.com"; "sama@openai.com"; "sergei@google.com"; "steve@apple.com"
+
+fn generateActivityLog has "Queries"] as an opTy, conv 2 QU
+
+Ensure all the liLens upd8d 4 ea mod/customiz8n
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+
+* Feedback on Brij Arch (grok) https://controlc.com/a748d386
+* These arch notes incl Mongo structs https://controlc.com/5e781136
+
+https://www.mongodb.com/docs/charts/dashboards/#std-label-sample-dashboard
+
+Product Sample Dashboard
+This <a href='https://charts.mongodb.com/charts-embedding-examples-wgffp/public/dashboards/63f6f973-045a-4862-83f4-514e7d2df8fc'>sample</a> dashbd has: 
+DAU, DAO, Browsers, Active Usrs/Orgs, 'Events' (poss cfg.ble? chk)
+
+The "Product event metadata" (underlying dataset) isn't accessible BUT ea graph displays it's dataset (click '...') for an idea of the kind of flds nded for ty of chart.
+
+TTL idxes (TimeToLive) allow expiring dox based on <a href='https://www.mongodb.com/docs/manual/tutorial/expire-data/#expire-documents-with-filter-conditions'>filters</a> ie we can set a flagFld ('collected') once collated into summaries.
+
+a) TblName: OrgID&^ActivityLog
+   Doc:
+    { "date": "YYYY_MM",
+      //Table lvl Daily Op counts, sparse (absent if tbl not used e.g. Weekends)
+      {"TblID001":
+        { "Creates": {"01": "538", ... },
+        "Reads": {"01": "868", ... },
+        "Updates": {"01": "1230", ... },
+        "Deletes": {"01": "80", ... },
+        "QUpds": {"01": "120", ... }
+        }
+      },
+      {"TblID001^Form001":
+        //Daily feature usage counts, sparse (absent if tbl not used e.g. Weekends)
+        { "Creates": {"07": "1", ... },
+        "Reads": {"01": "6", ... },
+        "Updates": {"01": "7", ... },
+        "Deletes": {"10": "1", ... }
+        },
+      {"TblID001^DV002":
+        //Daily counts, sparse (absent if tbl not used e.g. Weekends)
+        { "Creates": {"07": "1", ... },
+        "Reads": {"01": "6", ... },
+        "Updates": {"01": "7", ... },
+        "Deletes": {"10": "1", ... }
+        },
+      {"SessSummary":
+        //autoCalculated Rollups from the 'OrgID^SessionLog' Table
+        {"01": 
+          {"DAU": "232",
+          "DAD": "2",
+          "Top5Geo": {"New York City, NY", "Atlanta, GA", "San Francisco, CA", 
+                      "Chicago, IL", "Boston, MA" }
+        },
+        {"02": ...}
+      }
+    }
+
+b) TblName: OrgID_SessionLog
+   //(i)TTL for this table ensures all recs wiped out eod
+   //(ii) BEFORE eod data is aggregated/rollups go to OrgID&^ActivityLog monthly rec (use rec timestamp 2 reconcile)
+   //(iii) City/Country is filled in via GeoLookup cronJob
+   Doc:
+    { "SessionID": "OrgID^Session^20251202^320823498",
+      "UserID" : "joe@acme.com",
+      "IPAdd" : "12.80.65.12",
+      "City" : "Tulsa",
+      "Country" : "US",
+      "Browser" : "Chrome",
+      "DeviceOS" : "OSX"
+    }
+
+c) TblName: OrgID_ErrorLog
+    //For internal use, TTL 1 month, rollups before eom to a summaryDoc in OrgID&^ActivityLog 
+    Doc:
+      {
+        "TimeStamp": "16:10",
+        "ErrMsg": "Connection Timeout",
+        "CallingFn": "FunctionXYZ",
+        "Module": "ModuleA",
+        "StackTrace": "...",
+        "UserInfo": {
+          "IpAdd: "12.80.65.12", 
+          "UserId": "bob@acme.com", 
+          ...},
+      }
