@@ -1,0 +1,467 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Redesign — Context &amp;amp; Requirements</title> 
+
+<style> 
+
+:root { --text: #202124; --muted: #5f6368; --heading: #17365d; --border: #d9dee5; --surface: #ffffff; --surface-alt: #f7f9fb; --accent: #2563a8; --note: #eef6ff; --warning: #fff8e6; }
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 40px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: var(--surface);
+  line-height: 1.55;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+h1 { color: var(--heading); margin-bottom: 8px; }
+h2 {
+  color: var(--heading);
+  margin-top: 40px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 { color: #294f78; margin-top: 28px; }
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+}
+
+.meta,
+.note,
+.decision {
+  padding: 16px 18px;
+  margin: 18px 0;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface-alt);
+}
+
+.note {
+  background: var(--note);
+  border-color: #c9e0f8;
+}
+
+.decision {
+  border-left: 4px solid var(--accent);
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+  background: #f1f3f4;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 9px 11px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--surface-alt);
+  color: var(--heading);
+}
+
+li { margin: 5px 0; }
+
+.status {
+  font-size: .82rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+
+
+</style>
+</head>
+
+<body>
+
+<h1>UI Redesign — Context &amp; Requirements</h1>
+
+<div class="subtitle">
+Canonical project context for the application's Web/Desktop UI redesign.
+</div>
+
+<div class="meta">
+<strong>Document role:</strong> Stable project context and requirements.<br>
+<strong>Status:</strong> Living document — update when a fundamental requirement or project assumption changes.<br>
+<strong>Last established:</strong> August 2026
+</div>
+
+<h2>1. Project Overview</h2>
+
+<p>
+The project is an application builder, broadly comparable in concept to modern
+application-building platforms, but substantially heavier and more
+desktop/productivity-oriented.
+</p>
+
+<p>
+The application has two clients: Desktop and Web. The Web client currently uses
+the Dojo UI framework.
+</p>
+
+<p>
+The objective of this effort is to finalize a modern, coherent, highly usable
+visual UI for the Web client while preserving the application's existing
+behavioral architecture.
+</p>
+
+<h2>2. Redesign Objective</h2>
+
+<p>
+The redesign is not intended to make individual widgets look attractive in
+isolation. It is intended to establish a coherent application-wide design
+system that can subsequently be applied consistently to the complete widget
+inventory.
+</p>
+
+<p>
+The design system should provide:
+</p>
+
+<ul>
+<li>A restrained, modern visual language.</li>
+<li>High information density appropriate for a serious application builder.</li>
+<li>Strong consistency between components.</li>
+<li>Clear and predictable interaction states.</li>
+<li>Good keyboard and accessibility behavior.</li>
+<li>A semantic token architecture suitable for future user customization.</li>
+<li>A clear separation between visual styling and component behavior.</li>
+<li>A visual reference/testing environment that can be maintained as the design evolves.</li>
+</ul>
+
+<h2>3. Redesign Philosophy</h2>
+
+<h3>3.1 Design-system first</h3>
+
+<p>
+The redesign should be treated as a design-system exercise rather than merely
+a widget-by-widget CSS exercise.
+</p>
+
+<p>
+Common design primitives should be identified before large-scale component
+styling begins. Components should consume shared semantic design tokens rather
+than independently inventing values for color, focus, spacing, borders, etc.
+</p>
+
+<h3>3.2 Inspiration rather than copying</h3>
+
+<p>
+The primary reference systems are:
+</p>
+
+<ul>
+<li><strong>Notion</strong> — restrained visual language and low visual noise.</li>
+<li><strong>Airtable</strong> — productivity-oriented controls and information density.</li>
+<li><strong>Windows/system UI</strong> — desktop conventions, keyboard interaction and familiar application behavior.</li>
+<li><strong>Material Design</strong> — explicit component/state definitions and systematic design vocabulary.</li>
+</ul>
+
+<p>
+These systems are references for principles and solutions, not templates to
+be copied wholesale.
+</p>
+
+<h2>4. Visual Direction</h2>
+
+<p>
+The desired overall appearance is restrained, predominantly neutral, and
+content-oriented. Persistent color should be used sparingly rather than
+making the application visually saturated.
+</p>
+
+<p>
+Color should increasingly function as an interaction and semantic signal
+rather than merely as persistent decoration.
+</p>
+
+<div class="decision">
+<strong>Established direction: No general elevation role.</strong>
+<p>
+Elevation is <strong>not</strong> a general-purpose Visual Treatment
+role in this design system. The system should not adopt a Material-style
+assumption that controls or surfaces generally need shadows/elevation to
+communicate hierarchy.
+</p>
+</div>
+
+<h2>5. Interaction-State Vocabulary</h2>
+
+<p>
+The original Normal / Focused / Clicked / Disabled model is expanded into a
+standard vocabulary. Individual components will use only the states that are
+meaningful for them.
+</p>
+
+<ul>
+<li>Normal</li>
+<li>Hover</li>
+<li>Focus-visible</li>
+<li>Pressed / Active</li>
+<li>Disabled</li>
+<li>Selected</li>
+<li>Selected + Hover</li>
+<li>Selected + Focus</li>
+<li>Error</li>
+<li>Warning</li>
+<li>Read-only</li>
+</ul>
+
+<h2>6. Hover-State Direction</h2>
+
+<div class="decision">
+<strong>Current design direction: Very-light Claro Blue hover surface.</strong>
+<p>
+For regular/dialog controls that are visually transparent in their resting
+state, the preferred hover treatment is a subtle, very-light Claro Blue
+surface rather than the more conventional neutral-gray surface.
+</p>
+<p>
+The intention is to introduce a small amount of color only when interaction
+occurs, while retaining the application's predominantly neutral appearance.
+</p>
+</div>
+
+<p>
+This is a design direction rather than a finalized numeric color value.
+The exact token value will be established during the Button Design Lab and
+subsequent component validation.
+</p>
+
+<p>
+The hover treatment should not automatically be applied identically to every
+component family. ActionBars, toolbars, grids, menus, selections and other
+specialized controls may require their own interaction treatment.
+</p>
+
+<h2>7. Density</h2>
+
+<p>
+The application is a heavy productivity/application-building environment.
+Information density is therefore an explicit design concern.
+</p>
+
+<p>
+The design system should eventually support a controlled density model rather
+than having each component independently determine its dimensions.
+</p>
+
+<p>
+Candidate density levels discussed conceptually include Compact, Default and
+Comfortable. Exact dimensions remain to be established.
+</p>
+
+<h2>8. Semantic Design Tokens</h2>
+
+<p>
+Tokens should describe semantic roles rather than expose arbitrary raw color
+values to components.
+</p>
+
+<p>
+Examples include:
+</p>
+
+<ul>
+<li><code>--ui-color-accent</code></li>
+<li><code>--ui-color-surface</code></li>
+<li><code>--ui-color-surface-hover</code></li>
+<li><code>--ui-color-surface-active</code></li>
+<li><code>--ui-color-border</code></li>
+<li><code>--ui-color-border-focus</code></li>
+<li><code>--ui-color-focus-ring</code></li>
+<li><code>--ui-color-text</code></li>
+<li><code>--ui-color-text-muted</code></li>
+<li><code>--ui-color-text-disabled</code></li>
+</ul>
+
+<p>
+Exact values will be developed progressively through the component labs.
+</p>
+
+<h2>9. Separation of Concerns</h2>
+
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Structure</td>
+<td>DOM/layout and component structure.</td>
+</tr>
+<tr>
+<td>Behavior</td>
+<td>Dojo/JavaScript behavior and interaction logic.</td>
+</tr>
+<tr>
+<td>Visual Design</td>
+<td>CSS and semantic design tokens.</td>
+</tr>
+<tr>
+<td>Accessibility</td>
+<td>ARIA, keyboard behavior, focus management and accessible states.</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+AI-generated CSS should be constrained primarily to the visual-design layer
+and should not inadvertently redesign component behavior.
+</p>
+
+<h2>10. Accessibility and Keyboard Requirements</h2>
+
+<p>
+Component specifications must address behavior as well as appearance.
+Depending on the component, specifications should include:
+</p>
+
+<ul>
+<li>What receives focus?</li>
+<li>When is the focus indicator visible?</li>
+<li>Enter behavior.</li>
+<li>Space behavior.</li>
+<li>Escape behavior.</li>
+<li>Tab order.</li>
+<li>Arrow-key behavior where applicable.</li>
+<li>Disabled behavior.</li>
+<li>Selected-state behavior.</li>
+</ul>
+
+<h2>11. Component-by-Component Process</h2>
+
+<ol>
+<li>Inventory components.</li>
+<li>Classify components into families.</li>
+<li>Identify shared design primitives.</li>
+<li>Study relevant reference UIs.</li>
+<li>Create a component/state specification.</li>
+<li>Define or refine semantic tokens.</li>
+<li>Create/update the visual Design Lab.</li>
+<li>Generate CSS only after the design direction is sufficiently established.</li>
+<li>Test the result across representative components.</li>
+<li>Use the Labs as an ongoing visual regression/reference suite.</li>
+</ol>
+
+<h2>12. Representative Components</h2>
+
+<p>
+The initial representative set should include components that expose most
+of the fundamental design decisions:
+</p>
+
+<ul>
+<li>Button</li>
+<li>TextBox / text input</li>
+<li>Select / combo control</li>
+<li>Checkbox</li>
+<li>Menu</li>
+<li>Dialog</li>
+<li>Grid</li>
+</ul>
+
+<p>
+Button is currently being used as the first detailed component specification
+and Design Lab.
+</p>
+
+<h2>13. Golden Reference / Design Lab Concept</h2>
+
+<p>
+The project should maintain visual reference pages that allow the design to
+be evaluated interactively rather than relying solely on screenshots.
+</p>
+
+<p>
+A typical component Lab should eventually include:
+</p>
+
+<ul>
+<li>Reference implementations/inspiration from Notion, Airtable, Windows and Material where useful.</li>
+<li>Current Dojo implementation.</li>
+<li>Proposed target implementation.</li>
+<li>Interaction states.</li>
+<li>Relevant variants and sizes.</li>
+<li>Annotations explaining significant design decisions.</li>
+</ul>
+
+<h2>14. Current Design Decisions</h2>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Decision</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-001</td>
+<td>Treat the redesign as a design-system exercise, not merely a widget restyling exercise.</td>
+<td>Established</td>
+</tr>
+<tr>
+<td>D-002</td>
+<td>Use semantic design tokens rather than component-specific raw colors.</td>
+<td>Established</td>
+</tr>
+<tr>
+<td>D-003</td>
+<td>Use a standard interaction-state vocabulary across components.</td>
+<td>Established</td>
+</tr>
+<tr>
+<td>D-004</td>
+<td>Do not make elevation a general Visual Treatment role.</td>
+<td>Established</td>
+</tr>
+<tr>
+<td>D-005</td>
+<td>Use very-light Claro Blue as the preferred hover direction for appropriate transparent controls.</td>
+<td>Design direction</td>
+</tr>
+<tr>
+<td>D-006</td>
+<td>Keep the overall UI restrained and predominantly neutral, with color used intentionally.</td>
+<td>Established</td>
+</tr>
+</tbody>
+</table>
+
+<h2>15. Document Maintenance Rule</h2>
+
+<p>
+This document is the canonical source for stable project context and
+requirements. A conversation should not be considered authoritative when it
+conflicts with this document unless the document is subsequently updated.
+</p>
+
+<p>
+When a fundamental project requirement changes, update this document before
+beginning substantial downstream design work.
+</p>
+
+</body>
+</html>
