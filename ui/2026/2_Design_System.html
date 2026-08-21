@@ -1,0 +1,522 @@
+<!DOCTYPE html> <html lang="en"> 
+  
+  <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Redesign — Design System</title> <style> :root { --text: #202124; --muted: #626970; --heading: #17365d; --border: #d8dee6; --surface: #ffffff; --surface-alt: #f6f8fa; --accent: #2563a8; --link: #155ca8; --decision: #eaf3ff; --pending: #fff8e1; --established: #edf7ed; }
+* { box-sizing: border-box; }
+
+body {
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 1150px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: white;
+  line-height: 1.55;
+}
+
+h1 { color: var(--heading); margin-bottom: 6px; }
+
+h2 {
+  margin-top: 42px;
+  color: var(--heading);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 7px;
+}
+
+h3 {
+  color: #294f78;
+  margin-top: 28px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.banner {
+  padding: 15px 18px;
+  background: var(--decision);
+  border: 1px solid #c9def3;
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  margin: 18px 0;
+}
+
+.pending {
+  padding: 14px 17px;
+  background: var(--pending);
+  border: 1px solid #eadca9;
+  border-radius: 6px;
+  margin: 18px 0;
+}
+
+.established {
+  padding: 14px 17px;
+  background: var(--established);
+  border: 1px solid #cce3cc;
+  border-radius: 6px;
+  margin: 18px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 9px 11px;
+  vertical-align: top;
+  text-align: left;
+}
+
+th {
+  background: var(--surface-alt);
+  color: var(--heading);
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+  background: #f1f3f4;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.token {
+  font-family: Consolas, "Courier New", monospace;
+  color: #174f85;
+}
+
+.status {
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-weight: 600;
+}
+
+li { margin: 5px 0; }
+
+
+</style>
+</head>
+
+<body>
+
+<h1>UI Redesign — Design System</h1>
+
+<div class="subtitle">
+Living specification for the application's visual language, interaction
+states, design tokens and component rules.
+</div>
+
+<div class="banner">
+<strong>Purpose of this document</strong><br>
+This is the working design authority. Decisions established during UI
+redesign sessions should be incorporated here so that future conversations
+do not need to reconstruct design intent from conversation history.
+</div>
+
+<h2>1. Design-System Principles</h2>
+
+<ol>
+<li><strong>System before component.</strong> Establish shared rules before creating component-specific exceptions.</li>
+<li><strong>Semantic rather than arbitrary.</strong> Tokens describe their role, not merely their raw visual value.</li>
+<li><strong>Restrained visual language.</strong> Avoid unnecessary visual noise.</li>
+<li><strong>Interaction should be visible but quiet.</strong> State changes should be discoverable without overwhelming the content.</li>
+<li><strong>Desktop productivity first.</strong> Information density and efficient interaction matter.</li>
+<li><strong>Accessibility is part of the component specification.</strong> It is not an afterthought to visual styling.</li>
+<li><strong>Behavior and visual treatment remain separate.</strong> Dojo behavior should not be changed merely to achieve a visual effect.</li>
+</ol>
+
+<h2>2. Visual Treatment Model</h2>
+
+<p>
+The system deliberately does not use "elevation" as a universal hierarchy
+mechanism.
+</p>
+
+<div class="established">
+<strong>Established rule — Elevation</strong>
+<p>
+There is no general elevation tier such as elevation-1, elevation-2,
+elevation-3, etc. Surfaces should communicate hierarchy through
+composition, borders, contrast, spacing and context rather than assuming
+that everything needs a shadow.
+</p>
+<p>
+A specific component may eventually require a shadow for a particular
+reason, such as a floating overlay. If so, that is a component-level
+treatment, not a general design role.
+</p>
+</div>
+
+<h2>3. Color Architecture</h2>
+
+<p>
+Color should be represented through semantic roles. Raw palette values should
+normally be hidden behind those semantic tokens.
+</p>
+
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Purpose</th>
+<th>Current status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="token">--ui-color-accent</td>
+<td>Primary application accent.</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td class="token">--ui-color-surface</td>
+<td>Default component/surface background.</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td class="token">--ui-color-surface-hover</td>
+<td>Subtle surface revealed on hover where applicable.</td>
+<td>Claro Blue direction</td>
+</tr>
+<tr>
+<td class="token">--ui-color-surface-active</td>
+<td>Pressed/active surface.</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td class="token">--ui-color-border</td>
+<td>Default border.</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td class="token">--ui-color-border-focus</td>
+<td>Border treatment associated with focus where applicable.</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td class="token">--ui-color-focus-ring</td>
+<td>Focus-visible indicator.</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td class="token">--ui-color-text</td>
+<td>Primary text.</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td class="token">--ui-color-text-muted</td>
+<td>Secondary/muted text.</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td class="token">--ui-color-text-disabled</td>
+<td>Disabled text.</td>
+<td>TBD</td>
+</tr>
+</tbody>
+</table>
+
+<h2>4. Interaction States</h2>
+
+<p>
+The standard state vocabulary is:
+</p>
+
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+<th>General visual principle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal</td>
+<td>Resting interactive state.</td>
+<td>Quiet/default appearance.</td>
+</tr>
+<tr>
+<td>Hover</td>
+<td>Pointer is over an interactive target.</td>
+<td>Subtle affordance; light Claro Blue is preferred where appropriate.</td>
+</tr>
+<tr>
+<td>Focus-visible</td>
+<td>Keyboard/accessibility focus is active.</td>
+<td>Clear, standardized focus treatment.</td>
+</tr>
+<tr>
+<td>Pressed / Active</td>
+<td>Control is being activated or held.</td>
+<td>Stronger than hover; should communicate physical activation.</td>
+</tr>
+<tr>
+<td>Disabled</td>
+<td>Control is unavailable.</td>
+<td>Reduced visual emphasis without becoming ambiguous.</td>
+</tr>
+<tr>
+<td>Selected</td>
+<td>Persistent application selection/toggle state.</td>
+<td>Must remain distinguishable from transient hover.</td>
+</tr>
+<tr>
+<td>Selected + Hover</td>
+<td>Selected item under pointer.</td>
+<td>Selected state remains dominant; hover may subtly modify it.</td>
+</tr>
+<tr>
+<td>Selected + Focus</td>
+<td>Selected item has keyboard focus.</td>
+<td>Selection and focus must remain independently understandable.</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>Invalid/problem state.</td>
+<td>Semantic error treatment.</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>Potential problem requiring attention.</td>
+<td>Semantic warning treatment.</td>
+</tr>
+<tr>
+<td>Read-only</td>
+<td>Content is viewable but not editable.</td>
+<td>Must communicate non-editability without appearing disabled.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>5. Hover Treatment</h2>
+
+<div class="banner">
+<strong>Current design direction</strong>
+<p>
+Transparent regular/dialog buttons should preferably reveal a very-light
+Claro Blue surface on hover rather than a neutral gray surface.
+</p>
+<p>
+This provides a small amount of color only during interaction and fits the
+overall restrained/near-monochrome visual direction.
+</p>
+</div>
+
+<p>
+The hover token must remain semantic. Components should reference
+<code>--ui-color-surface-hover</code> rather than embedding a specific
+Claro Blue value.
+</p>
+
+<p>
+This treatment is not automatically prescribed for ActionBars, toolbars,
+menus, grids or other specialized components. Their behavior will be
+determined during their own component specifications.
+</p>
+
+<h2>6. Typography</h2>
+
+<p>
+Typography is a shared foundation and should eventually be expressed through
+semantic tokens.
+</p>
+
+<p>
+Candidate token families:
+</p>
+
+<ul>
+<li><code>--ui-font-family</code></li>
+<li><code>--ui-font-size-xs</code></li>
+<li><code>--ui-font-size-sm</code></li>
+<li><code>--ui-font-size-md</code></li>
+<li><code>--ui-font-size-lg</code></li>
+<li><code>--ui-font-weight-normal</code></li>
+<li><code>--ui-font-weight-medium</code></li>
+<li><code>--ui-font-weight-semibold</code></li>
+</ul>
+
+<p>
+Exact values remain TBD pending broader component comparison.
+</p>
+
+<h2>7. Spacing and Density</h2>
+
+<p>
+Spacing should use a controlled scale rather than arbitrary component-specific
+padding.
+</p>
+
+<p>
+The application should eventually support density profiles. Candidate profiles
+are Compact, Default and Comfortable. Exact control heights, spacing values
+and profile behavior remain to be established.
+</p>
+
+<h2>8. Borders and Radius</h2>
+
+<p>
+Borders should generally be quiet and functional rather than decorative.
+Border radius should likewise be systematic rather than independently chosen
+by every component.
+</p>
+
+<p>
+The exact radius scale remains TBD.
+</p>
+
+<h2>9. Focus Treatment</h2>
+
+<p>
+Focus is a first-class interaction state. It must not be confused with hover
+or selection.
+</p>
+
+<p>
+The eventual focus treatment should:
+</p>
+
+<ul>
+<li>Be visually clear.</li>
+<li>Be consistent across component families where practical.</li>
+<li>Work against both light and darker surfaces where required.</li>
+<li>Respect keyboard accessibility.</li>
+<li>Avoid being mistaken for a persistent selection state.</li>
+</ul>
+
+<h2>10. Button System</h2>
+
+<p>
+Button is the first component being developed as a formal component
+specification. The Button Design Lab is the working visual artifact.
+</p>
+
+<p>
+The Button specification will ultimately define:
+</p>
+
+<ul>
+<li>Button roles/variants.</li>
+<li>Normal state.</li>
+<li>Hover state.</li>
+<li>Focus-visible state.</li>
+<li>Pressed/active state.</li>
+<li>Disabled state.</li>
+<li>Selected/toggled state where applicable.</li>
+<li>Icon-only buttons.</li>
+<li>Text + icon buttons.</li>
+<li>ActionBar versus regular/dialog buttons.</li>
+<li>Sizing and density.</li>
+<li>Icon alignment and spacing.</li>
+<li>Keyboard/accessibility behavior.</li>
+</ul>
+
+<h2>11. Component Specification Template</h2>
+
+<p>
+Each component should eventually have a specification containing at least:
+</p>
+
+<ol>
+<li>Purpose and role.</li>
+<li>Variants.</li>
+<li>Dimensions/density.</li>
+<li>Typography.</li>
+<li>Normal state.</li>
+<li>Hover state.</li>
+<li>Focus-visible state.</li>
+<li>Pressed/active state.</li>
+<li>Disabled state.</li>
+<li>Selection states if applicable.</li>
+<li>Validation/error states if applicable.</li>
+<li>Iconography if applicable.</li>
+<li>Keyboard behavior.</li>
+<li>Accessibility requirements.</li>
+<li>Exceptions to global rules.</li>
+<li>Relevant design tokens.</li>
+</ol>
+
+<h2>12. Design Decision Log</h2>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Decision</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-001</td>
+<td>Design-system-first approach.</td>
+<td>Established</td>
+</tr>
+<tr>
+<td>D-002</td>
+<td>Semantic tokens rather than arbitrary raw color tokens.</td>
+<td>Established</td>
+</tr>
+<tr>
+<td>D-003</td>
+<td>Standardized interaction-state vocabulary.</td>
+<td>Established</td>
+</tr>
+<tr>
+<td>D-004</td>
+<td>Elevation is not a general Visual Treatment role.</td>
+<td>Established</td>
+</tr>
+<tr>
+<td>D-005</td>
+<td>Very-light Claro Blue is the preferred hover direction for appropriate transparent controls.</td>
+<td>Current direction</td>
+</tr>
+<tr>
+<td>D-006</td>
+<td>Persistent color should be restrained; interaction can introduce subtle color.</td>
+<td>Established</td>
+</tr>
+</tbody>
+</table>
+
+<h2>13. Open Questions</h2>
+
+<div class="pending">
+These are intentionally unresolved. They should be settled through the
+component Labs rather than guessed globally.
+</div>
+
+<ul>
+<li>Exact semantic color values.</li>
+<li>Exact Claro Blue hover value.</li>
+<li>Focus-ring geometry and color.</li>
+<li>Border-radius scale.</li>
+<li>Control-height scale.</li>
+<li>Spacing scale.</li>
+<li>Typography scale.</li>
+<li>Precise Button variant taxonomy.</li>
+<li>ActionBar-specific interaction rules.</li>
+<li>Dark-theme requirements, if applicable.</li>
+<li>Final density profiles.</li>
+</ul>
+
+<h2>14. Maintenance Rule</h2>
+
+<p>
+This document should contain conclusions, not the entire history of the
+conversation that produced them. If a decision changes, update the decision
+rather than accumulating contradictory historical rules.
+</p>
+
+<p>
+Temporary experiments belong in the relevant Design Lab. Once an experiment
+is accepted as a design rule, promote the result into this document.
+</p>
+
+</body>
+</html>
