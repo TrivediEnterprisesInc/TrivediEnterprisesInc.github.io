@@ -1,0 +1,968 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Design Lab — Button</title>
+
+<style>
+/*
+============================================================
+BUTTON DESIGN LAB
+============================================================
+
+  This is a visual working artifact.
+
+  Important:
+  - Exact token values are provisional.
+  - The semantic token names are the important part.
+  - The hover treatment intentionally uses a very-light
+    Claro Blue as the current design candidate.
+  - Elevation is NOT used as a general button treatment.
+*/
+
+:root {
+  /* --------------------------------------------------------
+     Global semantic tokens — PROVISIONAL
+     -------------------------------------------------------- */
+
+  --ui-color-surface: #ffffff;
+  --ui-color-surface-subtle: #f7f8fa;
+
+  --ui-color-surface-hover: #eaf3ff;
+  --ui-color-surface-active: #dcecff;
+
+  --ui-color-border: #cfd5dc;
+  --ui-color-border-hover: #b9c4d0;
+  --ui-color-border-active: #9fb0c1;
+
+  --ui-color-text: #25282b;
+  --ui-color-text-muted: #626970;
+  --ui-color-text-disabled: #9aa1a8;
+
+  --ui-color-accent: #2563a8;
+  --ui-color-accent-hover: #1e568f;
+
+  --ui-color-focus-ring: #3b82d0;
+
+  --ui-color-primary-text: #ffffff;
+  --ui-color-primary-bg: #2563a8;
+  --ui-color-primary-bg-hover: #1f5896;
+  --ui-color-primary-bg-active: #174979;
+
+  --ui-color-disabled-bg: #f1f3f5;
+  --ui-color-disabled-border: #dde1e5;
+
+  /* --------------------------------------------------------
+     Geometry — PROVISIONAL
+     -------------------------------------------------------- */
+
+  --ui-button-height: 32px;
+  --ui-button-height-compact: 28px;
+  --ui-button-height-comfortable: 38px;
+
+  --ui-button-padding-x: 11px;
+  --ui-button-gap: 7px;
+
+  --ui-button-radius: 5px;
+  --ui-button-border-width: 1px;
+
+  --ui-button-font-size: 14px;
+  --ui-button-font-weight: 400;
+
+  --ui-focus-width: 2px;
+  --ui-focus-offset: 2px;
+
+  --ui-transition: 100ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  color: var(--ui-color-text);
+  background: #f4f6f8;
+  line-height: 1.45;
+}
+
+.lab-header {
+  background: #ffffff;
+  border-bottom: 1px solid #d8dee5;
+  padding: 24px 32px;
+}
+
+.lab-header h1 {
+  margin: 0 0 4px;
+  color: #17365d;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.lab-header p {
+  margin: 0;
+  color: #626970;
+}
+
+.lab {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 32px 60px;
+}
+
+.notice {
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  background: #eaf3ff;
+  border: 1px solid #c9def3;
+  border-left: 4px solid #2563a8;
+  border-radius: 6px;
+}
+
+.notice strong {
+  color: #174f85;
+}
+
+.section {
+  background: #ffffff;
+  border: 1px solid #d8dee5;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.section-header {
+  padding: 15px 18px;
+  background: #f7f8fa;
+  border-bottom: 1px solid #d8dee5;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #294f78;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.section-header p {
+  margin: 4px 0 0;
+  color: #697078;
+  font-size: 13px;
+}
+
+.section-body {
+  padding: 20px;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 190px repeat(5, minmax(120px, 1fr));
+  border: 1px solid #d8dee5;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.comparison-grid3 {
+  display: grid;
+  grid-template-columns: 190px repeat(4, minmax(120px, 1fr));
+  border: 1px solid #d8dee5;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.grid-cell {
+  min-height: 82px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #d8dee5;
+  border-bottom: 1px solid #d8dee5;
+  background: #ffffff;
+}
+
+.grid-cell:nth-child(6n) {
+  border-right: 0;
+}
+
+.grid-header {
+  min-height: 42px;
+  background: #f7f8fa;
+  color: #46515c;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.row-label {
+  justify-content: flex-start;
+  font-size: 13px;
+  font-weight: 600;
+  color: #3e4852;
+  background: #fbfcfd;
+}
+
+.row-divider {
+  background: #eef1f4;
+}
+
+/* ==========================================================
+   BUTTON BASE
+   ========================================================== */
+
+.ui-button {
+  appearance: none;
+  border: var(--ui-button-border-width) solid var(--ui-color-border);
+  border-radius: var(--ui-button-radius);
+
+  min-height: var(--ui-button-height);
+  padding: 0 var(--ui-button-padding-x);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ui-button-gap);
+
+  font-family: inherit;
+  font-size: var(--ui-button-font-size);
+  font-weight: var(--ui-button-font-weight);
+  line-height: 1;
+
+  color: var(--ui-color-text);
+  background: var(--ui-color-surface);
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--ui-transition),
+    border-color var(--ui-transition),
+    color var(--ui-transition);
+}
+
+/*
+  Current design direction:
+  very-light Claro Blue on hover.
+
+  No shadow/elevation is used.
+*/
+
+.ui-button:hover {
+  background: var(--ui-color-surface-hover);
+  border-color: var(--ui-color-border-hover);
+}
+
+.ui-button:active,
+.ui-button.is-pressed {
+  background: var(--ui-color-surface-active);
+  border-color: var(--ui-color-border-active);
+}
+
+.ui-button:focus-visible,
+.ui-button.is-focus {
+  outline: var(--ui-focus-width) solid var(--ui-color-focus-ring);
+  outline-offset: var(--ui-focus-offset);
+}
+
+.ui-button:disabled,
+.ui-button.is-disabled {
+  color: var(--ui-color-text-disabled);
+  background: var(--ui-color-disabled-bg);
+  border-color: var(--ui-color-disabled-border);
+  cursor: default;
+}
+
+/* Primary */
+
+.ui-button.primary {
+  color: var(--ui-color-primary-text);
+  background: var(--ui-color-primary-bg);
+  border-color: var(--ui-color-primary-bg);
+}
+
+.ui-button.primary:hover {
+  color: var(--ui-color-primary-text);
+  background: var(--ui-color-primary-bg-hover);
+  border-color: var(--ui-color-primary-bg-hover);
+}
+
+.ui-button.primary:active,
+.ui-button.primary.is-pressed {
+  color: var(--ui-color-primary-text);
+  background: var(--ui-color-primary-bg-active);
+  border-color: var(--ui-color-primary-bg-active);
+}
+
+.ui-button.primary:disabled,
+.ui-button.primary.is-disabled {
+  color: #aeb8c2;
+  background: #e9edf1;
+  border-color: #e9edf1;
+}
+
+/* Ghost / transparent */
+
+.ui-button.ghost {
+  border-color: transparent;
+  background: transparent;
+}
+
+.ui-button.ghost:hover {
+  background: var(--ui-color-surface-hover);
+  border-color: transparent;
+}
+
+.ui-button.ghost:active,
+.ui-button.ghost.is-pressed {
+  background: var(--ui-color-surface-active);
+  border-color: transparent;
+}
+
+/* Icon */
+
+.ui-button.icon-only {
+  width: var(--ui-button-height);
+  padding: 0;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.state-button {
+  pointer-events: none;
+}
+
+.state-button.hover-state {
+  background: var(--ui-color-surface-hover);
+  border-color: var(--ui-color-border-hover);
+}
+
+.state-button.focus-state {
+  outline: var(--ui-focus-width) solid var(--ui-color-focus-ring);
+  outline-offset: var(--ui-focus-offset);
+}
+
+.state-button.pressed-state {
+  background: var(--ui-color-surface-active);
+  border-color: var(--ui-color-border-active);
+}
+
+.state-button.disabled-state {
+  color: var(--ui-color-text-disabled);
+  background: var(--ui-color-disabled-bg);
+  border-color: var(--ui-color-disabled-border);
+}
+
+.token-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.token-table th,
+.token-table td {
+  border: 1px solid #d8dee5;
+  padding: 9px 11px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.token-table th {
+  background: #f7f8fa;
+  color: #294f78;
+}
+
+.token {
+  font-family: Consolas, "Courier New", monospace;
+  color: #174f85;
+}
+
+.provisional {
+  color: #956c00;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.annotation {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #fafbfc;
+  border: 1px solid #e1e5e9;
+  border-radius: 5px;
+  color: #59636c;
+  font-size: 13px;
+}
+
+.decision-list li {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .comparison-grid {
+    grid-template-columns: 130px repeat(5, minmax(100px, 1fr));
+    overflow-x: auto;
+  }
+
+  .comparison-grid3 {
+    grid-template-columns: 130px repeat(4, minmax(100px, 1fr));
+    overflow-x: auto;
+  }
+
+  .grid-cell {
+    min-width: 100px;
+  }
+
+  .row-label {
+    min-width: 130px;
+  }
+
+  .lab {
+    padding-inline: 16px;
+  }
+
+  .lab-header {
+    padding-inline: 20px;
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header class="lab-header">
+<h1>UI Design Lab — Button</h1>
+<p>
+Working visual specification and state laboratory for the Button component.
+</p>
+</header>
+
+<main class="lab">
+
+<div class="notice">
+<strong>Current design hypothesis:</strong>
+Regular transparent buttons should reveal a very-light Claro Blue surface
+on hover. This is deliberately being treated as a design hypothesis until
+it has been validated across the broader component system.
+</div>
+
+<section class="section">
+<div class="section-header">
+<h2>1. State Comparison</h2>
+<p>The standard Button state vocabulary currently being evaluated.</p>
+</div>
+
+<div class="section-body">
+
+  <div class="comparison-grid">
+
+    <div class="grid-cell grid-header">Variant</div>
+    <div class="grid-cell grid-header">Normal</div>
+    <div class="grid-cell grid-header">Hover</div>
+    <div class="grid-cell grid-header">Focus</div>
+    <div class="grid-cell grid-header">Pressed</div>
+    <div class="grid-cell grid-header">Disabled</div>
+
+    <div class="grid-cell row-label">Regular</div>
+    <div class="grid-cell">
+      <button class="ui-button state-button">Button</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button state-button hover-state">Button</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button state-button focus-state">Button</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button state-button pressed-state">Button</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button state-button disabled-state">Button</button>
+    </div>
+
+    <div class="grid-cell row-label">Primary</div>
+    <div class="grid-cell">
+      <button class="ui-button primary state-button">Apply</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button primary state-button" style="background:#1f5896;border-color:#1f5896;">Apply</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button primary state-button focus-state">Apply</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button primary state-button pressed-state">Apply</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button primary state-button disabled-state">Apply</button>
+    </div>
+
+    <div class="grid-cell row-label">Ghost / Transparent</div>
+    <div class="grid-cell">
+      <button class="ui-button ghost state-button">More</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button ghost state-button hover-state">More</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button ghost state-button focus-state">More</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button ghost state-button pressed-state">More</button>
+    </div>
+    <div class="grid-cell">
+      <button class="ui-button ghost state-button disabled-state">More</button>
+    </div>
+
+  </div>
+
+  <div class="annotation">
+    <strong>Observation:</strong>
+    The regular and ghost buttons are where the proposed Claro Blue hover
+    treatment is most significant. The primary button has its own stronger
+    color treatment and therefore should not simply inherit the same hover
+    surface.
+  </div>
+
+</div>
+
+
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>2. Live Interaction Test</h2>
+<p>Move the pointer and use the keyboard to evaluate the proposed states.</p>
+</div>
+
+<div class="section-body">
+
+  <div class="demo-row">
+
+    <button class="ui-button">
+      Regular
+    </button>
+
+    <button class="ui-button primary">
+      Primary
+    </button>
+
+    <button class="ui-button ghost">
+      Transparent
+    </button>
+
+    <button class="ui-button">
+      <span class="icon" aria-hidden="true">＋</span>
+      Add Item
+    </button>
+
+    <button class="ui-button icon-only" aria-label="More options">
+      <span class="icon" aria-hidden="true">⋮</span>
+    </button>
+
+    <button class="ui-button" disabled>
+      Disabled
+    </button>
+
+  </div>
+
+  <div class="annotation">
+    <strong>Keyboard test:</strong>
+    Use Tab to move through the buttons. The focus-visible treatment should
+    remain distinguishable from both hover and selection.
+  </div>
+
+</div>
+
+
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>3. Button Roles Under Consideration</h2>
+<p>These are working categories, not yet a finalized taxonomy.</p>
+</div>
+
+<div class="section-body">
+
+
+  <div class="comparison-grid3">
+
+    <div class="grid-cell grid-header">Variant</div>
+    <div class="grid-cell grid-header">Primary</div>
+    <div class="grid-cell grid-header">Secondary</div>
+    <div class="grid-cell grid-header">Transparent</div>
+    <div class="grid-cell grid-header">IconOnly</div>
+
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Notion</div>
+
+    <div class="grid-cell">
+     <img src="Notion-Btn-Primary.png" alt="Notion-Btn-Primary" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Notion-Btn-Secondary.png" alt="Notion-Btn-Secondary" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Notion-Btn-Transp.png" alt="Notion-Btn-Transparent" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Notion-Btn-Icon.png" alt="Notion-Btn-IconOnly" border="0">
+    </div>
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">AirTable</div>
+
+    <div class="grid-cell">
+     <img src="AT-Btn-Primary.png" alt="AT-Btn-Primary" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="AT-Btn-Secondary.png" alt="AT-Btn-Secondary" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="AT-Btn-Transp.png" alt="AT-Btn-Transparent" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="AT-Btn-Icon.png" alt="AT-Btn-IconOnly" border="0">
+    </div>
+
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Material</div>
+
+    <div class="grid-cell">
+     <img src="M3-Btn-Primary.png" alt="M3-Btn-Primary" style="width: 50%; height: auto;border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="M3-Btn-Secondary.png" alt="M3-Btn-Secondary" style="width: 50%; height: auto;border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="M3-Btn-Transp.png" alt="M3-Btn-Transparent" style="width:25%; height: auto;border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="M3-Btn-Icon.png" alt="M3-Btn-IconOnly" style="width: 25%; height: auto;border:0">
+    </div>
+
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Windows</div>
+
+    <div class="grid-cell">
+     <img src="Win-Btn-Primary.png" alt="Win-Btn-Primary" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Win-Btn-Secondary.png" alt="Win-Btn-Secondary" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Win-Btn-Transp.png" alt="Win-Btn-Transparent" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Win-Btn-Icon.png" alt="Win-Btn-IconOnly" style="border:0">
+    </div>
+
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Current</div>
+
+    <div class="grid-cell">
+     <img src="Brij-Btn-Primary.png" alt="Brij-Btn-Primary" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Brij-Btn-Secondary.png" alt="Brij-Btn-Secondary" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Brij-Btn-Transp.png" alt="Brij-Btn-Transparent" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="Brij-Btn-Icon.png" alt="Brij-Btn-IconOnly" style="border:0">
+    </div>
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Proposed</div>
+
+    <div class="grid-cell">
+    <button class="ui-button primary">
+        Primary Action
+    </button>    </div>
+
+    <div class="grid-cell">
+    <button class="ui-button">
+      Secondary Action
+    </button>
+    </div>
+
+    <div class="grid-cell">
+    <button class="ui-button ghost">
+      Tertiary / Transparent
+    </button>
+    </div>
+
+    <div class="grid-cell">
+    <button class="ui-button icon-only" aria-label="Settings">
+      <span class="icon" aria-hidden="true">⚙</span>
+    </button>
+    </div>
+
+    <!------------------------------------------>
+
+
+  </div>
+
+
+  <div class="annotation">
+    The final variant taxonomy should emerge from actual application
+    requirements rather than being copied from another design system.
+  </div>
+
+</div>
+
+
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>4. Current Button Token Set</h2>
+<p>Names are more authoritative than the provisional values.</p>
+</div>
+
+<div class="section-body">
+
+  <table class="token-table">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Current value</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td class="token">--ui-color-surface-hover</td>
+        <td>#eaf3ff <span class="provisional">PROVISIONAL</span></td>
+        <td>Very-light Claro Blue hover surface.</td>
+      </tr>
+
+      <tr>
+        <td class="token">--ui-color-surface-active</td>
+        <td>#dcecff <span class="provisional">PROVISIONAL</span></td>
+        <td>Pressed/active surface for regular controls.</td>
+      </tr>
+
+      <tr>
+        <td class="token">--ui-color-border</td>
+        <td>#cfd5dc <span class="provisional">PROVISIONAL</span></td>
+        <td>Default button border.</td>
+      </tr>
+
+      <tr>
+        <td class="token">--ui-color-focus-ring</td>
+        <td>#3b82d0 <span class="provisional">PROVISIONAL</span></td>
+        <td>Focus-visible indicator.</td>
+      </tr>
+
+      <tr>
+        <td class="token">--ui-button-height</td>
+        <td>32px <span class="provisional">PROVISIONAL</span></td>
+        <td>Default button height.</td>
+      </tr>
+
+      <tr>
+        <td class="token">--ui-button-radius</td>
+        <td>5px <span class="provisional">PROVISIONAL</span></td>
+        <td>Button corner radius.</td>
+      </tr>
+
+      <tr>
+        <td class="token">--ui-button-gap</td>
+        <td>7px <span class="provisional">PROVISIONAL</span></td>
+        <td>Text/icon gap.</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="annotation">
+    These numeric values are intentionally provisional. They should not
+    yet be promoted into the global Design System as final values.
+  </div>
+
+</div>
+
+
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>5. Design Questions to Resolve</h2>
+<p>Items that should be settled before Button becomes a finalized component specification.</p>
+</div>
+
+<div class="section-body">
+
+  <ol class="decision-list">
+    <li>
+      Is the Claro Blue hover sufficiently subtle, or should it be lighter?
+    </li>
+
+    <li>
+      Should the hover surface be accompanied by a border change, or should
+      the border remain unchanged?
+    </li>
+
+    <li>
+      How should hover interact with a selected/toggled button?
+    </li>
+
+    <li>
+      How should ActionBar buttons differ from regular/dialog buttons?
+    </li>
+
+    <li>
+      What is the final distinction between Primary, Secondary and
+      Transparent/Tertiary actions?
+    </li>
+
+    <li>
+      Should icon-only buttons use the same hover surface and geometry?
+    </li>
+
+    <li>
+      What is the final focus treatment?
+    </li>
+
+    <li>
+      What are the final Compact, Default and Comfortable dimensions?
+    </li>
+
+    <li>
+      How much of the Button treatment should be shared by other controls?
+    </li>
+
+    <li>
+      Which values should become global semantic tokens?
+    </li>
+  </ol>
+
+</div>
+
+
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>6. Current Decisions</h2>
+<p>Promote these into Design_System.html when they are sufficiently established.</p>
+</div>
+
+<div class="section-body">
+
+  <ul class="decision-list">
+
+    <li>
+      <strong>D-001:</strong>
+      The overall UI should remain restrained and predominantly neutral.
+    </li>
+
+    <li>
+      <strong>D-002:</strong>
+      Hover can be a place where subtle color appears rather than remaining
+      persistently visible.
+    </li>
+
+    <li>
+      <strong>D-003:</strong>
+      Very-light Claro Blue is the current preferred hover direction for
+      appropriate transparent buttons.
+    </li>
+
+    <li>
+      <strong>D-004:</strong>
+      Elevation/shadow is not a general Button visual-treatment mechanism.
+    </li>
+
+    <li>
+      <strong>D-005:</strong>
+      Semantic tokens should be used even when the initial values are
+      provisional.
+    </li>
+
+  </ul>
+
+</div>
+
+
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>7. Notes for Future Iterations</h2>
+</div>
+
+<div class="section-body">
+
+  <p>
+    This Lab is intentionally not a final implementation. It is the place
+    where visual hypotheses can be tested before they become design-system
+    rules.
+  </p>
+
+  <p>
+    Once the Button design is sufficiently settled, the final decisions
+    should be promoted to <code>Design_System.html</code> and the
+    provisional values in this Lab should be replaced with the approved
+    semantic tokens.
+  </p>
+
+  <p>
+    The same pattern should subsequently be used for TextBox, Select,
+    Checkbox, Menu, Dialog, Grid and other representative components.
+  </p>
+
+</div>
+
+
+</section>
+
+</main>
+
+</body>
+</html></pre>
