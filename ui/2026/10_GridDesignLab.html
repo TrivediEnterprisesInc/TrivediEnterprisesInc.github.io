@@ -1,0 +1,2529 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Design Lab — Grid</title> 
+<style> :root { 
+
+/* 
+https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
+   =========================================================
+   GLOBAL SEMANTIC TOKENS — PROVISIONAL 
+   ========================================================= */
+
+--ui-color-surface: #ffffff;
+--ui-color-surface-subtle: #f7f8fa;
+--ui-color-surface-hover: #eaf3ff;
+--ui-color-surface-active: #dcecff;
+--ui-color-surface-selected: #eaf3ff;
+--ui-color-surface-disabled: #f4f5f6;
+
+--ui-color-border: #cfd5dc;
+--ui-color-border-subtle: #e1e5e9;
+--ui-color-border-hover: #b9c3ce;
+--ui-color-border-focus: #3b82d0;
+
+--ui-color-text: #202428;
+--ui-color-text-muted: #6b737c;
+--ui-color-text-disabled: #9aa1a8;
+
+--ui-color-accent: #2563a8;
+--ui-color-focus-ring: #3b82d0;
+
+--ui-color-error: #c0392b;
+--ui-color-warning: #a56a00;
+
+/* ==========================================================
+   GRID GEOMETRY — PROVISIONAL
+   ========================================================== */
+
+--ui-grid-header-height: 32px;
+--ui-grid-row-height: 32px;
+--ui-grid-row-height-compact: 28px;
+--ui-grid-row-height-comfortable: 38px;
+
+--ui-grid-cell-padding-x: 9px;
+--ui-grid-cell-padding-y: 6px;
+
+--ui-grid-border-width: 1px;
+--ui-grid-radius: 5px;
+
+--ui-grid-header-font-size: 13px;
+--ui-grid-cell-font-size: 13px;
+
+--ui-grid-focus-width: 2px;
+--ui-grid-focus-offset: -2px;
+
+--ui-grid-selection-border: #3b82d0;
+
+--ui-transition: 100ms ease;
+
+
+ }
+
+ - {
+   box-sizing: border-box;
+   }
+
+ html,
+ body {
+ margin: 0;
+ padding: 0;
+ }
+
+ body {
+ font-family:
+ -apple-system,
+ BlinkMacSystemFont,
+ "Segoe UI",
+ Arial,
+ sans-serif;
+ font-size: 14px;
+ line-height: 1.45;
+ color: var(--ui-color-text);
+ background: #f4f6f8;
+ }
+
+/* ==========================================================
+   LAB FRAME
+   ========================================================== */
+
+ .lab-header {
+ background: #ffffff;
+ border-bottom: 1px solid #d8dee5;
+ padding: 24px 32px;
+ }
+
+ .lab-header h1 {
+ margin: 0 0 4px;
+ color: #17365d;
+ font-size: 24px;
+ font-weight: 600;
+ }
+
+ .lab-header p {
+ margin: 0;
+ color: #626970;
+ }
+
+ .lab {
+ max-width: 1400px;
+ margin: 0 auto;
+ padding: 28px 32px 60px;
+ }
+
+ .notice {
+ padding: 14px 16px;
+ margin-bottom: 24px;
+ background: #eaf3ff;
+ border: 1px solid #c9def3;
+ border-left: 4px solid #2563a8;
+ border-radius: 6px;
+ }
+
+ .notice strong {
+ color: #174f85;
+ }
+
+ .section {
+ background: #ffffff;
+ border: 1px solid #d8dee5;
+ border-radius: 8px;
+ margin-bottom: 24px;
+ overflow: hidden;
+ }
+
+ .section-header {
+ padding: 15px 18px;
+ background: #f7f8fa;
+ border-bottom: 1px solid #d8dee5;
+ }
+
+ .section-header h2 {
+ margin: 0;
+ color: #294f78;
+ font-size: 17px;
+ font-weight: 600;
+ }
+
+ .section-header p {
+ margin: 4px 0 0;
+ color: #697078;
+ font-size: 13px;
+ }
+
+ .section-body {
+ padding: 20px;
+ }
+
+ h3 {
+ margin: 22px 0 8px;
+ color: #294f78;
+ font-size: 15px;
+ }
+
+ p {
+ margin: 8px 0 14px;
+ }
+
+ .note {
+ color: var(--ui-color-text-muted);
+ font-size: 13px;
+ }
+
+ .hypothesis {
+ padding: 12px 14px;
+ margin: 12px 0 18px;
+ border-left: 3px solid var(--ui-color-border-focus);
+ background: #f8fafc;
+ }
+
+ .warning {
+ padding: 12px 14px;
+ margin: 14px 0;
+ border: 1px solid #eadca9;
+ border-left: 3px solid #c48a00;
+ background: #fff9e8;
+ }
+
+/* ==========================================================
+   REFERENCE IMAGE / SCREENSHOT COLLECTION
+   ========================================================== */
+
+ .reference-grid {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: 18px;
+ margin-top: 18px;
+ }
+
+ .reference-card {
+ min-width: 0;
+ border: 1px solid #d8dee5;
+ border-radius: 7px;
+ overflow: hidden;
+ background: #ffffff;
+ }
+
+ .reference-card-header {
+ padding: 11px 13px;
+ background: #f7f8fa;
+ border-bottom: 1px solid #d8dee5;
+ }
+
+ .reference-card-header strong {
+ color: #294f78;
+ }
+
+ .reference-card-header small {
+ display: block;
+ margin-top: 3px;
+ color: #697078;
+ }
+
+ .reference-image {
+ min-height: 230px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 12px;
+ background:  repeating-linear-gradient(
+ 45deg,
+ #fafbfc,
+ #fafbfc 10px,
+ #f5f7f9 10px,
+ #f5f7f9 20px
+ );
+ }
+
+ .reference-image img {
+ display: block;
+ max-width: 100%;
+ max-height: 360px;
+ object-fit: contain;
+ border: 1px solid #d8dee5;
+ background: #ffffff;
+ }
+
+ .image-placeholder {
+ width: 100%;
+ min-height: 190px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ padding: 25px;
+ color: #7a838d;
+ border: 1px dashed #bfc7cf;
+ background: #ffffff;
+ }
+
+ .reference-meta {
+ padding: 12px 13px;
+ }
+
+ .reference-meta label {
+ display: block;
+ margin: 9px 0 4px;
+ color: #46515c;
+ font-size: 12px;
+ font-weight: 600;
+ }
+
+ .reference-meta input,
+ .reference-meta textarea,
+ .reference-meta select {
+ width: 100%;
+ padding: 7px 8px;
+ border: 1px solid #cfd5dc;
+ border-radius: 4px;
+ background: #ffffff;
+ color: #202428;
+ font: inherit;
+ }
+
+ .reference-meta textarea {
+ min-height: 65px;
+ resize: vertical;
+ }
+
+ .reference-meta .two-column {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 10px;
+ }
+
+/* ==========================================================
+   REFERENCE ROLE MATRIX
+   ========================================================== */
+
+ .role-table {
+ width: 100%;
+ border-collapse: collapse;
+ margin-top: 14px;
+ }
+
+ .role-table th,
+ .role-table td {
+ padding: 9px 10px;
+ border: 1px solid #dfe3e7;
+ text-align: left;
+ vertical-align: top;
+ }
+
+ .role-table th {
+ background: #f6f7f8;
+ color: #294f78;
+ font-weight: 600;
+ }
+
+ .role-table code {
+ font-family:
+ ui-monospace,
+ SFMono-Regular,
+ Menlo,
+ Consolas,
+ monospace;
+ font-size: 12px;
+ }
+
+/* ==========================================================
+   PROPOSED GRID
+   ========================================================== */
+
+ .grid-demo {
+ border: 1px solid var(--ui-color-border);
+ border-radius: var(--ui-grid-radius);
+ overflow: hidden;
+ background: var(--ui-color-surface);
+ }
+
+ .grid-toolbar {
+ min-height: 38px;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ padding: 5px 8px;
+ border-bottom: 1px solid var(--ui-color-border);
+ background: #ffffff;
+ }
+
+ .grid-toolbar-title {
+ margin-right: auto;
+ font-size: 13px;
+ font-weight: 600;
+ color: #46515c;
+ }
+
+ .grid-toolbar-button {
+ min-height: 27px;
+ padding: 0 9px;
+ border: 1px solid transparent;
+ border-radius: 4px;
+ background: transparent;
+ color: #3e4852;
+ font: inherit;
+ cursor: pointer;
+ }
+
+ .grid-toolbar-button:hover {
+ background: var(--ui-color-surface-hover);
+ border-color: var(--ui-color-border-hover);
+ }
+
+ .grid-table {
+ width: 100%;
+ border-collapse: collapse;
+ table-layout: fixed;
+ }
+
+ .grid-table th,
+ .grid-table td {
+ height: var(--ui-grid-row-height);
+ padding:  var(--ui-grid-cell-padding-y)
+ var(--ui-grid-cell-padding-x);
+ border-right: var(--ui-grid-border-width) solid var(--ui-color-border-subtle);
+ border-bottom: var(--ui-grid-border-width) solid var(--ui-color-border-subtle);
+ text-align: left;
+ vertical-align: middle;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ }
+
+ .grid-table th {
+ height: var(--ui-grid-header-height);
+ background: #f7f8fa;
+ color: #46515c;
+ font-size: var(--ui-grid-header-font-size);
+ font-weight: 600;
+ }
+
+ .grid-table td {
+ background: #ffffff;
+ font-size: var(--ui-grid-cell-font-size);
+ }
+
+ .grid-table tbody tr:hover td {
+ background: var(--ui-color-surface-hover);
+ }
+
+ .grid-table tbody tr.is-selected td {
+ background: var(--ui-color-surface-selected);
+ }
+
+ .grid-table tbody tr.is-selected:hover td {
+ background: var(--ui-color-surface-active);
+ }
+
+ .grid-table tbody tr:last-child td {
+ border-bottom: 0;
+ }
+
+ .grid-table th:last-child,
+ .grid-table td:last-child {
+ border-right: 0;
+ }
+
+ .grid-cell-number {
+ text-align: right !important;
+ }
+
+ .grid-cell-center {
+ text-align: center !important;
+ }
+
+ .grid-checkbox {
+ width: 16px;
+ height: 16px;
+ margin: 0;
+ vertical-align: middle;
+ }
+
+ .grid-selected-cell {
+ position: relative;
+ background: #f7fbff !important;
+ box-shadow:
+ inset 0 0 0 2px var(--ui-grid-selection-border);
+ }
+
+ .grid-selected-cell:focus {
+ outline: none;
+ }
+
+ .grid-header-sort {
+ display: flex;
+ align-items: center;
+ gap: 5px;
+ }
+
+ .sort-indicator {
+ color: #6b737c;
+ font-size: 11px;
+ }
+
+/* ==========================================================
+   STATE COMPARISON
+   ========================================================== */
+
+
+ .state-grid {
+ display: grid;
+ grid-template-columns: repeat(3, minmax(220px, 1fr));
+ gap: 16px;
+ margin-top: 16px;
+ }
+
+ .state-card {
+ border: 1px solid #d8dee5;
+ border-radius: 6px;
+ overflow: hidden;
+ }
+
+ .state-label {
+ padding: 8px 10px;
+ background: #f7f8fa;
+ border-bottom: 1px solid #d8dee5;
+ color: #46515c;
+ font-size: 12px;
+ font-weight: 600;
+ }
+
+ .state-demo {
+ min-height: 130px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 14px;
+ background: #ffffff;
+ }
+
+ /* ==========================================================
+   MEASUREMENT / OBSERVATION TABLES
+   ========================================================== */
+
+
+ .measurement-table,
+ .token-table {
+ width: 100%;
+ border-collapse: collapse;
+ margin-top: 12px;
+ }
+
+ .measurement-table th,
+ .measurement-table td,
+ .token-table th,
+ .token-table td {
+ padding: 9px 10px;
+ border: 1px solid #dfe3e7;
+ text-align: left;
+ vertical-align: top;
+ }
+
+ .measurement-table th,
+ .token-table th {
+ background: #f6f7f8;
+ color: #294f78;
+ font-weight: 600;
+ }
+
+ .token-table code {
+ white-space: nowrap;
+ font-family:
+ ui-monospace,
+ SFMono-Regular,
+ Menlo,
+ Consolas,
+ monospace;
+ font-size: 12px;
+ }
+
+ .provisional {
+ color: #9a6800;
+ font-size: 11px;
+ font-weight: 600;
+ }
+
+ /* ==========================================================
+   QUESTIONS / DECISIONS
+   ========================================================== */
+
+ .decision-list li,
+ .question-list li {
+ margin: 7px 0;
+ }
+
+ .decision-box {
+ padding: 13px 15px;
+ margin: 12px 0;
+ border: 1px solid #c9def3;
+ border-left: 4px solid #2563a8;
+ border-radius: 5px;
+ background: #eef6ff;
+ }
+
+ @media (max-width: 900px) {  
+  .reference-grid,  .state-grid {
+ grid-template-columns: 1fr;
+ }
+
+
+.lab {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+ }
+
+ @media (max-width: 700px) {
+ .lab-header {
+ padding: 20px;
+ }
+
+
+.reference-meta .two-column {
+    grid-template-columns: 1fr;
+}
+
+
+ }
+ </style>
+
+ </head>
+
+ <body>
+
+ <header class="lab-header">
+ <h1>UI Design Lab — Grid</h1>
+ <p>
+ Working visual specification, comparative-reference gallery and
+ interaction-state laboratory for the Grid component.
+ </p>
+ </header>
+
+ <main class="lab">
+
+ <div class="notice">
+ <strong>Purpose of this Lab:</strong>
+ Establish the visual and interaction direction for the application's
+ Grid before final CSS implementation. Reference systems are being
+ studied for principles, geometry and interaction patterns rather than
+ copied wholesale.
+ </div>
+
+ <div class="hypothesis">
+ <strong>Current design hypothesis:</strong>
+ The Grid should be information-dense, restrained and highly legible.
+ Borders, row/column structure, selection and interaction states should
+ provide the necessary hierarchy without relying on persistent color,
+ excessive decoration or general elevation.
+ </div>
+
+ <!-- ============================================================ 1. ROLES & COMPARATIVE REFERENCES ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>1. Roles &amp; Comparative References</h2>
+    <p>
+        Screenshot/reference collection for the Grid design study.
+        Populate these cards as representative examples are collected.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <p>
+        The purpose of this gallery is not to decide which reference is
+        "best". Each reference should be examined for the particular
+        Grid role, visual treatment, geometry and interaction behavior
+        that it demonstrates.
+    </p>
+
+
+
+    <h3>Reference roles to investigate</h3>
+
+
+
+    <table class="role-table">
+        <thead>
+            <tr>
+                <th>Reference / Role</th>
+                <th>What to examine</th>
+                <th>Measurement / observation priority</th>
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+
+
+
+            <tr>
+                <td><strong>Notion</strong></td>
+                <td>
+                    Database/table appearance, header treatment,
+                    row height, column spacing, selection, hover,
+                    property cells and relationship between content
+                    and grid chrome.
+                </td>
+                <td>
+                    Row height; header height; horizontal padding;
+                    border visibility; hover surface; selected-row
+                    treatment; typography.
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td><strong>Airtable</strong></td>
+                <td>
+                    Productivity-grid density, column headers,
+                    active cell/row, selection, resize affordances,
+                    row numbering and grid navigation.
+                </td>
+                <td>
+                    Cell dimensions; header geometry; gridline weight;
+                    selected-cell treatment; row-selection behavior;
+                    toolbar relationship.
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td><strong>Windows / system UI</strong></td>
+                <td>
+                    Familiar desktop table/list conventions, keyboard
+                    selection, focus indication, disabled behavior,
+                    column headers and dense information presentation.
+                </td>
+                <td>
+                    Focus visibility; keyboard selection; row height;
+                    header conventions; system-like density.
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td><strong>Material Design</strong></td>
+                <td>
+                    Explicit state vocabulary, selected rows, hover,
+                    focus, density and table semantics.
+                </td>
+                <td>
+                    State definitions; accessibility conventions;
+                    selection/focus distinction; table hierarchy.
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td><strong>Current Dojo Grid</strong></td>
+                <td>
+                    Existing behavior and visual conventions that must
+                    be preserved or intentionally changed.
+                </td>
+                <td>
+                    Existing row/header dimensions; selection;
+                    keyboard behavior; sorting; filtering; pagination;
+                    resize behavior.
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td><strong>Application / existing UI</strong></td>
+                <td>
+                    Current application-specific Grid usage and
+                    real-world information density.
+                </td>
+                <td>
+                    Actual content density; important columns;
+                    toolbar/action relationship; editing workflow.
+                </td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+
+
+    <h3>Comparative screenshot gallery</h3>
+
+
+
+    <div class="reference-grid">
+
+
+
+        <!-- NOTION -->
+
+
+
+        <article class="reference-card">
+            <div class="reference-card-header">
+                <strong>Reference A — Notion</strong>
+                <small>Database / table reference</small>
+            </div>
+
+
+
+            <div class="reference-image">
+                <div class="image-placeholder">
+                    INSERT NOTION GRID / DATABASE SCREENSHOT HERE
+                    <br><br>
+                    Prefer a screenshot showing header + multiple rows
+                    + hover/selection if possible.
+                </div>
+
+
+
+                <!--
+                Example after collecting image:
+
+
+
+                <img
+                    src="images/grid-notion.png"
+                    alt="Notion database grid reference"
+                >
+                -->
+            </div>
+
+
+
+            <div class="reference-meta">
+
+
+
+                <label>Source URL</label>
+                <input
+                    type="text"
+                    placeholder="Paste source/reference URL"
+                >
+
+
+
+                <div class="two-column">
+                    <div>
+                        <label>Screenshot viewport</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 1440 × 900"
+                        >
+                    </div>
+
+
+
+                    <div>
+                        <label>Approx. row height</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 32 px"
+                        >
+                    </div>
+                </div>
+
+
+
+                <label>Why this reference matters</label>
+                <textarea placeholder="Record the specific design role or behavior worth studying."></textarea>
+
+
+
+                <label>Measurements / observations</label>
+                <textarea placeholder="Header height, cell padding, borders, typography, selection, hover, etc."></textarea>
+
+
+
+            </div>
+        </article>
+
+
+
+        <!-- AIRTABLE -->
+
+
+
+        <article class="reference-card">
+            <div class="reference-card-header">
+                <strong>Reference B — Airtable</strong>
+                <small>Productivity / database grid reference</small>
+            </div>
+
+
+
+            <div class="reference-image">
+                <div class="image-placeholder">
+                    INSERT AIRTABLE GRID SCREENSHOT HERE
+                    <br><br>
+                    Prefer a screenshot showing header, row selection,
+                    active cell and surrounding UI.
+                </div>
+            </div>
+
+
+
+            <div class="reference-meta">
+
+
+
+                <label>Source URL</label>
+                <input
+                    type="text"
+                    placeholder="Paste source/reference URL"
+                >
+
+
+
+                <div class="two-column">
+                    <div>
+                        <label>Screenshot viewport</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 1440 × 900"
+                        >
+                    </div>
+
+
+
+                    <div>
+                        <label>Approx. row height</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 32 px"
+                        >
+                    </div>
+                </div>
+
+
+
+                <label>Why this reference matters</label>
+                <textarea placeholder="Record the specific design role or behavior worth studying."></textarea>
+
+
+
+                <label>Measurements / observations</label>
+                <textarea placeholder="Header height, cell padding, borders, selection, hover, etc."></textarea>
+
+
+
+            </div>
+        </article>
+
+
+
+        <!-- WINDOWS -->
+
+
+
+        <article class="reference-card">
+            <div class="reference-card-header">
+                <strong>Reference C — Windows / System UI</strong>
+                <small>Desktop convention reference</small>
+            </div>
+
+
+
+            <div class="reference-image">
+                <div class="image-placeholder">
+                    INSERT WINDOWS / SYSTEM TABLE SCREENSHOT HERE
+                    <br><br>
+                    Prefer a native desktop list/table with selection
+                    and keyboard/focus behavior visible.
+                </div>
+            </div>
+
+
+
+            <div class="reference-meta">
+
+
+
+                <label>Source URL / application</label>
+                <input
+                    type="text"
+                    placeholder="Source or application name"
+                >
+
+
+
+                <div class="two-column">
+                    <div>
+                        <label>Screenshot viewport</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 1440 × 900"
+                        >
+                    </div>
+
+
+
+                    <div>
+                        <label>Approx. row height</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 28 px"
+                        >
+                    </div>
+                </div>
+
+
+
+                <label>Why this reference matters</label>
+                <textarea placeholder="Record the desktop convention being studied."></textarea>
+
+
+
+                <label>Measurements / observations</label>
+                <textarea placeholder="Focus, selection, keyboard behavior, density, etc."></textarea>
+
+
+
+            </div>
+        </article>
+
+
+
+        <!-- MATERIAL -->
+
+
+
+        <article class="reference-card">
+            <div class="reference-card-header">
+                <strong>Reference D — Material Design</strong>
+                <small>State / component-system reference</small>
+            </div>
+
+
+
+            <div class="reference-image">
+                <div class="image-placeholder">
+                    INSERT MATERIAL TABLE / DATA GRID SCREENSHOT HERE
+                    <br><br>
+                    Prefer examples that demonstrate states rather
+                    than decorative presentation.
+                </div>
+            </div>
+
+
+
+            <div class="reference-meta">
+
+
+
+                <label>Source URL</label>
+                <input
+                    type="text"
+                    placeholder="Paste source/reference URL"
+                >
+
+
+
+                <div class="two-column">
+                    <div>
+                        <label>Screenshot viewport</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 1440 × 900"
+                        >
+                    </div>
+
+
+
+                    <div>
+                        <label>Approx. row height</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 36 px"
+                        >
+                    </div>
+                </div>
+
+
+
+                <label>Why this reference matters</label>
+                <textarea placeholder="Record the state or component-system principle being studied."></textarea>
+
+
+
+                <label>Measurements / observations</label>
+                <textarea placeholder="States, focus, selection, density, typography, etc."></textarea>
+
+
+
+            </div>
+        </article>
+
+
+
+        <!-- DOJO -->
+
+
+
+        <article class="reference-card">
+            <div class="reference-card-header">
+                <strong>Reference E — Current Dojo Grid</strong>
+                <small>Existing implementation / baseline</small>
+            </div>
+
+
+
+            <div class="reference-image">
+                <div class="image-placeholder">
+                    INSERT CURRENT DOJO GRID SCREENSHOT HERE
+                    <br><br>
+                    Capture the actual application's representative
+                    Grid configuration where possible.
+                </div>
+            </div>
+
+
+
+            <div class="reference-meta">
+
+
+
+                <label>Source / application page</label>
+                <input
+                    type="text"
+                    placeholder="Current application/page"
+                >
+
+
+
+                <div class="two-column">
+                    <div>
+                        <label>Viewport</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 1440 × 900"
+                        >
+                    </div>
+
+
+
+                    <div>
+                        <label>Current row height</label>
+                        <input
+                            type="text"
+                            placeholder="Measure"
+                        >
+                    </div>
+                </div>
+
+
+
+                <label>Behavior that must be preserved</label>
+                <textarea placeholder="Sorting, selection, editing, keyboard behavior, pagination, etc."></textarea>
+
+
+
+                <label>Visual problems / opportunities</label>
+                <textarea placeholder="Record what the redesign may improve without changing behavior unnecessarily."></textarea>
+
+
+
+            </div>
+        </article>
+
+
+
+        <!-- APPLICATION -->
+
+
+
+        <article class="reference-card">
+            <div class="reference-card-header">
+                <strong>Reference F — Existing Application</strong>
+                <small>Real-world application usage</small>
+            </div>
+
+
+
+            <div class="reference-image">
+                <div class="image-placeholder">
+                    INSERT APPLICATION-SPECIFIC GRID SCREENSHOT HERE
+                    <br><br>
+                    Prefer a representative production-style screen
+                    containing realistic data density.
+                </div>
+            </div>
+
+
+
+            <div class="reference-meta">
+
+
+
+                <label>Screen / workflow</label>
+                <input
+                    type="text"
+                    placeholder="Identify the screen or workflow"
+                >
+
+
+
+                <div class="two-column">
+                    <div>
+                        <label>Viewport</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 1440 × 900"
+                        >
+                    </div>
+
+
+
+                    <div>
+                        <label>Typical row height</label>
+                        <input
+                            type="text"
+                            placeholder="Measure"
+                        >
+                    </div>
+                </div>
+
+
+
+                <label>Important application-specific requirements</label>
+                <textarea placeholder="Columns, editing, actions, selection, density, etc."></textarea>
+
+
+
+                <label>Observations</label>
+                <textarea placeholder="Anything that the generic references do not capture."></textarea>
+
+
+
+            </div>
+        </article>
+
+
+
+    </div>
+
+
+
+    <h3>Optional additional references</h3>
+
+
+
+    <div class="reference-grid">
+
+
+
+        <article class="reference-card">
+            <div class="reference-card-header">
+                <strong>Additional Reference 1</strong>
+                <small>Use for a particularly relevant pattern</small>
+            </div>
+
+
+
+            <div class="reference-image">
+                <div class="image-placeholder">
+                    INSERT SCREENSHOT HERE
+                </div>
+            </div>
+
+
+
+            <div class="reference-meta">
+                <label>Reference name</label>
+                <input type="text" placeholder="Name / product / application">
+
+
+
+                <label>Source URL</label>
+                <input type="text" placeholder="URL">
+
+
+
+                <label>Reason for inclusion</label>
+                <textarea></textarea>
+
+
+
+                <label>Observations / measurements</label>
+                <textarea></textarea>
+            </div>
+        </article>
+
+
+
+        <article class="reference-card">
+            <div class="reference-card-header">
+                <strong>Additional Reference 2</strong>
+                <small>Use for a particularly relevant pattern</small>
+            </div>
+
+
+
+            <div class="reference-image">
+                <div class="image-placeholder">
+                    INSERT SCREENSHOT HERE
+                </div>
+            </div>
+
+
+
+            <div class="reference-meta">
+                <label>Reference name</label>
+                <input type="text" placeholder="Name / product / application">
+
+
+
+                <label>Source URL</label>
+                <input type="text" placeholder="URL">
+
+
+
+                <label>Reason for inclusion</label>
+                <textarea></textarea>
+
+
+
+                <label>Observations / measurements</label>
+                <textarea></textarea>
+            </div>
+        </article>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 2. GRID ROLES / ANATOMY ============================================================ --> 
+ <section class="section">
+
+
+<div class="section-header">
+    <h2>2. Grid Roles &amp; Anatomy</h2>
+    <p>
+        Identify which visual and behavioral roles the Grid must support.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <table class="role-table">
+        <thead>
+            <tr>
+                <th>Element</th>
+                <th>Role</th>
+                <th>Questions to resolve</th>
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+            <tr>
+                <td>Grid container</td>
+                <td>Overall visual boundary and scrolling region.</td>
+                <td>
+                    Border? Radius? Background? Does the grid visually
+                    separate itself from the surrounding application?
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Column header</td>
+                <td>Identifies columns and provides sorting/filtering affordances.</td>
+                <td>
+                    Height? Background? Border? Typography? Sort indicator?
+                    Hover treatment?
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Data row</td>
+                <td>Primary information-bearing unit.</td>
+                <td>
+                    Height? Gridlines? Alternating rows? Hover? Density?
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Selected row</td>
+                <td>Persistent row-level selection.</td>
+                <td>
+                    Background? Border? Checkbox? How distinct from hover?
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Active cell</td>
+                <td>Cell-level focus or editing target where applicable.</td>
+                <td>
+                    Outline? Border? Focus ring? Does active cell differ
+                    from selected row?
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Row header / number</td>
+                <td>Optional structural/navigation aid.</td>
+                <td>
+                    Is it required? How much visual emphasis should it receive?
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Toolbar / action area</td>
+                <td>Grid-level commands and controls.</td>
+                <td>
+                    Should it visually belong to the Grid or surrounding
+                    application chrome?
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Pagination / status area</td>
+                <td>Navigation and record-count information.</td>
+                <td>
+                    Integrated into Grid boundary or visually separate?
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 3. PROPOSED GRID — WORKING VISUAL HYPOTHESIS ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>3. Proposed Grid — Working Visual Hypothesis</h2>
+    <p>
+        A neutral starting point for evaluating geometry and interaction.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <p>
+        This is intentionally a hypothesis rather than a finalized design.
+        Use the reference gallery above to determine which values and
+        treatments should change.
+    </p>
+
+
+
+    <div class="grid-demo">
+
+
+
+        <div class="grid-toolbar">
+            <span class="grid-toolbar-title">
+                Example Records
+            </span>
+
+
+
+            <button class="grid-toolbar-button">
+                Add
+            </button>
+
+
+
+            <button class="grid-toolbar-button">
+                Filter
+            </button>
+
+
+
+            <button class="grid-toolbar-button">
+                More
+            </button>
+        </div>
+
+
+
+        <table class="grid-table">
+
+
+
+            <thead>
+                <tr>
+                    <th style="width: 42px;" class="grid-cell-center">
+                        <input
+                            class="grid-checkbox"
+                            type="checkbox"
+                            aria-label="Select all rows"
+                        >
+                    </th>
+
+
+
+                    <th style="width: 90px;">
+                        ID
+                    </th>
+
+
+
+                    <th style="width: 25%;">
+                        <span class="grid-header-sort">
+                            Name
+                            <span class="sort-indicator">↕</span>
+                        </span>
+                    </th>
+
+
+
+                    <th style="width: 22%;">
+                        Type
+                    </th>
+
+
+
+                    <th style="width: 20%;">
+                        Status
+                    </th>
+
+
+
+                    <th>
+                        Modified
+                    </th>
+                </tr>
+            </thead>
+
+
+
+            <tbody>
+
+
+
+                <tr>
+                    <td class="grid-cell-center">
+                        <input
+                            class="grid-checkbox"
+                            type="checkbox"
+                            aria-label="Select record 1001"
+                        >
+                    </td>
+                    <td>1001</td>
+                    <td>Customer Records</td>
+                    <td>Data View</td>
+                    <td>Active</td>
+                    <td>Today</td>
+                </tr>
+
+
+
+                <tr class="is-selected">
+                    <td class="grid-cell-center">
+                        <input
+                            class="grid-checkbox"
+                            type="checkbox"
+                            checked
+                            aria-label="Select record 1002"
+                        >
+                    </td>
+                    <td>1002</td>
+                    <td>Orders</td>
+                    <td>Editable Grid</td>
+                    <td>Active</td>
+                    <td>Yesterday</td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="grid-cell-center">
+                        <input
+                            class="grid-checkbox"
+                            type="checkbox"
+                            aria-label="Select record 1003"
+                        >
+                    </td>
+                    <td>1003</td>
+                    <td class="grid-selected-cell">
+                        Products
+                    </td>
+                    <td>Data View</td>
+                    <td>Draft</td>
+                    <td>Yesterday</td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="grid-cell-center">
+                        <input
+                            class="grid-checkbox"
+                            type="checkbox"
+                            aria-label="Select record 1004"
+                        >
+                    </td>
+                    <td>1004</td>
+                    <td>Invoices</td>
+                    <td>Editable Grid</td>
+                    <td>Inactive</td>
+                    <td>Sep 17</td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="grid-cell-center">
+                        <input
+                            class="grid-checkbox"
+                            type="checkbox"
+                            aria-label="Select record 1005"
+                        >
+                    </td>
+                    <td>1005</td>
+                    <td>Employees</td>
+                    <td>Data View</td>
+                    <td>Active</td>
+                    <td>Sep 16</td>
+                </tr>
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+
+
+    </div>
+
+
+
+    <p class="note">
+        Hover over rows, select rows and interact with the controls above.
+        The proposed styling intentionally avoids general elevation and
+        uses restrained surface changes for interaction.
+    </p>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 4. GRID STATE COMPARISON ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>4. Grid State Comparison</h2>
+    <p>
+        Evaluate the visual progression between the states that matter
+        most for Grid interaction.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <div class="state-grid">
+
+
+
+        <div class="state-card">
+            <div class="state-label">Normal</div>
+            <div class="state-demo">
+                Normal row / no interaction
+            </div>
+        </div>
+
+
+
+        <div class="state-card">
+            <div class="state-label">Hover</div>
+            <div class="state-demo" style="background:#eaf3ff;">
+                Hovered row
+            </div>
+        </div>
+
+
+
+        <div class="state-card">
+            <div class="state-label">Selected</div>
+            <div class="state-demo" style="background:#eaf3ff;">
+                Selected row
+            </div>
+        </div>
+
+
+
+        <div class="state-card">
+            <div class="state-label">Selected + Hover</div>
+            <div class="state-demo" style="background:#dcecff;">
+                Selected row under pointer
+            </div>
+        </div>
+
+
+
+        <div class="state-card">
+            <div class="state-label">Focused Cell</div>
+            <div class="state-demo">
+                <div style="
+                    padding:10px 14px;
+                    background:#ffffff;
+                    box-shadow:inset 0 0 0 2px #3b82d0;
+                ">
+                    Active cell
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="state-card">
+            <div class="state-label">Disabled / unavailable</div>
+            <div class="state-demo" style="color:#9aa1a8;background:#f4f5f6;">
+                Disabled content / action
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+    <div class="warning">
+        <strong>Important:</strong>
+        Selected and Hover must not become visually indistinguishable.
+        Likewise, cell focus/editing must remain distinguishable from
+        row selection. These relationships should be checked carefully
+        against the reference screenshots.
+    </div>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 5. GRID GEOMETRY / MEASUREMENT LAB ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>5. Grid Geometry / Measurement Lab</h2>
+    <p>
+        Record measurements from the reference screenshots before
+        converting them into design-system tokens.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <table class="measurement-table">
+
+
+
+        <thead>
+            <tr>
+                <th>Measurement</th>
+                <th>Notion</th>
+                <th>Airtable</th>
+                <th>Windows</th>
+                <th>Material</th>
+                <th>Current Dojo</th>
+                <th>Proposed</th>
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+
+
+
+            <tr>
+                <td>Header height</td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="TBD"></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Default row height</td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="TBD"></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Compact row height</td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="TBD"></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Cell horizontal padding</td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="TBD"></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Cell vertical padding</td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="TBD"></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Gridline / border width</td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="px"></td>
+                <td><input placeholder="TBD"></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Header/body contrast</td>
+                <td><input placeholder="Observation"></td>
+                <td><input placeholder="Observation"></td>
+                <td><input placeholder="Observation"></td>
+                <td><input placeholder="Observation"></td>
+                <td><input placeholder="Observation"></td>
+                <td><input placeholder="TBD"></td>
+            </tr>
+
+
+
+            <tr>
+                <td>Selected-row treatment</td>
+                <td colspan="6">
+                    <input
+                        placeholder="Describe / compare visual treatment"
+                    >
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Focused-cell treatment</td>
+                <td colspan="6">
+                    <input
+                        placeholder="Describe / compare visual treatment"
+                    >
+                </td>
+            </tr>
+
+
+
+        </tbody>
+
+
+
+    </table>
+
+
+
+    <p class="note">
+        These measurements are evidence for the design discussion. They
+        should remain provisional until validated against the broader
+        component system and the application's actual density needs.
+    </p>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 6. INTERACTION / BEHAVIOR QUESTIONS ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>6. Interaction &amp; Accessibility Questions</h2>
+    <p>
+        Visual design should be evaluated together with Grid behavior.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <ol class="question-list">
+
+
+
+        <li>
+            What receives focus when the Grid receives keyboard focus?
+        </li>
+
+
+
+        <li>
+            Is row selection distinct from cell focus?
+        </li>
+
+
+
+        <li>
+            Is the focus-visible treatment clearly distinguishable
+            from hover and selected states?
+        </li>
+
+
+
+        <li>
+            What does Enter do when a row is focused?
+        </li>
+
+
+
+        <li>
+            What does Enter do when a cell is editable?
+        </li>
+
+
+
+        <li>
+            What does Space do for row selection?
+        </li>
+
+
+
+        <li>
+            How do Arrow keys move through rows/cells?
+        </li>
+
+
+
+        <li>
+            How does Shift + Arrow affect range selection, if supported?
+        </li>
+
+
+
+        <li>
+            How does Ctrl/Cmd + click affect selection?
+        </li>
+
+
+
+        <li>
+            How does Escape behave during cell editing?
+        </li>
+
+
+
+        <li>
+            How are sorting and filtering communicated?
+        </li>
+
+
+
+        <li>
+            How are disabled/unavailable rows or cells communicated?
+        </li>
+
+
+
+        <li>
+            Does the Grid support direct cell editing, row editing,
+            or both?
+        </li>
+
+
+
+        <li>
+            What happens when content exceeds the available cell width?
+        </li>
+
+
+
+        <li>
+            How should validation/error states appear inside cells?
+        </li>
+
+
+
+        <li>
+            How should pinned/frozen columns or headers appear?
+        </li>
+
+
+
+        <li>
+            How should pagination interact visually with the Grid?
+        </li>
+
+
+
+        <li>
+            Which behaviors are already provided by Dojo and therefore
+            should not be changed merely for visual reasons?
+        </li>
+
+
+
+    </ol>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 7. GRID DESIGN QUESTIONS ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>7. Grid Design Questions</h2>
+    <p>
+        Questions to resolve before the Grid becomes a finalized
+        component specification.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <ol class="question-list">
+
+
+
+        <li>
+            How visible should normal Grid borders/gridlines be?
+        </li>
+
+
+
+        <li>
+            Should every cell have a visible gridline, or should
+            row structure carry most of the visual separation?
+        </li>
+
+
+
+        <li>
+            Should the header have a distinct surface, border,
+            typography treatment, or combination?
+        </li>
+
+
+
+        <li>
+            What should the default row height be?
+        </li>
+
+
+
+        <li>
+            What should Compact and Comfortable Grid density mean?
+        </li>
+
+
+
+        <li>
+            Should row hover use the same very-light Claro Blue
+            direction as appropriate controls?
+        </li>
+
+
+
+        <li>
+            Should selected rows use the same surface as hover,
+            or a related but distinct token?
+        </li>
+
+
+
+        <li>
+            How should Selected + Hover be represented?
+        </li>
+
+
+
+        <li>
+            What is the visual distinction between selected row
+            and focused/active cell?
+        </li>
+
+
+
+        <li>
+            Should alternating row backgrounds be used?
+        </li>
+
+
+
+        <li>
+            How much persistent color is appropriate for selection?
+        </li>
+
+
+
+        <li>
+            What is the appropriate header typography weight and size?
+        </li>
+
+
+
+        <li>
+            How should sorting indicators appear without adding noise?
+        </li>
+
+
+
+        <li>
+            How should column resize affordances appear?
+        </li>
+
+
+
+        <li>
+            How should editable cells differ from read-only cells?
+        </li>
+
+
+
+        <li>
+            How should validation/error states appear without relying
+            on color alone?
+        </li>
+
+
+
+        <li>
+            Should the Grid have a radius, and if so should it use the
+            same radius as other controls?
+        </li>
+
+
+
+        <li>
+            Which Grid values should become shared global design tokens?
+        </li>
+
+
+
+    </ol>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 8. CURRENT GRID TOKEN SET ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>8. Current Grid Token Set</h2>
+    <p>
+        Working token names and provisional values. These are not yet
+        global Design System decisions.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <table class="token-table">
+
+
+
+        <thead>
+            <tr>
+                <th>Token</th>
+                <th>Current value</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+
+
+
+            <tr>
+                <td><code>--ui-grid-header-height</code></td>
+                <td>32px <span class="provisional">PROVISIONAL</span></td>
+                <td>Default Grid header height.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-grid-row-height</code></td>
+                <td>32px <span class="provisional">PROVISIONAL</span></td>
+                <td>Default Grid row height.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-grid-row-height-compact</code></td>
+                <td>28px <span class="provisional">PROVISIONAL</span></td>
+                <td>Compact Grid row height.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-grid-row-height-comfortable</code></td>
+                <td>38px <span class="provisional">PROVISIONAL</span></td>
+                <td>Comfortable Grid row height.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-grid-cell-padding-x</code></td>
+                <td>9px <span class="provisional">PROVISIONAL</span></td>
+                <td>Horizontal cell padding.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-grid-cell-padding-y</code></td>
+                <td>6px <span class="provisional">PROVISIONAL</span></td>
+                <td>Vertical cell padding.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-grid-border-width</code></td>
+                <td>1px <span class="provisional">PROVISIONAL</span></td>
+                <td>Gridline / border width.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-grid-radius</code></td>
+                <td>5px <span class="provisional">PROVISIONAL</span></td>
+                <td>Outer Grid corner radius.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-grid-selection-border</code></td>
+                <td>#3b82d0 <span class="provisional">PROVISIONAL</span></td>
+                <td>Active/focused cell border.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-color-surface-hover</code></td>
+                <td>#eaf3ff <span class="provisional">PROVISIONAL</span></td>
+                <td>Candidate hover surface where appropriate.</td>
+            </tr>
+
+
+
+            <tr>
+                <td><code>--ui-color-surface-selected</code></td>
+                <td>#eaf3ff <span class="provisional">PROVISIONAL</span></td>
+                <td>Candidate selected-row surface.</td>
+            </tr>
+
+
+
+        </tbody>
+
+
+
+    </table>
+
+
+
+    <p class="note">
+        The numerical values above are deliberately provisional. They are
+        starting points for the measurement/reference exercise and should
+        not be promoted into the global Design System until validated.
+    </p>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 9. CURRENT WORKING DECISIONS ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>9. Current Working Decisions</h2>
+    <p>
+        Candidate decisions to be retained, changed or promoted as
+        evidence is collected.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <div class="decision-box">
+        <strong>D-001 — Information density is a primary Grid concern.</strong>
+        <p>
+            The Grid must support substantially denser information
+            presentation than a consumer-oriented table while retaining
+            sufficient readability and interaction clarity.
+        </p>
+    </div>
+
+
+
+    <div class="decision-box">
+        <strong>D-002 — No general elevation treatment.</strong>
+        <p>
+            The Grid should not receive a generic Material-style shadow
+            merely because it is a component or data surface.
+        </p>
+    </div>
+
+
+
+    <div class="decision-box">
+        <strong>D-003 — Persistent color should remain restrained.</strong>
+        <p>
+            Grid structure should primarily be communicated through
+            typography, spacing, borders and subtle surfaces.
+        </p>
+    </div>
+
+
+
+    <div class="decision-box">
+        <strong>D-004 — Hover and selection must remain distinguishable.</strong>
+        <p>
+            A selected row represents persistent application state;
+            hover represents transient pointer state.
+        </p>
+    </div>
+
+
+
+    <div class="decision-box">
+        <strong>D-005 — Cell focus must remain independently visible.</strong>
+        <p>
+            Where cell-level navigation or editing exists, the active
+            cell must not be confused with ordinary row selection.
+        </p>
+    </div>
+
+
+
+    <div class="decision-box">
+        <strong>D-006 — Semantic tokens first; numeric values provisional.</strong>
+        <p>
+            Grid-specific geometry and colors should eventually consume
+            shared semantic design tokens where the component behavior
+            and visual role justify doing so.
+        </p>
+    </div>
+
+
+
+</div>
+
+
+ </section>
+
+ <!-- ============================================================ 10\. NOTES FOR REFERENCE-COLLECTION PHASE ============================================================ --> <section class="section">
+
+
+<div class="section-header">
+    <h2>10. Notes for the Reference-Collection Phase</h2>
+    <p>
+        Use this section to record discoveries while collecting screenshots.
+    </p>
+</div>
+
+
+
+<div class="section-body">
+
+
+
+    <ul>
+
+
+
+        <li>
+            Capture the same approximate viewport size where practical;
+            otherwise record the viewport dimensions.
+        </li>
+
+
+
+        <li>
+            Prefer screenshots containing enough surrounding UI to
+            understand context, but crop away unrelated content when
+            the component itself becomes difficult to inspect.
+        </li>
+
+
+
+        <li>
+            Capture both the resting state and meaningful interaction
+            states where possible.
+        </li>
+
+
+
+        <li>
+            Record actual measured dimensions separately from visual
+            impressions. A screenshot that "looks compact" is not itself
+            evidence of a particular pixel height.
+        </li>
+
+
+
+        <li>
+            Pay particular attention to the relationship between:
+            header height, row height, cell padding, typography,
+            gridline weight and selection treatment.
+        </li>
+
+
+
+        <li>
+            For Notion and Airtable, record measurements from a consistent
+            zoom/browser environment where possible so comparisons are
+            meaningful.
+        </li>
+
+
+
+        <li>
+            Do not assume that a reference's implementation should be
+            reproduced. Record the specific design principle or solution
+            that appears relevant to this application.
+        </li>
+
+
+
+        <li>
+            Keep behavioral requirements separate from visual observations.
+            Existing Dojo behavior should only be changed when the redesign
+            explicitly calls for a behavioral change.
+        </li>
+
+
+
+    </ul>
+
+
+
+</div>
+
+
+ </section>
+
+ </main>
+
+ </body>
+ </html></code></pre>
+
+ <p><strong>A couple of deliberate choices in this Grid version:</strong> the reference gallery is the first substantive section, because that matches the phase you are entering now; the measurement matrix is separate so you can later turn observations such as row height, header height, cell padding and gridline weight into actual design-system decisions; and I have kept the proposed Grid deliberately conservative rather than trying to “design” the final Grid before the comparative evidence is collected.</p> <p>I also left the proposed numeric Grid values explicitly marked <strong>PROVISIONAL</strong>. That is consistent with the current Button and TextBox Labs, where the component-specific measurements are being used as hypotheses rather than prematurely promoted to the global Design System. The existing project direction around restrained color, semantic tokens, density and no general elevation is likewise carried through from the current documents. r1</p> <p>Once you have collected the Grid screenshots and measurements, the next iteration can use the evidence to tighten the actual Grid specification rather than merely adding more placeholder examples.</p>
