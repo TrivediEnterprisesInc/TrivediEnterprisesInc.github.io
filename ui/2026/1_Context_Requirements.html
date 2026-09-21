@@ -217,6 +217,21 @@ communicate hierarchy.
 </p>
 </div>
 
+<div class="decision">
+<strong>Established direction: Persistent color.</strong>
+<p>
+Persistent color should be restrained. Controls should not receive a persistent colored fill merely to establish affordance when a quieter treatment provides sufficient recognition.
+</p>
+</div>
+
+<div class="decision">
+<strong>Design direction: contextual surfaces.</strong>
+<p>
+Not all contextual or transient surfaces should inherit the primary Claro Blue interaction language.  
+The design system should provide an alternative semantic surface role for contextual surfaces such as tooltips and similar supporting UI.
+</p>
+</div>
+
 <h2>5. Interaction-State Vocabulary</h2>
 
 <p>
@@ -299,6 +314,9 @@ Examples include:
 <li><code>--ui-color-surface</code></li>
 <li><code>--ui-color-surface-hover</code></li>
 <li><code>--ui-color-surface-active</code></li>
+<li><code>--ui-color-surface-alternative</code> — contextual or
+supporting surfaces that should not necessarily use the primary
+application/interaction color language</li>
 <li><code>--ui-color-border</code></li>
 <li><code>--ui-color-border-focus</code></li>
 <li><code>--ui-color-focus-ring</code></li>
@@ -309,6 +327,12 @@ Examples include:
 
 <p>
 Exact values will be developed progressively through the component labs.
+</p>
+<p>
+The exact value of <code>--ui-color-surface-alternative</code> remains
+TBD. A restrained light-brown treatment is a candidate for contextual
+surfaces such as tooltips and should be evaluated in the relevant component
+Lab.
 </p>
 
 <h2>9. Separation of Concerns</h2>
@@ -404,8 +428,7 @@ and Design Lab.
 <h2>13. Golden Reference / Design Lab Concept</h2>
 
 <p>
-The project should maintain visual reference pages that allow the design to
-be evaluated interactively rather than relying solely on screenshots.
+The project should maintain visual reference pages that allow the design to be evaluated interactively and comparatively rather than relying solely on screenshots or isolated component examples.
 </p>
 
 <p>
@@ -419,6 +442,7 @@ A typical component Lab should eventually include:
 <li>Interaction states.</li>
 <li>Relevant variants and sizes.</li>
 <li>Annotations explaining significant design decisions.</li>
+<li>A comparative reference gallery using representative examples from relevant reference systems and the application's current/proposed implementations.</li>
 </ul>
 
 <h2>14. Current Design Decisions</h2>
@@ -461,6 +485,25 @@ A typical component Lab should eventually include:
 <td>D-006</td>
 <td>Keep the overall UI restrained and predominantly neutral, with color used intentionally.</td>
 <td>Established</td>
+
+<tr>
+<td>D-007</td>
+<td>
+Avoid persistent color emphasis when a quieter treatment provides
+sufficient affordance; color should be introduced intentionally through
+interaction and semantic states.
+</td>
+<td>Established</td>
+</tr>
+
+<tr>
+<td>D-008</td>
+<td>
+Provide a semantic alternative surface role for contextual/supporting
+UI so that surfaces such as tooltips do not have to use the primary
+Claro Blue interaction language.
+</td>
+<td>Design direction</td>
 </tr>
 </tbody>
 </table>
