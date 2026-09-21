@@ -1,0 +1,775 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Design Lab — Dialog</title> <style> :root { 
+
+/* 
+https://chatgpt.com/s/t_6aaee3366b3081918bf16725f8c78e88
+   =========================================================
+   GLOBAL SEMANTIC TOKENS — PROVISIONAL 
+   ========================================================= */
+
+--ui-color-surface: #ffffff;
+--ui-color-surface-subtle: #f7f8fa;
+--ui-color-surface-hover: #eaf3ff;
+--ui-color-surface-active: #dcecff;
+--ui-color-surface-disabled: #f1f3f5;
+
+--ui-color-border: #cfd5dc;
+--ui-color-border-hover: #b9c4d0;
+--ui-color-border-focus: #3b82d0;
+
+--ui-color-text: #25282b;
+--ui-color-text-muted: #626970;
+--ui-color-text-disabled: #9aa1a8;
+
+--ui-color-accent: #2563a8;
+--ui-color-accent-hover: #1e568f;
+--ui-color-focus-ring: #3b82d0;
+
+--ui-color-error: #c0392b;
+--ui-color-warning: #956c00;
+
+/* =========================================================
+   DIALOG GEOMETRY — PROVISIONAL
+   ========================================================= */
+
+--ui-dialog-width-sm: 360px;
+--ui-dialog-width-md: 520px;
+--ui-dialog-width-lg: 720px;
+
+--ui-dialog-min-height: 160px;
+--ui-dialog-padding: 20px;
+
+--ui-dialog-title-size: 17px;
+--ui-dialog-title-weight: 600;
+
+--ui-dialog-content-size: 14px;
+
+--ui-dialog-radius: 7px;
+--ui-dialog-border-width: 1px;
+
+--ui-dialog-header-padding-y: 14px;
+--ui-dialog-header-padding-x: 18px;
+
+--ui-dialog-footer-padding-y: 12px;
+--ui-dialog-footer-padding-x: 18px;
+
+--ui-dialog-action-gap: 8px;
+
+/* Overlay is deliberately provisional.
+   Dialog-specific treatment should be established here,
+   not assumed from a general elevation system. */
+--ui-dialog-overlay: rgba(32, 36, 40, 0.28);
+
+--ui-dialog-shadow:
+    0 10px 30px rgba(32, 36, 40, 0.16),
+    0 2px 8px rgba(32, 36, 40, 0.10);
+
+--ui-transition: 100ms ease;
+```
+
+ }
+
+ - {
+   box-sizing: border-box;
+   }
+
+ html,
+ body {
+ margin: 0;
+ padding: 0;
+ }
+
+ body {
+ font-family:  -apple-system,
+ BlinkMacSystemFont,
+ "Segoe UI",
+ Arial,
+ sans-serif;
+ font-size: 14px;
+ line-height: 1.5;
+ color: var(--ui-color-text);
+ background: #f4f6f8;
+ }
+
+ main {
+ max-width: 1280px;
+ margin: 0 auto;
+ padding: 32px;
+ }
+
+ h1 {
+ margin: 0 0 8px;
+ color: #17365d;
+ font-size: 26px;
+ line-height: 1.25;
+ }
+
+ h2 {
+ margin: 34px 0 10px;
+ padding-bottom: 6px;
+ border-bottom: 1px solid #dfe3e7;
+ color: #294f78;
+ font-size: 19px;
+ }
+
+ h3 {
+ margin: 24px 0 8px;
+ color: #3e5267;
+ font-size: 16px;
+ }
+
+ p {
+ margin: 8px 0 14px;
+ }
+
+ code {
+ font-family:
+ ui-monospace,
+ SFMono-Regular,
+ Menlo,
+ Consolas,
+ monospace;
+ font-size: .92em;
+ }
+
+ .hypothesis {
+ margin: 18px 0;
+ padding: 14px 16px;
+ background: #eaf3ff;
+ border: 1px solid #c9def3;
+ border-left: 4px solid #2563a8;
+ border-radius: 6px;
+ }
+
+ .pending {
+ margin: 18px 0;
+ padding: 14px 16px;
+ background: #fff8e1;
+ border: 1px solid #eadca9;
+ border-radius: 6px;
+ }
+
+ .established {
+ margin: 18px 0;
+ padding: 14px 16px;
+ background: #edf7ed;
+ border: 1px solid #cce3cc;
+ border-radius: 6px;
+ }
+
+ .section {
+ margin: 24px 0;
+ background: #ffffff;
+ border: 1px solid #d8dee5;
+ border-radius: 8px;
+ overflow: hidden;
+ }
+
+ .section-header {
+ padding: 14px 18px;
+ background: #f7f8fa;
+ border-bottom: 1px solid #d8dee5;
+ }
+
+ .section-header h2 {
+ margin: 0;
+ padding: 0;
+ border: 0;
+ font-size: 17px;
+ }
+
+ .section-header p {
+ margin: 4px 0 0;
+ color: #697078;
+ font-size: 13px;
+ }
+
+ .section-body {
+ padding: 20px;
+ }
+
+/* 
+DIALOG DEMONSTRATION
+ */
+
+ .dialog-stage {
+ position: relative;
+ min-height: 430px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ overflow: hidden;
+ background:  linear-gradient(
+ 135deg,
+ #eef2f5 0%,
+ #f7f8fa 50%,
+ #e9edf1 100%
+ );
+ border: 1px solid #d8dee5;
+ border-radius: 6px;
+ }
+
+ .dialog-stage::before {
+ content: "";
+ position: absolute;
+ inset: 0;
+ background: var(--ui-dialog-overlay);
+ }
+
+ .dialog {
+ position: relative;
+ z-index: 1;
+ width: var(--ui-dialog-width-md);
+ min-height: var(--ui-dialog-min-height);
+ background: var(--ui-color-surface);
+ border:  var(--ui-dialog-border-width)
+ solid
+ var(--ui-color-border);
+ border-radius: var(--ui-dialog-radius);
+
+```
+/* Component-level floating treatment.
+   This is intentionally NOT a global elevation token. */
+box-shadow: var(--ui-dialog-shadow);
+```
+
+```
+overflow: hidden;
+```
+
+ }
+
+ .dialog-header {
+ padding:
+ var(--ui-dialog-header-padding-y)
+ var(--ui-dialog-header-padding-x);
+ border-bottom: 1px solid #e1e5e9;
+ }
+
+ .dialog-title {
+ margin: 0;
+ font-size: var(--ui-dialog-title-size);
+ font-weight: var(--ui-dialog-title-weight);
+ line-height: 1.3;
+ }
+
+ .dialog-content {
+ padding: var(--ui-dialog-padding);
+ font-size: var(--ui-dialog-content-size);
+ }
+
+ .dialog-content p:first-child {
+ margin-top: 0;
+ }
+
+ .dialog-content p:last-child {
+ margin-bottom: 0;
+ }
+
+ .dialog-footer {
+ display: flex;
+ align-items: center;
+ justify-content: flex-end;
+ gap: var(--ui-dialog-action-gap);
+ padding:
+ var(--ui-dialog-footer-padding-y)
+ var(--ui-dialog-footer-padding-x);
+ background: #fafbfc;
+ border-top: 1px solid #e1e5e9;
+ }
+
+ .dialog-button {
+ appearance: none;
+ min-height: 32px;
+ padding: 0 11px;
+ border: 1px solid #cfd5dc;
+ border-radius: 5px;
+ background: #ffffff;
+ color: #25282b;
+ font: inherit;
+ cursor: pointer;
+ }
+
+ .dialog-button:hover {
+ background: var(--ui-color-surface-hover);
+ border-color: var(--ui-color-border-hover);
+ }
+
+ .dialog-button.primary {
+ color: #ffffff;
+ background: #2563a8;
+ border-color: #2563a8;
+ }
+
+ .dialog-button.primary:hover {
+ background: #1e568f;
+ border-color: #1e568f;
+ }
+
+ .dialog-button:focus-visible {
+ outline: 2px solid var(--ui-color-focus-ring);
+ outline-offset: 2px;
+ }
+
+/* 
+DIALOG VARIANTS
+ */
+ .dialog.no-header .dialog-content {
+ padding-top: 24px;
+ }
+
+ .dialog.compact {
+ width: var(--ui-dialog-width-sm);
+ }
+
+ .dialog.large {
+ width: var(--ui-dialog-width-lg);
+ }
+
+/* 
+ STATE / COMPARISON GRID
+ */
+
+ .state-grid {
+ display: grid;
+ grid-template-columns: repeat(3, minmax(220px, 1fr));
+ gap: 18px;
+ margin-top: 16px;
+ }
+
+ .state-card {
+ min-width: 0;
+ }
+
+ .state-label {
+ margin-bottom: 7px;
+ color: var(--ui-color-text-muted);
+ font-size: 12px;
+ font-weight: 600;
+ }
+
+ .mini-stage {
+ position: relative;
+ min-height: 220px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ overflow: hidden;
+ background: #eef1f4;
+ border: 1px solid #d8dee5;
+ border-radius: 6px;
+ }
+
+ .mini-stage::before {
+ content: "";
+ position: absolute;
+ inset: 0;
+ background: rgba(32, 36, 40, .22);
+ }
+
+ .mini-dialog {
+ position: relative;
+ z-index: 1;
+ width: 88%;
+ background: #ffffff;
+ border: 1px solid #cfd5dc;
+ border-radius: 6px;
+ overflow: hidden;
+ box-shadow: 0 8px 22px rgba(32,36,40,.14);
+ }
+
+ .mini-dialog-header {
+ padding: 10px 12px;
+ border-bottom: 1px solid #e1e5e9;
+ font-size: 13px;
+ font-weight: 600;
+ }
+
+ .mini-dialog-content {
+ padding: 12px;
+ min-height: 48px;
+ color: #59636c;
+ font-size: 12px;
+ }
+
+ .mini-dialog-footer {
+ display: flex;
+ justify-content: flex-end;
+ gap: 5px;
+ padding: 8px 10px;
+ background: #fafbfc;
+ border-top: 1px solid #e1e5e9;
+ }
+
+ .mini-button {
+ height: 25px;
+ padding: 0 8px;
+ border: 1px solid #cfd5dc;
+ border-radius: 4px;
+ background: #ffffff;
+ font-size: 11px;
+ }
+
+ .mini-button.primary {
+ color: #ffffff;
+ background: #2563a8;
+ border-color: #2563a8;
+ }
+
+ .focus-demo .mini-dialog {
+ outline: 2px solid #3b82d0;
+ outline-offset: 2px;
+ }
+
+ .error-demo .mini-dialog {
+ border-color: #c0392b;
+ }
+
+ .warning-demo .mini-dialog {
+ border-color: #c9982e;
+ }
+
+/* 
+ REFERENCE GALLERY
+ */
+
+ .reference-grid {
+ display: grid;
+ grid-template-columns: repeat(3, minmax(250px, 1fr));
+ gap: 18px;
+ }
+
+ .reference-card {
+ min-width: 0;
+ border: 1px solid #d8dee5;
+ border-radius: 7px;
+ background: #ffffff;
+ overflow: hidden;
+ }
+
+ .reference-image {
+ min-height: 190px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 12px;
+ background: #f3f5f7;
+ border-bottom: 1px solid #d8dee5;
+ color: #7a838c;
+ text-align: center;
+ font-size: 12px;
+ }
+
+ .reference-image img {
+ display: block;
+ max-width: 100%;
+ max-height: 300px;
+ object-fit: contain;
+ }
+
+ .reference-meta {
+ padding: 12px;
+ }
+
+ .reference-meta h3 {
+ margin: 0 0 5px;
+ font-size: 14px;
+ }
+
+ .reference-meta p {
+ margin: 4px 0;
+ color: #626970;
+ font-size: 12px;
+ }
+
+ .reference-meta label {
+ display: block;
+ margin-top: 8px;
+ color: #59636c;
+ font-size: 11px;
+ font-weight: 600;
+ }
+
+ .reference-meta input,
+ .reference-meta textarea,
+ .reference-meta select {
+ width: 100%;
+ margin-top: 3px;
+ padding: 6px 7px;
+ border: 1px solid #cfd5dc;
+ border-radius: 4px;
+ background: #ffffff;
+ font: inherit;
+ font-size: 12px;
+ }
+
+ .reference-meta textarea {
+ min-height: 55px;
+ resize: vertical;
+ }
+
+/* 
+ MEASUREMENT TABLE
+ */
+
+ .measurement-table {
+ width: 100%;
+ border-collapse: collapse;
+ }
+
+ .measurement-table th,
+ .measurement-table td {
+ padding: 9px 10px;
+ border: 1px solid #dfe3e7;
+ text-align: left;
+ vertical-align: top;
+ }
+
+ .measurement-table th {
+ background: #f6f7f8;
+ color: #294f78;
+ font-weight: 600;
+ }
+
+ .measurement-table input {
+ width: 100%;
+ min-width: 90px;
+ padding: 5px 6px;
+ border: 1px solid #cfd5dc;
+ border-radius: 4px;
+ font: inherit;
+ font-size: 12px;
+ }
+
+ /* 
+ TOKEN TABLE / NOTES
+ */
+
+ .token-table {
+ width: 100%;
+ border-collapse: collapse;
+ }
+
+ .token-table th,
+ .token-table td {
+ padding: 9px 11px;
+ border: 1px solid #d8dee5;
+ text-align: left;
+ vertical-align: top;
+ }
+
+ .token-table th {
+ background: #f7f8fa;
+ color: #294f78;
+ }
+
+ .token {
+ color: #174f85;
+ font-family: Consolas, "Courier New", monospace;
+ }
+
+ .provisional {
+ color: #956c00;
+ font-size: 11px;
+ font-weight: 600;
+ }
+
+ .note {
+ color: var(--ui-color-text-muted);
+ font-size: 13px;
+ }
+
+ .annotation {
+ margin-top: 14px;
+ padding: 12px 14px;
+ background: #fafbfc;
+ border: 1px solid #e1e5e9;
+ border-radius: 5px;
+ color: #59636c;
+ font-size: 13px;
+ }
+
+ ul,
+ ol {
+ margin-top: 8px;
+ }
+
+ li {
+ margin: 5px 0;
+ }
+
+ @media (max-width: 900px) {
+ main {
+ padding: 20px;
+ }
+
+```
+.state-grid,
+.reference-grid {
+    grid-template-columns: 1fr;
+}
+```
+
+ }
+ </style>
+
+ </head> <body> <main> <h1>UI Design Lab — Dialog</h1> <p> Working visual specification, comparative reference laboratory and state laboratory for the Dialog component. </p> <div class="hypothesis"> <strong>Current design hypothesis:</strong> A Dialog should establish a clear temporary interaction context without introducing a generic application-wide "elevation" hierarchy. Its hierarchy should primarily come from the overlay, surface contrast, boundary, composition and spacing. Any shadow used by the Dialog is a component-level floating-surface treatment rather than a global elevation token. </div> <div class="pending"> <strong>Important:</strong> The numerical values in this document are provisional starting points only. The purpose of this Lab is to collect comparative evidence before finalizing Dialog geometry, overlay treatment, typography, spacing, radius and action layout. </div> <!-- ========================================================= 1\. PURPOSE AND ROLE ========================================================= --> <h2>1. Purpose and Role</h2> <p> The Dialog provides a temporary interaction context that interrupts or temporarily supersedes the underlying application surface. </p> <p> The final specification should distinguish between dialogs used for: </p> <ul> <li>Confirmation / decision making</li> <li>Short-form data entry</li> <li>Multi-field editing</li> <li>Information / acknowledgement</li> <li>Warnings and potentially destructive actions</li> <li>Longer workflows that may require a larger dialog</li> <li>Dialogs containing scrollable content</li> </ul> <p> The Dialog should not automatically be treated as a generic container for arbitrary application content. Its visual and interaction treatment should communicate that it is a temporary modal context. </p> <!-- ========================================================= 2\. BASIC ANATOMY ========================================================= --> <h2>2. Dialog Anatomy</h2> <div class="section"> <div class="section-body"> <div class="dialog-stage"> <div class="dialog"> <div class="dialog-header"> <h2 class="dialog-title">Dialog title</h2> </div> <div class="dialog-content"> <p> This is representative Dialog content. The final component may contain TextBoxes, Selects, Checkboxes, validation messages or other controls. </p> </div> <div class="dialog-footer"> <button class="dialog-button">Cancel</button> <button class="dialog-button primary">Apply</button> </div> </div> </div> <p class="annotation"> <strong>Anatomy to evaluate:</strong> overlay/backdrop, dialog boundary, title/header treatment, content padding, action area, action ordering, action spacing, corner radius, shadow/boundary, relationship between Dialog and underlying application content. </p> </div> </div> <!-- ========================================================= 3\. STATE COMPARISON ========================================================= --> <h2>3. State Comparison</h2> <p> Dialog states are different from the states of an individual control. Evaluate both the Dialog's own visual state and the states of controls contained within it. </p> <div class="state-grid"> <div class="state-card"> <div class="state-label">Normal / Default</div> <div class="mini-stage"> <div class="mini-dialog"> <div class="mini-dialog-header">Confirm action</div> <div class="mini-dialog-content">Are you sure?</div> <div class="mini-dialog-footer"> <button class="mini-button">Cancel</button> <button class="mini-button primary">OK</button> </div> </div> </div> </div> <div class="state-card"> <div class="state-label">Focus within Dialog</div> <div class="mini-stage focus-demo"> <div class="mini-dialog"> <div class="mini-dialog-header">Edit item</div> <div class="mini-dialog-content">A focused control would appear here.</div> <div class="mini-dialog-footer"> <button class="mini-button">Cancel</button> <button class="mini-button primary">Save</button> </div> </div> </div> </div> <div class="state-card"> <div class="state-label">Validation / Error</div> <div class="mini-stage error-demo"> <div class="mini-dialog"> <div class="mini-dialog-header">Invalid information</div> <div class="mini-dialog-content"> A validation error is displayed inside the Dialog. </div> <div class="mini-dialog-footer"> <button class="mini-button">Cancel</button> <button class="mini-button primary">Retry</button> </div> </div> </div> </div> <div class="state-card"> <div class="state-label">Warning</div> <div class="mini-stage warning-demo"> <div class="mini-dialog"> <div class="mini-dialog-header">Warning</div> <div class="mini-dialog-content"> This action may have consequences. </div> <div class="mini-dialog-footer"> <button class="mini-button">Cancel</button> <button class="mini-button primary">Continue</button> </div> </div> </div> </div> <div class="state-card"> <div class="state-label">Long / Scrollable Content</div> <div class="mini-stage"> <div class="mini-dialog"> <div class="mini-dialog-header">Details</div> <div class="mini-dialog-content"> Scrollable content would appear in this region. </div> <div class="mini-dialog-footer"> <button class="mini-button">Close</button> </div> </div> </div> </div> <div class="state-card"> <div class="state-label">Destructive Confirmation</div> <div class="mini-stage"> <div class="mini-dialog"> <div class="mini-dialog-header">Delete item?</div> <div class="mini-dialog-content"> The final destructive-action treatment is TBD. </div> <div class="mini-dialog-footer"> <button class="mini-button">Cancel</button> <button class="mini-button">Delete</button> </div> </div> </div> </div> </div> <!-- ========================================================= 4\. LIVE INTERACTION TEST ========================================================= --> <h2>4. Live Interaction Test</h2> <p> Use this section to evaluate the Dialog in actual browser interaction rather than only as a static visual. </p> <div class="section"> <div class="section-body"> <div class="dialog-stage"> <div class="dialog"> <div class="dialog-header"> <h2 class="dialog-title">Edit record</h2> </div> <div class="dialog-content"> <p> Use Tab to move through the controls. Evaluate focus visibility, tab order, action ordering and whether the Dialog remains visually distinct from the underlying page. </p> <label style="display:block;margin-top:14px;"> <strong>Name</strong> </label> <input type="text" value="Example record" style=" width:100%; height:32px; margin-top:5px; padding:0 9px; border:1px solid #cfd5dc; border-radius:5px; font:inherit; ">
+
+ </div> <div class="dialog-footer"> <button class="dialog-button">Cancel</button> <button class="dialog-button primary">Save</button> </div> </div> </div> <p class="note"> Keyboard test: Tab through every focusable element. Test Enter, Escape, Shift+Tab and the behavior when the Dialog is opened and closed. Determine whether focus returns correctly to the invoking control. </p> </div> </div> <!-- ========================================================= 5\. ROLES & COMPARATIVE REFERENCES ========================================================= --> <h2>5. Roles & Comparative References</h2> <p> This is the principal evidence-gathering section for the Dialog redesign. Add screenshots from representative reference systems and record the characteristics that appear relevant to the application's target. </p> <div class="established"> <strong>Reference principle:</strong> Do not copy another system mechanically. Use the references to identify recurring patterns, dimensions, proportions, interaction conventions and trade-offs that can inform the application's own Dialog specification. </div> <div class="reference-grid"> <!-- NOTION --> <div class="reference-card"> <div class="reference-image"> <!-- Replace this placeholder with the collected screenshot. --> <img src="" alt="Notion Dialog reference screenshot" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <span>INSERT NOTION DIALOG SCREENSHOT</span> </div> <div class="reference-meta"> <h3>Notion</h3> <p> Reference role: productivity application / modern desktop-web UI. </p> <label>Reference / Dialog type</label>
+ <input type="text" placeholder="e.g. confirmation, settings, editor">
+
+ <label>Observed width</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed title/header height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed content padding</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed footer/action spacing</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed corner radius</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed overlay</label>
+ <input type="text" placeholder="e.g. dark translucent, blur, none">
+
+ <label>Notes</label>
+
+ <textarea placeholder="What is visually or behaviorally relevant?"></textarea> </div> </div> <!-- AIRTABLE --> <div class="reference-card"> <div class="reference-image"> <img src="" alt="Airtable Dialog reference screenshot" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <span>INSERT AIRTABLE DIALOG SCREENSHOT</span> </div> <div class="reference-meta"> <h3>Airtable</h3> <p> Reference role: productivity/database application. </p> <label>Reference / Dialog type</label>
+ <input type="text" placeholder="e.g. confirmation, form, settings">
+
+ <label>Observed width</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed title/header height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed content padding</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed footer/action spacing</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed corner radius</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed overlay</label>
+ <input type="text" placeholder="e.g. dark translucent, blur, none">
+
+ <label>Notes</label>
+
+ <textarea placeholder="What is visually or behaviorally relevant?"></textarea> </div> </div> <!-- WINDOWS --> <div class="reference-card"> <div class="reference-image"> <img src="" alt="Windows system Dialog reference screenshot" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <span>INSERT WINDOWS DIALOG SCREENSHOT</span> </div> <div class="reference-meta"> <h3>Windows / System</h3> <p> Reference role: desktop operating-system dialog conventions. </p> <label>Reference / Dialog type</label>
+ <input type="text" placeholder="e.g. confirmation, properties">
+
+ <label>Observed width</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed title/header height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed content padding</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed footer/action spacing</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed corner radius</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed overlay</label>
+ <input type="text" placeholder="e.g. dimming, none">
+
+ <label>Notes</label>
+
+ <textarea placeholder="What is visually or behaviorally relevant?"></textarea> </div> </div> <!-- MATERIAL --> <div class="reference-card"> <div class="reference-image"> <img src="" alt="Material Dialog reference screenshot" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <span>INSERT MATERIAL DIALOG SCREENSHOT</span> </div> <div class="reference-meta"> <h3>Material</h3> <p> Reference role: established component/design-system reference. </p> <label>Reference / Dialog type</label>
+ <input type="text" placeholder="e.g. basic, confirmation, form">
+
+ <label>Observed width</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed title/header height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed content padding</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed footer/action spacing</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed corner radius</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed overlay</label>
+ <input type="text" placeholder="e.g. scrim">
+
+ <label>Notes</label>
+
+ <textarea placeholder="What is visually or behaviorally relevant?"></textarea> </div> </div> <!-- CURRENT DOJO --> <div class="reference-card"> <div class="reference-image"> <img src="" alt="Current Dojo Dialog reference screenshot" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <span>INSERT CURRENT DOJO SCREENSHOT</span> </div> <div class="reference-meta"> <h3>Current Dojo Implementation</h3> <p> Reference role: existing application behavior and visual baseline. </p> <label>Dialog type</label>
+ <input type="text" placeholder="e.g. dijit/Dialog">
+
+ <label>Observed width</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed title/header height</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed content padding</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed footer/action spacing</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed corner radius</label>
+ <input type="text" placeholder="px">
+
+ <label>Observed overlay</label>
+ <input type="text" placeholder="Current behavior">
+
+ <label>Notes</label>
+
+ <textarea placeholder="What should be preserved, changed or investigated?"></textarea> </div> </div> <!-- PROPOSED --> <div class="reference-card"> <div class="reference-image"> <img src="" alt="Proposed application Dialog reference screenshot" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <span>INSERT PROPOSED DIALOG SCREENSHOT</span> </div> <div class="reference-meta"> <h3>Proposed Application Direction</h3> <p> Reference role: evolving target implementation. </p> <label>Dialog type</label>
+ <input type="text" placeholder="e.g. standard confirmation">
+
+ <label>Target width</label>
+ <input type="text" placeholder="px">
+
+ <label>Target height</label>
+ <input type="text" placeholder="px / auto">
+
+ <label>Target title/header height</label>
+ <input type="text" placeholder="px">
+
+ <label>Target content padding</label>
+ <input type="text" placeholder="px">
+
+ <label>Target footer/action spacing</label>
+ <input type="text" placeholder="px">
+
+ <label>Target corner radius</label>
+ <input type="text" placeholder="px">
+
+ <label>Target overlay</label>
+ <input type="text" placeholder="Target treatment">
+
+ <label>Notes</label>
+
+ <textarea placeholder="Current target hypothesis"></textarea> </div> </div> </div> <!-- ========================================================= 6\. COMPARATIVE MEASUREMENT WORKSHEET ========================================================= --> <h2>6. Comparative Measurement Worksheet</h2> <p> Use this table after collecting screenshots. Measurements do not need to be perfect initially; the objective is to identify meaningful patterns and outliers. </p> <table class="measurement-table"> <thead> <tr> <th>Measurement</th> <th>Notion</th> <th>Airtable</th> <th>Windows</th> <th>Material</th> <th>Current Dojo</th> <th>Proposed</th> </tr> </thead> <tbody> <tr> <td>Dialog width</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Dialog height</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Title/header height</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Content top padding</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Content side padding</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Footer height</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Button height</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Button gap</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Dialog corner radius</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Border width</td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> <td><input placeholder="px"></td> </tr> <tr> <td>Overlay opacity</td> <td><input placeholder="%"></td> <td><input placeholder="%"></td> <td><input placeholder="%"></td> <td><input placeholder="%"></td> <td><input placeholder="%"></td> <td><input placeholder="%"></td> </tr> <tr> <td>Shadow / floating treatment</td> <td><input placeholder="description"></td> <td><input placeholder="description"></td> <td><input placeholder="description"></td> <td><input placeholder="description"></td> <td><input placeholder="description"></td> <td><input placeholder="description"></td> </tr> </tbody> </table> <!-- ========================================================= 7\. DIALOG WIDTH / SIZE VARIANTS ========================================================= --> <h2>7. Dialog Size and Width Variants</h2> <p> Determine whether the application requires a small set of semantic Dialog sizes rather than arbitrary per-dialog widths. </p> <table class="measurement-table"> <thead> <tr> <th>Variant</th> <th>Candidate width</th> <th>Typical use</th> <th>Reference evidence</th> <th>Decision</th> </tr> </thead> <tbody> <tr> <td>Small</td> <td><input value="360px"></td> <td>Confirmation / short message</td> <td><input placeholder="References"></td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Medium</td> <td><input value="520px"></td> <td>Standard form / editing</td> <td><input placeholder="References"></td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Large</td> <td><input value="720px"></td> <td>Complex / multi-section content</td> <td><input placeholder="References"></td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Custom</td> <td><input placeholder="TBD"></td> <td>Only where justified</td> <td><input placeholder="References"></td> <td><input placeholder="TBD"></td> </tr> </tbody> </table> <!-- ========================================================= 8\. HEADER / CONTENT / FOOTER ========================================================= --> <h2>8. Header, Content and Footer Structure</h2> <p> Evaluate whether the Dialog should use three visually distinct structural regions or whether some Dialog types should omit one or more regions. </p> <table class="measurement-table"> <thead> <tr> <th>Region</th> <th>Questions to evaluate</th> <th>Current hypothesis</th> <th>Decision</th> </tr> </thead> <tbody> <tr> <td>Header</td> <td> Should the title have its own bounded region? Is a separator required? Should a close button appear here? </td> <td> Distinct title/header is appropriate for most dialogs. </td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Content</td> <td> What is the standard horizontal/vertical padding? Does content scroll independently? </td> <td> Content should remain information-dense and use shared control spacing. </td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Footer</td> <td> Should actions have a separate surface? Should the footer have a border? How are actions aligned? </td> <td> Right-aligned actions are a candidate for desktop productivity UI. </td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Close control</td> <td> Is a close icon always present? Where is it located? Is it redundant with Cancel/Close? </td> <td> TBD through comparative review. </td> <td><input placeholder="TBD"></td> </tr> </tbody> </table> <!-- ========================================================= 9\. ACTION AREA ========================================================= --> <h2>9. Dialog Action Area</h2> <p> The Dialog action area should be evaluated together with the Button Lab. Dialog-specific work should establish layout and hierarchy, while Button visual treatment should remain governed by the Button component specification. </p> <ul> <li>Primary versus secondary action hierarchy</li> <li>Action ordering</li> <li>Horizontal versus vertical action layout</li> <li>Spacing between actions</li> <li>Distance between actions and Dialog edge</li> <li>Default action indication</li> <li>Disabled action treatment</li> <li>Destructive action treatment</li> <li>Cancel / dismiss behavior</li> </ul> <div class="annotation"> <strong>Important separation:</strong> Do not independently redesign the Button inside this Lab merely because it appears inside a Dialog. The Dialog Lab should determine placement, spacing and contextual hierarchy; the Button Lab remains the authority for Button visual treatment. </div> <!-- ========================================================= 10\. OVERLAY / BACKDROP ========================================================= --> <h2>10. Overlay / Backdrop</h2> <p> The overlay is one of the most important Dialog-specific visual decisions. Compare whether reference systems use: </p> <ul> <li>Dark translucent scrim</li> <li>Light translucent scrim</li> <li>Blur</li> <li>Darkening without blur</li> <li>Very subtle dimming</li> <li>No overlay for non-modal dialogs</li> </ul> <table class="measurement-table"> <thead> <tr> <th>Reference</th> <th>Color</th> <th>Opacity</th> <th>Blur</th> <th>Effect on underlying content</th> <th>Notes</th> </tr> </thead> <tbody> <tr> <td>Notion</td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> </tr> <tr> <td>Airtable</td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> </tr> <tr> <td>Windows</td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> </tr> <tr> <td>Material</td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> </tr> <tr> <td>Current Dojo</td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> </tr> <tr> <td>Proposed</td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> <td><input></td> </tr> </tbody> </table> <!-- ========================================================= 11\. DIALOG BEHAVIOR QUESTIONS ========================================================= --> <h2>11. Dialog Behavior Questions</h2> <ol> <li> Does clicking outside the Dialog dismiss it? </li> <li> Does pressing Escape dismiss it? </li> <li> Are there Dialog types for which Escape must not dismiss the Dialog? </li> <li> Does focus move automatically into the Dialog when it opens? </li> <li> Where does focus go when the Dialog closes? </li> <li> Is focus trapped within the modal Dialog? </li> <li> Can the underlying page receive pointer interaction while the Dialog is open? </li> <li> Does the underlying page scroll while the Dialog is open? </li> <li> What happens when Dialog content exceeds the viewport height? </li> <li> Does the Dialog remain centered, or can it use another positioning strategy? </li> <li> How are nested dialogs handled, if at all? </li> <li> How does the Dialog behave when the viewport is resized? </li> </ol> <!-- ========================================================= 12\. ACCESSIBILITY / KEYBOARD ========================================================= --> <h2>12. Accessibility and Keyboard Questions</h2> <ul> <li> Does the Dialog expose the correct accessible role? </li> <li> Is the Dialog title programmatically associated with the Dialog? </li> <li> Is descriptive content associated where appropriate? </li> <li> Does keyboard focus move into the Dialog predictably? </li> <li> Is focus trapped correctly while the Dialog is modal? </li> <li> Does Tab order remain predictable? </li> <li> Does Shift+Tab behave correctly? </li> <li> Does Escape perform the expected dismiss/cancel behavior? </li> <li> Does Enter activate the intended default action without causing accidental submission? </li> <li> Are destructive and validation states communicated through more than color? </li> <li> Can the Dialog be operated completely without a pointer? </li> </ul> <!-- ========================================================= 13\. CONTENT / SCROLLING ========================================================= --> <h2>13. Content and Scrolling</h2> <p> Long-form Dialogs require special attention because scrolling can alter the relationship between the header, content and actions. </p> <table class="measurement-table"> <thead> <tr> <th>Question</th> <th>Candidate behavior</th> <th>Reference evidence</th> <th>Decision</th> </tr> </thead> <tbody> <tr> <td>Long content</td> <td><input placeholder="Dialog scroll / page scroll / other"></td> <td><input placeholder="References"></td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Header during content scroll</td> <td><input placeholder="Fixed / scrolls"></td> <td><input placeholder="References"></td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Footer during content scroll</td> <td><input placeholder="Fixed / scrolls"></td> <td><input placeholder="References"></td> <td><input placeholder="TBD"></td> </tr> <tr> <td>Maximum viewport height</td> <td><input placeholder="% / px"></td> <td><input placeholder="References"></td> <td><input placeholder="TBD"></td> </tr> </tbody> </table> <!-- ========================================================= 14\. VISUAL QUESTIONS ========================================================= --> <h2>14. Dialog Design Questions</h2> <ol> <li> How strong should the Dialog boundary be against the underlying page? </li> <li> Should the Dialog have a visible border, shadow, or both? </li> <li> How much visual weight should the overlay contribute? </li> <li> Should the Dialog surface remain pure white or use a subtle alternate surface? </li> <li> What Dialog corner radius fits the shared component system? </li> <li> Should header and footer surfaces be visually differentiated from content? </li> <li> Should header/footer separators be visible? </li> <li> What are the appropriate Dialog widths for Compact, Default and Comfortable density profiles? </li> <li> What is the minimum useful Dialog width? </li> <li> What is the maximum useful Dialog width before the component should become a different layout pattern? </li> <li> How should the Dialog relate visually to the existing Button and TextBox components? </li> <li> Should the Dialog overlay use the same semantic color architecture as the rest of the application? </li> <li> Does the Dialog require a close icon in addition to explicit actions? </li> <li> What action alignment is most appropriate for this desktop productivity UI? </li> <li> Which Dialog properties should become shared semantic tokens? </li> </ol> <!-- ========================================================= 15\. CURRENT TOKEN SET ========================================================= --> <h2>15. Current Dialog Token Set</h2> <p> Names are working candidates. Numeric values remain provisional and should not yet be promoted into the global Design System. </p> <table class="token-table"> <thead> <tr> <th>Token</th> <th>Current value</th> <th>Role</th> <th>Status</th> </tr> </thead> <tbody> <tr> <td class="token">--ui-dialog-width-sm</td> <td>360px</td> <td>Small Dialog width</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-width-md</td> <td>520px</td> <td>Default Dialog width</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-width-lg</td> <td>720px</td> <td>Large Dialog width</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-padding</td> <td>20px</td> <td>Dialog content padding</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-radius</td> <td>7px</td> <td>Dialog corner radius</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-header-padding-x</td> <td>18px</td> <td>Header horizontal padding</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-header-padding-y</td> <td>14px</td> <td>Header vertical padding</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-footer-padding-x</td> <td>18px</td> <td>Footer horizontal padding</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-footer-padding-y</td> <td>12px</td> <td>Footer vertical padding</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-action-gap</td> <td>8px</td> <td>Spacing between Dialog actions</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-overlay</td> <td>rgba(32,36,40,.28)</td> <td>Modal backdrop</td> <td class="provisional">PROVISIONAL</td> </tr> <tr> <td class="token">--ui-dialog-shadow</td> <td>Component-level shadow</td> <td>Floating Dialog treatment</td> <td class="provisional">PROVISIONAL</td> </tr> </tbody> </table> <!-- ========================================================= 16\. DESIGN DECISION LOG ========================================================= --> <h2>16. Dialog Design Decision Log</h2> <table class="measurement-table"> <thead> <tr> <th>ID</th> <th>Decision / Observation</th> <th>Status</th> </tr> </thead> <tbody> <tr> <td>DIA-001</td> <td>Dialog requires its own component-level floating-surface treatment rather than relying on a global elevation scale.</td> <td>Current direction</td> </tr> <tr> <td>DIA-002</td> <td>Dialog visual hierarchy should be established through composition, boundary, contrast, overlay and spacing.</td> <td>Current direction</td> </tr> <tr> <td>DIA-003</td> <td>Dialog action buttons should use the Button component specification rather than introducing a separate Button visual language.</td> <td>Current direction</td> </tr> <tr> <td>DIA-004</td> <td>Dialog geometry, overlay strength, radius and shadow remain provisional pending comparative review.</td> <td>Open</td> </tr> <tr> <td>DIA-005</td> <td>Reference screenshots and measurements should be collected before finalizing Dialog dimensions.</td> <td>Open</td> </tr> <tr> <td>DIA-006</td> <td>Keyboard focus management and Escape/dismiss behavior must be specified as part of the Dialog component.</td> <td>Open</td> </tr> </tbody> </table> <!-- ========================================================= 17\. OPEN QUESTIONS / EVIDENCE TO COLLECT ========================================================= --> <h2>17. Open Questions / Evidence to Collect</h2> <div class="pending"> <strong>Before finalizing the Dialog:</strong>
+
+ <ul> <li>Collect at least one representative Notion Dialog screenshot.</li> <li>Collect at least one representative Airtable Dialog screenshot.</li> <li>Collect at least one Windows/system Dialog screenshot.</li> <li>Collect at least one Material Dialog screenshot.</li> <li>Capture the current application's Dojo Dialog.</li> <li>Record approximate width, height, padding, radius and action spacing for each.</li> <li>Record overlay color/opacity where measurable.</li> <li>Record whether header/footer regions are separated by borders.</li> <li>Record whether actions are right-aligned, left-aligned or otherwise arranged.</li> <li>Record how Escape, outside-click and focus are handled.</li> <li>Identify which patterns recur across several references rather than relying on one reference implementation.</li> </ul> </div> <!-- ========================================================= 18\. FINAL SPECIFICATION CHECKLIST ========================================================= --> <h2>18. Final Dialog Specification Checklist</h2> <ul> <li>Purpose and role defined</li> <li>Dialog variants defined</li> <li>Small / Default / Large dimensions established</li> <li>Header geometry established</li> <li>Content padding established</li> <li>Footer geometry established</li> <li>Action spacing established</li> <li>Button relationship established</li> <li>Overlay treatment established</li> <li>Border treatment established</li> <li>Shadow/floating treatment established</li> <li>Corner radius established</li> <li>Typography established</li> <li>Scrollable-content behavior established</li> <li>Focus-management behavior established</li> <li>Escape behavior established</li> <li>Outside-click behavior established</li> <li>Accessibility requirements established</li> <li>Semantic tokens identified</li> <li>Exceptions documented</li> <li>Comparative screenshots retained as visual evidence</li> </ul> <p class="note"> This Design Lab is intended to remain a working visual artifact. Once the Dialog direction is sufficiently established, the conclusions should be promoted into the global Design System and the final Dialog component specification, while experimental material can remain here as supporting evidence. </p> </main> </body> </html> <p>This one is intentionally a little more measurement-oriented than the TextBox Lab, because Dialogs have several additional dimensions worth capturing: overlay opacity, dialog width/height, header/footer geometry, action placement, and the relationship between the floating surface and the underlying application.</p> <p>When you move on to the next component, we can keep this same Lab architecture and only change the component-specific anatomy, states, reference matrix, and measurement fields.</p>
