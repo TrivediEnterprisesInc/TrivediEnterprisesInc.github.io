@@ -1,0 +1,633 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Design Lab — TextBox / Text Input</title>
+<style>
+:root {
+--ui-color-surface: #ffffff;
+--ui-color-surface-hover: #eaf3ff;
+--ui-color-surface-disabled: #f4f5f6;
+--ui-color-border: #cfd5dc;
+--ui-color-border-hover: #b9c3ce;
+--ui-color-border-focus: #3b82d0;
+--ui-color-focus-ring: #3b82d0;
+--ui-color-text: #202428;
+--ui-color-text-muted: #6b737c;
+--ui-color-text-disabled: #9aa1a8;
+--ui-color-error: #c0392b;
+
+  --ui-input-height: 32px;
+  --ui-input-radius: 5px;
+  --ui-input-padding-x: 9px;
+  --ui-input-font-size: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 32px;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ui-color-text);
+  background: #ffffff;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+h2 {
+  margin: 32px 0 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e3e6e9;
+  font-size: 19px;
+}
+
+h3 {
+  margin: 22px 0 8px;
+  font-size: 16px;
+}
+
+p {
+  margin: 8px 0 14px;
+}
+
+code {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  font-size: 0.92em;
+}
+
+.hypothesis {
+  padding: 12px 14px;
+  border-left: 3px solid var(--ui-color-border-focus);
+  background: #f8fafc;
+}
+
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.state {
+  min-width: 0;
+}
+
+.state-label {
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ui-color-text-muted);
+}
+
+.textbox {
+  width: 100%;
+  height: var(--ui-input-height);
+  padding: 0 var(--ui-input-padding-x);
+  border: 1px solid var(--ui-color-border);
+  border-radius: var(--ui-input-radius);
+  background: var(--ui-color-surface);
+  color: var(--ui-color-text);
+  font: inherit;
+  font-size: var(--ui-input-font-size);
+  outline: none;
+  transition:
+    background-color 80ms ease,
+    border-color 80ms ease,
+    box-shadow 80ms ease;
+}
+
+.textbox::placeholder {
+  color: var(--ui-color-text-muted);
+}
+
+.textbox:hover:not(:disabled):not([readonly]) {
+  background: var(--ui-color-surface-hover);
+  border-color: var(--ui-color-border-hover);
+}
+
+.textbox:focus-visible {
+  border-color: var(--ui-color-border-focus);
+  box-shadow: 0 0 0 2px rgba(59, 130, 208, 0.20);
+}
+
+.textbox:disabled {
+  background: var(--ui-color-surface-disabled);
+  color: var(--ui-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.textbox[readonly] {
+  background: #fafafa;
+}
+
+.textbox.error {
+  border-color: var(--ui-color-error);
+}
+
+.textbox.error:focus-visible {
+  border-color: var(--ui-color-error);
+  box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.18);
+}
+
+.test-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.test-row .textbox {
+  width: 220px;
+}
+
+.field {
+  display: grid;
+  gap: 5px;
+  width: 280px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.helper {
+  font-size: 12px;
+  color: var(--ui-color-text-muted);
+}
+
+.error-message {
+  font-size: 12px;
+  color: var(--ui-color-error);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th,
+td {
+  padding: 9px 10px;
+  border: 1px solid #dfe3e7;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #f6f7f8;
+  font-weight: 600;
+}
+
+ul,
+ol {
+  margin-top: 8px;
+}
+
+li {
+  margin: 5px 0;
+}
+
+.token-table code {
+  white-space: nowrap;
+}
+
+.note {
+  color: var(--ui-color-text-muted);
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  body {
+    padding: 20px;
+  }
+
+  .state-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<main>
+
+<h1>UI Design Lab — TextBox / Text Input</h1>
+
+<p>
+Working visual specification and state laboratory for the TextBox /
+text input component.
+</p>
+
+<p class="hypothesis">
+<strong>Current design hypothesis:</strong>
+Text inputs should remain restrained and information-dense, with the
+border and focus treatment doing most of the work of communicating
+editability and interaction. Persistent color should be used sparingly.
+</p>
+
+<h2>1. State Comparison</h2>
+
+<p>
+The standard TextBox state vocabulary currently being evaluated.
+</p>
+
+<div class="state-grid">
+
+<div class="state">
+  <div class="state-label">Normal / Empty</div>
+  <input class="textbox" type="text" placeholder="Enter text">
+</div>
+
+<div class="state">
+  <div class="state-label">Normal / Filled</div>
+  <input class="textbox" type="text" value="Example value">
+</div>
+
+<div class="state">
+  <div class="state-label">Hover</div>
+  <input
+    class="textbox"
+    type="text"
+    value="Hover over this input"
+  >
+</div>
+
+<div class="state">
+  <div class="state-label">Focus-visible</div>
+  <input
+    class="textbox"
+    type="text"
+    value="Click or Tab to focus"
+    autofocus
+  >
+</div>
+
+<div class="state">
+  <div class="state-label">Disabled</div>
+  <input
+    class="textbox"
+    type="text"
+    value="Disabled value"
+    disabled
+  >
+</div>
+
+<div class="state">
+  <div class="state-label">Read-only</div>
+  <input
+    class="textbox"
+    type="text"
+    value="Read-only value"
+    readonly
+  >
+</div>
+
+<div class="state">
+  <div class="state-label">Error</div>
+  <input
+    class="textbox error"
+    type="text"
+    value="Invalid value"
+    aria-invalid="true"
+  >
+</div>
+
+<div class="state">
+  <div class="state-label">Placeholder</div>
+  <input
+    class="textbox"
+    type="text"
+    placeholder="Placeholder text"
+  >
+</div>
+
+</div>
+
+<p class="note">
+Observation: The resting input should remain visually quiet. Hover and
+focus should provide clear interaction feedback without making the
+TextBox permanently color-heavy.
+</p>
+
+<h2>2. Live Interaction Test</h2>
+
+<p>
+Move the pointer and use the keyboard to evaluate the proposed states.
+</p>
+
+<div class="test-row">
+<input class="textbox" type="text" placeholder="Regular">
+<input class="textbox" type="text" value="Filled">
+<input class="textbox" type="text" placeholder="Disabled" disabled>
+<input class="textbox" type="text" value="Read-only" readonly>
+</div>
+
+<p>
+Keyboard test: Use Tab to move through the inputs. The focus-visible
+treatment should remain distinguishable from hover, validation, and
+selection.
+</p>
+
+<h2>3. Label and Validation Test</h2>
+
+<div class="test-row">
+
+<div class="field">
+  <label for="name-input">Name</label>
+  <input
+    id="name-input"
+    class="textbox"
+    type="text"
+    placeholder="Enter your name"
+  >
+  <div class="helper">Optional helper text can appear here.</div>
+</div>
+
+<div class="field">
+  <label for="error-input">Email</label>
+  <input
+    id="error-input"
+    class="textbox error"
+    type="text"
+    value="not-an-email"
+    aria-invalid="true"
+    aria-describedby="email-error"
+  >
+  <div id="email-error" class="error-message">
+    Please enter a valid email address.
+  </div>
+</div>
+
+</div>
+
+<h2>4. TextBox Design Questions</h2>
+
+<p>
+Items that should be settled before TextBox becomes a finalized
+component specification.
+</p>
+
+<ol>
+<li>
+Should the normal TextBox use a clearly visible border, a subtle
+border, or a mostly surface-based treatment?
+</li>
+
+<li>
+  Should the hover state use the same very-light Claro Blue surface
+  established for appropriate controls, or should TextBox use a
+  different treatment?
+</li>
+
+<li>
+  Should focus change the border, add a focus ring, or use both?
+</li>
+
+<li>
+  Can focus be unmistakably different from hover without excessive
+  visual weight?
+</li>
+
+<li>
+  Should the border become more prominent when the TextBox contains
+  a value?
+</li>
+
+<li>
+  What is the appropriate placeholder contrast relative to entered
+  text?
+</li>
+
+<li>
+  How should labels relate spatially and visually to the input?
+</li>
+
+<li>
+  How should required fields be indicated?
+</li>
+
+<li>
+  How should helper text and validation messages affect spacing
+  and density?
+</li>
+
+<li>
+  What is the visual distinction between Disabled and Read-only?
+</li>
+
+<li>
+  How should Error and Warning states interact with Focus-visible?
+</li>
+
+<li>
+  What control heights correspond to Compact, Default and
+  Comfortable density?
+</li>
+
+<li>
+  What border radius and horizontal padding should become shared
+  control primitives?
+</li>
+
+<li>
+  Which TextBox decisions should become global semantic tokens?
+</li>
+
+</ol>
+
+<h2>5. Content and Typography Questions</h2>
+
+<ul>
+<li>Primary entered text versus placeholder text</li>
+<li>Long values and overflow behavior</li>
+<li>Selection and caret visibility</li>
+<li>Password input treatment</li>
+<li>Numeric, date and other specialized text inputs</li>
+<li>Icon or affordance placement where applicable</li>
+</ul>
+
+<h2>6. Accessibility and Keyboard Questions</h2>
+
+<ul>
+<li>What receives focus?</li>
+<li>Is focus-visible clearly distinguishable?</li>
+<li>Does Tab order remain predictable?</li>
+<li>Are disabled and read-only states communicated correctly?</li>
+<li>Are validation states communicated through more than color alone?</li>
+<li>Does the label remain programmatically associated with the input?</li>
+</ul>
+
+<h2>7. Current TextBox Token Set</h2>
+
+<p>
+Names are working candidates. Numeric values are intentionally
+provisional and should not yet be promoted into the global Design
+System.
+</p>
+
+<table class="token-table">
+<thead>
+<tr>
+<th>Token</th>
+<th>Current value</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--ui-input-surface</code></td>
+<td>#ffffff PROVISIONAL</td>
+<td>TextBox resting surface.</td>
+</tr>
+
+  <tr>
+    <td><code>--ui-input-surface-hover</code></td>
+    <td>#eaf3ff PROVISIONAL</td>
+    <td>TextBox hover surface.</td>
+  </tr>
+
+  <tr>
+    <td><code>--ui-input-border</code></td>
+    <td>#cfd5dc PROVISIONAL</td>
+    <td>Default TextBox border.</td>
+  </tr>
+
+  <tr>
+    <td><code>--ui-input-border-hover</code></td>
+    <td>#b9c3ce PROVISIONAL</td>
+    <td>Hover border.</td>
+  </tr>
+
+  <tr>
+    <td><code>--ui-input-border-focus</code></td>
+    <td>#3b82d0 PROVISIONAL</td>
+    <td>Focused TextBox border.</td>
+  </tr>
+
+  <tr>
+    <td><code>--ui-input-focus-ring</code></td>
+    <td>#3b82d0 PROVISIONAL</td>
+    <td>Focus-visible indicator.</td>
+  </tr>
+
+  <tr>
+    <td><code>--ui-input-placeholder</code></td>
+    <td>#6b737c PROVISIONAL</td>
+    <td>Placeholder text.</td>
+  </tr>
+
+  <tr>
+    <td><code>--ui-input-border-error</code></td>
+    <td>#c0392b PROVISIONAL</td>
+    <td>Validation error border.</td>
+  </tr>
+
+  <tr>
+    <td><code>--ui-input-height</code></td>
+    <td>32px PROVISIONAL</td>
+    <td>Default TextBox height.</td>
+  </tr>
+
+  <tr>
+    <td><code>--ui-input-radius</code></td>
+    <td>5px PROVISIONAL</td>
+    <td>TextBox corner radius.</td>
+  </tr>
+</tbody>
+
+</table>
+
+<h2>8. Current Decisions</h2>
+
+<p>
+These are working decisions and hypotheses. Promote them into
+<code>Design_System.html</code> only when they are sufficiently
+established across the component system.
+</p>
+
+<ul>
+<li>
+D-001: The TextBox should remain visually restrained in its normal
+state.
+</li>
+
+<li>
+  D-002: Persistent color should not be used merely to establish
+  editability when border and typography provide sufficient
+  affordance.
+</li>
+
+<li>
+  D-003: Hover should provide a perceptible but restrained change.
+</li>
+
+<li>
+  D-004: Focus-visible must be unmistakably different from hover
+  without introducing unnecessary visual noise.
+</li>
+
+<li>
+  D-005: Validation states must not rely on color alone.
+</li>
+
+<li>
+  D-006: Semantic tokens should be used even when initial values
+  remain provisional.
+</li>
+
+</ul>
+
+<h2>9. Notes for Future Iterations</h2>
+
+<p>
+This Lab is intentionally not a final implementation. It is the place
+where visual hypotheses can be tested before they become design-system
+rules.
+</p>
+
+<p>
+Particular attention should be paid to the relationship between the
+TextBox's normal border, hover treatment and focus-visible treatment.
+These states should form a coherent progression rather than three
+unrelated visual styles.
+</p>
+
+<p>
+Once the TextBox design is sufficiently settled, the final decisions
+should be promoted to <code>Design_System.html</code> and the
+provisional values in this Lab should be replaced with the approved
+semantic tokens.
+</p>
+
+<p>
+The same Lab pattern should subsequently be used for Select, Checkbox,
+Menu, Dialog, Grid and other representative components.
+</p>
+
+</main>
+</body>
+</html>
