@@ -1,0 +1,2338 @@
+<!DOCTYPE html> <html lang="en"> 
+<head> 
+<meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Design Lab — CheckBox Control</title>
+<style> 
+:root { 
+/* ============================================================ CHECKBOX DESIGN LAB ============================================================
+This is a visual working artifact.
+
+Important:
+
+Exact token values are provisional.
+
+Semantic token names are more important than current values.
+
+Reference screenshots are comparative evidence, not
+specifications to copy.
+
+Checkbox geometry should eventually align with the shared
+control system established across Button, TextBox and Select.
+
+Do not promote provisional values into Design_System.html
+until they have been validated across the component family.
+*/
+
+/* ----------------------------------------------------------
+Global semantic tokens — PROVISIONAL
+---------------------------------------------------------- */
+
+--ui-color-surface: #ffffff;
+--ui-color-surface-hover: #eaf3ff;
+--ui-color-surface-active: #dcecff;
+--ui-color-surface-disabled: #f1f3f5;
+
+--ui-color-border: #cfd5dc;
+--ui-color-border-hover: #b9c3ce;
+--ui-color-border-active: #9fb0c1;
+
+--ui-color-text: #202428;
+--ui-color-text-muted: #6b737c;
+--ui-color-text-disabled: #9aa1a8;
+
+--ui-color-accent: #2563a8;
+--ui-color-accent-hover: #1e568f;
+
+--ui-color-focus-ring: #3b82d0;
+
+--ui-color-checkmark: #ffffff;
+
+--ui-color-error: #c0392b;
+--ui-color-warning: #956c00;
+
+/* ----------------------------------------------------------
+Checkbox geometry — PROVISIONAL
+---------------------------------------------------------- */
+
+--ui-checkbox-size: 16px;
+--ui-checkbox-size-compact: 14px;
+--ui-checkbox-size-comfortable: 18px;
+
+--ui-checkbox-border-width: 1px;
+--ui-checkbox-radius: 4px;
+
+--ui-checkbox-gap: 7px;
+
+--ui-checkbox-focus-width: 2px;
+--ui-checkbox-focus-offset: 2px;
+
+--ui-checkbox-label-font-size: 14px;
+--ui-checkbox-label-line-height: 20px;
+
+--ui-checkbox-transition: 100ms ease;
+}
+
+/* ============================================================
+BASE DOCUMENT
+============================================================ */
+
+{
+box-sizing: border-box;
+}
+
+html,
+body {
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Arial,
+sans-serif;
+
+color: var(--ui-color-text);
+background: #f4f6f8;
+
+line-height: 1.45;
+}
+
+/* ============================================================
+LAB SHELL
+============================================================ */
+
+.lab-header {
+background: #ffffff;
+border-bottom: 1px solid #d8dee5;
+padding: 24px 32px;
+}
+
+.lab-header h1 {
+margin: 0 0 4px;
+color: #17365d;
+font-size: 24px;
+font-weight: 600;
+}
+
+.lab-header p {
+margin: 0;
+color: #626970;
+}
+
+.lab {
+max-width: 1280px;
+margin: 0 auto;
+padding: 28px 32px 60px;
+}
+
+.notice {
+padding: 14px 16px;
+margin-bottom: 24px;
+
+background: #eaf3ff;
+border: 1px solid #c9def3;
+border-left: 4px solid #2563a8;
+border-radius: 6px;
+}
+
+.notice strong {
+color: #174f85;
+}
+
+.section {
+background: #ffffff;
+border: 1px solid #d8dee5;
+border-radius: 8px;
+margin-bottom: 24px;
+overflow: hidden;
+}
+
+.section-header {
+padding: 15px 18px;
+background: #f7f8fa;
+border-bottom: 1px solid #d8dee5;
+}
+
+.section-header h2 {
+margin: 0;
+color: #294f78;
+font-size: 17px;
+font-weight: 600;
+}
+
+.section-header p {
+margin: 4px 0 0;
+color: #697078;
+font-size: 13px;
+}
+
+.section-body {
+padding: 20px;
+}
+
+/* ============================================================
+COMPARISON GRID
+============================================================ */
+
+.comparison-grid {
+display: grid;
+grid-template-columns:
+180px
+repeat(7, minmax(110px, 1fr));
+
+border: 1px solid #d8dee5;
+border-radius: 6px;
+overflow: hidden;
+}
+
+.comparison-grid5 {
+display: grid;
+grid-template-columns:
+150px
+repeat(5, minmax(150px, 1fr));
+
+border: 1px solid #d8dee5;
+border-radius: 6px;
+overflow: hidden;
+}
+
+.grid-cell {
+min-height: 88px;
+padding: 14px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-right: 1px solid #d8dee5;
+border-bottom: 1px solid #d8dee5;
+
+background: #ffffff;
+}
+
+.grid-header {
+min-height: 42px;
+
+background: #f7f8fa;
+color: #46515c;
+
+font-size: 12px;
+font-weight: 600;
+
+text-align: center;
+}
+
+.row-label {
+justify-content: flex-start;
+
+font-size: 13px;
+font-weight: 600;
+
+color: #3e4852;
+background: #fbfcfd;
+}
+
+/* ============================================================
+CHECKBOX BASE
+============================================================ */
+
+.checkbox-control {
+position: relative;
+
+width: var(--ui-checkbox-size);
+height: var(--ui-checkbox-size);
+
+flex: 0 0 var(--ui-checkbox-size);
+
+appearance: none;
+-webkit-appearance: none;
+
+margin: 0;
+
+border:
+var(--ui-checkbox-border-width)
+solid
+var(--ui-color-border);
+
+border-radius: var(--ui-checkbox-radius);
+
+background: var(--ui-color-surface);
+
+cursor: pointer;
+
+transition:
+background-color var(--ui-checkbox-transition),
+border-color var(--ui-checkbox-transition),
+box-shadow var(--ui-checkbox-transition);
+}
+
+/* ------------------------------------------------------------
+Normal / selected
+------------------------------------------------------------ */
+
+.checkbox-control:checked {
+background: var(--ui-color-accent);
+border-color: var(--ui-color-accent);
+}
+
+/* ------------------------------------------------------------
+Checkmark
+------------------------------------------------------------ */
+
+.checkbox-control:checked::after {
+content: "";
+
+position: absolute;
+
+left: 4px;
+top: 1px;
+
+width: 4px;
+height: 8px;
+
+border:
+solid
+var(--ui-color-checkmark);
+
+border-width: 0 2px 2px 0;
+
+transform: rotate(45deg);
+}
+
+/* ------------------------------------------------------------
+Indeterminate
+------------------------------------------------------------ */
+
+.checkbox-control.indeterminate {
+background: var(--ui-color-accent);
+border-color: var(--ui-color-accent);
+}
+
+.checkbox-control.indeterminate::after {
+content: "";
+
+position: absolute;
+
+left: 3px;
+right: 3px;
+top: 6px;
+
+height: 2px;
+
+background: var(--ui-color-checkmark);
+
+border-radius: 1px;
+}
+
+/* ------------------------------------------------------------
+Hover
+------------------------------------------------------------ */
+
+.checkbox-control:hover:not(:disabled):not(.is-disabled) {
+border-color: var(--ui-color-border-hover);
+}
+
+.checkbox-control:hover:checked:not(:disabled):not(.is-disabled) {
+background: var(--ui-color-accent-hover);
+border-color: var(--ui-color-accent-hover);
+}
+
+/* ------------------------------------------------------------
+Focus-visible
+------------------------------------------------------------ */
+
+.checkbox-control:focus-visible,
+.checkbox-control.is-focus {
+outline:
+var(--ui-checkbox-focus-width)
+solid
+var(--ui-color-focus-ring);
+
+outline-offset: var(--ui-checkbox-focus-offset);
+}
+
+/* ------------------------------------------------------------
+Pressed / active
+------------------------------------------------------------ */
+
+.checkbox-control:active:not(:disabled),
+.checkbox-control.is-pressed {
+background: var(--ui-color-surface-active);
+border-color: var(--ui-color-border-active);
+}
+
+.checkbox-control:active:checked:not(:disabled),
+.checkbox-control.is-pressed.is-checked {
+background: var(--ui-color-accent-hover);
+border-color: var(--ui-color-accent-hover);
+}
+
+/* ------------------------------------------------------------
+Disabled
+------------------------------------------------------------ */
+
+.checkbox-control:disabled,
+.checkbox-control.is-disabled {
+background: var(--ui-color-surface-disabled);
+border-color: #dde1e5;
+cursor: default;
+}
+
+.checkbox-control:disabled:checked,
+.checkbox-control.is-disabled.is-checked {
+background: #b8c0c8;
+border-color: #b8c0c8;
+}
+
+/* ============================================================
+CHECKBOX LABEL / FIELD
+============================================================ */
+
+.checkbox-field {
+display: inline-flex;
+align-items: flex-start;
+gap: var(--ui-checkbox-gap);
+
+min-height: var(--ui-checkbox-size);
+
+cursor: pointer;
+}
+
+.checkbox-field.disabled {
+cursor: default;
+}
+
+.checkbox-label {
+font-size: var(--ui-checkbox-label-font-size);
+line-height: var(--ui-checkbox-label-line-height);
+color: var(--ui-color-text);
+}
+
+.checkbox-field.disabled .checkbox-label {
+color: var(--ui-color-text-disabled);
+}
+
+.checkbox-helper {
+margin-top: 3px;
+
+font-size: 12px;
+line-height: 17px;
+
+color: var(--ui-color-text-muted);
+}
+
+.checkbox-error {
+margin-top: 3px;
+
+font-size: 12px;
+line-height: 17px;
+
+color: var(--ui-color-error);
+}
+
+/* ============================================================
+DEMO / STATE PRESENTATION
+============================================================ */
+
+.state-checkbox {
+pointer-events: none;
+}
+
+.state-checkbox.hover-state {
+border-color: var(--ui-color-border-hover);
+}
+
+.state-checkbox.hover-state.is-checked {
+background: var(--ui-color-accent-hover);
+border-color: var(--ui-color-accent-hover);
+}
+
+.state-checkbox.focus-state {
+outline:
+var(--ui-checkbox-focus-width)
+solid
+var(--ui-color-focus-ring);
+
+outline-offset: var(--ui-checkbox-focus-offset);
+}
+
+.state-checkbox.pressed-state {
+background: var(--ui-color-surface-active);
+border-color: var(--ui-color-border-active);
+}
+
+.state-checkbox.pressed-state.is-checked {
+background: var(--ui-color-accent-hover);
+border-color: var(--ui-color-accent-hover);
+}
+
+.state-checkbox.disabled-state {
+background: var(--ui-color-surface-disabled);
+border-color: #dde1e5;
+}
+
+.state-checkbox.disabled-state.is-checked {
+background: #b8c0c8;
+border-color: #b8c0c8;
+}
+
+/* ============================================================
+LIVE DEMO ROW
+============================================================ */
+
+.demo-row {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 18px;
+}
+
+.demo-column {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+/* ============================================================
+REFERENCE IMAGE AREA
+============================================================ */
+
+.reference-image {
+max-width: 100%;
+max-height: 150px;
+
+width: auto;
+height: auto;
+
+display: block;
+
+border: 0;
+}
+
+.reference-image-large {
+max-width: 100%;
+max-height: 220px;
+
+width: auto;
+height: auto;
+
+display: block;
+
+border: 0;
+}
+
+.image-placeholder {
+width: 100%;
+min-height: 110px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 12px;
+
+border: 1px dashed #c7cdd4;
+border-radius: 5px;
+
+background: #fafbfc;
+
+color: #7a838c;
+
+font-size: 12px;
+text-align: center;
+}
+
+/* ============================================================
+ANNOTATIONS / TABLES
+============================================================ */
+
+.annotation {
+margin-top: 14px;
+padding: 12px 14px;
+
+background: #fafbfc;
+border: 1px solid #e1e5e9;
+border-radius: 5px;
+
+color: #59636c;
+font-size: 13px;
+}
+
+.note {
+color: var(--ui-color-text-muted);
+font-size: 13px;
+}
+
+.token-table {
+width: 100%;
+border-collapse: collapse;
+}
+
+.token-table th,
+.token-table td {
+border: 1px solid #d8dee5;
+
+padding: 9px 11px;
+
+text-align: left;
+vertical-align: top;
+}
+
+.token-table th {
+background: #f7f8fa;
+color: #294f78;
+}
+
+.token {
+font-family:
+Consolas,
+"Courier New",
+monospace;
+
+color: #174f85;
+}
+
+.provisional {
+color: #956c00;
+font-size: 12px;
+font-weight: 600;
+}
+
+.decision-list li {
+margin-bottom: 8px;
+}
+
+/* ============================================================
+RESPONSIVE
+============================================================ */
+
+@media (max-width: 1100px) {
+
+.comparison-grid {
+overflow-x: auto;
+}
+
+.comparison-grid5 {
+overflow-x: auto;
+}
+
+.grid-cell {
+min-width: 105px;
+}
+
+.row-label {
+min-width: 150px;
+}
+}
+
+@media (max-width: 900px) {
+
+.lab {
+padding-inline: 16px;
+}
+
+.lab-header {
+padding-inline: 20px;
+}
+
+.comparison-grid {
+grid-template-columns:
+140px
+repeat(7, minmax(100px, 1fr));
+}
+
+.comparison-grid5 {
+grid-template-columns:
+130px
+repeat(5, minmax(130px, 1fr));
+}
+}
+
+</style> </head> <body> <header class="lab-header"> <h1>UI Design Lab — Checkbox</h1> <p> Working visual specification and state laboratory for the Checkbox component. </p> </header> <main class="lab"> <!-- ========================================================== INTRODUCTION ========================================================== --> <div class="notice">
+<strong>Current design hypothesis:</strong>
+
+Checkbox should remain visually restrained in its normal state,
+with a compact square control, clear selected/unselected
+differentiation, and a standardized focus treatment. Persistent
+color should primarily communicate selection rather than merely
+establish that the control is interactive.
+
+<br><br>
+
+The exact geometry, border treatment, checkmark, selected color,
+hover behavior and spacing are intentionally provisional until
+comparative references have been collected.
+
+</div> <!-- ========================================================== 1. STATE COMPARISON ========================================================== --> <section class="section"> <div class="section-header">
+<h2>1. State Comparison</h2>
+<p>
+  The standard Checkbox state vocabulary currently being evaluated.
+</p>
+</div> <div class="section-body">
+<div class="comparison-grid">
+  <div class="grid-cell grid-header">
+    State
+  </div>
+  <div class="grid-cell grid-header">
+    Unchecked
+  </div>
+  <div class="grid-cell grid-header">
+    Checked
+  </div>
+  <div class="grid-cell grid-header">
+    Hover
+  </div>
+  <div class="grid-cell grid-header">
+    Focus
+  </div>
+  <div class="grid-cell grid-header">
+    Pressed
+  </div>
+  <div class="grid-cell grid-header">
+    Disabled
+  </div>
+  <div class="grid-cell grid-header">
+    Indeterminate
+  </div>
+  <!-- ------------------------------------------------------
+       NORMAL
+       ------------------------------------------------------ -->
+  <div class="grid-cell row-label">
+    Normal
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox"
+      type="checkbox"
+      aria-label="Normal unchecked"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox is-checked"
+      type="checkbox"
+      checked
+      aria-label="Normal checked"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox"
+      type="checkbox"
+      aria-label="Hover unchecked"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox focus-state"
+      type="checkbox"
+      aria-label="Focus unchecked"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox pressed-state"
+      type="checkbox"
+      aria-label="Pressed unchecked"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox disabled-state"
+      type="checkbox"
+      disabled
+      aria-label="Disabled unchecked"
+    >
+  </div>
+  <div class="grid-cell">
+    <span
+      class="checkbox-control state-checkbox indeterminate"
+      aria-label="Indeterminate"
+      role="checkbox"
+      aria-checked="mixed"
+    ></span>
+  </div>
+  <!-- ------------------------------------------------------
+       SELECTED / CHECKED
+       ------------------------------------------------------ -->
+  <div class="grid-cell row-label">
+    Selected / Checked
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox"
+      type="checkbox"
+      aria-label="Selected unchecked example"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox is-checked"
+      type="checkbox"
+      checked
+      aria-label="Selected checked"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox is-checked hover-state"
+      type="checkbox"
+      checked
+      aria-label="Selected hover"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox is-checked focus-state"
+      type="checkbox"
+      checked
+      aria-label="Selected focus"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox is-checked pressed-state"
+      type="checkbox"
+      checked
+      aria-label="Selected pressed"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control state-checkbox is-checked disabled-state"
+      type="checkbox"
+      checked
+      disabled
+      aria-label="Selected disabled"
+    >
+  </div>
+  <div class="grid-cell">
+    <span
+      class="checkbox-control state-checkbox indeterminate"
+      aria-label="Indeterminate selected group"
+      role="checkbox"
+      aria-checked="mixed"
+    ></span>
+  </div>
+</div>
+<div class="annotation">
+  <strong>Observation:</strong>
+  The key question is whether Checkbox selection should introduce
+  a persistent accent color, and how that selected treatment should
+  relate to the application's restrained Button/TextBox direction.
+  Hover, focus and pressed states should remain distinguishable
+  from the persistent selected state.
+</div>
+</div> </section> <!-- ========================================================== 2. LIVE INTERACTION TEST ========================================================== --> <section class="section"> <div class="section-header">
+<h2>2. Live Interaction Test</h2>
+<p>
+  Use the controls below to evaluate pointer, keyboard and
+  selection behavior.
+</p>
+</div> <div class="section-body">
+<div class="demo-row">
+  <label class="checkbox-field">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+    >
+    <span class="checkbox-label">
+      Unchecked option
+    </span>
+  </label>
+  <label class="checkbox-field">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      checked
+    >
+    <span class="checkbox-label">
+      Checked option
+    </span>
+  </label>
+  <label class="checkbox-field">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      disabled
+    >
+    <span class="checkbox-label">
+      Disabled option
+    </span>
+  </label>
+  <label class="checkbox-field disabled">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      checked
+      disabled
+    >
+    <span class="checkbox-label">
+      Disabled / checked
+    </span>
+  </label>
+</div>
+<div class="annotation">
+  <strong>Keyboard test:</strong>
+  Use Tab to move through the controls and Space to toggle the
+  focused Checkbox.
+  <br><br>
+  Verify that the focus-visible treatment remains clearly
+  distinguishable from both hover and the persistent selected state.
+</div>
+</div> </section> <!-- ========================================================== 3. LABEL / HELPER / VALIDATION TEST ========================================================== --> <section class="section"> <div class="section-header">
+<h2>3. Label, Helper and Validation Test</h2>
+<p>
+  Evaluate the relationship between the checkbox geometry,
+  label typography and supporting text.
+</p>
+</div> <div class="section-body">
+<div class="demo-column">
+  <label class="checkbox-field">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+    >
+    <span>
+      <span class="checkbox-label">
+        Receive notifications
+      </span>
+      <div class="checkbox-helper">
+        You can change this preference later.
+      </div>
+    </span>
+  </label>
+  <label class="checkbox-field">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      checked
+    >
+    <span>
+      <span class="checkbox-label">
+        Include archived records
+      </span>
+      <div class="checkbox-helper">
+        Archived records will be included in searches.
+      </div>
+    </span>
+  </label>
+  <label class="checkbox-field">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      aria-invalid="true"
+    >
+    <span>
+      <span class="checkbox-label">
+        Accept terms
+      </span>
+      <div class="checkbox-error">
+        This option is required.
+      </div>
+    </span>
+  </label>
+  <label class="checkbox-field disabled">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      disabled
+    >
+    <span>
+      <span class="checkbox-label">
+        Automatically synchronize
+      </span>
+      <div class="checkbox-helper">
+        This option is unavailable in the current mode.
+      </div>
+    </span>
+  </label>
+</div>
+</div> </section> <!-- ========================================================== 4. INDIVIDUAL STATE / GEOMETRY TEST ========================================================== --> <section class="section"> <div class="section-header">
+<h2>4. Checkbox Geometry & State Test</h2>
+<p>
+  A dedicated area for evaluating the visual relationship between
+  the checkbox square, checkmark, border, label and focus indicator.
+</p>
+</div> <div class="section-body">
+<div class="demo-row">
+  <div class="demo-column">
+    <span class="note">
+      Unchecked
+    </span>
+    <span
+      class="checkbox-control"
+      role="checkbox"
+      aria-checked="false"
+      aria-label="Unchecked specimen"
+    ></span>
+  </div>
+  <div class="demo-column">
+    <span class="note">
+      Checked
+    </span>
+    <span
+      class="checkbox-control"
+      role="checkbox"
+      aria-checked="true"
+      aria-label="Checked specimen"
+      style="
+        background: var(--ui-color-accent);
+        border-color: var(--ui-color-accent);
+      "
+    >
+      <span
+        aria-hidden="true"
+        style="
+          position:absolute;
+          left:4px;
+          top:1px;
+          width:4px;
+          height:8px;
+          border:solid #fff;
+          border-width:0 2px 2px 0;
+          transform:rotate(45deg);
+        "
+      ></span>
+    </span>
+  </div>
+  <div class="demo-column">
+    <span class="note">
+      Indeterminate
+    </span>
+    <span
+      class="checkbox-control indeterminate"
+      role="checkbox"
+      aria-checked="mixed"
+      aria-label="Indeterminate specimen"
+    ></span>
+  </div>
+  <div class="demo-column">
+    <span class="note">
+      Focus
+    </span>
+    <span
+      class="checkbox-control is-focus"
+      role="checkbox"
+      aria-checked="false"
+      aria-label="Focus specimen"
+    ></span>
+  </div>
+  <div class="demo-column">
+    <span class="note">
+      Disabled
+    </span>
+    <span
+      class="checkbox-control is-disabled"
+      role="checkbox"
+      aria-checked="false"
+      aria-disabled="true"
+      aria-label="Disabled specimen"
+    ></span>
+  </div>
+</div>
+<div class="annotation">
+  <strong>Measurement note:</strong>
+  This specimen is intentionally useful for screenshot measurement.
+  Compare the control's outside dimensions, border thickness,
+  corner radius, checkmark geometry, focus-ring offset and
+  label-to-control spacing against the reference screenshots.
+</div>
+</div> </section> <!-- ========================================================== 5. CHECKBOX ROLES & COMPARATIVE REFERENCES ========================================================== --> <section class="section"> <div class="section-header">
+<h2>5. Checkbox Roles & Comparative References</h2>
+<p>
+  These are working categories for collecting comparative evidence.
+  The reference screenshots are visual evidence and inspiration,
+  not specifications to be copied.
+</p>
+<p>
+  <strong>Comparative reference note:</strong>
+  Where possible, capture the same semantic role from each reference
+  system so that size, border, spacing, typography and interaction
+  treatment can be compared consistently.
+</p>
+</div> <div class="section-body">
+<div class="comparison-grid5">
+  <div class="grid-cell grid-header">
+    Reference
+  </div>
+  <div class="grid-cell grid-header">
+    Standard
+  </div>
+  <div class="grid-cell grid-header">
+    Checked
+  </div>
+  <div class="grid-cell grid-header">
+    Disabled
+  </div>
+  <div class="grid-cell grid-header">
+    Indeterminate
+  </div>
+  <div class="grid-cell grid-header">
+    Focus / Hover
+  </div>
+  <!-- ======================================================
+       NOTION
+       ====================================================== -->
+  <div class="grid-cell row-label">
+    Notion
+  </div>
+  <div class="grid-cell">
+    <!-- Replace with collected screenshot -->
+    <div class="image-placeholder">
+      NOTION<br>
+      Checkbox — Standard<br><br>
+      Replace this placeholder with:<br>
+      Notion-Chk-Standard.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      NOTION<br>
+      Checkbox — Checked<br><br>
+      Replace with:<br>
+      Notion-Chk-Checked.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      NOTION<br>
+      Checkbox — Disabled<br><br>
+      Replace with:<br>
+      Notion-Chk-Disabled.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      NOTION<br>
+      Checkbox — Indeterminate<br><br>
+      Replace with:<br>
+      Notion-Chk-Indeterminate.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      NOTION<br>
+      Checkbox — Focus / Hover<br><br>
+      Replace with:<br>
+      Notion-Chk-Focus.png
+    </div>
+  </div>
+  <!-- ======================================================
+       AIRTABLE
+       ====================================================== -->
+  <div class="grid-cell row-label">
+    AirTable
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      AIRTABLE<br>
+      Checkbox — Standard<br><br>
+      Replace with:<br>
+      AT-Chk-Standard.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      AIRTABLE<br>
+      Checkbox — Checked<br><br>
+      Replace with:<br>
+      AT-Chk-Checked.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      AIRTABLE<br>
+      Checkbox — Disabled<br><br>
+      Replace with:<br>
+      AT-Chk-Disabled.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      AIRTABLE<br>
+      Checkbox — Indeterminate<br><br>
+      Replace with:<br>
+      AT-Chk-Indeterminate.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      AIRTABLE<br>
+      Checkbox — Focus / Hover<br><br>
+      Replace with:<br>
+      AT-Chk-Focus.png
+    </div>
+  </div>
+  <!-- ======================================================
+       MATERIAL
+       ====================================================== -->
+  <div class="grid-cell row-label">
+    Material
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      MATERIAL<br>
+      Checkbox — Standard<br><br>
+      Replace with:<br>
+      M3-Chk-Standard.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      MATERIAL<br>
+      Checkbox — Checked<br><br>
+      Replace with:<br>
+      M3-Chk-Checked.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      MATERIAL<br>
+      Checkbox — Disabled<br><br>
+      Replace with:<br>
+      M3-Chk-Disabled.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      MATERIAL<br>
+      Checkbox — Indeterminate<br><br>
+      Replace with:<br>
+      M3-Chk-Indeterminate.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      MATERIAL<br>
+      Checkbox — Focus / Hover<br><br>
+      Replace with:<br>
+      M3-Chk-Focus.png
+    </div>
+  </div>
+  <!-- ======================================================
+       WINDOWS
+       ====================================================== -->
+  <div class="grid-cell row-label">
+    Windows
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      WINDOWS<br>
+      Checkbox — Standard<br><br>
+      Replace with:<br>
+      Win-Chk-Standard.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      WINDOWS<br>
+      Checkbox — Checked<br><br>
+      Replace with:<br>
+      Win-Chk-Checked.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      WINDOWS<br>
+      Checkbox — Disabled<br><br>
+      Replace with:<br>
+      Win-Chk-Disabled.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      WINDOWS<br>
+      Checkbox — Indeterminate<br><br>
+      Replace with:<br>
+      Win-Chk-Indeterminate.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      WINDOWS<br>
+      Checkbox — Focus / Hover<br><br>
+      Replace with:<br>
+      Win-Chk-Focus.png
+    </div>
+  </div>
+  <!-- ======================================================
+       CURRENT APPLICATION
+       ====================================================== -->
+  <div class="grid-cell row-label">
+    Current
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      CURRENT APP<br>
+      Checkbox — Standard<br><br>
+      Replace with:<br>
+      Brij-Chk-Standard.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      CURRENT APP<br>
+      Checkbox — Checked<br><br>
+      Replace with:<br>
+      Brij-Chk-Checked.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      CURRENT APP<br>
+      Checkbox — Disabled<br><br>
+      Replace with:<br>
+      Brij-Chk-Disabled.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      CURRENT APP<br>
+      Checkbox — Indeterminate<br><br>
+      Replace with:<br>
+      Brij-Chk-Indeterminate.png
+    </div>
+  </div>
+  <div class="grid-cell">
+    <div class="image-placeholder">
+      CURRENT APP<br>
+      Checkbox — Focus / Hover<br><br>
+      Replace with:<br>
+      Brij-Chk-Focus.png
+    </div>
+  </div>
+  <!-- ======================================================
+       PROPOSED
+       ====================================================== -->
+  <div class="grid-cell row-label">
+    Proposed
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      aria-label="Proposed standard"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      checked
+      aria-label="Proposed checked"
+    >
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      disabled
+      aria-label="Proposed disabled"
+    >
+  </div>
+  <div class="grid-cell">
+    <span
+      class="checkbox-control indeterminate"
+      role="checkbox"
+      aria-checked="mixed"
+      aria-label="Proposed indeterminate"
+    ></span>
+  </div>
+  <div class="grid-cell">
+    <input
+      class="checkbox-control is-focus"
+      type="checkbox"
+      aria-label="Proposed focus"
+    >
+  </div>
+</div>
+<div class="annotation">
+  <strong>Evidence-collection goal:</strong>
+  Capture reference images at a scale that permits measurement of
+  the actual checkbox square, border thickness, corner radius,
+  checkmark proportions, label spacing and control-to-row alignment.
+  Where the reference application exposes hover or focus states,
+  capture those separately rather than inferring them from the
+  resting screenshot.
+</div>
+</div> </section> 
+
+<!-- ========================================================== 6. REFERENCE MEASUREMENT WORKSHEET ========================================================== --> <section class="section"> <div class="section-header">
+<h2>6. Reference Measurement Worksheet</h2>
+<p>
+  Record measurements from the screenshots collected above.
+  Values in this section are observations, not proposed final
+  design-system values.
+</p>
+</div> <div class="section-body">
+<table class="token-table">
+  <thead>
+    <tr>
+      <th>
+        Measurement
+      </th>
+      <th>
+        Notion
+      </th>
+      <th>
+        AirTable
+      </th>
+      <th>
+        Material
+      </th>
+      <th>
+        Windows
+      </th>
+      <th>
+        Current
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Checkbox outer size
+      </td>
+      <td>
+        TBD
+      </td>
+      <td>
+        TBD
+      </td>
+      <td>
+        TBD
+      </td>
+      <td>
+        TBD
+      </td>
+      <td>
+        TBD
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Border thickness
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Corner radius
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Checkmark width
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Checkmark height
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Label-to-checkbox gap
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Row / vertical spacing
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Focus-ring width
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Focus-ring offset
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Selected fill color
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Selected border color
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>
+        Disabled treatment
+      </td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
+</table>
+<div class="annotation">
+  <strong>Measurement discipline:</strong>
+  Record the actual observed measurement first. Do not convert
+  a measurement into a recommended value merely because it looks
+  attractive or because another system uses it.
+  The eventual shared value should emerge from comparison across
+  Checkbox, TextBox, Select and other controls.
+</div>
+</div> </section> 
+<!-- ========================================================== 7. CHECKBOX ROLES / USE CASES ========================================================== -->
+
+<section class="section"> <div class="section-header"> <h2>7. Checkbox Roles &amp; Use Cases</h2> <p> Identify the contexts in which Checkbox appears so that the visual treatment can be evaluated against actual application roles rather than against the isolated control alone. </p> </div>
+
+<div class="section-body">
+
+<table>
+  <thead>
+    <tr>
+      <th>Role / Context</th>
+      <th>Typical Use</th>
+      <th>Questions to Evaluate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Form option</strong></td>
+      <td>
+        A single independent option in a form or settings panel.
+      </td>
+      <td>
+        Is the checkbox visually subordinate to the label while still
+        being immediately identifiable as interactive?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Settings / Preferences</strong></td>
+      <td>
+        Persistent application or user preferences.
+      </td>
+      <td>
+        Does the selected state remain sufficiently visible without
+        making a settings page visually saturated?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Multi-select list</strong></td>
+      <td>
+        Selecting multiple records, fields, items or options.
+      </td>
+      <td>
+        Does the selected state remain clear when many checkboxes are
+        displayed in a dense vertical or tabular layout?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Grid / table selection</strong></td>
+      <td>
+        Row or item selection within a productivity-oriented grid.
+      </td>
+      <td>
+        Should checkbox hover and selection treatment differ from
+        regular form checkboxes?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Select-all / group control</strong></td>
+      <td>
+        A parent checkbox representing the state of a group.
+      </td>
+      <td>
+        Is the indeterminate state sufficiently distinct from both
+        unchecked and checked?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Required acknowledgement</strong></td>
+      <td>
+        Terms, permissions, confirmations or required acknowledgements.
+      </td>
+      <td>
+        Can required/error status be communicated without relying on
+        color alone?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Disabled option</strong></td>
+      <td>
+        An option that exists but is unavailable in the current context.
+      </td>
+      <td>
+        Is the disabled treatment sufficiently reduced while preserving
+        legibility and understanding?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Read-only / informational</strong></td>
+      <td>
+        A state shown for information but not currently editable.
+      </td>
+      <td>
+        Should this use the disabled visual treatment, or should it
+        remain visually distinct from Disabled?
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="annotation">
+  <strong>Important:</strong>
+  Checkbox is not necessarily one visual treatment in every application
+  context. Form controls, dense grid selection, menus and specialized
+  application-builder controls may eventually require contextual
+  variations. Such variations should be justified by role rather than
+  introduced merely for visual variety.
+</div>
+
+</div> </section>
+
+<!-- ========================================================== 8. ACCESSIBILITY & KEYBOARD TEST ========================================================== -->
+
+<section class="section"> <div class="section-header"> <h2>8. Accessibility &amp; Keyboard Test</h2> <p> Verify that the proposed visual states correspond to understandable interaction states and do not depend on visual styling alone. </p> </div>
+
+<div class="section-body">
+
+<table>
+  <thead>
+    <tr>
+      <th>Interaction</th>
+      <th>Expected Behavior</th>
+      <th>Visual Question</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td><strong>Tab</strong></td>
+      <td>
+        Keyboard focus moves predictably to the checkbox.
+      </td>
+      <td>
+        Is Focus-visible unmistakable without appearing permanently
+        around every checkbox?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Space</strong></td>
+      <td>
+        Toggles the checkbox between checked and unchecked.
+      </td>
+      <td>
+        Does the resulting state change communicate activation clearly?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Enter</strong></td>
+      <td>
+        Follow the behavior of the underlying component/platform rather
+        than inventing a checkbox-specific interaction convention.
+      </td>
+      <td>
+        Is there any accidental visual implication that Enter and Space
+        have identical behavior?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Arrow keys</strong></td>
+      <td>
+        Not normally required for an ordinary standalone checkbox.
+        Specialized composite controls may differ.
+      </td>
+      <td>
+        Avoid implying unsupported keyboard behavior through the visual
+        design.
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Disabled</strong></td>
+      <td>
+        Checkbox cannot receive normal interaction.
+      </td>
+      <td>
+        Is Disabled distinguishable from an unchecked interactive
+        checkbox?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Indeterminate</strong></td>
+      <td>
+        Represents a mixed or partially selected group.
+      </td>
+      <td>
+        Is the horizontal mark clearly different from the checkmark?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Error</strong></td>
+      <td>
+        Validation state is exposed programmatically and visually.
+      </td>
+      <td>
+        Does the visual treatment communicate Error through more than
+        color alone?
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Label activation</strong></td>
+      <td>
+        Clicking the associated label should activate the checkbox where
+        the component semantics permit it.
+      </td>
+      <td>
+        Does the combined checkbox/label target feel like one coherent
+        interactive unit?
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h3>Keyboard Test Area</h3>
+
+<div class="demo-column">
+
+  <label class="checkbox-field">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+    >
+    <span>
+      <span class="checkbox-label">
+        Tab to this checkbox
+      </span>
+      <div class="checkbox-helper">
+        Use Tab to focus, then Space to toggle.
+      </div>
+    </span>
+  </label>
+
+  <label class="checkbox-field">
+    <input
+      class="checkbox-control"
+      type="checkbox"
+      checked
+    >
+    <span>
+      <span class="checkbox-label">
+        Checked keyboard target
+      </span>
+      <div class="checkbox-helper">
+        Verify that Focus-visible remains distinguishable from the
+        selected state.
+      </div>
+    </span>
+  </label>
+
+</div>
+
+<div class="annotation">
+  <strong>Accessibility principle:</strong>
+  The visual specification should describe the semantic state and
+  interaction behavior separately from its CSS appearance. A future
+  implementation should preserve the appropriate native or Dojo
+  accessibility behavior while applying the visual treatment.
+</div>
+
+</div> </section>
+
+<!-- ========================================================== 9. CURRENT CHECKBOX TOKEN SET ========================================================== -->
+
+<section class="section"> <div class="section-header"> <h2>9. Current Checkbox Token Set</h2> <p> Working semantic token names and provisional values. These values are intended for experimentation in the Lab and should not yet be treated as final Design System values. </p> </div>
+
+<div class="section-body">
+
+<table class="token-table">
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Current Value</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr>
+      <td><code>--ui-checkbox-size</code></td>
+      <td>16px <strong>PROVISIONAL</strong></td>
+      <td>
+        Default checkbox outer size.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-size-compact</code></td>
+      <td>14px <strong>PROVISIONAL</strong></td>
+      <td>
+        Checkbox size for Compact density.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-size-comfortable</code></td>
+      <td>18px <strong>PROVISIONAL</strong></td>
+      <td>
+        Checkbox size for Comfortable density.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-border-width</code></td>
+      <td>1px <strong>PROVISIONAL</strong></td>
+      <td>
+        Default checkbox border thickness.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-radius</code></td>
+      <td>4px <strong>PROVISIONAL</strong></td>
+      <td>
+        Checkbox corner radius.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-gap</code></td>
+      <td>7px <strong>PROVISIONAL</strong></td>
+      <td>
+        Space between checkbox square and label.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-focus-width</code></td>
+      <td>2px <strong>PROVISIONAL</strong></td>
+      <td>
+        Focus-visible outline width.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-focus-offset</code></td>
+      <td>2px <strong>PROVISIONAL</strong></td>
+      <td>
+        Distance between checkbox and focus outline.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-label-font-size</code></td>
+      <td>14px <strong>PROVISIONAL</strong></td>
+      <td>
+        Default checkbox label font size.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-checkbox-label-line-height</code></td>
+      <td>20px <strong>PROVISIONAL</strong></td>
+      <td>
+        Default checkbox label line height.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-surface</code></td>
+      <td>#ffffff <strong>PROVISIONAL</strong></td>
+      <td>
+        Unchecked checkbox surface.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-surface-hover</code></td>
+      <td>#eaf3ff <strong>PROVISIONAL</strong></td>
+      <td>
+        Very-light Claro Blue hover surface where appropriate.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-surface-active</code></td>
+      <td>#dcecff <strong>PROVISIONAL</strong></td>
+      <td>
+        Pressed/active surface for an unchecked checkbox.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-surface-disabled</code></td>
+      <td>#f1f3f5 <strong>PROVISIONAL</strong></td>
+      <td>
+        Disabled checkbox surface.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-border</code></td>
+      <td>#cfd5dc <strong>PROVISIONAL</strong></td>
+      <td>
+        Default checkbox border.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-border-hover</code></td>
+      <td>#b9c3ce <strong>PROVISIONAL</strong></td>
+      <td>
+        Hover border.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-border-active</code></td>
+      <td>#9fb0c1 <strong>PROVISIONAL</strong></td>
+      <td>
+        Pressed/active border.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-accent</code></td>
+      <td>#2563a8 <strong>PROVISIONAL</strong></td>
+      <td>
+        Selected/checked checkbox fill and border.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-accent-hover</code></td>
+      <td>#1e568f <strong>PROVISIONAL</strong></td>
+      <td>
+        Selected checkbox hover/active treatment.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-focus-ring</code></td>
+      <td>#3b82d0 <strong>PROVISIONAL</strong></td>
+      <td>
+        Focus-visible indicator.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-checkmark</code></td>
+      <td>#ffffff <strong>PROVISIONAL</strong></td>
+      <td>
+        Checkmark and indeterminate mark.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-text-disabled</code></td>
+      <td>#9aa1a8 <strong>PROVISIONAL</strong></td>
+      <td>
+        Disabled label text.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-error</code></td>
+      <td>#c0392b <strong>PROVISIONAL</strong></td>
+      <td>
+        Error/validation indication.
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>--ui-color-warning</code></td>
+      <td>#956c00 <strong>PROVISIONAL</strong></td>
+      <td>
+        Warning indication where applicable.
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div class="annotation">
+  <strong>Token discipline:</strong>
+  The checkbox-specific tokens above are deliberately provisional.
+  Where a value eventually proves to be a shared control primitive,
+  such as control height, border radius, border width, focus treatment
+  or spacing, it should be reconciled with the corresponding Button,
+  TextBox and Select values rather than maintained as an unnecessary
+  component-specific duplicate.
+</div>
+
+</div> </section>
+
+<!-- ========================================================== 10. DESIGN QUESTIONS TO RESOLVE ========================================================== -->
+
+<section class="section"> <div class="section-header"> <h2>10. Design Questions to Resolve</h2> <p> Questions to answer through the collected reference evidence and cross-component comparison before Checkbox becomes a finalized component specification. </p> </div>
+
+<div class="section-body">
+
+<ol class="decision-list">
+
+  <li>
+    What checkbox outer size provides the best balance between
+    information density, recognizability and accessibility?
+  </li>
+
+  <li>
+    What border thickness and contrast are sufficient for an unchecked
+    checkbox without making the control visually heavy?
+  </li>
+
+  <li>
+    What corner radius best aligns Checkbox with the geometry established
+    by Button and TextBox?
+  </li>
+
+  <li>
+    What checkmark proportions produce a clear mark at the actual
+    application rendering size?
+  </li>
+
+  <li>
+    How much spacing should exist between the checkbox square and its
+    label?
+  </li>
+
+  <li>
+    Should the unchecked hover state use the same very-light Claro Blue
+    surface direction established for appropriate transparent controls?
+  </li>
+
+  <li>
+    Should a checked checkbox use persistent accent color, and if so,
+    what degree of saturation and contrast is appropriate?
+  </li>
+
+  <li>
+    Should the selected/checked hover state become darker than the
+    normal checked state, or should another treatment communicate hover?
+  </li>
+
+  <li>
+    How should Focus-visible interact with the selected/checked state?
+  </li>
+
+  <li>
+    What is the appropriate visual distinction between Disabled,
+    Read-only and unavailable-by-context states?
+  </li>
+
+  <li>
+    What is the appropriate visual treatment for Indeterminate?
+  </li>
+
+  <li>
+    Should Error alter only the border, or should the checkbox also
+    receive another non-color indication?
+  </li>
+
+  <li>
+    What label line-height and checkbox-to-label vertical alignment
+    work best for one-line and multi-line labels?
+  </li>
+
+  <li>
+    What are the appropriate Compact, Default and Comfortable sizes?
+  </li>
+
+  <li>
+    Which Checkbox geometry values should become shared control-system
+    primitives?
+  </li>
+
+  <li>
+    Which values should remain Checkbox-specific?
+  </li>
+
+</ol>
+
+</div> </section>
+
+<!-- ========================================================== 11. CURRENT DECISIONS / WORKING HYPOTHESES ========================================================== -->
+
+<section class="section"> <div class="section-header"> <h2>11. Current Decisions &amp; Working Hypotheses</h2> <p> These are the current working conclusions of the Lab. They remain subject to evidence from the reference screenshots and comparison with the other component Labs. </p> </div>
+
+<div class="section-body">
+
+<ul class="decision-list">
+
+  <li>
+    <strong>D-001:</strong>
+    The Checkbox should use a restrained visual treatment consistent
+    with the overall application direction.
+  </li>
+
+  <li>
+    <strong>D-002:</strong>
+    Persistent color should be used intentionally. The unchecked
+    checkbox should not receive a permanent accent-colored fill merely
+    to establish that it is interactive.
+  </li>
+
+  <li>
+    <strong>D-003:</strong>
+    The selected/checked state may use persistent accent color because
+    the color communicates semantic state rather than merely
+    affordance.
+  </li>
+
+  <li>
+    <strong>D-004:</strong>
+    Hover should remain perceptible but restrained and should be
+    evaluated against the very-light Claro Blue direction established
+    for appropriate controls.
+  </li>
+
+  <li>
+    <strong>D-005:</strong>
+    Focus-visible must remain clearly distinguishable from hover and
+    selected state.
+  </li>
+
+  <li>
+    <strong>D-006:</strong>
+    The Indeterminate state requires explicit visual treatment and
+    should not be represented as an ambiguous variation of Checked.
+  </li>
+
+  <li>
+    <strong>D-007:</strong>
+    Error and validation states should not rely on color alone.
+  </li>
+
+  <li>
+    <strong>D-008:</strong>
+    Checkbox geometry should ultimately be reconciled with the shared
+    control geometry emerging from Button, TextBox and Select.
+  </li>
+
+  <li>
+    <strong>D-009:</strong>
+    Elevation/shadow is not a general Checkbox visual-treatment
+    mechanism.
+  </li>
+
+  <li>
+    <strong>D-010:</strong>
+    The collected reference screenshots are evidence for comparison,
+    not implementation specifications to copy.
+  </li>
+
+</ul>
+
+<div class="annotation">
+  <strong>Status:</strong>
+  Working hypotheses. Do not promote these statements into
+  <code>Design_System.html</code> as established system rules until the
+  evidence has been reviewed across the representative component set.
+</div>
+
+</div> </section>
+
+<!-- ========================================================== 12. EVIDENCE-COLLECTION CHECKLIST ========================================================== -->
+
+<section class="section"> <div class="section-header"> <h2>12. Evidence-Collection Checklist</h2> <p> Use this checklist while collecting the reference screenshots so that measurements remain comparable across systems. </p> </div>
+
+<div class="section-body">
+
+<ul>
+
+  <li>
+    Capture the checkbox at its normal/resting state.
+  </li>
+
+  <li>
+    Capture the checked state.
+  </li>
+
+  <li>
+    Capture the unchecked hover state where available.
+  </li>
+
+  <li>
+    Capture the checked hover state where available.
+  </li>
+
+  <li>
+    Capture Focus-visible separately where available.
+  </li>
+
+  <li>
+    Capture the disabled unchecked state.
+  </li>
+
+  <li>
+    Capture the disabled checked state where available.
+  </li>
+
+  <li>
+    Capture the indeterminate state where available.
+  </li>
+
+  <li>
+    Capture at least one example with a normal one-line label.
+  </li>
+
+  <li>
+    Capture at least one example with a multi-line label or supporting
+    text where the reference system provides one.
+  </li>
+
+  <li>
+    Record the browser/application zoom level when taking screenshots.
+  </li>
+
+  <li>
+    Record the operating-system display scaling where relevant.
+  </li>
+
+  <li>
+    Avoid resizing the screenshot itself before measuring component
+    geometry.
+  </li>
+
+  <li>
+    Record whether the checkbox is native, custom-rendered or part of a
+    component library when that information is available.
+  </li>
+
+  <li>
+    Record whether the screenshot represents a form checkbox, grid
+    selection checkbox, menu checkbox or another specialized role.
+  </li>
+
+</ul>
+
+<div class="annotation">
+  <strong>Measurement discipline:</strong>
+  When possible, record both the screenshot pixel measurement and the
+  application's apparent CSS/device-pixel context. A screenshot alone
+  does not necessarily reveal the underlying CSS dimensions, especially
+  when browser zoom or operating-system display scaling is involved.
+</div>
+
+</div> </section>
+
+<!-- ========================================================== 13. NOTES FOR FUTURE ITERATIONS ========================================================== -->
+
+<section class="section"> <div class="section-header"> <h2>13. Notes for Future Iterations</h2> <p> Working notes to preserve the purpose of this Lab as the design develops. </p> </div>
+
+<div class="section-body">
+
+<p>
+  This Lab is intentionally not a final Checkbox implementation. It is a
+  controlled environment for collecting evidence, testing visual
+  hypotheses and documenting decisions before those decisions become
+  part of the shared design system.
+</p>
+
+<p>
+  The most important cross-component comparison is the relationship
+  between Checkbox geometry and the geometry already being investigated
+  in the Button and TextBox Labs. In particular, compare control height,
+  corner radius, border treatment, focus treatment, label typography and
+  spacing rather than deciding each value independently.
+</p>
+
+<p>
+  The selected state deserves particular attention. Unlike hover, which
+  is an interaction state, Checked is a persistent semantic state.
+  Consequently, a persistent accent treatment may be appropriate even
+  though persistent color is intentionally restrained elsewhere in the
+  design system.
+</p>
+
+<p>
+  The reference gallery should also distinguish between ordinary form
+  Checkbox controls and specialized selection controls used in grids,
+  tables, menus or other dense application-builder contexts. Similar
+  geometry does not necessarily mean identical interaction treatment.
+</p>
+
+<p>
+  Once the Checkbox design is sufficiently settled, its established
+  decisions should be reconciled with the Button, TextBox and Select
+  specifications before shared values are promoted into
+  <code>Design_System.html</code>.
+</p>
+
+<div class="annotation">
+  <strong>Lab principle:</strong>
+  Collect the evidence first. Record what the reference actually does
+  before deciding whether the observed treatment should be adopted,
+  modified or rejected for this application.
+</div>
+
+</div> </section>
+
+<!-- ========================================================== END OF CHECKBOX DESIGN LAB ========================================================== -->
+
