@@ -1,0 +1,664 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Design Lab — Select / Combo Control</title>
+<style>
+:root {
+--ui-color-surface: #ffffff;
+--ui-color-surface-subtle: #f7f8fa;
+--ui-color-surface-hover: #eaf3ff;
+--ui-color-surface-active: #dcecff;
+--ui-color-border: #cfd5dc;
+--ui-color-border-hover: #b9c3ce;
+--ui-color-border-focus: #3b82d0;
+--ui-color-focus-ring: #3b82d0;
+--ui-color-text: #202428;
+--ui-color-text-muted: #6b737c;
+--ui-color-text-disabled: #9aa1a8;
+--ui-color-disabled-bg: #f4f5f6;
+--ui-color-error: #c0392b;
+
+--ui-control-height: 32px;
+--ui-control-radius: 5px;
+--ui-control-padding-x: 9px;
+--ui-control-font-size: 14px;
+--ui-control-arrow-size: 14px;
+}
+
+{ box-sizing: border-box; }
+
+html, body {
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+font-size: 14px;
+line-height: 1.5;
+color: var(--ui-color-text);
+background: #f4f6f8;
+}
+
+.lab-header {
+background: #ffffff;
+border-bottom: 1px solid #d8dee5;
+padding: 24px 32px;
+}
+
+.lab-header h1 {
+margin: 0 0 4px;
+color: #17365d;
+font-size: 24px;
+font-weight: 600;
+}
+
+.lab-header p {
+margin: 0;
+color: #626970;
+}
+
+.lab {
+max-width: 1280px;
+margin: 0 auto;
+padding: 28px 32px 60px;
+}
+
+.notice {
+padding: 14px 16px;
+margin-bottom: 24px;
+background: #eaf3ff;
+border: 1px solid #c9def3;
+border-left: 4px solid #2563a8;
+border-radius: 6px;
+}
+
+.section {
+background: #ffffff;
+border: 1px solid #d8dee5;
+border-radius: 8px;
+margin-bottom: 24px;
+overflow: hidden;
+}
+
+.section-header {
+padding: 15px 18px;
+background: #f7f8fa;
+border-bottom: 1px solid #d8dee5;
+}
+
+.section-header h2 {
+margin: 0;
+color: #294f78;
+font-size: 17px;
+}
+
+.section-header p {
+margin: 4px 0 0;
+color: #697078;
+font-size: 13px;
+}
+
+.section-body {
+padding: 20px;
+}
+
+.state-grid {
+display: grid;
+grid-template-columns: repeat(3, minmax(180px, 1fr));
+gap: 18px;
+}
+
+.state-label {
+margin-bottom: 6px;
+font-size: 12px;
+font-weight: 600;
+color: var(--ui-color-text-muted);
+}
+
+.select-wrap {
+position: relative;
+}
+
+.ui-select {
+appearance: none;
+width: 100%;
+height: var(--ui-control-height);
+padding: 0 34px 0 var(--ui-control-padding-x);
+border: 1px solid var(--ui-color-border);
+border-radius: var(--ui-control-radius);
+background: var(--ui-color-surface);
+color: var(--ui-color-text);
+font: inherit;
+font-size: var(--ui-control-font-size);
+cursor: pointer;
+outline: none;
+transition:
+background-color 80ms ease,
+border-color 80ms ease,
+box-shadow 80ms ease;
+}
+
+.select-arrow {
+position: absolute;
+right: 10px;
+top: 50%;
+transform: translateY(-50%);
+pointer-events: none;
+color: #59636d;
+font-size: var(--ui-control-arrow-size);
+}
+
+.ui-select:hover:not(:disabled) {
+background: var(--ui-color-surface-hover);
+border-color: var(--ui-color-border-hover);
+}
+
+.ui-select:focus-visible,
+.ui-select.is-focus {
+border-color: var(--ui-color-border-focus);
+box-shadow: 0 0 0 2px rgba(59,130,208,.20);
+}
+
+.ui-select:disabled,
+.ui-select.is-disabled {
+background: var(--ui-color-disabled-bg);
+color: var(--ui-color-text-disabled);
+border-color: #dde1e5;
+cursor: not-allowed;
+}
+
+.ui-select.is-open {
+border-color: var(--ui-color-border-focus);
+box-shadow: 0 0 0 2px rgba(59,130,208,.15);
+}
+
+.ui-select.is-error {
+border-color: var(--ui-color-error);
+}
+
+.ui-select.is-error.is-focus {
+box-shadow: 0 0 0 2px rgba(192,57,43,.18);
+}
+
+.demo-row {
+display: flex;
+flex-wrap: wrap;
+gap: 12px;
+align-items: center;
+}
+
+.demo-select {
+width: 220px;
+}
+
+.comparison-grid {
+display: grid;
+grid-template-columns: 190px repeat(4, minmax(130px,1fr));
+border: 1px solid #d8dee5;
+border-radius: 6px;
+overflow: hidden;
+}
+
+.grid-cell {
+min-height: 92px;
+padding: 14px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-right: 1px solid #d8dee5;
+border-bottom: 1px solid #d8dee5;
+background: #fff;
+}
+
+.grid-cell:nth-child(5n) { border-right: 0; }
+
+.grid-header {
+min-height: 42px;
+background: #f7f8fa;
+color: #46515c;
+font-size: 12px;
+font-weight: 600;
+text-align: center;
+}
+
+.row-label {
+justify-content: flex-start;
+font-weight: 600;
+color: #3e4852;
+background: #fbfcfd;
+}
+
+.ref-grid {
+display: grid;
+grid-template-columns: 150px repeat(4,minmax(130px,1fr));
+border: 1px solid #d8dee5;
+border-radius: 6px;
+overflow: hidden;
+}
+
+.ref-cell {
+min-height: 150px;
+padding: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-right: 1px solid #d8dee5;
+border-bottom: 1px solid #d8dee5;
+background: #fff;
+}
+
+.ref-grid .ref-cell:nth-child(5n) { border-right: 0; }
+
+.ref-header {
+min-height: 42px;
+background: #f7f8fa;
+font-size: 12px;
+font-weight: 600;
+text-align: center;
+}
+
+.ref-label {
+justify-content: flex-start;
+font-weight: 600;
+background: #fbfcfd;
+}
+
+.ref-image {
+max-width: 100%;
+max-height: 125px;
+width: auto;
+height: auto;
+border: 0;
+object-fit: contain;
+}
+
+.image-slot {
+width: 100%;
+min-height: 105px;
+display: flex;
+align-items: center;
+justify-content: center;
+border: 1px dashed #b8c1ca;
+background: #fafbfc;
+color: #7a838c;
+font-size: 11px;
+text-align: center;
+}
+
+.image-slot img {
+max-width: 100%;
+max-height: 125px;
+}
+
+.annotation {
+margin-top: 16px;
+padding: 12px 14px;
+background: #f8fafc;
+border-left: 3px solid #9fb0c1;
+font-size: 13px;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 12px;
+}
+
+th, td {
+padding: 9px 10px;
+border: 1px solid #dfe3e7;
+text-align: left;
+vertical-align: top;
+}
+
+th {
+background: #f6f7f8;
+font-weight: 600;
+}
+
+code {
+font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+font-size: .92em;
+}
+
+.provisional {
+color: #8a6914;
+font-size: 11px;
+font-weight: 600;
+}
+
+textarea {
+width: 100%;
+min-height: 100px;
+padding: 9px;
+border: 1px solid #cfd5dc;
+border-radius: 5px;
+font: inherit;
+resize: vertical;
+}
+
+@media (max-width: 800px) {
+.state-grid {
+grid-template-columns: 1fr;
+}
+
+.comparison-grid,
+.ref-grid {
+overflow-x: auto;
+}
+
+.lab {
+padding-inline: 16px;
+}
+
+.lab-header {
+padding-inline: 20px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header class="lab-header">
+<h1>UI Design Lab — Select / Combo Control</h1>
+<p>Working visual specification and state laboratory for Select / Combo controls.</p>
+</header>
+
+<main class="lab">
+
+<div class="notice">
+<strong>Current design hypothesis:</strong>
+Select / Combo controls should share the restrained geometry of TextBox and Button
+controls. The control itself should communicate affordance primarily through its
+border, typography and dedicated disclosure indicator; persistent color should remain
+restrained.
+</div>
+
+<section class="section">
+<div class="section-header">
+<h2>1. State Comparison</h2>
+<p>Standard Select / Combo states currently being evaluated.</p>
+</div>
+
+<div class="section-body">
+<div class="state-grid">
+
+  <div>
+    <div class="state-label">Normal / Empty</div>
+    <div class="select-wrap">
+      <select class="ui-select">
+        <option selected>Select an option</option>
+        <option>Option A</option>
+        <option>Option B</option>
+      </select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div>
+    <div class="state-label">Normal / Selected</div>
+    <div class="select-wrap">
+      <select class="ui-select">
+        <option>Option A</option>
+        <option selected>Example selection</option>
+        <option>Option B</option>
+      </select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div>
+    <div class="state-label">Hover</div>
+    <div class="select-wrap">
+      <select class="ui-select" style="background:#eaf3ff;border-color:#b9c3ce">
+        <option>Hover state</option>
+      </select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div>
+    <div class="state-label">Focus-visible</div>
+    <div class="select-wrap">
+      <select class="ui-select is-focus">
+        <option selected>Focused selection</option>
+      </select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div>
+    <div class="state-label">Open / Active</div>
+    <div class="select-wrap">
+      <select class="ui-select is-open">
+        <option selected>Open / active</option>
+      </select>
+      <span class="select-arrow">⌃</span>
+    </div>
+  </div>
+  <div>
+    <div class="state-label">Disabled</div>
+    <div class="select-wrap">
+      <select class="ui-select" disabled>
+        <option selected>Disabled selection</option>
+      </select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div>
+    <div class="state-label">Error</div>
+    <div class="select-wrap">
+      <select class="ui-select is-error">
+        <option selected>Invalid selection</option>
+      </select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div>
+    <div class="state-label">Read-only / Non-editable</div>
+    <div class="select-wrap">
+      <select class="ui-select" disabled>
+        <option selected>Read-only value</option>
+      </select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div>
+    <div class="state-label">Long Value / Overflow</div>
+    <div class="select-wrap">
+      <select class="ui-select">
+        <option selected>A deliberately long selected value for overflow testing</option>
+      </select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+</div>
+<div class="annotation">
+  <strong>Observation:</strong>
+  Evaluate the relationship between the field border, disclosure indicator,
+  hover treatment, focus ring and the visual distinction between a closed
+  control and an open popup.
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>2. Live Interaction Test</h2>
+<p>Use pointer and keyboard interaction to evaluate the proposed states.</p>
+</div>
+
+<div class="section-body">
+<div class="demo-row">
+<div class="select-wrap demo-select">
+<select class="ui-select">
+<option selected>Regular Select</option>
+<option>Option 2</option>
+<option>Option 3</option>
+</select>
+<span class="select-arrow">⌄</span>
+</div>
+
+  <div class="select-wrap demo-select">
+    <select class="ui-select">
+      <option selected>Department</option>
+      <option>Engineering</option>
+      <option>Finance</option>
+    </select>
+    <span class="select-arrow">⌄</span>
+  </div>
+  <div class="select-wrap demo-select">
+    <select class="ui-select" disabled>
+      <option selected>Disabled</option>
+    </select>
+    <span class="select-arrow">⌄</span>
+  </div>
+</div>
+<p>
+  Keyboard test: use Tab to focus the control and Arrow / Enter / Space
+  according to the eventual control behavior. Verify that focus remains
+  distinguishable from hover and open/active state.
+</p>
+</div>
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>3. Select / Combo Roles & Comparative References</h2>
+<p>
+Working role categories. Comparative screenshots are visual evidence and
+inspiration, not specifications to copy.
+</p>
+<p>
+<strong>Reference note:</strong>
+Where possible, capture the complete control, surrounding label, popup/menu
+context and enough surrounding UI to understand scale and spacing.
+</p>
+</div>
+
+<div class="section-body">
+
+<div class="ref-grid">
+  <div class="ref-cell ref-header">Reference</div>
+  <div class="ref-cell ref-header">Standard Select</div>
+  <div class="ref-cell ref-header">Combo / Editable</div>
+  <div class="ref-cell ref-header">Open / Popup</div>
+  <div class="ref-cell ref-header">Special / Other</div>
+  <div class="ref-cell ref-label">Notion</div>
+  <div class="ref-cell"><div class="image-slot">NOTION-SELECT-STANDARD.png</div></div>
+  <div class="ref-cell"><div class="image-slot">NOTION-COMBO.png</div></div>
+  <div class="ref-cell"><div class="image-slot">NOTION-SELECT-OPEN.png</div></div>
+  <div class="ref-cell"><div class="image-slot">NOTION-SELECT-OTHER.png</div></div>
+  <div class="ref-cell ref-label">AirTable</div>
+  <div class="ref-cell"><div class="image-slot">AIRTABLE-SELECT-STANDARD.png</div></div>
+  <div class="ref-cell"><div class="image-slot">AIRTABLE-COMBO.png</div></div>
+  <div class="ref-cell"><div class="image-slot">AIRTABLE-SELECT-OPEN.png</div></div>
+  <div class="ref-cell"><div class="image-slot">AIRTABLE-SELECT-OTHER.png</div></div>
+  <div class="ref-cell ref-label">Material</div>
+  <div class="ref-cell"><div class="image-slot">M3-SELECT-STANDARD.png</div></div>
+  <div class="ref-cell"><div class="image-slot">M3-COMBO.png</div></div>
+  <div class="ref-cell"><div class="image-slot">M3-SELECT-OPEN.png</div></div>
+  <div class="ref-cell"><div class="image-slot">M3-SELECT-OTHER.png</div></div>
+  <div class="ref-cell ref-label">Windows</div>
+  <div class="ref-cell"><div class="image-slot">WIN-SELECT-STANDARD.png</div></div>
+  <div class="ref-cell"><div class="image-slot">WIN-COMBO.png</div></div>
+  <div class="ref-cell"><div class="image-slot">WIN-SELECT-OPEN.png</div></div>
+  <div class="ref-cell"><div class="image-slot">WIN-SELECT-OTHER.png</div></div>
+  <div class="ref-cell ref-label">Current</div>
+  <div class="ref-cell"><div class="image-slot">CURRENT-SELECT-STANDARD.png</div></div>
+  <div class="ref-cell"><div class="image-slot">CURRENT-COMBO.png</div></div>
+  <div class="ref-cell"><div class="image-slot">CURRENT-SELECT-OPEN.png</div></div>
+  <div class="ref-cell"><div class="image-slot">CURRENT-SELECT-OTHER.png</div></div>
+  <div class="ref-cell ref-label">Proposed</div>
+  <div class="ref-cell">
+    <div class="select-wrap" style="width:100%">
+      <select class="ui-select"><option>Selected value</option></select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div class="ref-cell">
+    <div class="select-wrap" style="width:100%">
+      <select class="ui-select"><option>Editable value</option></select>
+      <span class="select-arrow">⌄</span>
+    </div>
+  </div>
+  <div class="ref-cell">
+    <div class="select-wrap" style="width:100%">
+      <select class="ui-select is-open"><option>Open / active</option></select>
+      <span class="select-arrow">⌃</span>
+    </div>
+  </div>
+  <div class="ref-cell">
+    <div class="image-slot">Additional proposed treatment</div>
+  </div>
+</div>
+<div class="annotation">
+  <strong>Recommended measurements to capture:</strong>
+  control height; border width; corner radius; horizontal padding;
+  text-to-arrow spacing; arrow/disclosure dimensions; popup offset;
+  popup row height; popup padding; selected-row treatment; focus-ring
+  geometry; label-to-control spacing; helper/error-message spacing.
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>4. Measurement & Observation Log</h2>
+<p>Record observed reference values without treating them as final design tokens.</p>
+</div>
+
+<div class="section-body">
+<table>
+<tr><th>Property</th><th>Notion</th><th>AirTable</th><th>Material</th><th>Windows</th><th>Current</th></tr>
+<tr><td>Control height</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Border width</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Border radius</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Horizontal padding</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Arrow / disclosure size</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Popup row height</td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<p><strong>General observations:</strong></p>
+<textarea placeholder="Record visual observations, notable differences, measurements and questions here..."></textarea>
+</div>
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>5. Current Select / Combo Token Set</h2>
+<p>Working candidates only. Values remain provisional.</p>
+</div>
+
+<div class="section-body">
+<table>
+<tr><th>Token</th><th>Current value</th><th>Role</th></tr>
+<tr><td><code>--ui-select-surface</code></td><td>#ffffff</td><td>Closed control surface.</td></tr>
+<tr><td><code>--ui-select-surface-hover</code></td><td>#eaf3ff</td><td>Hover surface.</td></tr>
+<tr><td><code>--ui-select-border</code></td><td>#cfd5dc</td><td>Default border.</td></tr>
+<tr><td><code>--ui-select-border-focus</code></td><td>#3b82d0</td><td>Focused/open border.</td></tr>
+<tr><td><code>--ui-select-focus-ring</code></td><td>#3b82d0</td><td>Focus-visible indicator.</td></tr>
+<tr><td><code>--ui-select-height</code></td><td>32px</td><td>Default control height.</td></tr>
+<tr><td><code>--ui-select-radius</code></td><td>5px</td><td>Corner radius.</td></tr>
+</table>
+</div>
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>6. Design Questions to Resolve</h2>
+</div>
+<div class="section-body">
+<ol>
+<li>What distinguishes a Select from a Combo / editable control?</li>
+<li>What is the final disclosure-indicator geometry?</li>
+<li>Should hover use the shared very-light Claro Blue treatment?</li>
+<li>How should the open control differ from focus-visible?</li>
+<li>What is the popup/menu surface treatment and elevation behavior?</li>
+<li>What are the Compact, Default and Comfortable heights?</li>
+<li>How should selected, hovered and keyboard-focused popup rows interact?</li>
+<li>How should long labels and overflow be handled?</li>
+<li>How should validation and disabled/read-only states be communicated?</li>
+<li>Which measurements should become shared control primitives?</li>
+</ol>
+</div>
+</section>
+
+</main>
+</body>
+</html>
