@@ -1,3 +1,4 @@
+
 <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Design Lab — Button</title>
 
 <style>
@@ -165,6 +166,14 @@ body {
 .comparison-grid {
   display: grid;
   grid-template-columns: 190px repeat(5, minmax(120px, 1fr));
+  border: 1px solid #d8dee5;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.comparison-grid3 {
+  display: grid;
+  grid-template-columns: 190px repeat(4, minmax(120px, 1fr));
   border: 1px solid #d8dee5;
   border-radius: 6px;
   overflow: hidden;
@@ -527,10 +536,7 @@ it has been validated across the broader component system.
 
   <div class="annotation">
     <strong>Observation:</strong>
-    The regular and ghost buttons are where the proposed Claro Blue hover
-    treatment is most significant. The primary button has its own stronger
-    color treatment and therefore should not simply inherit the same hover
-    surface.
+    The regular button should remain visually quiet in its normal state. The principal color change occurs on hover, rather than being permanently present. Primary actions may retain stronger persistent emphasis because their semantic role is different.
   </div>
 
 </div>
@@ -588,29 +594,149 @@ it has been validated across the broader component system.
 
 <section class="section">
 <div class="section-header">
-<h2>3. Button Roles Under Consideration</h2>
-<p>These are working categories, not yet a finalized taxonomy.</p>
+<h2>3. Button Roles & Comparative References</h2>
+<p>These are working categories, not yet a finalized taxonomy. The reference screenshots below are comparative visual evidence and inspiration, not specifications to be copied.</p>
+
+<p><strong>Comparative reference note:</strong> These screenshots document representative visual treatments observed in the reference systems. They are evidence for design evaluation, not measurements or implementation specifications.</p>
 </div>
 
 <div class="section-body">
 
-  <div class="demo-row">
 
+  <div class="comparison-grid3">
+
+    <div class="grid-cell grid-header">Variant</div>
+    <div class="grid-cell grid-header">Primary</div>
+    <div class="grid-cell grid-header">Secondary</div>
+    <div class="grid-cell grid-header">Transparent</div>
+    <div class="grid-cell grid-header">IconOnly</div>
+
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Notion</div>
+
+    <div class="grid-cell">
+     <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Notion-Btn-Primary.png" alt="Notion-Btn-Primary" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Notion-Btn-Secondary.png" alt="Notion-Btn-Secondary" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Notion-Btn-Transp.png" alt="Notion-Btn-Transparent" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Notion-Btn-Icon.png" alt="Notion-Btn-IconOnly" border="0">
+    </div>
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">AirTable</div>
+
+    <div class="grid-cell">
+     <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/AT-Btn-Primary.png" alt="AT-Btn-Primary" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/AT-Btn-Secondary.png" alt="AT-Btn-Secondary" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/AT-Btn-Transp.png" alt="AT-Btn-Transparent" border="0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/AT-Btn-Icon.png" alt="AT-Btn-IconOnly" border="0">
+    </div>
+
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Material</div>
+
+    <div class="grid-cell">
+     <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/M3-Btn-Primary.png" alt="M3-Btn-Primary" style="width: 50%; height: auto;border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/M3-Btn-Secondary.png" alt="M3-Btn-Secondary" style="width: 50%; height: auto;border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/M3-Btn-Transp.png" alt="M3-Btn-Transparent" style="width:25%; height: auto;border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/M3-Btn-Icon.png" alt="M3-Btn-IconOnly" style="width: 25%; height: auto;border:0">
+    </div>
+
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Windows</div>
+
+    <div class="grid-cell">
+     <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Win-Btn-Primary.png" alt="Win-Btn-Primary" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Win-Btn-Secondary.png" alt="Win-Btn-Secondary" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Win-Btn-Transp.png" alt="Win-Btn-Transparent" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Win-Btn-Icon.png" alt="Win-Btn-IconOnly" style="border:0">
+    </div>
+
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Current</div>
+
+    <div class="grid-cell">
+     <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Brij-Btn-Primary.png" alt="Brij-Btn-Primary" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Brij-Btn-Secondary.png" alt="Brij-Btn-Secondary" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Brij-Btn-Transp.png" alt="Brij-Btn-Transparent" style="border:0">
+    </div>
+
+    <div class="grid-cell">
+       <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/btn/Brij-Btn-Icon.png" alt="Brij-Btn-IconOnly" style="border:0">
+    </div>
+    <!------------------------------------------>
+
+    <div class="grid-cell row-label">Proposed</div>
+
+    <div class="grid-cell">
     <button class="ui-button primary">
-      Primary Action
-    </button>
+        Primary Action
+    </button>    </div>
 
+    <div class="grid-cell">
     <button class="ui-button">
       Secondary Action
     </button>
+    </div>
 
+    <div class="grid-cell">
     <button class="ui-button ghost">
       Tertiary / Transparent
     </button>
+    </div>
 
+    <div class="grid-cell">
     <button class="ui-button icon-only" aria-label="Settings">
       <span class="icon" aria-hidden="true">⚙</span>
     </button>
+    </div>
+
+    <!------------------------------------------>
 
   </div>
 
@@ -627,7 +753,7 @@ it has been validated across the broader component system.
 <section class="section">
 <div class="section-header">
 <h2>4. Current Button Token Set</h2>
-<p>Names are more authoritative than the provisional values.</p>
+<p>Token names and semantic roles are currently more authoritative than the provisional numeric/color values. The values remain subject to validation as the Button and broader component system mature.</p>
 </div>
 
 <div class="section-body">
@@ -705,48 +831,30 @@ it has been validated across the broader component system.
 
 <div class="section-body">
 
+<p>
+The principal Button visual/interaction-direction questions have now been resolved and have been checked against representative reference UIs. Remaining questions concern final taxonomy, specialized behavior and numeric/token values.
+</p>
+
   <ol class="decision-list">
-    <li>
-      Is the Claro Blue hover sufficiently subtle, or should it be lighter?
-    </li>
-
-    <li>
-      Should the hover surface be accompanied by a border change, or should
-      the border remain unchanged?
-    </li>
-
-    <li>
-      How should hover interact with a selected/toggled button?
-    </li>
-
-    <li>
-      How should ActionBar buttons differ from regular/dialog buttons?
-    </li>
-
-    <li>
-      What is the final distinction between Primary, Secondary and
-      Transparent/Tertiary actions?
-    </li>
-
-    <li>
-      Should icon-only buttons use the same hover surface and geometry?
-    </li>
-
-    <li>
-      What is the final focus treatment?
-    </li>
-
-    <li>
-      What are the final Compact, Default and Comfortable dimensions?
-    </li>
-
-    <li>
-      How much of the Button treatment should be shared by other controls?
-    </li>
-
-    <li>
-      Which values should become global semantic tokens?
-    </li>
+<li>
+What is the final distinction between Primary, Secondary and
+Transparent/Tertiary actions?
+</li>
+<li>
+How should ActionBar buttons differ from regular/dialog buttons?
+</li>
+<li>
+How should hover interact with a selected/toggled button?
+</li>
+<li>
+Should icon-only buttons use the same hover surface and geometry?
+</li>
+<li>
+What are the final Compact, Default and Comfortable dimensions?
+</li>
+<li>
+Which provisional Button values should become global semantic tokens?
+</li>
   </ol>
 
 </div>
@@ -771,25 +879,37 @@ it has been validated across the broader component system.
 
     <li>
       <strong>D-002:</strong>
-      Hover can be a place where subtle color appears rather than remaining
-      persistently visible.
+      Persistent color should not be used merely to make a regular button recognizable when a quieter treatment is sufficient.
     </li>
 
     <li>
       <strong>D-003:</strong>
-      Very-light Claro Blue is the current preferred hover direction for
-      appropriate transparent buttons.
+      Regular/secondary buttons should use the restrained secondary-style treatment with darkBlue text rather than a permanent blue fill.
     </li>
 
     <li>
       <strong>D-004:</strong>
-      Elevation/shadow is not a general Button visual-treatment mechanism.
+      Very-light Claro Blue is the preferred and sufficiently perceptible hover treatment for appropriate transparent buttons.
     </li>
 
     <li>
       <strong>D-005:</strong>
-      Semantic tokens should be used even when the initial values are
-      provisional.
+      Pressed should use the existing subtle darkening treatment.
+    </li>
+
+    <li>
+      <strong>D-006:</strong>
+      Focus should retain the existing Button Lab focus treatment and remain distinguishable from hover without unnecessary visual noise.
+    </li>
+
+    <li>
+      <strong>D-007:</strong>
+      Elevation/shadow is not a general Button visual-treatment mechanism.
+    </li>
+
+    <li>
+      <strong>D-008:</strong>
+      Semantic tokens should be used even when their initial values remain provisional.
     </li>
 
   </ul>
