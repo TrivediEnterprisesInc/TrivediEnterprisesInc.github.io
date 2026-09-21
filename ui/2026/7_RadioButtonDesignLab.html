@@ -1,0 +1,1956 @@
+<!DOCTYPE html> <html lang="en"> 
+<head> 
+<meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>UI Design Lab — RadioButton</title>
+
+<style>
+
+ :root {
+
+/* 
+https://chatgpt.com/s/t_6aaee20fba988191a0fe53af0a9799e4
+==========================================================
+ UI DESIGN LAB — RADIOBUTTON
+
+ Working visual specification and comparative-reference
+ laboratory for the RadioButton component.
+
+ IMPORTANT:
+
+ - Values are provisional unless explicitly promoted to
+   Design\_System.html.
+- Reference screenshots are comparative evidence and
+   inspiration, NOT implementation specifications.
+- Do not infer final measurements from the screenshots
+   until they have been deliberately measured/validated.
+   ==========================================================
+
+  --------------------------------------------------------
+   Global semantic tokens — PROVISIONAL
+   -------------------------------------------------------- */
+
+--ui-color-surface: #ffffff;
+--ui-color-surface-hover: #eaf3ff;
+--ui-color-surface-active: #dcecff;
+--ui-color-surface-disabled: #f4f5f6;
+
+--ui-color-border: #cfd5dc;
+--ui-color-border-hover: #b9c3ce;
+--ui-color-border-focus: #3b82d0;
+--ui-color-border-selected: #2563a8;
+
+--ui-color-text: #202428;
+--ui-color-text-muted: #6b737c;
+--ui-color-text-disabled: #9aa1a8;
+
+--ui-color-accent: #2563a8;
+--ui-color-focus-ring: #3b82d0;
+
+--ui-color-error: #c0392b;
+
+/* --------------------------------------------------------
+   RadioButton geometry — PROVISIONAL
+   -------------------------------------------------------- */
+
+--ui-radio-size: 16px;
+--ui-radio-border-width: 1px;
+--ui-radio-dot-size: 8px;
+--ui-radio-radius: 50%;
+
+--ui-radio-label-gap: 7px;
+--ui-radio-option-gap: 9px;
+
+--ui-radio-min-target: 32px;
+
+--ui-radio-focus-width: 2px;
+--ui-radio-focus-offset: 2px;
+
+--ui-radio-font-size: 14px;
+--ui-radio-line-height: 20px;
+
+--ui-transition: 100ms ease;
+
+
+ }
+
+/* --------------------------------------------------------
+   GLOBAL
+   -------------------------------------------------------- */
+
+ - {
+   box-sizing: border-box;
+   }
+
+ html,
+ body {
+ margin: 0;
+ padding: 0;
+ }
+
+ body {
+ font-family:
+ system-ui,
+ -apple-system,
+ BlinkMacSystemFont,
+ "Segoe UI",
+ sans-serif;
+
+
+font-size: 14px;
+line-height: 1.5;
+
+color: var(--ui-color-text);
+background: #ffffff;
+
+
+ }
+
+ main {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 32px;
+ }
+
+ h1 {
+ margin: 0 0 8px;
+ font-size: 26px;
+ line-height: 1.25;
+ }
+
+ h2 {
+ margin: 34px 0 10px;
+ padding-bottom: 5px;
+ border-bottom: 1px solid #e3e6e9;
+ font-size: 19px;
+ }
+
+ h3 {
+ margin: 24px 0 8px;
+ font-size: 16px;
+ }
+
+ p {
+ margin: 8px 0 14px;
+ }
+
+ code {
+ font-family:
+ ui-monospace,
+ SFMono-Regular,
+ Menlo,
+ Consolas,
+ monospace;
+
+
+font-size: 0.92em;
+
+
+ }
+
+ ul,
+ ol {
+ margin-top: 8px;
+ }
+
+ li {
+ margin: 5px 0;
+ }
+
+
+ /* --------------------------------------------------------
+   INTRO / HYPOTHESIS
+   -------------------------------------------------------- */
+
+ .hypothesis {
+ padding: 12px 14px;
+
+
+border-left: 3px solid var(--ui-color-border-focus);
+
+background: #f8fafc;
+
+
+ }
+
+ .notice {
+ padding: 13px 15px;
+
+
+margin: 18px 0;
+
+background: #eaf3ff;
+
+border: 1px solid #c9def3;
+border-left: 4px solid #2563a8;
+
+border-radius: 6px;
+
+
+ }
+
+ /* --------------------------------------------------------
+ STATE GRID
+   -------------------------------------------------------- */
+
+ .state-grid {
+ display: grid;
+
+
+grid-template-columns:
+    repeat(4, minmax(150px, 1fr));
+
+gap: 18px;
+
+margin-top: 16px;
+
+
+ }
+
+ .state {
+ min-width: 0;
+ }
+
+ .state-label {
+ margin-bottom: 8px;
+
+
+font-size: 12px;
+font-weight: 600;
+
+color: var(--ui-color-text-muted);
+
+
+ }
+
+ /* --------------------------------------------------------
+ RADIOBUTTON
+   -------------------------------------------------------- */
+
+ .radio-option {
+ position: relative;
+
+
+display: inline-flex;
+
+align-items: center;
+
+min-height: var(--ui-radio-min-target);
+
+gap: var(--ui-radio-label-gap);
+
+padding: 4px 6px 4px 4px;
+
+border-radius: 4px;
+
+cursor: pointer;
+
+color: var(--ui-color-text);
+
+transition:
+    background-color var(--ui-transition),
+    color var(--ui-transition);
+
+
+ }
+
+
+ /* --------------------------------------------------------
+ The visible radio control.
+   -------------------------------------------------------- */
+
+ .radio-control {
+ position: relative;
+
+
+flex: 0 0 auto;
+
+width: var(--ui-radio-size);
+height: var(--ui-radio-size);
+
+border:
+    var(--ui-radio-border-width)
+    solid
+    var(--ui-color-border);
+
+border-radius: var(--ui-radio-radius);
+
+background: var(--ui-color-surface);
+
+transition:
+    background-color var(--ui-transition),
+    border-color var(--ui-transition),
+    box-shadow var(--ui-transition);
+
+
+ }
+
+ /* --------------------------------------------------------
+ Selected state.
+   -------------------------------------------------------- */
+
+ .radio-control.selected {
+ border-color: var(--ui-color-border-selected);
+ }
+
+ .radio-control.selected::after {
+ content: "";
+
+
+position: absolute;
+
+left: 50%;
+top: 50%;
+
+width: var(--ui-radio-dot-size);
+height: var(--ui-radio-dot-size);
+
+transform: translate(-50%, -50%);
+
+border-radius: 50%;
+
+background: var(--ui-color-accent);
+
+
+ }
+
+ /* --------------------------------------------------------
+ Hover.
+
+ Current design direction:
+ Use a very-light Claro Blue surface for the
+ interactive option rather than a heavy permanent fill.
+   -------------------------------------------------------- */
+ .radio-option:hover:not(.disabled) {
+ background: var(--ui-color-surface-hover);
+ }
+
+ .radio-option:hover:not(.disabled) .radio-control {
+ border-color: var(--ui-color-border-hover);
+ }
+
+ .radio-option:hover:not(.disabled)
+ .radio-control.selected {
+ border-color: var(--ui-color-accent);
+ }
+
+ /* --------------------------------------------------------
+ Focus-visible.
+
+ Focus belongs to the interactive control/option,
+ but should remain clearly distinguishable from hover.
+   -------------------------------------------------------- */
+
+ .radio-option:focus-visible {
+ outline:
+ var(--ui-radio-focus-width)
+ solid
+ var(--ui-color-focus-ring);
+
+
+outline-offset: var(--ui-radio-focus-offset);
+
+
+ }
+
+ /* --------------------------------------------------------
+ Simulated focus state for the static state laboratory.   -------------------------------------------------------- */
+
+ .radio-option.is-focus {
+ outline:
+ var(--ui-radio-focus-width)
+ solid
+ var(--ui-color-focus-ring);
+
+
+outline-offset: var(--ui-radio-focus-offset);
+
+
+ }
+
+ /* --------------------------------------------------------
+ Pressed / Active.-------------------------------------------------------- */
+ .radio-option.is-pressed {
+ background: var(--ui-color-surface-active);
+ }
+
+ .radio-option.is-pressed .radio-control {
+ border-color: var(--ui-color-border-selected);
+ }
+
+ \*
+ Disabled.
+ */
+
+ .radio-option.disabled {
+ color: var(--ui-color-text-disabled);
+ cursor: default;
+ }
+
+ .radio-option.disabled .radio-control {
+ background: var(--ui-color-surface-disabled);
+ border-color: #dde1e5;
+ }
+
+ .radio-option.disabled .radio-control.selected {
+ border-color: #aeb5bc;
+ }
+
+ .radio-option.disabled
+ .radio-control.selected::after {
+ background: #9aa1a8;
+ }
+
+ /* --------------------------------------------------------
+ Error.
+
+ Error should not rely exclusively on color.-------------------------------------------------------- */
+ .radio-option.error .radio-control {
+ border-color: var(--ui-color-error);
+ }
+
+ .radio-option.error .radio-label {
+ color: var(--ui-color-error);
+ }
+
+/* --------------------------------------------------------
+ NATIVE INPUT — ACCESSIBLE DEMONSTRATION
+ -------------------------------------------------------- */
+ .radio-native {
+ position: absolute;
+
+
+width: 1px;
+height: 1px;
+
+margin: -1px;
+padding: 0;
+
+overflow: hidden;
+
+clip: rect(0 0 0 0);
+
+white-space: nowrap;
+
+border: 0;
+
+
+ }
+
+/* --------------------------------------------------------
+ RADIO GROUPS
+ -------------------------------------------------------- */
+
+ .radio-group {
+ display: flex;
+ flex-direction: column;
+
+
+gap: var(--ui-radio-option-gap);
+
+margin: 12px 0;
+
+
+ }
+
+ .radio-group.horizontal {
+ flex-direction: row;
+ flex-wrap: wrap;
+
+
+align-items: center;
+
+gap: 8px 18px;
+
+
+ }
+
+ .group-label {
+ display: block;
+
+
+margin-bottom: 7px;
+
+font-size: 13px;
+font-weight: 600;
+
+
+ }
+
+ .helper {
+ margin-top: 5px;
+
+
+font-size: 12px;
+
+color: var(--ui-color-text-muted);
+
+
+ }
+
+ .error-message {
+ margin-top: 5px;
+
+
+font-size: 12px;
+
+color: var(--ui-color-error);
+
+
+ }
+
+/* --------------------------------------------------------
+ COMPARATIVE REFERENCE GALLERY
+ -------------------------------------------------------- */
+
+ .comparison-intro {
+ margin-bottom: 14px;
+
+
+color: var(--ui-color-text-muted);
+
+
+ }
+
+ .reference-grid {
+ display: grid;
+
+
+grid-template-columns:
+    170px
+    repeat(4, minmax(170px, 1fr));
+
+border:
+    1px solid
+    #d8dee5;
+
+border-radius: 6px;
+
+overflow: hidden;
+
+
+ }
+
+ .reference-cell {
+ min-height: 145px;
+
+
+padding: 12px;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 8px;
+
+border-right:
+    1px solid
+    #d8dee5;
+
+border-bottom:
+    1px solid
+    #d8dee5;
+
+background: #ffffff;
+
+text-align: center;
+
+
+ }
+
+ .reference-cell:nth-child(5n) {
+ border-right: 0;
+ }
+
+ .reference-header {
+ min-height: 44px;
+
+
+background: #f6f7f8;
+
+color: #46515c;
+
+font-size: 12px;
+font-weight: 600;
+
+
+ }
+
+ .reference-label {
+ justify-content: flex-start;
+ align-items: flex-start;
+
+
+background: #fbfcfd;
+
+color: #3e4852;
+
+font-size: 13px;
+font-weight: 600;
+
+text-align: left;
+
+
+ }
+
+/* --------------------------------------------------------
+ Screenshot wrapper.
+
+ Replace the placeholder contents with the actual image.
+
+ Recommended workflow:
+
+ 1. Capture the reference.
+2. Crop to the relevant RadioButton.
+3. Save using a consistent filename.
+4. Replace the placeholder <div> with an <img>.
+ -------------------------------------------------------- */
+ .reference-shot {
+ width: 100%;
+ max-width: 180px;
+
+
+min-height: 82px;
+
+
+
+display: flex;
+
+
+
+align-items: center;
+justify-content: center;
+
+
+
+padding: 8px;
+
+
+
+border:
+    1px dashed
+    #b9c2cc;
+
+
+
+background: #fafbfc;
+
+
+
+color: #7a838d;
+
+
+
+font-size: 11px;
+
+
+
+text-align: center;
+
+
+ }
+
+ .reference-shot img {
+ display: block;
+
+
+max-width: 100%;
+max-height: 110px;
+
+
+
+width: auto;
+height: auto;
+
+
+
+border: 0;
+
+
+ }
+
+ .reference-caption {
+ font-size: 11px;
+
+
+color: #727b84;
+
+
+ }
+
+/* --------------------------------------------------------
+ MEASUREMENT / OBSERVATION TABLE
+  -------------------------------------------------------- */
+
+ .measurement-table {
+ width: 100%;
+
+
+margin-top: 14px;
+
+
+
+border-collapse: collapse;
+
+
+ }
+
+ .measurement-table th,
+ .measurement-table td {
+ padding: 9px 10px;
+
+
+border:
+    1px solid
+    #dfe3e7;
+
+
+
+text-align: left;
+
+
+
+vertical-align: top;
+
+
+ }
+
+ .measurement-table th {
+ background: #f6f7f8;
+
+
+font-weight: 600;
+
+
+ }
+
+ .measurement-table code {
+ white-space: nowrap;
+ }
+
+/* --------------------------------------------------------
+ QUESTIONS / NOTES
+  -------------------------------------------------------- */
+
+ .question-box {
+ padding: 13px 15px;
+
+
+margin: 14px 0;
+
+
+
+background: #fafbfc;
+
+
+
+border:
+    1px solid
+    #dfe3e7;
+
+
+
+border-radius: 5px;
+
+
+ }
+
+ .note {
+ color: var(--ui-color-text-muted);
+
+
+font-size: 13px;
+
+
+ }
+
+/* --------------------------------------------------------
+ RESPONSIVE
+  -------------------------------------------------------- */
+
+ @media (max-width: 950px) {
+
+
+.reference-grid {
+    grid-template-columns:
+        150px
+        repeat(2, minmax(170px, 1fr));
+}
+
+
+
+.state-grid {
+    grid-template-columns:
+        repeat(2, minmax(150px, 1fr));
+}
+
+
+ }
+
+ @media (max-width: 650px) {
+
+
+main {
+    padding: 20px;
+}
+
+
+
+.state-grid {
+    grid-template-columns: 1fr;
+}
+
+
+
+.reference-grid {
+    grid-template-columns: 1fr;
+}
+
+
+
+.reference-cell {
+    border-right: 0;
+}
+
+
+
+.radio-group.horizontal {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+ }
+
+ </style> 
+ </head> 
+ <body>
+  <main> <h1>UI Design Lab — RadioButton</h1> <p> Working visual specification, interaction-state laboratory and comparative-reference gallery for the RadioButton component. </p> <p class="hypothesis"> <strong>Current design hypothesis:</strong> RadioButtons should remain visually restrained and information-dense. The selected indicator should be immediately recognizable without requiring a persistent colored container. Hover should provide a quiet interaction cue, while focus-visible should remain clearly distinguishable from both hover and selection. </p> <div class="notice"> <strong>Reference-image methodology:</strong> The comparative screenshots in this Lab are intended to document actual visual treatments observed in Notion, Airtable, Windows/system UI, Material and the current/proposed application. They are evidence for comparison and design evaluation, not specifications to copy. Where possible, record actual measurements separately rather than estimating dimensions from the screenshots. </div> 
+  
+  <!-- ======================================================== 1\. STATE COMPARISON ======================================================== --> <h2>1. State Comparison</h2> <p> The RadioButton uses a subset of the global interaction-state vocabulary. The exact visual treatment remains provisional until validated against the comparative references. 
+  </p> 
+  <div class="state-grid">
+
+<div class="state">
+    <div class="state-label">Normal / Unselected</div>
+
+
+
+    <label class="radio-option">
+        <span class="radio-control"></span>
+        <span class="radio-label">Option A</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Normal / Selected</div>
+
+
+
+    <label class="radio-option">
+        <span class="radio-control selected"></span>
+        <span class="radio-label">Option A</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Hover / Unselected</div>
+
+
+
+    <label class="radio-option">
+        <span class="radio-control"></span>
+        <span class="radio-label">Hover over me</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Hover / Selected</div>
+
+
+
+    <label class="radio-option">
+        <span class="radio-control selected"></span>
+        <span class="radio-label">Selected + Hover</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Focus-visible / Unselected</div>
+
+
+
+    <label class="radio-option is-focus" tabindex="0">
+        <span class="radio-control"></span>
+        <span class="radio-label">Keyboard focus</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Focus-visible / Selected</div>
+
+
+
+    <label class="radio-option is-focus" tabindex="0">
+        <span class="radio-control selected"></span>
+        <span class="radio-label">Selected + Focus</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Pressed / Active</div>
+
+
+
+    <label class="radio-option is-pressed">
+        <span class="radio-control selected"></span>
+        <span class="radio-label">Pressed / Active</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Disabled / Unselected</div>
+
+
+
+    <label class="radio-option disabled">
+        <span class="radio-control"></span>
+        <span class="radio-label">Unavailable option</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Disabled / Selected</div>
+
+
+
+    <label class="radio-option disabled">
+        <span class="radio-control selected"></span>
+        <span class="radio-label">Selected but unavailable</span>
+    </label>
+</div>
+
+
+
+<div class="state">
+    <div class="state-label">Error</div>
+
+
+
+    <label class="radio-option error">
+        <span class="radio-control"></span>
+        <span class="radio-label">Invalid selection</span>
+    </label>
+</div>
+
+
+ </div> <p class="note"> Observation target: determine whether the selected indicator, hover treatment and focus treatment form a coherent visual progression without making the control unnecessarily prominent. </p> <!-- ======================================================== 2\. LIVE INTERACTION TEST ======================================================== --> <h2>2. Live Interaction Test</h2> <p> Use the controls below with both the mouse and keyboard. The purpose is to evaluate the interaction model as well as the visual states. </p> <h3>2.1 Vertical Radio Group</h3> <div> <span class="group-label">Preferred view</span>
+
+<div class="radio-group">
+
+
+
+    <label class="radio-option">
+        <input
+            class="radio-native"
+            type="radio"
+            name="view"
+            value="list"
+            checked
+        >
+        <span class="radio-control selected"></span>
+        <span class="radio-label">List</span>
+    </label>
+
+
+
+    <label class="radio-option">
+        <input
+            class="radio-native"
+            type="radio"
+            name="view"
+            value="grid"
+        >
+        <span class="radio-control"></span>
+        <span class="radio-label">Grid</span>
+    </label>
+
+
+
+    <label class="radio-option">
+        <input
+            class="radio-native"
+            type="radio"
+            name="view"
+            value="compact"
+        >
+        <span class="radio-control"></span>
+        <span class="radio-label">Compact</span>
+    </label>
+
+
+
+</div>
+
+
+
+<div class="helper">
+    Choose one view. Arrow-key behavior should be verified
+    against the application's actual accessibility architecture.
+</div>
+
+
+ </div> <h3>2.2 Horizontal Radio Group</h3> <div> <span class="group-label">Alignment</span>
+
+<div class="radio-group horizontal">
+
+
+
+    <label class="radio-option">
+        <input
+            class="radio-native"
+            type="radio"
+            name="alignment"
+            value="left"
+            checked
+        >
+        <span class="radio-control selected"></span>
+        <span class="radio-label">Left</span>
+    </label>
+
+
+
+    <label class="radio-option">
+        <input
+            class="radio-native"
+            type="radio"
+            name="alignment"
+            value="center"
+        >
+        <span class="radio-control"></span>
+        <span class="radio-label">Center</span>
+    </label>
+
+
+
+    <label class="radio-option">
+        <input
+            class="radio-native"
+            type="radio"
+            name="alignment"
+            value="right"
+        >
+        <span class="radio-control"></span>
+        <span class="radio-label">Right</span>
+    </label>
+
+
+
+</div>
+
+
+ </div> <h3>2.3 Disabled Group</h3> <div> <span class="group-label">Account type</span>
+
+<div class="radio-group">
+
+
+
+    <label class="radio-option disabled">
+        <span class="radio-control selected"></span>
+        <span class="radio-label">Standard</span>
+    </label>
+
+
+
+    <label class="radio-option disabled">
+        <span class="radio-control"></span>
+        <span class="radio-label">Advanced</span>
+    </label>
+
+
+
+</div>
+
+
+ </div> <!-- ======================================================== 3\. LABEL / VALIDATION / GROUP TEST ======================================================== --> <h2>3. Label, Helper and Validation Test</h2> <div>
+
+<span class="group-label">
+    Notification frequency
+</span>
+
+
+
+<div
+    class="radio-group"
+    role="radiogroup"
+    aria-label="Notification frequency"
+>
+
+
+
+    <label class="radio-option">
+        <span class="radio-control selected"></span>
+        <span class="radio-label">Immediately</span>
+    </label>
+
+
+
+    <label class="radio-option">
+        <span class="radio-control"></span>
+        <span class="radio-label">Daily</span>
+    </label>
+
+
+
+    <label class="radio-option">
+        <span class="radio-control"></span>
+        <span class="radio-label">Weekly</span>
+    </label>
+
+
+
+</div>
+
+
+
+<div class="helper">
+    Select how frequently notifications should be delivered.
+</div>
+
+
+ </div> <div style="margin-top:24px;">
+
+<span class="group-label">
+    Export format
+</span>
+
+
+
+<div
+    class="radio-group"
+    role="radiogroup"
+    aria-label="Export format"
+    aria-invalid="true"
+>
+
+
+
+    <label class="radio-option error">
+        <span class="radio-control"></span>
+        <span class="radio-label">Format not available</span>
+    </label>
+
+
+
+    <label class="radio-option error">
+        <span class="radio-control"></span>
+        <span class="radio-label">Unsupported format</span>
+    </label>
+
+
+
+</div>
+
+
+
+<div class="error-message">
+    Please select an available export format.
+</div>
+
+
+ </div> <!-- ======================================================== 4\. RADIOBUTTON ROLES & COMPARATIVE REFERENCES ======================================================== --> <h2>4. RadioButton Roles & Comparative References</h2> <p class="comparison-intro"> These are working categories rather than a finalized taxonomy. The screenshots below should document representative visual treatments from the reference systems and the application's own implementations. </p> <p> <strong>Comparative reference note:</strong> Capture the smallest useful screenshot that preserves enough context to understand the RadioButton's relationship to its label, surrounding spacing and group. Do not crop so tightly that the component's interaction context disappears. </p> <h3>4.1 Primary Comparative Reference Gallery</h3> <div class="reference-grid">
+
+<div class="reference-cell reference-header">
+    Reference
+</div>
+
+
+
+<div class="reference-cell reference-header">
+    Unselected
+</div>
+
+
+
+<div class="reference-cell reference-header">
+    Selected
+</div>
+
+
+
+<div class="reference-cell reference-header">
+    Group / Spacing
+</div>
+
+
+
+<div class="reference-cell reference-header">
+    States / Other
+</div>
+
+
+
+<!-- NOTION -->
+
+
+
+<div class="reference-cell reference-label">
+    Notion
+    <span class="reference-caption">
+        Reference system
+    </span>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        NOTION RADIO<br>
+        UNSELECTED
+    </div>
+
+
+
+    <!-- Example:
+    <img
+        src="..."
+        alt="Notion RadioButton — Unselected"
+    >
+    -->
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        NOTION RADIO<br>
+        SELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        NOTION RADIO<br>
+        GROUP / SPACING
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        NOTION RADIO<br>
+        OTHER STATE
+    </div>
+</div>
+
+
+
+<!-- AIRTABLE -->
+
+
+
+<div class="reference-cell reference-label">
+    Airtable
+    <span class="reference-caption">
+        Reference system
+    </span>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        AIRTABLE RADIO<br>
+        UNSELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        AIRTABLE RADIO<br>
+        SELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        AIRTABLE RADIO<br>
+        GROUP / SPACING
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        AIRTABLE RADIO<br>
+        OTHER STATE
+    </div>
+</div>
+
+
+
+<!-- MATERIAL -->
+
+
+
+<div class="reference-cell reference-label">
+    Material
+    <span class="reference-caption">
+        Material Design reference
+    </span>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        MATERIAL RADIO<br>
+        UNSELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        MATERIAL RADIO<br>
+        SELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        MATERIAL RADIO<br>
+        GROUP / SPACING
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        MATERIAL RADIO<br>
+        OTHER STATE
+    </div>
+</div>
+
+
+
+<!-- WINDOWS -->
+
+
+
+<div class="reference-cell reference-label">
+    Windows / System UI
+    <span class="reference-caption">
+        Desktop convention
+    </span>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        WINDOWS RADIO<br>
+        UNSELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        WINDOWS RADIO<br>
+        SELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        WINDOWS RADIO<br>
+        GROUP / SPACING
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        WINDOWS RADIO<br>
+        OTHER STATE
+    </div>
+</div>
+
+
+
+<!-- CURRENT DOJO -->
+
+
+
+<div class="reference-cell reference-label">
+    Current Dojo
+    <span class="reference-caption">
+        Existing application
+    </span>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        CURRENT DOJO<br>
+        UNSELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        CURRENT DOJO<br>
+        SELECTED
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        CURRENT DOJO<br>
+        GROUP / SPACING
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        REPLACE WITH<br>
+        CURRENT DOJO<br>
+        OTHER STATE
+    </div>
+</div>
+
+
+
+<!-- PROPOSED TARGET -->
+
+
+
+<div class="reference-cell reference-label">
+    Proposed Target
+    <span class="reference-caption">
+        Current Lab hypothesis
+    </span>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        OPTIONAL<br>
+        TARGET<br>
+        SCREENSHOT
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        OPTIONAL<br>
+        TARGET<br>
+        SCREENSHOT
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        OPTIONAL<br>
+        TARGET<br>
+        GROUP
+    </div>
+</div>
+
+
+
+<div class="reference-cell">
+    <div class="reference-shot">
+        OPTIONAL<br>
+        TARGET<br>
+        STATE
+    </div>
+</div>
+
+
+ </div> <h3>4.2 Recommended Screenshot Subjects</h3> <ul>
+
+<li>
+    <strong>Individual unselected RadioButton</strong> —
+    enough surrounding context to identify the label and normal
+    spacing.
+</li>
+
+
+
+<li>
+    <strong>Individual selected RadioButton</strong> —
+    capture the selected indicator at a useful scale.
+</li>
+
+
+
+<li>
+    <strong>Radio group</strong> —
+    capture vertical or horizontal spacing, label alignment and
+    relationship between options.
+</li>
+
+
+
+<li>
+    <strong>Hover state</strong> —
+    capture only where the reference system provides a meaningful
+    hover treatment.
+</li>
+
+
+
+<li>
+    <strong>Focus state</strong> —
+    capture keyboard focus where practical.
+</li>
+
+
+
+<li>
+    <strong>Disabled state</strong> —
+    capture both disabled/unselected and disabled/selected where
+    the reference system distinguishes them.
+</li>
+
+
+
+<li>
+    <strong>Long-label example</strong> —
+    useful for determining wrapping and vertical alignment.
+</li>
+
+
+
+<li>
+    <strong>RadioButton beside other controls</strong> —
+    useful for determining whether its size, label baseline and
+    spacing harmonize with TextBox, Checkbox and Button.
+</li>
+
+
+ </ul> <!-- ======================================================== 5\. MEASUREMENT COLLECTION ======================================================== --> <h2>5. Comparative Measurement Collection</h2> <p> Use this table while collecting the screenshots. The purpose is to record observations independently from the visual screenshot itself. Values should be marked as measured, estimated or unknown. </p> <table class="measurement-table"> <thead> <tr> <th>Measurement</th> <th>Notion</th> <th>Airtable</th> <th>Material</th> <th>Windows</th> <th>Current Dojo</th> </tr> </thead> <tbody> <tr> <td>Outer control diameter</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Visible border thickness</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Selected indicator / dot diameter</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Control-to-label gap</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Vertical option spacing</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Horizontal option spacing</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Minimum clickable target</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Label font size</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Label line-height</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Selected color</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Unselected border color</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Hover treatment</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> <tr> <td>Focus treatment</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> <td>—</td> </tr> </tbody> </table> <p class="note"> <strong>Measurement note:</strong> For this project, a measured value from an actual reference UI is evidence about that reference, not automatically a proposed design token. Shared values should only be promoted into the Design System after comparison across multiple components. </p> <!-- ======================================================== 6\. RADIOBUTTON DESIGN QUESTIONS ======================================================== --> <h2>6. RadioButton Design Questions</h2> <p> Items that should be settled before RadioButton becomes a finalized component specification. </p> <ol>
+
+<li>
+    What should the default RadioButton diameter be?
+</li>
+
+
+
+<li>
+    Should the RadioButton use a visible border in its normal
+    unselected state?
+</li>
+
+
+
+<li>
+    How strong should the selected indicator be?
+</li>
+
+
+
+<li>
+    Should the selected state use the global accent color,
+    a component-specific token, or another treatment?
+</li>
+
+
+
+<li>
+    Should the selected outer ring and inner dot use the same
+    color?
+</li>
+
+
+
+<li>
+    Should hover modify the RadioButton itself, the surrounding
+    label target, or both?
+</li>
+
+
+
+<li>
+    Should the very-light Claro Blue hover surface apply to the
+    complete clickable option?
+</li>
+
+
+
+<li>
+    Should a selected RadioButton receive a different hover
+    treatment from an unselected RadioButton?
+</li>
+
+
+
+<li>
+    How should focus-visible be represented without confusing it
+    with selection?
+</li>
+
+
+
+<li>
+    Should the focus ring surround only the RadioButton or the
+    complete label/click target?
+</li>
+
+
+
+<li>
+    What is the appropriate control-to-label spacing?
+</li>
+
+
+
+<li>
+    What is the appropriate spacing between options in a vertical
+    group?
+</li>
+
+
+
+<li>
+    What is the appropriate spacing between options in a
+    horizontal group?
+</li>
+
+
+
+<li>
+    What should the minimum clickable target size be?
+</li>
+
+
+
+<li>
+    How should long labels wrap?
+</li>
+
+
+
+<li>
+    How should multi-line labels align relative to the
+    RadioButton?
+</li>
+
+
+
+<li>
+    What is the visual distinction between Disabled and
+    Disabled + Selected?
+</li>
+
+
+
+<li>
+    How should Error and Warning states be communicated without
+    relying on color alone?
+</li>
+
+
+
+<li>
+    Should a RadioButton have an explicit Read-only state, or is
+    the group simply unavailable for interaction?
+</li>
+
+
+
+<li>
+    Which dimensions should become shared control primitives with
+    Checkbox and other selection controls?
+</li>
+
+
+
+<li>
+    Which RadioButton decisions should become global semantic
+    tokens?
+</li>
+
+
+ </ol> <!-- ======================================================== 7\. GROUP / CONTENT QUESTIONS ======================================================== --> <h2>7. Group, Label and Content Questions</h2> <ul>
+
+<li>
+    RadioButton label hierarchy and typography
+</li>
+
+
+
+<li>
+    Group label versus individual option labels
+</li>
+
+
+
+<li>
+    Required-group indication
+</li>
+
+
+
+<li>
+    Helper text placement
+</li>
+
+
+
+<li>
+    Validation-message placement
+</li>
+
+
+
+<li>
+    Long-label wrapping
+</li>
+
+
+
+<li>
+    Disabled group versus individually disabled options
+</li>
+
+
+
+<li>
+    Vertical versus horizontal presentation
+</li>
+
+
+
+<li>
+    Default selection behavior
+</li>
+
+
+
+<li>
+    Whether a group may legitimately have no selected option
+</li>
+
+
+
+<li>
+    Relationship between RadioButton groups and surrounding
+    form-field spacing
+</li>
+
+
+ </ul> <!-- ======================================================== 8\. ACCESSIBILITY / KEYBOARD ======================================================== --> <h2>8. Accessibility and Keyboard Questions</h2> <ul>
+
+<li>
+    What receives DOM focus?
+</li>
+
+
+
+<li>
+    Is the focus indicator clearly distinguishable from the
+    selected indicator?
+</li>
+
+
+
+<li>
+    Does Tab enter and leave the RadioButton group predictably?
+</li>
+
+
+
+<li>
+    Are Arrow keys used to move between radio options?
+</li>
+
+
+
+<li>
+    Does Space select the focused option?
+</li>
+
+
+
+<li>
+    What happens when a group has no initial selection?
+</li>
+
+
+
+<li>
+    Does Enter have any special behavior, or is selection
+    performed through Space/Arrow-key interaction?
+</li>
+
+
+
+<li>
+    Are disabled options skipped appropriately?
+</li>
+
+
+
+<li>
+    Is the group exposed correctly to assistive technology?
+</li>
+
+
+
+<li>
+    Is the group label programmatically associated with the
+    RadioButton group?
+</li>
+
+
+
+<li>
+    Are validation states communicated through text/semantics as
+    well as visual styling?
+</li>
+
+
+ </ul> <!-- ======================================================== 9\. CURRENT RADIOBUTTON TOKEN SET ======================================================== --> <h2>9. Current RadioButton Token Set</h2> <p> Names are working candidates. Numeric values are intentionally provisional and should not yet be promoted into the global Design System. </p> <table class="measurement-table"> <thead> <tr> <th>Token</th> <th>Current Value</th> <th>Role</th> </tr> </thead> <tbody> <tr> <td><code>--ui-radio-size</code></td> <td>16px PROVISIONAL</td> <td>Outer RadioButton diameter.</td> </tr> <tr> <td><code>--ui-radio-border-width</code></td> <td>1px PROVISIONAL</td> <td>Unselected RadioButton border.</td> </tr> <tr> <td><code>--ui-radio-dot-size</code></td> <td>8px PROVISIONAL</td> <td>Selected-state inner indicator.</td> </tr> <tr> <td><code>--ui-radio-border</code></td> <td>#cfd5dc PROVISIONAL</td> <td>Normal unselected border.</td> </tr> <tr> <td><code>--ui-radio-border-hover</code></td> <td>#b9c3ce PROVISIONAL</td> <td>Hover border.</td> </tr> <tr> <td><code>--ui-radio-border-selected</code></td> <td>#2563a8 PROVISIONAL</td> <td>Selected outer ring.</td> </tr> <tr> <td><code>--ui-radio-selected</code></td> <td>#2563a8 PROVISIONAL</td> <td>Selected inner indicator.</td> </tr> <tr> <td><code>--ui-radio-hover-surface</code></td> <td>#eaf3ff PROVISIONAL</td> <td>Very-light Claro Blue hover surface where appropriate.</td> </tr> <tr> <td><code>--ui-radio-focus-ring</code></td> <td>#3b82d0 PROVISIONAL</td> <td>Focus-visible indicator.</td> </tr> <tr> <td><code>--ui-radio-label-gap</code></td> <td>7px PROVISIONAL</td> <td>Space between control and label.</td> </tr> <tr> <td><code>--ui-radio-option-gap</code></td> <td>9px PROVISIONAL</td> <td>Vertical gap between options.</td> </tr> <tr> <td><code>--ui-radio-min-target</code></td> <td>32px PROVISIONAL</td> <td>Minimum interactive target height.</td> </tr> <tr> <td><code>--ui-radio-font-size</code></td> <td>14px PROVISIONAL</td> <td>RadioButton label text size.</td> </tr> </tbody> </table> <!-- ======================================================== 10\. CURRENT DECISIONS ======================================================== --> <h2>10. Current Decisions / Working Hypotheses</h2> <p> These are working decisions and hypotheses. Promote them into <code>Design\_System.html</code> only when sufficiently established across the component system. </p> <ul>
+
+<li>
+    <strong>D-001:</strong>
+    The RadioButton should remain visually restrained in its
+    normal state.
+</li>
+
+
+
+<li>
+    <strong>D-002:</strong>
+    Persistent color should not be used merely to establish
+    interactivity.
+</li>
+
+
+
+<li>
+    <strong>D-003:</strong>
+    The selected state must be immediately distinguishable from
+    the unselected state.
+</li>
+
+
+
+<li>
+    <strong>D-004:</strong>
+    Hover should provide perceptible but restrained interaction
+    feedback where the surrounding reference/component family
+    supports it.
+</li>
+
+
+
+<li>
+    <strong>D-005:</strong>
+    Focus-visible must be unmistakably different from both hover
+    and selection.
+</li>
+
+
+
+<li>
+    <strong>D-006:</strong>
+    Disabled states should reduce visual emphasis without making
+    the selected/unselected distinction ambiguous.
+</li>
+
+
+
+<li>
+    <strong>D-007:</strong>
+    Validation states must not rely on color alone.
+</li>
+
+
+
+<li>
+    <strong>D-008:</strong>
+    RadioButton geometry should eventually be evaluated alongside
+    Checkbox and other selection controls so that shared
+    primitives can be identified.
+</li>
+
+
+
+<li>
+    <strong>D-009:</strong>
+    Semantic tokens should be used even while initial values remain
+    provisional.
+</li>
+
+
+ </ul> <!-- ======================================================== 11\. NOTES FOR FUTURE ITERATIONS ======================================================== --> <h2>11. Notes for Future Iterations</h2> <div class="question-box"> <p> <strong>Primary comparison to make:</strong> Do the Notion, Airtable, Material and Windows references suggest a common visual/interaction primitive that should be shared with Checkbox, or do RadioButton and Checkbox require deliberately different treatments? </p> <p> <strong>Primary geometry comparison:</strong> Compare outer diameter, border thickness, selected-dot ratio, control-to-label spacing and minimum target size. </p> <p> <strong>Primary state comparison:</strong> Compare Normal, Selected, Hover, Focus-visible and Disabled before settling the component's final token values. </p> </div> <p> Once the RadioButton design is sufficiently settled, the final decisions should be promoted to <code>Design\_System.html</code>. Provisional values in this Lab should then be replaced by the approved semantic tokens where appropriate. </p> <p> The same comparative-reference methodology should subsequently be used for Select/combo control, Checkbox, Menu, Dialog, Grid and the remaining representative components. </p> </main> </body> </html> <p>A couple of deliberate choices in this version are worth flagging. First, I’ve treated <strong>RadioButton as a selection-control family member</strong>, rather than simply copying the Button or TextBox Lab structure. Second, the measurement table is intentionally included because your plan to obtain exact Notion measurements is particularly useful here: <strong>outer diameter, dot-to-ring ratio, label gap, option spacing and target size</strong> are precisely the kinds of values that can reveal whether RadioButton and Checkbox should eventually share geometry tokens.</p> <p>I also kept the proposed values provisional, consistent with the current TextBox Lab and Design System: the existing documents explicitly say that component-level values should not automatically become global tokens until they have been validated across the system. r1</p> <p>When you repeat the process for the next component, we can use this same structure while adapting the reference categories and state vocabulary to that particular control.</p>
