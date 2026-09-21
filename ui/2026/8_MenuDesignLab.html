@@ -1,0 +1,1343 @@
+
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Design Lab — Menu</title> 
+<style> 
+
+:root { 
+ 
+  /* 
+https://chatgpt.com/s/t_6aaee2aa25448191a6c0d2b445571d2b
+======================================================== GLOBAL SEMANTIC TOKENS — PROVISIONAL ======================================================== */ --ui-color-surface: #ffffff; --ui-color-surface-subtle: #f7f8fa; --ui-color-surface-hover: #eaf3ff; --ui-color-surface-active: #dcecff;
+
+--ui-color-border: #cfd5dc;
+--ui-color-border-hover: #b9c4d0;
+
+
+
+--ui-color-text: #25282b;
+--ui-color-text-muted: #626970;
+--ui-color-text-disabled: #9aa1a8;
+
+
+
+--ui-color-accent: #2563a8;
+--ui-color-focus-ring: #3b82d0;
+
+
+
+--ui-color-danger: #c0392b;
+
+
+
+/* ========================================================
+   MENU GEOMETRY — PROVISIONAL
+   ======================================================== */
+--ui-menu-width: 220px;
+--ui-menu-item-height: 32px;
+--ui-menu-item-padding-x: 10px;
+--ui-menu-item-gap: 9px;
+--ui-menu-radius: 5px;
+--ui-menu-border-width: 1px;
+
+
+
+--ui-menu-icon-width: 18px;
+--ui-menu-shortcut-width: 70px;
+
+
+
+--ui-menu-separator-color: #e1e5e9;
+--ui-menu-padding-y: 5px;
+
+
+
+--ui-menu-font-size: 14px;
+--ui-menu-font-weight: 400;
+
+
+
+--ui-menu-shadow:
+    0 4px 12px rgba(32, 40, 48, 0.12),
+    0 1px 3px rgba(32, 40, 48, 0.08);
+
+
+
+--ui-focus-width: 2px;
+--ui-focus-offset: 2px;
+--ui-transition: 80ms ease;
+
+
+ }
+
+ - {
+   box-sizing: border-box;
+   }
+
+ html,
+ body {
+ margin: 0;
+ padding: 0;
+ }
+
+ body {
+ font-family:
+ -apple-system,
+ BlinkMacSystemFont,
+ "Segoe UI",
+ Arial,
+ sans-serif;
+ color: var(--ui-color-text);
+ background: #f4f6f8;
+ line-height: 1.45;
+ }
+
+ .lab-header {
+ background: #ffffff;
+ border-bottom: 1px solid #d8dee5;
+ padding: 24px 32px;
+ }
+
+ .lab-header h1 {
+ margin: 0 0 4px;
+ color: #17365d;
+ font-size: 24px;
+ font-weight: 600;
+ }
+
+ .lab-header p {
+ margin: 0;
+ color: #626970;
+ }
+
+ .lab {
+ max-width: 1280px;
+ margin: 0 auto;
+ padding: 28px 32px 60px;
+ }
+
+ .notice {
+ padding: 14px 16px;
+ margin-bottom: 24px;
+ background: #eaf3ff;
+ border: 1px solid #c9def3;
+ border-left: 4px solid #2563a8;
+ border-radius: 6px;
+ }
+
+ .notice strong {
+ color: #174f85;
+ }
+
+ .section {
+ background: #ffffff;
+ border: 1px solid #d8dee5;
+ border-radius: 8px;
+ margin-bottom: 24px;
+ overflow: hidden;
+ }
+
+ .section-header {
+ padding: 15px 18px;
+ background: #f7f8fa;
+ border-bottom: 1px solid #d8dee5;
+ }
+
+ .section-header h2 {
+ margin: 0;
+ color: #294f78;
+ font-size: 17px;
+ font-weight: 600;
+ }
+
+ .section-header p {
+ margin: 4px 0 0;
+ color: #697078;
+ font-size: 13px;
+ }
+
+ .section-body {
+ padding: 20px;
+ }
+
+ .annotation {
+ margin-top: 16px;
+ padding: 12px 14px;
+ background: #f8fafc;
+ border-left: 3px solid #b9c4d0;
+ color: #59636d;
+ font-size: 13px;
+ }
+
+ /* ============================================================
+ MENU DEMO
+ ============================================================ */
+
+ .demo-area {
+ min-height: 300px;
+ padding: 35px;
+ display: flex;
+ align-items: flex-start;
+ gap: 60px;
+ background:
+ linear-gradient(
+ 135deg,
+ #f8fafc 0%,
+ #ffffff 50%,
+ #f4f6f8 100%
+ );
+ border: 1px solid #e0e4e8;
+ border-radius: 6px;
+ }
+
+ .demo-context {
+ min-width: 220px;
+ }
+
+ .demo-context-label {
+ margin-bottom: 8px;
+ color: #697078;
+ font-size: 12px;
+ font-weight: 600;
+ text-transform: uppercase;
+ letter-spacing: .04em;
+ }
+
+ .context-button {
+ appearance: none;
+ border: 1px solid var(--ui-color-border);
+ border-radius: 5px;
+ min-height: 32px;
+ padding: 0 11px;
+ background: #ffffff;
+ color: var(--ui-color-text);
+ font: inherit;
+ cursor: pointer;
+ }
+
+ .context-button:hover {
+ background: var(--ui-color-surface-hover);
+ }
+
+ /* ============================================================
+ MENU COMPONENT
+ ============================================================ */
+
+ .ui-menu {
+ width: var(--ui-menu-width);
+ padding: var(--ui-menu-padding-y) 0;
+ background: var(--ui-color-surface);
+ border: var(--ui-menu-border-width) solid var(--ui-color-border);
+ border-radius: var(--ui-menu-radius);
+ box-shadow: var(--ui-menu-shadow);
+ font-size: var(--ui-menu-font-size);
+ }
+
+ .ui-menu-item {
+ position: relative;
+ min-height: var(--ui-menu-item-height);
+ padding:
+ 0
+ var(--ui-menu-item-padding-x);
+ display: grid;
+ grid-template-columns:
+ var(--ui-menu-icon-width)
+ minmax(0, 1fr)
+ var(--ui-menu-shortcut-width);
+ align-items: center;
+ gap: var(--ui-menu-item-gap);
+
+
+color: var(--ui-color-text);
+background: transparent;
+border: 0;
+width: 100%;
+text-align: left;
+font: inherit;
+font-weight: var(--ui-menu-font-weight);
+cursor: pointer;
+
+
+
+transition:
+    background-color var(--ui-transition),
+    color var(--ui-transition);
+
+
+ }
+
+ .ui-menu-item:hover {
+ background: var(--ui-color-surface-hover);
+ }
+
+ .ui-menu-item:focus-visible {
+ outline:
+ var(--ui-focus-width)
+ solid
+ var(--ui-color-focus-ring);
+ outline-offset: calc(-1 \* var(--ui-focus-offset));
+ z-index: 1;
+ }
+
+ .ui-menu-item.is-selected {
+ background: var(--ui-color-surface-active);
+ }
+
+ .ui-menu-item.is-disabled {
+ color: var(--ui-color-text-disabled);
+ cursor: default;
+ }
+
+ .ui-menu-item.is-disabled:hover {
+ background: transparent;
+ }
+
+ .ui-menu-item.is-danger {
+ color: var(--ui-color-danger);
+ }
+
+ .menu-icon {
+ width: var(--ui-menu-icon-width);
+ text-align: center;
+ color: currentColor;
+ font-size: 15px;
+ }
+
+ .menu-label {
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ }
+
+ .menu-shortcut {
+ color: var(--ui-color-text-muted);
+ font-size: 12px;
+ text-align: right;
+ white-space: nowrap;
+ }
+
+ .menu-chevron {
+ text-align: right;
+ color: var(--ui-color-text-muted);
+ font-size: 12px;
+ }
+
+ .ui-menu-separator {
+ height: 1px;
+ margin: 5px 8px;
+ background: var(--ui-menu-separator-color);
+ }
+
+ .ui-menu-section-label {
+ min-height: 26px;
+ padding: 5px 10px 3px;
+ color: var(--ui-color-text-muted);
+ font-size: 11px;
+ font-weight: 600;
+ text-transform: uppercase;
+ letter-spacing: .04em;
+ }
+
+ /* ============================================================
+ MENU VARIANTS / EXAMPLES
+ ============================================================ */
+
+ .menu-compact {
+ --ui-menu-item-height: 28px;
+ --ui-menu-item-padding-x: 8px;
+ --ui-menu-padding-y: 4px;
+ }
+
+ .menu-comfortable {
+ --ui-menu-item-height: 38px;
+ --ui-menu-item-padding-x: 12px;
+ --ui-menu-padding-y: 6px;
+ }
+
+ /* ============================================================
+ STATE COMPARISON
+ ============================================================ */
+
+ .state-grid {
+ display: grid;
+ grid-template-columns: repeat(3, minmax(220px, 1fr));
+ gap: 18px;
+ }
+
+ .state-card {
+ min-width: 0;
+ padding: 16px;
+ background: #ffffff;
+ border: 1px solid #dfe3e7;
+ border-radius: 6px;
+ }
+
+ .state-label {
+ margin-bottom: 12px;
+ color: #626970;
+ font-size: 12px;
+ font-weight: 600;
+ }
+
+ .mini-menu {
+ width: 100%;
+ max-width: 250px;
+ }
+
+ /* ============================================================
+ COMPARISON GRID
+ ============================================================ */
+
+ .comparison-grid {
+ display: grid;
+ grid-template-columns:
+ 150px
+ repeat(5, minmax(150px, 1fr));
+
+
+border: 1px solid #d8dee5;
+border-radius: 6px;
+overflow: hidden;
+
+
+ }
+
+ .grid-cell {
+ min-height: 150px;
+ padding: 14px;
+
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+
+
+border-right: 1px solid #d8dee5;
+border-bottom: 1px solid #d8dee5;
+
+
+
+background: #ffffff;
+
+
+ }
+
+ .grid-cell:nth-child(6n) {
+ border-right: 0;
+ }
+
+ .grid-header {
+ min-height: 42px;
+ background: #f7f8fa;
+ color: #46515c;
+ font-size: 12px;
+ font-weight: 600;
+ text-align: center;
+ }
+
+ .row-label {
+ justify-content: flex-start;
+ min-height: 150px;
+ background: #fbfcfd;
+ color: #3e4852;
+ font-size: 13px;
+ font-weight: 600;
+ }
+
+ .reference-image {
+ max-width: 100%;
+ max-height: 125px;
+ width: auto;
+ height: auto;
+ border: 0;
+ object-fit: contain;
+ }
+
+ /*
+
+ # REFERENCE IMAGE PLACEHOLDERS
+
+ Replace each src="" below with the screenshot you collect.
+
+ Suggested naming scheme:
+
+ Notion-Menu-Context.png
+ Notion-Menu-Submenu.png
+ Notion-Menu-States.png
+ Notion-Menu-Shortcut.png
+ Notion-Menu-Contextual.png
+
+ AirTable-Menu-Context.png
+ ...
+
+ Material-Menu-Context.png
+ ...
+
+ Windows-Menu-Context.png
+ ...
+
+ Current-Menu-Context.png
+ ...
+
+ The template deliberately does NOT assign measurements to
+ reference screenshots. Their purpose is comparative evidence.
+ */
+
+ /* ============================================================
+ MEASUREMENT TABLE
+ ============================================================ */
+
+ .measurement-table,
+ .token-table {
+ width: 100%;
+ border-collapse: collapse;
+ margin-top: 12px;
+ }
+
+ .measurement-table th,
+ .measurement-table td,
+ .token-table th,
+ .token-table td {
+ padding: 9px 10px;
+ border: 1px solid #dfe3e7;
+ text-align: left;
+ vertical-align: top;
+ }
+
+ .measurement-table th,
+ .token-table th {
+ background: #f6f7f8;
+ font-weight: 600;
+ }
+
+ .measurement {
+ color: #8a4b08;
+ background: #fff8e8;
+ }
+
+ code {
+ font-family:
+ Consolas,
+ "Courier New",
+ monospace;
+ font-size: .92em;
+ }
+
+ .note {
+ color: var(--ui-color-text-muted);
+ font-size: 13px;
+ }
+
+ .pending {
+ padding: 12px 14px;
+ background: #fff8e1;
+ border: 1px solid #eadca9;
+ border-radius: 5px;
+ color: #66551c;
+ }
+
+ ul,
+ ol {
+ margin-top: 8px;
+ }
+
+ li {
+ margin: 5px 0;
+ }
+
+ @media (max-width: 950px) {
+ .comparison-grid {
+ grid-template-columns:
+ 120px
+ repeat(5, minmax(130px, 1fr));
+ overflow-x: auto;
+ }
+
+
+.state-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+}
+
+
+ }
+
+ @media (max-width: 700px) {
+ .lab {
+ padding: 20px;
+ }
+
+
+.demo-area {
+    flex-direction: column;
+}
+
+
+
+.state-grid {
+    grid-template-columns: 1fr;
+}
+
+
+ }
+ </style>
+
+ </head> <body> <header class="lab-header"> <h1>UI Design Lab — Menu</h1> <p> Working visual specification and comparative reference laboratory for the Menu component. </p> </header> <main class="lab"> <div class="notice"> <strong>Purpose of this Design Lab:</strong> establish the visual and interaction direction for application menus through direct comparison with representative productivity and desktop interfaces. Numeric values shown here are provisional until validated against screenshots and application requirements. </div> <!-- ============================================================ 1. MENU ROLE / INITIAL HYPOTHESIS ============================================================ --> <section class="section"> <div class="section-header"> <h2>1. Menu Role & Current Design Hypothesis</h2> <p> Establish what the Menu is responsible for before comparing individual visual treatments. </p> </div> <div class="section-body"> <p> The Menu provides a transient collection of related commands, actions or navigation choices. It should support rapid desktop interaction while remaining visually subordinate to the application content that opened it. </p> <p> <strong>Current design hypothesis:</strong> Menus should use a quiet surface and restrained border treatment, with a subtle shadow reserved for communicating that the menu is floating above the underlying application surface. Menu-item hover should provide clear but restrained feedback, using the established very-light Claro Blue direction where appropriate. </p> <div class="pending"> <strong>Important:</strong> Unlike the Button component, a Menu is an overlay. Therefore the absence of general elevation in the Design System does not automatically mean that a Menu must have no shadow. The necessity, strength and geometry of the Menu shadow should be resolved here as a component-specific treatment. </div> </div> </section> <!-- ============================================================ 2. STATE COMPARISON ============================================================ --> <section class="section"> <div class="section-header"> <h2>2. Menu State Comparison</h2> <p> Working state vocabulary for individual menu items and menu-level presentation. </p> </div> <div class="section-body"> <div class="state-grid"> <div class="state-card"> <div class="state-label">Normal</div>
+
+<div class="ui-menu mini-menu">
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Open</span>
+        <span class="menu-shortcut">Ctrl+O</span>
+    </button>
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Save</span>
+        <span class="menu-shortcut">Ctrl+S</span>
+    </button>
+</div>
+
+
+ </div> <div class="state-card"> <div class="state-label">Hover</div>
+
+<div class="ui-menu mini-menu">
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Open</span>
+        <span class="menu-shortcut">Ctrl+O</span>
+    </button>
+    <button class="ui-menu-item"
+            style="background:var(--ui-color-surface-hover);">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Save</span>
+        <span class="menu-shortcut">Ctrl+S</span>
+    </button>
+</div>
+
+
+ </div> <div class="state-card"> <div class="state-label">Focus-visible</div>
+
+<div class="ui-menu mini-menu">
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Open</span>
+        <span class="menu-shortcut">Ctrl+O</span>
+    </button>
+    <button class="ui-menu-item"
+            style="outline:2px solid var(--ui-color-focus-ring); outline-offset:-2px;">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Save</span>
+        <span class="menu-shortcut">Ctrl+S</span>
+    </button>
+</div>
+
+
+ </div> <div class="state-card"> <div class="state-label">Selected</div>
+
+<div class="ui-menu mini-menu">
+    <button class="ui-menu-item is-selected">
+        <span class="menu-icon">✓</span>
+        <span class="menu-label">Grid View</span>
+        <span class="menu-shortcut"></span>
+    </button>
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">List View</span>
+        <span class="menu-shortcut"></span>
+    </button>
+</div>
+
+
+ </div> <div class="state-card"> <div class="state-label">Disabled</div>
+
+<div class="ui-menu mini-menu">
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Copy</span>
+        <span class="menu-shortcut">Ctrl+C</span>
+    </button>
+    <button class="ui-menu-item is-disabled" disabled>
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Paste</span>
+        <span class="menu-shortcut">Ctrl+V</span>
+    </button>
+</div>
+
+
+ </div> <div class="state-card"> <div class="state-label">Danger / Destructive</div>
+
+<div class="ui-menu mini-menu">
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Rename</span>
+        <span class="menu-shortcut"></span>
+    </button>
+    <button class="ui-menu-item is-danger">
+        <span class="menu-icon">×</span>
+        <span class="menu-label">Delete</span>
+        <span class="menu-shortcut"></span>
+    </button>
+</div>
+
+
+ </div> </div> <div class="annotation"> <strong>Observation to validate:</strong> Hover, focus and persistent selection must remain distinguishable. In particular, a selected menu item should not depend solely on the same transient background treatment used for hover. </div> </div> </section> <!-- ============================================================ 3. LIVE INTERACTION TEST ============================================================ --> <section class="section"> <div class="section-header"> <h2>3. Live Interaction Test</h2> <p> Use the pointer and keyboard to evaluate menu behavior and interaction states. </p> </div> <div class="section-body"> <div class="demo-area"> <div class="demo-context"> <div class="demo-context-label">Context / Trigger</div>
+
+<button class="context-button">
+    More Actions ▾
+</button>
+
+
+
+<p class="note">
+    Use Tab to inspect focus behavior. Hover individual items to
+    inspect the proposed interaction treatment.
+</p>
+
+
+ </div> <div class="ui-menu" role="menu" aria-label="Example menu">
+
+<button class="ui-menu-item" role="menuitem">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">New Item</span>
+    <span class="menu-shortcut">Ctrl+N</span>
+</button>
+
+
+
+<button class="ui-menu-item" role="menuitem">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Open</span>
+    <span class="menu-shortcut">Ctrl+O</span>
+</button>
+
+
+
+<button class="ui-menu-item" role="menuitem">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Save</span>
+    <span class="menu-shortcut">Ctrl+S</span>
+</button>
+
+
+
+<div class="ui-menu-separator"></div>
+
+
+
+<button class="ui-menu-item" role="menuitem">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Export</span>
+    <span class="menu-chevron">›</span>
+</button>
+
+
+
+<button class="ui-menu-item" role="menuitem">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Print</span>
+    <span class="menu-shortcut">Ctrl+P</span>
+</button>
+
+
+
+<div class="ui-menu-separator"></div>
+
+
+
+<button class="ui-menu-item is-disabled" disabled>
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Unavailable Action</span>
+    <span class="menu-shortcut"></span>
+</button>
+
+
+ </div> </div> </div> </section> <!-- ============================================================ 4. MENU STRUCTURE / CONTENT PATTERNS ============================================================ --> <section class="section"> <div class="section-header"> <h2>4. Menu Structure & Content Patterns</h2> <p> Evaluate the common structural elements that may appear inside application menus. </p> </div> <div class="section-body"> <div class="demo-area"> <div class="ui-menu">
+
+<div class="ui-menu-section-label">
+    File
+</div>
+
+
+
+<button class="ui-menu-item">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">New</span>
+    <span class="menu-shortcut">Ctrl+N</span>
+</button>
+
+
+
+<button class="ui-menu-item">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Open</span>
+    <span class="menu-shortcut">Ctrl+O</span>
+</button>
+
+
+
+<div class="ui-menu-separator"></div>
+
+
+
+<button class="ui-menu-item">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Recent Files</span>
+    <span class="menu-chevron">›</span>
+</button>
+
+
+
+<div class="ui-menu-separator"></div>
+
+
+
+<button class="ui-menu-item">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Save</span>
+    <span class="menu-shortcut">Ctrl+S</span>
+</button>
+
+
+ </div> <div class="ui-menu">
+
+<button class="ui-menu-item">
+    <span class="menu-icon">✓</span>
+    <span class="menu-label">Show Toolbar</span>
+    <span class="menu-shortcut"></span>
+</button>
+
+
+
+<button class="ui-menu-item">
+    <span class="menu-icon">✓</span>
+    <span class="menu-label">Show Sidebar</span>
+    <span class="menu-shortcut"></span>
+</button>
+
+
+
+<div class="ui-menu-separator"></div>
+
+
+
+<button class="ui-menu-item">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Preferences</span>
+    <span class="menu-shortcut">Ctrl+,</span>
+</button>
+
+
+ </div> </div> <div class="annotation"> <strong>Structural questions:</strong> Determine whether icons, keyboard shortcuts, checkmarks, submenu indicators, section labels and separators are all required by the application, and whether they should share a common alignment grid. </div> </div> </section> <!-- ============================================================ 5. MENU VARIANT / DENSITY TEST ============================================================ --> <section class="section"> <div class="section-header"> <h2>5. Density / Geometry Test</h2> <p> Compare candidate Compact, Default and Comfortable menu geometry. </p> </div> <div class="section-body"> <div class="demo-area"> <div> <div class="demo-context-label">Compact</div>
+
+<div class="ui-menu menu-compact">
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Open</span>
+        <span class="menu-shortcut">Ctrl+O</span>
+    </button>
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Save</span>
+        <span class="menu-shortcut">Ctrl+S</span>
+    </button>
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Close</span>
+        <span class="menu-shortcut">Ctrl+W</span>
+    </button>
+</div>
+
+
+ </div> <div> <div class="demo-context-label">Default</div>
+
+<div class="ui-menu">
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Open</span>
+        <span class="menu-shortcut">Ctrl+O</span>
+    </button>
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Save</span>
+        <span class="menu-shortcut">Ctrl+S</span>
+    </button>
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Close</span>
+        <span class="menu-shortcut">Ctrl+W</span>
+    </button>
+</div>
+
+
+ </div> <div> <div class="demo-context-label">Comfortable</div>
+
+<div class="ui-menu menu-comfortable">
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Open</span>
+        <span class="menu-shortcut">Ctrl+O</span>
+    </button>
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Save</span>
+        <span class="menu-shortcut">Ctrl+S</span>
+    </button>
+    <button class="ui-menu-item">
+        <span class="menu-icon">□</span>
+        <span class="menu-label">Close</span>
+        <span class="menu-shortcut">Ctrl+W</span>
+    </button>
+</div>
+
+
+ </div> </div> </div> </section> <!-- ============================================================ 6. ROLES & COMPARATIVE REFERENCES ============================================================ --> <section class="section"> <div class="section-header"> <h2>6. Menu Roles & Comparative References</h2>
+
+<p>
+    These are working categories for comparative evidence, not a
+    finalized Menu taxonomy. Reference screenshots should document
+    representative visual treatments observed in the reference
+    systems; they are evidence for design evaluation, not
+    specifications to be copied.
+</p>
+
+
+
+<p>
+    <strong>Recommended evidence collection:</strong>
+    capture the same functional Menu role across each reference
+    system wherever practical. Prioritize screenshots that allow
+    measurements of item height, horizontal padding, icon alignment,
+    text/icon spacing, separator spacing, border treatment,
+    corner radius and overlay/shadow treatment.
+</p>
+
+
+ </div> <div class="section-body"> <div class="comparison-grid">
+
+<div class="grid-cell grid-header">Reference</div>
+<div class="grid-cell grid-header">Context Menu</div>
+<div class="grid-cell grid-header">Command Menu</div>
+<div class="grid-cell grid-header">Submenu</div>
+<div class="grid-cell grid-header">Selected / Checked</div>
+<div class="grid-cell grid-header">States / Geometry</div>
+
+
+
+<!-- ======================================================
+     NOTION
+     ====================================================== -->
+
+
+
+<div class="grid-cell row-label">Notion</div>
+
+
+
+<div class="grid-cell">
+    <!-- Replace src with collected screenshot -->
+    <img
+        class="reference-image"
+        src=""
+        alt="Notion context menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Notion command menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Notion submenu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Notion selected or checked menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Notion menu states and geometry reference"
+    >
+</div>
+
+
+
+<!-- ======================================================
+     AIRTABLE
+     ====================================================== -->
+
+
+
+<div class="grid-cell row-label">AirTable</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="AirTable context menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="AirTable command menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="AirTable submenu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="AirTable selected or checked menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="AirTable menu states and geometry reference"
+    >
+</div>
+
+
+
+<!-- ======================================================
+     MATERIAL
+     ====================================================== -->
+
+
+
+<div class="grid-cell row-label">Material</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Material context menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Material command menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Material submenu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Material selected or checked menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Material menu states and geometry reference"
+    >
+</div>
+
+
+
+<!-- ======================================================
+     WINDOWS
+     ====================================================== -->
+
+
+
+<div class="grid-cell row-label">Windows</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Windows context menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Windows command menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Windows submenu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Windows selected or checked menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Windows menu states and geometry reference"
+    >
+</div>
+
+
+
+<!-- ======================================================
+     CURRENT
+     ====================================================== -->
+
+
+
+<div class="grid-cell row-label">Current</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Current application context menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Current application command menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Current application submenu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Current application selected or checked menu reference"
+    >
+</div>
+
+
+
+<div class="grid-cell">
+    <img
+        class="reference-image"
+        src=""
+        alt="Current application menu states and geometry reference"
+    >
+</div>
+
+
+
+<!-- ======================================================
+     PROPOSED
+     ====================================================== -->
+
+
+
+<div class="grid-cell row-label">Proposed</div>
+
+
+
+<div class="grid-cell">
+    <div class="ui-menu">
+        <button class="ui-menu-item">
+            <span class="menu-icon">□</span>
+            <span class="menu-label">Open</span>
+            <span class="menu-shortcut">Ctrl+O</span>
+        </button>
+        <button class="ui-menu-item">
+            <span class="menu-icon">□</span>
+            <span class="menu-label">Rename</span>
+            <span class="menu-shortcut"></span>
+        </button>
+    </div>
+</div>
+
+
+
+<div class="grid-cell">
+    <div class="ui-menu">
+        <button class="ui-menu-item">
+            <span class="menu-icon">□</span>
+            <span class="menu-label">New Item</span>
+            <span class="menu-shortcut">Ctrl+N</span>
+        </button>
+        <button class="ui-menu-item">
+            <span class="menu-icon">□</span>
+            <span class="menu-label">Duplicate</span>
+            <span class="menu-shortcut">Ctrl+D</span>
+        </button>
+    </div>
+</div>
+
+
+
+<div class="grid-cell">
+    <div class="ui-menu">
+        <button class="ui-menu-item">
+            <span class="menu-icon">□</span>
+            <span class="menu-label">Export</span>
+            <span class="menu-chevron">›</span>
+        </button>
+    </div>
+</div>
+
+
+
+<div class="grid-cell">
+    <div class="ui-menu">
+        <button class="ui-menu-item is-selected">
+            <span class="menu-icon">✓</span>
+            <span class="menu-label">Grid View</span>
+            <span class="menu-shortcut"></span>
+        </button>
+        <button class="ui-menu-item">
+            <span class="menu-icon">□</span>
+            <span class="menu-label">List View</span>
+            <span class="menu-shortcut"></span>
+        </button>
+    </div>
+</div>
+
+
+
+<div class="grid-cell">
+    <div class="ui-menu">
+        <button class="ui-menu-item">
+            <span class="menu-icon">□</span>
+            <span class="menu-label">Normal</span>
+            <span class="menu-shortcut"></span>
+        </button>
+        <button
+            class="ui-menu-item"
+            style="background:var(--ui-color-surface-hover);">
+            <span class="menu-icon">□</span>
+            <span class="menu-label">Hover</span>
+            <span class="menu-shortcut"></span>
+        </button>
+    </div>
+</div>
+
+
+ </div> <div class="annotation"> The comparative screenshots should be used to determine whether the proposed Menu treatment is appropriately restrained, whether the floating surface requires a shadow, how much hover contrast is appropriate, and how the various alignment/spacing conventions compare across reference systems. </div> </div> </section> <!-- ============================================================ 7. REFERENCE MEASUREMENT CAPTURE ============================================================ --> <section class="section"> <div class="section-header"> <h2>7. Reference Measurement Capture</h2> <p> Record measurable geometry from screenshots where the reference application makes those measurements reasonably reliable. </p> </div> <div class="section-body"> <p class="note"> These fields are deliberately separate from the proposed tokens. Measurements should first be recorded as observations. They should not automatically become implementation values. </p> <table class="measurement-table"> <thead> <tr> <th>Measurement</th> <th>Notion</th> <th>AirTable</th> <th>Material</th> <th>Windows</th> <th>Current</th> <th>Notes</th> </tr> </thead> <tbody> <tr> <td>Menu item height</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Measure normal command item where possible.</td> </tr> <tr> <td>Menu horizontal padding</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Prefer left/right content edge to menu edge.</td> </tr> <tr> <td>Icon column width</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Include reserved space where icons are absent if applicable.</td> </tr> <tr> <td>Icon-to-label gap</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Important for alignment consistency.</td> </tr> <tr> <td>Label-to-shortcut gap</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Record whether shortcuts align to a fixed right column.</td> </tr> <tr> <td>Separator thickness</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Usually 1 CSS pixel, but verify where possible.</td> </tr> <tr> <td>Separator vertical spacing</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Record total gap above/below separator.</td> </tr> <tr> <td>Menu border width</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td></td> </tr> <tr> <td>Corner radius</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td></td> </tr> <tr> <td>Shadow / overlay treatment</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Record qualitative characteristics if exact CSS is unavailable.</td> </tr> <tr> <td>Menu width</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td class="measurement">TBD</td> <td>Prefer representative menu with comparable content.</td> </tr> </tbody> </table> </div> </section> <!-- ============================================================ 8. MENU DESIGN QUESTIONS ============================================================ --> <section class="section"> <div class="section-header"> <h2>8. Menu Design Questions to Resolve</h2> <p> Questions to settle before Menu becomes a finalized component specification. </p> </div> <div class="section-body"> <ol> <li> Should all floating Menus use a border, or can the surface/shadow combination establish sufficient separation? </li> <li> What shadow treatment is appropriate for a Menu, given that elevation is not a general design-system hierarchy? </li> <li> What Menu item height should correspond to Compact, Default and Comfortable density? </li> <li> Should Menu hover use the established very-light Claro Blue surface, or should Menu use a distinct hover treatment? </li> <li> How should focus-visible differ from hover when navigating a Menu entirely by keyboard? </li> <li> What is the visual treatment for a persistently selected or checked Menu item? </li> <li> Should selected and hover states combine, and if so, which visual characteristic remains dominant? </li> <li> How should disabled Menu items be differentiated from normal items without becoming visually confusing? </li> <li> Are icons mandatory, optional, or reserved for particular Menu categories? </li> <li> If icons are optional, should an empty icon column still be reserved to maintain alignment? </li> <li> How should keyboard shortcuts align? </li> <li> What is the standard submenu indicator and its reserved width? </li> <li> What separator spacing provides the appropriate information density? </li> <li> Are section labels required, and if so, how should they differ from ordinary Menu items? </li> <li> How should contextual Menus differ from application/command Menus, if at all? </li> <li> How should a Menu behave when its available viewport space is limited? </li> <li> What is the appropriate minimum width and maximum width? </li> <li> Should long Menu labels wrap, truncate, or expand the Menu? </li> <li> How should destructive commands be visually distinguished? </li> <li> Which Menu decisions should become global semantic tokens? </li> </ol> </div> </section> <!-- ============================================================ 9. SUBMENU / NESTING QUESTIONS ============================================================ --> <section class="section"> <div class="section-header"> <h2>9. Submenu & Nested Menu Questions</h2> <p> Nested menus have additional interaction and geometry requirements. </p> </div> <div class="section-body"> <div class="ui-menu">
+
+<button class="ui-menu-item">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">View</span>
+    <span class="menu-chevron">›</span>
+</button>
+
+
+
+<button class="ui-menu-item">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Sort By</span>
+    <span class="menu-chevron">›</span>
+</button>
+
+
+
+<button class="ui-menu-item">
+    <span class="menu-icon">□</span>
+    <span class="menu-label">Group By</span>
+    <span class="menu-chevron">›</span>
+</button>
+
+
+ </div> <div class="annotation"> Questions include submenu opening delay, pointer movement between parent and child menus, keyboard navigation, horizontal offset, alignment, shadow treatment and whether nested menus share exactly the same item geometry as their parent. </div> </div> </section> <!-- ============================================================ 10. ACCESSIBILITY / KEYBOARD QUESTIONS ============================================================ --> <section class="section"> <div class="section-header"> <h2>10. Accessibility & Keyboard Questions</h2> <p> Interaction requirements that should be validated independently of visual styling. </p> </div> <div class="section-body"> <ul> <li> Does the Menu receive focus appropriately when opened? </li> <li> Is the currently focused item clearly identifiable? </li> <li> Can users navigate items predictably with Arrow Up / Arrow Down? </li> <li> Is Home / End behavior appropriate for long Menus? </li> <li> Does Escape close the Menu predictably? </li> <li> Do Enter and Space activate the appropriate item? </li> <li> Do arrow keys open and navigate submenus where applicable? </li> <li> Is the keyboard focus treatment distinguishable from pointer hover? </li> <li> Are disabled items skipped or otherwise handled consistently? </li> <li> Are selected/checked states communicated independently of color? </li> <li> Are destructive actions identifiable without relying solely on color? </li> <li> Is the Menu correctly exposed to assistive technology using the appropriate semantic roles? </li> </ul> </div> </section> <!-- ============================================================ 11. CONTENT / TYPOGRAPHY QUESTIONS ============================================================ --> <section class="section"> <div class="section-header"> <h2>11. Content & Typography Questions</h2> <p> Menu content can strongly affect perceived density and geometry. </p> </div> <div class="section-body"> <ul> <li>Primary Menu label versus shortcut text</li> <li>Label font size and weight</li> <li>Shortcut font size and contrast</li> <li>Icon size and visual weight</li> <li>Long labels</li> <li>Localization and unusually long strings</li> <li>Section labels</li> <li>Destructive command text</li> <li>Submenu indicators</li> <li>Checkmarks and radio indicators</li> <li>Menus containing icons versus text-only Menus</li> <li>Consistency with Button and TextBox typography</li> </ul> </div> </section> <!-- ============================================================ 12. CURRENT MENU TOKEN SET ============================================================ --> <section class="section"> <div class="section-header"> <h2>12. Current Menu Token Set</h2> <p> Token names and semantic roles are currently more authoritative than the provisional numeric values. </p> </div> <div class="section-body"> <table class="token-table"> <thead> <tr> <th>Token</th> <th>Current value</th> <th>Role</th> </tr> </thead> <tbody> <tr> <td><code>--ui-menu-item-height</code></td> <td>32px <strong>PROVISIONAL</strong></td> <td>Default Menu item height.</td> </tr> <tr> <td><code>--ui-menu-item-padding-x</code></td> <td>10px <strong>PROVISIONAL</strong></td> <td>Horizontal Menu item padding.</td> </tr> <tr> <td><code>--ui-menu-item-gap</code></td> <td>9px <strong>PROVISIONAL</strong></td> <td>Gap between icon, label and shortcut columns.</td> </tr> <tr> <td><code>--ui-menu-radius</code></td> <td>5px <strong>PROVISIONAL</strong></td> <td>Menu outer corner radius.</td> </tr> <tr> <td><code>--ui-menu-border-width</code></td> <td>1px <strong>PROVISIONAL</strong></td> <td>Menu boundary.</td> </tr> <tr> <td><code>--ui-menu-padding-y</code></td> <td>5px <strong>PROVISIONAL</strong></td> <td>Vertical padding above/below Menu items.</td> </tr> <tr> <td><code>--ui-menu-icon-width</code></td> <td>18px <strong>PROVISIONAL</strong></td> <td>Reserved icon column width.</td> </tr> <tr> <td><code>--ui-menu-shortcut-width</code></td> <td>70px <strong>PROVISIONAL</strong></td> <td>Reserved keyboard-shortcut column width.</td> </tr> <tr> <td><code>--ui-color-surface-hover</code></td> <td>#eaf3ff <strong>PROVISIONAL</strong></td> <td>Candidate Menu item hover surface.</td> </tr> <tr> <td><code>--ui-color-surface-active</code></td> <td>#dcecff <strong>PROVISIONAL</strong></td> <td>Candidate active/selected surface.</td> </tr> <tr> <td><code>--ui-color-border</code></td> <td>#cfd5dc <strong>PROVISIONAL</strong></td> <td>Menu boundary.</td> </tr> <tr> <td><code>--ui-color-focus-ring</code></td> <td>#3b82d0 <strong>PROVISIONAL</strong></td> <td>Keyboard focus indicator.</td> </tr> <tr> <td><code>--ui-menu-shadow</code></td> <td>Provisional</td> <td> Component-specific floating-surface treatment. This should be validated rather than promoted as a global elevation token. </td> </tr> </tbody> </table> <div class="annotation"> These values intentionally remain provisional. The reference measurements above should inform the eventual values rather than being reverse-engineered to match the current proposal. </div> </div> </section> <!-- ============================================================ 13. CURRENT DECISIONS ============================================================ --> <section class="section"> <div class="section-header"> <h2>13. Current Menu Decisions</h2> <p> Promote established conclusions into the Design System only when they are sufficiently validated. </p> </div> <div class="section-body"> <ul> <li> The overall Menu should remain visually restrained and productivity-oriented. </li> <li> Menu hover should be evaluated against the established very-light Claro Blue interaction direction. </li> <li> Menu elevation/shadow should be treated as a Menu-specific floating surface treatment rather than as evidence for a global elevation scale. </li> <li> Focus-visible must remain independently understandable from hover and persistent selection. </li> <li> Menu geometry should be validated against actual reference measurements before becoming a final token set. </li> <li> Reference screenshots are comparative evidence and should not be treated as specifications to copy. </li> </ul> </div> </section> 
+ 
+ <!-- ============================================================ 14. OPEN QUESTIONS / WORKING RECORD ============================================================ --> <section class="section"> <div class="section-header"> <h2>14. Open Questions / Working Record</h2> <p> Keep unresolved questions here while the comparative evidence is being collected. </p> </div> <div class="section-body"> <table class="token-table"> <thead> <tr> <th>Question</th> <th>Status</th> <th>Evidence / Notes</th> </tr> </thead> <tbody> <tr> <td>Final Menu item height</td> <td>TBD</td> <td></td> </tr> <tr> <td>Compact / Default / Comfortable heights</td> <td>TBD</td> <td></td> </tr> <tr> <td>Horizontal padding</td> <td>TBD</td> <td></td> </tr> <tr> <td>Icon column geometry</td> <td>TBD</td> <td></td> </tr> <tr> <td>Keyboard shortcut alignment</td> <td>TBD</td> <td></td> </tr> <tr> <td>Hover treatment</td> <td>TBD</td> <td></td> </tr> <tr> <td>Selected/checked treatment</td> <td>TBD</td> <td></td> </tr> <tr> <td>Focus treatment</td> <td>TBD</td> <td></td> </tr> <tr> <td>Menu border</td> <td>TBD</td> <td></td> </tr> <tr> <td>Menu radius</td> <td>TBD</td> <td></td> </tr> <tr> <td>Menu shadow</td> <td>TBD</td> <td></td> </tr> <tr> <td>Separator geometry</td> <td>TBD</td> <td></td> </tr> <tr> <td>Submenu geometry and interaction</td> <td>TBD</td> <td></td> </tr> <tr> <td>Context Menu versus command Menu differences</td> <td>TBD</td> <td></td> </tr> <tr> <td>Final semantic tokens</td> <td>TBD</td> <td></td> </tr> </tbody> </table> </div> </section> </main> </body> </html>
