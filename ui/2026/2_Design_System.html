@@ -1,3 +1,4 @@
+
 <!DOCTYPE html> <html lang="en"> 
   
   <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>UI Redesign — Design System</title> <style> :root { --text: #202124; --muted: #626970; --heading: #17365d; --border: #d8dee6; --surface: #ffffff; --surface-alt: #f6f8fa; --accent: #2563a8; --link: #155ca8; --decision: #eaf3ff; --pending: #fff8e1; --established: #edf7ed; }
@@ -388,32 +389,42 @@ The eventual focus treatment should:
 <li>Avoid being mistaken for a persistent selection state.</li>
 </ul>
 
+with: --&gt;</code>
+
 <h2>10. Button System</h2>
 
 <p>
-Button is the first component being developed as a formal component
-specification. The Button Design Lab is the working visual artifact.
+Button is the first component developed as a formal component specification.
+The Button Design Lab is the working visual artifact.
 </p>
 
 <p>
-The Button specification will ultimately define:
+<strong>Established Button direction:</strong> A regular/secondary
+button should not require a persistent colored fill merely to establish
+affordance. The normal state should use a restrained treatment, with
+darkBlue text providing sufficient action recognition while retaining the
+quieter visual character of a secondary control.
 </p>
 
-<ul>
-<li>Button roles/variants.</li>
-<li>Normal state.</li>
-<li>Hover state.</li>
-<li>Focus-visible state.</li>
-<li>Pressed/active state.</li>
-<li>Disabled state.</li>
-<li>Selected/toggled state where applicable.</li>
-<li>Icon-only buttons.</li>
-<li>Text + icon buttons.</li>
-<li>ActionBar versus regular/dialog buttons.</li>
-<li>Sizing and density.</li>
-<li>Icon alignment and spacing.</li>
-<li>Keyboard/accessibility behavior.</li>
-</ul>
+<p>
+<strong>Established Button direction:</strong> For appropriate regular and transparent buttons, the very-light Claro Blue hover surface is sufficiently perceptible against the white resting surface at normal application density, and comparative review does not indicate a need to replace this treatment with a neutral-gray hover.
+</p>
+
+<p>
+<strong>Established Button direction:</strong> The existing Button Lab
+pressed and focus treatments provide sufficient differentiation from hover.
+Pressed-state darkening is intentionally subtle and should not introduce
+unnecessary visual noise.
+</p>
+
+<p>
+Primary/action variants may retain stronger persistent emphasis where their
+semantic role requires it. The restrained treatment described above applies
+primarily to regular/secondary actions and should not eliminate meaningful
+action hierarchy.
+</p>
+
+<p><strong>Comparative validation:</strong> Comparative visual review against representative Notion, Airtable, Material and Windows/system buttons, together with the application's current UI, supports the restrained Button direction established above. The proposed treatment is visually consistent with the broader productivity/desktop UI landscape and does not require a change in the current Button design direction.</p>
 
 <h2>11. Component Specification Template</h2>
 
@@ -481,6 +492,41 @@ Each component should eventually have a specification containing at least:
 <td>Persistent color should be restrained; interaction can introduce subtle color.</td>
 <td>Established</td>
 </tr>
+<tr>
+<td>D-007</td>
+<td>
+Regular/secondary buttons should use restrained normal-state styling
+rather than a persistent colored fill; darkBlue text is sufficient to
+establish their affordance.
+</td>
+<td>Established</td>
+</tr>
+
+<tr>
+<td>D-008</td>
+<td>
+The very-light Claro Blue hover treatment is sufficiently perceptible at
+normal application density when transitioning from a white resting state.
+</td>
+<td>Established</td>
+</tr>
+
+<tr>
+<td>D-009</td>
+<td>
+Existing pressed and focus treatments provide sufficient differentiation
+from hover without additional visual noise.
+</td>
+<td>Established</td>
+</tr>
+
+<tr>
+<td>D-010</td>
+<td>
+Comparative review of representative reference UIs and the application's current/proposed Button implementations supports the established restrained Button direction; no change to the current Button visual direction is warranted at this stage.</td>
+<td>Established</td>
+</tr>
+
 </tbody>
 </table>
 
@@ -492,17 +538,14 @@ component Labs rather than guessed globally.
 </div>
 
 <ul>
-<li>Exact semantic color values.</li>
-<li>Exact Claro Blue hover value.</li>
-<li>Focus-ring geometry and color.</li>
-<li>Border-radius scale.</li>
-<li>Control-height scale.</li>
-<li>Spacing scale.</li>
-<li>Typography scale.</li>
-<li>Precise Button variant taxonomy.</li>
-<li>ActionBar-specific interaction rules.</li>
-<li>Dark-theme requirements, if applicable.</li>
-<li>Final density profiles.</li>
+<li>Exact semantic color values</li>
+<li>Exact hover value</li>
+<li>Focus-ring geometry/color</li>
+<li>Border-radius scale</li>
+<li>Control-height scale</li>
+<li>Spacing scale</li>
+<li>Typography scale</li>
+<li>Final Button variant taxonomy</li>
 </ul>
 
 <h2>14. Maintenance Rule</h2>
