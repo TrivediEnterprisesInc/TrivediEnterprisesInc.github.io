@@ -384,7 +384,282 @@ selection.
 
 </div>
 
-<h2>4. TextBox Design Questions</h2>
+<!-- ---------- 4.1 Primary Comparative Reference Gallery ---------- -->
+<section id="primary-comparative-reference-gallery">
+  <h2>4. TextBox Roles &amp; Comparative References</h2>
+
+  <p>
+    These are working categories rather than a finalized taxonomy. The
+    screenshots below should document representative visual treatments from
+    the reference systems and the application's own implementations.
+  </p>
+
+  <p>
+    <strong>Comparative reference note:</strong> Capture the smallest useful
+    screenshot that preserves enough context to understand the TextBox's
+    relationship to its label, surrounding spacing, helper text and validation
+    message. Do not crop so tightly that the component's interaction context
+    disappears.
+  </p>
+
+  <h3>4.1 Primary Comparative Reference Gallery</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Reference</th>
+        <th>Empty / Placeholder</th>
+        <th>Filled / Value</th>
+        <th>Focus / Hover</th>
+        <th>States / Other</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Notion<br><small>Reference system</small></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/NOTION-TEXTBOX-EMPTY.png" alt="NOTION-TEXTBOX-EMPTY" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/NOTION-TEXTBOX-FILLED.png" alt="NOTION-TEXTBOX-FILLED" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/NOTION-TEXTBOX-HOVER.png" alt="NOTION-TEXTBOX-HOVER" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/NOTION-TEXTBOX-ACTIVE.png" alt="NOTION-TEXTBOX-ACTIVE" border="0"></td>
+      </tr>
+      <tr>
+        <td>Airtable<br><small>Reference system</small></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/AIRTABLE-TEXTBOX-EMPTY.png" alt="AIRTABLE-TEXTBOX-EMPTY" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/AIRTABLE-TEXTBOX-FILLED.png" alt="AIRTABLE-TEXTBOX-FILLED" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/AIRTABLE-TEXTBOX-HOVER.png" alt="AIRTABLE-TEXTBOX-HOVER" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/AIRTABLE-TEXTBOX-ACTIVE.png" alt="AIRTABLE-TEXTBOX-ACTIVE" border="0"></td>
+      </tr>
+      <tr>
+        <td>Material<br><small>Material Design reference</small></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/MATERIAL-TEXTBOX-EMPTY.png" alt="MATERIAL-TEXTBOX-EMPTY" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/MATERIAL-TEXTBOX-FILLED.png" alt="MATERIAL-TEXTBOX-FILLED" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/MATERIAL-TEXTBOX-HOVER.png" alt="MATERIAL-TEXTBOX-HOVER" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/MATERIAL-TEXTBOX-ACTIVE.png" alt="MATERIAL-TEXTBOX-ACTIVE" border="0"></td>
+      </tr>
+      <tr>
+        <td>Windows / System UI<br><small>Desktop convention</small></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/WIN-TEXTBOX-EMPTY.png" alt="WIN-TEXTBOX-EMPTY" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/WIN-TEXTBOX-FILLED.png" alt="WIN-TEXTBOX-FILLED" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/WIN-TEXTBOX-HOVER.png" alt="WIN-TEXTBOX-HOVER" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/WIN-TEXTBOX-ACTIVE.png" alt="WIN-TEXTBOX-ACTIVE" border="0"></td>
+      </tr>
+      <tr>
+        <td>Current Dojo<br><small>Existing application</small></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/DOJO-TEXTBOX-EMPTY.png" alt="DOJO-TEXTBOX-EMPTY" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/DOJO-TEXTBOX-FILLED.png" alt="DOJO-TEXTBOX-FILLED" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/DOJO-TEXTBOX-HOVER.png" alt="DOJO-TEXTBOX-HOVER" border="0"></td>
+        <td><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/DOJO-TEXTBOX-ACTIVE.png" alt="DOJO-TEXTBOX-ACTIVE" border="0"></td>
+      </tr>
+      <tr>
+        <td>Proposed Target<br><small>Current Lab hypothesis</small></td>
+        <td>OPTIONAL<br>TARGET<br>SCREENSHOT</td>
+        <td>OPTIONAL<br>TARGET<br>SCREENSHOT</td>
+        <td>OPTIONAL<br>TARGET<br>FOCUS</td>
+        <td>OPTIONAL<br>TARGET<br>STATE</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ---------- 4.2 Recommended Screenshot Subjects ---------- -->
+<section id="recommended-screenshot-subjects">
+  <h3>4.2 Recommended Screenshot Subjects</h3>
+
+  <ul>
+    <li>
+      <strong>Empty TextBox with placeholder</strong> —
+      enough surrounding context to identify the label, placeholder contrast
+      and normal spacing.
+    </li>
+    <li>
+      <strong>Filled TextBox with value</strong> —
+      capture entered text, caret position and any change in border emphasis.
+    </li>
+    <li>
+      <strong>Hover state</strong> —
+      capture only where the reference system provides a meaningful hover
+      treatment on the input surface or border.
+    </li>
+    <li>
+      <strong>Focus-visible state</strong> —
+      capture keyboard focus where practical; note whether focus uses a border
+      change, an outer ring, or both.
+    </li>
+    <li>
+      <strong>Disabled state</strong> —
+      capture both empty and filled disabled examples where the reference
+      system distinguishes them.
+    </li>
+    <li>
+      <strong>Read-only state</strong> —
+      useful for determining visual distinction from Disabled.
+    </li>
+    <li>
+      <strong>Error / validation state</strong> —
+      capture border treatment, message placement and any iconography.
+    </li>
+    <li>
+      <strong>Long-value / overflow example</strong> —
+      useful for determining truncation, scrolling or wrapping behavior.
+    </li>
+    <li>
+      <strong>TextBox with label + helper text</strong> —
+      capture vertical spacing and alignment of label, control and helper.
+    </li>
+    <li>
+      <strong>TextBox beside other controls</strong> —
+      useful for determining whether height, radius, padding and baseline
+      harmonize with Button, Select, Checkbox and RadioButton.
+    </li>
+  </ul>
+</section>
+
+<!-- ---------- 5. Comparative Measurement Collection ---------- -->
+<section id="comparative-measurement-collection-textbox">
+  <h2>5. Comparative Measurement Collection</h2>
+
+  <p>
+    Use this table while collecting the screenshots. The purpose is to record
+    observations independently from the visual screenshot itself. Values should
+    be marked as measured, estimated or unknown.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Measurement</th>
+        <th>Notion</th>
+        <th>Airtable</th>
+        <th>Material</th>
+        <th>Windows</th>
+        <th>Current Dojo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Default input height</td>
+        <td>38px</td>
+        <td>32px</td>
+        <td>24px</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Horizontal padding (left/right)</td>
+        <td>9px</td>
+        <td>8px</td>
+        <td>12px</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Border thickness</td>
+        <td>??</td>
+        <td>1px</td>
+        <td>??</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Corner radius</td>
+        <td>??</td>
+        <td>6px</td>
+        <td>??</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Label-to-input vertical gap</td>
+        <td>??</td>
+        <td>—</td>
+        <td>8px</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Helper / validation text gap</td>
+        <td>—</td>
+        <td>—</td>
+        <td>4px</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Label font size</td>
+        <td>14px</td>
+        <td>13px</td>
+        <td>16px(resing) 12px(floating)</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Input text font size</td>
+        <td>14px</td>
+        <td>13px</td>
+        <td>16px</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Placeholder contrast / color</td>
+        <td>A little lighter</td>
+        <td>—</td>
+        <td>When floating same color as brder</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Normal border color</td>
+        <td>rgb(44, 44, 43)</td>
+        <td>rgba(0,0,0,0)</td>
+        <td>md.sys.color.outline</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Hover border / surface treatment</td>
+        <td>—</td>
+        <td>rgb(29, 31, 37)</td>
+        <td>md.sys.color.on-surface</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Focus border / ring treatment</td>
+        <td>—</td>
+        <td>rgb(22, 110, 225)</td>
+        <td>md.sys.color.primary</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Error border color / treatment</td>
+        <td>—</td>
+        <td>rgb(29, 31, 37)</td>
+        <td>md.sys.color.error</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Disabled opacity / treatment</td>
+        <td>—</td>
+        <td>rgb(29, 31, 37)</td>
+        <td>md.sys.color.on-surface (at 12% opacity)</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <strong>Measurement note:</strong> For this project, a measured value from
+    an actual reference UI is evidence about that reference, not automatically
+    a proposed design token. Shared values should only be promoted into the
+    Design System after comparison across multiple components.
+  </p>
+</section>
+
+<h2>6. TextBox Design Questions</h2>
 
 <p>
 Items that should be settled before TextBox becomes a finalized
@@ -459,7 +734,7 @@ border, or a mostly surface-based treatment?
 
 </ol>
 
-<h2>5. Content and Typography Questions</h2>
+<h2>7. Content and Typography Questions</h2>
 
 <ul>
 <li>Primary entered text versus placeholder text</li>
@@ -470,7 +745,7 @@ border, or a mostly surface-based treatment?
 <li>Icon or affordance placement where applicable</li>
 </ul>
 
-<h2>6. Accessibility and Keyboard Questions</h2>
+<h2>8. Accessibility and Keyboard Questions</h2>
 
 <ul>
 <li>What receives focus?</li>
@@ -481,7 +756,7 @@ border, or a mostly surface-based treatment?
 <li>Does the label remain programmatically associated with the input?</li>
 </ul>
 
-<h2>7. Current TextBox Token Set</h2>
+<h2>9. Current TextBox Token Set</h2>
 
 <p>
 Names are working candidates. Numeric values are intentionally
@@ -601,7 +876,7 @@ state.
 
 </ul>
 
-<h2>9. Notes for Future Iterations</h2>
+<h2>10. Notes for Future Iterations</h2>
 
 <p>
 This Lab is intentionally not a final implementation. It is the place
