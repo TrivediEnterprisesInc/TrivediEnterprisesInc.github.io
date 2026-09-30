@@ -443,6 +443,56 @@ body {
 }
 
 
+/* --------------------------------------------------------
+ MEASUREMENT / OBSERVATION TABLE
+  -------------------------------------------------------- */
+
+ .measurement-table {
+ width: 100%;
+
+
+margin-top: 14px;
+
+
+
+border-collapse: collapse;
+
+
+ }
+
+ .measurement-table th,
+ .measurement-table td {
+ padding: 9px 10px;
+
+
+border:
+    1px solid
+    #dfe3e7;
+
+
+
+text-align: left;
+
+
+
+vertical-align: top;
+
+
+ }
+
+ .measurement-table th {
+ background: #f6f7f8;
+
+
+font-weight: 600;
+
+
+ }
+
+ .measurement-table code {
+ white-space: nowrap;
+ }
+
 </style>
 </head>
 
@@ -823,9 +873,157 @@ it has been validated across the broader component system.
 
 </section>
 
+<section class="section" id="comparative-measurement-collection">
+
+  <div class="section-header">
+  <h2>5. Comparative Measurement Collection</h2>
+<p>
+    Use this table while collecting the screenshots. The purpose is to record
+    observations independently from the visual screenshot itself. Values should
+    be marked as measured, estimated or unknown.</p>
+  </div>
+
+<div class="section-body">
+  <table class="measurement-table">
+    <thead>
+      <tr>
+        <th>Measurement</th>
+        <th>Notion</th>
+        <th>Airtable</th>
+        <th>Material</th>
+        <th>Windows</th>
+        <th>Current Dojo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Default button height</td>
+        <td>—</td>
+        <td>18px</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Horizontal padding (left/right)</td>
+        <td>—</td>
+        <td>8px</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Border thickness</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Corner radius</td>
+        <td>—</td>
+        <td>3px</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Text / icon gap</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Label font size</td>
+        <td>—</td>
+        <td>13px</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Label font weight</td>
+        <td>—</td>
+        <td>400</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Minimum clickable target (height)</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Primary fill / accent color</td>
+        <td>—</td>
+        <td>rgb(97, 102, 112)</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Secondary / regular border color</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Hover surface treatment</td>
+        <td>—</td>
+        <td>Darker Border</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Pressed / active surface treatment</td>
+        <td>—</td>
+        <td>None</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Focus treatment</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Disabled opacity / treatment</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="annotation">
+    <strong>Measurement note:</strong> For this project, a measured value from
+    an actual reference UI is evidence about that reference, not automatically
+    a proposed design token. Shared values should only be promoted into the
+    Design System after comparison across multiple components.
+
+  </div>
+</section>
+
+
 <section class="section">
 <div class="section-header">
-<h2>5. Design Questions to Resolve</h2>
+<h2>6. Design Questions to Resolve</h2>
 <p>Items that should be settled before Button becomes a finalized component specification.</p>
 </div>
 
@@ -864,7 +1062,7 @@ Which provisional Button values should become global semantic tokens?
 
 <section class="section">
 <div class="section-header">
-<h2>6. Current Decisions</h2>
+<h2>7. Current Decisions</h2>
 <p>Promote these into Design_System.html when they are sufficiently established.</p>
 </div>
 
@@ -921,7 +1119,7 @@ Which provisional Button values should become global semantic tokens?
 
 <section class="section">
 <div class="section-header">
-<h2>7. Notes for Future Iterations</h2>
+<h2>8. Notes for Future Iterations</h2>
 </div>
 
 <div class="section-body">
