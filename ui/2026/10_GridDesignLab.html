@@ -1325,6 +1325,9 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>
                     Border? Radius? Background? Does the grid visually
                     separate itself from the surrounding application?
+
+<br><span class="provisional">No special treatment; the entire grid should be an embeddable div/component which the developer (client) can insert into their website.</span>
+
                 </td>
             </tr>
 
@@ -1336,6 +1339,9 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>
                     Height? Background? Border? Typography? Sort indicator?
                     Hover treatment?
+
+<br><span class="provisional">No Background, No border, Dark Blue Text to contrast from rows.  DOES retain borders for resizing columns.  Dojo provides auto-sort indicators.  No hover treatment.</span>
+
                 </td>
             </tr>
 
@@ -1346,6 +1352,16 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>Primary information-bearing unit.</td>
                 <td>
                     Height? Gridlines? Alternating rows? Hover? Density?
+
+<br><span class="provisional">No Gridlines/Background.  No Alternating rows/Hover treatment.  Clicking on checkbox selects row (or selectAll via chkbox in header).<br>
+DENSITY: Material Design maintains that "Information density can be achieved through layout
+and design decisions without using component scaling".  <br>
+In their example of offering a grid layout (like ours) in 3 densities (Lrg,Med,Sml) at this link (https://firebasestorage.googleapis.com/v0/b/design-spec/o/projects%2Fgoogle-material-3%2Fimages%2Fmp5but2k-m6feg3jn-GM3-Components-Density-3-v02.mp4?alt=media&token=ed3019bd-6a4e-428a-b4b3-9a4c2697b5c4) changing the grid density ONLY changes the grid rows (all Action Buttons/Sidebar buttons remain the same).<br>
+
+Moreover, goog mentions that "Higher density is typically applied by decreasing the top and bottom padding or overall height by 4dp."
+</span>
+
+
                 </td>
             </tr>
 
@@ -1356,6 +1372,9 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>Persistent row-level selection.</td>
                 <td>
                     Background? Border? Checkbox? How distinct from hover?
+
+<br><span class="provisional">As in the Screenshot, Selected rows get light blue background + checkbox checked to indicate selection.  No light blue for hovered rows (nothing happens on row hover)</span>
+
                 </td>
             </tr>
 
@@ -1367,6 +1386,10 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>
                     Outline? Border? Focus ring? Does active cell differ
                     from selected row?
+
+<br><span class="provisional">No special treatment for cell-level focus.  Only record level editing allowed via double-click or Enter key (opens record in dlgBox).</span>
+
+
                 </td>
             </tr>
 
@@ -1377,6 +1400,9 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>Optional structural/navigation aid.</td>
                 <td>
                     Is it required? How much visual emphasis should it receive?
+
+<br><span class="provisional">No special treatment except for selection checkBox.</span>
+
                 </td>
             </tr>
 
@@ -1388,6 +1414,9 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>
                     Should it visually belong to the Grid or surrounding
                     application chrome?
+
+<br><span class="provisional">To the Grid.</span>
+
                 </td>
             </tr>
 
@@ -1398,6 +1427,9 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>Navigation and record-count information.</td>
                 <td>
                     Integrated into Grid boundary or visually separate?
+
+<br><span class="provisional">Integrated, as in the screenshot.</span>
+
                 </td>
             </tr>
         </tbody>
