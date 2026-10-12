@@ -1356,9 +1356,15 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
 <br><span class="provisional">No Gridlines/Background.  No Alternating rows/Hover treatment.  Clicking on checkbox selects row (or selectAll via chkbox in header).<br>
 DENSITY: Material Design maintains that "Information density can be achieved through layout
 and design decisions without using component scaling".  <br>
-In their example of offering a grid layout (like ours) in 3 densities (Lrg,Med,Sml) at this link (https://firebasestorage.googleapis.com/v0/b/design-spec/o/projects%2Fgoogle-material-3%2Fimages%2Fmp5but2k-m6feg3jn-GM3-Components-Density-3-v02.mp4?alt=media&token=ed3019bd-6a4e-428a-b4b3-9a4c2697b5c4) changing the grid density ONLY changes the grid rows (all Action Buttons/Sidebar buttons remain the same).<br>
+In their example of offering a grid layout (like ours) in 3 densities (Lrg,Med,Sml) at this <a href='https://firebasestorage.googleapis.com/v0/b/design-spec/o/projects%2Fgoogle-material-3%2Fimages%2Fmp5but2k-m6feg3jn-GM3-Components-Density-3-v02.mp4?alt=media&token=ed3019bd-6a4e-428a-b4b3-9a4c2697b5c4'>link</a> changing the grid density ONLY changes the grid rows (all Action Buttons/Sidebar buttons remain the same).<br>
 
-Moreover, goog mentions that "Higher density is typically applied by decreasing the top and bottom padding or overall height by 4dp."
+Moreover, goog mentions that "Higher density is typically applied by decreasing the top and bottom padding or overall height by 4dp."<br>
+
+AirTable's four density models are visible in this <a href='https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/AirTable_Grid_Density.mp4'>video</a>.  Again (like Material) changing Grid Density only affects the RowHeight, NOT the button sizing etc.  Here are the row heights for AirTable's different densities:<br>
+Short	RowHeight 32px	PaddingTop  6px<br>
+Med	RowHeight 56px	PaddingTop  6px<br>
+Tall	RowHeight 87px	PaddingTop  6px<br>
+XTall	RowHeight 127px	PaddingTop  6px<br>
 </span>
 
 
@@ -1952,12 +1958,29 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
 
         <li>
             What receives focus when the Grid receives keyboard focus?
+
+<br><span class="provisional">
+The Dojo Default Keyboard Focus behavior is this (and appears appropriate except for field-level selection - #6 below):
+<ol><li>
+When the Grid receives focus it first goes to the DV pulldown (dropdown field)
+</li><li>Next the 'Create' ActionBar button receives focus.  Arrow buttons allow accessing other buttons in the ActionBar.
+</li><li>Next the 'Filter' button receives focus
+</li><li>Next the 'Filter' cancel (x) button
+</li><li>Next the SelectAll Checkbox in the header row
+</li><li>Next the Checkbox for the first data row (arrow keys move to individual cols).  This needs to be disabled (Only the entire row allows selection, NOT indiv fields/cols)
+</li><li>Finally the PaginationBar gets the focus.
+</li></ol>
+</span>
+
         </li>
 
 
 
         <li>
             Is row selection distinct from cell focus?
+
+<br><span class="provisional">YES, pls see #6 above</span>
+
         </li>
 
 
@@ -1965,60 +1988,83 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             Is the focus-visible treatment clearly distinguishable
             from hover and selected states?
+
+<br><span class="provisional">YES, no cell focus indication</span>
+
         </li>
 
 
 
         <li>
             What does Enter do when a row is focused?
+
+<br><span class="provisional">Enter on a focused row opens the Edit Dialog</span>
+
         </li>
 
 
 
         <li>
             What does Enter do when a cell is editable?
+
+<br><span class="provisional">n/a (no editable cells)</span>
+
         </li>
 
 
 
         <li>
             What does Space do for row selection?
+
+<br><span class="provisional">Space should auto-select the row (checkbox Checked)</span>
+
         </li>
 
 
 
         <li>
             How do Arrow keys move through rows/cells?
+
+<br><span class="provisional">Currently the (l/r) Arrow keys select the prev/next column/cell.  We need to change that to _no action_.  Up/dn arrow keys correctly move to the prev/next row</span>
+
         </li>
 
 
 
         <li>
             How does Shift + Arrow affect range selection, if supported?
+
+<br><span class="provisional">n/a (no action)</span>
+
         </li>
 
 
 
         <li>
             How does Ctrl/Cmd + click affect selection?
+<br><span class="provisional">n/a (no action)</span>
         </li>
 
 
 
         <li>
             How does Escape behave during cell editing?
+<br><span class="provisional">n/a (no action)</span>
         </li>
 
 
 
         <li>
             How are sorting and filtering communicated?
+<br><span class="provisional">Sorting: Dojo displays a up/dn caret in the column<br>
+filtering: If a filter exists there is a message in the FilterBox</span>
         </li>
 
 
 
         <li>
             How are disabled/unavailable rows or cells communicated?
+<br><span class="provisional">n/a (they won't appear if you have no ViewAccessRights, for instance)</span>
         </li>
 
 
@@ -2026,30 +2072,35 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             Does the Grid support direct cell editing, row editing,
             or both?
+<br><span class="provisional">ONLY row editing</span>
         </li>
 
 
 
         <li>
             What happens when content exceeds the available cell width?
+<br><span class="provisional">Dojo will auto-wrap the content to the next row and increase RowHeight</span>
         </li>
 
 
 
         <li>
             How should validation/error states appear inside cells?
+<br><span class="provisional">n/a (belongs in Form)</span>
         </li>
 
 
 
         <li>
             How should pinned/frozen columns or headers appear?
+<br><span class="provisional">n/a (not implemented)</span>
         </li>
 
 
 
         <li>
             How should pagination interact visually with the Grid?
+<br><span class="provisional">As current: the Pagination is an integrated Footer at the bottom of the Grid</span>
         </li>
 
 
@@ -2057,6 +2108,7 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             Which behaviors are already provided by Dojo and therefore
             should not be changed merely for visual reasons?
+<br><span class="provisional">Most behaviors already provided by Dojo, we merely need to change some behavior (e.g. disable cell-level selection)</span>
         </li>
 
 
@@ -2093,6 +2145,7 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
 
         <li>
             How visible should normal Grid borders/gridlines be?
+<br><span class="provisional">As current: no Grid column borders/gridlines EXCEPT for the Header (required for the user to grab/resize the colWidth)</span>
         </li>
 
 
@@ -2100,6 +2153,7 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             Should every cell have a visible gridline, or should
             row structure carry most of the visual separation?
+<br><span class="provisional">As current: no gridlines in the data row</span>
         </li>
 
 
@@ -2107,6 +2161,7 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             Should the header have a distinct surface, border,
             typography treatment, or combination?
+<br><span class="provisional">As current: ONLY border + typography (perhaps darkBlue + 2pt larger?)</span>
         </li>
 
 
@@ -2126,6 +2181,7 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             Should row hover use the same very-light Claro Blue
             direction as appropriate controls?
+<br><span class="provisional">Yes</span>
         </li>
 
 
@@ -2133,12 +2189,14 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             Should selected rows use the same surface as hover,
             or a related but distinct token?
+<br><span class="provisional">A selected row is indicated by the row checkBox checked + solid border around the row (only last selection)</span>
         </li>
 
 
 
         <li>
             How should Selected + Hover be represented?
+<br><span class="provisional">Hover effect (lt blue) + checkbox Checked</span>
         </li>
 
 
@@ -2146,42 +2204,49 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             What is the visual distinction between selected row
             and focused/active cell?
+<br><span class="provisional">No active cells</span>
         </li>
 
 
 
         <li>
             Should alternating row backgrounds be used?
+<br><span class="provisional">No, too distracting; AirTable/Notion don't use them either.</span>
         </li>
 
 
 
         <li>
             How much persistent color is appropriate for selection?
+<br><span class="provisional">None, we'll just show border/checkbox</span>
         </li>
 
 
 
         <li>
             What is the appropriate header typography weight and size?
+<br><span class="provisional">TBD (drkBlue + 2pt larger?)</span>
         </li>
 
 
 
         <li>
             How should sorting indicators appear without adding noise?
+<br><span class="provisional">As current (carets on columnRight)</span>
         </li>
 
 
 
         <li>
             How should column resize affordances appear?
+<br><span class="provisional">No visual distinction; user needs to hover over border to see the cursor change</span>
         </li>
 
 
 
         <li>
             How should editable cells differ from read-only cells?
+<br><span class="provisional">n/a</span>
         </li>
 
 
@@ -2189,6 +2254,7 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             How should validation/error states appear without relying
             on color alone?
+<br><span class="provisional">n/a</span>
         </li>
 
 
@@ -2196,6 +2262,7 @@ Moreover, goog mentions that "Higher density is typically applied by decreasing 
         <li>
             Should the Grid have a radius, and if so should it use the
             same radius as other controls?
+<br><span class="provisional">n/a</span>
         </li>
 
 
