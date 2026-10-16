@@ -1353,20 +1353,44 @@ https://chatgpt.com/s/t_6aaee3b1913c81918d0fd6396f675515
                 <td>
                     Height? Gridlines? Alternating rows? Hover? Density?
 
-<br><span class="provisional">No Gridlines/Background.  No Alternating rows/Hover treatment.  Clicking on checkbox selects row (or selectAll via chkbox in header).<br>
-DENSITY: Material Design maintains that "Information density can be achieved through layout
-and design decisions without using component scaling".  <br>
-In their example of offering a grid layout (like ours) in 3 densities (Lrg,Med,Sml) at this <a href='https://firebasestorage.googleapis.com/v0/b/design-spec/o/projects%2Fgoogle-material-3%2Fimages%2Fmp5but2k-m6feg3jn-GM3-Components-Density-3-v02.mp4?alt=media&token=ed3019bd-6a4e-428a-b4b3-9a4c2697b5c4'>link</a> changing the grid density ONLY changes the grid rows (all Action Buttons/Sidebar buttons remain the same).<br>
+<br><span class="provisional">No Gridlines/Background.  No Alternating rows/Hover treatment.  Clicking on checkbox selects row (or selectAll via chkbox in header).</span>
 
-Moreover, goog mentions that "Higher density is typically applied by decreasing the top and bottom padding or overall height by 4dp."<br>
+<p>
+<strong>Established decision — Grid Density</strong>   
+</p>
 
-AirTable's four density models are visible in this <a href='https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/ui/2026/screenshots/AirTable_Grid_Density.mp4'>video</a>.  Again (like Material) changing Grid Density only affects the RowHeight, NOT the button sizing etc.  Here are the row heights for AirTable's different densities:<br>
-Short	RowHeight 32px	PaddingTop  6px<br>
-Med	RowHeight 56px	PaddingTop  6px<br>
-Tall	RowHeight 87px	PaddingTop  6px<br>
-XTall	RowHeight 127px	PaddingTop  6px<br>
-</span>
+<p>
+Grid Density is a Grid-specific setting. Changing it changes only the height of the Grid's data rows.
+</p>
 
+<p>
+The available density settings are Compact, Default and Comfortable. Their exact row-height values will be established from the measurements collected in this Lab.
+</p>
+
+<p>
+The following remain unchanged when Grid Density changes:
+<ul><li>
+Grid header height and header typography.
+</li><li>Data-cell typography and horizontal padding.
+</li><li>Checkbox, ActionButton and other control dimensions.
+</li><li>Toolbar/ActionBar dimensions and spacing.
+</li><li>Pagination dimensions and spacing.
+</li><li>All components outside the Grid.
+</ul>
+Vertical padding should remain consistent across density settings unless a future, separately documented decision explicitly changes this rule. The density variants should be implemented through the row-height specification rather than through a general scaling mechanism.
+</p>
+
+<p>
+A row may grow beyond its nominal density height when necessary to accommodate wrapped content without clipping. The density setting determines the normal row height, not permission to truncate content.
+</p>
+
+<p>
+The measurements collected from Material Design and Airtable support this direction: their Grid/table density behavior is a useful reference for changing row geometry without indiscriminately resizing surrounding controls.
+</p>
+
+<p>
+Grid Density must not be implemented as an application-wide density variable that changes unrelated component tokens.
+</p>
 
                 </td>
             </tr>
@@ -2174,6 +2198,12 @@ filtering: If a filter exists there is a message in the FilterBox</span>
 
         <li>
             What should Compact and Comfortable Grid density mean?
+<br>
+           <strong>Decision:</strong> Compact, Default and Comfortable specify alternative 
+           normal data-row heights. They do not change header height, typography, 
+           cell horizontal padding, control dimensions or surrounding component geometry. 
+           Final numeric values remain subject to the measurements in Section 5.
+   
         </li>
 
 
@@ -2417,6 +2447,11 @@ filtering: If a filter exists there is a message in the FilterBox</span>
         The numerical values above are deliberately provisional. They are
         starting points for the measurement/reference exercise and should
         not be promoted into the global Design System until validated.
+<br>
+<strong>Density-token contract:</strong>These row-height tokens are the only geometry 
+       tokens controlled by Grid Density. Other Grid tokens and all non-Grid 
+       component tokens remain unchanged when the density setting changes. Cell 
+       vertical padding is shared across the density variants.
     </p>
 
 
@@ -2503,6 +2538,16 @@ filtering: If a filter exists there is a message in the FilterBox</span>
         </p>
     </div>
 
+       <div class="decision-box">
+        <strong>D-007 — Grid Density is component-specific.</strong>
+        <p>
+Grid Density changes only the normal height of data rows. It does not resize or rescale other Grid elements, controls inside rows, the toolbar, pagination or components elsewhere on the page.
+<br>
+Compact, Default and Comfortable are alternative row-height settings. Other component dimensions remain independent of this choice.
+<br>
+The density setting must not modify shared global sizing tokens or trigger application-wide component scaling.
+        </p>
+    </div>
 
 
 </div>
