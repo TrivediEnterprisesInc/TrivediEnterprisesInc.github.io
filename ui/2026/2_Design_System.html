@@ -353,11 +353,32 @@ padding.
 </p>
 
 <p>
-The application should eventually support density profiles. Candidate profiles
-are Compact, Default and Comfortable. Exact control heights, spacing values
-and profile behavior remain to be established.
+Density is component-specific. A density setting belonging to one component must not implicitly 
+  change the dimensions or spacing of unrelated components.
 </p>
 
+<p>
+<strong>Grid Density</strong> is a Grid-specific setting that changes only data-row 
+  height. Grid headers, cell typography,   other components and surrounding page 
+  controls retain their independently specified dimensions.
+</p>
+
+<p>
+Individual components may offer their own size variants where justified by their 
+  requirements. Such variants must be specified independently and must not be 
+  assumed to follow Grid Density.
+</p>
+
+<p>
+Browser zoom scales the overall page rather than serving as a component-specific 
+  density setting.
+</p>
+
+<p>
+Exact component dimensions and any component-specific size variants should be 
+  established through the relevant Design Labs.
+</p>
+  
 <h2>8. Borders and Radius</h2>
 
 <p>
@@ -523,10 +544,19 @@ from hover without additional visual noise.
 <tr>
 <td>D-010</td>
 <td>
-Comparative review of representative reference UIs and the application's current/proposed Button implementations supports the established restrained Button direction; no change to the current Button visual direction is warranted at this stage.</td>
+Comparative review of representative reference UIs and the application's current/proposed 
+  Button implementations supports the established restrained Button direction; no change 
+  to the current Button visual direction is warranted at this stage.</td>
 <td>Established</td>
 </tr>
 
+<tr>
+<td>D-011</td>
+<td>
+Density settings are component-specific. Grid Density changes only Grid data-row height and does not scale unrelated components.
+<td>Established</td>
+</tr>
+  
 </tbody>
 </table>
 
