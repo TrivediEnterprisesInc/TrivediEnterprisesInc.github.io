@@ -284,19 +284,30 @@ specialized controls may require their own interaction treatment.
 <h2>7. Density</h2>
 
 <p>
-The application is a heavy productivity/application-building environment.
-Information density is therefore an explicit design concern.
+Information density is an explicit design concern because the application is a desktop/productivity-oriented environment.
 </p>
 
 <p>
-The design system should eventually support a controlled density model rather
-than having each component independently determine its dimensions.
+Density is component-specific rather than a universal scaling mechanism.
 </p>
 
 <p>
-Candidate density levels discussed conceptually include Compact, Default and
-Comfortable. Exact dimensions remain to be established.
+<strong>Established decision — Grid Density:</strong> Changing Grid Density changes only the Grid data-row height. It does not change the dimensions, 
+  typography, padding or spacing of other components, including ActionBar buttons, form controls and other page elements.
 </p>
+
+<p>
+Other components may have their own independently specified dimensions or size variants. These are not automatically controlled by Grid Density.
+</p>
+
+<p>
+Browser zoom remains the mechanism for scaling the overall page. Accessibility-specific text resizing and responsive behavior must also be respected independently.
+</p>
+
+<p>
+The Grid Design Lab is the authoritative specification for Grid Density and its available settings.
+</p>
+
 
 <h2>8. Semantic Design Tokens</h2>
 
@@ -505,6 +516,15 @@ Claro Blue interaction language.
 </td>
 <td>Design direction</td>
 </tr>
+
+<tr>
+<td>D-009</td>
+<td>
+Grid Density is Grid-specific and changes only data-row height; it does not scale other components.
+</td>
+<td>Established</td>
+</tr>
+  
 </tbody>
 </table>
 
