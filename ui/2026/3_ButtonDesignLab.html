@@ -802,7 +802,69 @@ it has been validated across the broader component system.
 
 <section class="section">
 <div class="section-header">
-<h2>4. Current Button Token Set</h2>
+<h2>4. Primary Treatment, Default Actions & Focus</h2>
+</p><p>Token names and semantic roles are currently more authoritative than the provisional numeric/color values. The values remain subject to validation as the Button and broader component system mature.
+<p>
+Primary styling, default-action status and keyboard focus are separate concepts. They serve different purposes and MUST NOT be treated as interchangeable.
+</p><p>
+
+<strong>Primary Treatment Is Deliberate</strong>
+Primary styling provides persistent visual emphasis for an action that merits it in the current interface context. It is not the automatic appearance of a button simply because that button is the default action, appears first, or is the most likely action to be taken.
+</p><p>
+Use Primary treatment selectively, when it materially improves discoverability, clarifies the intended next step, or establishes a useful visual hierarchy.
+</p><p>
+Examples:
+<ul><li>
+A prominent New button in an unfamiliar or complex application may benefit from Primary treatment because it helps users discover how to begin creating something.
+</li><li>
+A Save button in an ordinary editing dialog does not automatically require Primary treatment merely because saving is the expected outcome.
+</li><li>
+An OK button in a conventional confirmation or settings dialog does not automatically require Primary treatment merely because it is the default action.
+</li></ul>
+
+The objective is meaningful emphasis, not maximum emphasis. If every button is Primary, Primary loses much of its ability to distinguish important actions.
+</p><p>
+
+<strong>Default Action Is a Behavioral Role</strong>
+A default action is the action associated with the Dialog's default/accept behavior, including Enter-key activation where appropriate.
+</p><p>
+Default-action status MUST be represented independently of the button's visual variant. A Regular/Secondary button may be the default action without becoming Primary.
+</p><p>
+<strong>Focus Is an Interaction State</strong>
+Focus indicates which control currently receives keyboard interaction. The existing Button focus treatment should make this state clearly perceptible and distinguishable from hover, pressed and selected states.
+</p><p>
+
+When a Dialog opens, its appropriate default action may also receive initial keyboard focus, where this is suitable for the Dialog's purpose and interaction context. This does not require the button to use Primary styling.
+</p><p>
+
+Focus and default-action status are related but distinct: focus determines the current keyboard interaction target, while default-action status determines the Dialog's designated default behavior. They may coincide, but MUST NOT be assumed to be identical in every situation.
+</p><p>
+
+<strong>Governing Rule</strong>
+Choose the button's visual variant according to the emphasis warranted by its role and context. Determine default-action behavior and focus independently.
+</p><p>
+
+A button MUST NOT receive Primary styling solely because it is the default action. Conversely, a genuinely important action MAY receive Primary styling whether or not it is the default action.
+</p><p>
+This rule applies consistently across page-level controls, ActionBar buttons and Dialog actions.
+</p>
+</div>
+
+<div class="section-body">
+
+
+
+  <div class="annotation">
+<strong>Observation:</strong> Regular buttons should remain visually quiet in their normal state. The principal color change occurs on hover, rather than being permanently present. Primary styling is reserved for actions that warrant persistent emphasis based on their context and purpose. Focus is an independent interaction state and must remain distinguishable from hover, pressed and selected states.  </div>
+
+</div>
+
+
+</section>
+
+<section class="section">
+<div class="section-header">
+<h2>5. Current Button Token Set</h2>
 <p>Token names and semantic roles are currently more authoritative than the provisional numeric/color values. The values remain subject to validation as the Button and broader component system mature.</p>
 </div>
 
@@ -876,7 +938,7 @@ it has been validated across the broader component system.
 <section class="section" id="comparative-measurement-collection">
 
   <div class="section-header">
-  <h2>5. Comparative Measurement Collection</h2>
+  <h2>6. Comparative Measurement Collection</h2>
 <p>
     Use this table while collecting the screenshots. The purpose is to record
     observations independently from the visual screenshot itself. Values should
@@ -1023,7 +1085,7 @@ it has been validated across the broader component system.
 
 <section class="section">
 <div class="section-header">
-<h2>6. Design Questions to Resolve</h2>
+<h2>7. Design Questions to Resolve</h2>
 <p>Items that should be settled before Button becomes a finalized component specification.</p>
 </div>
 
@@ -1114,6 +1176,23 @@ Which provisional Button values should become global semantic tokens?
       Semantic tokens should be used even when their initial values remain provisional.
     </li>
 
+    <li>
+      <strong>D-009:</strong>
+Primary treatment is an intentional emphasis choice, not the automatic styling of a default action.
+
+    </li>    <li>
+      <strong>D-010:</strong>
+Default-action semantics and keyboard-focus state are independent of the Button's visual variant.
+
+    </li>    <li>
+      <strong>D-011:</strong>
+A Regular/Secondary button may be the default action and receive focus without Primary styling.
+
+    </li>    <li>
+      <strong>D-012:</strong>
+Primary treatment should be used selectively when it materially improves action discoverability or communicates meaningful visual hierarchy.
+    </li>  
+
   </ul>
 
 </div>
@@ -1123,7 +1202,7 @@ Which provisional Button values should become global semantic tokens?
 
 <section class="section">
 <div class="section-header">
-<h2>8. Notes for Future Iterations</h2>
+<h2>9. Notes for Future Iterations</h2>
 </div>
 
 <div class="section-body">
