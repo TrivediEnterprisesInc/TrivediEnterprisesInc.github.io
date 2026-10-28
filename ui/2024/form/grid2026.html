@@ -15,6 +15,47 @@
 	</style>
 	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
 
+
+<style>
+/*
+ * This is the 2026 ui-button-tokens file
+ * UI Redesign — Button tokens and shared prerequisites
+ * Placement: ABOVE the existing Dojo/Claro CSS.
+ *
+ * Values marked provisional are copied from the Button Design Lab.
+ * Keep them here until validated; do not treat them as final global values.
+ */
+
+:root {
+    /* Button interaction colors — provisional */
+    --ui-color-surface-hover: #eaf3ff;
+    --ui-color-surface-active: #dcecff;
+    --ui-color-border: #cfd5dc;
+    --ui-color-focus-ring: #3b82d0;
+
+    /* Button geometry — provisional */
+    --ui-button-height: 32px;
+    --ui-button-radius: 5px;
+    --ui-button-gap: 7px;
+
+    /*
+     * Button-specific semantic roles.
+     * These intentionally remain separate from the global accent until
+     * the final Button variant taxonomy and accent values are approved.
+     */
+    --ui-button-text: #274c77;
+    --ui-button-primary-text: #ffffff;
+    --ui-button-primary-background: #245b91;
+    --ui-button-primary-background-hover: #1e4f80;
+    --ui-button-primary-background-active: #19446f;
+    --ui-button-disabled-text: #818181;
+    --ui-button-disabled-background: #f5f5f5;
+    --ui-button-disabled-border: #d8d8d8;
+}
+	</style>
+	
+
+	
 	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
 	<!--link rel="stylesheet" href="common.css"-->
 	<link rel="stylesheet" href="gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
@@ -42,6 +83,169 @@
 <script type="text/javascript" src="gridx_Styling/pvDlg.js"></script>
 <script type="text/javascript" src="gridx_Styling/FrmMain.js"></script>
 <!--END Frm related assets-->
+
+<style>
+/*
+ * This is the 2026 ui-button.css file
+ * UI Redesign — Button component
+ * Placement: AFTER existing Dojo/Claro CSS and gfxGridx.css.
+ *
+ * Targets Dojo Claro Button, DropDownButton, ComboButton and ToggleButton.
+ * Visual-only rules: Dojo remains responsible for behavior.
+ *
+ * Variant hook:
+ *   Add class="ui-button--primary" to the Dojo widget's root DOM node
+ *   for a button that merits persistent Primary emphasis.
+ *
+ * Otherwise, buttons receive the restrained Regular/Secondary treatment.
+ * Default-action semantics do not imply Primary styling.
+ */
+
+/* Shared button face */
+.claro .dijitButton .dijitButtonNode,
+.claro .dijitDropDownButton .dijitButtonNode,
+.claro .dijitComboButton .dijitButtonNode,
+.claro .dijitToggleButton .dijitButtonNode {
+    box-sizing: border-box;
+    min-height: var(--ui-button-height);
+    border: 1px solid var(--ui-color-border);
+    border-radius: var(--ui-button-radius);
+    background-color: #fff;
+    background-image: none;
+    box-shadow: none;
+    color: var(--ui-button-text);
+    font: inherit;
+    line-height: normal;
+    padding: 6px 10px;
+    text-shadow: none;
+    transition: background-color 100ms ease, border-color 100ms ease;
+}
+
+/* Keep icon/label spacing consistent where Dojo supplies separate nodes. */
+.claro .dijitButton .dijitButtonText,
+.claro .dijitDropDownButton .dijitButtonText,
+.claro .dijitComboButton .dijitButtonText,
+.claro .dijitToggleButton .dijitButtonText {
+    padding: 0;
+}
+
+.claro .dijitButton .dijitButtonContents,
+.claro .dijitDropDownButton .dijitButtonContents,
+.claro .dijitComboButton .dijitButtonContents,
+.claro .dijitToggleButton .dijitButtonContents {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ui-button-gap);
+}
+
+/* Hover: introduce the very-light Claro Blue surface. */
+.claro .dijitButtonHover .dijitButtonNode,
+.claro .dijitDropDownButtonHover .dijitButtonNode,
+.claro .dijitComboButtonHover .dijitButtonNode,
+.claro .dijitToggleButtonHover .dijitButtonNode {
+    border-color: var(--ui-color-border);
+    background-color: var(--ui-color-surface-hover);
+    background-image: none;
+    box-shadow: none;
+    color: var(--ui-button-text);
+}
+
+/* Pressed / active: slightly stronger than hover, without a shadow. */
+.claro .dijitButtonActive .dijitButtonNode,
+.claro .dijitDropDownButtonActive .dijitButtonNode,
+.claro .dijitComboButtonActive .dijitButtonNode,
+.claro .dijitToggleButtonActive .dijitButtonNode {
+    background-color: var(--ui-color-surface-active);
+    background-image: none;
+    box-shadow: none;
+}
+
+/* Focus is independent of hover and the Primary variant. */
+.claro .dijitButtonFocused .dijitButtonNode,
+.claro .dijitDropDownButtonFocused .dijitButtonNode,
+.claro .dijitComboButtonFocused .dijitButtonNode,
+.claro .dijitToggleButtonFocused .dijitButtonNode {
+    outline: 2px solid var(--ui-color-focus-ring);
+    outline-offset: 1px;
+}
+
+/* Disabled: subdued but still legible. */
+.claro .dijitButtonDisabled .dijitButtonNode,
+.claro .dijitDropDownButtonDisabled .dijitButtonNode,
+.claro .dijitComboButtonDisabled .dijitButtonNode,
+.claro .dijitToggleButtonDisabled .dijitButtonNode {
+    border-color: var(--ui-button-disabled-border);
+    background-color: var(--ui-button-disabled-background);
+    background-image: none;
+    box-shadow: none;
+    color: var(--ui-button-disabled-text);
+    cursor: default;
+    opacity: 1;
+}
+
+/*
+ * Primary variant.
+ * Apply .ui-button--primary to the Dojo widget root, not the inner node.
+ * Use selectively; do not infer Primary from default-action status.
+ */
+.claro .ui-button--primary .dijitButtonNode {
+    border-color: var(--ui-button-primary-background);
+    background-color: var(--ui-button-primary-background);
+    background-image: none;
+    color: var(--ui-button-primary-text);
+}
+
+.claro .ui-button--primary.dijitButtonHover .dijitButtonNode,
+.claro .ui-button--primary.dijitDropDownButtonHover .dijitButtonNode,
+.claro .ui-button--primary.dijitComboButtonHover .dijitButtonNode,
+.claro .ui-button--primary.dijitToggleButtonHover .dijitButtonNode {
+    border-color: var(--ui-button-primary-background-hover);
+    background-color: var(--ui-button-primary-background-hover);
+    color: var(--ui-button-primary-text);
+}
+
+.claro .ui-button--primary.dijitButtonActive .dijitButtonNode,
+.claro .ui-button--primary.dijitDropDownButtonActive .dijitButtonNode,
+.claro .ui-button--primary.dijitComboButtonActive .dijitButtonNode,
+.claro .ui-button--primary.dijitToggleButtonActive .dijitButtonNode {
+    border-color: var(--ui-button-primary-background-active);
+    background-color: var(--ui-button-primary-background-active);
+    color: var(--ui-button-primary-text);
+}
+
+.claro .ui-button--primary.dijitButtonDisabled .dijitButtonNode,
+.claro .ui-button--primary.dijitDropDownButtonDisabled .dijitButtonNode,
+.claro .ui-button--primary.dijitComboButtonDisabled .dijitButtonNode,
+.claro .ui-button--primary.dijitToggleButtonDisabled .dijitButtonNode {
+    border-color: var(--ui-button-disabled-border);
+    background-color: var(--ui-button-disabled-background);
+    color: var(--ui-button-disabled-text);
+}
+
+/* Toggle buttons: selected state remains persistent; hover stays subtle. */
+.claro .dijitToggleButtonChecked .dijitButtonNode {
+    border-color: var(--ui-color-border);
+    background-color: var(--ui-color-surface-active);
+    background-image: none;
+    color: var(--ui-button-text);
+}
+
+.claro .dijitToggleButtonChecked.dijitToggleButtonHover .dijitButtonNode {
+    background-color: var(--ui-color-surface-hover);
+}
+
+/* Honor users who request reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+    .claro .dijitButton .dijitButtonNode,
+    .claro .dijitDropDownButton .dijitButtonNode,
+    .claro .dijitComboButton .dijitButtonNode,
+    .claro .dijitToggleButton .dijitButtonNode {
+        transition: none;
+    }
+}
+
+</style>
 
 <script>
 require([
