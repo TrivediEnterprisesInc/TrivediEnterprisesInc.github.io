@@ -1,0 +1,574 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Gridx.css style changes + some func</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	<!--link rel="stylesheet" href="common.css"-->
+	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+.dijitDialogPaneContent {
+    width: 800px !important;
+    height: 600px !important;
+}
+
+		.makeYellow		{ background-color: #ffa; }
+	</style>
+
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/commonAux.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/FrmMngrExt.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/pvDlg.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/FrmMain.js"></script>
+<!--END Frm related assets-->
+
+<script>
+require([
+	'dojo/parser',
+	'dojo/on', 'dojo/dom', 'dojo/mouse', /*@mbi'dojo/dom-Class',*/
+	'dojo/_base/Deferred', 'dijit/Tooltip', 'dijit/Toolbar', 
+	'dijit/form/Button', 'dijit/form/Select',
+	/* frm related */
+	'dijit/Dialog',
+	'gridx/tests/support/data/TreeColumnarTestData',
+/*	'gridx/tests/support/data/TreeNestedTestData', dereferenced in favor of local 4 deltas*/
+	'gridx_Styling/TreeNestedTestData.js',
+	'gridx/tests/support/stores/ItemFileWriteStore',
+	'gridx/modules/ColumnWidth',
+	'gridx/allModules',
+	'gridx/Grid',
+	'gridx/core/model/cache/Sync',
+	'gridx/core/model/cache/Async',
+	'dojo/domReady!'
+], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Button, Select, Dialog, dataSource, nestedDataSource, storeFactory, ColumnWidth, modules, Grid){
+
+	window.addRow = function() {
+		var newItem = {id: "itemId", type: "itemType"},
+			parentId = dojo.byId('parentIdInput').value;
+
+		if (!parentId) return;
+
+		this.store.fetchItemByIdentity({identity: parentId, onItem: function(parentItem) {
+			if (!parentItem) return;
+			
+			this.store.newItem({id: new Date().getTime()}, {
+				parent: parentItem,
+				attribute: "children"
+			});
+		}});
+	};
+
+	window.deleteRow = function() {
+		var newItem = {id: "itemId", type: "itemType"},
+			deleteRowId = dojo.byId('deleteRowId').value;
+
+		if (!deleteRowId) return;
+
+		this.store.fetchItemByIdentity({identity: deleteRowId, onItem: function(item) {
+			if (!item) return;
+			
+			this.store.deleteItem(item);
+			// this.store.newItem({id: new Date().getTime()}, {
+			// 	parent: parentItem,
+			// 	attribute: "children"
+			// });
+		}});
+	};
+
+	store = storeFactory({
+		dataSource: dataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	store.hasChildren = function(id, item){
+		return item && store.getValues(item, 'children').length;
+	};
+	/* 
+	 * Dojo don't provide sort interface for tree store, so it's hard to do sorting for children. 
+	 * User should add their own sorting logic here to sort children manually.
+	 */
+	store.getChildren = function(item, req){
+		var children = store.getValues(item, 'children'),
+			attr,
+			t = this,		//store object
+			sorts = req.sort;
+
+		var sorting = function (a, b, index) {
+			if (!sorts[index]) return 0;
+
+			var attr = sorts[index].attribute;
+			var va = t.getValue(a, attr);
+			var vb = t.getValue(b, attr);
+
+			if (va == vb) {
+				return sorting(a, b, ++index);
+			}
+			return !sorts[index].descending ? (va > vb ? 1 : -1) : (va <= vb ? 1 : -1);
+		}
+
+		if (sorts && sorts.length) {
+			children.sort(function(a, b) {
+				return sorting(a, b, 0);
+			});
+		}
+
+		return children;
+	};
+
+	storeAsync = storeFactory({
+		isAsync: true,
+		dataSource: dataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	storeAsync.hasChildren = function(id, item){
+		return item && storeAsync.getValues(item, 'children').length;
+	};
+	storeAsync.getChildren = function(item){
+		var d = new Deferred();
+		console.log('getChildren: ', storeAsync.getIdentity(item));
+		setTimeout(function(){
+			var children = storeAsync.getValues(item, 'children');
+			d.callback(children);
+		}, 1000);
+		return d;
+	};
+
+	storeNested = storeFactory({
+		dataSource: nestedDataSource, 
+		maxLevel: 4,
+		maxChildrenCount: 10
+	});
+	storeNested.hasChildren = function(id, item){
+		return item && storeNested.getValues(item, 'children').length;
+	};
+	storeNested.getChildren = function(item){
+		var d = new Deferred();
+		setTimeout(function(){
+			var children = storeNested.getValues(item, 'children');
+			d.callback(children);
+		}, 1000);
+		return d;
+	};
+
+	var progressDecorator = function(){
+		return [
+			"<div data-dojo-type='dijit.ProgressBar' data-dojo-props='maximum: 10000' ",
+			"class='gridxHasGridCellValue' style='width: 100%;'></div>"
+		].join('');
+	};
+
+	const undoMBI = () => {
+/*@mbi		if (domClass.contains("body", "mblBackground")){
+			domClass.remove("body", "mblBackground");
+		}*/
+	}
+
+
+        const gfxCreateBtnHandler = (e) => {
+		alert('createBtnTibbie');
+        }
+
+
+	const gfxEditHandler = (r) => {
+		console.log("in gfxEditHandler for r: ", r);
+	}
+
+        const gfxEditBtnHandler = (e) => {
+	  //note that the 2nd param is if we arrived here via a dblClick
+	  undoMBI();
+          let numSel = grid.select.row.getSelected().length;
+          if (numSel === 1){
+		let selId = (grid.select.row.getSelected())[0];
+		grid.store.fetchItemByIdentity({identity: selId, onItem: function(item) {
+			console.log("gfxEditBtnHandler: selId: " + selId + " pv? " + item['hasPriorVersions']);
+			gfxEditHandler(item);
+		}});
+	  }else{
+		alert("Pls select a single record before clicking the Edit Button; or double-click the record you wish to edit");
+	  }
+        }
+        const gfxRtlBtnHandler = () => {
+	  //see: https://oria.github.io/gridx/build/gridx/tests/support/common.js
+	var w = window,
+		d = document,
+		l = w.location,
+		h = l.href,
+		i = h.indexOf('?'),
+		q = i > -1,
+		b = 'RTL',
+		p = q && h.substr(i + 1).split(/#/)[0].split(/&/)[0].split('='),	//LIMITATION: dir must be the first parameter...
+		v = d.getElementsByTagName('html')[0].dir = 
+			p && p[0] == 'dir' &&
+					(p[1] || '').replace(/[^\w]/g, '').toUpperCase() == b ?	//replace() to avoid XSS attack...
+						b : '';
+	v = v == b ? '' : b;
+	//p = d.createElement('a');
+	//p.innerHTML = "<input type='button' style='position:fixed;top:0;right:0;width:5em;' value='" + (v || 'LTR') + "' />";
+
+	l.href = (q ? h.substr(0, i) : h) + (v && '?dir=' + v);
+
+        }
+        var gfxTb = new Toolbar({}, 'toolbar');
+        var gfxCreateBtn = new Button({
+          label: 'Create',
+          iconClass:'gridxCreateIcon',
+          onClick:gfxCreateBtnHandler
+        });
+        gfxTb.addChild(gfxCreateBtn);
+
+        var gfxEditBtn = new Button({
+          label: 'Edit',
+          iconClass:'gridxEditIcon',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxEditBtn);
+
+        var gfxQEditBtn = new Button({
+          label: 'QEdit',
+          iconClass:'gridxQEditIcon',
+          disabled: true,
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxQEditBtn);
+
+        var gfxDelBtn = new Button({
+          label: 'Delete',
+          iconClass:'gridxDeleteIcon',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxDelBtn);
+
+        var gfxExpAllBtn = new Button({
+          label: 'Expand All',
+          iconClass:'gridxExpandAllIcon',
+          onClick:gfxEditBtnHandler
+        });
+        gfxTb.addChild(gfxExpAllBtn);
+
+        var gfxColAllBtn = new Button({
+          label: 'Collapse All',
+          iconClass:'dijitIconFunction',
+          onClick:gfxEditBtnHandler
+        });
+//gridxCollapseAllIcon
+        gfxTb.addChild(gfxColAllBtn);
+
+        var gfxRtlBtn = new Button({
+          label: 'RTL',
+          iconClass:'gridxCollapseAllIcon',
+          onClick:gfxRtlBtnHandler
+        });
+//.gridxLTRIcon
+        gfxTb.addChild(gfxRtlBtn);
+        gfxTb.startup();
+
+	layout3 = [
+		{id: 'number', name: 'number', field: 'number', width: '10%'},
+		{id: 'string', name: 'string', field: 'string', width: '45%'},
+		{id: 'date', name: 'date', field: 'date', width: '22%'},
+		{id: 'time', name: 'time', field: 'time', width: '15%'},
+		{id: 'bool', name: 'bool', field: 'bool', width: '8%'},
+		{id: 'id', name: 'id', field: 'id', width: 'auto'},
+		{id: 'hasPriorVersions', name: 'hasPriorVersions', field: 'hasPriorVersions', width: 'auto'}
+	];
+	layout4 = [
+		{id: 'id', name: 'id', field: 'id'},
+		{id: 'number', name: 'number *', field: 'number', expandLevel: 1},
+		{id: 'string', name: 'string *', field: 'string', expandLevel: 2},
+		{id: 'date', name: 'date', field: 'date'},
+		{id: 'time', name: 'time *', field: 'time', expandLevel: 3},
+		{id: 'bool', name: 'bool', field: 'bool'}
+	];
+
+
+	mods = [
+		modules.Tree,
+		modules.Filter,
+		modules.FilterBar,
+		modules.QuickFilter,
+		modules.Pagination,
+		modules.PaginationBar,
+		modules.ColumnResizer,
+		modules.SelectRow,
+		// modules.ExtendedSelectRow,
+		modules.CellWidget,
+		modules.Edit,
+		modules.IndirectSelectColumn,
+		modules.SingleSort,
+		// modules.NestedSort,
+		modules.VirtualVScroller
+	];
+
+	gfxMods = [
+		modules.Tree,
+		modules.Filter,
+		modules.FilterBar,
+		/*modules.QuickFilter, used 4 FTSrch */
+		modules.Pagination,
+		modules.PaginationBar,
+		modules.ColumnResizer,
+		// modules.SelectRow,
+		modules.ExtendedSelectRow,
+		modules.CellWidget,
+		modules.Edit,
+		modules.IndirectSelectColumn,
+		modules.SingleSort,
+		modules.VirtualVScroller,
+		modules.Bar,
+		modules.Persist
+	];
+
+		//This is the DV Selector
+		const dvSel = new Select({
+		        name: "gfxDvSelect",
+			style:"width: 100%;",
+			intermediateChanges: true,
+		        options: [
+		            { label: "By Project\\Module", value: "Tennessee" },
+		            { label: "By Module\\SubModule", value: "Virginia", selected: true },
+		            { label: "By Priority", value: "Washington" },
+		            { label: "By Very Long Title Indeed to test autoWid", value: "Floridaa" },
+		            { label: "By Quadrant", value: "Florida" }
+		        ]});
+
+		dojo.connect(dvSel, "onChange", function(nV){
+						undoMBI();
+		      alert("my value: " +  nV);
+		});
+		undoMBI();
+		window.grid = null;
+		window.createGrid = () => {
+		grid = new Grid({
+			cacheClass: "gridx/core/model/cache/Async",
+			store: storeNested,
+			structure: layout3,
+			columnWidthAutoResize: true,
+			autoWidth: false,
+			autoHeight: true,
+			treeNested: true,
+			paginationBarSizes: [1, 2, 0],
+			modules: gfxMods,
+			barTop: [
+			     [ dvSel ],
+			     [ gfxTb ]
+			]
+		});
+		grid.placeAt('grid');
+		undoMBI();
+		grid.persist.enabled = true;
+		console.log("Persist features: " + JSON.stringify(grid.persist.features()));
+		//["column","filterBar","sort","tree"]
+		console.log("column.isEnabled ?: " + JSON.stringify(grid.persist.isEnabled('column')));
+		console.log("filterBar.isEnabled ?: " + JSON.stringify(grid.persist.isEnabled('filterBar')));
+
+		grid.startup();
+		undoMBI();
+		}
+		createGrid();
+
+		window.destroyGrid = () => {
+			if(window.grid){
+				grid.destroy();
+				window.grid = null;
+			}
+		};	
+
+
+		window.selectTwoRows = () => {
+			grid.select.row.selectById('item-1');
+			grid.select.row.selectById('item-3');
+			alert('selected rows: ' + grid.select.row.getSelected());
+		}
+		window.deSelectRows = () => {
+			grid.select.row.clear();
+			alert('selected rows: ' + grid.select.row.getSelected());
+		}
+
+
+        dojo.connect(grid.select.row, 'onSelectionChange', function(selected){ 
+            if ((selected.length > 1) && (gfxQEditBtn.disabled)) {
+                gfxQEditBtn.set("disabled", false);
+            }
+            if ((selected.length < 2) && (!(gfxQEditBtn.disabled))) {
+                gfxQEditBtn.set("disabled", true);
+            }
+        });
+        
+/*
+ *         dojo.connect(grid.select.row, 'onSelectionChange', function(selected){ 
+            if (selected.length > 1) && (gfxQEditBtn.disabled == true) {
+                alert("setting enabled...")
+                //gfxQEditBtn.set("disabled", false);
+            }
+        });
+ * */
+
+
+	window.updRow1 = () => {
+
+//These fns from gridx test data gen for testing only
+	var seed = 9973;
+
+	var randomNumber = (range) => {
+		var a = 8887;
+		var c = 9643;
+		var m = 8677;
+		seed = (a * seed + c) % m;
+		var res = Math.floor(seed / m * range);
+		return res;
+	};
+
+	var randomDate = () => {
+		return new Date(randomNumber(Math.random() * 1000000)).toDateString();
+	};
+
+function saveDone(){
+  alert("Done saving.");
+}
+function saveFailed(){
+  alert("Save failed.");
+}
+
+		var item = grid.row(0).item();
+		//item.date = randomDate();
+		//grid.store.put(item);
+		var newD = randomDate();
+		console.log(">> new dt: " + newD);
+		grid.store.setValue(item, "date", newD);
+                grid.store.save({onComplete: saveDone, onError: saveFailed});
+                grid.body.refresh();
+	};
+
+
+	let payLoad = 
+	 [ {bool: [false], children: [], date: ['Mon Aug 25 2036'], id: ['item-1'], number: [2830],string: [' nvc4 u  5  obzqlz fs7k7ou9'], time: ['10:22:23']},
+{bool: [false], children: [], date: ['Tue Sep 10 2024'], id: ['item-2'], number: [2833],string: ['John Doe'], time: ['02:22:23']},
+{bool: [false], children: [], date: ['Wed Sep 11 2024'], id: ['item-3'], number: [2833],string: ['Jane Doe'], time: ['03:22:23']},
+{bool: [false], children: [], date: ['Thu Aug 12 2024'], id: ['item-4'], number: [2835],string: ['Ann Doe'], time: ['04:22:23']},
+{bool: [false], children: [], date: ['Fri Aug 13 2024'], id: ['item-5'], number: [28306],string: ['Jim Doe'], time: ['11:22:23']},
+{bool: [false], children: [], date: ['Sat Aug 14 2024'], id: ['item-6'], number: [28306],string: ['Rick Doe'], time: ['09:22:23']}]
+
+function newDat(){
+	console.log("newDat() called, returning ob...");
+	return {
+		getData: function(args){
+			var data = {
+				identifier: 'id', 
+				label: 'id', 
+				items: payLoad
+			};
+			console.log("in newDat.getData(), returning:", data);
+			return data;
+		},
+		
+		layouts: [
+			[
+				{id: 'number', name: 'number', field: 'number', expandLevel: 1},
+				{id: 'string', name: 'string', field: 'string', expandLevel: 2},
+				{id: 'date', name: 'date', field: 'date', expandLevel: 3},
+				{id: 'time', name: 'time', field: 'time'},
+				{id: 'bool', name: 'bool', field: 'bool'},
+				{id: 'id', name: 'id', field: 'id'}
+			],
+			[
+				{id: 'number', name: 'number', field: 'number'},
+				{id: 'string', name: 'string', field: 'string'},
+				{id: 'date', name: 'date', field: 'date'},
+				{id: 'time', name: 'time', field: 'time'},
+				{id: 'bool', name: 'bool', field: 'bool'},
+				{id: 'id', name: 'id', field: 'id'}
+			]
+		]
+	}};
+
+	setStore = function(){
+		grid.model.clearCache();
+                let newStore = storeFactory({
+			dataSource: newDat(), 
+			maxLevel: 4,
+			maxChildrenCount: 10
+		});
+                grid.setStore(newStore);
+		grid.body.refresh();
+	};
+
+
+		//see: https://github.com/oria/gridx/blob/a05e8b910bc88106792c2c68ebdbdbea45cb63f8/Grid.js#L263C3-L263C4
+		dojo.connect(grid, "onRowMouseOver", function(e){
+			undoMBI();
+			//console.log(">>rowId: " + e.rowId);
+			let r = grid.model.byId(e.rowId);
+			//console.log(">>cells: " + JSON.mStringify(r));
+			grid.store.fetchItemByIdentity({identity: e.rowId, onItem: function(item) {
+				if (!item) return;
+				//console.log("onRowMouseOver: fetchedItemById (store) : " + item['id']);
+		                let roNd = grid.body.getRowNode({visualIndex: e.visualIndex});
+				Tooltip.show(("row Time fld: " + item['time']), roNd);
+				
+				on.once(roNd, mouse.leave, function(){
+				      Tooltip.hide(roNd);
+				});
+			}});
+		});
+	    dojo.connect(grid, "onRowDblClick", (e) => {
+		let r = grid.model.byId(e.rowId);
+		gfxEditHandler(r);
+	   });
+
+/* See this for embedding a whole mod (good 4 testing) in shell ->
+//https://github.com/oria/gridx/issues/293
+//see https://github.com/oria/gridx/blob/master/tests/test_grid_events.js
+*/
+
+/* BEGIN frm/Mngr related (this btn removed Sept17)
+    let twoC = dom.byId('twoColContents').innerHTML;
+    var frmDlg = new Dialog({
+                title: "Frm...",
+                id: "frmDlg",
+                content: twoC,
+                style: "height:90%;width:90%;"
+    });
+		window.twoCol = () => {
+			frmDlg.show();
+		}
+ END frm/Mngr related */
+
+	parser.parse();
+	undoMBI();
+});
+</script>
+
+</head>
+
+<body class='claro'>
+
+<div data-dojo-type="dijit.form.Button" data-dojo-props="onClick: createGrid">Create Grid</div>
+<div data-dojo-type="dijit.form.Button" data-dojo-props="onClick: destroyGrid">Destroy Grid</div>
+
+<p><p>
+	<div id='grid'></div>
+
+    </body>
+</html>
