@@ -1,0 +1,312 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>API Design</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+details[open] {
+  background-color: #fdf5e6; /* Old Lace */
+  padding: 12px;
+  border-radius: 4px;
+}
+/* Inner/Nested details section when open */
+details[open] details[open] {
+  background-color: #f5ebd6; /* A slightly darker, warm almond tone */
+  padding: 10px;
+  margin-top: 8px;
+}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	<!--link rel="stylesheet" href="common.css"-->
+	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+.dijitDialogPaneContent {
+    width: 800px !important;
+    height: 600px !important;
+}
+
+		.makeYellow		{ background-color: #ffa; }
+	</style>
+
+</head>
+
+<body class='claro'>
+	<h1 class='title' tabindex='0' onfocus='this.style.color="blue"' onblur='this.style.color=""'>
+API Design
+	</h1>
+	
+	<b>This file created Nov 2026 to flesh out API Design/approach<br>
+	Last updated: Nov 10th '26.  Repo version <a href='https://trivedienterprisesinc.github.io/arch/apiDesign.html'>here</a></b>
+<p>
+<hr>
+
+
+Latest OpenAPI <a href='https://spec.openapis.org/oas/latest.html'>specs</a> | <a href='https://oria.github.io/gridx/gallery.html'>Gallery</a> <br>
+<a href='https://swagger.io/docs/'>Swagger</a><br>
+dotNet Minimal <a href='https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-10.0'>APIs</a> Quick Ref (routing, parameter binding, auto fetching qry params...)<br>
+dotNet <a href='https://github.com/microsoft/api-guidelines'>Best practices</a> for RESTful web API design (also lists status codes for each verb incl errs.)<br>
+
+
+<p><hr>
+<h3>Related updates/concerns</h3>
+<ul><li>
+<input type="checkbox" name="" value=""> Do we nd a separate Event Queue for the AgentExecutor?  On say a doc-save-trigger-agent, does the backend add to this Queue or directly call/run the fn?  (We'll have cron-type launches too)
+</li><li>
+<input type="checkbox" name="" value=""> TBD: Saving customUserSettings in the UserDoc via TableID:ViewID:Setting:Val
+</li><li>
+<input type="checkbox" name="" value=""> UserTable will need an OrgDoc.  Do we establish an 'Admin' role for the ACLs?  (vs just allow AcctOwner to choose a 'person' from the NAB? OR autoAssign acctOwnr?)
+
+</li><li>
+</ul>
+<p><hr>
+<h3>Supporting AI (in yr api)</h3>
+Many articles, mostly bogus.  Some websites too (revisit Kong,FernBldr l8r)  Bottom line:<br>
+  
+  Keep def at standard, discoverable paths:
+<ul><li>
+llms.txt 
+</li><li>
+  llms-full.txt
+</li><li>
+/openapi.json or /openapi.yaml (for machine-readable specs.)
+</li></ul>
+
+
+<p><hr>
+<h3>Existing Work (incl handlers)</h3>
+
+<details><summary>Nov5 Repo Srch for 'handler'</summary>
+(We also nd to thumb through the thunkaPlunk file etc) BUT check these refs:
+FROM REPO Srch Results for "handler" (minus eventH etc.)
+<hr>
+<h4>BMDz: (pbt/tmp.html)</h4>
+<br>
+<mark>Apr08_25:</mark>
+<ul><li><input type="checkbox">&nbsp;On 1st open BMDz prompts 4 default settings (Appearance:colN/Fonts/Col) and THEN autoLayout frm.
+</li><li><input type="checkbox" checked="">&nbsp;Remove BMAux.getDefault(): call order issues (avoid rec) move 2 fn; call from BmDz
+</li><li><input type="checkbox" checked="">&nbsp;Run these cmds from cellRightClickMenu: <br>
+vFn / Thingy / ForeCol / BkCol / LblFont / DatFont / col-roSpan / removeFld / TtipTxt
+</li><li><input type="checkbox" checked="">&nbsp;These from TBarBtns: <br>
+Defaults / AddBlankRo / AddInfoBox / AddFld
+</li><li><input type="checkbox" checked="">&nbsp;Adding blankRos/InfBoxes <b>alw</b> adds below; usr may Dnd (if necc tell em)
+</li><li><input type="checkbox" checked="">&nbsp;<mark>@TBD</mark> Another option: Instd of all the rt-click cmds; unify em in a DlgBox and menu simply says "Modify Fld"<br>
+(similar to Appearance stuff in earlier scrnshot) buttons for Validation etc.<br>
+When anything changed; run bkgrndCmd &gt;&gt; updSt &gt;&gt; BM [only ok/cancel btns 4 dlg.]
+</li></ul>  
+
+<br>
+<mark>Apr09_25:</mark>
+<ul><li><input type="checkbox">&nbsp;TBar btns (above) will be DropDns: AddBlankRo (Above-BelowSelectn), AddInfoBox (same), AddFld (bef/aftSelection)<br>
+Field options (AddFld) will disp <b>excluding</b> flds alr on Frm; incl intlFlds (Add '*' to title + make ReadOnly)
+</li><li><input type="checkbox" checked="">&nbsp;To defaultSettings (onFrmOpen above) add "DefValue"
+</li><li><input type="checkbox" checked="">&nbsp;We nd 2 decide on/impl defaultThingies
+</li><li><input type="checkbox" checked="">&nbsp;Test/impl this: add handler 2 frm (+ lim all ctrls?) If (click + notShift) &gt;&gt; clearSelections + DisableTBarBtns except undo/redo
+</li><li><input type="checkbox" checked="">&nbsp;For multipleSelCells + Cmd (say AddRoBelow) Filter on List.max(row); 4 popupMnu it's auto 4 cell (single) chosen.
+</li><li><input type="checkbox" checked="">&nbsp;In bldState curr we go [BmFld -&gt; asCtrl (getCell:btn)]  We want to return a cellPnl (as in actual).  <b>Ext</b> this + add prop BmFld + members to retrieve flds FOR use in handlers to send cellPos etc to BmDzCmd
+</li></ul>
+<br><hr>
+
+TrivediEnterprisesInc.github.io/cfe/Design_Sync.html
+<br>
+GPT Conv: "Best Practises for designing a system to Sync Design Changes across clients."
+<br>
+also (poss similar) TrivediEnterprisesInc.github.io/arch/Dz_Sync_grok.html
+<hr>
+(from TrivediEnterprisesInc.github.io/Notes.md) NOTE LINE w/"dizCopy (has..."<br>
+
+winFrms Gist Hdr Updates
+<br>
+<<note this this ver of the file contains mods perm onwards; recover prior?>>
+<br>
+(betw frmDelta + clientInit)<br>
+dizCopy (has templating handlers/logic + li<allPossHndlrs>)
+<br>
+(after clientInit)<br>
+propBox (much compl)<br>
+<br>
+(after dndOps)<br>
+DnDMonad <br>
+<hr>
+TrivediEnterprisesInc.github.io/arch/ErrHandling_gpt.html
+GPT Conv: "Similar 2 curr; prompt incl.s fnal + monad; BUT for err/retry mechanism"
+<hr>
+(From rivediEnterprisesInc.github.io/brijLog.html)<br>
+Jan-11-23<br>
+#1172: mbi SPLAT(!) w/ return vals from musicDat (expects string * obj * Type') in kathoHandlerAux
+<hr>
+(From TrivediEnterprisesInc.github.io/pbt/Tasks.html)
+<br>over  13 refs incl TblDefSaveHandler/ DvDefSaveHandler/etc.
+<hr>
+(from TrivediEnterprisesInc.github.io/pbt/svr_gg.fs)
+<br>
+Contains modules:  gg_Actual Jun 2025<br>
+kathoHandlerSvr|chunoHandlerSvr|supariHandlerSvr|lovelyHandlerSvr|
+<hr>
+(TrivediEnterprisesInc.github.io/pbt/DlgFileNewCpy.fs)<br>
+<pre><code>
+            match (CopyDz.Checked, CopyDat.Checked) with
+            | (true, true) -> svrHandler FileNewCopy currDispNm Both
+            | (false, true) -> svrHandler FileNewCopy currDispNm DatOnly
+            | (true, false) -> svrHandler FileNewCopy currDispNm DzOnly
+            </code></pre>
+<hr>
+(TrivediEnterprisesInc.github.io/brijLog25.html)<br>
+Jan 2025: Some work on Edge functions/handlers (see plnk\notes_Tasks_Top.html)
+<hr>
+brijPitch/api/Brij/Trivedi.Gullo.html has:<br>
+Trivedi.Gullo.chunoHandler<br>
+Trivedi.Gullo.kathoHandler<br>
+Trivedi.Gullo.lovelyHandler<br>
+Trivedi.Gullo.supariHandler<br>
+..more<br>
+
+</details>
+
+<p><hr>
+
+<details><summary>LLM Conv Log</summary>
+
+<details><summary>Inital Conv Nov02</summary>
+Conv: https://chatgpt.com/s/t_6ae8e6d94d348191b750f02784f062b7
+<br>
+I have built REST APIs for my apps before.  Currently I'm working on a dotnet app with FSharp/PostgreSQL on the back-end.  In order to not have to rewrite the auth by hand I'm going to port Blazor's auth system (with ~20 api end points) to my minimalAPI dotnet app using a table in _my_ PostGres as the User Directory (also saves UserSettings, colorPrefs, colWidths, etc.)
+<br>Most of the end points are working and testing OK with a mock backEnd.  I have two clients: desktop/web. [The app is an app builder like replit/loveable BUT much more feature-rich, like VB6 or LotusNotes.]  The desktop is  the 'designer client' (for use by devs) and will basically just do CRUD ops on 'Design Documents' saved on the server.
+<br>The web cli is for users to access the apps created by the devs; and most API endpoints will serve basic CRUD requests with _some_ differences: the very first request (wake from disconnected session OR first login to establish session) where the back-end is hit more than once & the logic goes something like:
+<pre>
+[User logged in sucessfully]
+-> Retrieve UserSettings
+-> Chk lastOpen DataView 
+-> Retrieve UserCustomizations (if any)
+-> Build Page (apply customizations if exist)
+[AND NOW the standard flow for all requests]
+-> Retrieve User ACL for this Table/this DataView 
+-> Filter data through ACL (hides fields with no access)
+-> Build HTML 
+-> Serve/Handle
+</pre><br>
+Now, I haven't read REST API Architecture since many years.  No particular need to "make it standard for ease of fellow coders" or "make it standard to confirm to industry practise" BUT I always like to use Abstractions which help conceptualize code flow OR make separation of concerns easier.
+<br>
+Given that, cld you pls suggest some articles I shd read before beginning to design the API?  Thx in advance.
+</details>
+
+</details>  
+<hr>
+
+<p>
+
+<code><pre>
+/api/designer
+    /init  [on login/reconnect downloads XL pyld incl ALL dzEls]
+    /docs
+      /get /post /put /del
+      /promote [PriVer]
+      /clipbdPaste [reassigns IDs]
+    /newCopy [templ8]
+    /settings
+
+/api/runtime
+    /init [on login/reconnect downloads XL pyld incl optCustomSettings]
+    /docs
+      /get /post /put /del
+      /promote [PriVer]
+      /UnDelete
+      /QkUpdate
+      /search
+      /clipbdPaste [reassigns IDs]
+
+/api/user
+    /login
+    /logout
+    /docs [docTy: usr/grp/org  ??tblDoc?? store in OrgDoc?]
+      /get /post /put /del
+      /clipbdPaste [reassigns IDs]
+    /updSettings
+</pre></code>
+<p>
+<detail><summary>Handler Code</summary>
+Nov4 Notes
+we nd ea handler to be Handler(Li(hdnlrStg)) _where_
+<pre><code>
+type HandlerStage = | NeedsCliSettings
+                    | NeedsAuth ... (~50 others)
+THEN in the cont monad run ea of the 50 and within the indiv stage do:
+match lico thisStage HandlerStage with
+| false -> (Result) R
+| _ -> handle...
+</pre></code>
+<p>
+<pre><code>
+//if this is an int enum we can do a List.getN(n) to get bool for currStage
+type HndStage =   | NeedsCliSettings
+                  | NeedsAuth 
+
+                  | ... (~50 others)
+
+type HndTy =  | OpenDV of ([true;false])
+              | OpenDzDV of ([false;true])
+  member hndTyfor endPt = 
+    match endPt with
+      | "OpenDV" -> Result.ok(OpenDV)
+      | "OpenDzDV" -> Result.ok(OpenDzDV)
+      | _ ->
+        printfn "failure..."
+        Result.Failure("Invalid endPoint")  
+
+type HndType =  HndType of HndTy(li<bool>) 
+  
+type hndlerTpl(needsCliSettings: bool, needsAuth: bool) = 
+  do printfn "initialized a hndlrTpl..."
+
+//Nov_06_26: don't nd this any longer, kept for ref.  REWRITE using new tys
+type ReqHandler(endP:string) =
+    let mutable endPt = ""
+    let mutable needsCliSettings = false
+    let mutable needsAuth = false
+    let init = 
+      endPt <- endP
+      match endP with
+        | "OpenDV" -> 
+            needsCliSettings <- true
+        | "OpenDzDV" -> 
+            needsAuth<- true
+        | _ -> 
+          printfn "failure..."
+          //Result.Failure("Invalid endPoint")
+    member this.EndPt 
+      with get() = endPt 
+      and set(e) = endPt <- e
+    member this.toString() = 
+      printfn "ReqHandler for endPt nm: %A " endPt
+    
+let n = new ReqHandler("OpenDV")
+printfn "2"
+printfn "3 %A: %A: " n (n.toString())
+printfn "4 %A: %A: " n (n.EndPt)
+let aa = getHndlerforEndPt "OpenDzDV"
+printfn "5 %A: %A: " (aa.Value) "dotAccess unavail pre 9?" //(aa.needsAuth)
+</code></pre>
+</detail>
+
+
+<p><p><p><p><p><p><p><p>
+<input type="checkbox" name="" value=""> <a href='https://xcellerant.wordpress.com/2015/01/22/gridx-in-xpages-27-exporting-to-excel/'>CSV_Export</a><br>
+<mark>@TBD</mark> <mark>@v2</mark>
+<mark>Needed</mark>: Nd 2 port the gfx claro file (this distro doesn't contain it so no btn styling etc.)<br>
+    </body>
+</html>
