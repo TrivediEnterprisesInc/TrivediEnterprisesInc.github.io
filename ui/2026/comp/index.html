@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gfx-grid Web Component — Resize Test</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; width:100%; height:100%; font:14px/1.4 Arial,sans-serif; color:#203040; }
+  body { display:grid; grid-template-rows:52px 1fr 30px; background:#f4f7fa; }
+  header { display:flex; align-items:center; gap:12px; padding:8px 14px; background:#244d70; color:white; }
+  header strong { margin-right:auto; }
+  button { border:1px solid #9aabb9; background:#fff; border-radius:4px; padding:6px 10px; cursor:pointer; }
+  main { min-height:0; min-width:0; display:grid; grid-template-columns:190px minmax(0,1fr); gap:10px; padding:10px; }
+  aside { min-height:0; overflow:auto; padding:12px; background:#cfe5fa; border:1px solid #a9c8e4; border-radius:5px; }
+  aside p { margin:0 0 10px; }
+  .work { min-width:0; min-height:0; display:flex; flex-direction:column; gap:8px; }
+  .host { min-width:0; min-height:0; height:100%; flex:1 1 auto; border:2px solid #6688a5; background:white; border-radius:4px; overflow:hidden; }
+  .host.compact { flex:0 0 260px; height:260px; }
+  .host.short { flex:0 0 150px; height:150px; }
+  .host.grow { flex:1 1 auto; height:auto; }
+  .host gfx-grid { display:block; width:100%; height:100%; }
+  .statusline { height:28px; overflow:hidden; padding:4px 8px; background:#fae5d1; border:1px solid #e4c6a8; border-radius:4px; white-space:nowrap; text-overflow:ellipsis; }
+  footer { padding:5px 12px; background:#e4ebf1; color:#536575; font-size:12px; }
+  @media (max-width:650px) { main { grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr); } aside { max-height:125px; } }
+</style>
+<script src="./gfx-grid.js" defer></script>
+</head>
+<body>
+<header>
+  <strong>gfx-grid component test shell</strong>
+  <button id="createGrid">Create Grid</button>
+  <button id="destroyGrid">Destroy Grid</button>
+  <button id="full">Full height</button>
+  <button id="compact">260 px</button>
+  <button id="short">150 px</button>
+  <button id="toggleSide">Hide/show side panel</button>
+</header>
+<main id="main">
+  <aside id="side">
+    <h3>Host-page content</h3>
+    <p>This panel represents arbitrary content belonging to the customer website.</p>
+    <p>Use the controls above to change the component's available height and width.</p>
+    <p>The grid should resize with its host without reloading.</p>
+  </aside>
+  <section class="work">
+    <div class="host grow" id="host">
+      <gfx-grid></gfx-grid>
+    </div>
+    <div class="statusline" id="events">Waiting for component…</div>
+  </section>
+</main>
+<footer>Prototype test page — give the host a definite height for the component to fill.</footer>
+<script>
+  const host = document.getElementById('host');
+  const side = document.getElementById('side');
+  const events = document.getElementById('events');
+  const gridElement = document.querySelector('gfx-grid');
+  document.getElementById('createGrid').onclick = () => gridElement.createGrid();
+  document.getElementById('destroyGrid').onclick = () => gridElement.destroyGrid();
+  document.getElementById('full').onclick = () => host.className = 'host grow';
+  document.getElementById('compact').onclick = () => host.className = 'host compact';
+  document.getElementById('short').onclick = () => host.className = 'host short';
+  document.getElementById('toggleSide').onclick = () => {
+    side.hidden = !side.hidden;
+    document.getElementById('main').style.gridTemplateColumns = side.hidden ? 'minmax(0,1fr)' : '';
+  };
+  gridElement.addEventListener('gfx-ready', () => events.textContent = 'Grid ready. Resize the host to test GridX recalculation.');
+  gridElement.addEventListener('gfx-error', e => events.textContent = 'Error: ' + (e.detail && e.detail.message || e.detail));
+  gridElement.addEventListener('gfx-edit', e => events.textContent = 'Edit event: ' + (e.detail && e.detail.id || 'record selected'));
+</script>
+</body>
+</html>
