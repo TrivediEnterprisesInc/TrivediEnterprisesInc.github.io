@@ -42,8 +42,8 @@
       addStylesheet(buildRoot + '/dijit/themes/claro/claro.css'),
       addStylesheet(buildRoot + '/dijit/themes/claro/document.css'),
       addStylesheet(buildRoot + '/gridx/resources/claro/Gridx.css'),
-      addStylesheet(assetBase + '/gfx-grid.css'),
-      addStylesheet(assetBase + '/gfxGridx.css')
+      addStylesheet(assetBase + '/comp/gfx-grid.css'),
+      addStylesheet(assetBase + '../2024/gfxGridx.css')
     ]);
     return cssPromise;
   }
