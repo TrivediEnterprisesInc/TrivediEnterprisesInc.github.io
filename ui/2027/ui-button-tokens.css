@@ -1,0 +1,34 @@
+/*
+ * UI Redesign — Button tokens and shared prerequisites
+ * Placement: ABOVE the existing Dojo/Claro CSS.
+ *
+ * Values marked provisional are copied from the Button Design Lab.
+ * Keep them here until validated; do not treat them as final global values.
+ */
+
+:root {
+    /* Button interaction colors — provisional */
+    --ui-color-surface-hover: #eaf3ff;
+    --ui-color-surface-active: #dcecff;
+    --ui-color-border: #cfd5dc;
+    --ui-color-focus-ring: #3b82d0;
+
+    /* Button geometry — provisional */
+    --ui-button-height: 32px;
+    --ui-button-radius: 5px;
+    --ui-button-gap: 7px;
+
+    /*
+     * Button-specific semantic roles.
+     * These intentionally remain separate from the global accent until
+     * the final Button variant taxonomy and accent values are approved.
+     */
+    --ui-button-text: #274c77;
+    --ui-button-primary-text: #ffffff;
+    --ui-button-primary-background: #245b91;
+    --ui-button-primary-background-hover: #1e4f80;
+    --ui-button-primary-background-active: #19446f;
+    --ui-button-disabled-text: #818181;
+    --ui-button-disabled-background: #f5f5f5;
+    --ui-button-disabled-border: #d8d8d8;
+}
