@@ -38,14 +38,14 @@
   function loadCss(buildRoot, assetBase) {
     if (cssPromise) return cssPromise;
     cssPromise = Promise.all([
-      addStylesheet(assetBase + '/ui-button-tokens.css'),
+      addStylesheet(assetBase + '/2027/ui-button-tokens.css'),
       addStylesheet(buildRoot + '/dojo/resources/dojo.css'),
       addStylesheet(buildRoot + '/dijit/themes/claro/claro.css'),
       addStylesheet(buildRoot + '/dijit/themes/claro/document.css'),
       addStylesheet(buildRoot + '/gridx/resources/claro/Gridx.css'),
-      addStylesheet(assetBase + '/gfx-grid.css'),
-      addStylesheet(assetBase + '/gfxGridx.css'),
-      addStylesheet(assetBase + '/ui-button.css'),
+      addStylesheet(assetBase + '/2027/gfx-grid.css'),
+      addStylesheet(assetBase + '/2027/gfxGridx.css'),
+      addStylesheet(assetBase + '/2027/ui-button.css'),
     ]);
     return cssPromise;
   }
